@@ -31,6 +31,8 @@ void Pins_Init()
 	SET_BIT(PORTB, PS_CS);
 	SET_BIT(PORTB, DDS_CS);
 	SET_BIT(PORTB, LCD_CS);
+	
+	CLEAR_BIT(PORTB, DDS_LDAC);
 		
 	// make Chip select lines outputs
 	SET_BIT(DDRB, PS_CS);				// Is SPI_SS line and must be output for master mode

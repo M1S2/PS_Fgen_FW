@@ -151,6 +151,12 @@
     </ToolchainSettings>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="ADC_MCP492x\ADC_MCP492x.cpp">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="ADC_MCP492x\ADC_MCP492x.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="GLCD\u8g.h">
       <SubType>compile</SubType>
     </Compile>
@@ -310,6 +316,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="GLCD" />
+    <Folder Include="ADC_MCP492x" />
     <Folder Include="Spi" />
     <Folder Include="Pins" />
   </ItemGroup>

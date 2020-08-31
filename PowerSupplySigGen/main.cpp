@@ -9,6 +9,7 @@
 #include "Spi/spi.h"
 #include "Pins/Pins.h"
 #include "GLCD/u8g.h"
+#include "ADC_MCP492x/ADC_MCP492x.h"
 
 #include <avr/interrupt.h>
 
@@ -36,7 +37,14 @@ int main(void)
 	cli();
 	Pins_Init();
 	SPI_Init();
+	MCP4921_init(1, 5);
+	MCP4922_init(1, 5);
 	sei();
+	
+	MCP4922_DisableLatching();
+	MCP4921_Voltage_Set(1);
+	MCP4922_Voltage_Set(2.5, 'A');
+	MCP4922_Voltage_Set(5, 'B');
 	
 	u8g_InitSPI(&u8g, &u8g_dev_s1d15721_hw_spi, PN(1, 7), PN(1, 5), PN(1, 1), PN(1, 0), U8G_PIN_NONE);
 	

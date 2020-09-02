@@ -172,13 +172,7 @@
     <Compile Include="GLCD\u8g_com_api.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="GLCD\u8g_com_api_16gr.c">
-      <SubType>compile</SubType>
-    </Compile>
     <Compile Include="GLCD\u8g_com_atmega_hw_spi.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="GLCD\u8g_com_atmega_parallel.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="GLCD\u8g_com_atmega_st7920_hw_spi.c">
@@ -232,46 +226,7 @@
     <Compile Include="GLCD\u8g_pb.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="GLCD\u8g_pb14v1.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="GLCD\u8g_pb16h1.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="GLCD\u8g_pb16h2.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="GLCD\u8g_pb16v1.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="GLCD\u8g_pb16v2.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="GLCD\u8g_pb32h1.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="GLCD\u8g_pb8h1.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="GLCD\u8g_pb8h1f.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="GLCD\u8g_pb8h2.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="GLCD\u8g_pb8h8.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="GLCD\u8g_pb8v1.c">
-      <SubType>compile</SubType>
-    </Compile>
     <Compile Include="GLCD\u8g_pb8v2.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="GLCD\u8g_pbxh16.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="GLCD\u8g_pbxh24.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="GLCD\u8g_polygon.c">

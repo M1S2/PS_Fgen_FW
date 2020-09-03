@@ -10,26 +10,18 @@
 #include "Pins/Pins.h"
 #include "GLCD/u8g.h"
 #include "ADC_MCP492x/ADC_MCP492x.h"
+#include "Screens/screen_draw_tabs.h"
+#include "Screens/screen_draw_TabPS.h"
 
 #include <avr/interrupt.h>
 
 u8g_t u8g;
+char tabIndex = 0;
 
 void draw(void)
 {
-	u8g_SetDefaultForegroundColor(&u8g);
-	u8g_SetFont(&u8g, u8g_font_6x10);
-	u8g_DrawStr(&u8g, 7, 15, "Hello World!");
-	u8g_SetFont(&u8g, u8g_font_freedoomr10r);
-	u8g_DrawStr(&u8g, 7, 40, "ABC");
-	u8g_SetFont(&u8g, u8g_font_fub49n);
-	u8g_DrawStr(&u8g, 70, 55, "0");
-	u8g_SetDefaultMidColor(&u8g);
-	u8g_DrawLine(&u8g, 5, 5, 235, 5);
-	u8g_DrawLine(&u8g, 5, 5, 5, 60);
-	u8g_DrawLine(&u8g, 235, 5, 235, 60);
-	u8g_DrawLine(&u8g, 5, 60, 235, 60);
-	u8g_DrawCircle(&u8g, 200, 33, 25, U8G_DRAW_ALL);
+	Screen_DrawTabs(&u8g, tabIndex);
+	if(tabIndex == 0) { Screen_DrawTabPS(&u8g); }
 }
 
 int main(void)
@@ -55,7 +47,9 @@ int main(void)
 		{
 			draw();
 		} while ( u8g_NextPage(&u8g) );
-		u8g_Delay(100);
+		u8g_Delay(3000);
+		//tabIndex++;
+		tabIndex %= SCREEN_NUM_TABS;
 	}
 	
 }

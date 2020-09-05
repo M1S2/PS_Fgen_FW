@@ -253,6 +253,12 @@
     <Compile Include="GLCD\u8g_virtual_screen.c">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="KeyPad\KeyPad.cpp">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="KeyPad\KeyPad.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="main.cpp">
       <SubType>compile</SubType>
     </Compile>
@@ -284,6 +290,7 @@
   <ItemGroup>
     <Folder Include="GLCD" />
     <Folder Include="ADC_MCP492x" />
+    <Folder Include="KeyPad" />
     <Folder Include="Screens" />
     <Folder Include="Spi" />
     <Folder Include="Pins" />

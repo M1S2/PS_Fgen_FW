@@ -10,6 +10,9 @@
 // Initialize the Pins
 void Pins_Init()
 {
+	MCUCSR = (1 << JTD);		// JTAG Interface Disable (otherwise PC2-PC5 can't be used), must be written twice
+	MCUCSR = (1 << JTD);
+	
 	// make all ADC pins inputs
 	CLEAR_BIT(DDRA, ADC_DVM2);
 	CLEAR_BIT(DDRA, ADC_DVM1);
@@ -41,17 +44,23 @@ void Pins_Init()
 	SET_BIT(DDRB, LCD_CS);
 	SET_BIT(DDRB, LCD_A0);
 	
-	// make Key Rows inputs
-	CLEAR_BIT(DDRC, KEY_R4);
-	CLEAR_BIT(DDRC, KEY_R3);
-	CLEAR_BIT(DDRC, KEY_R2);
-	CLEAR_BIT(DDRC, KEY_R1);
+	// make Key Rows outputs
+	SET_BIT(DDRC, KEY_R4);
+	SET_BIT(DDRC, KEY_R3);
+	SET_BIT(DDRC, KEY_R2);
+	SET_BIT(DDRC, KEY_R1);
 	
-	// make Key Columns outputs
-	SET_BIT(DDRC, KEY_C4);
-	SET_BIT(DDRC, KEY_C3);
-	SET_BIT(DDRC, KEY_C2);
-	SET_BIT(DDRC, KEY_C1);
+	// power the row pins
+	SET_BIT(PORTC, KEY_R4);
+	SET_BIT(PORTC, KEY_R3);
+	SET_BIT(PORTC, KEY_R2);
+	SET_BIT(PORTC, KEY_R1);
+	
+	// make Key Columns inputs
+	CLEAR_BIT(DDRC, KEY_C4);
+	CLEAR_BIT(DDRC, KEY_C3);
+	CLEAR_BIT(DDRC, KEY_C2);
+	CLEAR_BIT(DDRC, KEY_C1);
 	
 	// make ATX_PWR_ON output
 	SET_BIT(DDRD, ATX_PWR_ON);

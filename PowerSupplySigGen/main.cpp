@@ -12,6 +12,7 @@
 #include "ADC_MCP492x/ADC_MCP492x.h"
 #include "Screens/screen_draw_tabs.h"
 #include "Screens/screen_draw_TabPS.h"
+#include "KeyPad/KeyPad.h"
 
 #include <avr/interrupt.h>
 
@@ -20,8 +21,32 @@ char tabIndex = 0;
 
 void draw(void)
 {
-	Screen_DrawTabs(&u8g, tabIndex);
-	if(tabIndex == 0) { Screen_DrawTabPS(&u8g); }
+	//Screen_DrawTabs(&u8g, tabIndex);
+	//if(tabIndex == 0) { Screen_DrawTabPS(&u8g); }
+	
+	u8g_SetFont(&u8g, u8g_font_helvR08r);	// 8 pixel height font, 6 pixel width
+	u8g_SetDefaultForegroundColor(&u8g);
+	Keys_t key = KeyPad_GetKeys(&u8g);
+	switch(key)
+	{
+		case KEY0: u8g_DrawStr(&u8g, 10, 10, "0"); break;
+		case KEY1: u8g_DrawStr(&u8g, 10, 10, "1"); break;
+		case KEY2: u8g_DrawStr(&u8g, 10, 10, "2"); break;
+		case KEY3: u8g_DrawStr(&u8g, 10, 10, "3"); break;
+		case KEY4: u8g_DrawStr(&u8g, 10, 10, "4"); break;
+		case KEY5: u8g_DrawStr(&u8g, 10, 10, "5"); break;
+		case KEY6: u8g_DrawStr(&u8g, 10, 10, "6"); break;
+		case KEY7: u8g_DrawStr(&u8g, 10, 10, "7"); break;
+		case KEY8: u8g_DrawStr(&u8g, 10, 10, "8"); break;
+		case KEY9: u8g_DrawStr(&u8g, 10, 10, "9"); break;
+		case KEYKILO: u8g_DrawStr(&u8g, 10, 10, "k"); break;
+		case KEYMILLI: u8g_DrawStr(&u8g, 10, 10, "m"); break;
+		case KEYMINUS: u8g_DrawStr(&u8g, 10, 10, "-"); break;
+		case KEYCOMMA: u8g_DrawStr(&u8g, 10, 10, "."); break;
+		case KEYLEFT: u8g_DrawStr(&u8g, 10, 10, "<"); break;
+		case KEYRIGHT: u8g_DrawStr(&u8g, 10, 10, ">"); break;
+		default: u8g_DrawStr(&u8g, 10, 10, "NONE"); break;
+	}	
 }
 
 int main(void)
@@ -47,7 +72,7 @@ int main(void)
 		{
 			draw();
 		} while ( u8g_NextPage(&u8g) );
-		u8g_Delay(3000);
+		//u8g_Delay(3000);
 		//tabIndex++;
 		tabIndex %= SCREEN_NUM_TABS;
 	}

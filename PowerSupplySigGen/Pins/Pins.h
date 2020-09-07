@@ -18,6 +18,9 @@
 #define CLEAR_BIT(x, y) x &= ~(1 << y);
 #define TOGGLE_BIT(x, y) x ^= (1 << y);
 
+#define BIT_IS_SET(x, y) (x & (1 << y)) == (1 << y)
+#define BIT_IS_CLEARED(x, y) (x & (1 << y)) == 0
+
 
 // ADC Definitions
 #define ADC_DVM2	PORTA7

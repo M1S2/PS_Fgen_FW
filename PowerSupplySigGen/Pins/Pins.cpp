@@ -65,8 +65,13 @@ void Pins_Init()
 	// make ATX_PWR_ON output
 	SET_BIT(DDRD, ATX_PWR_ON);
 	
-	//make encoder pins inputs
+	// make encoder pins inputs
 	CLEAR_BIT(DDRD, ENC_PB);
 	CLEAR_BIT(DDRD, ENC_B);
 	CLEAR_BIT(DDRD, ENC_A);
+	
+	// enable pull-ups for encoder input pins
+	SET_BIT(PORTD, ENC_A);
+	SET_BIT(PORTD, ENC_B);
+	SET_BIT(PORTD, ENC_PB);
 }

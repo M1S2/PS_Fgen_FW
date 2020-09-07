@@ -8,7 +8,7 @@
 
 #include "KeyPad.h"
 
-Keys_t KeyPad_GetKeys(u8g_t *u8g)
+Keys_t KeyPad_GetKeys()
 {	
 	DDRC = 0xF0;				// taking row pins as output and column pins as input
 	PORTC = 0x0F;				// powering the row pins

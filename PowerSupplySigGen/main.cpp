@@ -13,17 +13,31 @@
 #include "Screens/screen_draw_tabs.h"
 #include "Screens/screen_draw_TabPS.h"
 #include "KeyPad/KeyPad.h"
+#include "Encoder/Encoder.h"
 
 #include <avr/interrupt.h>
 
 u8g_t u8g;
 char tabIndex = 0;
 
+extern EncoderDirection_t EncoderDir;
+
 void draw(void)
 {
-	//Screen_DrawTabs(&u8g, tabIndex);
-	//if(tabIndex == 0) { Screen_DrawTabPS(&u8g); }
+	/*u8g_SetFont(&u8g, u8g_font_helvR08r);	// 8 pixel height font, 6 pixel width
+	u8g_SetDefaultForegroundColor(&u8g);
 	
+	switch(EncoderDir)
+	{
+		case ENCCLOCKWISE: u8g_DrawStr(&u8g, 10, 10, "+"); break;
+		case ENCCOUNTERCLOCKWISE: u8g_DrawStr(&u8g, 10, 10, "-"); break;
+		default: u8g_DrawStr(&u8g, 10, 10, "ENC"); break;
+	}*/
+
+	Screen_DrawTabs(&u8g, tabIndex);
+	if(tabIndex == 0) { Screen_DrawTabPS(&u8g); }
+	
+	/*
 	u8g_SetFont(&u8g, u8g_font_helvR08r);	// 8 pixel height font, 6 pixel width
 	u8g_SetDefaultForegroundColor(&u8g);
 	Keys_t key = KeyPad_GetKeys(&u8g);
@@ -46,7 +60,7 @@ void draw(void)
 		case KEYLEFT: u8g_DrawStr(&u8g, 10, 10, "<"); break;
 		case KEYRIGHT: u8g_DrawStr(&u8g, 10, 10, ">"); break;
 		default: u8g_DrawStr(&u8g, 10, 10, "NONE"); break;
-	}	
+	}*/
 }
 
 int main(void)
@@ -56,6 +70,7 @@ int main(void)
 	SPI_Init();
 	MCP4921_init(1, 5);
 	MCP4922_init(1, 5);
+	Encoder_Init();
 	sei();
 	
 	MCP4922_DisableLatching();
@@ -72,9 +87,21 @@ int main(void)
 		{
 			draw();
 		} while ( u8g_NextPage(&u8g) );
-		//u8g_Delay(3000);
-		//tabIndex++;
-		tabIndex %= SCREEN_NUM_TABS;
+		u8g_Delay(250);
+		
+		bool encPb = Encoder_IsButtonPressed();
+		Keys_t key = KeyPad_GetKeys();
+		if(key == KEYRIGHT || EncoderDir == ENCCLOCKWISE || encPb)
+		{
+			tabIndex++;
+			tabIndex %= SCREEN_NUM_TABS;
+		}
+		else if(key == KEYLEFT || EncoderDir == ENCCOUNTERCLOCKWISE)
+		{
+			if(tabIndex == 0) { tabIndex = SCREEN_NUM_TABS - 1; }
+			else { tabIndex--; }
+		}
+		EncoderDir = ENCNONE;
 	}
 	
 }

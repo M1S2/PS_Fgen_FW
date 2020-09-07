@@ -10,10 +10,9 @@
 #define KEYPAD_H_
 
 #include "../Pins/Pins.h"
-#include "../GLCD/u8g.h"
 #include <stdbool.h>
-#include <string.h>
-#include <stdlib.h>
+//#include <string.h>
+//#include <stdlib.h>
 
 typedef enum Keys
 {
@@ -37,7 +36,7 @@ typedef enum Keys
 }Keys_t;
 
 
-Keys_t KeyPad_GetKeys(u8g_t *u8g);
+Keys_t KeyPad_GetKeys();
 bool KeyPad_IsKeyPressed(Keys_t keys, Keys_t key);
 
 #endif /* KEYPAD_H_ */

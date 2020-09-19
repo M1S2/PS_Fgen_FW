@@ -10,6 +10,8 @@
 #define SCREEN_DRAW_TABPS_H_
 
 #include "screen_draw_tabs.h"
+#include "../Global/DevStatus.h"
+#include "../Global/DevSettings.h"
 
 #define CONTROLS_FONT_HEIGHT		17														// 17 pixel height font
 #define VOLTAGE_CONTROL_POSX		SCREEN_TAB_WIDTH + 10

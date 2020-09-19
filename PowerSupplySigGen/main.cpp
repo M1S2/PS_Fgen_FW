@@ -14,6 +14,9 @@
 #include "Screens/screen_draw_TabPS.h"
 #include "KeyPad/KeyPad.h"
 #include "Encoder/Encoder.h"
+#include "ADC/ADC.h"
+#include "Global/DevSettings.h"
+#include "Global/DevStatus.h"
 
 #include <avr/interrupt.h>
 
@@ -21,9 +24,14 @@ u8g_t u8g;
 char tabIndex = 0;
 
 extern EncoderDirection_t EncoderDir;
+DevSettings_t DevSettings;
+DevStatus_t DevStatus;
 
 void draw(void)
 {
+	Screen_DrawTabs(&u8g, tabIndex);
+	if(tabIndex == 0) { Screen_DrawTabPS(&u8g); }
+	
 	/*u8g_SetFont(&u8g, u8g_font_helvR08r);	// 8 pixel height font, 6 pixel width
 	u8g_SetDefaultForegroundColor(&u8g);
 	
@@ -33,9 +41,6 @@ void draw(void)
 		case ENCCOUNTERCLOCKWISE: u8g_DrawStr(&u8g, 10, 10, "-"); break;
 		default: u8g_DrawStr(&u8g, 10, 10, "ENC"); break;
 	}*/
-
-	Screen_DrawTabs(&u8g, tabIndex);
-	if(tabIndex == 0) { Screen_DrawTabPS(&u8g); }
 	
 	/*
 	u8g_SetFont(&u8g, u8g_font_helvR08r);	// 8 pixel height font, 6 pixel width
@@ -71,14 +76,19 @@ int main(void)
 	MCP4921_init(1, 5);
 	MCP4922_init(1, 5);
 	Encoder_Init();
+	ADC_init();
 	sei();
 	
+	ADC_startConversion();
 	MCP4922_DisableLatching();
 	MCP4921_Voltage_Set(1);
 	MCP4922_Voltage_Set(2.5, 'A');
 	MCP4922_Voltage_Set(5, 'B');
 	
 	u8g_InitSPI(&u8g, &u8g_dev_s1d15721_hw_spi, PN(1, 7), PN(1, 5), PN(1, 1), PN(1, 0), U8G_PIN_NONE);
+	
+	DevSettings.PS_Voltage = 9.25;
+	DevSettings.PS_Output_Enabled = false;
 	
 	for(;;)
 	{
@@ -88,6 +98,8 @@ int main(void)
 			draw();
 		} while ( u8g_NextPage(&u8g) );
 		u8g_Delay(250);
+		
+		ADC_startConversion();
 		
 		bool encPb = Encoder_IsButtonPressed();
 		Keys_t key = KeyPad_GetKeys();

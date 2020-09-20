@@ -286,6 +286,18 @@
     <Compile Include="Pins\Pins.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="Screens\screen_draw_TabATX.cpp">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Screens\screen_draw_TabATX.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Screens\screen_draw_TabDMM.cpp">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Screens\screen_draw_TabDMM.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="Screens\screen_draw_TabPS.cpp">
       <SubType>compile</SubType>
     </Compile>

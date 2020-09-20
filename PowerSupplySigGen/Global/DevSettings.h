@@ -9,8 +9,11 @@
 #ifndef DEVSETTINGS_H_
 #define DEVSETTINGS_H_
 
+#define AVR_VCC		5.27
+
 struct DevSettings_t
 {
+	char TabIndex;
 	float PS_Voltage;
 	bool PS_Output_Enabled;
 };

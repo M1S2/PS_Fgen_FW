@@ -29,6 +29,7 @@ void MCP4922_DisableLatching();
 void MCP4922_LatchOutput();
 void MCP4921_DAC_Set(uint16_t dac_data);
 void MCP4921_Voltage_Set(double voltage);
+void PS_Output_Set();
 void MCP4922_DAC_Set(uint16_t dac_data, char channel_A_B);
 void MCP4922_Voltage_Set(double voltage, char channel_A_B);
 

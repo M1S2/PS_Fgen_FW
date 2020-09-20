@@ -12,6 +12,8 @@
 #include "ADC_MCP492x/ADC_MCP492x.h"
 #include "Screens/screen_draw_tabs.h"
 #include "Screens/screen_draw_TabPS.h"
+#include "Screens/screen_draw_TabDMM.h"
+#include "Screens/screen_draw_TabATX.h"
 #include "KeyPad/KeyPad.h"
 #include "Encoder/Encoder.h"
 #include "ADC/ADC.h"
@@ -21,16 +23,21 @@
 #include <avr/interrupt.h>
 
 u8g_t u8g;
-char tabIndex = 0;
 
 extern EncoderDirection_t EncoderDir;
 DevSettings_t DevSettings;
 DevStatus_t DevStatus;
 
-void draw(void)
+void draw(DevStatus_t devStatusDraw, DevSettings_t devSettingsDraw)
 {
-	Screen_DrawTabs(&u8g, tabIndex);
-	if(tabIndex == 0) { Screen_DrawTabPS(&u8g); }
+	Screen_DrawTabs(&u8g, devSettingsDraw.TabIndex);
+	switch(devSettingsDraw.TabIndex)
+	{
+		case 0: Screen_DrawTabPS(&u8g, devStatusDraw, devSettingsDraw); break;
+		case 3: Screen_DrawTabDMM(&u8g, devStatusDraw); break;
+		case 4: Screen_DrawTabATX(&u8g, devStatusDraw); break;
+		default: break;
+	}
 	
 	/*u8g_SetFont(&u8g, u8g_font_helvR08r);	// 8 pixel height font, 6 pixel width
 	u8g_SetDefaultForegroundColor(&u8g);
@@ -73,8 +80,8 @@ int main(void)
 	cli();
 	Pins_Init();
 	SPI_Init();
-	MCP4921_init(1, 5);
-	MCP4922_init(1, 5);
+	MCP4921_init(1, AVR_VCC);
+	MCP4922_init(1, AVR_VCC);
 	Encoder_Init();
 	ADC_init();
 	sei();
@@ -87,33 +94,53 @@ int main(void)
 	
 	u8g_InitSPI(&u8g, &u8g_dev_s1d15721_hw_spi, PN(1, 7), PN(1, 5), PN(1, 1), PN(1, 0), U8G_PIN_NONE);
 	
-	DevSettings.PS_Voltage = 9.25;
+	DevSettings.PS_Voltage = 5;
 	DevSettings.PS_Output_Enabled = false;
+	PS_Output_Set();
 	
 	for(;;)
 	{
+		DevStatus_t devStatusDraw = DevStatus;
+		DevSettings_t devSettingsDraw = DevSettings;
 		u8g_FirstPage(&u8g);
 		do
 		{
-			draw();
+			draw(devStatusDraw, devSettingsDraw);
 		} while ( u8g_NextPage(&u8g) );
-		u8g_Delay(250);
-		
-		ADC_startConversion();
+		u8g_Delay(150);
 		
 		bool encPb = Encoder_IsButtonPressed();
-		Keys_t key = KeyPad_GetKeys();
-		if(key == KEYRIGHT || EncoderDir == ENCCLOCKWISE || encPb)
+		if(encPb)
 		{
-			tabIndex++;
-			tabIndex %= SCREEN_NUM_TABS;
+			DevSettings.PS_Output_Enabled = !DevSettings.PS_Output_Enabled;
 		}
-		else if(key == KEYLEFT || EncoderDir == ENCCOUNTERCLOCKWISE)
+		
+		if(EncoderDir == ENCCLOCKWISE)
 		{
-			if(tabIndex == 0) { tabIndex = SCREEN_NUM_TABS - 1; }
-			else { tabIndex--; }
+			DevSettings.PS_Voltage += 0.5;
 		}
+		else if(EncoderDir == ENCCOUNTERCLOCKWISE)
+		{
+			DevSettings.PS_Voltage -= 0.5;
+		}
+		
+		if(DevSettings.PS_Voltage < 0) { DevSettings.PS_Voltage = 0; }
+		else if(DevSettings.PS_Voltage > 10) { DevSettings.PS_Voltage = 10; }
+		PS_Output_Set();
+		
 		EncoderDir = ENCNONE;
+		
+		Keys_t key = KeyPad_GetKeys();
+		if(key == KEYRIGHT)
+		{
+			DevSettings.TabIndex++;
+			DevSettings.TabIndex %= SCREEN_NUM_TABS;
+		}
+		else if(key == KEYLEFT)
+		{
+			if(DevSettings.TabIndex == 0) { DevSettings.TabIndex = SCREEN_NUM_TABS - 1; }
+			else { DevSettings.TabIndex--; }
+		}
 	}
 	
 }

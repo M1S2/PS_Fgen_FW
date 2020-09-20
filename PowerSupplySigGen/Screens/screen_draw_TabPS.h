@@ -13,7 +13,7 @@
 #include "../Global/DevStatus.h"
 #include "../Global/DevSettings.h"
 
-#define CONTROLS_FONT_HEIGHT		17														// 17 pixel height font
+#define CONTROLS_FONT_HEIGHT		14														// 14 pixel height font
 #define VOLTAGE_CONTROL_POSX		SCREEN_TAB_WIDTH + 10
 #define VOLTAGE_CONTROL_POSY		u8g_GetHeight(u8g) / 2 - 7
 #define OUTPUT_STATE_CONTROL_POSX	VOLTAGE_CONTROL_POSX
@@ -24,6 +24,6 @@
 #define INFO_TEXT_CURRENT_POSY		INFO_TEXT_VOLTAGE_POSY - INFO_TEXTS_FONT_HEIGHT - 5
 #define INFO_TEXT_POWER_POSY		INFO_TEXT_VOLTAGE_POSY + INFO_TEXTS_FONT_HEIGHT + 5
 
-void Screen_DrawTabPS(u8g_t *u8g);
+void Screen_DrawTabPS(u8g_t *u8g, DevStatus_t devStatusDraw, DevSettings_t devSettingsDraw);
 
 #endif /* SCREEN_DRAW_TABPS_H_ */

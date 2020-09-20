@@ -10,8 +10,8 @@
 
 void ADC_init()
 {
-	ADCSRA |= 1<<ADPS2;			// Set ADC clock to 1/16 of XTAL frequency
-	ADMUX &= ~(1<<REFS0 | 1<<REFS1);	// Set reference to AREF, Internal Vref turned off
+	ADCSRA |= (1<<ADPS2) | (1<<ADPS1) | (1<<ADPS0);		// Set ADC clock to 1/128 of XTAL frequency
+	ADMUX &= ~(1<<REFS0 | 1<<REFS1);					// Set reference to AREF, Internal Vref turned off
 	ADCSRA |= 1<<ADIE;			// Enable ADC Interrupt
 	ADCSRA |= 1<<ADEN;			// Enable ADC
 
@@ -27,9 +27,9 @@ void ADC_startConversion()
 
 ISR(ADC_vect)
 {
-	uint16_t adcResult = ADCL | (ADCH<<8);	// ADC conversion result with 10-bit resolution
-	float adcVoltage = ((float)adcResult / 1024) * 5;	// Vin = ADC * Vref / 1024 ; Vref=5V
-	char adcChannel = (ADMUX & 0x07);	// Lower 3 bits represent the current ADC channel
+	uint16_t adcResult = ADCW;				// ADC conversion result with 10-bit resolution
+	float adcVoltage = ((float)adcResult / 1024) * AVR_VCC;		// Vin = ADC * Vref / 1024 ; Vref=5.27V
+	char adcChannel = (ADMUX & 0x07);		// Lower 3 bits represent the current ADC channel
 
 	switch (adcChannel)
 	{
@@ -40,10 +40,10 @@ ISR(ADC_vect)
 			DevStatus.PS_VOLT = adcVoltage * 2;
 			break;
 		case 2:
-			DevStatus.ATX_12V_NEG = adcVoltage * -2.4;// factor ?
+			DevStatus.ATX_12V_NEG = adcVoltage * -2.4;
 			break;
 		case 3:
-			DevStatus.ATX_12V = adcVoltage * 2.4;	// factor ?
+			DevStatus.ATX_12V = adcVoltage * 3; // 2.5;
 			break;
 		case 4:
 			DevStatus.ATX_5V = adcVoltage;
@@ -52,17 +52,16 @@ ISR(ADC_vect)
 			DevStatus.ATX_3V3 = adcVoltage;
 			break;
 		case 6:
-			DevStatus.DMM1 = adcVoltage * 2;	// factor ?
+			DevStatus.DMM1 = adcVoltage * 5.17;
 			break;
 		case 7:
-			DevStatus.DMM2 = adcVoltage * 2;	// factor ?
+			DevStatus.DMM2 = adcVoltage * 5.17;
 			break;
 		default: break;
 	}
-	
-	char currentChannel = adcChannel;
+
 	adcChannel++;
 	if(adcChannel > 7) { adcChannel = 0; }
 	ADMUX = (ADMUX & 0xF8) + adcChannel;	// Set lower bits of ADMUX to select ADC channel
-	if(currentChannel < 7) { ADCSRA |= 1<<ADSC; }			// Start new ADC conversion if not all channels are converted
+	ADCSRA |= 1<<ADSC;						// Start new ADC conversion if not all channels are converted
 }

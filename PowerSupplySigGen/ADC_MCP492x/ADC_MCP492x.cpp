@@ -8,6 +8,7 @@
 
 #include "ADC_MCP492x.h"
 #include "../Spi/spi.h"
+#include "../Global/DevSettings.h"
 
 static int MCP4921_gain;
 static int MCP4922_gain;
@@ -54,6 +55,18 @@ void MCP4921_Voltage_Set(double voltage)
 	MCP4921_DAC_Set((voltage * 4095) / (MCP4921_ref_voltage * MCP4921_gain));
 }
 
+void PS_Output_Set()
+{
+	if(DevSettings.PS_Output_Enabled)
+	{
+		MCP4921_Voltage_Set(DevSettings.PS_Voltage / 2);
+	}
+	else
+	{
+		MCP4921_Voltage_Set(0);
+	}
+}
+
 void MCP4922_DAC_Set(uint16_t dac_data, char channel_A_B)
 {	
 	SELECT_MCP4922
@@ -83,6 +96,7 @@ void MCP4922_DAC_Set(uint16_t dac_data, char channel_A_B)
 void MCP4922_Voltage_Set(double voltage, char channel_A_B)
 {
 	//VOUT = (GAIN * VREF * D/4096)
+	voltage = (voltage + 10) / 4;
 	MCP4922_DAC_Set((voltage * 4095) / (MCP4922_ref_voltage * MCP4922_gain), channel_A_B);
 }
 

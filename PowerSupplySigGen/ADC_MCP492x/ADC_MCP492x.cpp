@@ -10,23 +10,6 @@
 #include "../Spi/spi.h"
 #include "../Global/DevSettings.h"
 
-static int MCP4921_gain;
-static int MCP4922_gain;
-static double MCP4921_ref_voltage;
-static double MCP4922_ref_voltage;
-
-void MCP4921_init(int gain, double ref_voltage)
-{
-	MCP4921_gain = gain;
-	MCP4921_ref_voltage = ref_voltage;
-}
-
-void MCP4922_init(int gain, double ref_voltage)
-{
-	MCP4922_gain = gain;
-	MCP4922_ref_voltage = ref_voltage;
-}
-
 void MCP4921_DAC_Set(uint16_t dac_data)
 {
 	SELECT_MCP4921
@@ -34,10 +17,7 @@ void MCP4921_DAC_Set(uint16_t dac_data)
 	uint8_t low_byte=0, high_byte=0;
 	high_byte |= (1 << MCP492X_SHDN);					/*Set SHDN bit high for DAC A active operation*/
 	high_byte |= (1 << MCP492X_BUFFERED);				/*Enable buffered inputs for Vref*/
-	if(MCP4921_gain == 1)
-	{
-		high_byte |= (1 << MCP492X_GAIN_SELECT_SINGLE);	/*Select single gain*/
-	}
+	high_byte |= (1 << MCP492X_GAIN_SELECT_SINGLE);		/*Select single gain*/
 
 	high_byte |= ((dac_data >> 8) & 0x0F);
 	low_byte |= dac_data;
@@ -49,17 +29,17 @@ void MCP4921_DAC_Set(uint16_t dac_data)
 	DESELECT_MCP4921
 }
 
-void MCP4921_Voltage_Set(double voltage)
+void MCP4921_Voltage_Set(int voltage_mV)
 {
 	//VOUT = (GAIN * VREF * D/4096)
-	MCP4921_DAC_Set((voltage * 4095) / (MCP4921_ref_voltage * MCP4921_gain));
+	MCP4921_DAC_Set((uint16_t)(voltage_mV * (4095.0f / AVR_VCC_MV)));
 }
 
 void PS_Output_Set()
 {
 	if(DevSettings.PS_Output_Enabled)
 	{
-		MCP4921_Voltage_Set(DevSettings.PS_Voltage / 2);
+		MCP4921_Voltage_Set(DevSettings.PS_Voltage_mV / 2);
 	}
 	else
 	{
@@ -78,10 +58,7 @@ void MCP4922_DAC_Set(uint16_t dac_data, char channel_A_B)
 	}
 	high_byte |= (1 << MCP492X_SHDN);					/*Set SHDN bit high for DAC A active operation*/
 	high_byte |= (1 << MCP492X_BUFFERED);				/*Enable buffered inputs for Vref*/
-	if(MCP4922_gain == 1)
-	{ 
-		high_byte |= (1 << MCP492X_GAIN_SELECT_SINGLE);	/*Select single gain*/
-	}
+	high_byte |= (1 << MCP492X_GAIN_SELECT_SINGLE);		/*Select single gain*/
 
 	high_byte |= ((dac_data >> 8) & 0x0F);
 	low_byte |= dac_data;
@@ -93,11 +70,11 @@ void MCP4922_DAC_Set(uint16_t dac_data, char channel_A_B)
 	DESELECT_MCP4922
 }
 
-void MCP4922_Voltage_Set(double voltage, char channel_A_B)
+void MCP4922_Voltage_Set(int voltage_mV, char channel_A_B)
 {
 	//VOUT = (GAIN * VREF * D/4096)
-	voltage = (voltage + 10) / 4;
-	MCP4922_DAC_Set((voltage * 4095) / (MCP4922_ref_voltage * MCP4922_gain), channel_A_B);
+	voltage_mV = (voltage_mV + 10000) / 4;
+	MCP4922_DAC_Set((uint16_t)(voltage_mV * (4095.0f / AVR_VCC_MV)), channel_A_B);
 }
 
 void MCP4922_DisableLatching()

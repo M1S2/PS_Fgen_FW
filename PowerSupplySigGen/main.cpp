@@ -80,22 +80,20 @@ int main(void)
 	cli();
 	Pins_Init();
 	SPI_Init();
-	MCP4921_init(1, AVR_VCC);
-	MCP4922_init(1, AVR_VCC);
 	Encoder_Init();
 	ADC_init();
 	sei();
 	
 	ADC_startConversion();
 	MCP4922_DisableLatching();
-	MCP4921_Voltage_Set(1);
-	MCP4922_Voltage_Set(2.5, 'A');
-	MCP4922_Voltage_Set(5, 'B');
+	MCP4921_Voltage_Set(1000);
+	MCP4922_Voltage_Set(2500, 'A');
+	MCP4922_Voltage_Set(5000, 'B');
 	
 	u8g_InitSPI(&u8g, &u8g_dev_s1d15721_hw_spi, PN(1, 7), PN(1, 5), PN(1, 1), PN(1, 0), U8G_PIN_NONE);
 	
-	DevSettings.PS_Voltage = 5;
-	DevSettings.PS_Output_Enabled = false;
+	DevSettings.PS_Voltage_mV = 5000;
+	DevSettings.PS_Output_Enabled = 0;
 	PS_Output_Set();
 	
 	for(;;)
@@ -117,15 +115,15 @@ int main(void)
 		
 		if(EncoderDir == ENCCLOCKWISE)
 		{
-			DevSettings.PS_Voltage += 0.5;
+			DevSettings.PS_Voltage_mV += 500;
 		}
 		else if(EncoderDir == ENCCOUNTERCLOCKWISE)
 		{
-			DevSettings.PS_Voltage -= 0.5;
+			DevSettings.PS_Voltage_mV -= 500;
 		}
 		
-		if(DevSettings.PS_Voltage < 0) { DevSettings.PS_Voltage = 0; }
-		else if(DevSettings.PS_Voltage > 10) { DevSettings.PS_Voltage = 10; }
+		if(DevSettings.PS_Voltage_mV < 0) { DevSettings.PS_Voltage_mV = 0; }
+		else if(DevSettings.PS_Voltage_mV > 10000) { DevSettings.PS_Voltage_mV = 10000; }
 		PS_Output_Set();
 		
 		EncoderDir = ENCNONE;

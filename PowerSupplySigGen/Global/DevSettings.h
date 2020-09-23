@@ -10,12 +10,13 @@
 #define DEVSETTINGS_H_
 
 #define AVR_VCC		5.27
+#define AVR_VCC_MV	5270
 
 struct DevSettings_t
 {
-	char TabIndex;
-	float PS_Voltage;
-	bool PS_Output_Enabled;
+	uint8_t TabIndex;
+	uint16_t PS_Voltage_mV;
+	uint8_t PS_Output_Enabled;
 };
 
 extern DevSettings_t DevSettings;		// defined in main.cpp

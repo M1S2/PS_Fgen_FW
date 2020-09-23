@@ -28,34 +28,34 @@ void ADC_startConversion()
 ISR(ADC_vect)
 {
 	uint16_t adcResult = ADCW;				// ADC conversion result with 10-bit resolution
-	float adcVoltage = ((float)adcResult / 1024) * AVR_VCC;		// Vin = ADC * Vref / 1024 ; Vref=5.27V
+	uint16_t adcVoltage_mV = (uint16_t)(adcResult * (AVR_VCC_MV / 1024.0f));		// Vin = ADC * Vref / 1024 ; Vref=5.27V
 	char adcChannel = (ADMUX & 0x07);		// Lower 3 bits represent the current ADC channel
 
 	switch (adcChannel)
 	{
 		case 0:
-			DevStatus.PS_CURR = adcVoltage / 2.4;		// Ucurr = R24 * (R22 / R23) * IL	=> IL = Ucurr / (R24 * (R22 / R23))
+			DevStatus.PS_CURR_mV = adcVoltage_mV / 2.4;		// Ucurr = R24 * (R22 / R23) * IL	=> IL = Ucurr / (R24 * (R22 / R23))
 			break;
 		case 1:
-			DevStatus.PS_VOLT = adcVoltage * 2;
+			DevStatus.PS_VOLT_mV = adcVoltage_mV * 2;
 			break;
 		case 2:
-			DevStatus.ATX_12V_NEG = adcVoltage * -2.4;
+			DevStatus.ATX_12V_NEG_mV = adcVoltage_mV * 2.4;
 			break;
 		case 3:
-			DevStatus.ATX_12V = adcVoltage * 3; // 2.5;
+			DevStatus.ATX_12V_mV = adcVoltage_mV * 3; // 2.5;
 			break;
 		case 4:
-			DevStatus.ATX_5V = adcVoltage;
+			DevStatus.ATX_5V_mV = adcVoltage_mV;
 			break;
 		case 5:
-			DevStatus.ATX_3V3 = adcVoltage;
+			DevStatus.ATX_3V3_mV = adcVoltage_mV;
 			break;
 		case 6:
-			DevStatus.DMM1 = adcVoltage * 5.17;
+			DevStatus.DMM1_mV = adcVoltage_mV * 5.17;
 			break;
 		case 7:
-			DevStatus.DMM2 = adcVoltage * 5.17;
+			DevStatus.DMM2_mV = adcVoltage_mV * 5.17;
 			break;
 		default: break;
 	}

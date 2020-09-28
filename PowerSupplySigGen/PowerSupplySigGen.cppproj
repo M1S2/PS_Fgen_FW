@@ -157,10 +157,10 @@
     <Compile Include="ADC\ADC.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="ADC_MCP492x\ADC_MCP492x.cpp">
+    <Compile Include="Outputs\ADC_MCP492x.cpp">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="ADC_MCP492x\ADC_MCP492x.h">
+    <Compile Include="Outputs\ADC_MCP492x.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="Encoder\Encoder.cpp">
@@ -280,6 +280,12 @@
     <Compile Include="main.cpp">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="Outputs\PowerSupply.cpp">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Outputs\PowerSupply.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="Pins\Pins.cpp">
       <SubType>compile</SubType>
     </Compile>
@@ -319,7 +325,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="GLCD" />
-    <Folder Include="ADC_MCP492x" />
+    <Folder Include="Outputs" />
     <Folder Include="KeyPad" />
     <Folder Include="Encoder" />
     <Folder Include="ADC" />

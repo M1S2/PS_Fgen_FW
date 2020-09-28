@@ -17,6 +17,7 @@ struct DevSettings_t
 	uint8_t TabIndex;
 	uint16_t PS_Voltage_mV;
 	uint8_t PS_Output_Enabled;
+	uint32_t PS_Load_Impedance;
 };
 
 extern DevSettings_t DevSettings;		// defined in main.cpp

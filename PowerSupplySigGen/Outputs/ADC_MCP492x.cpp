@@ -35,18 +35,6 @@ void MCP4921_Voltage_Set(int voltage_mV)
 	MCP4921_DAC_Set((uint16_t)(voltage_mV * (4095.0f / AVR_VCC_MV)));
 }
 
-void PS_Output_Set()
-{
-	if(DevSettings.PS_Output_Enabled)
-	{
-		MCP4921_Voltage_Set(DevSettings.PS_Voltage_mV / 2);
-	}
-	else
-	{
-		MCP4921_Voltage_Set(0);
-	}
-}
-
 void MCP4922_DAC_Set(uint16_t dac_data, char channel_A_B)
 {	
 	SELECT_MCP4922

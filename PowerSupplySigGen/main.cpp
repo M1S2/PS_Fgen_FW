@@ -21,9 +21,12 @@
 #include "Global/DevSettings.h"
 #include "Global/DevStatus.h"
 
+#include "UserControls/UserControlBool.h"
+
 #include <avr/interrupt.h>
 
 u8g_t u8g;
+UserControlBool ctrlBool (SCREEN_TAB_WIDTH + 10, 10, "BoolCtrl", &DevSettings.PS_Output_Enabled);
 
 extern EncoderDirection_t EncoderDir;
 DevSettings_t DevSettings;
@@ -35,6 +38,7 @@ void draw(DevStatus_t devStatusDraw, DevSettings_t devSettingsDraw)
 	switch(devSettingsDraw.TabIndex)
 	{
 		case 0: Screen_DrawTabPS(&u8g, devStatusDraw, devSettingsDraw); break;
+		case 1: ctrlBool.Draw(&u8g); break;
 		case 3: Screen_DrawTabDMM(&u8g, devStatusDraw); break;
 		case 4: Screen_DrawTabATX(&u8g, devStatusDraw); break;
 		default: break;
@@ -63,6 +67,9 @@ int main(void)
 	DevSettings.PS_Output_Enabled = 0;
 	PS_Output_Set();
 	
+	ctrlBool.IsSelected = true;
+	ctrlBool.IsActive = true;
+	
 	for(;;)
 	{
 		DevStatus_t devStatusDraw = DevStatus;
@@ -88,6 +95,7 @@ int main(void)
 		{
 			DevSettings.PS_Voltage_mV -= 500;
 		}
+		ctrlBool.EncoderInput(EncoderDir);
 		
 		if(DevSettings.PS_Voltage_mV < 0) { DevSettings.PS_Voltage_mV = 0; }
 		else if(DevSettings.PS_Voltage_mV > 10000) { DevSettings.PS_Voltage_mV = 10000; }
@@ -96,6 +104,7 @@ int main(void)
 		EncoderDir = ENCNONE;
 		
 		Keys_t key = KeyPad_GetKeys();
+		ctrlBool.KeyInput(key);
 		if(key == KEYRIGHT)
 		{
 			DevSettings.TabIndex++;

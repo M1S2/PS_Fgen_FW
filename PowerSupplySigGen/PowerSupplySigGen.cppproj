@@ -322,9 +322,22 @@
     <Compile Include="Spi\spi.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="UserControls\UserControlBase.cpp">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="UserControls\UserControlBase.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="UserControls\UserControlBool.cpp">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="UserControls\UserControlBool.h">
+      <SubType>compile</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="GLCD" />
+    <Folder Include="UserControls" />
     <Folder Include="Outputs" />
     <Folder Include="KeyPad" />
     <Folder Include="Encoder" />

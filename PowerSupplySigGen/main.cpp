@@ -22,11 +22,27 @@
 #include "Global/DevStatus.h"
 
 #include "UserControls/UserControlBool.h"
+#include "UserControls/UserControlEnum.h"
 
 #include <avr/interrupt.h>
 
 u8g_t u8g;
-UserControlBool ctrlBool (SCREEN_TAB_WIDTH + 10, 10, "BoolCtrl", &DevSettings.PS_Output_Enabled);
+
+typedef enum SignalForms
+{
+	SINE,
+	RECTANGLE,
+	TRIANGLE
+} SignalForms_t;
+const char* SignalFormsNames[] = { "SINE", "RECT", "TRIANGLE" };
+
+
+UserControlBool ctrlBool (SCREEN_TAB_WIDTH + 10, 10, &DevSettings.PS_Output_Enabled);
+SignalForms_t signalForm;
+UserControlEnum<SignalForms_t> ctrlEnum (SCREEN_TAB_WIDTH + 10, 30, &signalForm, SignalFormsNames, 3);
+
+
+
 
 extern EncoderDirection_t EncoderDir;
 DevSettings_t DevSettings;
@@ -38,7 +54,7 @@ void draw(DevStatus_t devStatusDraw, DevSettings_t devSettingsDraw)
 	switch(devSettingsDraw.TabIndex)
 	{
 		case 0: Screen_DrawTabPS(&u8g, devStatusDraw, devSettingsDraw); break;
-		case 1: ctrlBool.Draw(&u8g); break;
+		case 1: ctrlBool.Draw(&u8g); ctrlEnum.Draw(&u8g); break;
 		case 3: Screen_DrawTabDMM(&u8g, devStatusDraw); break;
 		case 4: Screen_DrawTabATX(&u8g, devStatusDraw); break;
 		default: break;
@@ -67,8 +83,11 @@ int main(void)
 	DevSettings.PS_Output_Enabled = 0;
 	PS_Output_Set();
 	
-	ctrlBool.IsSelected = true;
-	ctrlBool.IsActive = true;
+	ctrlBool.IsSelected = false;
+	ctrlBool.IsActive = false;
+	ctrlEnum.IsSelected = true;
+	ctrlEnum.IsActive = false;
+	DevSettings.TabIndex = 1;
 	
 	for(;;)
 	{
@@ -84,18 +103,20 @@ int main(void)
 		bool encPb = Encoder_IsButtonPressed();
 		if(encPb)
 		{
-			DevSettings.PS_Output_Enabled = !DevSettings.PS_Output_Enabled;
+			ctrlBool.IsActive = !ctrlBool.IsActive;
+			//DevSettings.PS_Output_Enabled = !DevSettings.PS_Output_Enabled;
 		}
 		
-		if(EncoderDir == ENCCLOCKWISE)
+		/*if(EncoderDir == ENCCLOCKWISE)
 		{
 			DevSettings.PS_Voltage_mV += 500;
 		}
 		else if(EncoderDir == ENCCOUNTERCLOCKWISE)
 		{
 			DevSettings.PS_Voltage_mV -= 500;
-		}
+		}*/
 		ctrlBool.EncoderInput(EncoderDir);
+		ctrlEnum.EncoderInput(EncoderDir);
 		
 		if(DevSettings.PS_Voltage_mV < 0) { DevSettings.PS_Voltage_mV = 0; }
 		else if(DevSettings.PS_Voltage_mV > 10000) { DevSettings.PS_Voltage_mV = 10000; }
@@ -105,7 +126,8 @@ int main(void)
 		
 		Keys_t key = KeyPad_GetKeys();
 		ctrlBool.KeyInput(key);
-		if(key == KEYRIGHT)
+		ctrlEnum.KeyInput(key);
+		/*if(key == KEYRIGHT)
 		{
 			DevSettings.TabIndex++;
 			DevSettings.TabIndex %= SCREEN_NUM_TABS;
@@ -114,7 +136,7 @@ int main(void)
 		{
 			if(DevSettings.TabIndex == 0) { DevSettings.TabIndex = SCREEN_NUM_TABS - 1; }
 			else { DevSettings.TabIndex--; }
-		}
+		}*/
 	}
 	
 }

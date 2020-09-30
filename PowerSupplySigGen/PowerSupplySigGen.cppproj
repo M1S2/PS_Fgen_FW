@@ -322,16 +322,13 @@
     <Compile Include="Spi\spi.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="UserControls\UserControlBase.cpp">
-      <SubType>compile</SubType>
-    </Compile>
     <Compile Include="UserControls\UserControlBase.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="UserControls\UserControlBool.cpp">
+    <Compile Include="UserControls\UserControlBool.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="UserControls\UserControlBool.h">
+    <Compile Include="UserControls\UserControlEnum.h">
       <SubType>compile</SubType>
     </Compile>
   </ItemGroup>

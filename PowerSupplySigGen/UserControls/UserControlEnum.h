@@ -25,9 +25,9 @@ public:
 	
 	void KeyInput(Keys_t key)
 	{
-		if(UserControlBase<T>::IsActive)
+		if(this->IsSelected && this->IsActive)
 		{
-			uint8_t* value = (uint8_t*)UserControlBase<T>::_controlValue;
+			uint8_t* value = (uint8_t*)this->_controlValue;
 			
 			if(key == KEYRIGHT) { EncoderInput(ENCCLOCKWISE); }
 			else if(key == KEYLEFT) { EncoderInput(ENCCOUNTERCLOCKWISE); }
@@ -46,9 +46,9 @@ public:
 	
 	void EncoderInput(EncoderDirection_t encDir)
 	{
-		if(UserControlBase<T>::IsActive)
+		if(this->IsSelected && this->IsActive)
 		{
-			uint8_t* value = (uint8_t*)UserControlBase<T>::_controlValue;
+			uint8_t* value = (uint8_t*)this->_controlValue;
 			
 			if(encDir == ENCCLOCKWISE && *value < (_numEnumValues - 1)) { (*value)++; }
 			else if(encDir == ENCCLOCKWISE && *value >= (_numEnumValues - 1)) { (*value) = 0; }
@@ -60,7 +60,7 @@ public:
 	void Draw(u8g_t *u8g)
 	{
 		UserControlBase<T>::Draw(u8g);
-		u8g_DrawStr(u8g, UserControlBase<T>::_locX + 3, UserControlBase<T>::_locY + 3 + CONTROLS_FONT_HEIGHT, _enumNames[*UserControlBase<T>::_controlValue]);
+		u8g_DrawStr(u8g, this->_locX + 3, this->_locY + 3 + CONTROLS_FONT_HEIGHT, _enumNames[*this->_controlValue]);
 	}
 };
 

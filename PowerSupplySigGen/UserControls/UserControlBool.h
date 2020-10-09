@@ -20,7 +20,7 @@ public:
 	
 	void KeyInput(Keys_t key)
 	{
-		if(IsActive)
+		if(IsSelected && IsActive)
 		{
 			if(key == KEYLEFT || key == KEYRIGHT) { *_controlValue ^= true; }        // toggle control value
 			else if(key == KEY0) { *_controlValue = false; }
@@ -30,7 +30,7 @@ public:
 	
 	void EncoderInput(EncoderDirection_t encDir)
 	{
-		if(IsActive)
+		if(IsSelected && IsActive)
 		{
 			if(encDir == ENCCLOCKWISE || encDir == ENCCOUNTERCLOCKWISE) { *_controlValue ^= true; }   // toggle control value
 		}

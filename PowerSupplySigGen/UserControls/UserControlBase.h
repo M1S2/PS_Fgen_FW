@@ -14,7 +14,7 @@
 #include "../GLCD/u8g.h"
 
 #define CONTROLS_FONT_HEIGHT		8
-#define CONTROLS_WIDTH				60
+#define CONTROLS_WIDTH				65
 
 template <class T>
 class UserControlBase

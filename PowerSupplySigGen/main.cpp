@@ -23,6 +23,7 @@
 
 #include "UserControls/UserControlBool.h"
 #include "UserControls/UserControlEnum.h"
+#include "UserControls/UserControlNumeric.h"
 
 #include <avr/interrupt.h>
 
@@ -37,11 +38,12 @@ typedef enum SignalForms
 const char* SignalFormsNames[] = { "SINE", "RECT", "TRIANGLE" };
 
 
-UserControlBool ctrlBool (SCREEN_TAB_WIDTH + 10, 10, &DevSettings.PS_Output_Enabled);
+/*UserControlBool ctrlBool (SCREEN_TAB_WIDTH + 10, 10, &DevSettings.PS_Output_Enabled);
 SignalForms_t signalForm;
-UserControlEnum<SignalForms_t> ctrlEnum (SCREEN_TAB_WIDTH + 10, 30, &signalForm, SignalFormsNames, 3);
+UserControlEnum<SignalForms_t> ctrlEnum (SCREEN_TAB_WIDTH + 10, 30, &signalForm, SignalFormsNames, 3);*/
 
-
+float num = 0;
+UserControlNumeric<float> ctrlNum (SCREEN_TAB_WIDTH + 75, 10, &num, "V", -3, -10000, 10000);
 
 
 extern EncoderDirection_t EncoderDir;
@@ -54,9 +56,9 @@ void draw(DevStatus_t devStatusDraw, DevSettings_t devSettingsDraw)
 	switch(devSettingsDraw.TabIndex)
 	{
 		case 0: Screen_DrawTabPS(&u8g, devStatusDraw, devSettingsDraw); break;
-		case 1: ctrlBool.Draw(&u8g); ctrlEnum.Draw(&u8g); break;
-		case 3: Screen_DrawTabDMM(&u8g, devStatusDraw); break;
-		case 4: Screen_DrawTabATX(&u8g, devStatusDraw); break;
+		case 1: /*ctrlBool.Draw(&u8g); ctrlEnum.Draw(&u8g);*/ ctrlNum.Draw(&u8g); break;
+		case 3: /*Screen_DrawTabDMM(&u8g, devStatusDraw);*/ break;
+		case 4: /*Screen_DrawTabATX(&u8g, devStatusDraw);*/ break;
 		default: break;
 	}
 }
@@ -83,10 +85,13 @@ int main(void)
 	DevSettings.PS_Output_Enabled = 0;
 	PS_Output_Set();
 	
-	ctrlBool.IsSelected = false;
-	ctrlBool.IsActive = false;
-	ctrlEnum.IsSelected = true;
-	ctrlEnum.IsActive = false;
+	uint8_t selectedUserControlIndex = 0;
+	//ctrlBool.IsSelected = true;
+	//ctrlBool.IsActive = false;
+	//ctrlEnum.IsSelected = false;
+	//ctrlEnum.IsActive = false;
+	ctrlNum.IsSelected = true;
+	ctrlNum.IsActive = true;
 	DevSettings.TabIndex = 1;
 	
 	for(;;)
@@ -101,22 +106,48 @@ int main(void)
 		u8g_Delay(150);
 		
 		bool encPb = Encoder_IsButtonPressed();
-		if(encPb)
+		/*if(encPb)
 		{
-			ctrlBool.IsActive = !ctrlBool.IsActive;
+			if(selectedUserControlIndex == 0)
+			{
+				ctrlBool.IsActive = !ctrlBool.IsActive;
+			}
+			if(selectedUserControlIndex == 1)
+			{
+				ctrlEnum.IsActive = !ctrlEnum.IsActive;
+			}
+			
 			//DevSettings.PS_Output_Enabled = !DevSettings.PS_Output_Enabled;
-		}
+		}*/
 		
-		/*if(EncoderDir == ENCCLOCKWISE)
+		if(EncoderDir == ENCCLOCKWISE)
 		{
-			DevSettings.PS_Voltage_mV += 500;
+			selectedUserControlIndex++;
+			if(selectedUserControlIndex > 1) { selectedUserControlIndex = 0; }
+			
+			//DevSettings.PS_Voltage_mV += 500;
 		}
 		else if(EncoderDir == ENCCOUNTERCLOCKWISE)
 		{
-			DevSettings.PS_Voltage_mV -= 500;
+			selectedUserControlIndex--;
+			if(selectedUserControlIndex < 0) { selectedUserControlIndex = 1; }
+				
+			//DevSettings.PS_Voltage_mV -= 500;
+		}
+		
+		/*if(selectedUserControlIndex == 0)
+		{
+			ctrlBool.IsSelected = true;
+			ctrlEnum.IsSelected = false;
+		}
+		if(selectedUserControlIndex == 1)
+		{
+			ctrlBool.IsSelected = false;
+			ctrlEnum.IsSelected = true;			
 		}*/
-		ctrlBool.EncoderInput(EncoderDir);
-		ctrlEnum.EncoderInput(EncoderDir);
+		//ctrlBool.EncoderInput(EncoderDir);
+		//ctrlEnum.EncoderInput(EncoderDir);
+		ctrlNum.EncoderInput(EncoderDir);
 		
 		if(DevSettings.PS_Voltage_mV < 0) { DevSettings.PS_Voltage_mV = 0; }
 		else if(DevSettings.PS_Voltage_mV > 10000) { DevSettings.PS_Voltage_mV = 10000; }
@@ -125,8 +156,9 @@ int main(void)
 		EncoderDir = ENCNONE;
 		
 		Keys_t key = KeyPad_GetKeys();
-		ctrlBool.KeyInput(key);
-		ctrlEnum.KeyInput(key);
+		//ctrlBool.KeyInput(key);
+		//ctrlEnum.KeyInput(key);
+		ctrlNum.KeyInput(key);
 		/*if(key == KEYRIGHT)
 		{
 			DevSettings.TabIndex++;

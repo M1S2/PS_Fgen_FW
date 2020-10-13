@@ -331,6 +331,9 @@
     <Compile Include="UserControls\UserControlEnum.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="UserControls\UserControlNumeric.h">
+      <SubType>compile</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="GLCD" />

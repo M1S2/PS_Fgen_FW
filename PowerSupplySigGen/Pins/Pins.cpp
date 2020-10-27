@@ -10,9 +10,6 @@
 // Initialize the Pins
 void Pins_Init()
 {
-	MCUCSR = (1 << JTD);		// JTAG Interface Disable (otherwise PC2-PC5 can't be used), must be written twice
-	MCUCSR = (1 << JTD);
-	
 	// make all ADC pins inputs
 	CLEAR_BIT(DDRA, ADC_DVM2);
 	CLEAR_BIT(DDRA, ADC_DVM1);

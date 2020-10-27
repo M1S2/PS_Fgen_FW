@@ -5,6 +5,13 @@
  * Author : V17
  */ 
 
+/********************************************************
+* ATMega 1284P
+* avrdude -p m1284p -P usb -c usbasp 
+* -U lfuse:w:0xFF:m (external Crystal 8-16 MHz)
+* -U hfuse:w:0xD9:m (JTAG Interface Disable)
+********************************************************/
+
 #include <avr/io.h>
 #include "Spi/spi.h"
 #include "Pins/Pins.h"

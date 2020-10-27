@@ -12,8 +12,8 @@ EncoderDirection_t EncoderDir;
 void Encoder_Init()
 {
 	// see: https://www.leniwiec.org/en/2014/04/28/rotary-shaft-encoder-how-to-connect-it-and-handle-it-with-avr-atmega8-16-32-168-328/
-	GICR |= (1<<INT0);		// enable INT0
-	MCUCR |= (1<<ISC01);	// INT0 - falling edge
+	EIMSK |= (1 << INT0);		// enable INT0
+	EICRA |= (1 << ISC01);		// INT0 - falling edge
 }
 
 bool Encoder_IsButtonPressed()

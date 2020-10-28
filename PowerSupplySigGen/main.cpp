@@ -25,6 +25,7 @@
 #include "KeyPad/KeyPad.h"
 #include "Encoder/Encoder.h"
 #include "ADC/ADC.h"
+#include "USART/USART.h"
 #include "Global/DevSettings.h"
 #include "Global/DevStatus.h"
 
@@ -57,6 +58,8 @@ extern EncoderDirection_t EncoderDir;
 DevSettings_t DevSettings;
 DevStatus_t DevStatus;
 
+uint16_t cnt;
+
 void draw(DevStatus_t devStatusDraw, DevSettings_t devSettingsDraw)
 {
 	Screen_DrawTabs(&u8g, devSettingsDraw.TabIndex);
@@ -68,7 +71,22 @@ void draw(DevStatus_t devStatusDraw, DevSettings_t devSettingsDraw)
 		case 4: /*Screen_DrawTabATX(&u8g, devStatusDraw);*/ break;
 		default: break;
 	}
+	
+	u8g_SetDefaultForegroundColor(&u8g);
+	char stringBuffer[6];
+	//itoa(cnt, stringBuffer, 10);
+	stringBuffer[0] = cnt;
+	stringBuffer[1] = '\0';
+	u8g_DrawStr(&u8g, 50, 10, stringBuffer);
 }
+
+
+ISR (USART0_RX_vect)
+{
+	cnt = UDR0;
+	Usart0Transmit(cnt);
+}
+
 
 int main(void)
 {
@@ -77,6 +95,7 @@ int main(void)
 	SPI_Init();
 	Encoder_Init();
 	ADC_init();
+	Usart0Init(9600);
 	sei();
 	
 	ADC_startConversion();
@@ -92,17 +111,12 @@ int main(void)
 	DevSettings.PS_Output_Enabled = 0;
 	PS_Output_Set();
 	
-	uint8_t selectedUserControlIndex = 0;
-	//ctrlBool.IsSelected = true;
-	//ctrlBool.IsActive = false;
-	//ctrlEnum.IsSelected = false;
-	//ctrlEnum.IsActive = false;
 	ctrlNum.IsSelected = true;
 	ctrlNum.IsActive = true;
 	DevSettings.TabIndex = 1;
 	
 	for(;;)
-	{
+	{	
 		DevStatus_t devStatusDraw = DevStatus;
 		DevSettings_t devSettingsDraw = DevSettings;
 		u8g_FirstPage(&u8g);
@@ -114,46 +128,19 @@ int main(void)
 		
 		bool encPb = Encoder_IsButtonPressed();
 		/*if(encPb)
-		{
-			if(selectedUserControlIndex == 0)
-			{
-				ctrlBool.IsActive = !ctrlBool.IsActive;
-			}
-			if(selectedUserControlIndex == 1)
-			{
-				ctrlEnum.IsActive = !ctrlEnum.IsActive;
-			}
-			
-			//DevSettings.PS_Output_Enabled = !DevSettings.PS_Output_Enabled;
+		{			
+			DevSettings.PS_Output_Enabled = !DevSettings.PS_Output_Enabled;
 		}*/
 		
 		if(EncoderDir == ENCCLOCKWISE)
-		{
-			selectedUserControlIndex++;
-			if(selectedUserControlIndex > 1) { selectedUserControlIndex = 0; }
-			
+		{			
 			//DevSettings.PS_Voltage_mV += 500;
 		}
 		else if(EncoderDir == ENCCOUNTERCLOCKWISE)
-		{
-			selectedUserControlIndex--;
-			if(selectedUserControlIndex < 0) { selectedUserControlIndex = 1; }
-				
+		{				
 			//DevSettings.PS_Voltage_mV -= 500;
 		}
 		
-		/*if(selectedUserControlIndex == 0)
-		{
-			ctrlBool.IsSelected = true;
-			ctrlEnum.IsSelected = false;
-		}
-		if(selectedUserControlIndex == 1)
-		{
-			ctrlBool.IsSelected = false;
-			ctrlEnum.IsSelected = true;			
-		}*/
-		//ctrlBool.EncoderInput(EncoderDir);
-		//ctrlEnum.EncoderInput(EncoderDir);
 		ctrlNum.EncoderInput(EncoderDir);
 		
 		if(DevSettings.PS_Voltage_mV < 0) { DevSettings.PS_Voltage_mV = 0; }

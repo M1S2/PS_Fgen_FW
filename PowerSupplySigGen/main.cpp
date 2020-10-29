@@ -58,7 +58,6 @@ extern EncoderDirection_t EncoderDir;
 DevSettings_t DevSettings;
 DevStatus_t DevStatus;
 
-uint16_t cnt;
 
 void draw(DevStatus_t devStatusDraw, DevSettings_t devSettingsDraw)
 {
@@ -71,22 +70,29 @@ void draw(DevStatus_t devStatusDraw, DevSettings_t devSettingsDraw)
 		case 4: /*Screen_DrawTabATX(&u8g, devStatusDraw);*/ break;
 		default: break;
 	}
-	
-	u8g_SetDefaultForegroundColor(&u8g);
-	char stringBuffer[6];
-	//itoa(cnt, stringBuffer, 10);
-	stringBuffer[0] = cnt;
-	stringBuffer[1] = '\0';
-	u8g_DrawStr(&u8g, 50, 10, stringBuffer);
 }
 
 
 ISR (USART0_RX_vect)
 {
-	cnt = UDR0;
-	Usart0Transmit(cnt);
+	uint16_t data = UDR0;
+	Usart0Transmit(data);
 }
 
+ISR(TIMER1_COMPA_vect)
+{
+	Keys_t key = KeyPad_GetKeys();
+	ctrlNum.KeyInput(key);
+}
+
+/* Initialize 16-bit Timer/Counter1 */
+void InitUserTimer()
+{
+	TCCR1B = (1 << WGM12);					// Configure for CTC mode
+	TCCR1B |= ((1 << CS10) | (1 << CS11));	// Prescaler 64
+	TIMSK1 = (1 << OCIE1A);					// Enable Output Compare A Match Interrupt
+	OCR1A = (F_CPU / 64 / 5);				// Set compare register A (5 Hz)
+}
 
 int main(void)
 {
@@ -96,6 +102,7 @@ int main(void)
 	Encoder_Init();
 	ADC_init();
 	Usart0Init(9600);
+	InitUserTimer();
 	sei();
 	
 	ADC_startConversion();
@@ -116,7 +123,7 @@ int main(void)
 	DevSettings.TabIndex = 1;
 	
 	for(;;)
-	{	
+	{			
 		DevStatus_t devStatusDraw = DevStatus;
 		DevSettings_t devSettingsDraw = DevSettings;
 		u8g_FirstPage(&u8g);
@@ -149,10 +156,11 @@ int main(void)
 		
 		EncoderDir = ENCNONE;
 		
-		Keys_t key = KeyPad_GetKeys();
+		//Keys_t key = KeyPad_GetKeys();
+		//ctrlNum.KeyInput(key);
+		
 		//ctrlBool.KeyInput(key);
 		//ctrlEnum.KeyInput(key);
-		ctrlNum.KeyInput(key);
 		/*if(key == KEYRIGHT)
 		{
 			DevSettings.TabIndex++;

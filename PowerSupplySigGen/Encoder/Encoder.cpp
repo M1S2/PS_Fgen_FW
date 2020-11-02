@@ -6,6 +6,7 @@
  */ 
 
 #include "Encoder.h"
+#include "../UserInputHandler/UserInputHandler.h"
 
 EncoderDirection_t EncoderDir;
 
@@ -26,10 +27,12 @@ ISR(INT0_vect)
 {
 	if(!BIT_IS_CLEARED(PIND, ENC_B))
 	{
+		UserInputHandler.EnqueueEncoderInput(ENCCLOCKWISE);
 		EncoderDir = ENCCLOCKWISE;
 	}
 	else
 	{
+		UserInputHandler.EnqueueEncoderInput(ENCCOUNTERCLOCKWISE);
 		EncoderDir = ENCCOUNTERCLOCKWISE;
 	}
 }

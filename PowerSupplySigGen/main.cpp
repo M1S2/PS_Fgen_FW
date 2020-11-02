@@ -32,6 +32,8 @@
 #include "UserControls/UserControlBool.h"
 #include "UserControls/UserControlEnum.h"
 #include "UserControls/UserControlNumeric.h"
+#include "UserInputHandler/CircularBuffer.h"
+#include "UserInputHandler/UserInputHandler.h"
 
 #include <avr/interrupt.h>
 
@@ -75,13 +77,23 @@ void draw(DevStatus_t devStatusDraw, DevSettings_t devSettingsDraw)
 
 ISR (USART0_RX_vect)
 {
-	uint16_t data = UDR0;
-	Usart0Transmit(data);
+	uint8_t data = UDR0;
+	UserInputHandler.EnqueueUsartInput(data);
+	//Usart0Transmit(data);
 }
 
 ISR(TIMER1_COMPA_vect)
 {
 	Keys_t key = KeyPad_GetKeys();
+	if(key != KEYNONE)
+	{
+		UserInputHandler.EnqueueKeyInput(key);
+	}
+	if(Encoder_IsButtonPressed())
+	{
+		UserInputHandler.EnqueueEncoderButtonInput();
+	}
+	
 	ctrlNum.KeyInput(key);
 }
 
@@ -123,7 +135,9 @@ int main(void)
 	DevSettings.TabIndex = 1;
 	
 	for(;;)
-	{			
+	{		
+		UserInputHandler.ProcessInputs();	
+		
 		DevStatus_t devStatusDraw = DevStatus;
 		DevSettings_t devSettingsDraw = DevSettings;
 		u8g_FirstPage(&u8g);
@@ -131,7 +145,6 @@ int main(void)
 		{
 			draw(devStatusDraw, devSettingsDraw);
 		} while ( u8g_NextPage(&u8g) );
-		u8g_Delay(150);
 		
 		bool encPb = Encoder_IsButtonPressed();
 		/*if(encPb)

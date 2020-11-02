@@ -343,6 +343,18 @@
     <Compile Include="UserControls\UserControlNumeric.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="UserInputHandler\CircularBuffer.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="UserInputHandler\UserInputDataTypes.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="UserInputHandler\UserInputHandler.cpp">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="UserInputHandler\UserInputHandler.h">
+      <SubType>compile</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="GLCD" />
@@ -353,6 +365,7 @@
     <Folder Include="Encoder" />
     <Folder Include="ADC" />
     <Folder Include="Global" />
+    <Folder Include="UserInputHandler" />
     <Folder Include="Screens" />
     <Folder Include="Spi" />
     <Folder Include="Pins" />

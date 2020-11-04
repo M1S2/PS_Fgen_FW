@@ -346,9 +346,6 @@
     <Compile Include="UserInputHandler\CircularBuffer.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="UserInputHandler\UserInputDataTypes.h">
-      <SubType>compile</SubType>
-    </Compile>
     <Compile Include="UserInputHandler\UserInputHandler.cpp">
       <SubType>compile</SubType>
     </Compile>

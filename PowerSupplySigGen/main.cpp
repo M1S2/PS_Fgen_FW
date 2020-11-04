@@ -74,14 +74,6 @@ void draw(DevStatus_t devStatusDraw, DevSettings_t devSettingsDraw)
 	}
 }
 
-
-ISR (USART0_RX_vect)
-{
-	uint8_t data = UDR0;
-	UserInputHandler.EnqueueUsartInput(data);
-	//Usart0Transmit(data);
-}
-
 ISR(TIMER1_COMPA_vect)
 {
 	Keys_t key = KeyPad_GetKeys();

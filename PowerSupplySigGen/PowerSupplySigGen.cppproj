@@ -295,28 +295,31 @@
     <Compile Include="Pins\Pins.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="Screens\screen_draw_TabATX.cpp">
+    <Compile Include="Screens\ScreenATX.cpp">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="Screens\screen_draw_TabATX.h">
+    <Compile Include="Screens\ScreenATX.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="Screens\screen_draw_TabDMM.cpp">
+    <Compile Include="Screens\ScreenBase.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="Screens\screen_draw_TabDMM.h">
+    <Compile Include="Screens\ScreenDMM.cpp">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="Screens\screen_draw_TabPS.cpp">
+    <Compile Include="Screens\ScreenDMM.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="Screens\screen_draw_TabPS.h">
+    <Compile Include="Screens\ScreenManager.cpp">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="Screens\screen_draw_tabs.cpp">
+    <Compile Include="Screens\ScreenManager.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="Screens\screen_draw_tabs.h">
+    <Compile Include="Screens\ScreenPS.cpp">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Screens\ScreenPS.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="Spi\spi.cpp">

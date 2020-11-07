@@ -1,17 +1,15 @@
 /*
- * screen_draw_TabPS.h
+ * ScreenPS.h
  *
- * Created: 02.09.2020 19:53:02
+ * Created: 07.11.2020 13:09:43
  *  Author: V17
  */ 
 
 
-#ifndef SCREEN_DRAW_TABPS_H_
-#define SCREEN_DRAW_TABPS_H_
+#ifndef SCREENPS_H_
+#define SCREENPS_H_
 
-#include "screen_draw_tabs.h"
-#include "../Global/DevStatus.h"
-#include "../Global/DevSettings.h"
+#include "ScreenBase.h"
 
 #define CONTROLS_FONT_HEIGHT		10														// 10 pixel height font
 #define VOLTAGE_CONTROL_POSX		SCREEN_TAB_WIDTH + 10
@@ -24,6 +22,13 @@
 #define INFO_TEXT_CURRENT_POSY		INFO_TEXT_VOLTAGE_POSY - INFO_TEXTS_FONT_HEIGHT - 5
 #define INFO_TEXT_POWER_POSY		INFO_TEXT_VOLTAGE_POSY + INFO_TEXTS_FONT_HEIGHT + 5
 
-void Screen_DrawTabPS(u8g_t *u8g, DevStatus_t devStatusDraw, DevSettings_t devSettingsDraw);
+class ScreenPS : public ScreenBase
+{
+	public:
+		ScreenPS() : ScreenBase("PS")
+		{}
 
-#endif /* SCREEN_DRAW_TABPS_H_ */
+		virtual void Draw(u8g_t* u8g, DevStatus_t devStatusDraw);
+};
+
+#endif /* SCREENPS_H_ */

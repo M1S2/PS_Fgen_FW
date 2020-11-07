@@ -1,14 +1,13 @@
 /*
- * screen_draw_TabATX.cpp
+ * ScreenATX.cpp
  *
- * Created: 19.09.2020 19:09:41
+ * Created: 07.11.2020 13:23:55
  *  Author: V17
  */ 
 
-#include "screen_draw_TabATX.h"
+#include "ScreenATX.h"
 
-/*Draw ATX tab with voltage info texts*/
-void Screen_DrawTabATX(u8g_t *u8g, DevStatus_t devStatusDraw)
+void ScreenATX::Draw(u8g_t* u8g, DevStatus_t devStatusDraw)
 {
 	char stringBuffer[10];
 	

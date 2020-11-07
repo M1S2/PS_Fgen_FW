@@ -1,20 +1,20 @@
 /*
- * screen_draw_TabPS.cpp
+ * ScreenPS.cpp
  *
- * Created: 02.09.2020 19:53:13
+ * Created: 07.11.2020 13:09:35
  *  Author: V17
  */ 
 
-#include "screen_draw_TabPS.h"
+#include "ScreenPS.h"
 
-/*Draw PS tab with voltage control and info texts*/
-void Screen_DrawTabPS(u8g_t *u8g, DevStatus_t devStatusDraw, DevSettings_t devSettingsDraw)
-{	
+void ScreenPS::Draw(u8g_t* u8g, DevStatus_t devStatusDraw)
+{
 	char stringBuffer[10];
 	
 	u8g_SetDefaultForegroundColor(u8g);
 	u8g_SetFont(u8g, u8g_font_7x14r);		// 10 pixel height font
 	
+#if 0
 	/*Draw power supply voltage control*/
 	dtostrf(devSettingsDraw.PS_Voltage_mV / 1000.0f, 6, 3, stringBuffer);
 	strcat(stringBuffer, " V");
@@ -26,8 +26,9 @@ void Screen_DrawTabPS(u8g_t *u8g, DevStatus_t devStatusDraw, DevSettings_t devSe
 	else { strcpy(stringBuffer, "OFF"); }
 	u8g_DrawStr(u8g, OUTPUT_STATE_CONTROL_POSX, OUTPUT_STATE_CONTROL_POSY, stringBuffer);
 	u8g_DrawFrame(u8g, OUTPUT_STATE_CONTROL_POSX - 3, OUTPUT_STATE_CONTROL_POSY - CONTROLS_FONT_HEIGHT - 3, 62, CONTROLS_FONT_HEIGHT + 6);
+#endif
 
-	/*Draw current info text*/	
+	/*Draw current info text*/
 	dtostrf(devStatusDraw.PS_CURR_mV / 1000.0f, 6, 3, stringBuffer);
 	strcat(stringBuffer, " A");
 	u8g_DrawStr(u8g, INFO_TEXTS_POSX, INFO_TEXT_CURRENT_POSY, stringBuffer);

@@ -1,14 +1,13 @@
 /*
- * screen_draw_TabDMM.cpp
+ * ScreenDMM.cpp
  *
- * Created: 20.09.2020 12:33:46
+ * Created: 07.11.2020 13:15:21
  *  Author: V17
  */ 
 
-#include "screen_draw_TabDMM.h"
+#include "ScreenDMM.h"
 
-/*Draw DMM tab with voltage info texts*/
-void Screen_DrawTabDMM(u8g_t *u8g, DevStatus_t devStatusDraw)
+void ScreenDMM::Draw(u8g_t* u8g, DevStatus_t devStatusDraw)
 {
 	char stringBuffer[10];
 	

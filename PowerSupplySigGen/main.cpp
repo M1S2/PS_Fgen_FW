@@ -18,10 +18,6 @@
 #include "GLCD/u8g.h"
 #include "Outputs/ADC_MCP492x.h"
 #include "Outputs/PowerSupply.h"
-#include "Screens/screen_draw_tabs.h"
-#include "Screens/screen_draw_TabPS.h"
-#include "Screens/screen_draw_TabDMM.h"
-#include "Screens/screen_draw_TabATX.h"
 #include "KeyPad/KeyPad.h"
 #include "Encoder/Encoder.h"
 #include "ADC/ADC.h"
@@ -34,6 +30,8 @@
 #include "UserControls/UserControlNumeric.h"
 #include "UserInputHandler/CircularBuffer.h"
 #include "UserInputHandler/UserInputHandler.h"
+
+#include "Screens/ScreenManager.h"
 
 #include <avr/interrupt.h>
 
@@ -60,19 +58,6 @@ extern EncoderDirection_t EncoderDir;
 DevSettings_t DevSettings;
 DevStatus_t DevStatus;
 
-
-void draw(DevStatus_t devStatusDraw, DevSettings_t devSettingsDraw)
-{
-	Screen_DrawTabs(&u8g, devSettingsDraw.TabIndex);
-	switch(devSettingsDraw.TabIndex)
-	{
-		case 0: Screen_DrawTabPS(&u8g, devStatusDraw, devSettingsDraw); break;
-		case 1: /*ctrlBool.Draw(&u8g); ctrlEnum.Draw(&u8g);*/ ctrlNum.Draw(&u8g); break;
-		case 3: /*Screen_DrawTabDMM(&u8g, devStatusDraw);*/ break;
-		case 4: /*Screen_DrawTabATX(&u8g, devStatusDraw);*/ break;
-		default: break;
-	}
-}
 
 ISR(TIMER1_COMPA_vect)
 {
@@ -126,6 +111,8 @@ int main(void)
 	ctrlNum.IsActive = true;
 	DevSettings.TabIndex = 1;
 	
+	ScreenManager.SetU8GLib_Object(&u8g);
+	
 	for(;;)
 	{		
 		UserInputHandler.ProcessInputs();	
@@ -135,8 +122,11 @@ int main(void)
 		u8g_FirstPage(&u8g);
 		do
 		{
-			draw(devStatusDraw, devSettingsDraw);
+			ScreenManager.Draw(devStatusDraw, devSettingsDraw);
+			
+			//ctrlNum.Draw(&u8g);
 		} while ( u8g_NextPage(&u8g) );
+		u8g_Delay(100);
 		
 		bool encPb = Encoder_IsButtonPressed();
 		/*if(encPb)
@@ -161,21 +151,21 @@ int main(void)
 		
 		EncoderDir = ENCNONE;
 		
-		//Keys_t key = KeyPad_GetKeys();
+		Keys_t key = KeyPad_GetKeys();
 		//ctrlNum.KeyInput(key);
 		
 		//ctrlBool.KeyInput(key);
 		//ctrlEnum.KeyInput(key);
-		/*if(key == KEYRIGHT)
+		if(key == KEYRIGHT)
 		{
 			DevSettings.TabIndex++;
-			DevSettings.TabIndex %= SCREEN_NUM_TABS;
+			DevSettings.TabIndex %= NUM_SCREENS;
 		}
 		else if(key == KEYLEFT)
 		{
-			if(DevSettings.TabIndex == 0) { DevSettings.TabIndex = SCREEN_NUM_TABS - 1; }
+			if(DevSettings.TabIndex == 0) { DevSettings.TabIndex = NUM_SCREENS - 1; }
 			else { DevSettings.TabIndex--; }
-		}*/
+		}
 	}
 	
 }

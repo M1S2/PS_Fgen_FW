@@ -35,6 +35,7 @@ public:
 	
 	virtual void KeyInput(Keys_t key);
 	virtual void EncoderInput(EncoderDirection_t encDir);
+	virtual void EncoderPBInput();
 	
 	virtual void Draw(u8g_t *u8g)
 	{

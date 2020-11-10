@@ -60,6 +60,11 @@ public:
 		}
 	}
 	
+	void EncoderPBInput()
+	{
+		/* Nothing to do here */
+	}
+	
 	void Draw(u8g_t *u8g)
 	{
 		UserControlBase::Draw(u8g);

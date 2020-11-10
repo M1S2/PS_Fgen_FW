@@ -62,6 +62,7 @@ void ScreenManagerClass::KeyInput(Keys_t key)
 		if(_screens[DevSettings.TabIndex] != NULL)
 		{
 			_screens[DevSettings.TabIndex]->KeyInput(key);
+			_isControlActive = _screens[DevSettings.TabIndex]->IsSelectedControlActive();
 		}
 	}
 	else
@@ -82,6 +83,7 @@ void ScreenManagerClass::EncoderInput(EncoderDirection_t encDir)
 	if(_screens[DevSettings.TabIndex] != NULL)
 	{
 		_screens[DevSettings.TabIndex]->EncoderInput(encDir, _isControlActive);
+		_isControlActive = _screens[DevSettings.TabIndex]->IsSelectedControlActive();
 	}
 }
 
@@ -91,5 +93,7 @@ void ScreenManagerClass::EncoderPBInput()
 	{
 		_isControlActive = !_isControlActive;
 		_screens[DevSettings.TabIndex]->ActivateSelectedControl(_isControlActive);
+		_screens[DevSettings.TabIndex]->EncoderPBInput();
+		_isControlActive = _screens[DevSettings.TabIndex]->IsSelectedControlActive();
 	}
 }

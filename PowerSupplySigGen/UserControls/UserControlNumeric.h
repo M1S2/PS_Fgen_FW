@@ -124,8 +124,8 @@ class UserControlNumeric : public UserControlBase
 				{
 					if(_currentDigitPosition > -3) { _currentDigitPosition--; } 
 				}	
-        		else if(key == KEYMILLI) { /*this->IsActive = false;*/ _unitPrefixPower = -3; recalculateControlValue(); calculateDisplayValue(); }
-        		else if(key == KEYKILO) { /*this->IsActive = false;*/ _unitPrefixPower = 3; recalculateControlValue(); calculateDisplayValue(); }
+        		else if(key == KEYMILLI) { this->IsActive = false; _unitPrefixPower = -3; recalculateControlValue(); calculateDisplayValue(); }
+        		else if(key == KEYKILO) { this->IsActive = false; _unitPrefixPower = 3; recalculateControlValue(); calculateDisplayValue(); }
         		else if(key == KEYMINUS) { _displayValue *= -1; }
 				else if(key == KEYCOMMA) { _displayValue = _displayValue / pow(10, (_currentDigitPosition + 1)); /*coerceDisplayValue();*/ _currentDigitPosition = -1; }
 				else
@@ -164,6 +164,11 @@ class UserControlNumeric : public UserControlBase
 				//calculateDisplayValue();
 				//coerceDisplayValue();
 			}
+		}
+		
+		void EncoderPBInput()
+		{
+			/* Nothing to do here */			
 		}
 		
         void Draw(u8g_t *u8g)

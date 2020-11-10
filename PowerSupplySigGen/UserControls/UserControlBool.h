@@ -39,6 +39,15 @@ public:
 		}
 	}
 	
+	void EncoderPBInput()
+	{
+		if(IsSelected && IsActive)
+		{
+			*_controlValue ^= true;
+			IsActive = false;
+		}
+	}
+	
 	void Draw(u8g_t *u8g)
 	{
 		UserControlBase::Draw(u8g);

@@ -39,7 +39,11 @@ class ScreenBase
 		
 		void KeyInput(Keys_t key);
 		void EncoderInput(EncoderDirection_t encDir, bool isControlActive);
+		void EncoderPBInput();
+		
 		void ActivateSelectedControl(bool active);
+		bool IsSelectedControlActive();
+		
 		virtual void Draw(u8g_t* u8g, DevStatus_t devStatusDraw);
 };
 

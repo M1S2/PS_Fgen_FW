@@ -39,9 +39,19 @@ void ScreenBase::EncoderInput(EncoderDirection_t encDir, bool isControlActive)
 	}
 }
 
+void ScreenBase::EncoderPBInput()
+{
+	_userControls[_selectedUserControl]->EncoderPBInput();
+}
+
 void ScreenBase::ActivateSelectedControl(bool active)
 {
 	_userControls[_selectedUserControl]->IsActive = active;
+}
+
+bool ScreenBase::IsSelectedControlActive()
+{
+	return _userControls[_selectedUserControl]->IsActive;
 }
 
 void ScreenBase::Draw(u8g_t* u8g, DevStatus_t devStatusDraw)

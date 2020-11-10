@@ -12,7 +12,7 @@
 #include "UserControlBase.h"
 
 template <class T>
-class UserControlNumeric : public UserControlBase<T>
+class UserControlNumeric : public UserControlBase
 {
     private:
         char* _baseUnit;				// e.g. "V", "Hz", ...
@@ -22,6 +22,7 @@ class UserControlNumeric : public UserControlBase<T>
 		int8_t _currentDigitPosition;	// 2=left digit, 1, 0, -1, -2, -3=right digit
 		int8_t _unitPrefixPower;		// Current display prefix power (m = -3, k = 3, M = 6)
 		float _displayValue;			// Value that is displayed by Draw(). E.g. 999.760 if control value is 999760 Hz.
+		T* _controlValue;
 
 #if 0
 		/* !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
@@ -45,7 +46,7 @@ class UserControlNumeric : public UserControlBase<T>
 		
 		void calculateDisplayValue()
 		{
-        	_displayValue = (float)*this->_controlValue;
+        	_displayValue = (float)*_controlValue;
 			if(_displayValue != 0)
 			{
         		_unitPrefixPower = _valueStoreUnitPower;
@@ -63,7 +64,7 @@ class UserControlNumeric : public UserControlBase<T>
 		
 		void recalculateControlValue()
 		{
-		    *this->_controlValue = coerceValue(_displayValue * pow(10, _unitPrefixPower) * pow(10, (- _valueStoreUnitPower)));
+		    *_controlValue = coerceValue(_displayValue * pow(10, _unitPrefixPower) * pow(10, (- _valueStoreUnitPower)));
 		}
 		
 		// https://www.quora.com/How-can-you-mathematically-extract-a-single-digit-from-a-number
@@ -95,7 +96,7 @@ class UserControlNumeric : public UserControlBase<T>
 #endif
 		
     public:
-        UserControlNumeric(uint8_t locx, uint8_t locy, T* controlValue, char* baseUnit, int8_t valueStoreUnitPower, T minValue, T maxValue) : UserControlBase<T>(locx, locy, controlValue)
+        UserControlNumeric(uint8_t locx, uint8_t locy, T* controlValue, char* baseUnit, int8_t valueStoreUnitPower, T minValue, T maxValue) : UserControlBase(locx, locy)
         {
              _baseUnit = baseUnit;
              _valueStoreUnitPower = valueStoreUnitPower;
@@ -103,6 +104,7 @@ class UserControlNumeric : public UserControlBase<T>
              _maxValue = maxValue;
              _currentDigitPosition = 0;
              _unitPrefixPower = 0;
+			 _controlValue = controlValue;
              calculateDisplayValue();
 			 
 			 
@@ -144,7 +146,7 @@ class UserControlNumeric : public UserControlBase<T>
 			{
 				// !!! recalculateControlValue on Encoder Button press
 				
-				//T value = *this->_controlValue;
+				//T value = *_controlValue;
 				//T deltaValue = (pow(10, _currentDigitPosition + _unitPrefixPower - _valueStoreUnitPower));
 				float deltaValue = pow(10, _currentDigitPosition);
 				
@@ -158,7 +160,7 @@ class UserControlNumeric : public UserControlBase<T>
 					//value -= deltaValue;
 					_displayValue -= deltaValue;
 				}
-				//*this->_controlValue = coerceValue(value);
+				//*_controlValue = coerceValue(value);
 				//calculateDisplayValue();
 				//coerceDisplayValue();
 			}
@@ -166,8 +168,8 @@ class UserControlNumeric : public UserControlBase<T>
 		
         void Draw(u8g_t *u8g)
 		{
-			UserControlBase<T>::Draw(u8g);
- 
+			UserControlBase::Draw(u8g);
+ 			
 			char stringBufferLen = 8 + strlen(_baseUnit) + 1 + (_unitPrefixPower == 0 ? 0 : 1);
  			char stringBuffer[stringBufferLen];
 			dtostrf(fabs(_displayValue), 8, 3, stringBuffer);
@@ -185,7 +187,6 @@ class UserControlNumeric : public UserControlBase<T>
 			
 			u8g_uint_t cursorXpos = this->_locX + (-_currentDigitPosition + 3) * 6 + (_currentDigitPosition < 0 ? 3 : 0);
 			u8g_DrawHLine(u8g, cursorXpos, this->_locY + CONTROLS_FONT_HEIGHT + 4, 5);
-			
 			
 #if 0
 			u8g_SetDefaultForegroundColor(u8g);

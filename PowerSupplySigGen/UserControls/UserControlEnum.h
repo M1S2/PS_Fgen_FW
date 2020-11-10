@@ -11,23 +11,26 @@
 #include "UserControlBase.h"
 
 template <class T>
-class UserControlEnum : public UserControlBase<T>
+class UserControlEnum : public UserControlBase
 {
 private:
 	const char** _enumNames;
 	uint8_t _numEnumValues;
+	T* _controlValue;
+	
 public:
-	UserControlEnum(uint8_t locx, uint8_t locy, T* controlValue, const char** enumNames, uint8_t numEnumValues) : UserControlBase<T>(locx, locy, controlValue)
+	UserControlEnum(uint8_t locx, uint8_t locy, T* controlValue, const char** enumNames, uint8_t numEnumValues) : UserControlBase(locx, locy)
 	{
 		_enumNames = enumNames;
 		_numEnumValues = numEnumValues;
+		_controlValue = controlValue;
 	}
 	
 	void KeyInput(Keys_t key)
 	{
 		if(this->IsSelected && this->IsActive)
 		{
-			uint8_t* value = (uint8_t*)this->_controlValue;
+			uint8_t* value = (uint8_t*)_controlValue;
 			
 			if(key == KEYRIGHT) { EncoderInput(ENCCLOCKWISE); }
 			else if(key == KEYLEFT) { EncoderInput(ENCCOUNTERCLOCKWISE); }
@@ -48,7 +51,7 @@ public:
 	{
 		if(this->IsSelected && this->IsActive)
 		{
-			uint8_t* value = (uint8_t*)this->_controlValue;
+			uint8_t* value = (uint8_t*)_controlValue;
 			
 			if(encDir == ENCCLOCKWISE && *value < (_numEnumValues - 1)) { (*value)++; }
 			else if(encDir == ENCCLOCKWISE && *value >= (_numEnumValues - 1)) { (*value) = 0; }
@@ -59,8 +62,8 @@ public:
 	
 	void Draw(u8g_t *u8g)
 	{
-		UserControlBase<T>::Draw(u8g);
-		u8g_DrawStr(u8g, this->_locX + 3, this->_locY + 3 + CONTROLS_FONT_HEIGHT, _enumNames[*this->_controlValue]);
+		UserControlBase::Draw(u8g);
+		u8g_DrawStr(u8g, this->_locX + 3, this->_locY + 3 + CONTROLS_FONT_HEIGHT, _enumNames[*_controlValue]);
 	}
 };
 

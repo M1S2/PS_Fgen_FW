@@ -7,23 +7,16 @@
 
 #include "ScreenManager.h"
 #include "../USART/USART.h"
-#include "ScreenPS.h"
-#include "ScreenDMM.h"
-#include "ScreenATX.h"
 
 ScreenManagerClass ScreenManager;
 
-ScreenPS screenPs;
-ScreenDMM screenDmm;
-ScreenATX screenAtx;
-
 ScreenManagerClass::ScreenManagerClass()
 {	
-	_screens[0] = &screenPs;
+	_screens[0] = &_screenPs;
 	_screens[1] = NULL;
 	_screens[2] = NULL;
-	_screens[3] = &screenDmm;
-	_screens[4] = &screenAtx;
+	_screens[3] = &_screenDmm;
+	_screens[4] = &_screenAtx;
 }
 
 void ScreenManagerClass::drawScreenTabs(int selectedTabIndex)
@@ -59,5 +52,44 @@ void ScreenManagerClass::Draw(DevStatus_t devStatusDraw, DevSettings_t devSettin
 	{
 		if(i != devSettingsDraw.TabIndex || _screens[i] == NULL) { continue; }
 		_screens[i]->Draw(_u8g, devStatusDraw);
+	}
+}
+
+void ScreenManagerClass::KeyInput(Keys_t key)
+{
+	if(_isControlActive)
+	{
+		if(_screens[DevSettings.TabIndex] != NULL)
+		{
+			_screens[DevSettings.TabIndex]->KeyInput(key);
+		}
+	}
+	else
+	{
+		if(key == KEYLEFT) 
+		{
+			 DevSettings.TabIndex = (DevSettings.TabIndex - 1 < 0 ? NUM_SCREENS - 1 : DevSettings.TabIndex - 1); 
+		}
+		else if(key == KEYRIGHT) 
+		{
+			 DevSettings.TabIndex = (DevSettings.TabIndex + 1 == NUM_SCREENS ? 0: DevSettings.TabIndex + 1); 
+		}
+	}
+}
+
+void ScreenManagerClass::EncoderInput(EncoderDirection_t encDir)
+{
+	if(_screens[DevSettings.TabIndex] != NULL)
+	{
+		_screens[DevSettings.TabIndex]->EncoderInput(encDir, _isControlActive);
+	}
+}
+
+void ScreenManagerClass::EncoderPBInput()
+{
+	if(_screens[DevSettings.TabIndex] != NULL)
+	{
+		_isControlActive = !_isControlActive;
+		_screens[DevSettings.TabIndex]->ActivateSelectedControl(_isControlActive);
 	}
 }

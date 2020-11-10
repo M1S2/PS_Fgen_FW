@@ -25,4 +25,6 @@ void ScreenDMM::Draw(u8g_t* u8g, DevStatus_t devStatusDraw)
 	strcat(stringBuffer, " V");
 	u8g_DrawStr(u8g, DMM_COLUMN1_POSX, DMM_ROW2_POSY, "DMM2: ");
 	u8g_DrawStr(u8g, DMM_COLUMN2_POSX, DMM_ROW2_POSY, stringBuffer);
+	
+	ScreenBase::Draw(u8g, devStatusDraw);
 }

@@ -8,6 +8,7 @@
 #include "UserInputHandler.h"
 
 #include "../USART/USART.h"
+#include "../Screens/ScreenManager.h"
 
 UserInputHandlerClass UserInputHandler;
 
@@ -58,17 +59,23 @@ void UserInputHandlerClass::ProcessInputs()
 			{
 				Usart0TransmitStr("KEY");
 				Usart0Transmit(KeyPad_GetKeyNumInt(data->Key));
+				
+				ScreenManager.KeyInput(data->Key);
 				break;
 			}
 			case USERDATA_ENCODER: 
 			{	
 				if(data->EncDir == ENCCLOCKWISE) { Usart0TransmitStr("ENC_CW"); }
 				else { Usart0TransmitStr("ENC_CCW"); }
+				
+				ScreenManager.EncoderInput(data->EncDir);
 				break;
 			}
 			case USERDATA_ENCODER_BUTTON:
 			{
 				Usart0TransmitStr("ENC_PB");
+				
+				ScreenManager.EncoderPBInput();
 				break;
 			}
 			case USERDATA_USART: 

@@ -301,6 +301,9 @@
     <Compile Include="Screens\ScreenATX.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="Screens\ScreenBase.cpp">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="Screens\ScreenBase.h">
       <SubType>compile</SubType>
     </Compile>

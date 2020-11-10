@@ -50,8 +50,8 @@ const char* SignalFormsNames[] = { "SINE", "RECT", "TRIANGLE" };
 SignalForms_t signalForm;
 UserControlEnum<SignalForms_t> ctrlEnum (SCREEN_TAB_WIDTH + 10, 30, &signalForm, SignalFormsNames, 3);*/
 
-float num = 0;
-UserControlNumeric<float> ctrlNum (SCREEN_TAB_WIDTH + 75, 10, &num, "V", -3, -10000, 10000);
+//float num = 0;
+//UserControlNumeric<float> ctrlNum (SCREEN_TAB_WIDTH + 75, 10, &num, "V", -3, -10000, 10000);
 
 
 extern EncoderDirection_t EncoderDir;
@@ -71,7 +71,7 @@ ISR(TIMER1_COMPA_vect)
 		UserInputHandler.EnqueueEncoderButtonInput();
 	}
 	
-	ctrlNum.KeyInput(key);
+	//ctrlNum.KeyInput(key);
 }
 
 /* Initialize 16-bit Timer/Counter1 */
@@ -107,9 +107,9 @@ int main(void)
 	DevSettings.PS_Output_Enabled = 0;
 	PS_Output_Set();
 	
-	ctrlNum.IsSelected = true;
-	ctrlNum.IsActive = true;
-	DevSettings.TabIndex = 1;
+	//ctrlNum.IsSelected = true;
+	//ctrlNum.IsActive = true;
+	DevSettings.TabIndex = 0;
 	
 	ScreenManager.SetU8GLib_Object(&u8g);
 	
@@ -143,7 +143,7 @@ int main(void)
 			//DevSettings.PS_Voltage_mV -= 500;
 		}
 		
-		ctrlNum.EncoderInput(EncoderDir);
+		//ctrlNum.EncoderInput(EncoderDir);
 		
 		if(DevSettings.PS_Voltage_mV < 0) { DevSettings.PS_Voltage_mV = 0; }
 		else if(DevSettings.PS_Voltage_mV > 10000) { DevSettings.PS_Voltage_mV = 10000; }
@@ -151,12 +151,12 @@ int main(void)
 		
 		EncoderDir = ENCNONE;
 		
-		Keys_t key = KeyPad_GetKeys();
+		//Keys_t key = KeyPad_GetKeys();
 		//ctrlNum.KeyInput(key);
 		
 		//ctrlBool.KeyInput(key);
 		//ctrlEnum.KeyInput(key);
-		if(key == KEYRIGHT)
+		/*if(key == KEYRIGHT)
 		{
 			DevSettings.TabIndex++;
 			DevSettings.TabIndex %= NUM_SCREENS;
@@ -165,7 +165,7 @@ int main(void)
 		{
 			if(DevSettings.TabIndex == 0) { DevSettings.TabIndex = NUM_SCREENS - 1; }
 			else { DevSettings.TabIndex--; }
-		}
+		}*/
 	}
 	
 }

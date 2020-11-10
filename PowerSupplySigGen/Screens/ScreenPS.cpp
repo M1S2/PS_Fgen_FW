@@ -42,4 +42,6 @@ void ScreenPS::Draw(u8g_t* u8g, DevStatus_t devStatusDraw)
 	dtostrf((devStatusDraw.PS_VOLT_mV / 1000.0f) * (devStatusDraw.PS_CURR_mV / 1000.0f), 6, 3, stringBuffer);
 	strcat(stringBuffer, " W");
 	u8g_DrawStr(u8g, INFO_TEXTS_POSX, INFO_TEXT_POWER_POSY, stringBuffer);
+	
+	ScreenBase::Draw(u8g, devStatusDraw);
 }

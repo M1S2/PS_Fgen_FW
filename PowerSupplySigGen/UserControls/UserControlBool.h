@@ -10,13 +10,16 @@
 
 #include "UserControlBase.h"
 
-class UserControlBool : public UserControlBase<uint8_t>
+class UserControlBool : public UserControlBase
 {
 private:
+	uint8_t* _controlValue;
 	
 public:
-	UserControlBool(uint8_t locx, uint8_t locy, uint8_t* controlValue) : UserControlBase(locx, locy, controlValue)
-	{}
+	UserControlBool(uint8_t locx, uint8_t locy, uint8_t* controlValue) : UserControlBase(locx, locy)
+	{
+		_controlValue = controlValue;
+	}
 	
 	void KeyInput(Keys_t key)
 	{

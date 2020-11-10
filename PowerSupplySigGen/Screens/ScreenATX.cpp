@@ -37,4 +37,6 @@ void ScreenATX::Draw(u8g_t* u8g, DevStatus_t devStatusDraw)
 	strcat(stringBuffer, " V");
 	u8g_DrawStr(u8g, ATX_COLUMN3_POSX, ATX_ROW2_POSY, "-12V: ");
 	u8g_DrawStr(u8g, ATX_COLUMN4_POSX, ATX_ROW2_POSY, stringBuffer);
+	
+	ScreenBase::Draw(u8g, devStatusDraw);
 }

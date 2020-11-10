@@ -12,32 +12,31 @@
 #include "../KeyPad/KeyPad.h"
 #include "../Encoder/Encoder.h"
 #include "../GLCD/u8g.h"
+#include <stdlib.h>
 
 #define CONTROLS_FONT_HEIGHT		8
 #define CONTROLS_WIDTH				65
 
-template <class T>
 class UserControlBase
 {
 protected:
 	uint8_t _locX;			// Location is upper left corner position
 	uint8_t _locY;
-	T* _controlValue;
 	
 public:
 	bool IsSelected;
 	bool IsActive;
 	
-	UserControlBase(uint8_t locx, uint8_t locy, T* controlValue)
+	UserControlBase(uint8_t locx, uint8_t locy)
 	{
 		_locX = locx;
 		_locY = locy;
-		_controlValue = controlValue;
 	}
 	
-	void KeyInput(Keys_t key);
-	void EncoderInput(EncoderDirection_t encDir);
-	void Draw(u8g_t *u8g)
+	virtual void KeyInput(Keys_t key);
+	virtual void EncoderInput(EncoderDirection_t encDir);
+	
+	virtual void Draw(u8g_t *u8g)
 	{
 		//u8g_SetFont(u8g, u8g_font_7x14r);		// 10 pixel height font
 		u8g_SetFont(u8g, u8g_font_helvR08r);	// 8 pixel height font, 6 pixel width

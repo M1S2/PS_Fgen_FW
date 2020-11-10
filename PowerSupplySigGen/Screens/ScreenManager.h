@@ -13,18 +13,33 @@
 #include "ScreenBase.h"
 #include "../Global/DevSettings.h"
 #include "../Global/DevStatus.h"
+#include "../KeyPad/KeyPad.h"
+#include "../Encoder/Encoder.h"
+#include "ScreenPS.h"
+#include "ScreenDMM.h"
+#include "ScreenATX.h"
 
 #define NUM_SCREENS				5
 
 class ScreenManagerClass
 {
 	private:
+		ScreenPS _screenPs;
+		ScreenDMM _screenDmm;
+		ScreenATX _screenAtx;
+	
 		u8g_t* _u8g;
 		ScreenBase* _screens[NUM_SCREENS];
+	    bool _isControlActive;
+		
 		void drawScreenTabs(int selectedTabIndex);
+		
 	public:
 		ScreenManagerClass();
 		void Draw(DevStatus_t devStatusDraw, DevSettings_t devSettingsDraw);
+		void KeyInput(Keys_t key);
+		void EncoderInput(EncoderDirection_t encDir);
+		void EncoderPBInput();
 
 		void SetU8GLib_Object(u8g_t *u8g) { _u8g = u8g; }
 };

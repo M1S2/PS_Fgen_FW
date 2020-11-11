@@ -8,8 +8,6 @@
 #include "Encoder.h"
 #include "../UserInputHandler/UserInputHandler.h"
 
-EncoderDirection_t EncoderDir;
-
 void Encoder_Init()
 {
 	// see: https://www.leniwiec.org/en/2014/04/28/rotary-shaft-encoder-how-to-connect-it-and-handle-it-with-avr-atmega8-16-32-168-328/
@@ -28,11 +26,9 @@ ISR(INT0_vect)
 	if(!BIT_IS_CLEARED(PIND, ENC_B))
 	{
 		UserInputHandler.EnqueueEncoderInput(ENCCLOCKWISE);
-		EncoderDir = ENCCLOCKWISE;
 	}
 	else
 	{
 		UserInputHandler.EnqueueEncoderInput(ENCCOUNTERCLOCKWISE);
-		EncoderDir = ENCCOUNTERCLOCKWISE;
 	}
 }

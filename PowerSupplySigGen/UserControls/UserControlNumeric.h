@@ -96,7 +96,7 @@ class UserControlNumeric : public UserControlBase
 #endif
 		
     public:
-        UserControlNumeric(uint8_t locx, uint8_t locy, T* controlValue, char* baseUnit, int8_t valueStoreUnitPower, T minValue, T maxValue) : UserControlBase(locx, locy)
+        UserControlNumeric(uint8_t locx, uint8_t locy, T* controlValue, char* baseUnit, int8_t valueStoreUnitPower, T minValue, T maxValue, void (*onValueChanged)()) : UserControlBase(locx, locy, onValueChanged)
         {
              _baseUnit = baseUnit;
              _valueStoreUnitPower = valueStoreUnitPower;
@@ -124,8 +124,8 @@ class UserControlNumeric : public UserControlBase
 				{
 					if(_currentDigitPosition > -3) { _currentDigitPosition--; } 
 				}	
-        		else if(key == KEYMILLI) { this->IsActive = false; _unitPrefixPower = -3; recalculateControlValue(); calculateDisplayValue(); }
-        		else if(key == KEYKILO) { this->IsActive = false; _unitPrefixPower = 3; recalculateControlValue(); calculateDisplayValue(); }
+        		else if(key == KEYMILLI) { this->IsActive = false; _unitPrefixPower = -3; recalculateControlValue(); calculateDisplayValue(); OnValueChanged(); }
+        		else if(key == KEYKILO) { this->IsActive = false; _unitPrefixPower = 3; recalculateControlValue(); calculateDisplayValue(); OnValueChanged(); }
         		else if(key == KEYMINUS) { _displayValue *= -1; }
 				else if(key == KEYCOMMA) { _displayValue = _displayValue / pow(10, (_currentDigitPosition + 1)); /*coerceDisplayValue();*/ _currentDigitPosition = -1; }
 				else
@@ -168,7 +168,9 @@ class UserControlNumeric : public UserControlBase
 		
 		void EncoderPBInput()
 		{
-			/* Nothing to do here */			
+			recalculateControlValue();
+			calculateDisplayValue();
+			OnValueChanged();		
 		}
 		
         void Draw(u8g_t *u8g)
@@ -187,7 +189,7 @@ class UserControlNumeric : public UserControlBase
 			}
 			if(_displayValue < 0) { stringBuffer[0] = '-'; }
 			u8g_DrawStr(u8g, this->_locX + 3 - (_displayValue < 0 ? 1 : 0), this->_locY + 3 + CONTROLS_FONT_HEIGHT, stringBuffer);
-			
+
 			//u8g_SetDefaultBackgroundColor(u8g);
 			
 			u8g_uint_t cursorXpos = this->_locX + (-_currentDigitPosition + 3) * 6 + (_currentDigitPosition < 0 ? 3 : 0);

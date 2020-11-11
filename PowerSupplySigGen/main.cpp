@@ -37,27 +37,20 @@
 
 u8g_t u8g;
 
-typedef enum SignalForms
+/*typedef enum SignalForms
 {
 	SINE,
 	RECTANGLE,
 	TRIANGLE
 } SignalForms_t;
-const char* SignalFormsNames[] = { "SINE", "RECT", "TRIANGLE" };
+const char* SignalFormsNames[] = { "SINE", "RECT", "TRIANGLE" };*/
 
-
-/*UserControlBool ctrlBool (SCREEN_TAB_WIDTH + 10, 10, &DevSettings.PS_Output_Enabled);
-SignalForms_t signalForm;
+/*SignalForms_t signalForm;
 UserControlEnum<SignalForms_t> ctrlEnum (SCREEN_TAB_WIDTH + 10, 30, &signalForm, SignalFormsNames, 3);*/
 
-//float num = 0;
-//UserControlNumeric<float> ctrlNum (SCREEN_TAB_WIDTH + 75, 10, &num, "V", -3, -10000, 10000);
 
-
-extern EncoderDirection_t EncoderDir;
 DevSettings_t DevSettings;
 DevStatus_t DevStatus;
-
 
 ISR(TIMER1_COMPA_vect)
 {
@@ -70,8 +63,6 @@ ISR(TIMER1_COMPA_vect)
 	{
 		UserInputHandler.EnqueueEncoderButtonInput();
 	}
-	
-	//ctrlNum.KeyInput(key);
 }
 
 /* Initialize 16-bit Timer/Counter1 */
@@ -107,8 +98,6 @@ int main(void)
 	DevSettings.PS_Output_Enabled = 0;
 	PS_Output_Set();
 	
-	//ctrlNum.IsSelected = true;
-	//ctrlNum.IsActive = true;
 	DevSettings.TabIndex = 0;
 	
 	ScreenManager.SetU8GLib_Object(&u8g);
@@ -123,49 +112,8 @@ int main(void)
 		do
 		{
 			ScreenManager.Draw(devStatusDraw, devSettingsDraw);
-			
-			//ctrlNum.Draw(&u8g);
 		} while ( u8g_NextPage(&u8g) );
 		u8g_Delay(100);
-		
-		bool encPb = Encoder_IsButtonPressed();
-		/*if(encPb)
-		{			
-			DevSettings.PS_Output_Enabled = !DevSettings.PS_Output_Enabled;
-		}*/
-		
-		if(EncoderDir == ENCCLOCKWISE)
-		{			
-			//DevSettings.PS_Voltage_mV += 500;
-		}
-		else if(EncoderDir == ENCCOUNTERCLOCKWISE)
-		{				
-			//DevSettings.PS_Voltage_mV -= 500;
-		}
-		
-		//ctrlNum.EncoderInput(EncoderDir);
-		
-		if(DevSettings.PS_Voltage_mV < 0) { DevSettings.PS_Voltage_mV = 0; }
-		else if(DevSettings.PS_Voltage_mV > 10000) { DevSettings.PS_Voltage_mV = 10000; }
-		PS_Output_Set();
-		
-		EncoderDir = ENCNONE;
-		
-		//Keys_t key = KeyPad_GetKeys();
-		//ctrlNum.KeyInput(key);
-		
-		//ctrlBool.KeyInput(key);
-		//ctrlEnum.KeyInput(key);
-		/*if(key == KEYRIGHT)
-		{
-			DevSettings.TabIndex++;
-			DevSettings.TabIndex %= NUM_SCREENS;
-		}
-		else if(key == KEYLEFT)
-		{
-			if(DevSettings.TabIndex == 0) { DevSettings.TabIndex = NUM_SCREENS - 1; }
-			else { DevSettings.TabIndex--; }
-		}*/
 	}
 	
 }

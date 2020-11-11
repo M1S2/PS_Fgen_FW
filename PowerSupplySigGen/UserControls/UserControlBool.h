@@ -16,27 +16,20 @@ private:
 	uint8_t* _controlValue;
 	
 public:
-	UserControlBool(uint8_t locx, uint8_t locy, uint8_t* controlValue) : UserControlBase(locx, locy)
+	
+	UserControlBool(uint8_t locx, uint8_t locy, uint8_t* controlValue, void (*onValueChanged)()) : UserControlBase(locx, locy, onValueChanged)
 	{
 		_controlValue = controlValue;
 	}
 	
 	void KeyInput(Keys_t key)
 	{
-		if(IsSelected && IsActive)
-		{
-			if(key == KEYLEFT || key == KEYRIGHT) { *_controlValue ^= true; }        // toggle control value
-			else if(key == KEY0) { *_controlValue = false; }
-			else if(key == KEY1) { *_controlValue = true; }
-		}
+		/* Nothing to do here, because the value is toggled when the control gets activated. Afterwards the control is deactivated immediately. */
 	}
 	
 	void EncoderInput(EncoderDirection_t encDir)
 	{
-		if(IsSelected && IsActive)
-		{
-			if(encDir == ENCCLOCKWISE || encDir == ENCCOUNTERCLOCKWISE) { *_controlValue ^= true; }   // toggle control value
-		}
+		/* Nothing to do here, because the value is toggled when the control gets activated. Afterwards the control is deactivated immediately. */
 	}
 	
 	void EncoderPBInput()
@@ -45,6 +38,7 @@ public:
 		{
 			*_controlValue ^= true;
 			IsActive = false;
+			OnValueChanged();
 		}
 	}
 	

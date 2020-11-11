@@ -19,7 +19,7 @@ private:
 	T* _controlValue;
 	
 public:
-	UserControlEnum(uint8_t locx, uint8_t locy, T* controlValue, const char** enumNames, uint8_t numEnumValues) : UserControlBase(locx, locy)
+	UserControlEnum(uint8_t locx, uint8_t locy, T* controlValue, const char** enumNames, uint8_t numEnumValues, void (*onValueChanged)()) : UserControlBase(locx, locy, onValueChanged)
 	{
 		_enumNames = enumNames;
 		_numEnumValues = numEnumValues;
@@ -34,16 +34,16 @@ public:
 			
 			if(key == KEYRIGHT) { EncoderInput(ENCCLOCKWISE); }
 			else if(key == KEYLEFT) { EncoderInput(ENCCOUNTERCLOCKWISE); }
-			else if(key == KEY0 && _numEnumValues > 0) { *value = 0; }
-			else if(key == KEY1 && _numEnumValues > 1) { *value = 1; }
-			else if(key == KEY2 && _numEnumValues > 2) { *value = 2; }
-			else if(key == KEY3 && _numEnumValues > 3) { *value = 3; }
-			else if(key == KEY4 && _numEnumValues > 4) { *value = 4; }
-			else if(key == KEY5 && _numEnumValues > 5) { *value = 5; }
-			else if(key == KEY6 && _numEnumValues > 6) { *value = 6; }
-			else if(key == KEY7 && _numEnumValues > 7) { *value = 7; }
-			else if(key == KEY8 && _numEnumValues > 8) { *value = 8; }
-			else if(key == KEY9 && _numEnumValues > 9) { *value = 9; }
+			else if(key == KEY0 && _numEnumValues > 0) { *value = 0; OnValueChanged(); }
+			else if(key == KEY1 && _numEnumValues > 1) { *value = 1; OnValueChanged(); }
+			else if(key == KEY2 && _numEnumValues > 2) { *value = 2; OnValueChanged(); }
+			else if(key == KEY3 && _numEnumValues > 3) { *value = 3; OnValueChanged(); }
+			else if(key == KEY4 && _numEnumValues > 4) { *value = 4; OnValueChanged(); }
+			else if(key == KEY5 && _numEnumValues > 5) { *value = 5; OnValueChanged(); }
+			else if(key == KEY6 && _numEnumValues > 6) { *value = 6; OnValueChanged(); }
+			else if(key == KEY7 && _numEnumValues > 7) { *value = 7; OnValueChanged(); }
+			else if(key == KEY8 && _numEnumValues > 8) { *value = 8; OnValueChanged(); }
+			else if(key == KEY9 && _numEnumValues > 9) { *value = 9; OnValueChanged(); }
 		}
 	}
 	
@@ -57,6 +57,8 @@ public:
 			else if(encDir == ENCCLOCKWISE && *value >= (_numEnumValues - 1)) { (*value) = 0; }
 			else if (encDir == ENCCOUNTERCLOCKWISE && *value > 0) { (*value)--; }
 			else if(encDir == ENCCOUNTERCLOCKWISE && *value == 0) { (*value) = _numEnumValues - 1; }
+			
+			OnValueChanged();
 		}
 	}
 	

@@ -26,11 +26,13 @@ protected:
 public:
 	bool IsSelected;
 	bool IsActive;
-	
-	UserControlBase(uint8_t locx, uint8_t locy)
+	void (*OnValueChanged)();		// Function pointer for OnValueChanged event
+		
+	UserControlBase(uint8_t locx, uint8_t locy, void (*onValueChanged)())
 	{
 		_locX = locx;
 		_locY = locy;
+		OnValueChanged = onValueChanged;
 	}
 	
 	virtual void KeyInput(Keys_t key);

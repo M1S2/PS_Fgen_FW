@@ -37,7 +37,6 @@ typedef enum Keys
 
 
 Keys_t KeyPad_GetKeys();
-bool KeyPad_IsKeyPressed(Keys_t keys, Keys_t key);
 uint8_t KeyPad_GetKeyNumInt(Keys_t key);
 
 #endif /* KEYPAD_H_ */

@@ -24,7 +24,7 @@ Keys_t KeyPad_GetKeys()
 		for(int i=0; i<8; i++) { asm volatile("nop"); }	// wait until PORTC has new value
 		keypressed |= PINC;		// taking row value and ORing it to column value
 		
-		/* !!!!!!!!! Always returns only one key. Multiple keys not supported with this structure. */
+		/* Always returns only one key. Multiple keys not supported with this structure. */
 		switch(keypressed)
 		{
 			case 0b11101110: keys = KEY7; break;		// row 1 column 1
@@ -50,12 +50,6 @@ Keys_t KeyPad_GetKeys()
 		PORTC ^= 0b11111111;	// powering row pins of keypad
 	}
 	return keys;
-}
-
-bool KeyPad_IsKeyPressed(Keys_t keys, Keys_t key)
-{
-	return keys == key;
-	//return (keys & key);
 }
 
 uint8_t KeyPad_GetKeyNumInt(Keys_t key)

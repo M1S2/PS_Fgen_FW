@@ -40,6 +40,7 @@ public:
 			else { *_controlValue = true; }
 			IsActive = false;
 			OnValueChanged();
+			DevSettingsNeedSaving = true;
 		}
 	}
 	

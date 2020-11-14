@@ -56,6 +56,11 @@ void ScreenManagerClass::Draw(DevStatus_t devStatusDraw)
 		if(i != TabIndex || _screens[i] == NULL) { continue; }
 		_screens[i]->Draw(_u8g, devStatusDraw);
 	}
+	if(DevSettingsNeedSaving)
+	{
+		u8g_SetFont(_u8g, u8g_font_7x14r);		// 10 pixel height font
+		u8g_DrawStr(_u8g, u8g_GetWidth(_u8g) - 8, 10, "*");
+	}
 }
 
 void ScreenManagerClass::KeyInput(Keys_t key)

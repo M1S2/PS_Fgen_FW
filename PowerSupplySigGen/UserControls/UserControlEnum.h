@@ -34,16 +34,16 @@ public:
 			
 			if(key == KEYRIGHT) { EncoderInput(ENCCLOCKWISE); }
 			else if(key == KEYLEFT) { EncoderInput(ENCCOUNTERCLOCKWISE); }
-			else if(key == KEY0 && _numEnumValues > 0) { *value = 0; OnValueChanged(); }
-			else if(key == KEY1 && _numEnumValues > 1) { *value = 1; OnValueChanged(); }
-			else if(key == KEY2 && _numEnumValues > 2) { *value = 2; OnValueChanged(); }
-			else if(key == KEY3 && _numEnumValues > 3) { *value = 3; OnValueChanged(); }
-			else if(key == KEY4 && _numEnumValues > 4) { *value = 4; OnValueChanged(); }
-			else if(key == KEY5 && _numEnumValues > 5) { *value = 5; OnValueChanged(); }
-			else if(key == KEY6 && _numEnumValues > 6) { *value = 6; OnValueChanged(); }
-			else if(key == KEY7 && _numEnumValues > 7) { *value = 7; OnValueChanged(); }
-			else if(key == KEY8 && _numEnumValues > 8) { *value = 8; OnValueChanged(); }
-			else if(key == KEY9 && _numEnumValues > 9) { *value = 9; OnValueChanged(); }
+			else if(key == KEY0 && _numEnumValues > 0) { *value = 0; OnValueChanged(); DevSettingsNeedSaving = true; }
+			else if(key == KEY1 && _numEnumValues > 1) { *value = 1; OnValueChanged(); DevSettingsNeedSaving = true; }
+			else if(key == KEY2 && _numEnumValues > 2) { *value = 2; OnValueChanged(); DevSettingsNeedSaving = true; }
+			else if(key == KEY3 && _numEnumValues > 3) { *value = 3; OnValueChanged(); DevSettingsNeedSaving = true; }
+			else if(key == KEY4 && _numEnumValues > 4) { *value = 4; OnValueChanged(); DevSettingsNeedSaving = true; }
+			else if(key == KEY5 && _numEnumValues > 5) { *value = 5; OnValueChanged(); DevSettingsNeedSaving = true; }
+			else if(key == KEY6 && _numEnumValues > 6) { *value = 6; OnValueChanged(); DevSettingsNeedSaving = true; }
+			else if(key == KEY7 && _numEnumValues > 7) { *value = 7; OnValueChanged(); DevSettingsNeedSaving = true; }
+			else if(key == KEY8 && _numEnumValues > 8) { *value = 8; OnValueChanged(); DevSettingsNeedSaving = true; }
+			else if(key == KEY9 && _numEnumValues > 9) { *value = 9; OnValueChanged(); DevSettingsNeedSaving = true; }
 		}
 	}
 	
@@ -59,6 +59,7 @@ public:
 			else if(encDir == ENCCOUNTERCLOCKWISE && *value == 0) { (*value) = _numEnumValues - 1; }
 			
 			OnValueChanged();
+			DevSettingsNeedSaving = true;
 		}
 	}
 	

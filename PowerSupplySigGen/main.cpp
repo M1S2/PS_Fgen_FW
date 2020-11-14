@@ -51,9 +51,14 @@ UserControlEnum<SignalForms_t> ctrlEnum (SCREEN_TAB_WIDTH + 10, 30, &signalForm,
 
 
 DevStatus_t DevStatus;
+uint16_t UserTimerTickCounter;
+
+#define USER_TIMER_TICK_FREQ		5		// Tick frequency of the UserTimer in Hz
+#define SETTINGS_AUTOSAVE_DELAY_SEC	60		// Seconds between automatic saves of the device settings
 
 ISR(TIMER1_COMPA_vect)
 {
+	UserTimerTickCounter++;
 	Keys_t key = KeyPad_GetKeys();
 	if(key != KEYNONE)
 	{
@@ -68,10 +73,10 @@ ISR(TIMER1_COMPA_vect)
 /* Initialize 16-bit Timer/Counter1 */
 void InitUserTimer()
 {
-	TCCR1B = (1 << WGM12);					// Configure for CTC mode
-	TCCR1B |= ((1 << CS10) | (1 << CS11));	// Prescaler 64
-	TIMSK1 = (1 << OCIE1A);					// Enable Output Compare A Match Interrupt
-	OCR1A = (F_CPU / 64 / 5);				// Set compare register A (5 Hz)
+	TCCR1B = (1 << WGM12);							// Configure for CTC mode
+	TCCR1B |= ((1 << CS10) | (1 << CS11));			// Prescaler 64
+	TIMSK1 = (1 << OCIE1A);							// Enable Output Compare A Match Interrupt
+	OCR1A = (F_CPU / 64 / USER_TIMER_TICK_FREQ);	// Set compare register A (USER_TIMER_TICK_FREQ Hz)
 }
 
 int main(void)
@@ -87,23 +92,15 @@ int main(void)
 	
 	ADC_startConversion();
 	MCP4922_DisableLatching();
-	MCP4921_Voltage_Set(1000);
 	MCP4922_Voltage_Set(2500, 'A');
 	MCP4922_Voltage_Set(5000, 'B');
 	
 	u8g_InitSPI(&u8g, &u8g_dev_s1d15721_hw_spi, PN(1, 7), PN(1, 5), PN(1, 1), PN(1, 0), U8G_PIN_NONE);
 	
-	//PowerSupply.Voltage = 5000;
-	//PowerSupply.LoadImpedance = 1000000;	//47;
-	//PowerSupply.OutputEnabled = true;
-	//PowerSupply.UpdateOutput();
-	
-	//DevSettings.TabIndex = 0;
-	
 	ScreenManager.SetU8GLib_Object(&u8g);
 	
-	//SaveSettings();
 	LoadSettings();
+	UserTimerTickCounter = 0;
 	
 	for(;;)
 	{		
@@ -116,6 +113,15 @@ int main(void)
 			ScreenManager.Draw(devStatusDraw);
 		} while ( u8g_NextPage(&u8g) );
 		u8g_Delay(100);
+		
+		if((UserTimerTickCounter * (1 / (float)USER_TIMER_TICK_FREQ)) >= SETTINGS_AUTOSAVE_DELAY_SEC)
+		{
+			if(DevSettingsNeedSaving)
+			{
+				SaveSettings();
+			}
+			UserTimerTickCounter = 0;
+		}
 	}
 	
 }

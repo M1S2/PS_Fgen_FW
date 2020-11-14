@@ -160,6 +160,9 @@
     <Compile Include="ADC\ADC.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="Global\DevSettings.cpp">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="Outputs\ADC_MCP492x.cpp">
       <SubType>compile</SubType>
     </Compile>

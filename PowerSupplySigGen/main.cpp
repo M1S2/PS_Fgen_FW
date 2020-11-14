@@ -9,7 +9,8 @@
 * ATMega 1284P
 * avrdude -p m1284p -P usb -c usbasp 
 * -U lfuse:w:0xFF:m (external Crystal 8-16 MHz)
-* -U hfuse:w:0xD9:m (JTAG Interface Disable)
+* -U hfuse:w:0xD1:m (JTAG Interface Disable, Preserve EEPROM memory through the Chip Erase cycle)
+* -U efuse:w:0xFC:m (Brown-out detection level at VCC=4.3 V)
 ********************************************************/
 
 #include <avr/io.h>
@@ -49,7 +50,6 @@ const char* SignalFormsNames[] = { "SINE", "RECT", "TRIANGLE" };*/
 UserControlEnum<SignalForms_t> ctrlEnum (SCREEN_TAB_WIDTH + 10, 30, &signalForm, SignalFormsNames, 3);*/
 
 
-DevSettings_t DevSettings;
 DevStatus_t DevStatus;
 
 ISR(TIMER1_COMPA_vect)
@@ -93,25 +93,27 @@ int main(void)
 	
 	u8g_InitSPI(&u8g, &u8g_dev_s1d15721_hw_spi, PN(1, 7), PN(1, 5), PN(1, 1), PN(1, 0), U8G_PIN_NONE);
 	
-	DevSettings.PS_Voltage_mV = 5000;
-	DevSettings.PS_Load_Impedance = 1000000;	//47;
-	DevSettings.PS_Output_Enabled = 0;
-	PS_Output_Set();
+	//PowerSupply.Voltage = 5000;
+	//PowerSupply.LoadImpedance = 1000000;	//47;
+	//PowerSupply.OutputEnabled = true;
+	//PowerSupply.UpdateOutput();
 	
-	DevSettings.TabIndex = 0;
+	//DevSettings.TabIndex = 0;
 	
 	ScreenManager.SetU8GLib_Object(&u8g);
+	
+	//SaveSettings();
+	LoadSettings();
 	
 	for(;;)
 	{		
 		UserInputHandler.ProcessInputs();	
 		
 		DevStatus_t devStatusDraw = DevStatus;
-		DevSettings_t devSettingsDraw = DevSettings;
 		u8g_FirstPage(&u8g);
 		do
 		{
-			ScreenManager.Draw(devStatusDraw, devSettingsDraw);
+			ScreenManager.Draw(devStatusDraw);
 		} while ( u8g_NextPage(&u8g) );
 		u8g_Delay(100);
 	}

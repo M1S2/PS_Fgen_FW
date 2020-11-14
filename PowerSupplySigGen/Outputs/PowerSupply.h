@@ -10,12 +10,25 @@
 #define POWERSUPPLY_H_
 
 #include "ADC_MCP492x.h"
-#include "../Global/DevSettings.h"
 
 #define PS_INTERNAL_IMPEDANCE	5.7
+#define PS_MIN_LOAD_IMPEDANCE	1.0
 
-void PS_Output_Set();
+class PowerSupplyClass
+{
+	public:
+		float Voltage;
+		bool OutputEnabled;
+		float LoadImpedance;
+		
+		PowerSupplyClass() 
+		{}
+			
+		void UpdateOutput();
+};
 
+extern PowerSupplyClass PowerSupply;
 
+void PSUpdateOutputCallbackFunction();
 
 #endif /* POWERSUPPLY_H_ */

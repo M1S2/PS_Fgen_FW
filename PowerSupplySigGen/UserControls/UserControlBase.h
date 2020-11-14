@@ -13,6 +13,7 @@
 #include "../Encoder/Encoder.h"
 #include "../GLCD/u8g.h"
 #include <stdlib.h>
+#include <stdbool.h>
 
 #define CONTROLS_FONT_HEIGHT		8
 #define CONTROLS_WIDTH				65

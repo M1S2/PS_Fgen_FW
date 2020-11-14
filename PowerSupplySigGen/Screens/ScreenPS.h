@@ -30,15 +30,15 @@
 class ScreenPS : public ScreenBase
 {
 	private:
-		UserControlNumeric<uint16_t> _ctrlPSVoltage;
-		UserControlNumeric<uint32_t> _ctrlLoadImpedance;
+		UserControlNumeric<float> _ctrlPSVoltage;
+		UserControlNumeric<float> _ctrlLoadImpedance;
 		UserControlBool _ctrlOutputEnable;
 	
 	public:
 		ScreenPS() : ScreenBase("PS"), 
-			_ctrlPSVoltage(VOLTAGE_CONTROL_POSX, VOLTAGE_CONTROL_POSY, &DevSettings.PS_Voltage_mV, "V", -3, 0, 10000, &PS_Output_Set),
-			_ctrlLoadImpedance(LOAD_IMPEDANCE_CONTROL_POSX, LOAD_IMPEDANCE_CONTROL_POSY, &DevSettings.PS_Load_Impedance, "Ohm", 0, 1, 1000000, &PS_Output_Set),
-			_ctrlOutputEnable(OUTPUT_STATE_CONTROL_POSX, OUTPUT_STATE_CONTROL_POSY, &DevSettings.PS_Output_Enabled, &PS_Output_Set)			
+			_ctrlPSVoltage(VOLTAGE_CONTROL_POSX, VOLTAGE_CONTROL_POSY, &PowerSupply.Voltage, "V", 0, 0, 10, &PSUpdateOutputCallbackFunction),
+			_ctrlLoadImpedance(LOAD_IMPEDANCE_CONTROL_POSX, LOAD_IMPEDANCE_CONTROL_POSY, &PowerSupply.LoadImpedance, "Ohm", 0, PS_MIN_LOAD_IMPEDANCE, 1000000, &PSUpdateOutputCallbackFunction),
+			_ctrlOutputEnable(OUTPUT_STATE_CONTROL_POSX, OUTPUT_STATE_CONTROL_POSY, &PowerSupply.OutputEnabled, &PSUpdateOutputCallbackFunction)		
 		{
 			_ctrlPSVoltage.IsSelected = true;
 			

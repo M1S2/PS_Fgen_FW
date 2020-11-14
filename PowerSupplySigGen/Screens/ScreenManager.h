@@ -35,8 +35,10 @@ class ScreenManagerClass
 		void drawScreenTabs(int selectedTabIndex);
 		
 	public:
+		uint8_t TabIndex;
+	
 		ScreenManagerClass();
-		void Draw(DevStatus_t devStatusDraw, DevSettings_t devSettingsDraw);
+		void Draw(DevStatus_t devStatusDraw);
 		void KeyInput(Keys_t key);
 		void EncoderInput(EncoderDirection_t encDir);
 		void EncoderPBInput();

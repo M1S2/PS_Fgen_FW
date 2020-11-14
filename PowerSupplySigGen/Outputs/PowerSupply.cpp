@@ -6,16 +6,26 @@
  */ 
 
 #include "PowerSupply.h"
+#include "../USART/USART.h"
 
-void PS_Output_Set()
-{
-	if(DevSettings.PS_Output_Enabled)
+PowerSupplyClass PowerSupply;
+
+void PowerSupplyClass::UpdateOutput()
+{	
+	if(OutputEnabled)
 	{
-		uint32_t voltage_mV = ((DevSettings.PS_Load_Impedance + PS_INTERNAL_IMPEDANCE) / (float)DevSettings.PS_Load_Impedance) * DevSettings.PS_Voltage_mV;				//Vset = ((Rload + Rinternal) / Rload) * Vout		
-		MCP4921_Voltage_Set(voltage_mV / 2);		// divided by two because of OpAmp in circuit that has an amplification of 2
+		if(LoadImpedance == 0) { LoadImpedance = PS_MIN_LOAD_IMPEDANCE; }
+			
+		float voltage = ((LoadImpedance + PS_INTERNAL_IMPEDANCE) / LoadImpedance) * Voltage;				//Vset = ((Rload + Rinternal) / Rload) * Vout		
+		MCP4921_Voltage_Set(voltage / 2);		// divided by two because of OpAmp in circuit that has an amplification of 2
 	}
 	else
 	{
 		MCP4921_Voltage_Set(0);
 	}
+}
+
+void PSUpdateOutputCallbackFunction()
+{
+	PowerSupply.UpdateOutput();
 }

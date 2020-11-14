@@ -29,10 +29,10 @@ void MCP4921_DAC_Set(uint16_t dac_data)
 	DESELECT_MCP4921
 }
 
-void MCP4921_Voltage_Set(int voltage_mV)
+void MCP4921_Voltage_Set(float voltage)
 {
 	//VOUT = (GAIN * VREF * D/4096)
-	MCP4921_DAC_Set((uint16_t)(voltage_mV * (4095.0f / AVR_VCC_MV)));
+	MCP4921_DAC_Set((uint16_t)(voltage * (4095.0f / AVR_VCC)));
 }
 
 void MCP4922_DAC_Set(uint16_t dac_data, char channel_A_B)
@@ -58,11 +58,11 @@ void MCP4922_DAC_Set(uint16_t dac_data, char channel_A_B)
 	DESELECT_MCP4922
 }
 
-void MCP4922_Voltage_Set(int voltage_mV, char channel_A_B)
+void MCP4922_Voltage_Set(float voltage, char channel_A_B)
 {
 	//VOUT = (GAIN * VREF * D/4096)
-	voltage_mV = (voltage_mV + 10000) / 4;
-	MCP4922_DAC_Set((uint16_t)(voltage_mV * (4095.0f / AVR_VCC_MV)), channel_A_B);
+	voltage = (voltage + 10) / 4;
+	MCP4922_DAC_Set((uint16_t)(voltage * (4095.0f / AVR_VCC)), channel_A_B);
 }
 
 void MCP4922_DisableLatching()

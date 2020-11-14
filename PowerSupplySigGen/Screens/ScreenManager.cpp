@@ -47,12 +47,13 @@ void ScreenManagerClass::drawScreenTabs(int selectedTabIndex)
 	}
 }
 
-void ScreenManagerClass::Draw(DevStatus_t devStatusDraw, DevSettings_t devSettingsDraw)
+void ScreenManagerClass::Draw(DevStatus_t devStatusDraw)
 {
-	drawScreenTabs(devSettingsDraw.TabIndex);
+	TabIndex %= NUM_SCREENS;
+	drawScreenTabs(TabIndex);
 	for(int i=0; i<NUM_SCREENS; i++)
 	{
-		if(i != devSettingsDraw.TabIndex || _screens[i] == NULL) { continue; }
+		if(i != TabIndex || _screens[i] == NULL) { continue; }
 		_screens[i]->Draw(_u8g, devStatusDraw);
 	}
 }
@@ -61,41 +62,41 @@ void ScreenManagerClass::KeyInput(Keys_t key)
 {
 	if(_isControlActive)
 	{
-		if(_screens[DevSettings.TabIndex] != NULL)
+		if(_screens[TabIndex] != NULL)
 		{
-			_screens[DevSettings.TabIndex]->KeyInput(key);
-			_isControlActive = _screens[DevSettings.TabIndex]->IsSelectedControlActive();
+			_screens[TabIndex]->KeyInput(key);
+			_isControlActive = _screens[TabIndex]->IsSelectedControlActive();
 		}
 	}
 	else
 	{
 		if(key == KEYLEFT) 
 		{
-			 DevSettings.TabIndex = (DevSettings.TabIndex - 1 < 0 ? NUM_SCREENS - 1 : DevSettings.TabIndex - 1); 
+			 TabIndex = (TabIndex - 1 < 0 ? NUM_SCREENS - 1 : TabIndex - 1); 
 		}
 		else if(key == KEYRIGHT) 
 		{
-			 DevSettings.TabIndex = (DevSettings.TabIndex + 1 == NUM_SCREENS ? 0: DevSettings.TabIndex + 1); 
+			 TabIndex = (TabIndex + 1 == NUM_SCREENS ? 0: TabIndex + 1); 
 		}
 	}
 }
 
 void ScreenManagerClass::EncoderInput(EncoderDirection_t encDir)
 {
-	if(_screens[DevSettings.TabIndex] != NULL)
+	if(_screens[TabIndex] != NULL)
 	{
-		_screens[DevSettings.TabIndex]->EncoderInput(encDir, _isControlActive);
-		_isControlActive = _screens[DevSettings.TabIndex]->IsSelectedControlActive();
+		_screens[TabIndex]->EncoderInput(encDir, _isControlActive);
+		_isControlActive = _screens[TabIndex]->IsSelectedControlActive();
 	}
 }
 
 void ScreenManagerClass::EncoderPBInput()
 {
-	if(_screens[DevSettings.TabIndex] != NULL)
+	if(_screens[TabIndex] != NULL)
 	{
 		_isControlActive = !_isControlActive;
-		_screens[DevSettings.TabIndex]->ActivateSelectedControl(_isControlActive);
-		_screens[DevSettings.TabIndex]->EncoderPBInput();
-		_isControlActive = _screens[DevSettings.TabIndex]->IsSelectedControlActive();
+		_screens[TabIndex]->ActivateSelectedControl(_isControlActive);
+		_screens[TabIndex]->EncoderPBInput();
+		_isControlActive = _screens[TabIndex]->IsSelectedControlActive();
 	}
 }

@@ -9,17 +9,15 @@
 #ifndef DEVSETTINGS_H_
 #define DEVSETTINGS_H_
 
+//"Use the Save EEPROM fusebit so it wont get deleted every time you program the mcu."
+//https://www.avrfreaks.net/forum/tut-c-using-eeprom-memory-avr-gcc
+#include <avr/eeprom.h>
+#include <stdbool.h>
+
+void SaveSettings();
+void LoadSettings();
+
 #define AVR_VCC		5.27
 #define AVR_VCC_MV	5270
-
-struct DevSettings_t
-{
-	uint8_t TabIndex;
-	uint16_t PS_Voltage_mV;
-	uint8_t PS_Output_Enabled;
-	uint32_t PS_Load_Impedance;
-};
-
-extern DevSettings_t DevSettings;		// defined in main.cpp
 
 #endif /* DEVSETTINGS_H_ */

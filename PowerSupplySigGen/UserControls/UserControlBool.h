@@ -13,11 +13,11 @@
 class UserControlBool : public UserControlBase
 {
 private:
-	uint8_t* _controlValue;
+	bool* _controlValue;
 	
 public:
 	
-	UserControlBool(uint8_t locx, uint8_t locy, uint8_t* controlValue, void (*onValueChanged)()) : UserControlBase(locx, locy, onValueChanged)
+	UserControlBool(uint8_t locx, uint8_t locy, bool* controlValue, void (*onValueChanged)()) : UserControlBase(locx, locy, onValueChanged)
 	{
 		_controlValue = controlValue;
 	}
@@ -36,7 +36,8 @@ public:
 	{
 		if(IsSelected && IsActive)
 		{
-			*_controlValue ^= true;
+			if(*_controlValue == true) { *_controlValue = false; }
+			else { *_controlValue = true; }
 			IsActive = false;
 			OnValueChanged();
 		}

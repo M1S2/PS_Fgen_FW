@@ -18,6 +18,5 @@ void SaveSettings();
 void LoadSettings();
 
 #define AVR_VCC		5.27
-#define AVR_VCC_MV	5270
 
 #endif /* DEVSETTINGS_H_ */

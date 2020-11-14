@@ -6,7 +6,7 @@
  */ 
 
 #include "ScreenManager.h"
-#include "../USART/USART.h"
+#include "../Global/DevSettings.h"
 
 ScreenManagerClass ScreenManager;
 
@@ -78,6 +78,7 @@ void ScreenManagerClass::KeyInput(Keys_t key)
 		{
 			 TabIndex = (TabIndex + 1 == NUM_SCREENS ? 0: TabIndex + 1); 
 		}
+		SaveSettings();
 	}
 }
 

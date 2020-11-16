@@ -177,7 +177,12 @@ class UserControlNumeric : public UserControlBase
         void Draw(u8g_t *u8g)
 		{
 			UserControlBase::Draw(u8g);
- 			
+ 		
+			if(!this->IsActive)
+			{
+				calculateDisplayValue();
+			}
+		 	
 			char stringBufferLen = 8 + strlen(_baseUnit) + 1 + (_unitPrefixPower == 0 ? 0 : 1);
  			char stringBuffer[stringBufferLen];
 			dtostrf(fabs(_displayValue), 8, 3, stringBuffer);

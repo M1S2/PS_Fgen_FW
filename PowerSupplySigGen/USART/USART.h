@@ -13,7 +13,15 @@
 #include <string.h>
 
 void Usart0Init(uint16_t baud);
-void Usart0Transmit(uint8_t data);
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+	void Usart0Transmit(uint8_t data);
+#ifdef __cplusplus
+}
+#endif
+	
 void Usart0TransmitStr(char* data);
 uint8_t Usart0Receive();
 void Usart0Flush();

@@ -33,6 +33,7 @@
 #include "UserInputHandler/UserInputHandler.h"
 
 #include "Screens/ScreenManager.h"
+#include "SCPI/scpi_parser.h"
 
 #include <avr/interrupt.h>
 
@@ -101,6 +102,8 @@ int main(void)
 	
 	LoadSettings();
 	UserTimerTickCounter = 0;
+	
+	scpi_parser_init_commands();
 	
 	for(;;)
 	{		

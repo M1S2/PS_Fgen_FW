@@ -9,7 +9,7 @@
 
 #include "../USART/USART.h"
 #include "../Screens/ScreenManager.h"
-#include "../libs/scpi_parser/scpi.h"
+#include "../SCPI/scpi_parser.h"
 
 UserInputHandlerClass UserInputHandler;
 
@@ -74,7 +74,7 @@ void UserInputHandlerClass::ProcessInputs()
 			case USERDATA_USART: 
 			{
 				Usart0Transmit(data->UsartChr);		// Echo character
-				scpi_handle_byte(data->UsartChr);
+				SCPIparser.ProcessInput(data->UsartChr, "\n");
 				break;
 			}
 			default: break;

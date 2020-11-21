@@ -1,46 +1,35 @@
 /*
- * scpi_commands.cpp
+ * SCPI_Commands.cpp
  *
- * Created: 17.11.2020 21:19:11
+ * Created: 20.11.2020 16:57:53
  *  Author: V17
+ *
+ * based on: https://github.com/Vrekrer/Vrekrer_scpi_parser
  */ 
 
-#include "scpi_parser.h"
-#include "../USART/USART.h"
-#include "../Outputs/PowerSupply.h"
+#include "SCPI_Commands.h"
 
-void Identify(SCPI_C commands, SCPI_P parameters, SCPI_send_str_t sendFunction)
+SCPI_Commands::SCPI_Commands(char *message)
 {
-	char IDN[] = "Markus Scheich,PowerSupplySigGen,0,v1.0\n";
-	if(sendFunction != NULL)
+	char* token = message;
+	// Trim leading spaces
+	while (isspace(*token)) token++;
+	// Discard parameters and multicommands
+	this->not_processed_message = strpbrk(token, " \t;");
+	if (this->not_processed_message != NULL)
 	{
-		sendFunction(IDN);
-	}
-}
-
-void OutputState(SCPI_C commands, SCPI_P parameters, SCPI_send_str_t sendFunction)
-{		
-	char *paramState = parameters.First();
-	if(paramState == NULL) { paramState = ""; }
-		
-	if(paramState == "ON")
-	{
-		if(sendFunction != NULL) { sendFunction("OutputStateON\n"); }
-		PowerSupply.OutputEnabled = true;
+		this->not_processed_message += 1;
+		token = strtok(token, " \t;");
+		token = strtok(token, ":");
 	}
 	else
 	{
-		if(sendFunction != NULL) { sendFunction("OutputStateOFF\n"); }
-		PowerSupply.OutputEnabled = false;
+		token = strtok(token, ":");
 	}
-	PowerSupply.UpdateOutput();
-}
-
-
-void scpi_parser_init_commands()
-{
-	 SCPIparser.SendStrFunction = &Usart0TransmitStr;
-	 SCPIparser.RegisterCommand("*IDN?", &Identify);
-     SCPIparser.RegisterCommand("OUTPut", &OutputState);
-
+	// Strip using ':'
+	while (token != NULL)
+	{
+		this->Append(token);
+		token = strtok(NULL, ":");
+	}
 }

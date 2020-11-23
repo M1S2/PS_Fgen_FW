@@ -34,7 +34,7 @@ void Usart0Transmit(uint8_t data)
 	UDR0 = data;
 }
 
-void Usart0TransmitStr(char* data)
+void Usart0TransmitStr(const char* data)
 {
 	for (int i = 0; i < strlen(data); i++)
 	{

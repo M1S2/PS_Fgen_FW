@@ -14,7 +14,7 @@
 
 void Usart0Init(uint16_t baud);
 void Usart0Transmit(uint8_t data);	
-void Usart0TransmitStr(char* data);
+void Usart0TransmitStr(const char* data);
 uint8_t Usart0Receive();
 void Usart0Flush();
 

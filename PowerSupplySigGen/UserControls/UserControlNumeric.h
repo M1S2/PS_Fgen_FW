@@ -15,7 +15,7 @@ template <class T>
 class UserControlNumeric : public UserControlBase
 {
     private:
-        char* _baseUnit;				// e.g. "V", "Hz", ...
+        const char* _baseUnit;			// e.g. "V", "Hz", ...
         int8_t _valueStoreUnitPower;	// Is the control value stored e.g. in Millivolts (m = -3, k = 3, M = 6)
 		T _minValue;
 		T _maxValue;
@@ -96,7 +96,7 @@ class UserControlNumeric : public UserControlBase
 #endif
 		
     public:
-        UserControlNumeric(uint8_t locx, uint8_t locy, T* controlValue, char* baseUnit, int8_t valueStoreUnitPower, T minValue, T maxValue, void (*onValueChanged)()) : UserControlBase(locx, locy, onValueChanged)
+        UserControlNumeric(uint8_t locx, uint8_t locy, T* controlValue, const char* baseUnit, int8_t valueStoreUnitPower, T minValue, T maxValue, void (*onValueChanged)()) : UserControlBase(locx, locy, onValueChanged)
         {
              _baseUnit = baseUnit;
              _valueStoreUnitPower = valueStoreUnitPower;

@@ -28,7 +28,7 @@
 #define SCPI_BUFFER_LENGTH 64
 #endif
 
-typedef void (*SCPI_send_str_t)(char*);
+typedef void (*SCPI_send_str_t)(const char*);
 typedef void (*SCPI_caller_t)(SCPI_Commands, SCPI_Parameters, SCPI_Error_Queue, SCPI_send_str_t);
 
 class SCPI_Parser

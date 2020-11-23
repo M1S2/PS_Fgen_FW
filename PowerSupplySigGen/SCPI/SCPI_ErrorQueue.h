@@ -22,8 +22,8 @@
 typedef struct SCPI_Error_Desc
 {
 	int16_t errorno;
-	char *msg;
-	SCPI_Error_Desc(int16_t _errorno, char* _msg)
+	const char *msg;
+	SCPI_Error_Desc(int16_t _errorno, const char* _msg)
 	{
 		errorno = _errorno;
 		msg = _msg;

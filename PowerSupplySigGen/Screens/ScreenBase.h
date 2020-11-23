@@ -30,9 +30,9 @@ class ScreenBase
 		char _selectedUserControl;
 
 	public:
-		char* TabName;
+		const char* TabName;
 	
-		ScreenBase(char* tabName) : TabName(tabName)
+		ScreenBase(const char* tabName) : TabName(tabName)
 		{
 			_selectedUserControl = 0;
 		}

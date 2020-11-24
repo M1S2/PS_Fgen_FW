@@ -6,6 +6,7 @@
  */ 
 
 #include "SCPI_Parser.h"
+#include "../USART/USART.h"
 
 static char sbuf[MAX_ERROR_LEN + 1];	// must be long enough to contain an error message
 
@@ -31,8 +32,7 @@ void SCPI_builtin_ESRq(SCPI_C commands, SCPI_P parameters, SCPI_ERR errorQ, SCPI
 
 void SCPI_buildin_IDNq(SCPI_C commands, SCPI_P parameters, SCPI_ERR errorQ, SCPI_send_str_t sendFunction)
 {
-	char IDN[] = "Markus Scheich,PowerSupplySigGen,0,v1.0\r\n";
-	if(sendFunction != NULL) { sendFunction(IDN); }
+	if(sendFunction != NULL) { sendFunction("Markus Scheich,PowerSupplySigGen,0,v1.0\r\n"); }
 }
 
 void SCPI_builtin_OPC(SCPI_C commands, SCPI_P parameters, SCPI_ERR errorQ, SCPI_send_str_t sendFunction)
@@ -72,7 +72,8 @@ void SCPI_builtin_WAI(SCPI_C commands, SCPI_P parameters, SCPI_ERR errorQ, SCPI_
 
 void SCPI_builtin_TSTq(SCPI_C commands, SCPI_P parameters, SCPI_ERR errorQ, SCPI_send_str_t sendFunction)
 {
-	if(sendFunction != NULL) { sendFunction("Not implemented.\r\n"); }
+	errorQ.AddError(E_COMMAND_ERROR, "Test Error");
+	if(sendFunction != NULL) { sendFunction("Testing error queue: Error added.\r\n"); } //"Not implemented.\r\n"); }
 }
 
 /********************************** ERROR Subsystem **************************************************************************************************************/

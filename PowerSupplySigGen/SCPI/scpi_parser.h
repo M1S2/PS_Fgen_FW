@@ -20,7 +20,7 @@
 
 // Maximum number of registered commands.
 #ifndef SCPI_MAX_COMMANDS
-#define SCPI_MAX_COMMANDS 20
+#define SCPI_MAX_COMMANDS 100
 #endif
 
 // Length of the message buffer.

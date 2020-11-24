@@ -9,6 +9,7 @@
 
 #include "SCPI_Parser.h"
 #include "../USART/USART.h"
+#include <stdio.h>
 
 SCPI_Parser SCPIparser (&Usart0TransmitStr, "\r\n");
 
@@ -20,11 +21,10 @@ SCPI_Parser::SCPI_Parser(SCPI_send_str_t sendStrFunction, const char* termChars)
 	msg_counter_ = 0;
 	sendStrFunction_ = sendStrFunction;
 	termChars_ = termChars;
-	scpi_parser_init_buildin_commands();
 }
 
 void SCPI_Parser::addToken(char *token)
-{
+{	
 	size_t token_size = strlen(token);
 	bool isQuery = (token[token_size - 1] == '?');
 	if (isQuery) token_size--;
@@ -47,9 +47,11 @@ void SCPI_Parser::addToken(char *token)
 }
 
 uint32_t SCPI_Parser::getCommandCode(SCPI_Commands& commands)
-{		
-	//TODO Use a hash function instead of "base_SCPI_MAX_TOKENS numbers".
-	uint32_t code = tree_code_ - 1; // tree_code = 1 when execute
+{	
+	//TODO Use a hash function instead of "base_SCPI_MAX_TOKENS numbers".	
+	//!!!!!!!!!!!!!!!!! TREE_CODE_ not used !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	uint32_t code = 0; //tree_code_ - 1; // tree_code = 1 when execute
+	
 	bool isQuery = false;
 	for (uint8_t i = 0; i < commands.Size(); i++)
 	{
@@ -59,7 +61,7 @@ uint32_t SCPI_Parser::getCommandCode(SCPI_Commands& commands)
 		if (i == commands.Size() - 1) //Last header
 		{
 			isQuery = (commands[i][header_length - 1] == '?');
-			if (isQuery) header_length--;
+			if (isQuery) { header_length--; }
 		}
 		
 		bool isToken;
@@ -69,8 +71,7 @@ uint32_t SCPI_Parser::getCommandCode(SCPI_Commands& commands)
 			while (isupper(tokens_[j][short_length])) short_length++;
 			size_t long_length = strlen(tokens_[j]); //long token's length
 
-			if ( (tokens_[j][long_length - 1] == '#') //Numeric suffix capable token
-			&& (commands[i][header_length - 1] != '#') )
+			if ((tokens_[j][long_length - 1] == '#') && (commands[i][header_length - 1] != '#'))	//Numeric suffix capable token
 			{
 				long_length--;
 				while (isdigit(commands[i][header_length - 1])) header_length--;
@@ -80,12 +81,12 @@ uint32_t SCPI_Parser::getCommandCode(SCPI_Commands& commands)
 			if (header_length == short_length) //match with short token
 			{
 				for (uint8_t k  = 0; k < short_length; k++)
-				isToken &= (toupper(commands[i][k]) == tokens_[j][k]);
+					isToken &= (toupper(commands[i][k]) == tokens_[j][k]);
 			}
 			else if (header_length == long_length) //match with long token
 			{
 				for (uint8_t k  = 0; k < long_length; k++)
-				isToken &= (toupper(commands[i][k]) == toupper(tokens_[j][k]));
+					isToken &= (toupper(commands[i][k]) == toupper(tokens_[j][k]));
 			}
 			else
 			{
@@ -94,7 +95,7 @@ uint32_t SCPI_Parser::getCommandCode(SCPI_Commands& commands)
 			if (isToken)
 			{
 				code += j;
-				
+								
 				uint8_t suffixLength = strlen(commands[i]) - header_length;
 				if(suffixLength == 0)
 				{
@@ -114,7 +115,7 @@ uint32_t SCPI_Parser::getCommandCode(SCPI_Commands& commands)
 		}
 		if (!isToken) return 0;
 	}
-	if (isQuery) code ^= 0x80000000;
+	if (isQuery) { code ^= 0x80000000; }
 	return code+1;
 }
 
@@ -125,7 +126,7 @@ void SCPI_Parser::SetCommandTreeBase(const char* tree_base)
 }
 
 void SCPI_Parser::SetCommandTreeBase(char* tree_base)
-{
+{	
 	if (strlen(tree_base) > 0)
 	{
 		SCPI_Commands tree_tokens(tree_base);
@@ -148,6 +149,11 @@ void SCPI_Parser::RegisterCommand(const char* command, SCPI_caller_t caller)
 
 void SCPI_Parser::RegisterCommand(char* command, SCPI_caller_t caller)
 {	
+	if(caller == NULL)
+	{
+		Usart0TransmitStr("Register: Caller is NULL\r\n");
+	}
+	
 	SCPI_Commands command_tokens(command);	
 	for (uint8_t i = 0; i < command_tokens.Size(); i++)
 	{
@@ -164,10 +170,22 @@ void SCPI_Parser::Execute(char* message)
 	tree_code_ = 1;
 	SCPI_Commands commands(message);	
 	SCPI_Parameters parameters(commands.not_processed_message);	
-	uint32_t code = this->getCommandCode(commands);	
+	uint32_t code = this->getCommandCode(commands);
+	
 	for (uint8_t i = 0; i < codes_size_; i++)
-	if (valid_codes_[i] == code && code != 0)
-	(*callers_[i])(commands, parameters, errorQueue_, sendStrFunction_);
+	{
+		if (valid_codes_[i] == code && code != 0)
+		{
+			if(callers_[i] != NULL)
+			{			
+				(*callers_[i])(commands, parameters, errorQueue_, sendStrFunction_);
+			}
+			else
+			{
+				Usart0TransmitStr("Execute: Call function is NULL\r\n");
+			}
+		}
+	}
 }
 
 void SCPI_Parser::ProcessInput(const char* inputStr)

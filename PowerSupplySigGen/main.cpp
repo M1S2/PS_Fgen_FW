@@ -103,6 +103,7 @@ int main(void)
 	LoadSettings();
 	UserTimerTickCounter = 0;
 	
+	scpi_parser_init_buildin_commands();
 	scpi_parser_init_user_commands();
 	
 	for(;;)

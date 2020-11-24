@@ -7,6 +7,7 @@
 
 #include "SCPI_Parser.h"
 #include "../Outputs/PowerSupply.h"
+#include "../USART/USART.h"
 
 void SCPIOutputState(SCPI_C commands, SCPI_P parameters, SCPI_ERR errorQ, SCPI_send_str_t sendFunction)
 {		
@@ -33,9 +34,10 @@ void SCPIOutputVoltage(SCPI_C commands, SCPI_P parameters, SCPI_ERR errorQ, SCPI
 	/* Invalidate EEPROM values !!!!!!!!!!!! */
 }
 
+
 void scpi_parser_init_user_commands()
 {
-     SCPIparser.RegisterCommand("OUTPut", &SCPIOutputState);
-	 SCPIparser.RegisterCommand("OUTPut:STATe", &SCPIOutputState);
-	 SCPIparser.RegisterCommand("OUTPut:VOLT", &SCPIOutputVoltage);
+	SCPIparser.RegisterCommand("OUTPut", &SCPIOutputState);
+	SCPIparser.RegisterCommand("OUTPut:STATe", &SCPIOutputState);
+	SCPIparser.RegisterCommand("OUTPut:VOLT", &SCPIOutputVoltage);
 }

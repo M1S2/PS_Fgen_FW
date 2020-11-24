@@ -19,7 +19,7 @@
 
 // Maximum number of valid tokens.
 #ifndef SCPI_MAX_TOKENS
-#define SCPI_MAX_TOKENS 15
+#define SCPI_MAX_TOKENS 100
 #endif
 
 // Maximum length of numeric suffixes (e.g. 3 means maximum of 3 decimal places).

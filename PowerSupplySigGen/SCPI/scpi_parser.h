@@ -29,7 +29,7 @@
 #endif
 
 typedef void (*SCPI_send_str_t)(const char*);
-typedef void (*SCPI_caller_t)(SCPI_Commands, SCPI_Parameters, SCPI_Error_Queue, SCPI_send_str_t);
+typedef void (*SCPI_caller_t)(SCPI_Commands, SCPI_Parameters, SCPI_send_str_t);
 
 class SCPI_Parser
 {
@@ -42,6 +42,8 @@ class SCPI_Parser
 		void Execute(char* message);
 		void ProcessInput(const char inputByte);
 		void ProcessInput(const char* inputStr);
+	
+		SCPI_Error_Queue ErrorQueue;
 	
 	private:
 		void addToken(char* token);
@@ -57,8 +59,6 @@ class SCPI_Parser
 		uint8_t msg_counter_;
 		SCPI_send_str_t sendStrFunction_;
 		const char* termChars_;
-		
-		SCPI_Error_Queue errorQueue_;
 };
 
 void scpi_parser_init_buildin_commands();

@@ -44,7 +44,7 @@ class SCPI_Error_Queue
 		void ReadErrorNoRemove(char *buf);
 		void ReadError(char *buf);
 		void ClearErrors();
-		uint8_t ErrorCount();
+		int8_t ErrorCount();
 		
 	private:
 		int16_t getErrorString(char *buffer, int16_t errorno, const char *extra);

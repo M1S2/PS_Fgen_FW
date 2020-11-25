@@ -114,7 +114,7 @@ void SCPI_Error_Queue::AddError(int16_t errorno, const char *extra)
 
 	// get string & coerce errorno to valid value
 	errorno = getErrorString(_queue[_w_pos], errorno, extra);
-
+	
 	_w_pos++;
 	_count++;
 	if (_w_pos >= ERR_QUEUE_LEN) 
@@ -176,7 +176,7 @@ void SCPI_Error_Queue::ClearErrors()
 	_count = 0;
 }
 
-uint8_t SCPI_Error_Queue::ErrorCount()
+int8_t SCPI_Error_Queue::ErrorCount()
 {
     return _count;
 }

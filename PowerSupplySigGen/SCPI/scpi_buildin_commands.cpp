@@ -10,88 +10,87 @@
 
 static char sbuf[MAX_ERROR_LEN + 1];	// must be long enough to contain an error message
 
-void SCPI_builtin_CLS(SCPI_C commands, SCPI_P parameters, SCPI_ERR errorQ, SCPI_send_str_t sendFunction)
+void SCPI_builtin_CLS(SCPI_C commands, SCPI_P parameters, SCPI_send_str_t sendFunction)
 {
-	errorQ.ClearErrors();
+	SCPIparser.ErrorQueue.ClearErrors();
 }
 
-void SCPI_builtin_ESE(SCPI_C commands, SCPI_P parameters, SCPI_ERR errorQ, SCPI_send_str_t sendFunction)
-{
-	if(sendFunction != NULL) { sendFunction("Not implemented.\r\n"); }
-}
-
-void SCPI_builtin_ESEq(SCPI_C commands, SCPI_P parameters, SCPI_ERR errorQ, SCPI_send_str_t sendFunction)
+void SCPI_builtin_ESE(SCPI_C commands, SCPI_P parameters, SCPI_send_str_t sendFunction)
 {
 	if(sendFunction != NULL) { sendFunction("Not implemented.\r\n"); }
 }
 
-void SCPI_builtin_ESRq(SCPI_C commands, SCPI_P parameters, SCPI_ERR errorQ, SCPI_send_str_t sendFunction)
+void SCPI_builtin_ESEq(SCPI_C commands, SCPI_P parameters, SCPI_send_str_t sendFunction)
 {
 	if(sendFunction != NULL) { sendFunction("Not implemented.\r\n"); }
 }
 
-void SCPI_buildin_IDNq(SCPI_C commands, SCPI_P parameters, SCPI_ERR errorQ, SCPI_send_str_t sendFunction)
+void SCPI_builtin_ESRq(SCPI_C commands, SCPI_P parameters, SCPI_send_str_t sendFunction)
+{
+	if(sendFunction != NULL) { sendFunction("Not implemented.\r\n"); }
+}
+
+void SCPI_buildin_IDNq(SCPI_C commands, SCPI_P parameters, SCPI_send_str_t sendFunction)
 {
 	if(sendFunction != NULL) { sendFunction("Markus Scheich,PowerSupplySigGen,0,v1.0\r\n"); }
 }
 
-void SCPI_builtin_OPC(SCPI_C commands, SCPI_P parameters, SCPI_ERR errorQ, SCPI_send_str_t sendFunction)
+void SCPI_builtin_OPC(SCPI_C commands, SCPI_P parameters, SCPI_send_str_t sendFunction)
 {
 	if(sendFunction != NULL) { sendFunction("Not implemented.\r\n"); }
 }
 
-void SCPI_builtin_OPCq(SCPI_C commands, SCPI_P parameters, SCPI_ERR errorQ, SCPI_send_str_t sendFunction)
+void SCPI_builtin_OPCq(SCPI_C commands, SCPI_P parameters, SCPI_send_str_t sendFunction)
 {
 	if(sendFunction != NULL) { sendFunction("1\r\n"); }
 }
 
-void SCPI_builtin_RST(SCPI_C commands, SCPI_P parameters, SCPI_ERR errorQ, SCPI_send_str_t sendFunction)
+void SCPI_builtin_RST(SCPI_C commands, SCPI_P parameters, SCPI_send_str_t sendFunction)
 {
 	if(sendFunction != NULL) { sendFunction("Not implemented.\r\n"); }		//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 }
 
-void SCPI_builtin_SRE(SCPI_C commands, SCPI_P parameters, SCPI_ERR errorQ, SCPI_send_str_t sendFunction)
+void SCPI_builtin_SRE(SCPI_C commands, SCPI_P parameters, SCPI_send_str_t sendFunction)
 {
 	if(sendFunction != NULL) { sendFunction("Not implemented.\r\n"); }
 }
 
-void SCPI_builtin_SREq(SCPI_C commands, SCPI_P parameters, SCPI_ERR errorQ, SCPI_send_str_t sendFunction)
+void SCPI_builtin_SREq(SCPI_C commands, SCPI_P parameters, SCPI_send_str_t sendFunction)
 {
 	if(sendFunction != NULL) { sendFunction("Not implemented.\r\n"); }
 }
 
-void SCPI_builtin_STBq(SCPI_C commands, SCPI_P parameters, SCPI_ERR errorQ, SCPI_send_str_t sendFunction)
+void SCPI_builtin_STBq(SCPI_C commands, SCPI_P parameters, SCPI_send_str_t sendFunction)
 {
 	if(sendFunction != NULL) { sendFunction("Not implemented.\r\n"); }
 }
 
-void SCPI_builtin_WAI(SCPI_C commands, SCPI_P parameters, SCPI_ERR errorQ, SCPI_send_str_t sendFunction)
+void SCPI_builtin_WAI(SCPI_C commands, SCPI_P parameters, SCPI_send_str_t sendFunction)
 {
 	if(sendFunction != NULL) { sendFunction("Not implemented.\r\n"); }
 }
 
-void SCPI_builtin_TSTq(SCPI_C commands, SCPI_P parameters, SCPI_ERR errorQ, SCPI_send_str_t sendFunction)
+void SCPI_builtin_TSTq(SCPI_C commands, SCPI_P parameters, SCPI_send_str_t sendFunction)
 {
-	errorQ.AddError(E_COMMAND_ERROR, "Test Error");
-	if(sendFunction != NULL) { sendFunction("Testing error queue: Error added.\r\n"); } //"Not implemented.\r\n"); }
+	if(sendFunction != NULL) { sendFunction("Not implemented.\r\n"); }
 }
 
 /********************************** ERROR Subsystem **************************************************************************************************************/
 
-void SCPI_builtin_SYST_ERR_NEXTq(SCPI_C commands, SCPI_P parameters, SCPI_ERR errorQ, SCPI_send_str_t sendFunction)
+void SCPI_builtin_SYST_ERR_NEXTq(SCPI_C commands, SCPI_P parameters, SCPI_send_str_t sendFunction)
 {
-	errorQ.ReadError(sbuf);
+	SCPIparser.ErrorQueue.ReadError(sbuf);
 	if(sendFunction != NULL) { sendFunction(sbuf); sendFunction("\r\n"); }		
 }
 
-void SCPI_builtin_SYST_ERR_ALLq(SCPI_C commands, SCPI_P parameters, SCPI_ERR errorQ, SCPI_send_str_t sendFunction)
+void SCPI_builtin_SYST_ERR_ALLq(SCPI_C commands, SCPI_P parameters, SCPI_send_str_t sendFunction)
 {
-	if (errorQ.ErrorCount() > 0) 
+	if (SCPIparser.ErrorQueue.ErrorCount() > 0) 
 	{
 		int cnt = 0;
-		while (errorQ.ErrorCount() > 0) 
+		while (SCPIparser.ErrorQueue.ErrorCount() > 0) 
 		{
-			errorQ.ReadError(sbuf);
+			SCPIparser.ErrorQueue.ReadError(sbuf);
 			if(sendFunction != NULL)
 			{
 				if (cnt++ > 0) { sendFunction(","); }
@@ -102,30 +101,30 @@ void SCPI_builtin_SYST_ERR_ALLq(SCPI_C commands, SCPI_P parameters, SCPI_ERR err
 	} 
 	else 
 	{
-		errorQ.ReadError(sbuf);
+		SCPIparser.ErrorQueue.ReadError(sbuf);
 		if(sendFunction != NULL) { sendFunction(sbuf); sendFunction("\r\n"); }
 	}
 }
 
-void SCPI_builtin_SYST_ERR_CLEAR(SCPI_C commands, SCPI_P parameters, SCPI_ERR errorQ, SCPI_send_str_t sendFunction)
+void SCPI_builtin_SYST_ERR_CLEAR(SCPI_C commands, SCPI_P parameters, SCPI_send_str_t sendFunction)
 {
-	errorQ.ClearErrors();
+	SCPIparser.ErrorQueue.ClearErrors();
 }
 
-void SCPI_builtin_SYST_ERR_COUNq(SCPI_C commands, SCPI_P parameters, SCPI_ERR errorQ, SCPI_send_str_t sendFunction)
+void SCPI_builtin_SYST_ERR_COUNq(SCPI_C commands, SCPI_P parameters, SCPI_send_str_t sendFunction)
 {
 	if(sendFunction != NULL) 
 	{
 		char buf[10];
-		itoa(errorQ.ErrorCount(), buf, 10);
+		itoa(SCPIparser.ErrorQueue.ErrorCount(), buf, 10);
 		sendFunction(buf);
 		sendFunction("\r\n"); 
 	}
 }
 
-void SCPI_builtin_SYST_ERR_CODE_NEXTq(SCPI_C commands, SCPI_P parameters, SCPI_ERR errorQ, SCPI_send_str_t sendFunction)
+void SCPI_builtin_SYST_ERR_CODE_NEXTq(SCPI_C commands, SCPI_P parameters, SCPI_send_str_t sendFunction)
 {
-	errorQ.ReadError(sbuf);
+	SCPIparser.ErrorQueue.ReadError(sbuf);
 
 	// end at comma
 	for (int i = 0; i < MAX_ERROR_LEN + 1; i++) 
@@ -140,32 +139,39 @@ void SCPI_builtin_SYST_ERR_CODE_NEXTq(SCPI_C commands, SCPI_P parameters, SCPI_E
 	if(sendFunction != NULL) { sendFunction(sbuf); sendFunction("\r\n"); }
 }
 
-void SCPI_builtin_SYST_ERR_CODE_ALLq(SCPI_C commands, SCPI_P parameters, SCPI_ERR errorQ, SCPI_send_str_t sendFunction)
+void SCPI_builtin_SYST_ERR_CODE_ALLq(SCPI_C commands, SCPI_P parameters, SCPI_send_str_t sendFunction)
 {
-	int cnt = 0;
-	while (errorQ.ErrorCount() > 0) 
+	if (SCPIparser.ErrorQueue.ErrorCount() > 0)
 	{
-		errorQ.ReadError(sbuf);
-		if(sendFunction != NULL) 
+		int cnt = 0;
+		while (SCPIparser.ErrorQueue.ErrorCount() > 0) 
 		{
-			if (cnt++ > 0) { sendFunction(","); }
-
-			// end at comma
-			for (int i = 0; i < MAX_ERROR_LEN + 1; i++) 
+			SCPIparser.ErrorQueue.ReadError(sbuf);
+			if(sendFunction != NULL) 
 			{
-				if (sbuf[i] == ',') 
+				if (cnt++ > 0) { sendFunction(","); }
+
+				// end at comma
+				for (int i = 0; i < MAX_ERROR_LEN + 1; i++) 
 				{
-					sbuf[i] = 0;
-					break;
+					if (sbuf[i] == ',') 
+					{
+						sbuf[i] = 0;
+						break;
+					}
 				}
+				sendFunction(sbuf);
 			}
-			sendFunction(sbuf);
 		}
+		sendFunction("\r\n");
 	}
-	sendFunction("\r\n");
+	else
+	{
+		sendFunction("0\r\n");
+	}	
 }
 
-void SCPI_builtin_SYST_VERSq(SCPI_C commands, SCPI_P parameters, SCPI_ERR errorQ, SCPI_send_str_t sendFunction)
+void SCPI_builtin_SYST_VERSq(SCPI_C commands, SCPI_P parameters, SCPI_send_str_t sendFunction)
 {
 	if(sendFunction != NULL) { sendFunction("1999.0\r\n"); }		// implemented SCPI version
 }

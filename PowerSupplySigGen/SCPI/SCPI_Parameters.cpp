@@ -8,6 +8,8 @@
  */ 
 
 #include "SCPI_Parameters.h"
+#include "scpi_parser.h"
+#include <stdio.h>
 
 SCPI_Parameters::SCPI_Parameters(char* message)
 {
@@ -35,28 +37,34 @@ SCPI_Parameters::SCPI_Parameters(char* message)
 	//TODO add support for strings parameters (do not split parameters inside "")
 }
 
-bool SCPI_Parameters::GetParamBool(const uint8_t index)
+int SCPI_Parameters::GetParamBool(const uint8_t index, bool* value)
 {
 	char* paramStr = values_[index];
-	if (strcasecmp(paramStr, "1") == 0) { return true; }
-	else if (strcasecmp(paramStr, "0") == 0) { return false; }
-	else if (strcasecmp(paramStr, "ON") == 0) { return true; }
-	else if (strcasecmp(paramStr, "OFF") == 0) { return false; }
+	if (strcasecmp(paramStr, "1") == 0) { *value = true; }
+	else if (strcasecmp(paramStr, "0") == 0) { *value = false; }
+	else if (strcasecmp(paramStr, "ON") == 0) { *value = true; }
+	else if (strcasecmp(paramStr, "OFF") == 0) { *value = false; }
 	else
 	{
 		/* Invalid boolean parameter. */
+		char buf[50];
+		sprintf(buf, "Invalid BOOL value: '%s'", paramStr);
+		SCPIparser.ErrorQueue.AddError(E_CMD_NUMERIC_DATA_ERROR, buf);
+		return 1;
 	}
-	return false;   /* Return false as default value */
+	return 0;
 }
 
-int SCPI_Parameters::GetParamInt(const uint8_t index)
+int SCPI_Parameters::GetParamInt(const uint8_t index, int* value)
 {
 	char* paramStr = values_[index];
-	return atoi(paramStr);
+	*value = atoi(paramStr);
+	return 0;
 }
 
-float SCPI_Parameters::GetParamFloat(const uint8_t index)
+int SCPI_Parameters::GetParamFloat(const uint8_t index, float* value)
 {
 	char* paramStr = values_[index];
-	return atof(paramStr);
+	*value = atof(paramStr);
+	return 0;
 }

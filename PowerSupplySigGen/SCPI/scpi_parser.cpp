@@ -178,7 +178,7 @@ void SCPI_Parser::Execute(char* message)
 		{
 			if(callers_[i] != NULL)
 			{			
-				(*callers_[i])(commands, parameters, errorQueue_, sendStrFunction_);
+				(*callers_[i])(commands, parameters, sendStrFunction_);
 			}
 			else
 			{

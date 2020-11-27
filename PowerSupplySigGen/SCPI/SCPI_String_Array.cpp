@@ -14,13 +14,15 @@ char* SCPI_String_Array::operator[](const uint8_t index)
 	return values_[index];
 }
 
-void SCPI_String_Array::Append(char* value)
+bool SCPI_String_Array::Append(char* value)
 {
 	if (size_ < SCPI_ARRAY_SIZE)
 	{
 		values_[size_] = value;
 		size_++;
+		return true;
 	}
+	return false;
 }
 
 char* SCPI_String_Array::Pop()

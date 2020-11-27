@@ -35,8 +35,6 @@ class SCPI_Parser
 {
 	public:
 		SCPI_Parser(SCPI_send_str_t sendStrFunction, const char* termChars);
-		void SetCommandTreeBase(char* tree_base);
-		void SetCommandTreeBase(const char* tree_base);
 		void RegisterCommand(char* command, SCPI_caller_t caller);
 		void RegisterCommand(const char* command, SCPI_caller_t caller);
 		void Execute(char* message);
@@ -46,7 +44,7 @@ class SCPI_Parser
 		SCPI_Error_Queue ErrorQueue;
 	
 	private:
-		void addToken(char* token);
+		bool addToken(char* token);
 		uint32_t getCommandCode(SCPI_Commands& commands);
 
 		uint8_t tokens_size_;
@@ -54,7 +52,6 @@ class SCPI_Parser
 		uint8_t codes_size_;
 		uint32_t valid_codes_[SCPI_MAX_COMMANDS];
 		SCPI_caller_t callers_[SCPI_MAX_COMMANDS];
-		uint32_t tree_code_;
 		char msg_buffer[SCPI_BUFFER_LENGTH];
 		uint8_t msg_counter_;
 		SCPI_send_str_t sendStrFunction_;

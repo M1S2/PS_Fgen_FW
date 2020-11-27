@@ -30,7 +30,7 @@ class SCPI_String_Array
 		}
 	
 		char* operator[](const uint8_t index);
-		void Append(char* value);
+		bool Append(char* value);
 		char* Pop();
 		char* First();
 		char* Last();

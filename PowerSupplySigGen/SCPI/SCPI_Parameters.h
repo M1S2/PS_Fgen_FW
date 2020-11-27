@@ -22,9 +22,9 @@ class SCPI_Parameters : public SCPI_String_Array
 	public:
 		SCPI_Parameters(char *message);
 		
-		int GetParamBool(const uint8_t index, bool* value);
-		int GetParamInt(const uint8_t index, int* value);
-		int GetParamFloat(const uint8_t index, float* value);
+		bool GetParamBool(const uint8_t index, bool* value);
+		bool GetParamLong(const uint8_t index, long* value);
+		bool GetParamFloat(const uint8_t index, float* value);
 		
 		char* not_processed_message;
 };

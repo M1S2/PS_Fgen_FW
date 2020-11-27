@@ -8,9 +8,14 @@
  */ 
 
 #include "SCPI_Commands.h"
+#include "scpi_parser.h"
+#include <stdio.h>
+
+static char sbuf[MAX_ERROR_LEN + 1];
 
 SCPI_Commands::SCPI_Commands(char *message)
 {
+	if (message == NULL) { return; }
 	char* token = message;
 	// Trim leading spaces
 	while (isspace(*token)) token++;
@@ -29,7 +34,17 @@ SCPI_Commands::SCPI_Commands(char *message)
 	// Strip using ':'
 	while (token != NULL)
 	{
-		this->Append(token);
-		token = strtok(NULL, ":");
+		bool appendStatus = this->Append(token);
+		if (appendStatus)
+		{
+			token = strtok(NULL, ":");
+		}
+		else 
+		{
+			token = NULL; 
+			/* Too much command tokens for SCPI parser. */
+			sprintf(sbuf, "The number of command tokens exceeds the maximum number the parser is able to handle (max. %d).", SCPI_ARRAY_SIZE);
+			SCPIparser.ErrorQueue.AddError(E_CMD_COMMAND_HEADER_ERROR, sbuf);
+		}
 	}
 }

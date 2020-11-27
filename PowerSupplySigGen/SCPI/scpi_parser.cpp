@@ -13,17 +13,18 @@
 
 SCPI_Parser SCPIparser (&Usart0TransmitStr, "\r\n");
 
+static char sbuf[MAX_ERROR_LEN + 1];
+
 SCPI_Parser::SCPI_Parser(SCPI_send_str_t sendStrFunction, const char* termChars)
 {
 	tokens_size_ = 0;
 	codes_size_ = 0;
-	tree_code_ = 1;
 	msg_counter_ = 0;
 	sendStrFunction_ = sendStrFunction;
 	termChars_ = termChars;
 }
 
-void SCPI_Parser::addToken(char *token)
+bool SCPI_Parser::addToken(char *token)
 {	
 	size_t token_size = strlen(token);
 	bool isQuery = (token[token_size - 1] == '?');
@@ -31,26 +32,34 @@ void SCPI_Parser::addToken(char *token)
 
 	bool allready_added = false;
 	for (uint8_t i = 0; i < tokens_size_; i++)
-	allready_added ^= (strncmp(token, tokens_[i], token_size) == 0);
+	{
+		allready_added ^= (strncmp(token, tokens_[i], token_size) == 0);
+	}
 	if (!allready_added)
 	{
 		if (tokens_size_ < SCPI_MAX_TOKENS)
 		{
-			//char *stored_token = new char [token_size + 1];
 			char* stored_token = (char*)malloc((token_size + 1) * sizeof(char));
 			strncpy(stored_token, token, token_size);
 			stored_token[token_size] = '\0';
 			tokens_[tokens_size_] = stored_token;
 			tokens_size_++;
 		}
+		else
+		{
+			/* Too many tokens added. */
+			sprintf(sbuf, "Token \"%s\" not added (only %d tokens allowed)", token, SCPI_MAX_TOKENS);
+			ErrorQueue.AddError(E_DEV_OUT_OF_MEMORY, sbuf);
+			return false;
+		}
 	}
+	return true;
 }
 
 uint32_t SCPI_Parser::getCommandCode(SCPI_Commands& commands)
 {	
 	//TODO Use a hash function instead of "base_SCPI_MAX_TOKENS numbers".	
-	//!!!!!!!!!!!!!!!!! TREE_CODE_ not used !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-	uint32_t code = 0; //tree_code_ - 1; // tree_code = 1 when execute
+	uint32_t code = 0;
 	
 	bool isQuery = false;
 	for (uint8_t i = 0; i < commands.Size(); i++)
@@ -119,28 +128,6 @@ uint32_t SCPI_Parser::getCommandCode(SCPI_Commands& commands)
 	return code+1;
 }
 
-void SCPI_Parser::SetCommandTreeBase(const char* tree_base)
-{
-	strcpy(msg_buffer, tree_base);
-	this->SetCommandTreeBase(msg_buffer);
-}
-
-void SCPI_Parser::SetCommandTreeBase(char* tree_base)
-{	
-	if (strlen(tree_base) > 0)
-	{
-		SCPI_Commands tree_tokens(tree_base);
-		for (uint8_t i = 0; i < tree_tokens.Size(); i++)
-		this->addToken(tree_tokens[i]);
-		tree_code_ = 1;
-		tree_code_ = this->getCommandCode(tree_tokens);
-	}
-	else
-	{
-		tree_code_ = 1;
-	}
-}
-
 void SCPI_Parser::RegisterCommand(const char* command, SCPI_caller_t caller)
 {
 	strcpy(msg_buffer, command);
@@ -151,41 +138,64 @@ void SCPI_Parser::RegisterCommand(char* command, SCPI_caller_t caller)
 {	
 	if(caller == NULL)
 	{
-		Usart0TransmitStr("Register: Caller is NULL\r\n");
+		/* Not registered. caller is NULL */
+		sprintf(sbuf, "Command \"%s\" not registered. Caller function was NULL", command);
+		ErrorQueue.AddError(E_COMMAND_ERROR, sbuf);
+		return;
+	}
+	if (command == NULL || strcmp(command, "") == 0)
+	{
+		/* Not registered. command is NULL or empty */
+		ErrorQueue.AddError(E_COMMAND_ERROR, "Command not registered. Command string was NULL or empty");
+		return;
 	}
 	
 	SCPI_Commands command_tokens(command);	
+	bool addedSuccessful = true;
 	for (uint8_t i = 0; i < command_tokens.Size(); i++)
 	{
-		this->addToken(command_tokens[i]);
+		addedSuccessful = this->addToken(command_tokens[i]);
+		if (!addedSuccessful) { break; }
 	}
-	uint32_t code = this->getCommandCode(command_tokens);
-	valid_codes_[codes_size_] = code;
-	callers_[codes_size_] = caller;
-	codes_size_++;
+	if (addedSuccessful)
+	{
+		uint32_t code = this->getCommandCode(command_tokens);
+		valid_codes_[codes_size_] = code;
+		callers_[codes_size_] = caller;
+		codes_size_++;
+	}
 }
 
 void SCPI_Parser::Execute(char* message)
 {
-	tree_code_ = 1;
 	SCPI_Commands commands(message);	
 	SCPI_Parameters parameters(commands.not_processed_message);	
 	uint32_t code = this->getCommandCode(commands);
 	
-	for (uint8_t i = 0; i < codes_size_; i++)
+	if (code != 0)
 	{
-		if (valid_codes_[i] == code && code != 0)
+		for (uint8_t i = 0; i < codes_size_; i++)
 		{
-			if(callers_[i] != NULL)
-			{			
-				(*callers_[i])(commands, parameters, sendStrFunction_);
-			}
-			else
+			if (valid_codes_[i] == code)
 			{
-				Usart0TransmitStr("Execute: Call function is NULL\r\n");
+				if (callers_[i] != NULL)
+				{
+					(*callers_[i])(commands, parameters, sendStrFunction_);
+				}
+				else
+				{
+					/* Not executed. caller is NULL */
+					sprintf(sbuf, "Command \"%s\" not executed. Caller function was NULL", message);
+					ErrorQueue.AddError(E_COMMAND_ERROR, sbuf);
+				}
+				return;
 			}
 		}
 	}
+
+	/* If this point is reached, the code is 0 or the code isn't valid. Therefore the command is undefined. */
+	sprintf(sbuf, "Command \"%s\" is undefined.", message);
+	ErrorQueue.AddError(E_CMD_UNDEFINED_HEADER, sbuf);
 }
 
 void SCPI_Parser::ProcessInput(const char* inputStr)
@@ -205,7 +215,9 @@ void SCPI_Parser::ProcessInput(const char inputByte)
 	if (msg_counter_ >= SCPI_BUFFER_LENGTH)
 	{
 		msg_counter_ = 0;
-		/* Buffer overflow */
+		/* Receive buffer overflow */
+		ErrorQueue.AddError(E_DEV_INPUT_BUFFER_OVERRUN, "Input receive buffer overflow");
+		return;
 	}
 	msg_buffer[msg_counter_] = '\0';
 	if (strstr(msg_buffer, termChars_) != NULL)

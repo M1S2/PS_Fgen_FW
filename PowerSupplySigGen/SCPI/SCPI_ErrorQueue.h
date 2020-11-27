@@ -16,7 +16,7 @@
 #include <string.h>
 #include <ctype.h>
 
-#define ERR_QUEUE_LEN 4
+#define ERR_QUEUE_LEN 10
 #define MAX_ERROR_LEN 150
 
 typedef struct SCPI_Error_Desc
@@ -64,8 +64,11 @@ enum SCPI_Error_Constants
 {
 	E_NO_ERROR = 0,
 	E_COMMAND_ERROR = -100,
+	E_CMD_DATA_TYPE_ERROR = -104,
 	E_CMD_COMMAND_HEADER_ERROR = -110,
+	E_CMD_UNDEFINED_HEADER = -113,
 	E_CMD_NUMERIC_DATA_ERROR = -120,
+	E_CMD_INVALID_CHARACTER_IN_NUMBER = -121,
 	E_CMD_SUFFIX_ERROR = -130,
 	E_CMD_CHARACTER_DATA_ERROR = -140,
 	E_CMD_STRING_DATA_ERROR = -150,
@@ -85,10 +88,12 @@ enum SCPI_Error_Constants
 	E_DEVICE_SPECIFIC_ERROR = -300,
 	E_DEV_SYSTEM_ERROR = -310,
 	E_DEV_STORAGE_FAULT = -320,
+	E_DEV_OUT_OF_MEMORY = -321,
 	E_DEV_SELF_TEST_FAILED = -330,
 	E_DEV_CALIBRATION_FAILED = -340,
 	E_DEV_QUEUE_OVERFLOW = -350,
 	E_DEV_COMMUNICATION_ERROR = -360,
+	E_DEV_INPUT_BUFFER_OVERRUN = -363,
 	E_QUERY_ERROR = -400
 };
 
@@ -96,8 +101,11 @@ static const SCPI_Error_Desc_t scpi_std_errors[] =
 {
 	{ 0, "No error"},
 	{ -100, "Command error"},
+	{ -104, "Data type error" },
 	{ -110, "Command header error"},
+	{ -113, "Undefined header" },
 	{ -120, "Numeric data error"},
+	{ -121, "Invalid character in number" },
 	{ -130, "Suffix error"},
 	{ -140, "Character data error"},
 	{ -150, "String data error"},
@@ -119,10 +127,12 @@ static const SCPI_Error_Desc_t scpi_std_errors[] =
 	{ -300, "Device-specific error"},
 	{ -310, "System error"},
 	{ -320, "Storage fault"},
+	{ -321, "Out of memory" },
 	{ -330, "Self-test failed"},
 	{ -340, "Calibration failed"},
 	{ -350, "Queue overflow"},
 	{ -360, "Communication error"},
+	{ -363, "Input buffer overrun" },
 
 	{ -400, "Query error"},
 	{ 0, ""}    /* END marker */

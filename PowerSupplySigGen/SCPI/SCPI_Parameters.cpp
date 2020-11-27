@@ -11,6 +11,8 @@
 #include "scpi_parser.h"
 #include <stdio.h>
 
+static char sbuf[MAX_ERROR_LEN + 1];
+
 SCPI_Parameters::SCPI_Parameters(char* message)
 {
 	if(message == NULL) { return; }
@@ -31,13 +33,23 @@ SCPI_Parameters::SCPI_Parameters(char* message)
 	while (parameter != NULL)
 	{
 		while(isspace(*parameter)) parameter++;
-		this->Append(parameter);
-		parameter = strtok(NULL, ",");
+		bool appendStatus = this->Append(parameter);
+		if (appendStatus)
+		{
+			parameter = strtok(NULL, ",");
+		}
+		else
+		{
+			parameter = NULL;
+			/* Too much parameters for SCPI parser. */
+			sprintf(sbuf, "The number of parameters exceeds the maximum number the parser is able to handle (max. %d).", SCPI_ARRAY_SIZE);
+			SCPIparser.ErrorQueue.AddError(E_EXE_PARAMETER_ERROR, sbuf);
+		}
 	}
 	//TODO add support for strings parameters (do not split parameters inside "")
 }
 
-int SCPI_Parameters::GetParamBool(const uint8_t index, bool* value)
+bool SCPI_Parameters::GetParamBool(const uint8_t index, bool* value)
 {
 	char* paramStr = values_[index];
 	if (strcasecmp(paramStr, "1") == 0) { *value = true; }
@@ -47,24 +59,39 @@ int SCPI_Parameters::GetParamBool(const uint8_t index, bool* value)
 	else
 	{
 		/* Invalid boolean parameter. */
-		char buf[50];
-		sprintf(buf, "Invalid BOOL value: '%s'", paramStr);
-		SCPIparser.ErrorQueue.AddError(E_CMD_NUMERIC_DATA_ERROR, buf);
-		return 1;
+		sprintf(sbuf, "Invalid BOOL value: '%s'", paramStr);
+		SCPIparser.ErrorQueue.AddError(E_CMD_DATA_TYPE_ERROR, sbuf);
+		return false;
 	}
-	return 0;
+	return true;
 }
 
-int SCPI_Parameters::GetParamInt(const uint8_t index, int* value)
+bool SCPI_Parameters::GetParamLong(const uint8_t index, long* value)
 {
 	char* paramStr = values_[index];
-	*value = atoi(paramStr);
-	return 0;
+	char* endptr;
+	*value = strtol(paramStr, &endptr, 10);
+	if (endptr[0] != '\0')        // The whole number was valid, if the endptr only contains the string terminator
+	{
+		/* Invalid long parameter. */
+		sprintf(sbuf, "Invalid LONG value: '%s'", paramStr);
+		SCPIparser.ErrorQueue.AddError(E_CMD_INVALID_CHARACTER_IN_NUMBER, sbuf);
+		return false;
+	}
+	return true;
 }
 
-int SCPI_Parameters::GetParamFloat(const uint8_t index, float* value)
+bool SCPI_Parameters::GetParamFloat(const uint8_t index, float* value)
 {
 	char* paramStr = values_[index];
-	*value = atof(paramStr);
-	return 0;
+	char* endptr;
+	*value = (float)strtod(paramStr, &endptr);
+	if (endptr[0] != '\0')        // The whole number was valid, if the endptr only contains the string terminator
+	{
+		/* Invalid float parameter. */
+		sprintf(sbuf, "Invalid FLOAT value: '%s'", paramStr);
+		SCPIparser.ErrorQueue.AddError(E_CMD_INVALID_CHARACTER_IN_NUMBER, sbuf);
+		return false;
+	}
+	return true;
 }

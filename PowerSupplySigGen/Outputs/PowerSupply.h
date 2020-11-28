@@ -25,6 +25,9 @@ class PowerSupplyClass
 		{}
 			
 		void UpdateOutput();
+		void SetVoltage(float voltage);
+		void SetOutputEnabled(bool outputEnabled);
+		void SetLoadImpedance(float loadImpedance);
 };
 
 extern PowerSupplyClass PowerSupply;

@@ -168,6 +168,9 @@ void SCPI_Parser::RegisterCommand(char* command, SCPI_caller_t caller)
 
 void SCPI_Parser::Execute(char* message)
 {
+	char message_buffer[SCPI_BUFFER_LENGTH];
+	strcpy(message_buffer, message);
+	
 	SCPI_Commands commands(message);	
 	SCPI_Parameters parameters(commands.not_processed_message);	
 	uint32_t code = this->getCommandCode(commands);
@@ -185,7 +188,7 @@ void SCPI_Parser::Execute(char* message)
 				else
 				{
 					/* Not executed. caller is NULL */
-					sprintf(sbuf, "Command \"%s\" not executed. Caller function was NULL", message);
+					sprintf(sbuf, "Command \"%s\" not executed. Caller function was NULL", message_buffer);
 					ErrorQueue.AddError(E_COMMAND_ERROR, sbuf);
 				}
 				return;
@@ -194,7 +197,7 @@ void SCPI_Parser::Execute(char* message)
 	}
 
 	/* If this point is reached, the code is 0 or the code isn't valid. Therefore the command is undefined. */
-	sprintf(sbuf, "Command \"%s\" is undefined.", message);
+	sprintf(sbuf, "Command \"%s\" is undefined.", message_buffer);
 	ErrorQueue.AddError(E_CMD_UNDEFINED_HEADER, sbuf);
 }
 

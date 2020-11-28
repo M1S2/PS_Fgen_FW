@@ -27,7 +27,6 @@ void SaveSettings()
 	DevSettingsEEPROMLayout_t settings;
 	/* Collect setting from appropriate classes */
 	settings.PS_Voltage = PowerSupply.Voltage;
-	//settings.PS_Output_Enabled = PowerSupply.OutputEnabled;
 	settings.PS_LoadImpedance = PowerSupply.LoadImpedance;
 	settings.Screens_TabIndex = ScreenManager.TabIndex;
 
@@ -43,10 +42,21 @@ void LoadSettings()
 	
 	/* Assign Settings to appropriate classes */
 	PowerSupply.Voltage = settings.PS_Voltage;
-	//PowerSupply.OutputEnabled = settings.PS_Output_Enabled;
+	PowerSupply.OutputEnabled = false;
 	PowerSupply.LoadImpedance = settings.PS_LoadImpedance;
 	PowerSupply.UpdateOutput();
 	ScreenManager.TabIndex = settings.Screens_TabIndex;
 	
 	DevSettingsNeedSaving = false;
+}
+
+void ResetDevice()
+{	
+	PowerSupply.Voltage = 5;
+	PowerSupply.OutputEnabled = false;
+	PowerSupply.LoadImpedance = 1000000;
+	PowerSupply.UpdateOutput();
+	ScreenManager.TabIndex = 0;
+	
+	SaveSettings();
 }

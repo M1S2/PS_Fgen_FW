@@ -9,11 +9,11 @@
 #ifndef SCREENBASE_H_
 #define SCREENBASE_H_
 
-#include "../USART/USART.h"
 #include "../GLCD/u8g.h"
 #include "../Global/DevStatus.h"
 #include "../UserControls/UserControlBase.h"
 #include <stdlib.h>
+#include <string.h>
 
 #define SCREEN_TAB_WIDTH			32
 #define SCREEN_TAB_HEIGHT			12

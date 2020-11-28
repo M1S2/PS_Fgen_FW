@@ -6,7 +6,7 @@
  */ 
 
 #include "PowerSupply.h"
-#include "../USART/USART.h"
+#include "../Global/DevSettings.h"
 
 PowerSupplyClass PowerSupply;
 
@@ -23,6 +23,25 @@ void PowerSupplyClass::UpdateOutput()
 	{
 		MCP4921_Voltage_Set(0);
 	}
+}
+
+void PowerSupplyClass::SetVoltage(float voltage)
+{
+	DevSettingsNeedSaving = (Voltage != voltage);
+	Voltage = voltage;
+	UpdateOutput();
+}
+void PowerSupplyClass::SetOutputEnabled(bool outputEnabled)
+{
+	// This parameter is not saved for security reasons.
+	OutputEnabled = outputEnabled;
+	UpdateOutput();
+}
+void PowerSupplyClass::SetLoadImpedance(float loadImpedance)
+{
+	DevSettingsNeedSaving = (LoadImpedance != loadImpedance);
+	LoadImpedance = loadImpedance;
+	UpdateOutput();
 }
 
 void PSUpdateOutputCallbackFunction()

@@ -16,6 +16,7 @@
 
 void SaveSettings();
 void LoadSettings();
+void ResetDevice();
 
 extern bool DevSettingsNeedSaving;
 

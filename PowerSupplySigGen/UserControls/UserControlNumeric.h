@@ -10,6 +10,7 @@
 #define USERCONTROLNUMERIC_H_
 
 #include "UserControlBase.h"
+#include <string.h>
 
 template <class T>
 class UserControlNumeric : public UserControlBase

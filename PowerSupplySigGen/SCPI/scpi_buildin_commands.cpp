@@ -6,7 +6,7 @@
  */ 
 
 #include "SCPI_Parser.h"
-#include "../USART/USART.h"
+#include "../Global/DevSettings.h"
 
 static char sbuf[MAX_ERROR_LEN + 1];	// must be long enough to contain an error message
 
@@ -47,7 +47,7 @@ void SCPI_builtin_OPCq(SCPI_C commands, SCPI_P parameters, SCPI_send_str_t sendF
 
 void SCPI_builtin_RST(SCPI_C commands, SCPI_P parameters, SCPI_send_str_t sendFunction)
 {
-	if(sendFunction != NULL) { sendFunction("Not implemented.\r\n"); }		//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	ResetDevice();
 }
 
 void SCPI_builtin_SRE(SCPI_C commands, SCPI_P parameters, SCPI_send_str_t sendFunction)

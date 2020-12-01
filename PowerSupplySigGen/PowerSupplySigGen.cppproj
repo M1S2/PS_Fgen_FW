@@ -132,6 +132,7 @@
   <avrgcccpp.compiler.directories.IncludePaths>
     <ListValues>
       <Value>%24(PackRepoDir)\atmel\ATmega_DFP\1.0.98\include</Value>
+      <Value>../libraries/scpi-parser/inc</Value>
     </ListValues>
   </avrgcccpp.compiler.directories.IncludePaths>
   <avrgcccpp.compiler.optimization.level>Optimize (-O1)</avrgcccpp.compiler.optimization.level>
@@ -163,6 +164,81 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="Global\DevSettings.cpp">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="libraries\scpi-parser\inc\scpi\cc.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="libraries\scpi-parser\inc\scpi\config.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="libraries\scpi-parser\inc\scpi\constants.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="libraries\scpi-parser\inc\scpi\error.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="libraries\scpi-parser\inc\scpi\expression.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="libraries\scpi-parser\inc\scpi\ieee488.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="libraries\scpi-parser\inc\scpi\minimal.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="libraries\scpi-parser\inc\scpi\parser.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="libraries\scpi-parser\inc\scpi\scpi.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="libraries\scpi-parser\inc\scpi\types.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="libraries\scpi-parser\inc\scpi\units.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="libraries\scpi-parser\inc\scpi\utils.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="libraries\scpi-parser\src\error.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="libraries\scpi-parser\src\expression.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="libraries\scpi-parser\src\fifo.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="libraries\scpi-parser\src\fifo_private.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="libraries\scpi-parser\src\ieee488.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="libraries\scpi-parser\src\lexer.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="libraries\scpi-parser\src\lexer_private.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="libraries\scpi-parser\src\minimal.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="libraries\scpi-parser\src\parser.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="libraries\scpi-parser\src\parser_private.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="libraries\scpi-parser\src\units.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="libraries\scpi-parser\src\utils.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="libraries\scpi-parser\src\utils_private.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="Outputs\ADC_MCP492x.cpp">
@@ -300,40 +376,10 @@
     <Compile Include="Pins\Pins.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="SCPI\scpi_buildin_commands.cpp">
+    <Compile Include="SCPI\SCPI_Device.cpp">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="SCPI\SCPI_Commands.cpp">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="SCPI\SCPI_Commands.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="SCPI\SCPI_ErrorQueue.cpp">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="SCPI\SCPI_ErrorQueue.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="SCPI\SCPI_Parameters.cpp">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="SCPI\SCPI_Parameters.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="SCPI\scpi_user_commands.cpp">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="SCPI\scpi_parser.cpp">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="SCPI\scpi_parser.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="SCPI\SCPI_String_Array.cpp">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="SCPI\SCPI_String_Array.h">
+    <Compile Include="SCPI\SCPI_Device.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="Screens\ScreenATX.cpp">
@@ -402,6 +448,11 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="GLCD" />
+    <Folder Include="libraries\" />
+    <Folder Include="libraries\scpi-parser\" />
+    <Folder Include="libraries\scpi-parser\inc\" />
+    <Folder Include="libraries\scpi-parser\inc\scpi\" />
+    <Folder Include="libraries\scpi-parser\src\" />
     <Folder Include="SCPI" />
     <Folder Include="USART" />
     <Folder Include="UserControls" />
@@ -414,6 +465,11 @@
     <Folder Include="Screens" />
     <Folder Include="Spi" />
     <Folder Include="Pins" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="libraries\scpi-parser\src\scpi.g">
+      <SubType>compile</SubType>
+    </None>
   </ItemGroup>
   <Import Project="$(AVRSTUDIO_EXE_PATH)\\Vs\\Compiler.targets" />
 </Project>

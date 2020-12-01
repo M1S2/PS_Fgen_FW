@@ -1,0 +1,39 @@
+/*
+ * SCPI_Device.h
+ *
+ * Created: 01.12.2020 18:08:03
+ *  Author: V17
+ */ 
+
+
+#ifndef SCPI_DEVICE_H_
+#define SCPI_DEVICE_H_
+
+#include "../libraries/scpi-parser/inc/scpi/parser.h"
+#include "../libraries/scpi-parser/inc/scpi/ieee488.h"
+#include "../libraries/scpi-parser/inc/scpi/error.h"
+#include "../libraries/scpi-parser/inc/scpi/constants.h"
+#include "../libraries/scpi-parser/inc/scpi/minimal.h"
+#include "../libraries/scpi-parser/inc/scpi/units.h"
+#include "../libraries/scpi-parser/inc/scpi/utils.h"
+#include "../libraries/scpi-parser/inc/scpi/expression.h"
+
+#define SCPI_INPUT_BUFFER_LENGTH 256
+#define SCPI_ERROR_QUEUE_SIZE 17
+#define SCPI_IDN1 "Markus Scheich"
+#define SCPI_IDN2 "PowerSupplySigGen"
+#define SCPI_IDN3 NULL
+#define SCPI_IDN4 "01-02"
+
+extern scpi_t scpi_context;
+
+size_t SCPI_Write(scpi_t * context, const char * data, size_t len);
+scpi_result_t SCPI_Flush(scpi_t * context);
+int SCPI_Error(scpi_t * context, int_fast16_t err);
+scpi_result_t SCPI_Control(scpi_t * context, scpi_ctrl_name_t ctrl, scpi_reg_val_t val);
+scpi_result_t SCPI_Reset(scpi_t * context);
+
+void SCPI_Init_Device();
+
+
+#endif /* SCPI_DEVICE_H_ */

@@ -34,6 +34,14 @@ scpi_result_t SCPI_Control(scpi_t * context, scpi_ctrl_name_t ctrl, scpi_reg_val
 scpi_result_t SCPI_Reset(scpi_t * context);
 
 void SCPI_Init_Device();
+bool SCPI_GetVoltageFromParam(scpi_t* context, const scpi_number_t& param, float& value, float minVoltage, float maxVoltage, float defVoltage, float stepVoltage);
 
+/******* SCPI_Cmds_Output.cpp ****************************/
+scpi_result_t scpi_cmd_outputState(scpi_t * context);
+scpi_result_t scpi_cmd_outputStateQ(scpi_t * context);
+
+/******* SCPI_Cmds_Source.cpp ****************************/
+scpi_result_t scpi_cmd_sourceVoltage(scpi_t * context);
+scpi_result_t scpi_cmd_sourceVoltageQ(scpi_t * context);
 
 #endif /* SCPI_DEVICE_H_ */

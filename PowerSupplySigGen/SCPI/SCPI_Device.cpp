@@ -8,6 +8,7 @@
 #include "SCPI_Device.h"
 #include "../USART/USART.h"
 #include "../Global/DevSettings.h"
+#include "../Outputs/PowerSupply.h"
 #include <stdio.h>
 
 scpi_t scpi_context;
@@ -43,6 +44,14 @@ const scpi_command_t scpi_commands[] =
 
 	{"STATus:PRESet", SCPI_StatusPreset, 0},
 		
+	/****** Output Subsystem ***************************/
+	{"OUTPut#[:STATe]", scpi_cmd_outputState, 0},
+	{"OUTPut#[:STATe]?", scpi_cmd_outputStateQ, 0},
+			
+	/****** Source Subsystem ***************************/
+	{"SOURce#:VOLTage[:LEVel][:IMMediate][:AMPLitude]", scpi_cmd_sourceVoltage, 0},	
+	{"SOURce#:VOLTage[:LEVel][:IMMediate][:AMPLitude]?", scpi_cmd_sourceVoltageQ, 0},		
+				
 	SCPI_CMD_LIST_END
 };
 
@@ -110,4 +119,56 @@ void SCPI_Init_Device()
 				SCPI_IDN1, SCPI_IDN2, SCPI_IDN3, SCPI_IDN4,
 				scpi_input_buffer, SCPI_INPUT_BUFFER_LENGTH,
 				scpi_error_queue_data, SCPI_ERROR_QUEUE_SIZE);
+}
+
+
+bool SCPI_GetVoltageFromParam(scpi_t* context, const scpi_number_t& param, float& value, float minVoltage, float maxVoltage, float defVoltage, float stepVoltage) 
+{
+	if (param.special) 
+	{
+		if (param.content.tag == SCPI_NUM_MAX) 
+		{
+			value = maxVoltage;
+		}
+		else if (param.content.tag == SCPI_NUM_MIN)
+		{
+			value = minVoltage;
+		}
+		else if (param.content.tag == SCPI_NUM_DEF) 
+		{
+			value = defVoltage;
+		}
+		else if (param.content.tag == SCPI_NUM_UP) 
+		{
+			value += stepVoltage;
+			if (value > maxVoltage) value = maxVoltage;
+		}
+		else if (param.content.tag == SCPI_NUM_DOWN) 
+		{
+			value -= stepVoltage;
+			if (value < minVoltage) value = minVoltage;
+		}
+		else 
+		{
+			SCPI_ErrorPush(context, SCPI_ERROR_ILLEGAL_PARAMETER_VALUE);
+			return false;
+		}
+	}
+	else 
+	{
+		if (param.unit != SCPI_UNIT_NONE && param.unit != SCPI_UNIT_VOLT) 
+		{
+			SCPI_ErrorPush(context, SCPI_ERROR_INVALID_SUFFIX);
+			return false;
+		}
+
+		value = (float)param.content.value;
+		if (value < minVoltage || value > maxVoltage) 
+		{
+			SCPI_ErrorPush(context, SCPI_ERROR_DATA_OUT_OF_RANGE);
+			return false;
+		}
+	}
+
+	return true;
 }

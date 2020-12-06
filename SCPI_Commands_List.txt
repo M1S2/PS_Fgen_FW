@@ -1,0 +1,169 @@
+This is a list of the planned SCPI commands. At the moment, not all commands are implemented.
+
+It is based on https://www.envox.hr/eez/eez-bench-box-3/bb3-scpi-reference-manual/bb3-scpi-commands-summary.html
+
+===============================================
+Common
+===============================================
+*CLS							Clears all status data structures
+*ESE {<value>}						Programs the Standard Event Status Enable register bits
+*ESE?							Reads the Standard Event Status Enable register bits
+*ESR?							Reads the Standard Event Status Register
+*IDN?							Returns the UNIQUE identification of the device
+*OPC							Operation Complete Command used for program synchronization
+*OPC?							Read the Operation Complete status
+*RCL {<profile>}					Recalls the device state stored in the specified storage location
+*RST							Reset device to the initial state
+*SAV {<profile>}					Stores the current device state in the specified storage location
+*SRE							Service Request Enable Command
+*SRE?							Service Request Enable Query
+*STB?							Reads the Status Byte register
+*TST?							Returns Self-Test results
+*WAI							Waits until all pending commands are completed
+
+===============================================
+Display
+===============================================
+DISPlay
+(   :BRIGhtness {<value>}				Sets the intensity of the front panel display (0..1) )
+    :CONTrast {<value>}					Sets the contrast of the front panel display (0..1)
+    :INVerse {<bool>}					Sets the front panel display to inverse mode
+    :REMote {<bool>}					Enables / disables display updating when the device is remotely controlled
+    :ENABle {<bool>}					Controls whether the whole display is visible
+
+===============================================
+Instrument
+===============================================
+INSTrument
+    [:SELect] {<channel>}				Selects the output to be programmed
+    :CATalog?						Returns a quoted string of the list of valid choices for the instrument channels
+        :FULL?						Returns a list of string – number pairs
+    :NSELect {<channel>}				Selects the output to be programmed
+
+===============================================
+Measure
+===============================================
+MEASure
+    [:SCALar]
+        :CURRent
+            [:DC]? [<channel>]				Takes a measurement; returns the average current
+        :POWer
+            [:DC]? [<channel>]				Takes a measurement; returns the average power
+        [:VOLTage]
+            [:DC]? [<channel>]				Takes a measurement; returns the average voltage
+
+===============================================
+Memory
+===============================================
+MEMory
+    :NSTates?						Returns total number of state storage memory locations
+
+===============================================
+Output
+===============================================
+OUTPut
+    [:STATe] {<bool>}					Turn on/off the specified output channel
+    :GENeral <bool>					Turn on/off all channels simultaneously
+
+===============================================
+Source
+===============================================
+[SOURce[<n>]]
+    :CURRent
+        [:LEVel]
+            [:IMMediate][:AMPLitude] {<current>}	Sets the output current (MINimum|MAXimum|UP|DOWN|<Current>)
+            :STEP[:INCRement]				Sets the current step size
+        :LIMit
+            [:POSitive][:IMMediate][:AMPLitude] {<current>}	Sets the output current limit
+        :PROTection
+            :STATe {<bool>}				Enables/disables over-current protection on the selected channel
+            :TRIPped?					Returns status of over-current protection activation
+    :POWer
+        :LIMit {<power>}				Sets the output power limit
+        :PROTection[:LEVel]				Sets the over-power protection (OPP) level
+            :STATe {<bool>}				Enables/disables over-power protection on the selected channel
+            :TRIPped?					Returns status of over-power protection activation
+    :VOLTage
+        [:LEVel]
+            [:IMMediate][:AMPLitude] {<voltage>}	Sets the output voltage (MINimum|MAXimum|UP|DOWN|<Voltage>)
+            :STEP[:INCRement]				Sets the voltage step size
+        :LIMit
+            [:POSitive][:IMMediate][:AMPLitude] {<voltage>}	Sets the output voltage limit
+        :PROTection[:LEVel]				Sets the over-voltage protection (OVP) level
+            :STATe {<bool>}				Enables/disables over-voltage protection on the selected channel
+            :TRIPped?					Returns status of over-voltage protection activation
+            :CLEar					Reset the OVP state of the channel
+
+===============================================
+Status
+===============================================
+STATus
+    :OPERation
+        [:EVENt]?					Returns the value of the Operation Event register
+        :CONDition?					Returns the value of the Operation Instrument Condition register
+        :ENABle {<value>}				Enables specific bits in the Operation Event register
+
+        :INSTrument[<n>]
+            [:EVENt]?					Returns the value of the Operation Instrument Event register
+            :CONDition?					Returns the value of the Operation Instrument Condition register
+            :ENABle {<value>}				Enables specific bits in the Operation Instrument Event register
+            :ISUMmary<n>
+                [:EVENt]?				Returns the value of the Operation Instrument Isummary Event register
+                :CONDition?				Returns the value of the Operation Instrument Isummary Condition register
+                :ENABle {<value>}			Enables specific bits in the Operation Instrument Isummary Event register
+    :PREset						Presets all enable registers to power-on state
+    :QUEStionable
+        [:EVENt]?					Returns the value of the Questionable Event register
+        :CONDition?					Returns the value of the Questionable Condition register
+        :ENABle {<value>}				Enables specific bits in the Questionable Event register
+
+        :INSTrument[<n>]
+            [:EVENt]?					Returns the value of the Questionable Instrument Event register
+            :CONDition?					Returns the value of the Questionable Instrument Condition register
+            :ENABle {<value>}				Enables specific bits in the Questionable Instrument Event register
+            :ISUMmary<n>
+                [:EVENt]?				Returns the value of the Questionable Instrument Isummary Event register
+                :CONDition?				Returns the value of the Questionable Instrument Isummary Condition register
+                :ENABle {<value>}			Enables specific bits in the Questionable Instrument Isummary Event register
+
+===============================================
+System
+===============================================
+SYSTem
+    :CAPability?					Returns an <instrument_specifier>: "(DCPSUPPLY WITH MEASURE|...)"
+    :CHANnel
+        [:COUNt]?					Returns the number of output channels
+        :INFOrmation
+            :CURRent?					Returns output current capability
+            :POWer?					Returns output power capability
+            :VOLTage?					Returns output voltage capability
+        :MODel?						Returns the channel model and version name
+        :SNO?						Returns the channel serial number
+        :VERSion?					Returns the channel version number
+    :COMMunicate
+        :ENABle {<bool>, <interface>}			Enables the remote interface
+        :RLSTate {<state>}				Places the instrument in remote or local mode
+        :SERial
+            :BAUD <number>				Set the Serial baud rate
+            :ECHO <bool>				Enable/disalbe the serial echo
+    :CPU
+        :FIRMware?					Returns device firmware version
+            :INFOrmation
+                :TYPE?					Returns the type of CPU
+                :MODel?					Returns the control board model name
+                :SNO?					Returns the device serial number
+                :VERSion?				Returns the channel version number
+    :ERRor
+        [:NEXT]?					Queries and clears errors from the error queue
+        :COUNt?						Queries the error/event queue for the number of unread items
+    :INHibit?						Queries system inhibit state
+    :LOCal						Places the device in the local mode
+    :MEASure
+        [:SCALar]
+            [:VOLTage]
+                [:DC]? {<device>}			Takes a voltage measurement of the RTC battery
+    :PON:OUTPut:DISable {<bool>}			Sets output state on power up
+    :POWer {<bool>}					Enters the device into the standby mode
+    :REMote						Places the device in the remote mode
+    :RWLock						Places the device in the remote mode and disables front panel [lock/unlock] icon
+    :VERSion?						Returns the SCPI version number

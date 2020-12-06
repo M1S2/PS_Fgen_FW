@@ -26,7 +26,9 @@ const scpi_command_t scpi_commands[] =
 	{"*IDN?", SCPI_CoreIdnQ, 0},
 	{"*OPC", SCPI_CoreOpc, 0},
 	{"*OPC?", SCPI_CoreOpcQ, 0},
+	{"*RCL", scpi_cmd_memoryRcl, 0},
 	{"*RST", SCPI_CoreRst, 0},
+	{"*SAV", scpi_cmd_memorySav, 0},
 	{"*SRE", SCPI_CoreSre, 0},
 	{"*SRE?", SCPI_CoreSreQ, 0},
 	{"*STB?", SCPI_CoreStbQ, 0},
@@ -56,6 +58,9 @@ const scpi_command_t scpi_commands[] =
 	{"SYSTem:LOCal", scpi_cmd_systemLocal, 0},
 	{"SYSTem:REMote", scpi_cmd_systemRemote, 0},
 	{"SYSTem:RWLock", scpi_cmd_systemRWLock, 0},
+		
+	/****** Memory Subsystem ***************************/
+	{"MEMory:NSTates?", scpi_cmd_memoryNStatesQ, 0},		
 				
 	SCPI_CMD_LIST_END
 };

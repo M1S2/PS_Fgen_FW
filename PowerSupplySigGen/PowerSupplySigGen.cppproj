@@ -388,6 +388,9 @@
     <Compile Include="Pins\Pins.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="SCPI\SCPI_Cmds_Memory.cpp">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="SCPI\SCPI_Cmds_Output.cpp">
       <SubType>compile</SubType>
     </Compile>

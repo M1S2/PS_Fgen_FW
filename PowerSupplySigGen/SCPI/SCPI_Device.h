@@ -44,4 +44,9 @@ scpi_result_t scpi_cmd_outputStateQ(scpi_t * context);
 scpi_result_t scpi_cmd_sourceVoltage(scpi_t * context);
 scpi_result_t scpi_cmd_sourceVoltageQ(scpi_t * context);
 
+/******* SCPI_Cmds_System.cpp ****************************/
+scpi_result_t scpi_cmd_systemLocal(scpi_t * context);
+scpi_result_t scpi_cmd_systemRemote(scpi_t * context);
+scpi_result_t scpi_cmd_systemRWLock(scpi_t * context);
+
 #endif /* SCPI_DEVICE_H_ */

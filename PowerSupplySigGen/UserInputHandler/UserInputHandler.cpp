@@ -10,6 +10,7 @@
 #include "../USART/USART.h"
 #include "../Screens/ScreenManager.h"
 #include "../SCPI/SCPI_Device.h"
+#include "../Device.h"
 
 UserInputHandlerClass UserInputHandler;
 
@@ -53,31 +54,39 @@ void UserInputHandlerClass::ProcessInputs()
 {
 	while(!_userInputRingBuffer.empty())
 	{
-		UserInputData* data = _userInputRingBuffer.dequeue();		
-		switch(data->DataType)
+		UserInputData* data = _userInputRingBuffer.dequeue();
+
+		if(!Device.IsUserInputLocked() || data->DataType == USERDATA_USART)
+		{		
+			switch(data->DataType)
+			{
+				case USERDATA_KEY: 
+				{
+					ScreenManager.KeyInput(data->Key);
+					break;
+				}
+				case USERDATA_ENCODER: 
+				{		
+					ScreenManager.EncoderInput(data->EncDir);
+					break;
+				}
+				case USERDATA_ENCODER_BUTTON:
+				{				
+					ScreenManager.EncoderPBInput();
+					break;
+				}
+				case USERDATA_USART: 
+				{
+					Usart0Transmit(data->UsartChr);		// Echo character				
+					SCPI_Input(&scpi_context, (char*)&data->UsartChr, 1);
+					break;
+				}
+				default: break;
+			}
+		}
+		else if(Device.IsUserInputLocked() && data->DataType != USERDATA_USART)
 		{
-			case USERDATA_KEY: 
-			{
-				ScreenManager.KeyInput(data->Key);
-				break;
-			}
-			case USERDATA_ENCODER: 
-			{		
-				ScreenManager.EncoderInput(data->EncDir);
-				break;
-			}
-			case USERDATA_ENCODER_BUTTON:
-			{				
-				ScreenManager.EncoderPBInput();
-				break;
-			}
-			case USERDATA_USART: 
-			{
-				Usart0Transmit(data->UsartChr);		// Echo character				
-				SCPI_Input(&scpi_context, (char*)&data->UsartChr, 1);
-				break;
-			}
-			default: break;
+			Device.UpdateControlStateOnUserInput();
 		}
 	}
 }

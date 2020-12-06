@@ -51,6 +51,11 @@ const scpi_command_t scpi_commands[] =
 	/****** Source Subsystem ***************************/
 	{"SOURce#:VOLTage[:LEVel][:IMMediate][:AMPLitude]", scpi_cmd_sourceVoltage, 0},	
 	{"SOURce#:VOLTage[:LEVel][:IMMediate][:AMPLitude]?", scpi_cmd_sourceVoltageQ, 0},		
+	
+	/****** System Subsystem ***************************/
+	{"SYSTem:LOCal", scpi_cmd_systemLocal, 0},
+	{"SYSTem:REMote", scpi_cmd_systemRemote, 0},
+	{"SYSTem:RWLock", scpi_cmd_systemRWLock, 0},
 				
 	SCPI_CMD_LIST_END
 };
@@ -162,12 +167,12 @@ bool SCPI_GetVoltageFromParam(scpi_t* context, const scpi_number_t& param, float
 			return false;
 		}
 
-		value = (float)param.content.value;
-		if (value < minVoltage || value > maxVoltage) 
+		if ((float)param.content.value < minVoltage || (float)param.content.value > maxVoltage) 
 		{
 			SCPI_ErrorPush(context, SCPI_ERROR_DATA_OUT_OF_RANGE);
 			return false;
 		}
+		value = (float)param.content.value;
 	}
 
 	return true;

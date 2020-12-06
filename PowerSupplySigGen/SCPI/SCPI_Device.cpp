@@ -61,6 +61,10 @@ const scpi_command_t scpi_commands[] =
 		
 	/****** Memory Subsystem ***************************/
 	{"MEMory:NSTates?", scpi_cmd_memoryNStatesQ, 0},		
+
+	/****** Display Subsystem ***************************/
+	{"DISPlay:ENABle", scpi_cmd_displayEnable, 0},
+	{"DISPlay:ENABle?", scpi_cmd_displayEnableQ, 0},
 				
 	SCPI_CMD_LIST_END
 };

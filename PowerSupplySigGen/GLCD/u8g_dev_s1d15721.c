@@ -146,8 +146,24 @@ uint8_t u8g_dev_s1d15721_fn(u8g_t *u8g, u8g_dev_t *dev, uint8_t msg, void *arg)
 			return 0;
 		 }
          u8g_SetChipSelect(u8g, dev, 0);
+		 break;
       }
-      break;
+	 case U8G_DEV_MSG_SLEEP_ON:
+	 {
+		 u8g_SetAddress(u8g, dev, 0);		/* instruction mode */
+		 u8g_SetChipSelect(u8g, dev, 1);	/* enable chip */      
+		 u8g_WriteByte(u8g, dev, LCD_CMD_DISPLAY_OFFON | 0);	/* Display off */
+		 u8g_SetChipSelect(u8g, dev, 0);	/* disable chip */		 
+		 break;
+	 }
+	 case U8G_DEV_MSG_SLEEP_OFF:
+	 {
+		 u8g_SetAddress(u8g, dev, 0);		/* instruction mode */
+		 u8g_SetChipSelect(u8g, dev, 1);	/* enable chip */
+		 u8g_WriteByte(u8g, dev, LCD_CMD_DISPLAY_OFFON | 1);	/* Display on */
+		 u8g_SetChipSelect(u8g, dev, 0);	/* disable chip */
+		 break;
+	 }
   }
   return u8g_dev_pb8v2_base_fn(u8g, dev, msg, arg);
 }

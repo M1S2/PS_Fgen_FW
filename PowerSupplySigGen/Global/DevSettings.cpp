@@ -57,6 +57,7 @@ void ResetDevice()
 	PowerSupply.LoadImpedance = 1000000;
 	PowerSupply.UpdateOutput();
 	ScreenManager.TabIndex = 0;
+	ScreenManager.SetDisplayEnabled(true);
 	
 	SaveSettings();
 }

@@ -31,7 +31,8 @@ class ScreenManagerClass
 		u8g_t* _u8g;
 		ScreenBase* _screens[NUM_SCREENS];
 	    bool _isControlActive;
-		
+		bool _displayEnabled;
+				
 		void drawScreenTabs(int selectedTabIndex);
 		
 	public:
@@ -42,6 +43,8 @@ class ScreenManagerClass
 		void KeyInput(Keys_t key);
 		void EncoderInput(EncoderDirection_t encDir);
 		void EncoderPBInput();
+		void SetDisplayEnabled(bool displayEnabled);
+		bool GetDisplayEnabled();
 
 		void SetU8GLib_Object(u8g_t *u8g) { _u8g = u8g; }
 };

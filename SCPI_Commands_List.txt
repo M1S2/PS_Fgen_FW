@@ -30,6 +30,7 @@ DISPlay
     :INVerse {<bool>}					Sets the front panel display to inverse mode
     :REMote {<bool>}					Enables / disables display updating when the device is remotely controlled
     :ENABle {<bool>}					Controls whether the whole display is visible
+    :ENABle?						Query whether the whole display is visible
 
 ===============================================
 Instrument

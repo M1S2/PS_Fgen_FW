@@ -54,4 +54,8 @@ scpi_result_t scpi_cmd_memoryRcl(scpi_t * context);
 scpi_result_t scpi_cmd_memorySav(scpi_t * context);
 scpi_result_t scpi_cmd_memoryNStatesQ(scpi_t * context);
 
+/******* SCPI_Cmds_Display.cpp ****************************/
+scpi_result_t scpi_cmd_displayEnable(scpi_t * context);
+scpi_result_t scpi_cmd_displayEnableQ(scpi_t * context);
+
 #endif /* SCPI_DEVICE_H_ */

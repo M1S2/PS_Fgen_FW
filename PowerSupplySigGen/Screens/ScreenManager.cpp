@@ -116,3 +116,15 @@ void ScreenManagerClass::EncoderPBInput()
 		_isControlActive = _screens[TabIndex]->IsSelectedControlActive();
 	}
 }
+
+void ScreenManagerClass::SetDisplayEnabled(bool displayEnabled)
+{
+	_displayEnabled = displayEnabled;
+	if(displayEnabled) { u8g_SleepOff(_u8g); }
+	else { u8g_SleepOn(_u8g); }
+}
+
+bool ScreenManagerClass::GetDisplayEnabled()
+{
+	return _displayEnabled;
+}

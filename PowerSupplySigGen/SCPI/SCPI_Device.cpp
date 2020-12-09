@@ -63,9 +63,12 @@ const scpi_command_t scpi_commands[] =
 	{"MEMory:NSTates?", scpi_cmd_memoryNStatesQ, 0},		
 
 	/****** Display Subsystem ***************************/
-	{"DISPlay:ENABle", scpi_cmd_displayEnable, 0},
-	{"DISPlay:ENABle?", scpi_cmd_displayEnableQ, 0},
-				
+	{"DISPlay[:WINdow][:STATe]", scpi_cmd_displayWindowState, 0},
+	{"DISPlay[:WINdow][:STATe]?", scpi_cmd_displayWindowStateQ, 0},
+	{"DISPlay[:WINdow]:TEXT", scpi_cmd_displayWindowText, 0},
+	{"DISPlay[:WINdow]:TEXT?", scpi_cmd_displayWindowTextQ, 0},
+	{"DISPlay[:WINdow]:CLEar", scpi_cmd_displayWindowClear, 0},
+							
 	SCPI_CMD_LIST_END
 };
 

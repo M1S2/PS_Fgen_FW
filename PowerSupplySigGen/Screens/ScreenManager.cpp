@@ -71,6 +71,28 @@ void ScreenManagerClass::Draw(DevStatus_t devStatusDraw)
 		case DEV_CTRL_REMOTE: u8g_DrawStr(_u8g, u8g_GetWidth(_u8g) - 30, 10, "REM"); break;
 		case DEV_CTRL_RWLOCK: u8g_DrawStr(_u8g, u8g_GetWidth(_u8g) - 30, 10, "RWL"); break;
 	}
+	
+	drawMessage();
+}
+
+void ScreenManagerClass::drawMessage()
+{
+	if((SystemMessage != NULL && strcmp(SystemMessage, "") != 0) || (UserMessage != NULL && strcmp(UserMessage, "") != 0))
+	{
+		u8g_SetDefaultBackgroundColor(_u8g);
+		u8g_DrawBox(_u8g, MESSAGE_MARGIN, MESSAGE_MARGIN, u8g_GetWidth(_u8g) - 2 * MESSAGE_MARGIN, u8g_GetHeight(_u8g) - 2 * MESSAGE_MARGIN);
+		u8g_SetDefaultForegroundColor(_u8g);
+		u8g_DrawFrame(_u8g, MESSAGE_MARGIN, MESSAGE_MARGIN, u8g_GetWidth(_u8g) - 2 * MESSAGE_MARGIN, u8g_GetHeight(_u8g) - 2 * MESSAGE_MARGIN);
+	}
+	
+	if(SystemMessage != NULL && strcmp(SystemMessage, "") != 0)
+	{
+		u8g_DrawStr(_u8g, MESSAGE_MARGIN + 2, MESSAGE_MARGIN + 2 + 8, SystemMessage);
+	}
+	else if(UserMessage != NULL && strcmp(UserMessage, "") != 0)
+	{
+		u8g_DrawStr(_u8g, MESSAGE_MARGIN + 2, MESSAGE_MARGIN + 2 + 8, UserMessage);
+	}
 }
 
 void ScreenManagerClass::KeyInput(Keys_t key)

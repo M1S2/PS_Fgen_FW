@@ -19,7 +19,9 @@
 #include "ScreenDMM.h"
 #include "ScreenATX.h"
 
-#define NUM_SCREENS				5
+#define NUM_SCREENS			5
+#define MESSAGE_MARGIN		5
+#define MAX_MESSAGE_LEN		256
 
 class ScreenManagerClass
 {
@@ -34,15 +36,19 @@ class ScreenManagerClass
 		bool _displayEnabled;
 				
 		void drawScreenTabs(int selectedTabIndex);
+		void drawMessage();
 		
 	public:
 		uint8_t TabIndex;
+		char* SystemMessage;
+		char UserMessage[MAX_MESSAGE_LEN];
 	
 		ScreenManagerClass();
 		void Draw(DevStatus_t devStatusDraw);
 		void KeyInput(Keys_t key);
 		void EncoderInput(EncoderDirection_t encDir);
 		void EncoderPBInput();
+		
 		void SetDisplayEnabled(bool displayEnabled);
 		bool GetDisplayEnabled();
 

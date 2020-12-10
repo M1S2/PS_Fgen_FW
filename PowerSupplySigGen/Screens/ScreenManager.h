@@ -40,7 +40,7 @@ class ScreenManagerClass
 		
 	public:
 		uint8_t TabIndex;
-		char* SystemMessage;
+		char SystemMessage[MAX_MESSAGE_LEN];
 		char UserMessage[MAX_MESSAGE_LEN];
 	
 		ScreenManagerClass();

@@ -87,11 +87,11 @@ void ScreenManagerClass::drawMessage()
 	
 	if(SystemMessage != NULL && strcmp(SystemMessage, "") != 0)
 	{
-		u8g_DrawStr(_u8g, MESSAGE_MARGIN + 2, MESSAGE_MARGIN + 2 + 8, SystemMessage);
+		u8g_DrawStrMultiline(_u8g, MESSAGE_MARGIN + 2, MESSAGE_MARGIN + 2 + 8, SystemMessage);
 	}
 	else if(UserMessage != NULL && strcmp(UserMessage, "") != 0)
 	{
-		u8g_DrawStr(_u8g, MESSAGE_MARGIN + 2, MESSAGE_MARGIN + 2 + 8, UserMessage);
+		u8g_DrawStrMultiline(_u8g, MESSAGE_MARGIN + 2, MESSAGE_MARGIN + 2 + 8, UserMessage);
 	}
 }
 

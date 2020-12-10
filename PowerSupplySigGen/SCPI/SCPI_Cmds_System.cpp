@@ -12,20 +12,20 @@
 scpi_result_t scpi_cmd_systemLocal(scpi_t * context)
 {
 	Device.DeviceControlState = DEV_CTRL_LOCAL;
-	ScreenManager.SystemMessage = "";
+	strcpy(ScreenManager.SystemMessage, "");
 	return SCPI_RES_OK;
 }
 
 scpi_result_t scpi_cmd_systemRemote(scpi_t * context)
 {
 	Device.DeviceControlState = DEV_CTRL_REMOTE;
-	ScreenManager.SystemMessage = "";
+	strcpy(ScreenManager.SystemMessage, "");
 	return SCPI_RES_OK;	
 }
 
 scpi_result_t scpi_cmd_systemRWLock(scpi_t * context)
 {
 	Device.DeviceControlState = DEV_CTRL_RWLOCK;
-	ScreenManager.SystemMessage = "=== RWLock ===";
+	strcpy(ScreenManager.SystemMessage, "==== Remote controlled ====\nDevice locked by SYST:RWL command.\nOnly possible to unlock via SYST:LOC command.");
 	return SCPI_RES_OK;
 }

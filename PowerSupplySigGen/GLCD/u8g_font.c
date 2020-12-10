@@ -789,6 +789,33 @@ int8_t u8g_DrawGlyphFontBBX(u8g_t *u8g, u8g_uint_t x, u8g_uint_t y, uint8_t dir,
 /*========================================================================*/
 /* string drawing procedures */
 
+/* Added by Markus Scheich 10.12.2020 */
+u8g_uint_t u8g_DrawStrMultiline(u8g_t *u8g, u8g_uint_t x, u8g_uint_t y, const char *s)
+{
+	u8g_uint_t t = 0;
+	int8_t d;
+	u8g_uint_t x_tmp = x;
+	
+	y += u8g->font_calc_vref(u8g);
+	
+	while( *s != '\0' )
+	{
+		if(*s == '\n')	// character is newline
+		{
+			x_tmp = x;
+			y += u8g->line_spacing;
+		}
+		else						// character isn't newline
+		{
+			d = u8g_draw_glyph(u8g, x_tmp, y, *s);
+			x_tmp += d;
+			t += d;
+		}
+		s++;
+	}
+	return t;
+}
+
 
 u8g_uint_t u8g_DrawStr(u8g_t *u8g, u8g_uint_t x, u8g_uint_t y, const char *s)
 {

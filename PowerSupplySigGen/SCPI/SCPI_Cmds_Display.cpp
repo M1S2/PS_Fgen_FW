@@ -30,10 +30,8 @@ scpi_result_t scpi_cmd_displayWindowText(scpi_t * context)
 {
 	char text[MAX_MESSAGE_LEN];
 	size_t textLen;
-	scpi_bool_t enabled;
 	if(!SCPI_ParamCopyText(context, text, sizeof(text), &textLen, TRUE))
 	{
-		text[0] = '\0';
 		return SCPI_RES_ERR;
 	}
 	strcpy(ScreenManager.UserMessage, text);

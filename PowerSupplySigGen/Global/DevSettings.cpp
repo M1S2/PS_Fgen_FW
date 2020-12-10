@@ -17,6 +17,7 @@ struct DevSettingsEEPROMLayout_t
 	float PS_LoadImpedance;
 	
 	uint8_t Screens_TabIndex;
+	uint8_t Screens_Inverted;
 };
 
 bool DevSettingsNeedSaving;
@@ -29,6 +30,7 @@ void SaveSettings()
 	settings.PS_Voltage = PowerSupply.Voltage;
 	settings.PS_LoadImpedance = PowerSupply.LoadImpedance;
 	settings.Screens_TabIndex = ScreenManager.TabIndex;
+	settings.Screens_Inverted = ScreenManager.DisplayInverted;
 
 	eeprom_write_block((const void*)&settings, (void*)&NonVolatileSettings, sizeof(DevSettingsEEPROMLayout_t));
 	
@@ -46,6 +48,7 @@ void LoadSettings()
 	PowerSupply.LoadImpedance = settings.PS_LoadImpedance;
 	PowerSupply.UpdateOutput();
 	ScreenManager.TabIndex = settings.Screens_TabIndex;
+	ScreenManager.SetDisplayInverted(settings.Screens_Inverted);
 	
 	DevSettingsNeedSaving = false;
 }
@@ -58,6 +61,7 @@ void ResetDevice()
 	PowerSupply.UpdateOutput();
 	ScreenManager.TabIndex = 0;
 	ScreenManager.SetDisplayEnabled(true);
+	ScreenManager.SetDisplayInverted(false);
 	
 	SaveSettings();
 }

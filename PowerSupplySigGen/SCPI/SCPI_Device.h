@@ -60,5 +60,7 @@ scpi_result_t scpi_cmd_displayWindowStateQ(scpi_t * context);
 scpi_result_t scpi_cmd_displayWindowText(scpi_t * context);
 scpi_result_t scpi_cmd_displayWindowTextQ(scpi_t * context);
 scpi_result_t scpi_cmd_displayWindowClear(scpi_t * context);
+scpi_result_t scpi_cmd_displayWindowInverse(scpi_t * context);
+scpi_result_t scpi_cmd_displayWindowInverseQ(scpi_t * context);
 
 #endif /* SCPI_DEVICE_H_ */

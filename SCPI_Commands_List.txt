@@ -25,12 +25,16 @@ Common
 Display
 ===============================================
 DISPlay
-(   :BRIGhtness {<value>}				Sets the intensity of the front panel display (0..1) )
-    :CONTrast {<value>}					Sets the contrast of the front panel display (0..1)
-    :INVerse {<bool>}					Sets the front panel display to inverse mode
-    :REMote {<bool>}					Enables / disables display updating when the device is remotely controlled
-    :ENABle {<bool>}					Controls whether the whole display is visible
-    :ENABle?						Query whether the whole display is visible
+    [:WINDow]
+(       :BRIGhtness {<value>}				Sets the intensity of the front panel display (0..1) )
+(       :CONTrast {<value>}				Sets the contrast of the front panel display (0..1) )
+        :INVerse {<bool>}				Sets the front panel display to inverse mode
+(       :REMote {<bool>}				Enables / disables display updating when the device is remotely controlled )
+        [:STATe] {<bool>}				Controls whether the whole display is visible
+        [:STATe]?					Query whether the whole display is visible
+        :TEXT						Display a user text on the display
+        :TEXT?						Query the user text
+        :CLEar						Clear the user text
 
 ===============================================
 Instrument

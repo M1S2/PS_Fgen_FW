@@ -164,6 +164,14 @@ uint8_t u8g_dev_s1d15721_fn(u8g_t *u8g, u8g_dev_t *dev, uint8_t msg, void *arg)
 		 u8g_SetChipSelect(u8g, dev, 0);	/* disable chip */
 		 break;
 	 }
+	 case U8G_DEV_MSG_INVERT:
+	 {
+		 u8g_SetAddress(u8g, dev, 0);		/* instruction mode */
+		 u8g_SetChipSelect(u8g, dev, 1);	/* enable chip */
+		 u8g_WriteByte(u8g, dev, LCD_CMD_DISPLAY_REVERSE | *((uint8_t*)arg));	/* Display mode normal (0) or reverse (1) */
+		 u8g_SetChipSelect(u8g, dev, 0);	/* disable chip */
+		 break;
+	 }
   }
   return u8g_dev_pb8v2_base_fn(u8g, dev, msg, arg);
 }

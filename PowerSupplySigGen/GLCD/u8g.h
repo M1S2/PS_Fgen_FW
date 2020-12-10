@@ -298,6 +298,8 @@ struct _u8g_dev_arg_irgb_t
 #define U8G_DEV_MSG_GET_HEIGHT                           71
 #define U8G_DEV_MSG_GET_MODE                  72
 
+#define U8G_DEV_MSG_INVERT			80
+
 /*===============================================================*/
 /* device modes */
 #define U8G_MODE(is_index_mode, is_color, bits_per_pixel) (((is_index_mode)<<6) | ((is_color)<<5)|(bits_per_pixel))
@@ -624,6 +626,7 @@ uint8_t u8g_InitLL(u8g_t *u8g, u8g_dev_t *dev);
 void u8g_FirstPageLL(u8g_t *u8g, u8g_dev_t *dev);
 uint8_t u8g_NextPageLL(u8g_t *u8g, u8g_dev_t *dev);
 uint8_t u8g_SetContrastLL(u8g_t *u8g, u8g_dev_t *dev, uint8_t contrast);
+uint8_t u8g_InvertLL(u8g_t *u8g, u8g_dev_t *dev, uint8_t inverted);
 void u8g_DrawPixelLL(u8g_t *u8g, u8g_dev_t *dev, u8g_uint_t x, u8g_uint_t y);
 void u8g_Draw8PixelLL(u8g_t *u8g, u8g_dev_t *dev, u8g_uint_t x, u8g_uint_t y, uint8_t dir, uint8_t pixel);
 void u8g_Draw4TPixelLL(u8g_t *u8g, u8g_dev_t *dev, u8g_uint_t x, u8g_uint_t y, uint8_t dir, uint8_t pixel);
@@ -649,6 +652,7 @@ uint8_t u8g_InitRW8Bit(u8g_t *u8g, u8g_dev_t *dev, uint8_t d0, uint8_t d1, uint8
 void u8g_FirstPage(u8g_t *u8g);
 uint8_t u8g_NextPage(u8g_t *u8g);
 uint8_t u8g_SetContrast(u8g_t *u8g, uint8_t contrast);
+uint8_t u8g_Invert(u8g_t *u8g, uint8_t inverted);
 void u8g_SleepOn(u8g_t *u8g);
 void u8g_SleepOff(u8g_t *u8g);
 void u8g_DrawPixel(u8g_t *u8g, u8g_uint_t x, u8g_uint_t y);

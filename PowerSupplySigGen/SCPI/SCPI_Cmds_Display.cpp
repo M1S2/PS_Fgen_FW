@@ -49,3 +49,21 @@ scpi_result_t scpi_cmd_displayWindowClear(scpi_t * context)
 	strcpy(ScreenManager.UserMessage, "");
 	return SCPI_RES_OK;
 }
+
+scpi_result_t scpi_cmd_displayWindowInverse(scpi_t * context)
+{
+	scpi_bool_t inverted;
+	if(!SCPI_ParamBool(context, &inverted, TRUE))
+	{
+		return SCPI_RES_ERR;
+	}
+	
+	ScreenManager.SetDisplayInverted(inverted);
+	return SCPI_RES_OK;
+}
+
+scpi_result_t scpi_cmd_displayWindowInverseQ(scpi_t * context)
+{
+	SCPI_ResultBool(context, ScreenManager.DisplayInverted);
+	return SCPI_RES_OK;
+}

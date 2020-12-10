@@ -84,6 +84,11 @@ uint8_t u8g_SetContrastLL(u8g_t *u8g, u8g_dev_t *dev, uint8_t contrast)
   return u8g_call_dev_fn(u8g, dev, U8G_DEV_MSG_CONTRAST, &contrast);
 }
 
+uint8_t u8g_InvertLL(u8g_t *u8g, u8g_dev_t *dev, uint8_t inverted)
+{
+	return u8g_call_dev_fn(u8g, dev, U8G_DEV_MSG_INVERT, &inverted);
+}
+
 void u8g_DrawPixelLL(u8g_t *u8g, u8g_dev_t *dev, u8g_uint_t x, u8g_uint_t y)
 {
   u8g_dev_arg_pixel_t *arg = &(u8g->arg_pixel);
@@ -397,6 +402,11 @@ uint8_t u8g_NextPage(u8g_t *u8g)
 uint8_t u8g_SetContrast(u8g_t *u8g, uint8_t contrast)
 {
   return u8g_SetContrastLL(u8g, u8g->dev, contrast);
+}
+
+uint8_t u8g_Invert(u8g_t *u8g, uint8_t inverted)
+{
+	return u8g_InvertLL(u8g, u8g->dev, inverted);
 }
 
 void u8g_SleepOn(u8g_t *u8g)

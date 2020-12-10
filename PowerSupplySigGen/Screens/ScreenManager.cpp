@@ -150,3 +150,10 @@ bool ScreenManagerClass::GetDisplayEnabled()
 {
 	return _displayEnabled;
 }
+
+void ScreenManagerClass::SetDisplayInverted(bool displayInverse)
+{
+	DevSettingsNeedSaving = (DisplayInverted != displayInverse);
+	DisplayInverted = displayInverse;
+	u8g_Invert(_u8g, (uint8_t)displayInverse);
+}

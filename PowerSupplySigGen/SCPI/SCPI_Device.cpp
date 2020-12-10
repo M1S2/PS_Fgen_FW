@@ -68,7 +68,9 @@ const scpi_command_t scpi_commands[] =
 	{"DISPlay[:WINdow]:TEXT", scpi_cmd_displayWindowText, 0},
 	{"DISPlay[:WINdow]:TEXT?", scpi_cmd_displayWindowTextQ, 0},
 	{"DISPlay[:WINdow]:CLEar", scpi_cmd_displayWindowClear, 0},
-							
+	{"DISPlay[:WINdow]:INVerse", scpi_cmd_displayWindowInverse, 0},	
+	{"DISPlay[:WINdow]:INVerse?", scpi_cmd_displayWindowInverseQ, 0},	
+									
 	SCPI_CMD_LIST_END
 };
 

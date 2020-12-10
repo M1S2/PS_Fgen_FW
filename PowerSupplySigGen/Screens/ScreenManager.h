@@ -40,6 +40,7 @@ class ScreenManagerClass
 		
 	public:
 		uint8_t TabIndex;
+		bool DisplayInverted;
 		char SystemMessage[MAX_MESSAGE_LEN];
 		char UserMessage[MAX_MESSAGE_LEN];
 	
@@ -51,6 +52,8 @@ class ScreenManagerClass
 		
 		void SetDisplayEnabled(bool displayEnabled);
 		bool GetDisplayEnabled();
+
+		void SetDisplayInverted(bool displayInverted);
 
 		void SetU8GLib_Object(u8g_t *u8g) { _u8g = u8g; }
 };

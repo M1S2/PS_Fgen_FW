@@ -30,6 +30,8 @@
 #include "SCPI/SCPI_Device.h"
 #include "Configuration.h"
 
+#include "Device.h"
+
 u8g_t u8g;
 
 /*typedef enum SignalForms
@@ -77,10 +79,12 @@ int main(void)
 	SPI_Init();
 	Encoder_Init();
 	ADC_init();
-	Usart0Init(9600);
+	Usart0Init(9600);		/* Always init with 9600 baud to output the power on message. */
 	InitUserTimer();
 	sei();
 	
+	Usart0TransmitStr("Power On\r\n");
+		
 	ADC_startConversion();
 	MCP4922_DisableLatching();
 	MCP4922_Voltage_Set(2500, 'A');
@@ -89,8 +93,8 @@ int main(void)
 	u8g_InitSPI(&u8g, &u8g_dev_s1d15721_hw_spi, PN(1, 7), PN(1, 5), PN(1, 1), PN(1, 0), U8G_PIN_NONE);
 	
 	ScreenManager.SetU8GLib_Object(&u8g);
-	
 	LoadSettings();
+		
 	UserTimerTickCounter = 0;
 	
 	SCPI_Init_Device();

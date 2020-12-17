@@ -58,6 +58,8 @@ const scpi_command_t scpi_commands[] =
 	{"SYSTem:LOCal", scpi_cmd_systemLocal, 0},
 	{"SYSTem:REMote", scpi_cmd_systemRemote, 0},
 	{"SYSTem:RWLock", scpi_cmd_systemRWLock, 0},
+	{"SYSTem:COMMunicate:SERial:BAUD", scpi_cmd_systemCommunicateSerialBaud, 0},
+	{"SYSTem:COMMunicate:SERial:BAUD?", scpi_cmd_systemCommunicateSerialBaudQ, 0},
 		
 	/****** Memory Subsystem ***************************/
 	{"MEMory:NSTates?", scpi_cmd_memoryNStatesQ, 0},		

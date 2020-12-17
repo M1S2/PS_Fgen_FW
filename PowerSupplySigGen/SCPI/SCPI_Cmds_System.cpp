@@ -29,3 +29,21 @@ scpi_result_t scpi_cmd_systemRWLock(scpi_t * context)
 	strcpy(ScreenManager.SystemMessage, "==== Remote controlled ====\nDevice locked by SYST:RWL command.\nOnly possible to unlock via SYST:LOC command.");
 	return SCPI_RES_OK;
 }
+
+scpi_result_t scpi_cmd_systemCommunicateSerialBaud(scpi_t * context)
+{
+	uint32_t baud;
+	if(!SCPI_ParamUInt32(context, &baud, TRUE))
+	{
+		return SCPI_RES_ERR;
+	}
+	Device.SetBaudRate(baud);
+	
+	return SCPI_RES_OK;
+}
+
+scpi_result_t scpi_cmd_systemCommunicateSerialBaudQ(scpi_t * context)
+{
+	SCPI_ResultInt(context, Device.BaudRate);
+	return SCPI_RES_OK;
+}

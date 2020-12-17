@@ -9,6 +9,8 @@
 #ifndef DEVICE_H_
 #define DEVICE_H_
 
+#include <avr/io.h>
+
 typedef enum DeviceControlStates
 {
 	DEV_CTRL_LOCAL,
@@ -22,6 +24,7 @@ class DeviceClass
 	
 	public:
 		DeviceControlStates_t DeviceControlState;
+		uint32_t BaudRate;
 	
 		DeviceClass()
 		{
@@ -30,6 +33,8 @@ class DeviceClass
 		
 		bool IsUserInputLocked();
 		void UpdateControlStateOnUserInput();
+		
+		void SetBaudRate(uint32_t baud);
 };
 
 extern DeviceClass Device;

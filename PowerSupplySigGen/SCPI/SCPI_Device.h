@@ -43,6 +43,8 @@ scpi_result_t scpi_cmd_sourceVoltageQ(scpi_t * context);
 scpi_result_t scpi_cmd_systemLocal(scpi_t * context);
 scpi_result_t scpi_cmd_systemRemote(scpi_t * context);
 scpi_result_t scpi_cmd_systemRWLock(scpi_t * context);
+scpi_result_t scpi_cmd_systemCommunicateSerialBaud(scpi_t * context);
+scpi_result_t scpi_cmd_systemCommunicateSerialBaudQ(scpi_t * context);
 
 /******* SCPI_Cmds_Memory.cpp ****************************/
 scpi_result_t scpi_cmd_memoryRcl(scpi_t * context);

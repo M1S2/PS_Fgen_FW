@@ -14,7 +14,7 @@ ISR (USART0_RX_vect)
 	UserInputHandler.EnqueueUsartInput(data);
 }
 
-void Usart0Init(uint16_t baud)
+void Usart0Init(uint32_t baud)
 {
 	uint16_t ubrr = F_CPU / 16 / baud - 1;
 	
@@ -54,4 +54,16 @@ void Usart0Flush()
 {
 	unsigned char dummy;
 	while ( UCSR0A & (1<<RXC0) ) dummy = UDR0;
+}
+
+void Usart0ChangeBaudRate(uint32_t baud)
+{
+	/* Wait for empty transmit buffer (until all pending bytes are transmitted) */
+	while ( !( UCSR0A & (1<<UDRE0)) );
+	
+	UCSR0B &= ~(1<<RXEN0);		/* Disable receiver */
+	UCSR0B &= ~(1<<TXEN0);		/* Disable transmitter */
+	UCSR0B &= ~(1<<RXCIE0);		/* Disable receive interrupt */
+	
+	Usart0Init(baud);
 }

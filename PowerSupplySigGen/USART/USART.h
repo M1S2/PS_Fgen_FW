@@ -12,11 +12,12 @@
 #include "../Pins/Pins.h"
 #include <string.h>
 
-void Usart0Init(uint16_t baud);
+void Usart0Init(uint32_t baud);
 void Usart0Transmit(uint8_t data);	
 void Usart0TransmitStr(const char* data);
 uint8_t Usart0Receive();
 void Usart0Flush();
+void Usart0ChangeBaudRate(uint32_t baud);
 
 
 #endif /* USART_H_ */

@@ -8,6 +8,8 @@
 #include "DevSettings.h"
 #include "../Outputs/PowerSupply.h"
 #include "../Screens/ScreenManager.h"
+#include "../Device.h"
+#include "../USART/USART.h"
 
 /* This structure is only used internally to store to / read from EEPROM */
 struct DevSettingsEEPROMLayout_t
@@ -18,6 +20,8 @@ struct DevSettingsEEPROMLayout_t
 	
 	uint8_t Screens_TabIndex;
 	uint8_t Screens_Inverted;
+	
+	uint32_t Device_BaudRate;
 };
 
 bool DevSettingsNeedSaving;
@@ -31,6 +35,7 @@ void SaveSettings()
 	settings.PS_LoadImpedance = PowerSupply.LoadImpedance;
 	settings.Screens_TabIndex = ScreenManager.TabIndex;
 	settings.Screens_Inverted = ScreenManager.DisplayInverted;
+	settings.Device_BaudRate = Device.BaudRate;
 
 	eeprom_write_block((const void*)&settings, (void*)&NonVolatileSettings, sizeof(DevSettingsEEPROMLayout_t));
 	
@@ -49,7 +54,7 @@ void LoadSettings()
 	PowerSupply.UpdateOutput();
 	ScreenManager.TabIndex = settings.Screens_TabIndex;
 	ScreenManager.SetDisplayInverted(settings.Screens_Inverted);
-	
+	Device.SetBaudRate(settings.Device_BaudRate);
 	DevSettingsNeedSaving = false;
 }
 

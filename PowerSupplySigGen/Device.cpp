@@ -7,6 +7,9 @@
 
 #include "Device.h"
 #include "Screens/ScreenManager.h"
+#include "USART/USART.h"
+
+#include <stdio.h>
 
 DeviceClass Device;
 
@@ -30,4 +33,17 @@ void DeviceClass::UpdateControlStateOnUserInput()
 			case DEV_CTRL_RWLOCK: /* Nothing to do here. It is only possible to return from state RWLock via SCPI command. */ break;
 		}
 	}	
+}
+
+void DeviceClass::SetBaudRate(uint32_t baud)
+{
+	if(BaudRate != baud && baud > 0 && baud < 115200)
+	{
+		DevSettingsNeedSaving = true;
+		char buffer[60];
+		sprintf(buffer, "Changing Baud rate from %lu to %lu\r\n", BaudRate, baud);
+		Usart0TransmitStr(buffer);
+		BaudRate = baud;
+		Usart0ChangeBaudRate(baud);	
+	}
 }

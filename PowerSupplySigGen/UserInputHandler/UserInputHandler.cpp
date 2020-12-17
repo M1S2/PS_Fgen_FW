@@ -21,6 +21,10 @@ void UserInputHandlerClass::EnqueueKeyInput(Keys_t userKeyInput)
 		UserInputData keyInput(userKeyInput);
 		_userInputRingBuffer.enqueue(&keyInput);
 	}
+	else
+	{
+		strcpy(ScreenManager.SystemMessage, USERINPUT_QUEUE_FULL_MSG);
+	}
 }
 
 void UserInputHandlerClass::EnqueueEncoderInput(EncoderDirection_t userEncoderInput)
@@ -29,6 +33,10 @@ void UserInputHandlerClass::EnqueueEncoderInput(EncoderDirection_t userEncoderIn
 	{
 		UserInputData encInput(userEncoderInput);
 		_userInputRingBuffer.enqueue(&encInput);
+	}
+	else
+	{
+		strcpy(ScreenManager.SystemMessage, USERINPUT_QUEUE_FULL_MSG);
 	}
 }
 
@@ -39,6 +47,10 @@ void UserInputHandlerClass::EnqueueEncoderButtonInput()
 		UserInputData encButtonInput(true);
 		_userInputRingBuffer.enqueue(&encButtonInput);
 	}
+	else
+	{
+		strcpy(ScreenManager.SystemMessage, USERINPUT_QUEUE_FULL_MSG);
+	}
 }
 
 void UserInputHandlerClass::EnqueueUsartInput(uint8_t userDataInput)
@@ -47,13 +59,22 @@ void UserInputHandlerClass::EnqueueUsartInput(uint8_t userDataInput)
 	{
 		UserInputData dataInput(userDataInput);
 		_userInputRingBuffer.enqueue(&dataInput);
-	}	
+	}
+	else
+	{
+		strcpy(ScreenManager.SystemMessage, USERINPUT_QUEUE_FULL_MSG);
+	}
 }
 
 void UserInputHandlerClass::ProcessInputs()
 {
 	while(!_userInputRingBuffer.empty())
 	{
+		if(!_userInputRingBuffer.full() && strcmp(ScreenManager.SystemMessage, USERINPUT_QUEUE_FULL_MSG) == 0)	// Clear the queue full message, if the input buffer isn't full but the message is displayed
+		{
+			strcpy(ScreenManager.SystemMessage, "");
+		}
+
 		UserInputData* data = _userInputRingBuffer.dequeue();
 
 		if(!Device.IsUserInputLocked() || data->DataType == USERDATA_USART)

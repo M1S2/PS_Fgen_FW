@@ -14,6 +14,10 @@
 #include "../Encoder/Encoder.h"
 #include <stdbool.h>
 
+#include "../Configuration.h"
+
+#define USERINPUT_QUEUE_FULL_MSG	"The UserInput queue is full.\nThe device couldn't keep up with processing.\nPlease wait until this message disappears\nbefore sending new inputs."
+
 /* Enum used to differentiate the user input types */
 typedef enum UserInputDataTypes
 {
@@ -61,7 +65,7 @@ class UserInputData
 class UserInputHandlerClass 
 {
 	private:
-		CircularBuffer<UserInputData, 1024> _userInputRingBuffer;
+		CircularBuffer<UserInputData, USERINPUT_QUEUE_LENGTH> _userInputRingBuffer;
 		
 	public:		
 		void EnqueueKeyInput(Keys_t userKeyInput);

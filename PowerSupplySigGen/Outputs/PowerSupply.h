@@ -9,10 +9,8 @@
 #ifndef POWERSUPPLY_H_
 #define POWERSUPPLY_H_
 
-#include "ADC_MCP492x.h"
-
-#define PS_INTERNAL_IMPEDANCE	5.7
-#define PS_MIN_LOAD_IMPEDANCE	1.0
+#include "DAC_MCP492x.h"
+#include "../Configuration.h"
 
 class PowerSupplyClass
 {

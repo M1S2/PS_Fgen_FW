@@ -16,8 +16,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
-#define CONTROLS_FONT_HEIGHT		8
-#define CONTROLS_WIDTH				65
+#include "../Configuration.h"
 
 class UserControlBase
 {

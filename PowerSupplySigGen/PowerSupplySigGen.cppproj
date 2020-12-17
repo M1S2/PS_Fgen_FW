@@ -163,6 +163,9 @@
     <Compile Include="ADC\ADC.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="Configuration.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="Device.cpp">
       <SubType>compile</SubType>
     </Compile>
@@ -253,10 +256,10 @@
     <Compile Include="libraries\scpi-parser\src\utils_private.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="Outputs\ADC_MCP492x.cpp">
+    <Compile Include="Outputs\DAC_MCP492x.cpp">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="Outputs\ADC_MCP492x.h">
+    <Compile Include="Outputs\DAC_MCP492x.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="Encoder\Encoder.cpp">

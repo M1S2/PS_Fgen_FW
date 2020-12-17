@@ -15,12 +15,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define SCREEN_TAB_WIDTH			32
-#define SCREEN_TAB_HEIGHT			12
-#define SCREEN_TAB_MARGIN			1
-#define SCREEN_TAB_FONT_HEIGHT		8
-
-#define MAX_SCREEN_USER_CONTROLS	5
+#include "../Configuration.h"
 
 class ScreenBase
 {

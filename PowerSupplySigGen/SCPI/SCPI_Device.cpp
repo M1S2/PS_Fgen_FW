@@ -135,7 +135,7 @@ void SCPI_Init_Device()
 				scpi_commands,
 				&scpi_interface,
 				scpi_units_def,
-				SCPI_IDN1, SCPI_IDN2, SCPI_IDN3, SCPI_IDN4,
+				SCPI_IDN_MANUFACTURER, SCPI_IDN_MODEL, SCPI_IDN_SERIAL_NUMBER, SCPI_IDN_SOFTWARE_REVISION,
 				scpi_input_buffer, SCPI_INPUT_BUFFER_LENGTH,
 				scpi_error_queue_data, SCPI_ERROR_QUEUE_SIZE);
 }

@@ -1,15 +1,16 @@
 /*
- * ADC_MCP492x.h
+ * DAC_MCP492x.h
  *
  * Created: 31.08.2020 18:43:02
  *  Author: V17
  */ 
 
 
-#ifndef ADC_MCP492x_H_
-#define ADC_MCP492x_H_
+#ifndef DAC_MCP492x_H_
+#define DAC_MCP492x_H_
 
 #include "../Pins/Pins.h"
+#include "../Configuration.h"
 
 #define MCP492X_DACB				7
 #define MCP492X_BUFFERED			6
@@ -30,4 +31,4 @@ void MCP4921_Voltage_Set(float voltage);
 void MCP4922_DAC_Set(uint16_t dac_data, char channel_A_B);
 void MCP4922_Voltage_Set(float voltage, char channel_A_B);
 
-#endif /* ADC_MCP492x_H_ */
+#endif /* DAC_MCP492x_H_ */

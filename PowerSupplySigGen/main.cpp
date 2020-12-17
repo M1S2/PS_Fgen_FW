@@ -14,29 +14,21 @@
 ********************************************************/
 
 #include <avr/io.h>
+#include <avr/interrupt.h>
 #include "Spi/spi.h"
 #include "Pins/Pins.h"
 #include "GLCD/u8g.h"
-#include "Outputs/ADC_MCP492x.h"
-#include "Outputs/PowerSupply.h"
+#include "Outputs/DAC_MCP492x.h"
 #include "KeyPad/KeyPad.h"
 #include "Encoder/Encoder.h"
 #include "ADC/ADC.h"
 #include "USART/USART.h"
 #include "Global/DevSettings.h"
 #include "Global/DevStatus.h"
-
-#include "UserControls/UserControlBool.h"
-#include "UserControls/UserControlEnum.h"
-#include "UserControls/UserControlNumeric.h"
-#include "UserInputHandler/CircularBuffer.h"
 #include "UserInputHandler/UserInputHandler.h"
-
 #include "Screens/ScreenManager.h"
-
 #include "SCPI/SCPI_Device.h"
-
-#include <avr/interrupt.h>
+#include "Configuration.h"
 
 u8g_t u8g;
 
@@ -54,9 +46,6 @@ UserControlEnum<SignalForms_t> ctrlEnum (SCREEN_TAB_WIDTH + 10, 30, &signalForm,
 
 DevStatus_t DevStatus;
 uint16_t UserTimerTickCounter;
-
-#define USER_TIMER_TICK_FREQ		5		// Tick frequency of the UserTimer in Hz
-#define SETTINGS_AUTOSAVE_DELAY_SEC	60		// Seconds between automatic saves of the device settings
 
 ISR(TIMER1_COMPA_vect)
 {

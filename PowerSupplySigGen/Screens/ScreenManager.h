@@ -19,9 +19,7 @@
 #include "ScreenDMM.h"
 #include "ScreenATX.h"
 
-#define NUM_SCREENS			5
-#define MESSAGE_MARGIN		5
-#define MAX_MESSAGE_LEN		256
+#include "../Configuration.h"
 
 class ScreenManagerClass
 {

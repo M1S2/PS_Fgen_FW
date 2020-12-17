@@ -18,12 +18,7 @@
 #include "../libraries/scpi-parser/inc/scpi/utils.h"
 #include "../libraries/scpi-parser/inc/scpi/expression.h"
 
-#define SCPI_INPUT_BUFFER_LENGTH 256
-#define SCPI_ERROR_QUEUE_SIZE 17
-#define SCPI_IDN1 "Markus Scheich"
-#define SCPI_IDN2 "PowerSupplySigGen"
-#define SCPI_IDN3 NULL
-#define SCPI_IDN4 "01-02"
+#include "../Configuration.h"
 
 extern scpi_t scpi_context;
 

@@ -20,6 +20,4 @@ void ResetDevice();
 
 extern bool DevSettingsNeedSaving;
 
-#define AVR_VCC		5.27
-
 #endif /* DEVSETTINGS_H_ */

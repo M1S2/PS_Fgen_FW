@@ -1,0 +1,51 @@
+/*
+ * Configuration.h
+ *
+ * Created: 17.12.2020 19:47:56
+ *  Author: V17
+ */ 
+
+#ifndef CONFIGURATION_H_
+#define CONFIGURATION_H_
+
+#define AVR_VCC_REF						5.27					// AVR VCC Reference voltage in V
+
+/***** Version ************************************************/
+#define VERSION							"v0.0.0"				// Software version. This should be incremented with every release.
+
+/***** User Timer and Saving **********************************/
+#define USER_TIMER_TICK_FREQ			5						// Tick frequency of the UserTimer in Hz. The UserTimer is used to periodically read the keys and the encoder.
+#define SETTINGS_AUTOSAVE_DELAY_SEC		60						// Seconds between automatic saves of the device settings
+
+/***** SCPI ***************************************************/
+#define SCPI_INPUT_BUFFER_LENGTH		256						// Length of the SCPI input buffer. If this buffer overflows, there will be an error message.
+#define SCPI_ERROR_QUEUE_SIZE			17						// Maximum number of errors in the error queue. If this queue overflows, the last error message will be replaced by an overflow error message.
+#define SCPI_IDN_MANUFACTURER			"Markus Scheich"		// Manufacturer info used in *IDN? query
+#define SCPI_IDN_MODEL					"PowerSupplySigGen"		// Model info used in *IDN? query
+#define SCPI_IDN_SERIAL_NUMBER			"01"					// Serial number used in *IDN? query
+#define SCPI_IDN_SOFTWARE_REVISION		VERSION					// Software version used in *IDN? query
+
+/***** Screens ************************************************/
+#define NUM_SCREENS						5						// Number of screens.
+
+#define SCREEN_TAB_WIDTH				32						// Width in pixels of the Screen Tab control on the left side
+#define SCREEN_TAB_HEIGHT				12						// Height in pixels of the Screen Tab control on the left side
+#define SCREEN_TAB_MARGIN				1						// Margin in pixels between the Screen Tabs on the left side
+#define SCREEN_TAB_FONT_HEIGHT			8						// Font Height in pixels of the Screen Tabs text on the left side
+
+#define MAX_SCREEN_USER_CONTROLS		5						// Maximum number of user controls allowed per Screen
+#define MESSAGE_MARGIN					5						// Margin of the message popup box (user messages or error messages) to the display outline
+#define MAX_MESSAGE_LEN					256						// Maximum length of user or error messages
+
+/***** UserControls *******************************************/
+#define CONTROLS_FONT_HEIGHT			8						// Font Height in pixels of the text used in UserControls
+#define CONTROLS_WIDTH					65						// Width in pixels of the UserControls
+
+/***** UserInputHandler ***************************************/
+#define USERINPUT_QUEUE_LENGTH			256						// Length of the queue used to buffer the user inputs (keys, encoder, Usart)
+
+/***** Power Supply *******************************************/
+#define PS_INTERNAL_IMPEDANCE			5.7						// Internal impedance in Ohm of the PowerSupply output
+#define PS_MIN_LOAD_IMPEDANCE			1.0						// Minimum allowed load impedance setting
+
+#endif /* CONFIGURATION_H_ */

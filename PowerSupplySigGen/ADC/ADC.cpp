@@ -28,7 +28,7 @@ void ADC_startConversion()
 ISR(ADC_vect)
 {
 	uint16_t adcResult = ADCW;				// ADC conversion result with 10-bit resolution
-	float adcVoltage = (float)(adcResult * (AVR_VCC / 1024.0f));		// Vin = ADC * Vref / 1024 ; Vref=5.27V
+	float adcVoltage = (float)(adcResult * (AVR_VCC_REF / 1024.0f));		// Vin = ADC * Vref / 1024 ; Vref=5.27V
 	char adcChannel = (ADMUX & 0x07);		// Lower 3 bits represent the current ADC channel
 
 	switch (adcChannel)

@@ -36,7 +36,7 @@ void Usart0Transmit(uint8_t data)
 
 void Usart0TransmitStr(const char* data)
 {
-	for (int i = 0; i < strlen(data); i++)
+	for (unsigned int i = 0; i < strlen(data); i++)
 	{
 		Usart0Transmit(data[i]);
 	}

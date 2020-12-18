@@ -153,11 +153,10 @@ SYSTem
             :ECHO <bool>				Enable/disalbe the serial echo
     :CPU
         :FIRMware?					Returns device firmware version
-            :INFOrmation
-                :TYPE?					Returns the type of CPU
-                :MODel?					Returns the control board model name
-                :SNO?					Returns the device serial number
-                :VERSion?				Returns the channel version number
+        :INFOrmation
+            :TYPE?					Returns the type of CPU
+        :SNO?						Returns the device serial number
+        :VERSion?					Returns the CPU board version number
     :ERRor
         [:NEXT]?					Queries and clears errors from the error queue
         :COUNt?						Queries the error/event queue for the number of unread items

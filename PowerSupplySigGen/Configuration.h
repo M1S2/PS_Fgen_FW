@@ -13,6 +13,10 @@
 /***** Version ************************************************/
 #define VERSION							"v0.0.0"				// Software version. This should be incremented with every release.
 
+/***** CPU Info ***********************************************/
+#define CPU_TYPE						"ATMEGA1284P"			// Type of the controller
+#define CPU_BOARD_VERSION				"v1.2"					// Version of the controller board
+
 /***** User Timer and Saving **********************************/
 #define USER_TIMER_TICK_FREQ			5						// Tick frequency of the UserTimer in Hz. The UserTimer is used to periodically read the keys and the encoder.
 #define SETTINGS_AUTOSAVE_DELAY_SEC		60						// Seconds between automatic saves of the device settings
@@ -44,6 +48,9 @@
 
 /***** UserInputHandler ***************************************/
 #define USERINPUT_QUEUE_LENGTH			256						// Length of the queue used to buffer the user inputs (keys, encoder, Usart)
+
+/***** Channels ***********************************************/
+#define NUM_OUTPUT_CHANNELS				3						// Number of output channels
 
 /***** Power Supply *******************************************/
 #define PS_INTERNAL_IMPEDANCE			5.7						// Internal impedance in Ohm of the PowerSupply output

@@ -98,7 +98,7 @@ void UserInputHandlerClass::ProcessInputs()
 				}
 				case USERDATA_USART: 
 				{
-					Usart0Transmit(data->UsartChr);		// Echo character				
+					if(Device.SerialEchoEnabled) { Usart0Transmit(data->UsartChr); }	// Echo character if enabled
 					SCPI_Input(&scpi_context, (char*)&data->UsartChr, 1);
 					break;
 				}

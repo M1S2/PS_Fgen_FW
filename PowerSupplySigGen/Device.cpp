@@ -35,15 +35,27 @@ void DeviceClass::UpdateControlStateOnUserInput()
 	}	
 }
 
-void DeviceClass::SetBaudRate(uint32_t baud)
+void DeviceClass::SetSerialBaudRate(uint32_t baud)
 {
-	if(BaudRate != baud && baud > 0 && baud < 115200)
+	if(baud != 110 && baud != 150 && baud != 300 && baud != 1200 && baud != 2400 && baud != 4800 && baud != 9600 && baud != 19200 && baud != 38400 && baud != 57600)		/* Check for invalid baud rates */
+	{
+		Usart0TransmitStr("Invalid baud rate selected. Nothing done.\r\n");
+		return;
+	}
+	
+	if(SerialBaudRate != baud && baud > 0 && baud < 115200)
 	{
 		DevSettingsNeedSaving = true;
 		char buffer[60];
-		sprintf(buffer, "Changing Baud rate from %lu to %lu\r\n", BaudRate, baud);
+		sprintf(buffer, "Changing Baud rate from %lu to %lu\r\n", (SerialBaudRate == 0 ? 9600 : SerialBaudRate), baud);
 		Usart0TransmitStr(buffer);
-		BaudRate = baud;
+		SerialBaudRate = baud;
 		Usart0ChangeBaudRate(baud);	
 	}
+}
+
+void DeviceClass::SetSerialEchoEnabled(bool echoEnabled)
+{
+	DevSettingsNeedSaving = (SerialEchoEnabled != echoEnabled);
+	SerialEchoEnabled = echoEnabled;
 }

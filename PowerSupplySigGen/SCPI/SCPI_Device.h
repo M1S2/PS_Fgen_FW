@@ -45,6 +45,8 @@ scpi_result_t scpi_cmd_systemRemote(scpi_t * context);
 scpi_result_t scpi_cmd_systemRWLock(scpi_t * context);
 scpi_result_t scpi_cmd_systemCommunicateSerialBaud(scpi_t * context);
 scpi_result_t scpi_cmd_systemCommunicateSerialBaudQ(scpi_t * context);
+scpi_result_t scpi_cmd_systemCommunicateSerialEcho(scpi_t * context);
+scpi_result_t scpi_cmd_systemCommunicateSerialEchoQ(scpi_t * context);
 
 /******* SCPI_Cmds_Memory.cpp ****************************/
 scpi_result_t scpi_cmd_memoryRcl(scpi_t * context);

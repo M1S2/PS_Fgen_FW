@@ -21,7 +21,8 @@ struct DevSettingsEEPROMLayout_t
 	uint8_t Screens_TabIndex;
 	uint8_t Screens_Inverted;
 	
-	uint32_t Device_BaudRate;
+	uint32_t Device_SerialBaudRate;
+	bool Device_SerialEchoEnabled;
 };
 
 bool DevSettingsNeedSaving;
@@ -35,7 +36,8 @@ void SaveSettings()
 	settings.PS_LoadImpedance = PowerSupply.LoadImpedance;
 	settings.Screens_TabIndex = ScreenManager.TabIndex;
 	settings.Screens_Inverted = ScreenManager.DisplayInverted;
-	settings.Device_BaudRate = Device.BaudRate;
+	settings.Device_SerialBaudRate = Device.SerialBaudRate;
+	settings.Device_SerialEchoEnabled = Device.SerialEchoEnabled;
 
 	eeprom_write_block((const void*)&settings, (void*)&NonVolatileSettings, sizeof(DevSettingsEEPROMLayout_t));
 	
@@ -52,9 +54,13 @@ void LoadSettings()
 	PowerSupply.OutputEnabled = false;
 	PowerSupply.LoadImpedance = settings.PS_LoadImpedance;
 	PowerSupply.UpdateOutput();
+	
 	ScreenManager.TabIndex = settings.Screens_TabIndex;
 	ScreenManager.SetDisplayInverted(settings.Screens_Inverted);
-	Device.SetBaudRate(settings.Device_BaudRate);
+	
+	Device.SetSerialBaudRate(settings.Device_SerialBaudRate);
+	Device.SetSerialEchoEnabled(settings.Device_SerialEchoEnabled);
+	
 	DevSettingsNeedSaving = false;
 }
 

@@ -30,20 +30,40 @@ scpi_result_t scpi_cmd_systemRWLock(scpi_t * context)
 	return SCPI_RES_OK;
 }
 
+/***** Communication Serial *************************************************************************************************************/
+
 scpi_result_t scpi_cmd_systemCommunicateSerialBaud(scpi_t * context)
 {
-	uint32_t baud;
+	uint32_t baud;	
 	if(!SCPI_ParamUInt32(context, &baud, TRUE))
 	{
 		return SCPI_RES_ERR;
 	}
-	Device.SetBaudRate(baud);
+	Device.SetSerialBaudRate(baud);
 	
 	return SCPI_RES_OK;
 }
 
 scpi_result_t scpi_cmd_systemCommunicateSerialBaudQ(scpi_t * context)
 {
-	SCPI_ResultInt(context, Device.BaudRate);
+	SCPI_ResultInt(context, Device.SerialBaudRate);
+	return SCPI_RES_OK;
+}
+
+scpi_result_t scpi_cmd_systemCommunicateSerialEcho(scpi_t * context)
+{
+	scpi_bool_t enabled;
+	if(!SCPI_ParamBool(context, &enabled, TRUE))
+	{
+		return SCPI_RES_ERR;
+	}
+	Device.SetSerialEchoEnabled(enabled);
+	
+	return SCPI_RES_OK;
+}
+
+scpi_result_t scpi_cmd_systemCommunicateSerialEchoQ(scpi_t * context)
+{
+	SCPI_ResultBool(context, Device.SerialEchoEnabled);
 	return SCPI_RES_OK;
 }

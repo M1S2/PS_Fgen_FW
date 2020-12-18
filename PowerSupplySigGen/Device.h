@@ -24,7 +24,8 @@ class DeviceClass
 	
 	public:
 		DeviceControlStates_t DeviceControlState;
-		uint32_t BaudRate;
+		uint32_t SerialBaudRate;
+		bool SerialEchoEnabled;
 	
 		DeviceClass()
 		{
@@ -34,7 +35,8 @@ class DeviceClass
 		bool IsUserInputLocked();
 		void UpdateControlStateOnUserInput();
 		
-		void SetBaudRate(uint32_t baud);
+		void SetSerialBaudRate(uint32_t baud);
+		void SetSerialEchoEnabled(bool echoEnabled);
 };
 
 extern DeviceClass Device;

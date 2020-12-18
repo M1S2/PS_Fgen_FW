@@ -60,6 +60,8 @@ const scpi_command_t scpi_commands[] =
 	{"SYSTem:RWLock", scpi_cmd_systemRWLock, 0},
 	{"SYSTem:COMMunicate:SERial:BAUD", scpi_cmd_systemCommunicateSerialBaud, 0},
 	{"SYSTem:COMMunicate:SERial:BAUD?", scpi_cmd_systemCommunicateSerialBaudQ, 0},
+	{"SYSTem:COMMunicate:SERial:ECHO", scpi_cmd_systemCommunicateSerialEcho, 0},
+	{"SYSTem:COMMunicate:SERial:ECHO?", scpi_cmd_systemCommunicateSerialEchoQ, 0},
 		
 	/****** Memory Subsystem ***************************/
 	{"MEMory:NSTates?", scpi_cmd_memoryNStatesQ, 0},		

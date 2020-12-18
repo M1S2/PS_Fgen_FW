@@ -18,6 +18,7 @@
 #define SETTINGS_AUTOSAVE_DELAY_SEC		60						// Seconds between automatic saves of the device settings
 
 /***** SCPI ***************************************************/
+#define SCPI_ENABLED											// Comment this line out to disable the SCPI parser
 #define SCPI_INPUT_BUFFER_LENGTH		256						// Length of the SCPI input buffer. If this buffer overflows, there will be an error message.
 #define SCPI_ERROR_QUEUE_SIZE			17						// Maximum number of errors in the error queue. If this queue overflows, the last error message will be replaced by an overflow error message.
 #define SCPI_IDN_MANUFACTURER			"Markus Scheich"		// Manufacturer info used in *IDN? query

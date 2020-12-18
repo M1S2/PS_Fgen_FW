@@ -97,7 +97,9 @@ int main(void)
 		
 	UserTimerTickCounter = 0;
 	
-	SCPI_Init_Device();
+	#ifdef SCPI_ENABLED
+		SCPI_Init_Device();
+	#endif
 	
 	for(;;)
 	{		

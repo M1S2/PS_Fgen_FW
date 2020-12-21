@@ -35,6 +35,7 @@ class ScreenManagerClass
 				
 		void drawScreenTabs(int selectedTabIndex);
 		void drawMessage();
+		void drawSplashScreen();
 		
 	public:
 		uint8_t TabIndex;
@@ -42,8 +43,11 @@ class ScreenManagerClass
 		char SystemMessage[MAX_MESSAGE_LEN];
 		char UserMessage[MAX_MESSAGE_LEN];
 	
+		bool IsSplashScreenShown;
+	
 		ScreenManagerClass();
 		void Draw(DevStatus_t devStatusDraw);
+		
 		void KeyInput(Keys_t key);
 		void EncoderInput(EncoderDirection_t encDir);
 		void EncoderPBInput();

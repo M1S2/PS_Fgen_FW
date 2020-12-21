@@ -113,6 +113,14 @@ int main(void)
 		} while ( u8g_NextPage(&u8g) );
 		u8g_Delay(100);
 		
+		#ifdef SPLASHSCREEN_ENABLED
+			/* Hide splash screen after some time */
+			if(ScreenManager.IsSplashScreenShown && ((UserTimerTickCounter * (1 / (float)USER_TIMER_TICK_FREQ)) >= SPLASHSCREEN_DELAY_SEC))
+			{
+				ScreenManager.IsSplashScreenShown = false;
+			}
+		#endif
+		
 		if((UserTimerTickCounter * (1 / (float)USER_TIMER_TICK_FREQ)) >= SETTINGS_AUTOSAVE_DELAY_SEC)
 		{
 			if(DevSettingsNeedSaving)

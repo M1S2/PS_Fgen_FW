@@ -5,6 +5,7 @@
  *  Author: V17
  */ 
 
+#include <stdio.h>
 #include "ScreenManager.h"
 #include "../Global/DevSettings.h"
 #include "../Device.h"
@@ -18,6 +19,8 @@ ScreenManagerClass::ScreenManagerClass()
 	_screens[2] = NULL;
 	_screens[3] = &_screenDmm;
 	_screens[4] = &_screenAtx;
+	
+	IsSplashScreenShown = true;
 }
 
 void ScreenManagerClass::drawScreenTabs(int selectedTabIndex)
@@ -50,29 +53,40 @@ void ScreenManagerClass::drawScreenTabs(int selectedTabIndex)
 
 void ScreenManagerClass::Draw(DevStatus_t devStatusDraw)
 {
-	TabIndex %= NUM_SCREENS;
-	drawScreenTabs(TabIndex);
-	for(int i=0; i<NUM_SCREENS; i++)
+#ifdef SPLASHSCREEN_ENABLED
+	if(IsSplashScreenShown)
 	{
-		if(i != TabIndex || _screens[i] == NULL) { continue; }
-		_screens[i]->Draw(_u8g, devStatusDraw);
+		drawSplashScreen();
 	}
-	
-	if(DevSettingsNeedSaving)
+	else
 	{
-		u8g_SetFont(_u8g, u8g_font_7x14r);		// 10 pixel height font
-		u8g_DrawStr(_u8g, u8g_GetWidth(_u8g) - 8, 10, "*");
-	}
+#endif
+		TabIndex %= NUM_SCREENS;
+		drawScreenTabs(TabIndex);
+		for(int i=0; i<NUM_SCREENS; i++)
+		{
+			if(i != TabIndex || _screens[i] == NULL) { continue; }
+			_screens[i]->Draw(_u8g, devStatusDraw);
+		}
 	
-	u8g_SetFont(_u8g, u8g_font_helvR08r);	// 8 pixel height font, 6 pixel width
-	switch(Device.DeviceControlState)
-	{
-		case DEV_CTRL_LOCAL: u8g_DrawStr(_u8g, u8g_GetWidth(_u8g) - 30, 10, "LOC"); break;
-		case DEV_CTRL_REMOTE: u8g_DrawStr(_u8g, u8g_GetWidth(_u8g) - 30, 10, "REM"); break;
-		case DEV_CTRL_RWLOCK: u8g_DrawStr(_u8g, u8g_GetWidth(_u8g) - 30, 10, "RWL"); break;
-	}
+		if(DevSettingsNeedSaving)
+		{
+			u8g_SetFont(_u8g, u8g_font_7x14r);		// 10 pixel height font
+			u8g_DrawStr(_u8g, u8g_GetWidth(_u8g) - 8, 10, "*");
+		}
 	
-	drawMessage();
+		u8g_SetFont(_u8g, u8g_font_helvR08r);	// 8 pixel height font, 6 pixel width
+		switch(Device.DeviceControlState)
+		{
+			case DEV_CTRL_LOCAL: u8g_DrawStr(_u8g, u8g_GetWidth(_u8g) - 30, 10, "LOC"); break;
+			case DEV_CTRL_REMOTE: u8g_DrawStr(_u8g, u8g_GetWidth(_u8g) - 30, 10, "REM"); break;
+			case DEV_CTRL_RWLOCK: u8g_DrawStr(_u8g, u8g_GetWidth(_u8g) - 30, 10, "RWL"); break;
+		}
+	
+		drawMessage();
+#ifdef SPLASHSCREEN_ENABLED
+	}
+#endif
 }
 
 void ScreenManagerClass::drawMessage()
@@ -93,6 +107,27 @@ void ScreenManagerClass::drawMessage()
 	{
 		u8g_DrawStrMultiline(_u8g, MESSAGE_MARGIN + 2, MESSAGE_MARGIN + 2 + 8, UserMessage);
 	}
+}
+
+void ScreenManagerClass::drawSplashScreen()
+{
+	#ifdef SPLASHSCREEN_ENABLED
+		u8g_SetDefaultForegroundColor(_u8g);
+		u8g_SetFont(_u8g, u8g_font_profont22r);			// 14 pixel height font
+		u8g_DrawStr(_u8g, 20, 20, "PowerSupplySigGen");
+	
+		u8g_SetFont(_u8g, u8g_font_helvR08r);	// 8 pixel height font, 6 pixel width
+	
+		char buffer[50];
+		sprintf(buffer, "by %s", SCPI_IDN_MANUFACTURER);
+		u8g_DrawStr(_u8g, 10, u8g_GetHeight(_u8g) - 18, buffer);
+	
+		sprintf(buffer, "SNo.: %s", SCPI_IDN_SERIAL_NUMBER);
+		u8g_DrawStr(_u8g, 10, u8g_GetHeight(_u8g) - 3, buffer);
+	
+		sprintf(buffer, "SW: %s", SCPI_IDN_SOFTWARE_REVISION);
+		u8g_DrawStr(_u8g, u8g_GetWidth(_u8g) - 55, u8g_GetHeight(_u8g) - 3, buffer);
+	#endif
 }
 
 void ScreenManagerClass::KeyInput(Keys_t key)

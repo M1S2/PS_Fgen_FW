@@ -8,6 +8,12 @@
 #ifndef CONFIGURATION_H_
 #define CONFIGURATION_H_
 
+
+
+#define DDS_DEVELOPMENT			// Only used during DDS development
+
+
+
 #define AVR_VCC_REF						5.27					// AVR VCC Reference voltage in V
 
 /***** Version ************************************************/
@@ -22,7 +28,9 @@
 #define SETTINGS_AUTOSAVE_DELAY_SEC		60						// Seconds between automatic saves of the device settings
 
 /***** SCPI ***************************************************/
+#ifndef DDS_DEVELOPMENT
 #define SCPI_ENABLED											// Comment this line out to disable the SCPI parser
+#endif
 #define SCPI_INPUT_BUFFER_LENGTH		256						// Length of the SCPI input buffer. If this buffer overflows, there will be an error message.
 #define SCPI_ERROR_QUEUE_SIZE			17						// Maximum number of errors in the error queue. If this queue overflows, the last error message will be replaced by an overflow error message.
 #define SCPI_IDN_MANUFACTURER			"Markus Scheich"		// Manufacturer info used in *IDN? query
@@ -42,7 +50,10 @@
 #define MESSAGE_MARGIN					5						// Margin of the message popup box (user messages or error messages) to the display outline
 #define MAX_MESSAGE_LEN					256						// Maximum length of user or error messages
 
+#ifndef DDS_DEVELOPMENT
 #define SPLASHSCREEN_ENABLED									// Comment this line out to disable the Splashscreen
+#endif
+
 #define SPLASHSCREEN_DELAY_SEC			3						// Time that the splash screen is shown in seconds
 
 /***** UserControls *******************************************/

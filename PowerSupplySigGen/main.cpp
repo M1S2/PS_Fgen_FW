@@ -19,6 +19,7 @@
 #include "Pins/Pins.h"
 #include "GLCD/u8g.h"
 #include "Outputs/DAC_MCP492x.h"
+#include "Outputs/DDS.h"
 #include "KeyPad/KeyPad.h"
 #include "Encoder/Encoder.h"
 #include "ADC/ADC.h"
@@ -32,7 +33,10 @@
 
 #include "Device.h"
 
+#include <stdio.h>
+
 u8g_t u8g;
+bool redraw_screen;
 
 /*typedef enum SignalForms
 {
@@ -51,6 +55,7 @@ uint16_t UserTimerTickCounter;
 
 ISR(TIMER1_COMPA_vect)
 {
+	redraw_screen = true;
 	UserTimerTickCounter++;
 	Keys_t key = KeyPad_GetKeys();
 	if(key != KEYNONE)
@@ -81,6 +86,7 @@ int main(void)
 	ADC_init();
 	Usart0Init(9600);		/* Always init with 9600 baud to output the power on message. */
 	InitUserTimer();
+	InitDDSTimer();
 	sei();
 	
 	Usart0TransmitStr("Power On\r\n");
@@ -105,14 +111,27 @@ int main(void)
 	{		
 		UserInputHandler.ProcessInputs();	
 		
-		DevStatus_t devStatusDraw = DevStatus;
-		u8g_FirstPage(&u8g);
-		do
+		if(redraw_screen)
 		{
-			ScreenManager.Draw(devStatusDraw);
-		} while ( u8g_NextPage(&u8g) );
-		u8g_Delay(100);
-		
+			DevStatus_t devStatusDraw = DevStatus;
+			uint16_t dds1_accu_tmp = dds1_accu;
+			uint16_t dds1_data_tmp = dds1_data;
+			u8g_FirstPage(&u8g);
+			do
+			{
+				ScreenManager.Draw(devStatusDraw);
+			
+				char buffer[20];
+				sprintf(buffer, "%u", dds1_accu_tmp);
+				u8g_DrawStr(&u8g, 120, 20, buffer);
+
+				sprintf(buffer, "%u", dds1_data_tmp);
+				u8g_DrawStr(&u8g, 120, 40, buffer);
+				
+			} while ( u8g_NextPage(&u8g) );
+			redraw_screen = false;
+		}
+			
 		#ifdef SPLASHSCREEN_ENABLED
 			/* Hide splash screen after some time */
 			if(ScreenManager.IsSplashScreenShown && ((UserTimerTickCounter * (1 / (float)USER_TIMER_TICK_FREQ)) >= SPLASHSCREEN_DELAY_SEC))

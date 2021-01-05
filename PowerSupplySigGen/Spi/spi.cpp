@@ -18,7 +18,7 @@ void SPI_Init()
 
 // Transfer a byte of data
 uint8_t SPI_SendByte( uint8_t data )
-{	
+{		
 	// Start transmission
 	SPI_SPDR = data;
 

@@ -379,6 +379,12 @@
     <Compile Include="main.cpp">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="Outputs\DDS.cpp">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Outputs\DDS.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="Outputs\PowerSupply.cpp">
       <SubType>compile</SubType>
     </Compile>

@@ -23,6 +23,9 @@ struct DevSettingsEEPROMLayout_t
 	
 	uint32_t Device_SerialBaudRate;
 	bool Device_SerialEchoEnabled;
+	
+	float DDS1_Frequency;
+	SignalForms_t DDS1_SignalForm;
 };
 
 bool DevSettingsNeedSaving;
@@ -38,6 +41,8 @@ void SaveSettings()
 	settings.Screens_Inverted = ScreenManager.DisplayInverted;
 	settings.Device_SerialBaudRate = Device.SerialBaudRate;
 	settings.Device_SerialEchoEnabled = Device.SerialEchoEnabled;
+	settings.DDS1_Frequency = DDS_Channel1.GetFrequency();
+	settings.DDS1_SignalForm = DDS_Channel1.GetSignalForm();
 
 	eeprom_write_block((const void*)&settings, (void*)&NonVolatileSettings, sizeof(DevSettingsEEPROMLayout_t));
 	
@@ -61,6 +66,9 @@ void LoadSettings()
 	Device.SetSerialBaudRate(settings.Device_SerialBaudRate);
 	Device.SetSerialEchoEnabled(settings.Device_SerialEchoEnabled);
 	
+	DDS_Channel1.SetFrequency(settings.DDS1_Frequency);
+	DDS_Channel1.SetSignalForm(settings.DDS1_SignalForm);
+	
 	DevSettingsNeedSaving = false;
 }
 
@@ -73,6 +81,7 @@ void ResetDevice()
 	ScreenManager.TabIndex = 0;
 	ScreenManager.SetDisplayEnabled(true);
 	ScreenManager.SetDisplayInverted(false);
-	
+	DDS_Channel1.SetFrequency(1000);
+	DDS_Channel1.SetSignalForm(SINE);
 	SaveSettings();
 }

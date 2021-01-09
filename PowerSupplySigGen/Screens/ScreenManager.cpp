@@ -15,7 +15,7 @@ ScreenManagerClass ScreenManager;
 ScreenManagerClass::ScreenManagerClass()
 {	
 	_screens[0] = &_screenPs;
-	_screens[1] = NULL;
+	_screens[1] = &_screenDds;
 	_screens[2] = NULL;
 	_screens[3] = &_screenDmm;
 	_screens[4] = &_screenAtx;

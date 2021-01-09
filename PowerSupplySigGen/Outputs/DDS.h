@@ -10,6 +10,7 @@
 #define DDS_H_
 
 #include "../Pins/Pins.h"
+#include "DDS_Channel.h"
 #include <avr/interrupt.h>
 #include <avr/pgmspace.h>
 
@@ -18,11 +19,6 @@
 #define DDS_QUANTIZER_BITS		8
 
 void InitDDSTimer();
-
-
-extern volatile uint16_t dds1_accu;		// Only for testing!
-extern volatile uint16_t dds1_data;		// Only for testing!
-
 
 // https://www.avrfreaks.net/forum/dds-function-generator-using-atmega328p
 // 12-bit sine wave table with 256 entries (8-bit index)

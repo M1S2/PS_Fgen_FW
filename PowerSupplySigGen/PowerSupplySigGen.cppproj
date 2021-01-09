@@ -38,7 +38,19 @@
         </dependencies>
       </framework-data>
     </AsfFrameworkConfig>
-    <avrtool />
+    <avrtool>com.atmel.avrdbg.tool.simulator</avrtool>
+    <avrtoolserialnumber />
+    <avrdeviceexpectedsignature>0x1E9705</avrdeviceexpectedsignature>
+    <com_atmel_avrdbg_tool_simulator>
+      <ToolOptions xmlns="">
+        <InterfaceProperties>
+        </InterfaceProperties>
+      </ToolOptions>
+      <ToolType xmlns="">com.atmel.avrdbg.tool.simulator</ToolType>
+      <ToolNumber xmlns="">
+      </ToolNumber>
+      <ToolName xmlns="">Simulator</ToolName>
+    </com_atmel_avrdbg_tool_simulator>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
     <ToolchainSettings>
@@ -385,6 +397,12 @@
     <Compile Include="Outputs\DDS.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="Outputs\DDS_Channel.cpp">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Outputs\DDS_Channel.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="Outputs\PowerSupply.cpp">
       <SubType>compile</SubType>
     </Compile>
@@ -428,6 +446,12 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="Screens\ScreenBase.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Screens\ScreenDDS.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Screens\ScreenDDS.cpp">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="Screens\ScreenDMM.cpp">

@@ -16,6 +16,7 @@
 #include "../KeyPad/KeyPad.h"
 #include "../Encoder/Encoder.h"
 #include "ScreenPS.h"
+#include "ScreenDDS.h"
 #include "ScreenDMM.h"
 #include "ScreenATX.h"
 
@@ -25,6 +26,7 @@ class ScreenManagerClass
 {
 	private:
 		ScreenPS _screenPs;
+		ScreenDDS _screenDds;
 		ScreenDMM _screenDmm;
 		ScreenATX _screenAtx;
 	

@@ -9,12 +9,6 @@
 #include "../Spi/spi.h"
 #include "DAC_MCP492x.h"
 
-volatile uint16_t dds1_accu = 0;
-volatile uint16_t dds1_increment = 1024;		// increment = (2^DDS_PHASE_ACCU_BITS / DDS_TICK_FREQ) * f_out * 30 (>> 30 wahrscheinlich wegen 30 Anweisungen pro ISR Durchlauf)
-volatile uint16_t dds1_data;					// only the lower 12-bits are used
-
-const uint16_t *dds1_wave_table;
-
 /* Initialize 8-bit Timer/Counter2 */
 void InitDDSTimer()
 {	
@@ -24,14 +18,15 @@ void InitDDSTimer()
 	TCCR2B = (1 << CS22) | (1 << CS21) | (1 << CS20);	// Prescaler 1024						//(1 << CS20);				// No Prescaler
 	TIMSK2 = (1 << OCIE2A);								// Enable Output Compare A Match Interrupt
 	
-	dds1_wave_table = SINE_WAVE_TABLE_12BIT;
+	DDS_Channel1.SetSignalForm(SINE);
+	DDS_Channel1.SetFrequency(1000);
 }
 
 //https://www.avrfreaks.net/forum/dds-function-generator-using-atmega328p
 ISR(TIMER2_COMPA_vect)
 {	
-	uint8_t lut1_index = (dds1_accu >> (DDS_PHASE_ACCU_BITS - DDS_QUANTIZER_BITS));			//index to look-up-table (truncated phase accumulator)
-	dds1_data = pgm_read_word(&dds1_wave_table[lut1_index]);
+	uint8_t lut1_index = (DDS_Channel1.Accumulator >> (DDS_PHASE_ACCU_BITS - DDS_QUANTIZER_BITS));			//index to look-up-table (truncated phase accumulator)
+	uint16_t dds1_data = pgm_read_word(&DDS_Channel1.OriginalWaveTable[lut1_index]);
 	
 	bool is_mcp4921_selected = IS_MCP4921_SELECTED;
 	DESELECT_MCP4921
@@ -54,5 +49,5 @@ ISR(TIMER2_COMPA_vect)
 	if(is_mcp4921_selected) { SELECT_MCP4921 }
 	if(is_lcd_selected) { CLEAR_BIT(PORTB, LCD_CS); }	
 	
-	dds1_accu += dds1_increment;
+	DDS_Channel1.Accumulator += DDS_Channel1.Increment;
 }

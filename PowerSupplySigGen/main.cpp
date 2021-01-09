@@ -19,7 +19,7 @@
 #include "Pins/Pins.h"
 #include "GLCD/u8g.h"
 #include "Outputs/DAC_MCP492x.h"
-#include "Outputs/DDS.h"
+#include "Outputs/DDS_Channel.h"
 #include "KeyPad/KeyPad.h"
 #include "Encoder/Encoder.h"
 #include "ADC/ADC.h"
@@ -37,18 +37,6 @@
 
 u8g_t u8g;
 bool redraw_screen;
-
-/*typedef enum SignalForms
-{
-	SINE,
-	RECTANGLE,
-	TRIANGLE
-} SignalForms_t;
-const char* SignalFormsNames[] = { "SINE", "RECT", "TRIANGLE" };*/
-
-/*SignalForms_t signalForm;
-UserControlEnum<SignalForms_t> ctrlEnum (SCREEN_TAB_WIDTH + 10, 30, &signalForm, SignalFormsNames, 3);*/
-
 
 DevStatus_t DevStatus;
 uint16_t UserTimerTickCounter;
@@ -114,20 +102,10 @@ int main(void)
 		if(redraw_screen)
 		{
 			DevStatus_t devStatusDraw = DevStatus;
-			uint16_t dds1_accu_tmp = dds1_accu;
-			uint16_t dds1_data_tmp = dds1_data;
 			u8g_FirstPage(&u8g);
 			do
 			{
 				ScreenManager.Draw(devStatusDraw);
-			
-				char buffer[20];
-				sprintf(buffer, "%u", dds1_accu_tmp);
-				u8g_DrawStr(&u8g, 120, 20, buffer);
-
-				sprintf(buffer, "%u", dds1_data_tmp);
-				u8g_DrawStr(&u8g, 120, 40, buffer);
-				
 			} while ( u8g_NextPage(&u8g) );
 			redraw_screen = false;
 		}

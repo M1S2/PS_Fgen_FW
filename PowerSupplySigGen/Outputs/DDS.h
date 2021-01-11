@@ -9,14 +9,17 @@
 #ifndef DDS_H_
 #define DDS_H_
 
+#define DDS_TICK_FREQ			15625	//100000	//(F_CPU / 2)		// !!! Choose a value that delivers an integer value for the OCR2A register !!!
+#define DDS_PHASE_ACCU_BITS		16
+#define DDS_QUANTIZER_BITS		8
+#define DDS_DAC_BITS			12						// 12-bit DAC
+#define DDS_SAMPLE_MAX			((1 << DDS_DAC_BITS) - 1)	
+#define DDS_AMPLITUDE_MAX		20.0f	
+
 #include "../Pins/Pins.h"
 #include "DDS_Channel.h"
 #include <avr/interrupt.h>
 #include <avr/pgmspace.h>
-
-#define DDS_TICK_FREQ			15625	//100000	//(F_CPU / 2)		// !!! Choose a value that delivers an integer value for the OCR2A register !!!
-#define DDS_PHASE_ACCU_BITS		16
-#define DDS_QUANTIZER_BITS		8
 
 void InitDDSTimer();
 

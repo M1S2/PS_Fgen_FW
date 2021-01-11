@@ -26,7 +26,7 @@ void InitDDSTimer()
 ISR(TIMER2_COMPA_vect)
 {	
 	uint8_t lut1_index = (DDS_Channel1.Accumulator >> (DDS_PHASE_ACCU_BITS - DDS_QUANTIZER_BITS));			//index to look-up-table (truncated phase accumulator)
-	uint16_t dds1_data = pgm_read_word(&DDS_Channel1.OriginalWaveTable[lut1_index]);
+	uint16_t dds1_data = DDS_Channel1.WaveTable[lut1_index];
 	
 	bool is_mcp4921_selected = IS_MCP4921_SELECTED;
 	DESELECT_MCP4921

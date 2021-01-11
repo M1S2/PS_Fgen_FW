@@ -6,6 +6,7 @@
  */ 
 
 #include "DDS_Channel.h"
+#include <stddef.h>
 
 const char* SignalFormsNames[] = { "SINE", "RECT", "TRIANGLE", "SAWTOOTH" };
 
@@ -26,6 +27,28 @@ float DDS_Channel::GetFrequency()
 	return Frequency;
 }
 
+void DDS_Channel::SetAmplitude(float amplitude)
+{
+	Amplitude = amplitude;
+	UpdateWaveTable();
+}
+
+float DDS_Channel::GetAmplitude()
+{
+	return Amplitude;
+}
+		
+void DDS_Channel::SetOffset(float offset)
+{
+	Offset = offset;
+	UpdateWaveTable();
+}
+
+float DDS_Channel::GetOffset()
+{
+	return Offset;
+}
+
 void DDS_Channel::SetSignalForm(SignalForms_t signalForm)
 {
 	SignalForm = signalForm;
@@ -38,11 +61,33 @@ void DDS_Channel::SetSignalForm(SignalForms_t signalForm)
 		case SAWTOOTH: OriginalWaveTable = SAWTOOTH_WAVE_TABLE_12BIT; break;
 		default: OriginalWaveTable = SINE_WAVE_TABLE_12BIT; break;
 	}
+	UpdateWaveTable();
 }
 
 SignalForms_t DDS_Channel::GetSignalForm()
 {
 	return SignalForm;
+}
+
+void DDS_Channel::UpdateWaveTable()
+{	
+	if(OriginalWaveTable == NULL) { return; }
+
+	int16_t offset_value = (uint16_t)((Offset / (float)DDS_AMPLITUDE_MAX) * DDS_SAMPLE_MAX);
+	int16_t sample_max_half = DDS_SAMPLE_MAX / 2;
+
+	for(int i = 0; i < (1 << DDS_QUANTIZER_BITS); i++)			// Left shift to replace pow(2, DDS_QUANTIZER_BITS)
+	{
+		int16_t originalSample = pgm_read_word(&OriginalWaveTable[i]);
+		
+		// ((Vpp/Vpp_max) * (sample - (sample_max / 2))) + (sample_max / 2) + (Offset/Vpp_max) * sample_max
+		int16_t waveTableValue = (uint16_t)((Amplitude / (float)DDS_AMPLITUDE_MAX) * (originalSample - sample_max_half)) + sample_max_half + offset_value;
+
+		if(waveTableValue > 4095) { waveTableValue = 4095; }	// Clipping
+		else if(waveTableValue < 0) { waveTableValue = 0; }		// Clipping	
+
+		WaveTable[i] = waveTableValue;
+	}
 }
 
 
@@ -55,4 +100,9 @@ void DDSUpdateIncrementsCallbackFunction()
 void DDSUpdateSignalFormsCallbackFunction()
 {
 	DDS_Channel1.SetSignalForm(DDS_Channel1.SignalForm);	// Use the SetSignalForm function to update the OriginalWaveTable pointer
+}
+
+void DDSUpdateWaveTableCallbackFunction()
+{
+	DDS_Channel1.UpdateWaveTable();
 }

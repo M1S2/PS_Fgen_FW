@@ -9,7 +9,7 @@
 #ifndef DDS_H_
 #define DDS_H_
 
-#define DDS_TICK_FREQ			15625	//100000	//(F_CPU / 2)		// !!! Choose a value that delivers an integer value for the OCR2A register !!!
+#define DDS_TICK_FREQ			125000					// Choose a value here that delivers an integer value for the OCR2A register (  ((F_CPU / 128) / DDS_TICK_FREQ) should be an integer value ) !!!
 #define DDS_PHASE_ACCU_BITS		16
 #define DDS_QUANTIZER_BITS		8
 #define DDS_DAC_BITS			12						// 12-bit DAC
@@ -22,6 +22,7 @@
 #include <avr/pgmspace.h>
 
 void InitDDSTimer();
+void DisableDDSTimer();
 
 // https://www.avrfreaks.net/forum/dds-function-generator-using-atmega328p
 // 12-bit sine wave table with 256 entries (8-bit index)

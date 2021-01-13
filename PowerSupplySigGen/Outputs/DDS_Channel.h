@@ -24,6 +24,7 @@ extern const char* SignalFormsNames[];
 class DDS_Channel
 {		
 	public:
+		bool Enabled;
 		float Frequency;
 		float Amplitude;
 		float Offset;
@@ -40,6 +41,9 @@ class DDS_Channel
 			Increment = 1024;
 		}
 	
+		void SetEnabled(bool enabled);
+		bool GetEnabled();
+		
 		void SetFrequency(float frequency);
 		float GetFrequency();
 		
@@ -60,5 +64,6 @@ extern DDS_Channel DDS_Channel1;
 void DDSUpdateIncrementsCallbackFunction();
 void DDSUpdateSignalFormsCallbackFunction();
 void DDSUpdateWaveTableCallbackFunction();
+void DDSUpdateEnabledCallbackFunction();
 
 #endif /* DDS_CHANNEL_H_ */

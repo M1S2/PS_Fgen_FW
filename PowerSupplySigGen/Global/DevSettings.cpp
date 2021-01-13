@@ -28,6 +28,7 @@ struct DevSettingsEEPROMLayout_t
 	SignalForms_t DDS1_SignalForm;
 	float DDS1_Amplitude;
 	float DDS1_Offset;
+	//bool DDS1_Enabled;
 };
 
 bool DevSettingsNeedSaving;
@@ -70,6 +71,7 @@ void LoadSettings()
 	Device.SetSerialBaudRate(settings.Device_SerialBaudRate);
 	Device.SetSerialEchoEnabled(settings.Device_SerialEchoEnabled);
 	
+	DDS_Channel1.SetEnabled(false);
 	DDS_Channel1.SetFrequency(settings.DDS1_Frequency);
 	DDS_Channel1.SetSignalForm(settings.DDS1_SignalForm);
 	DDS_Channel1.SetAmplitude(settings.DDS1_Amplitude);
@@ -88,9 +90,11 @@ void ResetDevice()
 	ScreenManager.TabIndex = 0;
 	ScreenManager.SetDisplayEnabled(true);
 	ScreenManager.SetDisplayInverted(false);
+	DDS_Channel1.SetEnabled(false);
 	DDS_Channel1.SetFrequency(1000);
 	DDS_Channel1.SetSignalForm(SINE);
 	DDS_Channel1.SetAmplitude(10);
 	DDS_Channel1.SetOffset(0);
+	
 	SaveSettings();
 }

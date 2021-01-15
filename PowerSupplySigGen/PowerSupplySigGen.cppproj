@@ -484,16 +484,22 @@
     <Compile Include="USART\USART.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="UserControls\UserControlBase.h">
+    <Compile Include="UserControlsIndicators\UserControlBase.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="UserControls\UserControlBool.h">
+    <Compile Include="UserControlsIndicators\UserControlBool.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="UserControls\UserControlEnum.h">
+    <Compile Include="UserControlsIndicators\UserControlEnum.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="UserControls\UserControlNumeric.h">
+    <Compile Include="UserControlsIndicators\UserControlNumeric.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="UserControlsIndicators\UserIndicatorBase.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="UserControlsIndicators\UserIndicatorNumeric.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="UserInputHandler\CircularBuffer.h">
@@ -515,7 +521,7 @@
     <Folder Include="libraries\scpi-parser\src\" />
     <Folder Include="SCPI" />
     <Folder Include="USART" />
-    <Folder Include="UserControls" />
+    <Folder Include="UserControlsIndicators" />
     <Folder Include="Outputs" />
     <Folder Include="KeyPad" />
     <Folder Include="Encoder" />

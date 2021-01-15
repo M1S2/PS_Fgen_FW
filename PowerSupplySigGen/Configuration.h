@@ -47,6 +47,7 @@
 #define SCREEN_TAB_FONT_HEIGHT			8						// Font Height in pixels of the Screen Tabs text on the left side
 
 #define MAX_SCREEN_USER_CONTROLS		5						// Maximum number of user controls allowed per Screen
+#define MAX_SCREEN_USER_INDICATORS		5						// Maximum number of user indicators allowed per Screen
 #define MESSAGE_MARGIN					5						// Margin of the message popup box (user messages or error messages) to the display outline
 #define MAX_MESSAGE_LEN					256						// Maximum length of user or error messages
 
@@ -56,9 +57,10 @@
 
 #define SPLASHSCREEN_DELAY_SEC			3						// Time that the splash screen is shown in seconds
 
-/***** UserControls *******************************************/
+/***** UserControlsIndicators **********************************/
 #define CONTROLS_FONT_HEIGHT			8						// Font Height in pixels of the text used in UserControls
 #define CONTROLS_WIDTH					65						// Width in pixels of the UserControls
+#define INDICATORS_FONT_HEIGHT			8						// Font Height in pixels of the text used in UserIndicators
 
 /***** UserInputHandler ***************************************/
 #define USERINPUT_QUEUE_LENGTH			256						// Length of the queue used to buffer the user inputs (keys, encoder, Usart)

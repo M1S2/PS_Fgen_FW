@@ -10,9 +10,9 @@
 #define SCREENDDS_H_
 
 #include "ScreenBase.h"
-#include "../UserControls/UserControlBool.h"
-#include "../UserControls/UserControlNumeric.h"
-#include "../UserControls/UserControlEnum.h"
+#include "../UserControlsIndicators/UserControlBool.h"
+#include "../UserControlsIndicators/UserControlNumeric.h"
+#include "../UserControlsIndicators/UserControlEnum.h"
 #include "../Outputs/DDS_Channel.h"
 
 #define SIGNALFORM_CONTROL_POSX			SCREEN_TAB_WIDTH + 10

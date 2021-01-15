@@ -17,6 +17,7 @@ struct DevStatus_t
 	float ATX_12V_NEG;
 	float PS_VOLT;
 	float PS_CURR;
+	float PS_POWER;
 	float DMM1;
 	float DMM2;
 };

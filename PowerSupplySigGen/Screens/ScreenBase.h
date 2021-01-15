@@ -11,7 +11,8 @@
 
 #include "../GLCD/u8g.h"
 #include "../Global/DevStatus.h"
-#include "../UserControls/UserControlBase.h"
+#include "../UserControlsIndicators/UserControlBase.h"
+#include "../UserControlsIndicators/UserIndicatorBase.h"
 #include <stdlib.h>
 #include <string.h>
 
@@ -23,6 +24,9 @@ class ScreenBase
 		UserControlBase* _userControls[MAX_SCREEN_USER_CONTROLS];
 		char _numUserControls;
 		char _selectedUserControl;
+
+		UserIndicatorBase* _userIndicators[MAX_SCREEN_USER_INDICATORS];
+		char _numUserIndicators;
 
 	public:
 		const char* TabName;

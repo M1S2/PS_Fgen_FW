@@ -60,4 +60,8 @@ void ScreenBase::Draw(u8g_t* u8g, DevStatus_t devStatusDraw)
 	{
 		if(_userControls[i] != NULL) { _userControls[i]->Draw(u8g); }
 	}
+	for (int i = 0; i < _numUserIndicators; i++)
+	{
+		if (_userIndicators[i] != NULL) { _userIndicators[i]->Draw(u8g); }
+	}
 }

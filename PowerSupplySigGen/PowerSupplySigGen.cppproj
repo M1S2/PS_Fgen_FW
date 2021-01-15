@@ -502,6 +502,9 @@
     <Compile Include="UserControlsIndicators\UserIndicatorNumeric.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="UserControlsIndicators\UserIndicatorProgressBar.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="UserInputHandler\CircularBuffer.h">
       <SubType>compile</SubType>
     </Compile>

@@ -42,7 +42,7 @@ ISR(ADC_vect)
 			DevStatus.PS_POWER = DevStatus.PS_VOLT * DevStatus.PS_CURR;
 			break;
 		case 2:
-			DevStatus.ATX_12V_NEG = adcVoltage * 2.4;
+			DevStatus.ATX_12V_NEG = -adcVoltage * 2.4;
 			break;
 		case 3:
 			DevStatus.ATX_12V = adcVoltage * 3; // 2.5;

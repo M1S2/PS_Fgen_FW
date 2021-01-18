@@ -29,10 +29,10 @@ class ScreenATX : public ScreenBase
 
 	public:
 		ScreenATX() : ScreenBase("ATX"),
-			_indATX3V3(ATX_COLUMN2_POSX, ATX_ROW1_POSY, &DevStatus.ATX_3V3, "V", 0, 20, 100, 10),
-			_indATX5V(ATX_COLUMN2_POSX, ATX_ROW2_POSY, &DevStatus.ATX_5V, "V", 0, 20, 100, 10),
-			_indATX12V(ATX_COLUMN2_POSX, ATX_ROW3_POSY, &DevStatus.ATX_12V, "V", 0, 20, 100, 10),
-			_indATX12VNEG(ATX_COLUMN2_POSX, ATX_ROW4_POSY, &DevStatus.ATX_12V_NEG, "V", -20, 0, 100, 10)
+			_indATX3V3(ATX_COLUMN2_POSX, ATX_ROW1_POSY, &DevStatusDraw.ATX_3V3, "V", 0, 5, 75, 5, PROGRESSBAR_ORIGIN_ZERO, 1),
+			_indATX5V(ATX_COLUMN2_POSX, ATX_ROW2_POSY, &DevStatusDraw.ATX_5V, "V", 0, 6, 75, 5, PROGRESSBAR_ORIGIN_ZERO, 1),
+			_indATX12V(ATX_COLUMN2_POSX, ATX_ROW3_POSY, &DevStatusDraw.ATX_12V, "V", 0, 15, 75, 5, PROGRESSBAR_ORIGIN_ZERO, 1),
+			_indATX12VNEG(ATX_COLUMN2_POSX, ATX_ROW4_POSY, &DevStatusDraw.ATX_12V_NEG, "V", -15, 0, 75, 5, PROGRESSBAR_ORIGIN_ZERO, 1)
 		{
 			_userIndicators[0] = &_indATX3V3;
 			_userIndicators[1] = &_indATX5V;

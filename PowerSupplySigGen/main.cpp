@@ -39,6 +39,7 @@ u8g_t u8g;
 bool redraw_screen;
 
 DevStatus_t DevStatus;
+DevStatus_t DevStatusDraw;
 uint16_t UserTimerTickCounter;
 
 ISR(TIMER1_COMPA_vect)
@@ -100,6 +101,7 @@ int main(void)
 		if(redraw_screen)
 		{
 			DevStatus_t devStatusDraw = DevStatus;
+			DevStatusDraw = DevStatus;
 			u8g_FirstPage(&u8g);
 			do
 			{

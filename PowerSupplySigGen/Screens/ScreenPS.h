@@ -44,9 +44,9 @@ class ScreenPS : public ScreenBase
 			_ctrlPSVoltage(VOLTAGE_CONTROL_POSX, VOLTAGE_CONTROL_POSY, &PowerSupply.Voltage, "V", 0, 0, 10, &PSUpdateOutputCallbackFunction),
 			_ctrlLoadImpedance(LOAD_IMPEDANCE_CONTROL_POSX, LOAD_IMPEDANCE_CONTROL_POSY, &PowerSupply.LoadImpedance, "Ohm", 0, PS_MIN_LOAD_IMPEDANCE, 1000000, &PSUpdateOutputCallbackFunction),
 			_ctrlOutputEnable(OUTPUT_STATE_CONTROL_POSX, OUTPUT_STATE_CONTROL_POSY, &PowerSupply.OutputEnabled, &PSUpdateOutputCallbackFunction),
-			_indPSVoltage(INFO_TEXTS_POSX, INFO_TEXT_VOLTAGE_POSY, &DevStatus.PS_VOLT, "V"),
-			_indPSCurrent(INFO_TEXTS_POSX, INFO_TEXT_CURRENT_POSY, &DevStatus.PS_CURR, "A"),
-			_indPSPower(INFO_TEXTS_POSX, INFO_TEXT_POWER_POSY, &DevStatus.PS_POWER, "W")
+			_indPSVoltage(INFO_TEXTS_POSX, INFO_TEXT_VOLTAGE_POSY, &DevStatusDraw.PS_VOLT, "V"),
+			_indPSCurrent(INFO_TEXTS_POSX, INFO_TEXT_CURRENT_POSY, &DevStatusDraw.PS_CURR, "A"),
+			_indPSPower(INFO_TEXTS_POSX, INFO_TEXT_POWER_POSY, &DevStatusDraw.PS_POWER, "W")
 		{
 			_ctrlPSVoltage.IsSelected = true;
 			

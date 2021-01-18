@@ -23,5 +23,6 @@ struct DevStatus_t
 };
 
 extern DevStatus_t DevStatus;		// defined in main.cpp
+extern DevStatus_t DevStatusDraw;	// defined in main.cpp
 
 #endif /* DEVSTATUS_H_ */

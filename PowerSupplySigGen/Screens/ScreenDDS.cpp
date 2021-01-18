@@ -7,7 +7,7 @@
 
 #include "ScreenDDS.h"
 
-void ScreenDDS::Draw(u8g_t* u8g, DevStatus_t devStatusDraw)
+void ScreenDDS::Draw(u8g_t* u8g)
 {
-	ScreenBase::Draw(u8g, devStatusDraw);
+	ScreenBase::Draw(u8g);
 }

@@ -7,10 +7,10 @@
 
 #include "ScreenDMM.h"
 
-void ScreenDMM::Draw(u8g_t* u8g, DevStatus_t devStatusDraw)
+void ScreenDMM::Draw(u8g_t* u8g)
 {	
 	u8g_DrawStr(u8g, DMM_COLUMN1_POSX, DMM_ROW1_POSY + INDICATORS_FONT_HEIGHT, "#1:");
 	u8g_DrawStr(u8g, DMM_COLUMN1_POSX, DMM_ROW2_POSY + INDICATORS_FONT_HEIGHT, "#2:");
 
-	ScreenBase::Draw(u8g, devStatusDraw);
+	ScreenBase::Draw(u8g);
 }

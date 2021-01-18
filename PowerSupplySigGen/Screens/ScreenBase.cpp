@@ -54,7 +54,7 @@ bool ScreenBase::IsSelectedControlActive()
 	return _userControls[_selectedUserControl]->IsActive;
 }
 
-void ScreenBase::Draw(u8g_t* u8g, DevStatus_t devStatusDraw)
+void ScreenBase::Draw(u8g_t* u8g)
 {
 	for(int i = 0; i < _numUserControls; i++)
 	{

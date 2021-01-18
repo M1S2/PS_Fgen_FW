@@ -43,7 +43,7 @@ class ScreenBase
 		void ActivateSelectedControl(bool active);
 		bool IsSelectedControlActive();
 		
-		virtual void Draw(u8g_t* u8g, DevStatus_t devStatusDraw);
+		virtual void Draw(u8g_t* u8g);
 };
 
 #endif /* SCREENBASE_H_ */

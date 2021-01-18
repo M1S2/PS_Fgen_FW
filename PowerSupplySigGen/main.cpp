@@ -100,12 +100,11 @@ int main(void)
 		
 		if(redraw_screen)
 		{
-			DevStatus_t devStatusDraw = DevStatus;
 			DevStatusDraw = DevStatus;
 			u8g_FirstPage(&u8g);
 			do
 			{
-				ScreenManager.Draw(devStatusDraw);
+				ScreenManager.Draw();
 			} while ( u8g_NextPage(&u8g) );
 			redraw_screen = false;
 		}

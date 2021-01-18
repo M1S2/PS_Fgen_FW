@@ -51,7 +51,7 @@ void ScreenManagerClass::drawScreenTabs(int selectedTabIndex)
 	}
 }
 
-void ScreenManagerClass::Draw(DevStatus_t devStatusDraw)
+void ScreenManagerClass::Draw()
 {
 #ifdef SPLASHSCREEN_ENABLED
 	if(IsSplashScreenShown)
@@ -66,7 +66,7 @@ void ScreenManagerClass::Draw(DevStatus_t devStatusDraw)
 		for(int i=0; i<NUM_SCREENS; i++)
 		{
 			if(i != TabIndex || _screens[i] == NULL) { continue; }
-			_screens[i]->Draw(_u8g, devStatusDraw);
+			_screens[i]->Draw(_u8g);
 		}
 	
 		if(DevSettingsNeedSaving)

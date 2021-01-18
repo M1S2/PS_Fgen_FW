@@ -53,7 +53,7 @@ class ScreenDDS : public ScreenBase
 			_numUserControls = 5;
 		}
 
-		virtual void Draw(u8g_t* u8g, DevStatus_t devStatusDraw);
+		virtual void Draw(u8g_t* u8g);
 };
 
 #endif /* SCREENDDS_H_ */

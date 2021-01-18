@@ -61,7 +61,7 @@ class ScreenPS : public ScreenBase
 			_numUserIndicators = 3;
 		}
 
-		virtual void Draw(u8g_t* u8g, DevStatus_t devStatusDraw);
+		virtual void Draw(u8g_t* u8g);
 };
 
 #endif /* SCREENPS_H_ */

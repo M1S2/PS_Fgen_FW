@@ -33,7 +33,7 @@ class ScreenDMM : public ScreenBase
 			_numUserIndicators = 2;
 		}
 
-		virtual void Draw(u8g_t* u8g, DevStatus_t devStatusDraw);
+		virtual void Draw(u8g_t* u8g);
 };
 
 #endif /* SCREENDMM_H_ */

@@ -41,7 +41,7 @@ class ScreenATX : public ScreenBase
 			_numUserIndicators = 4;
 		}
 
-		virtual void Draw(u8g_t* u8g, DevStatus_t devStatusDraw);
+		virtual void Draw(u8g_t* u8g);
 };
 
 #endif /* SCREENATX_H_ */

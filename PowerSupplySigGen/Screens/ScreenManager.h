@@ -48,7 +48,7 @@ class ScreenManagerClass
 		bool IsSplashScreenShown;
 	
 		ScreenManagerClass();
-		void Draw(DevStatus_t devStatusDraw);
+		void Draw();
 		
 		void KeyInput(Keys_t key);
 		void EncoderInput(EncoderDirection_t encDir);

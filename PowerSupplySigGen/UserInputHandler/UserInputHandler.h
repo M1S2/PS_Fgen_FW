@@ -76,6 +76,4 @@ class UserInputHandlerClass
 		void ProcessInputs();
 };
 
-extern UserInputHandlerClass UserInputHandler;
-
 #endif /* USERINPUTHANDLER_H_ */

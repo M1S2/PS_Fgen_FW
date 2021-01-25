@@ -7,7 +7,7 @@
 
 #include "ScreenDDS.h"
 
-void ScreenDDS::Draw(u8g_t* u8g)
+void ScreenDDS::Draw(u8g_t* u8g, bool isFirstPage)
 {
-	ScreenBase::Draw(u8g);
+	ScreenBase::Draw(u8g, isFirstPage);
 }

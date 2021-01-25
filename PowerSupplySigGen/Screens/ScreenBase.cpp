@@ -54,14 +54,14 @@ bool ScreenBase::IsSelectedControlActive()
 	return _userControls[_selectedUserControl]->IsActive;
 }
 
-void ScreenBase::Draw(u8g_t* u8g)
+void ScreenBase::Draw(u8g_t* u8g, bool isFirstPage)
 {
 	for(int i = 0; i < _numUserControls; i++)
 	{
-		if(_userControls[i] != NULL) { _userControls[i]->Draw(u8g); }
+		if(_userControls[i] != NULL) { _userControls[i]->Draw(u8g, isFirstPage); }
 	}
 	for (int i = 0; i < _numUserIndicators; i++)
 	{
-		if (_userIndicators[i] != NULL) { _userIndicators[i]->Draw(u8g); }
+		if (_userIndicators[i] != NULL) { _userIndicators[i]->Draw(u8g, isFirstPage); }
 	}
 }

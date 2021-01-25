@@ -8,11 +8,10 @@
 #include "UserInputHandler.h"
 
 #include "../USART/USART.h"
-#include "../Screens/ScreenManager.h"
+#include "../Device.h"
 #include "../SCPI/SCPI_Device.h"
 #include "../Device.h"
-
-UserInputHandlerClass UserInputHandler;
+#include "../Screens/ScreenManager.h"
 
 void UserInputHandlerClass::EnqueueKeyInput(Keys_t userKeyInput)
 {

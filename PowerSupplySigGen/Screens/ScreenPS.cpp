@@ -7,7 +7,7 @@
 
 #include "ScreenPS.h"
 
-void ScreenPS::Draw(u8g_t* u8g)
+void ScreenPS::Draw(u8g_t* u8g, bool isFirstPage)
 {
-	ScreenBase::Draw(u8g);
+	ScreenBase::Draw(u8g, isFirstPage);
 }

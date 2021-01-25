@@ -175,10 +175,10 @@ class UserControlNumeric : public UserControlBase
 			DevSettingsNeedSaving = true;
 		}
 		
-        void Draw(u8g_t *u8g)
+        void Draw(u8g_t *u8g, bool isFirstPage)
 		{
-			UserControlBase::Draw(u8g);
- 		
+			UserControlBase::Draw(u8g, isFirstPage);
+
 			if(!this->IsActive)
 			{
 				calculateDisplayValue();

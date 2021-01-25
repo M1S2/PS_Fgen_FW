@@ -17,6 +17,7 @@ private:
 	const char** _enumNames;
 	uint8_t _numEnumValues;
 	T* _controlValue;
+	T _controlValueDraw;				// This variable is updated from the _controlValue on each draw of the first page.
 	
 public:
 	UserControlEnum(uint8_t locx, uint8_t locy, T* controlValue, const char** enumNames, uint8_t numEnumValues, void (*onValueChanged)()) : UserControlBase(locx, locy, onValueChanged)
@@ -68,10 +69,12 @@ public:
 		/* Nothing to do here */
 	}
 	
-	void Draw(u8g_t *u8g)
+	void Draw(u8g_t *u8g, bool isFirstPage)
 	{
-		UserControlBase::Draw(u8g);
-		u8g_DrawStr(u8g, this->_locX + 3, this->_locY + 3 + CONTROLS_FONT_HEIGHT, _enumNames[*_controlValue]);
+		UserControlBase::Draw(u8g, isFirstPage);
+		if (isFirstPage) { _controlValueDraw = *_controlValue; }
+		
+		u8g_DrawStr(u8g, this->_locX + 3, this->_locY + 3 + CONTROLS_FONT_HEIGHT, _enumNames[_controlValueDraw]);
 	}
 };
 

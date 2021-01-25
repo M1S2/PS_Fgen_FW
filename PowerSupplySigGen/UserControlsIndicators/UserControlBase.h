@@ -40,7 +40,7 @@ public:
 	virtual void EncoderInput(EncoderDirection_t encDir);
 	virtual void EncoderPBInput();
 	
-	virtual void Draw(u8g_t *u8g)
+	virtual void Draw(u8g_t *u8g, bool isFirstPage)
 	{
 		//u8g_SetFont(u8g, u8g_font_7x14r);		// 10 pixel height font
 		u8g_SetFont(u8g, u8g_font_helvR08r);	// 8 pixel height font, 6 pixel width

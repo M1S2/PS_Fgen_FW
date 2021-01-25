@@ -10,7 +10,6 @@
 #define SCREENBASE_H_
 
 #include "../GLCD/u8g.h"
-#include "../Global/DevStatus.h"
 #include "../UserControlsIndicators/UserControlBase.h"
 #include "../UserControlsIndicators/UserIndicatorBase.h"
 #include <stdlib.h>
@@ -43,7 +42,7 @@ class ScreenBase
 		void ActivateSelectedControl(bool active);
 		bool IsSelectedControlActive();
 		
-		virtual void Draw(u8g_t* u8g);
+		virtual void Draw(u8g_t* u8g, bool isFirstPage);
 };
 
 #endif /* SCREENBASE_H_ */

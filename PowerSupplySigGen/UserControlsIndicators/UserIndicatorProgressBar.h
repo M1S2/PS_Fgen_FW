@@ -38,7 +38,7 @@ private:
 	}
 	
 public:
-	UserIndicatorProgressBar(uint8_t locx, uint8_t locy, T* controlValue, const char* baseUnit, T minValue, T maxValue, int barWidth, int barHeight, ProgressBarOrigin_t origin, float tickIncrement) : UserIndicatorNumeric<T>(locx, locy, controlValue, baseUnit)
+	UserIndicatorProgressBar(uint8_t locx, uint8_t locy, T* controlValuePointer, const char* baseUnit, T minValue, T maxValue, int barWidth, int barHeight, ProgressBarOrigin_t origin, float tickIncrement) : UserIndicatorNumeric<T>(locx, locy, controlValuePointer, baseUnit)
     {
 		_minValue = minValue;
 		_maxValue = maxValue;
@@ -50,9 +50,9 @@ public:
 		_originXCoord = xCoordinateFromValue(_origin == PROGRESSBAR_ORIGIN_LEFT ? _minValue : (_origin == PROGRESSBAR_ORIGIN_RIGHT ? _maxValue : 0));
 	}
         		
-    void Draw(u8g_t *u8g)
+    void Draw(u8g_t *u8g, bool isFirstPage)
 	{
-		UserIndicatorNumeric<T>::Draw(u8g);
+		UserIndicatorNumeric<T>::Draw(u8g, isFirstPage);
 
 		// Draw outer border of progress bar
 		u8g_DrawFrame(u8g, xCoordinateFromValue(_minValue), UserIndicatorNumeric<T>::_locY + ((INDICATORS_FONT_HEIGHT - _barHeight) / 2), _barWidth, _barHeight);
@@ -64,7 +64,7 @@ public:
 		itoa(_minValue, buffer, 10);
 		u8g_DrawStr(u8g, xCoordinateFromValue(_minValue) - 15, UserIndicatorNumeric<T>::_locY + 5, buffer);
 
-		int valueXCoord = xCoordinateFromValue(*UserIndicatorNumeric<T>::_controlValue);
+		int valueXCoord = xCoordinateFromValue(UserIndicatorNumeric<T>::_controlValue);
 		u8g_DrawBox(u8g, MIN(valueXCoord, _originXCoord), UserIndicatorNumeric<T>::_locY + ((INDICATORS_FONT_HEIGHT - _barHeight) / 2), abs(valueXCoord - _originXCoord), _barHeight);
 		
 		for (T xVal = _minValue; xVal <= _maxValue; xVal+=_tickIncrement)

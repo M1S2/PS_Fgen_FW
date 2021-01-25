@@ -7,6 +7,9 @@
 
 #include "ADC.h"
 #include <avr/interrupt.h>
+#include "../Device.h"
+#include "../Global/DevSettings.h"
+#include "../Configuration.h"
 
 void ADC_init()
 {
@@ -17,7 +20,7 @@ void ADC_init()
 
 	//After ADC_init():
 	//Enable Interrupts: sei();
-	//Then start first conversion: ADC_startFirstConversion();
+	//Then start first conversion: ADC_startConversion();
 }
 
 void ADC_startConversion()
@@ -34,30 +37,30 @@ ISR(ADC_vect)
 	switch (adcChannel)
 	{
 		case 0:
-			DevStatus.PS_CURR = adcVoltage / 2.4;		// Ucurr = R24 * (R22 / R23) * IL	=> IL = Ucurr / (R24 * (R22 / R23))
-			DevStatus.PS_POWER = DevStatus.PS_VOLT * DevStatus.PS_CURR;
+			Device.DeviceVoltages.PS_CURR = adcVoltage / 2.4;		// Ucurr = R24 * (R22 / R23) * IL	=> IL = Ucurr / (R24 * (R22 / R23))
+			Device.DeviceVoltages.PS_POWER = Device.DeviceVoltages.PS_VOLT * Device.DeviceVoltages.PS_CURR;
 			break;
 		case 1:
-			DevStatus.PS_VOLT = adcVoltage * 2;
-			DevStatus.PS_POWER = DevStatus.PS_VOLT * DevStatus.PS_CURR;
+			Device.DeviceVoltages.PS_VOLT = adcVoltage * 2;
+			Device.DeviceVoltages.PS_POWER = Device.DeviceVoltages.PS_VOLT * Device.DeviceVoltages.PS_CURR;
 			break;
 		case 2:
-			DevStatus.ATX_12V_NEG = -adcVoltage * 2.4;
+			Device.DeviceVoltages.ATX_12V_NEG = -adcVoltage * 2.4;
 			break;
 		case 3:
-			DevStatus.ATX_12V = adcVoltage * 3; // 2.5;
+			Device.DeviceVoltages.ATX_12V = adcVoltage * 3; // 2.5;
 			break;
 		case 4:
-			DevStatus.ATX_5V = adcVoltage;			
+			Device.DeviceVoltages.ATX_5V = adcVoltage;
 			break;
 		case 5:
-			DevStatus.ATX_3V3 = adcVoltage;
+			Device.DeviceVoltages.ATX_3V3 = adcVoltage;
 			break;
 		case 6:
-			DevStatus.DMM1 = adcVoltage * 5.17;
+			Device.DeviceVoltages.DMM1 = adcVoltage * 5.17;
 			break;
 		case 7:
-			DevStatus.DMM2 = adcVoltage * 5.17;
+			Device.DeviceVoltages.DMM2 = adcVoltage * 5.17;
 			break;
 		default: break;
 	}

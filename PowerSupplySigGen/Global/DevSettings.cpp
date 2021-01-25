@@ -7,6 +7,7 @@
 
 #include "DevSettings.h"
 #include "../Outputs/PowerSupply.h"
+#include "../Outputs/DDS_Channel.h"
 #include "../Screens/ScreenManager.h"
 #include "../Device.h"
 #include "../USART/USART.h"

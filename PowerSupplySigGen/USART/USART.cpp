@@ -6,12 +6,12 @@
  */ 
 
 #include "USART.h"
-#include "../UserInputHandler/UserInputHandler.h"
+#include "../Device.h"
 
 ISR (USART0_RX_vect)
 {
 	uint8_t data = UDR0;
-	UserInputHandler.EnqueueUsartInput(data);
+	Device.UserInputHandler.EnqueueUsartInput(data);
 }
 
 void Usart0Init(uint32_t baud)

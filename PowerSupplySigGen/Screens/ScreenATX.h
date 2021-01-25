@@ -11,6 +11,7 @@
 
 #include "ScreenBase.h"
 #include "../UserControlsIndicators/UserIndicatorProgressBar.h"
+#include "../Device.h"
 
 #define ATX_COLUMN1_POSX		SCREEN_TAB_WIDTH + 7
 #define ATX_COLUMN2_POSX		ATX_COLUMN1_POSX + 35
@@ -29,10 +30,10 @@ class ScreenATX : public ScreenBase
 
 	public:
 		ScreenATX() : ScreenBase("ATX"),
-			_indATX3V3(ATX_COLUMN2_POSX, ATX_ROW1_POSY, &DevStatusDraw.ATX_3V3, "V", 0, 5, 75, 5, PROGRESSBAR_ORIGIN_ZERO, 1),
-			_indATX5V(ATX_COLUMN2_POSX, ATX_ROW2_POSY, &DevStatusDraw.ATX_5V, "V", 0, 6, 75, 5, PROGRESSBAR_ORIGIN_ZERO, 1),
-			_indATX12V(ATX_COLUMN2_POSX, ATX_ROW3_POSY, &DevStatusDraw.ATX_12V, "V", 0, 15, 75, 5, PROGRESSBAR_ORIGIN_ZERO, 1),
-			_indATX12VNEG(ATX_COLUMN2_POSX, ATX_ROW4_POSY, &DevStatusDraw.ATX_12V_NEG, "V", -15, 0, 75, 5, PROGRESSBAR_ORIGIN_ZERO, 1)
+			_indATX3V3(ATX_COLUMN2_POSX, ATX_ROW1_POSY, &Device.DeviceVoltages.ATX_3V3, "V", 0, 5, 75, 5, PROGRESSBAR_ORIGIN_ZERO, 1),
+			_indATX5V(ATX_COLUMN2_POSX, ATX_ROW2_POSY, &Device.DeviceVoltages.ATX_5V, "V", 0, 6, 75, 5, PROGRESSBAR_ORIGIN_ZERO, 1),
+			_indATX12V(ATX_COLUMN2_POSX, ATX_ROW3_POSY, &Device.DeviceVoltages.ATX_12V, "V", 0, 15, 75, 5, PROGRESSBAR_ORIGIN_ZERO, 1),
+			_indATX12VNEG(ATX_COLUMN2_POSX, ATX_ROW4_POSY, &Device.DeviceVoltages.ATX_12V_NEG, "V", -15, 0, 75, 5, PROGRESSBAR_ORIGIN_ZERO, 1)
 		{
 			_userIndicators[0] = &_indATX3V3;
 			_userIndicators[1] = &_indATX5V;
@@ -41,7 +42,7 @@ class ScreenATX : public ScreenBase
 			_numUserIndicators = 4;
 		}
 
-		virtual void Draw(u8g_t* u8g);
+		virtual void Draw(u8g_t* u8g, bool isFirstPage);
 };
 
 #endif /* SCREENATX_H_ */

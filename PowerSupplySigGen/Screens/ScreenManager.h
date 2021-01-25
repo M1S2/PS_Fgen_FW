@@ -12,7 +12,6 @@
 #include "../GLCD/u8g.h"
 #include "ScreenBase.h"
 #include "../Global/DevSettings.h"
-#include "../Global/DevStatus.h"
 #include "../KeyPad/KeyPad.h"
 #include "../Encoder/Encoder.h"
 #include "ScreenPS.h"
@@ -48,7 +47,7 @@ class ScreenManagerClass
 		bool IsSplashScreenShown;
 	
 		ScreenManagerClass();
-		void Draw();
+		void Draw(bool isFirstPage);
 		
 		void KeyInput(Keys_t key);
 		void EncoderInput(EncoderDirection_t encDir);
@@ -63,6 +62,5 @@ class ScreenManagerClass
 };
 
 extern ScreenManagerClass ScreenManager;
-
 
 #endif /* SCREENMANAGER_H_ */

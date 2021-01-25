@@ -25,10 +25,8 @@
 #include "ADC/ADC.h"
 #include "USART/USART.h"
 #include "Global/DevSettings.h"
-#include "Global/DevStatus.h"
-#include "UserInputHandler/UserInputHandler.h"
-#include "Screens/ScreenManager.h"
 #include "SCPI/SCPI_Device.h"
+#include "Screens/ScreenManager.h"
 #include "Configuration.h"
 
 #include "Device.h"
@@ -38,8 +36,6 @@
 u8g_t u8g;
 bool redraw_screen;
 
-DevStatus_t DevStatus;
-DevStatus_t DevStatusDraw;
 uint16_t UserTimerTickCounter;
 
 ISR(TIMER1_COMPA_vect)
@@ -49,11 +45,11 @@ ISR(TIMER1_COMPA_vect)
 	Keys_t key = KeyPad_GetKeys();
 	if(key != KEYNONE)
 	{
-		UserInputHandler.EnqueueKeyInput(key);
+		Device.UserInputHandler.EnqueueKeyInput(key);
 	}
 	if(Encoder_IsButtonPressed())
 	{
-		UserInputHandler.EnqueueEncoderButtonInput();
+		Device.UserInputHandler.EnqueueEncoderButtonInput();
 	}
 }
 
@@ -96,15 +92,16 @@ int main(void)
 	
 	for(;;)
 	{		
-		UserInputHandler.ProcessInputs();	
+		Device.UserInputHandler.ProcessInputs();
 		
 		if(redraw_screen)
 		{
-			DevStatusDraw = DevStatus;
+			bool isFirstPage = true;
 			u8g_FirstPage(&u8g);
 			do
 			{
-				ScreenManager.Draw();
+				ScreenManager.Draw(isFirstPage);
+				isFirstPage = false;
 			} while ( u8g_NextPage(&u8g) );
 			redraw_screen = false;
 		}

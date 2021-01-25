@@ -10,6 +10,7 @@
 #define DEVICE_H_
 
 #include <avr/io.h>
+#include "UserInputHandler/UserInputHandler.h"
 
 typedef enum DeviceControlStates
 {
@@ -18,12 +19,29 @@ typedef enum DeviceControlStates
 	DEV_CTRL_RWLOCK
 }DeviceControlStates_t; 
 
+typedef struct DeviceVoltagesStruct
+{
+	float ATX_3V3;
+	float ATX_5V;
+	float ATX_12V;
+	float ATX_12V_NEG;
+	float PS_VOLT;
+	float PS_CURR;
+	float PS_POWER;
+	float DMM1;
+	float DMM2;
+}DeviceVoltages_t;
+
 class DeviceClass
 {
 	private:
 	
 	public:
 		DeviceControlStates_t DeviceControlState;
+		DeviceVoltages_t DeviceVoltages;
+
+		UserInputHandlerClass UserInputHandler;
+
 		uint32_t SerialBaudRate;
 		bool SerialEchoEnabled;
 	

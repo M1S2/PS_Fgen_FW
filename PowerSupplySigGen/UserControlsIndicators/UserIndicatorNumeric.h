@@ -20,18 +20,19 @@ private:
 
 protected:
     const char* _baseUnit;			// e.g. "V", "Hz", ...
-    T* _controlValue;
+    T* _controlValuePointer;
+	T _controlValue;				// This variable is updated from the _controlValuePointer on each draw of the first page.
 	float _displayValue;			// Value that is displayed by Draw(). E.g. 999.760 if control value is 999760 Hz.
 	const char* _unitPrefix;		// Current display prefix (m, k, M)	
 
 	void calculateDisplayValue()
 	{
-		if (_lastControlValue == *_controlValue) { return; }
-		_lastControlValue = *_controlValue;
+		if (_lastControlValue == _controlValue) { return; }
+		_lastControlValue = _controlValue;
 		
 		int8_t unitPrefixPower;		// Current display prefix power (m = -3, k = 3, M = 6)
 
-		_displayValue = (float)*_controlValue;
+		_displayValue = (float)_controlValue;
 		unitPrefixPower = 0;
 		
 		if(_displayValue == 0)
@@ -59,16 +60,18 @@ protected:
 	}
 		
 public:
-	UserIndicatorNumeric(uint8_t locx, uint8_t locy, T* controlValue, const char* baseUnit) : UserIndicatorBase(locx, locy)
+	UserIndicatorNumeric(uint8_t locx, uint8_t locy, T* controlValuePointer, const char* baseUnit) : UserIndicatorBase(locx, locy)
     {
             _baseUnit = baseUnit;
-            _controlValue = controlValue;
+			_controlValuePointer = controlValuePointer;
 	}
         		
-    void Draw(u8g_t *u8g)
+    void Draw(u8g_t *u8g, bool isFirstPage)
 	{
-		UserIndicatorBase::Draw(u8g);
- 		
+		UserIndicatorBase::Draw(u8g, isFirstPage);
+ 	
+		if (isFirstPage) { _controlValue = *_controlValuePointer; }
+
 		calculateDisplayValue();
 		 	
 		char stringBufferLen = 8 + strlen(_baseUnit) + 1 + strlen(_unitPrefix);

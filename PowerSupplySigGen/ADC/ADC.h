@@ -11,9 +11,6 @@
 #define ADC_H_
 
 #include "../Pins/Pins.h"
-#include "../Global/DevStatus.h"
-#include "../Global/DevSettings.h"
-#include "../Configuration.h"
 
 void ADC_init();
 void ADC_startConversion();

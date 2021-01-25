@@ -14,6 +14,7 @@ class UserControlBool : public UserControlBase
 {
 private:
 	bool* _controlValue;
+	bool _controlValueDraw;				// This variable is updated from the _controlValue on each draw of the first page.
 	
 public:
 	
@@ -44,10 +45,13 @@ public:
 		}
 	}
 	
-	void Draw(u8g_t *u8g)
+	void Draw(u8g_t *u8g, bool isFirstPage)
 	{
-		UserControlBase::Draw(u8g);
-		if(*_controlValue)
+		UserControlBase::Draw(u8g, isFirstPage);
+
+		if (isFirstPage) { _controlValueDraw = *_controlValue; }
+
+		if(_controlValueDraw)
 		{
 			u8g_DrawStr(u8g, _locX + 3, _locY + 3 + CONTROLS_FONT_HEIGHT, "ON");
 		}

@@ -7,6 +7,7 @@
 
 #include "Encoder.h"
 #include "../UserInputHandler/UserInputHandler.h"
+#include "../Device.h"
 
 void Encoder_Init()
 {
@@ -25,10 +26,10 @@ ISR(INT0_vect)
 {
 	if(!BIT_IS_CLEARED(PIND, ENC_B))
 	{
-		UserInputHandler.EnqueueEncoderInput(ENCCLOCKWISE);
+		Device.UserInputHandler.EnqueueEncoderInput(ENCCLOCKWISE);
 	}
 	else
 	{
-		UserInputHandler.EnqueueEncoderInput(ENCCOUNTERCLOCKWISE);
+		Device.UserInputHandler.EnqueueEncoderInput(ENCCOUNTERCLOCKWISE);
 	}
 }

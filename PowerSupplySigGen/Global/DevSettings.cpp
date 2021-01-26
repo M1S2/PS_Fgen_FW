@@ -41,8 +41,8 @@ void SaveSettings()
 	/* Collect setting from appropriate classes */
 	settings.PS_Voltage = PowerSupply.Voltage;
 	settings.PS_LoadImpedance = PowerSupply.LoadImpedance;
-	settings.Screens_TabIndex = ScreenManager.TabIndex;
-	settings.Screens_Inverted = ScreenManager.DisplayInverted;
+	settings.Screens_TabIndex = Device.ScreenManager.TabIndex;
+	settings.Screens_Inverted = Device.ScreenManager.DisplayInverted;
 	settings.Device_SerialBaudRate = Device.SerialBaudRate;
 	settings.Device_SerialEchoEnabled = Device.SerialEchoEnabled;
 	settings.DDS1_Frequency = DDS_Channel1.GetFrequency();
@@ -66,8 +66,8 @@ void LoadSettings()
 	PowerSupply.LoadImpedance = settings.PS_LoadImpedance;
 	PowerSupply.UpdateOutput();
 	
-	ScreenManager.TabIndex = settings.Screens_TabIndex;
-	ScreenManager.SetDisplayInverted(settings.Screens_Inverted);
+	Device.ScreenManager.TabIndex = settings.Screens_TabIndex;
+	Device.ScreenManager.SetDisplayInverted(settings.Screens_Inverted);
 	
 	Device.SetSerialBaudRate(settings.Device_SerialBaudRate);
 	Device.SetSerialEchoEnabled(settings.Device_SerialEchoEnabled);
@@ -88,9 +88,9 @@ void ResetDevice()
 	PowerSupply.OutputEnabled = false;
 	PowerSupply.LoadImpedance = 1000000;
 	PowerSupply.UpdateOutput();
-	ScreenManager.TabIndex = 0;
-	ScreenManager.SetDisplayEnabled(true);
-	ScreenManager.SetDisplayInverted(false);
+	Device.ScreenManager.TabIndex = 0;
+	Device.ScreenManager.SetDisplayEnabled(true);
+	Device.ScreenManager.SetDisplayInverted(false);
 	DDS_Channel1.SetEnabled(false);
 	DDS_Channel1.SetFrequency(1000);
 	DDS_Channel1.SetSignalForm(SINE);

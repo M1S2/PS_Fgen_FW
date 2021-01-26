@@ -81,7 +81,7 @@ int main(void)
 	
 	u8g_InitSPI(&u8g, &u8g_dev_s1d15721_hw_spi, PN(1, 7), PN(1, 5), PN(1, 1), PN(1, 0), U8G_PIN_NONE);
 	
-	ScreenManager.SetU8GLib_Object(&u8g);
+	Device.ScreenManager.SetU8GLib_Object(&u8g);
 	LoadSettings();
 		
 	UserTimerTickCounter = 0;
@@ -100,7 +100,7 @@ int main(void)
 			u8g_FirstPage(&u8g);
 			do
 			{
-				ScreenManager.Draw(isFirstPage);
+				Device.ScreenManager.Draw(isFirstPage);
 				isFirstPage = false;
 			} while ( u8g_NextPage(&u8g) );
 			redraw_screen = false;
@@ -108,9 +108,9 @@ int main(void)
 			
 		#ifdef SPLASHSCREEN_ENABLED
 			/* Hide splash screen after some time */
-			if(ScreenManager.IsSplashScreenShown && ((UserTimerTickCounter * (1 / (float)USER_TIMER_TICK_FREQ)) >= SPLASHSCREEN_DELAY_SEC))
+			if(Device.ScreenManager.IsSplashScreenShown && ((UserTimerTickCounter * (1 / (float)USER_TIMER_TICK_FREQ)) >= SPLASHSCREEN_DELAY_SEC))
 			{
-				ScreenManager.IsSplashScreenShown = false;
+				Device.ScreenManager.IsSplashScreenShown = false;
 			}
 		#endif
 		

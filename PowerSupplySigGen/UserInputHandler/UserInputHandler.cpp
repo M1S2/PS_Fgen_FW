@@ -11,7 +11,6 @@
 #include "../Device.h"
 #include "../SCPI/SCPI_Device.h"
 #include "../Device.h"
-#include "../Screens/ScreenManager.h"
 
 void UserInputHandlerClass::EnqueueKeyInput(Keys_t userKeyInput)
 {
@@ -22,7 +21,7 @@ void UserInputHandlerClass::EnqueueKeyInput(Keys_t userKeyInput)
 	}
 	else
 	{
-		strcpy(ScreenManager.SystemMessage, USERINPUT_QUEUE_FULL_MSG);
+		strcpy(Device.ScreenManager.SystemMessage, USERINPUT_QUEUE_FULL_MSG);
 	}
 }
 
@@ -35,7 +34,7 @@ void UserInputHandlerClass::EnqueueEncoderInput(EncoderDirection_t userEncoderIn
 	}
 	else
 	{
-		strcpy(ScreenManager.SystemMessage, USERINPUT_QUEUE_FULL_MSG);
+		strcpy(Device.ScreenManager.SystemMessage, USERINPUT_QUEUE_FULL_MSG);
 	}
 }
 
@@ -48,7 +47,7 @@ void UserInputHandlerClass::EnqueueEncoderButtonInput()
 	}
 	else
 	{
-		strcpy(ScreenManager.SystemMessage, USERINPUT_QUEUE_FULL_MSG);
+		strcpy(Device.ScreenManager.SystemMessage, USERINPUT_QUEUE_FULL_MSG);
 	}
 }
 
@@ -61,7 +60,7 @@ void UserInputHandlerClass::EnqueueUsartInput(uint8_t userDataInput)
 	}
 	else
 	{
-		strcpy(ScreenManager.SystemMessage, USERINPUT_QUEUE_FULL_MSG);
+		strcpy(Device.ScreenManager.SystemMessage, USERINPUT_QUEUE_FULL_MSG);
 	}
 }
 
@@ -69,9 +68,9 @@ void UserInputHandlerClass::ProcessInputs()
 {
 	while(!_userInputRingBuffer.empty())
 	{
-		if(!_userInputRingBuffer.full() && strcmp(ScreenManager.SystemMessage, USERINPUT_QUEUE_FULL_MSG) == 0)	// Clear the queue full message, if the input buffer isn't full but the message is displayed
+		if(!_userInputRingBuffer.full() && strcmp(Device.ScreenManager.SystemMessage, USERINPUT_QUEUE_FULL_MSG) == 0)	// Clear the queue full message, if the input buffer isn't full but the message is displayed
 		{
-			strcpy(ScreenManager.SystemMessage, "");
+			strcpy(Device.ScreenManager.SystemMessage, "");
 		}
 
 		UserInputData* data = _userInputRingBuffer.dequeue();
@@ -82,17 +81,17 @@ void UserInputHandlerClass::ProcessInputs()
 			{
 				case USERDATA_KEY: 
 				{
-					ScreenManager.KeyInput(data->Key);
+					Device.ScreenManager.KeyInput(data->Key);
 					break;
 				}
 				case USERDATA_ENCODER: 
 				{		
-					ScreenManager.EncoderInput(data->EncDir);
+					Device.ScreenManager.EncoderInput(data->EncDir);
 					break;
 				}
 				case USERDATA_ENCODER_BUTTON:
 				{				
-					ScreenManager.EncoderPBInput();
+					Device.ScreenManager.EncoderPBInput();
 					break;
 				}
 				case USERDATA_USART: 

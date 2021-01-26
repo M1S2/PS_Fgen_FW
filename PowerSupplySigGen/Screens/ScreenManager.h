@@ -61,6 +61,4 @@ class ScreenManagerClass
 		void SetU8GLib_Object(u8g_t *u8g) { _u8g = u8g; }
 };
 
-extern ScreenManagerClass ScreenManager;
-
 #endif /* SCREENMANAGER_H_ */

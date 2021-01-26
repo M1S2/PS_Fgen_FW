@@ -6,7 +6,7 @@
  */ 
 
 #include "SCPI_Device.h"
-#include "../Screens/ScreenManager.h"
+#include "../Device.h"
 
 scpi_result_t scpi_cmd_displayWindowState(scpi_t * context)
 {
@@ -16,13 +16,13 @@ scpi_result_t scpi_cmd_displayWindowState(scpi_t * context)
 		return SCPI_RES_ERR;
 	}
 	
-	ScreenManager.SetDisplayEnabled(enabled);
+	Device.ScreenManager.SetDisplayEnabled(enabled);
 	return SCPI_RES_OK;
 }
 
 scpi_result_t scpi_cmd_displayWindowStateQ(scpi_t * context)
 {
-	SCPI_ResultBool(context, ScreenManager.GetDisplayEnabled());
+	SCPI_ResultBool(context, Device.ScreenManager.GetDisplayEnabled());
 	return SCPI_RES_OK;
 }
 
@@ -34,19 +34,19 @@ scpi_result_t scpi_cmd_displayWindowText(scpi_t * context)
 	{
 		return SCPI_RES_ERR;
 	}
-	strcpy(ScreenManager.UserMessage, text);
+	strcpy(Device.ScreenManager.UserMessage, text);
 	return SCPI_RES_OK;
 }
 
 scpi_result_t scpi_cmd_displayWindowTextQ(scpi_t * context)
 {
-	SCPI_ResultCharacters(context, ScreenManager.UserMessage, strlen(ScreenManager.UserMessage));
+	SCPI_ResultCharacters(context, Device.ScreenManager.UserMessage, strlen(Device.ScreenManager.UserMessage));
 	return SCPI_RES_OK;
 }
 
 scpi_result_t scpi_cmd_displayWindowClear(scpi_t * context)
 {
-	strcpy(ScreenManager.UserMessage, "");
+	strcpy(Device.ScreenManager.UserMessage, "");
 	return SCPI_RES_OK;
 }
 
@@ -58,12 +58,12 @@ scpi_result_t scpi_cmd_displayWindowInverse(scpi_t * context)
 		return SCPI_RES_ERR;
 	}
 	
-	ScreenManager.SetDisplayInverted(inverted);
+	Device.ScreenManager.SetDisplayInverted(inverted);
 	return SCPI_RES_OK;
 }
 
 scpi_result_t scpi_cmd_displayWindowInverseQ(scpi_t * context)
 {
-	SCPI_ResultBool(context, ScreenManager.DisplayInverted);
+	SCPI_ResultBool(context, Device.ScreenManager.DisplayInverted);
 	return SCPI_RES_OK;
 }

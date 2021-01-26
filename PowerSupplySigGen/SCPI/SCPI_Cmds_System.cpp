@@ -7,26 +7,25 @@
 
 #include "SCPI_Device.h"
 #include "../Device.h"
-#include "../Screens/ScreenManager.h"
 
 scpi_result_t scpi_cmd_systemLocal(scpi_t * context)
 {
 	Device.DeviceControlState = DEV_CTRL_LOCAL;
-	strcpy(ScreenManager.SystemMessage, "");
+	strcpy(Device.ScreenManager.SystemMessage, "");
 	return SCPI_RES_OK;
 }
 
 scpi_result_t scpi_cmd_systemRemote(scpi_t * context)
 {
 	Device.DeviceControlState = DEV_CTRL_REMOTE;
-	strcpy(ScreenManager.SystemMessage, "");
+	strcpy(Device.ScreenManager.SystemMessage, "");
 	return SCPI_RES_OK;	
 }
 
 scpi_result_t scpi_cmd_systemRWLock(scpi_t * context)
 {
 	Device.DeviceControlState = DEV_CTRL_RWLOCK;
-	strcpy(ScreenManager.SystemMessage, "==== Remote controlled ====\nDevice locked by SYST:RWL command.\nOnly possible to unlock via SYST:LOC command.");
+	strcpy(Device.ScreenManager.SystemMessage, "==== Remote controlled ====\nDevice locked by SYST:RWL command.\nOnly possible to unlock via SYST:LOC command.");
 	return SCPI_RES_OK;
 }
 

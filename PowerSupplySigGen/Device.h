@@ -11,6 +11,7 @@
 
 #include <avr/io.h>
 #include "UserInputHandler/UserInputHandler.h"
+#include "Screens/ScreenManager.h"
 
 typedef enum DeviceControlStates
 {
@@ -41,6 +42,7 @@ class DeviceClass
 		DeviceVoltages_t DeviceVoltages;
 
 		UserInputHandlerClass UserInputHandler;
+		ScreenManagerClass ScreenManager;
 
 		uint32_t SerialBaudRate;
 		bool SerialEchoEnabled;

@@ -10,8 +10,6 @@
 #include "../Global/DevSettings.h"
 #include "../Device.h"
 
-ScreenManagerClass ScreenManager;
-
 ScreenManagerClass::ScreenManagerClass()
 {	
 	_screens[0] = &_screenPs;

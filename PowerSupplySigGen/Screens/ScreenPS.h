@@ -13,7 +13,6 @@
 #include "../UserControlsIndicators/UserControlBool.h"
 #include "../UserControlsIndicators/UserControlNumeric.h"
 #include "../UserControlsIndicators/UserIndicatorNumeric.h"
-#include "../Global/DevSettings.h"
 #include "../Outputs/PowerSupply.h"
 
 

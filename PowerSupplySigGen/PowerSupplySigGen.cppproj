@@ -184,9 +184,6 @@
     <Compile Include="Device.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="Global\DevSettings.cpp">
-      <SubType>compile</SubType>
-    </Compile>
     <Compile Include="libraries\scpi-parser\inc\scpi\cc.h">
       <SubType>compile</SubType>
     </Compile>
@@ -376,12 +373,6 @@
     <Compile Include="GLCD\u8g_virtual_screen.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="Global\DevSettings.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="Global\DevStatus.h">
-      <SubType>compile</SubType>
-    </Compile>
     <Compile Include="KeyPad\KeyPad.cpp">
       <SubType>compile</SubType>
     </Compile>
@@ -529,7 +520,6 @@
     <Folder Include="KeyPad" />
     <Folder Include="Encoder" />
     <Folder Include="ADC" />
-    <Folder Include="Global" />
     <Folder Include="UserInputHandler" />
     <Folder Include="Screens" />
     <Folder Include="Spi" />

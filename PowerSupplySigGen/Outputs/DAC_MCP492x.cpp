@@ -8,7 +8,6 @@
 
 #include "DAC_MCP492x.h"
 #include "../Spi/spi.h"
-#include "../Global/DevSettings.h"
 
 void MCP4921_DAC_Set(uint16_t dac_data)
 {

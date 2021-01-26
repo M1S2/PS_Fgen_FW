@@ -6,7 +6,8 @@
  */ 
 
 #include "PowerSupply.h"
-#include "../Global/DevSettings.h"
+
+extern bool DevSettingsNeedSaving;
 
 PowerSupplyClass PowerSupply;
 

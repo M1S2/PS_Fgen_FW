@@ -11,7 +11,6 @@
 
 #include "../GLCD/u8g.h"
 #include "ScreenBase.h"
-#include "../Global/DevSettings.h"
 #include "../KeyPad/KeyPad.h"
 #include "../Encoder/Encoder.h"
 #include "ScreenPS.h"

@@ -6,19 +6,19 @@
  */ 
 
 #include "SCPI_Device.h"
-#include "../Global/DevSettings.h"
+#include "../Device.h"
 
 scpi_result_t scpi_cmd_memoryRcl(scpi_t * context) 
 {
 	/* Only one profile supported */
-	LoadSettings();
+	Device.LoadSettings();
 	return SCPI_RES_OK;
 }
 
 scpi_result_t scpi_cmd_memorySav(scpi_t * context)
 {
 	/* Only one profile supported */
-	SaveSettings();
+	Device.SaveSettings();
 	return SCPI_RES_OK;
 }
 

@@ -9,7 +9,12 @@
 #ifndef DEVICE_H_
 #define DEVICE_H_
 
+//"Use the Save EEPROM fusebit so it wont get deleted every time you program the mcu."
+//https://www.avrfreaks.net/forum/tut-c-using-eeprom-memory-avr-gcc
+#include <avr/eeprom.h>
+
 #include <avr/io.h>
+#include <stdbool.h>
 #include "UserInputHandler/UserInputHandler.h"
 #include "Screens/ScreenManager.h"
 
@@ -33,11 +38,33 @@ typedef struct DeviceVoltagesStruct
 	float DMM2;
 }DeviceVoltages_t;
 
+/* This structure is only used internally to store to / read from EEPROM */
+typedef struct DevSettingsEEPROMLayout
+{
+	float PS_Voltage;
+	//bool PS_Output_Enabled;
+	float PS_LoadImpedance;
+	
+	uint8_t Screens_TabIndex;
+	uint8_t Screens_Inverted;
+	
+	uint32_t Device_SerialBaudRate;
+	bool Device_SerialEchoEnabled;
+	
+	float DDS1_Frequency;
+	SignalForms_t DDS1_SignalForm;
+	float DDS1_Amplitude;
+	float DDS1_Offset;
+	//bool DDS1_Enabled;
+}DevSettingsEEPROMLayout_t;
+
+extern bool DevSettingsNeedSaving;
+
 class DeviceClass
 {
 	private:
 	
-	public:
+	public:	
 		DeviceControlStates_t DeviceControlState;
 		DeviceVoltages_t DeviceVoltages;
 
@@ -51,6 +78,10 @@ class DeviceClass
 		{
 			DeviceControlState = DEV_CTRL_LOCAL;
 		}
+		
+		void SaveSettings();
+		void LoadSettings();
+		void ResetDevice();
 		
 		bool IsUserInputLocked();
 		void UpdateControlStateOnUserInput();

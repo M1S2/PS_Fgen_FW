@@ -7,8 +7,8 @@
 
 #include "SCPI_Device.h"
 #include "../USART/USART.h"
-#include "../Global/DevSettings.h"
 #include "../Outputs/PowerSupply.h"
+#include "../Device.h"
 #include <stdio.h>
 
 scpi_t scpi_context;
@@ -134,7 +134,7 @@ scpi_result_t SCPI_Control(scpi_t * context, scpi_ctrl_name_t ctrl, scpi_reg_val
 scpi_result_t SCPI_Reset(scpi_t * context) 
 {
 	(void) context;
-	ResetDevice();
+	Device.ResetDevice();
 	return SCPI_RES_OK;
 }
 

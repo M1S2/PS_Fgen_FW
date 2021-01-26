@@ -7,7 +7,6 @@
 
 #include <stdio.h>
 #include "ScreenManager.h"
-#include "../Global/DevSettings.h"
 #include "../Device.h"
 
 ScreenManagerClass::ScreenManagerClass()
@@ -148,7 +147,7 @@ void ScreenManagerClass::KeyInput(Keys_t key)
 		{
 			 TabIndex = (TabIndex + 1 == NUM_SCREENS ? 0: TabIndex + 1); 
 		}
-		SaveSettings();
+		Device.SaveSettings();
 	}
 }
 

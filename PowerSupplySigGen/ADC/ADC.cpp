@@ -8,7 +8,6 @@
 #include "ADC.h"
 #include <avr/interrupt.h>
 #include "../Device.h"
-#include "../Global/DevSettings.h"
 #include "../Configuration.h"
 
 void ADC_init()

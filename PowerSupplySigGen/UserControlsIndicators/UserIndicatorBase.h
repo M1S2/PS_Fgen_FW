@@ -23,17 +23,8 @@ protected:
 	
 public:
 
-	UserIndicatorBase(uint8_t locx, uint8_t locy)
-	{
-		_locX = locx;
-		_locY = locy;
-	}
-	
-	virtual void Draw(u8g_t *u8g, bool isFirstPage)
-	{
-		u8g_SetFont(u8g, u8g_font_helvR08r);	// 8 pixel height font, 6 pixel width
-		u8g_SetDefaultForegroundColor(u8g);
-	}
+	UserIndicatorBase(uint8_t locx, uint8_t locy);
+	virtual void Draw(u8g_t *u8g, bool isFirstPage);
 };
 
 #endif /* USERINDICATORBASE_H_ */

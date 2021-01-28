@@ -66,7 +66,7 @@ void ScreenManagerClass::Draw(bool isFirstPage)
 			_screens[i]->Draw(_u8g, isFirstPage);
 		}
 	
-		if(DevSettingsNeedSaving)
+		if(Device.DevSettingsNeedSaving)
 		{
 			u8g_SetFont(_u8g, u8g_font_7x14r);		// 10 pixel height font
 			u8g_DrawStr(_u8g, u8g_GetWidth(_u8g) - 8, 10, "*");
@@ -185,7 +185,7 @@ bool ScreenManagerClass::GetDisplayEnabled()
 
 void ScreenManagerClass::SetDisplayInverted(bool displayInverse)
 {
-	DevSettingsNeedSaving = (DisplayInverted != displayInverse);
+	Device.DevSettingsNeedSaving = (DisplayInverted != displayInverse);
 	DisplayInverted = displayInverse;
 	u8g_Invert(_u8g, (uint8_t)displayInverse);
 }

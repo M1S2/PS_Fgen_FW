@@ -6,8 +6,7 @@
  */ 
 
 #include "PowerSupply.h"
-
-extern bool DevSettingsNeedSaving;
+#include "../Device.h"
 
 PowerSupplyClass PowerSupply;
 
@@ -28,7 +27,7 @@ void PowerSupplyClass::UpdateOutput()
 
 void PowerSupplyClass::SetVoltage(float voltage)
 {
-	DevSettingsNeedSaving = (Voltage != voltage);
+	Device.DevSettingsNeedSaving = (Voltage != voltage);
 	Voltage = voltage;
 	UpdateOutput();
 }
@@ -40,7 +39,7 @@ void PowerSupplyClass::SetOutputEnabled(bool outputEnabled)
 }
 void PowerSupplyClass::SetLoadImpedance(float loadImpedance)
 {
-	DevSettingsNeedSaving = (LoadImpedance != loadImpedance);
+	Device.DevSettingsNeedSaving = (LoadImpedance != loadImpedance);
 	LoadImpedance = loadImpedance;
 	UpdateOutput();
 }

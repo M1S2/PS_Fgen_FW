@@ -7,6 +7,8 @@
 
 #include "ScreenATX.h"
 #include "../Device.h"
+#include "../UserControlsIndicators/UserIndicatorNumeric.cpp"
+#include "../UserControlsIndicators/UserIndicatorProgressBar.cpp"
 
 ScreenATX::ScreenATX() : ScreenBase("ATX"),
 	_indATX3V3(ATX_COLUMN2_POSX, ATX_ROW1_POSY, &Device.DeviceVoltages.ATX_3V3, "V", 0, 5, 75, 5, PROGRESSBAR_ORIGIN_ZERO, 1),

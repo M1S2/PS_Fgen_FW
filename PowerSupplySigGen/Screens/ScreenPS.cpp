@@ -7,6 +7,8 @@
 
 #include "ScreenPS.h"
 #include "../Device.h"
+#include "../UserControlsIndicators/UserControlNumeric.cpp"
+#include "../UserControlsIndicators/UserIndicatorNumeric.cpp"
 
 ScreenPS::ScreenPS() : ScreenBase("PS"),
 	_ctrlPSVoltage(VOLTAGE_CONTROL_POSX, VOLTAGE_CONTROL_POSY, &PowerSupply.Voltage, "V", 0, 0, 10, &PSUpdateOutputCallbackFunction),

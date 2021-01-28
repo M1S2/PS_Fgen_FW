@@ -58,8 +58,6 @@ typedef struct DevSettingsEEPROMLayout
 	//bool DDS1_Enabled;
 }DevSettingsEEPROMLayout_t;
 
-extern bool DevSettingsNeedSaving;
-
 class DeviceClass
 {
 	private:
@@ -73,6 +71,8 @@ class DeviceClass
 
 		uint32_t SerialBaudRate;
 		bool SerialEchoEnabled;
+		
+		bool DevSettingsNeedSaving;
 	
 		DeviceClass()
 		{

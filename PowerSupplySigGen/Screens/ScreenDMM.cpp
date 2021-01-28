@@ -7,6 +7,8 @@
 
 #include "ScreenDMM.h"
 #include "../Device.h"
+#include "../UserControlsIndicators/UserIndicatorNumeric.cpp"
+#include "../UserControlsIndicators/UserIndicatorProgressBar.cpp"
 
 ScreenDMM::ScreenDMM() : ScreenBase("DMM"),
 	_indDMM1(DMM_COLUMN2_POSX, DMM_ROW1_POSY, &Device.DeviceVoltages.DMM1, "V", 0, 20, 80, 10, PROGRESSBAR_ORIGIN_ZERO, 5),

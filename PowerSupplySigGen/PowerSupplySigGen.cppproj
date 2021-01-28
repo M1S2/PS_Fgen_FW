@@ -475,22 +475,43 @@
     <Compile Include="USART\USART.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="UserControlsIndicators\UserControlBase.cpp">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="UserControlsIndicators\UserControlBase.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="UserControlsIndicators\UserControlBool.cpp">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="UserControlsIndicators\UserControlBool.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="UserControlsIndicators\UserControlEnum.cpp">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="UserControlsIndicators\UserControlEnum.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="UserControlsIndicators\UserControlNumeric.cpp">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="UserControlsIndicators\UserControlNumeric.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="UserControlsIndicators\UserIndicatorBase.cpp">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="UserControlsIndicators\UserIndicatorBase.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="UserControlsIndicators\UserIndicatorNumeric.cpp">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="UserControlsIndicators\UserIndicatorNumeric.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="UserControlsIndicators\UserIndicatorProgressBar.cpp">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="UserControlsIndicators\UserIndicatorProgressBar.h">

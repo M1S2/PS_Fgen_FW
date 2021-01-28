@@ -34,7 +34,6 @@
 
 u8g_t u8g;
 bool redraw_screen;
-bool DevSettingsNeedSaving;
 
 uint16_t UserTimerTickCounter;
 
@@ -116,7 +115,7 @@ int main(void)
 		
 		if((UserTimerTickCounter * (1 / (float)USER_TIMER_TICK_FREQ)) >= SETTINGS_AUTOSAVE_DELAY_SEC)
 		{
-			if(DevSettingsNeedSaving)
+			if(Device.DevSettingsNeedSaving)
 			{
 				Device.SaveSettings();
 			}

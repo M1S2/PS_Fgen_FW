@@ -6,6 +6,8 @@
  */ 
 
 #include "ScreenDDS.h"
+#include "../UserControlsIndicators/UserControlNumeric.cpp"
+#include "../UserControlsIndicators/UserControlEnum.cpp"
 
 ScreenDDS::ScreenDDS() : ScreenBase("DDS1"),
 	_ctrlDDSSignalForm(SIGNALFORM_CONTROL_POSX, SIGNALFORM_CONTROL_POSY, &DDS_Channel1.SignalForm, SignalFormsNames, 4, &DDSUpdateSignalFormsCallbackFunction),

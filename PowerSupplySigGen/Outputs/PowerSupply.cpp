@@ -46,5 +46,6 @@ void PowerSupplyClass::SetLoadImpedance(float loadImpedance)
 
 void PSUpdateOutputCallbackFunction()
 {
+	Device.DevSettingsNeedSaving = true;
 	PowerSupply.UpdateOutput();
 }

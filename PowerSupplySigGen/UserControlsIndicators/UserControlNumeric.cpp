@@ -6,7 +6,6 @@
  */ 
 
 #include "UserControlNumeric.h"
-#include "../Device.h"
 
 template <class T>
 T UserControlNumeric<T>::coerceValue(T value)
@@ -79,8 +78,8 @@ void UserControlNumeric<T>::KeyInput(Keys_t key)
 		{
 			if(_currentDigitPosition > -3) { _currentDigitPosition--; } 
 		}	
-        else if(key == KEYMILLI) { this->IsActive = false; _unitPrefixPower = -3; recalculateControlValue(); calculateDisplayValue(); OnValueChanged(); Device.DevSettingsNeedSaving = true; }
-        else if(key == KEYKILO) { this->IsActive = false; _unitPrefixPower = 3; recalculateControlValue(); calculateDisplayValue(); OnValueChanged(); Device.DevSettingsNeedSaving = true; }
+        else if(key == KEYMILLI) { this->IsActive = false; _unitPrefixPower = -3; recalculateControlValue(); calculateDisplayValue(); OnValueChanged(); }
+        else if(key == KEYKILO) { this->IsActive = false; _unitPrefixPower = 3; recalculateControlValue(); calculateDisplayValue(); OnValueChanged(); }
         else if(key == KEYMINUS) { _displayValue *= -1; }
 		else if(key == KEYCOMMA) { _displayValue = _displayValue / pow(10, (_currentDigitPosition + 1)); /*coerceDisplayValue();*/ _currentDigitPosition = -1; }
 		else
@@ -128,7 +127,6 @@ void UserControlNumeric<T>::EncoderPBInput()
 	recalculateControlValue();
 	calculateDisplayValue();
 	OnValueChanged();		
-	Device.DevSettingsNeedSaving = true;
 }
 		
 template <class T>

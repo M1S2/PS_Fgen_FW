@@ -6,6 +6,7 @@
  */ 
 
 #include "DDS_Channel.h"
+#include "../Device.h"
 #include <stddef.h>
 
 const char* SignalFormsNames[] = { "SINE", "RECT", "TRIANGLE", "SAWTOOTH" };
@@ -105,21 +106,25 @@ void DDS_Channel::UpdateWaveTable()
 
 void DDSUpdateIncrementsCallbackFunction()
 {
+	Device.DevSettingsNeedSaving = true;
 	DDS_Channel1.SetFrequency(DDS_Channel1.Frequency);		// Use the SetFrequency function to recalculate the new Increment value
 }
 
 void DDSUpdateSignalFormsCallbackFunction()
 {
+	Device.DevSettingsNeedSaving = true;
 	DDS_Channel1.SetSignalForm(DDS_Channel1.SignalForm);	// Use the SetSignalForm function to update the OriginalWaveTable pointer
 }
 
 void DDSUpdateWaveTableCallbackFunction()
 {
+	Device.DevSettingsNeedSaving = true;
 	DDS_Channel1.UpdateWaveTable();
 }
 
 void DDSUpdateEnabledCallbackFunction()
 {
+	Device.DevSettingsNeedSaving = true;
 	if(!DDS_Channel1.GetEnabled())
 	{
 		DisableDDSTimer();

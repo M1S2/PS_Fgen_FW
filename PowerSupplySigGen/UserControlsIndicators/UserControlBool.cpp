@@ -6,7 +6,6 @@
  */ 
 
 #include "UserControlBool.h"
-#include "../Device.h"
 
 UserControlBool::UserControlBool(uint8_t locx, uint8_t locy, bool* controlValue, void (*onValueChanged)()) : UserControlBase(locx, locy, onValueChanged)
 {
@@ -31,7 +30,6 @@ void UserControlBool::EncoderPBInput()
 		else { *_controlValue = true; }
 		IsActive = false;
 		OnValueChanged();
-		Device.DevSettingsNeedSaving = true;
 	}
 }
 	

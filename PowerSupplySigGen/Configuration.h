@@ -8,11 +8,8 @@
 #ifndef CONFIGURATION_H_
 #define CONFIGURATION_H_
 
-
-
-#define DDS_DEVELOPMENT			// Only used during DDS development
-
-
+#include "Outputs/DDS_Channel.h"
+#include "Outputs/PS_Channel.h"
 
 #define AVR_VCC_REF						5.27					// AVR VCC Reference voltage in V
 
@@ -28,9 +25,7 @@
 #define SETTINGS_AUTOSAVE_DELAY_SEC		60						// Seconds between automatic saves of the device settings
 
 /***** SCPI ***************************************************/
-#ifndef DDS_DEVELOPMENT
-#define SCPI_ENABLED											// Comment this line out to disable the SCPI parser
-#endif
+//#define SCPI_ENABLED											// Comment this line out to disable the SCPI parser
 #define SCPI_INPUT_BUFFER_LENGTH		256						// Length of the SCPI input buffer. If this buffer overflows, there will be an error message.
 #define SCPI_ERROR_QUEUE_SIZE			17						// Maximum number of errors in the error queue. If this queue overflows, the last error message will be replaced by an overflow error message.
 #define SCPI_IDN_MANUFACTURER			"Markus Scheich"		// Manufacturer info used in *IDN? query
@@ -51,10 +46,7 @@
 #define MESSAGE_MARGIN					5						// Margin of the message popup box (user messages or error messages) to the display outline
 #define MAX_MESSAGE_LEN					256						// Maximum length of user or error messages
 
-#ifndef DDS_DEVELOPMENT
 #define SPLASHSCREEN_ENABLED									// Comment this line out to disable the Splashscreen
-#endif
-
 #define SPLASHSCREEN_DELAY_SEC			3						// Time that the splash screen is shown in seconds
 
 /***** UserControlsIndicators **********************************/
@@ -65,11 +57,12 @@
 /***** UserInputHandler ***************************************/
 #define USERINPUT_QUEUE_LENGTH			256						// Length of the queue used to buffer the user inputs (keys, encoder, Usart)
 
-/***** Channels ***********************************************/
-#define NUM_OUTPUT_CHANNELS				3						// Number of output channels
-
 /***** Power Supply *******************************************/
 #define PS_INTERNAL_IMPEDANCE			5.7						// Internal impedance in Ohm of the PowerSupply output
 #define PS_MIN_LOAD_IMPEDANCE			1.0						// Minimum allowed load impedance setting
+
+/***** Channels ***********************************************/
+#define NUM_OUTPUT_CHANNELS				3						// Number of output channels
+#define CHANNELS PSCHANNEL(0, 10, PS_MIN_LOAD_IMPEDANCE, 1000000), DDSCHANNEL(0, 1000, 0, 20, -10, 10), DDSCHANNEL(0, 2000, 0, 20, -10, 10)		// Definition of output channels
 
 #endif /* CONFIGURATION_H_ */

@@ -26,12 +26,14 @@ protected:
 public:
 	bool IsSelected;
 	bool IsActive;
-	void (*OnValueChanged)();		// Function pointer for OnValueChanged event
+	void* ValueChangedContext;					// Context pointer that is returned with the OnValueChanged function pointer
+	void (*OnValueChanged)(void* context);		// Function pointer for OnValueChanged event
 		
-	UserControlBase(uint8_t locx, uint8_t locy, void (*onValueChanged)())
+	UserControlBase(uint8_t locx, uint8_t locy, void* valueChangedContext, void (*onValueChanged)(void*))
 	{
 		_locX = locx;
 		_locY = locy;
+		ValueChangedContext = valueChangedContext;
 		OnValueChanged = onValueChanged;
 	}
 	

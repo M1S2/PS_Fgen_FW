@@ -81,7 +81,7 @@ int main(void)
 	u8g_InitSPI(&u8g, &u8g_dev_s1d15721_hw_spi, PN(1, 7), PN(1, 5), PN(1, 1), PN(1, 0), U8G_PIN_NONE);
 	
 	Device.ScreenManager.SetU8GLib_Object(&u8g);
-	Device.LoadSettings();
+	//Device.LoadSettings();							!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 		
 	UserTimerTickCounter = 0;
 	

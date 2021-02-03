@@ -53,7 +53,7 @@ uint8_t UserControlNumeric<T>::extractDigit(float number, int8_t position)
 //------------------------------------------------------------------------------------------------------------------------------------------------
 
 template <class T>
-UserControlNumeric<T>::UserControlNumeric(uint8_t locx, uint8_t locy, T* controlValue, const char* baseUnit, int8_t valueStoreUnitPower, T minValue, T maxValue, void (*onValueChanged)()) : UserControlBase(locx, locy, onValueChanged)
+UserControlNumeric<T>::UserControlNumeric(uint8_t locx, uint8_t locy, T* controlValue, const char* baseUnit, int8_t valueStoreUnitPower, T minValue, T maxValue, void* valueChangedContext, void (*onValueChanged)(void*)) : UserControlBase(locx, locy, valueChangedContext, onValueChanged)
 {
         _baseUnit = baseUnit;
         _valueStoreUnitPower = valueStoreUnitPower;
@@ -78,8 +78,8 @@ void UserControlNumeric<T>::KeyInput(Keys_t key)
 		{
 			if(_currentDigitPosition > -3) { _currentDigitPosition--; } 
 		}	
-        else if(key == KEYMILLI) { this->IsActive = false; _unitPrefixPower = -3; recalculateControlValue(); calculateDisplayValue(); OnValueChanged(); }
-        else if(key == KEYKILO) { this->IsActive = false; _unitPrefixPower = 3; recalculateControlValue(); calculateDisplayValue(); OnValueChanged(); }
+        else if(key == KEYMILLI) { this->IsActive = false; _unitPrefixPower = -3; recalculateControlValue(); calculateDisplayValue(); OnValueChanged(ValueChangedContext); }
+        else if(key == KEYKILO) { this->IsActive = false; _unitPrefixPower = 3; recalculateControlValue(); calculateDisplayValue(); OnValueChanged(ValueChangedContext); }
         else if(key == KEYMINUS) { _displayValue *= -1; }
 		else if(key == KEYCOMMA) { _displayValue = _displayValue / pow(10, (_currentDigitPosition + 1)); /*coerceDisplayValue();*/ _currentDigitPosition = -1; }
 		else
@@ -126,7 +126,7 @@ void UserControlNumeric<T>::EncoderPBInput()
 {
 	recalculateControlValue();
 	calculateDisplayValue();
-	OnValueChanged();		
+	OnValueChanged(ValueChangedContext);		
 }
 		
 template <class T>

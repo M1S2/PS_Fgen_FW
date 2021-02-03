@@ -265,6 +265,12 @@
     <Compile Include="libraries\scpi-parser\src\utils_private.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="Outputs\Channel.cpp">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Outputs\Channel.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="Outputs\DAC_MCP492x.cpp">
       <SubType>compile</SubType>
     </Compile>
@@ -394,10 +400,13 @@
     <Compile Include="Outputs\DDS_Channel.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="Outputs\PowerSupply.cpp">
+    <Compile Include="Outputs\Parameter.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="Outputs\PowerSupply.h">
+    <Compile Include="Outputs\PS_Channel.cpp">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Outputs\PS_Channel.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="Pins\Pins.cpp">

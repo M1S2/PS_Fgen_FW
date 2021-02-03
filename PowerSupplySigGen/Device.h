@@ -17,6 +17,8 @@
 #include <stdbool.h>
 #include "UserInputHandler/UserInputHandler.h"
 #include "Screens/ScreenManager.h"
+#include "Outputs/Channel.h"
+#include "Configuration.h"
 
 typedef enum DeviceControlStates
 {
@@ -58,11 +60,13 @@ typedef struct DevSettingsEEPROMLayout
 	//bool DDS1_Enabled;
 }DevSettingsEEPROMLayout_t;
 
+
+
 class DeviceClass
 {
-	private:
-	
 	public:	
+		Channel Channels[NUM_OUTPUT_CHANNELS];			// !!! Channels must be initialized before ScreenManager, therefore it is necessary that the Channels are placed in front of the ScreenManager. Otherwise uninitialized channel limits are used in the screen controls !!!
+	
 		DeviceControlStates_t DeviceControlState;
 		DeviceVoltages_t DeviceVoltages;
 
@@ -74,10 +78,7 @@ class DeviceClass
 		
 		bool DevSettingsNeedSaving;
 	
-		DeviceClass()
-		{
-			DeviceControlState = DEV_CTRL_LOCAL;
-		}
+		DeviceClass();
 		
 		void SaveSettings();
 		void LoadSettings();

@@ -18,7 +18,7 @@ private:
 	
 public:
 	
-	UserControlBool(uint8_t locx, uint8_t locy, bool* controlValue, void (*onValueChanged)());
+	UserControlBool(uint8_t locx, uint8_t locy, bool* controlValue, void* valueChangedContext, void (*onValueChanged)(void*));
 	void KeyInput(Keys_t key);	
 	void EncoderInput(EncoderDirection_t encDir);	
 	void EncoderPBInput();	

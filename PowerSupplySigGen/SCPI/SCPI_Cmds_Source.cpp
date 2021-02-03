@@ -6,7 +6,7 @@
  */ 
 
 #include "SCPI_Device.h"
-#include "../Outputs/PowerSupply.h"
+#include "../Device.h"
 
 scpi_result_t scpi_cmd_sourceVoltage(scpi_t * context)
 {
@@ -19,19 +19,26 @@ scpi_result_t scpi_cmd_sourceVoltage(scpi_t * context)
 		return SCPI_RES_ERR;
 	}
 	
-	if(sourceNumbers[0] == 1)
+	int32_t channelNum = sourceNumbers[0];
+	if(channelNum < 0 || channelNum >= NUM_OUTPUT_CHANNELS)
 	{
-		float voltage = PowerSupply.Voltage;
-		if (!SCPI_GetVoltageFromParam(context, param, voltage, 0, 10, 0, 1)) 
-		{
-			return SCPI_RES_ERR;
-		}
-		PowerSupply.SetVoltage(voltage);
-	}
-	else
-	{
-		const char* msg = "Channel not implemented yet.";
+		const char* msg = "Channel number out of range.";
 		SCPI_ResultCharacters(context, msg, strlen(msg));
+		return SCPI_RES_ERR;
+	}
+	
+	float amplitude = Device.Channels[channelNum].GetAmplitude();
+	if (!SCPI_GetVoltageFromParam(context, param, amplitude, Device.Channels[channelNum].Amplitude.Min, Device.Channels[channelNum].Amplitude.Max, Device.Channels[channelNum].Amplitude.Def, Device.Channels[channelNum].Amplitude.Step))
+	{
+		return SCPI_RES_ERR;
+	}
+	bool status = Device.Channels[channelNum].SetAmplitude(amplitude);
+	
+	if(!status)
+	{
+		const char* msg = "Channel doesn't support to change the amplitude.";
+		SCPI_ResultCharacters(context, msg, strlen(msg));
+		return SCPI_RES_ERR;
 	}
 	
 	return SCPI_RES_OK;
@@ -42,9 +49,15 @@ scpi_result_t scpi_cmd_sourceVoltageQ(scpi_t * context)
 	int32_t sourceNumbers[1];
 	SCPI_CommandNumbers(context, sourceNumbers, 1, 1);
 	
-	if(sourceNumbers[0] == 1)
+	int32_t channelNum = sourceNumbers[0];
+	if(channelNum < 0 || channelNum >= NUM_OUTPUT_CHANNELS)
 	{
-		SCPI_ResultFloat(context, PowerSupply.Voltage);
+		const char* msg = "Channel number out of range.";
+		SCPI_ResultCharacters(context, msg, strlen(msg));
+		return SCPI_RES_ERR;
 	}
+	
+	SCPI_ResultFloat(context, Device.Channels[channelNum].GetAmplitude());
+		
 	return SCPI_RES_OK;
 }

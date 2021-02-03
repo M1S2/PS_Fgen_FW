@@ -7,7 +7,7 @@
 
 #include "UserControlBool.h"
 
-UserControlBool::UserControlBool(uint8_t locx, uint8_t locy, bool* controlValue, void (*onValueChanged)()) : UserControlBase(locx, locy, onValueChanged)
+UserControlBool::UserControlBool(uint8_t locx, uint8_t locy, bool* controlValue, void* valueChangedContext, void (*onValueChanged)(void*)) : UserControlBase(locx, locy, valueChangedContext, onValueChanged)
 {
 	_controlValue = controlValue;
 }
@@ -29,7 +29,7 @@ void UserControlBool::EncoderPBInput()
 		if(*_controlValue == true) { *_controlValue = false; }
 		else { *_controlValue = true; }
 		IsActive = false;
-		OnValueChanged();
+		OnValueChanged(ValueChangedContext);
 	}
 }
 	

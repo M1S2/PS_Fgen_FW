@@ -14,6 +14,11 @@
 DeviceClass Device;
 DevSettingsEEPROMLayout_t EEMEM NonVolatileSettings;
 
+DeviceClass::DeviceClass() : Channels { CHANNELS }
+{
+	DeviceControlState = DEV_CTRL_LOCAL;
+}
+
 bool DeviceClass::IsUserInputLocked() 
 {
 	 return (DeviceControlState != DEV_CTRL_LOCAL || strcmp(ScreenManager.UserMessage, "") != 0 || strcmp(ScreenManager.SystemMessage, "") != 0); 
@@ -67,16 +72,16 @@ void DeviceClass::SaveSettings()
 {
 	DevSettingsEEPROMLayout_t settings;
 	/* Collect setting from appropriate classes */
-	settings.PS_Voltage = PowerSupply.Voltage;
-	settings.PS_LoadImpedance = PowerSupply.LoadImpedance;
+	settings.PS_Voltage = Channels[0].GetAmplitude();
+	settings.PS_LoadImpedance = Channels[0].GetLoadImpedance();
 	settings.Screens_TabIndex = ScreenManager.TabIndex;
 	settings.Screens_Inverted = ScreenManager.DisplayInverted;
 	settings.Device_SerialBaudRate = SerialBaudRate;
 	settings.Device_SerialEchoEnabled = SerialEchoEnabled;
-	settings.DDS1_Frequency = DDS_Channel1.GetFrequency();
-	settings.DDS1_SignalForm = DDS_Channel1.GetSignalForm();
-	settings.DDS1_Amplitude = DDS_Channel1.GetAmplitude();
-	settings.DDS1_Offset = DDS_Channel1.GetOffset();
+	settings.DDS1_Frequency = Channels[1].GetFrequency();
+	settings.DDS1_SignalForm = Channels[1].GetSignalForm();
+	settings.DDS1_Amplitude = Channels[1].GetAmplitude();
+	settings.DDS1_Offset = Channels[1].GetOffset();
 
 	eeprom_write_block((const void*)&settings, (void*)&NonVolatileSettings, sizeof(DevSettingsEEPROMLayout_t));
 	
@@ -89,10 +94,9 @@ void DeviceClass::LoadSettings()
 	eeprom_read_block((void*)&settings, (const void*)&NonVolatileSettings, sizeof(DevSettingsEEPROMLayout_t));
 	
 	/* Assign Settings to appropriate classes */
-	PowerSupply.Voltage = settings.PS_Voltage;
-	PowerSupply.OutputEnabled = false;
-	PowerSupply.LoadImpedance = settings.PS_LoadImpedance;
-	PowerSupply.UpdateOutput();
+	Channels[0].SetAmplitude(settings.PS_Voltage);
+	Channels[0].SetEnabled(false);
+	Channels[0].SetLoadImpedance(settings.PS_LoadImpedance);
 	
 	ScreenManager.TabIndex = settings.Screens_TabIndex;
 	ScreenManager.SetDisplayInverted(settings.Screens_Inverted);
@@ -100,30 +104,28 @@ void DeviceClass::LoadSettings()
 	SetSerialBaudRate(settings.Device_SerialBaudRate);
 	SetSerialEchoEnabled(settings.Device_SerialEchoEnabled);
 	
-	DDS_Channel1.SetEnabled(false);
-	DDS_Channel1.SetFrequency(settings.DDS1_Frequency);
-	DDS_Channel1.SetSignalForm(settings.DDS1_SignalForm);
-	DDS_Channel1.SetAmplitude(settings.DDS1_Amplitude);
-	DDS_Channel1.SetOffset(settings.DDS1_Offset);
-	DDS_Channel1.UpdateWaveTable();
+	Channels[1].SetEnabled(false);
+	Channels[1].SetFrequency(settings.DDS1_Frequency);
+	Channels[1].SetSignalForm(settings.DDS1_SignalForm);
+	Channels[1].SetAmplitude(settings.DDS1_Amplitude);
+	Channels[1].SetOffset(settings.DDS1_Offset);
 	
 	DevSettingsNeedSaving = false;
 }
 
 void DeviceClass::ResetDevice()
 {
-	PowerSupply.Voltage = 5;
-	PowerSupply.OutputEnabled = false;
-	PowerSupply.LoadImpedance = 1000000;
-	PowerSupply.UpdateOutput();
+	Channels[0].SetAmplitude(5);
+	Channels[0].SetEnabled(false);
+	Channels[0].SetLoadImpedance(1000000);
 	ScreenManager.TabIndex = 0;
 	ScreenManager.SetDisplayEnabled(true);
 	ScreenManager.SetDisplayInverted(false);
-	DDS_Channel1.SetEnabled(false);
-	DDS_Channel1.SetFrequency(1000);
-	DDS_Channel1.SetSignalForm(SINE);
-	DDS_Channel1.SetAmplitude(10);
-	DDS_Channel1.SetOffset(0);
+	Channels[1].SetEnabled(false);
+	Channels[1].SetFrequency(1000);
+	Channels[1].SetSignalForm(SINE);
+	Channels[1].SetAmplitude(10);
+	Channels[1].SetOffset(0);
 	
 	SaveSettings();
 }

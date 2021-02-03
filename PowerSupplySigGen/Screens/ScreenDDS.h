@@ -13,7 +13,6 @@
 #include "../UserControlsIndicators/UserControlBool.h"
 #include "../UserControlsIndicators/UserControlNumeric.h"
 #include "../UserControlsIndicators/UserControlEnum.h"
-#include "../Outputs/DDS_Channel.h"
 
 #define SIGNALFORM_CONTROL_POSX			SCREEN_TAB_WIDTH + 10
 #define SIGNALFORM_CONTROL_POSY			5

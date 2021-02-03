@@ -13,7 +13,6 @@
 #include "../UserControlsIndicators/UserControlBool.h"
 #include "../UserControlsIndicators/UserControlNumeric.h"
 #include "../UserControlsIndicators/UserIndicatorNumeric.h"
-#include "../Outputs/PowerSupply.h"
 
 
 #define VOLTAGE_CONTROL_POSX			SCREEN_TAB_WIDTH + 10

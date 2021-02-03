@@ -7,7 +7,6 @@
 
 #include "SCPI_Device.h"
 #include "../USART/USART.h"
-#include "../Outputs/PowerSupply.h"
 #include "../Device.h"
 #include <stdio.h>
 

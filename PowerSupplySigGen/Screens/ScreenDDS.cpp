@@ -6,15 +6,17 @@
  */ 
 
 #include "ScreenDDS.h"
+#include "../Device.h"
 #include "../UserControlsIndicators/UserControlNumeric.cpp"
 #include "../UserControlsIndicators/UserControlEnum.cpp"
+#include "../Outputs/DDS_Channel.h"
 
 ScreenDDS::ScreenDDS() : ScreenBase("DDS1"),
-	_ctrlDDSSignalForm(SIGNALFORM_CONTROL_POSX, SIGNALFORM_CONTROL_POSY, &DDS_Channel1.SignalForm, SignalFormsNames, 4, &DDSUpdateSignalFormsCallbackFunction),
-	_ctrlDDSFrequency(FREQUENCY_CONTROL_POSX, FREQUENCY_CONTROL_POSY, &DDS_Channel1.Frequency, "Hz", 0, 1, 100000.0f, &DDSUpdateIncrementsCallbackFunction),
-	_ctrlDDSEnabled(ENABLED_CONTROL_POSX, ENABLED_CONTROL_POSY, &DDS_Channel1.Enabled, &DDSUpdateEnabledCallbackFunction),
-	_ctrlDDSAmplitude(AMPLITUDE_CONTROL_POSX, AMPLITUDE_CONTROL_POSY, &DDS_Channel1.Amplitude, "Vpp", 0, 0, DDS_AMPLITUDE_MAX, &DDSUpdateWaveTableCallbackFunction),
-	_ctrlDDSOffset(OFFSET_CONTROL_POSX, OFFSET_CONTROL_POSY, &DDS_Channel1.Offset, "V", 0, -DDS_AMPLITUDE_MAX, DDS_AMPLITUDE_MAX, &DDSUpdateWaveTableCallbackFunction)
+	_ctrlDDSSignalForm(SIGNALFORM_CONTROL_POSX, SIGNALFORM_CONTROL_POSY, &Device.Channels[1].SignalForm.Val, SignalFormsNames, 4, &Device.Channels[1], &DDS_Channel::DDSSignalFormChanged),
+	_ctrlDDSFrequency(FREQUENCY_CONTROL_POSX, FREQUENCY_CONTROL_POSY, &Device.Channels[1].Frequency.Val, "Hz", 0, Device.Channels[1].Frequency.Min, Device.Channels[1].Frequency.Max, &Device.Channels[1], &DDS_Channel::DDSFrequencyChanged),
+	_ctrlDDSEnabled(ENABLED_CONTROL_POSX, ENABLED_CONTROL_POSY, &Device.Channels[1].Enabled.Val, &Device.Channels[1], &DDS_Channel::DDSEnabledChanged),
+	_ctrlDDSAmplitude(AMPLITUDE_CONTROL_POSX, AMPLITUDE_CONTROL_POSY, &Device.Channels[1].Amplitude.Val, "Vpp", 0, Device.Channels[1].Amplitude.Min, Device.Channels[1].Amplitude.Max, &Device.Channels[1], &DDS_Channel::DDSAmplitudeChanged),
+	_ctrlDDSOffset(OFFSET_CONTROL_POSX, OFFSET_CONTROL_POSY, &Device.Channels[1].Offset.Val, "V", 0, Device.Channels[1].Offset.Min, Device.Channels[1].Offset.Max, &Device.Channels[1], &DDS_Channel::DDSOffsetChanged)
 {
 	_ctrlDDSFrequency.IsSelected = true;
 	

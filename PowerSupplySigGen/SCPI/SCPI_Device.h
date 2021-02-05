@@ -34,6 +34,8 @@ bool SCPI_GetVoltageFromParam(scpi_t* context, const scpi_number_t& param, float
 /******* SCPI_Cmds_Output.cpp ****************************/
 scpi_result_t scpi_cmd_outputState(scpi_t * context);
 scpi_result_t scpi_cmd_outputStateQ(scpi_t * context);
+scpi_result_t scpi_cmd_outputGeneral(scpi_t * context);
+scpi_result_t scpi_cmd_outputGeneralQ(scpi_t * context);
 
 /******* SCPI_Cmds_Source.cpp ****************************/
 scpi_result_t scpi_cmd_sourceVoltage(scpi_t * context);

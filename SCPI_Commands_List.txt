@@ -69,6 +69,7 @@ Output
 OUTPut
     [:STATe] {<bool>}					Turn on/off the specified output channel
     :GENeral <bool>					Turn on/off all channels simultaneously
+    :GENeral?						Get a string with all output states
 
 ===============================================
 Source

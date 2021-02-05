@@ -61,16 +61,16 @@
 #define NUM_OUTPUT_CHANNELS				3						// Number of output channels
 
 #define PS_INTERNAL_IMPEDANCE			5.7						// Internal impedance in Ohm of the PowerSupply output
-#define PS_MIN_AMPLITUDE				0
-#define PS_MAX_AMPLITUDE				10
-#define PS_MIN_LOAD						1						// Minimum allowed load impedance setting
-#define PS_MAX_LOAD						1000000
+#define PS_MIN_AMPLITUDE				0						// Minimum allowed power supply amplitude setting
+#define PS_MAX_AMPLITUDE				10						// Maximum allowed power supply amplitude setting
+#define PS_MIN_LOAD						1						// Minimum allowed power supply load impedance setting
+#define PS_MAX_LOAD						1000000					// Maximum allowed power supply load impedance setting
 
-#define DDS_MIN_FREQ					1
-#define DDS_MAX_FREQ					1000
-#define DDS_MIN_AMPLITUDE				0
-#define DDS_MAX_AMPLITUDE				20
-#define DDS_MIN_OFFSET					-10
-#define DDS_MAX_OFFSET					10
+#define DDS_MIN_FREQ					1						// Minimum allowed DDS frequency setting
+#define DDS_MAX_FREQ					1000					// Maximum allowed DDS frequency setting
+#define DDS_MIN_AMPLITUDE				0						// Minimum allowed DDS amplitude setting
+#define DDS_MAX_AMPLITUDE				20						// Maximum allowed DDS amplitude setting
+#define DDS_MIN_OFFSET					-10						// Minimum allowed DDS offset setting
+#define DDS_MAX_OFFSET					10						// Maximum allowed DDS offset setting
 
 #endif /* CONFIGURATION_H_ */

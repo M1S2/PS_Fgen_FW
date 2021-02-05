@@ -48,6 +48,8 @@ const scpi_command_t scpi_commands[] =
 	/****** Output Subsystem ***************************/
 	{"OUTPut#[:STATe]", scpi_cmd_outputState, 0},
 	{"OUTPut#[:STATe]?", scpi_cmd_outputStateQ, 0},
+	{"OUTPut:GENeral", scpi_cmd_outputGeneral, 0},
+	{"OUTPut:GENeral?", scpi_cmd_outputGeneralQ, 0},
 			
 	/****** Source Subsystem ***************************/
 	{"SOURce#:VOLTage[:LEVel][:IMMediate][:AMPLitude]", scpi_cmd_sourceVoltage, 0},	

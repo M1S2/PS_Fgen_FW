@@ -12,9 +12,9 @@
 #include "../Outputs/PS_Channel.h"
 
 ScreenPS::ScreenPS() : ScreenBase("PS"),
-	_ctrlPSVoltage(VOLTAGE_CONTROL_POSX, VOLTAGE_CONTROL_POSY, &Device.Channels[0].Amplitude.Val, "V", 0, Device.Channels[0].Amplitude.Min, Device.Channels[0].Amplitude.Max, &Device.Channels[0], &PS_Channel::PSAmplitudeChanged),
-	_ctrlLoadImpedance(LOAD_IMPEDANCE_CONTROL_POSX, LOAD_IMPEDANCE_CONTROL_POSY, &Device.Channels[0].LoadImpedance.Val, "Ohm", 0, Device.Channels[0].LoadImpedance.Min, Device.Channels[0].LoadImpedance.Max, &Device.Channels[0], &PS_Channel::PSLoadImpedanceChanged),
-	_ctrlOutputEnable(OUTPUT_STATE_CONTROL_POSX, OUTPUT_STATE_CONTROL_POSY, &Device.Channels[0].Enabled.Val, &Device.Channels[0], &PS_Channel::PSEnabledChanged),
+	_ctrlPSVoltage(VOLTAGE_CONTROL_POSX, VOLTAGE_CONTROL_POSY, &Device.PsChannel.Amplitude.Val, "V", 0, Device.PsChannel.Amplitude.Min, Device.PsChannel.Amplitude.Max, &Device.PsChannel, &PS_Channel::PSAmplitudeChanged),
+	_ctrlLoadImpedance(LOAD_IMPEDANCE_CONTROL_POSX, LOAD_IMPEDANCE_CONTROL_POSY, &Device.PsChannel.LoadImpedance.Val, "Ohm", 0, Device.PsChannel.LoadImpedance.Min, Device.PsChannel.LoadImpedance.Max, &Device.PsChannel, &PS_Channel::PSLoadImpedanceChanged),
+	_ctrlOutputEnable(OUTPUT_STATE_CONTROL_POSX, OUTPUT_STATE_CONTROL_POSY, &Device.PsChannel.Enabled.Val, &Device.PsChannel, &PS_Channel::PSEnabledChanged),
 	_indPSVoltage(INFO_TEXTS_POSX, INFO_TEXT_VOLTAGE_POSY, &Device.DeviceVoltages.PS_VOLT, "V"),
 	_indPSCurrent(INFO_TEXTS_POSX, INFO_TEXT_CURRENT_POSY, &Device.DeviceVoltages.PS_CURR, "A"),
 	_indPSPower(INFO_TEXTS_POSX, INFO_TEXT_POWER_POSY, &Device.DeviceVoltages.PS_POWER, "W")

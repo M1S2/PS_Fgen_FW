@@ -21,7 +21,7 @@ void InitDDSTimer()
 	TCCR2B = (1 << CS22) | (1 << CS20);					// Prescaler 128
 	TIMSK2 = (1 << OCIE2A);								// Enable Output Compare A Match Interrupt
 	
-	dds_channel1 = (DDS_Channel*)&Device.Channels[1];
+	dds_channel1 = (DDS_Channel*)Device.Channels[1];
 }
 
 void DisableDDSTimer()

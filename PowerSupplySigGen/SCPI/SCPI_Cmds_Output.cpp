@@ -27,13 +27,15 @@ scpi_result_t scpi_cmd_outputState(scpi_t * context)
 		return SCPI_RES_ERR;
 	}
 	
-	bool status = Device.Channels[channelNum].SetEnabled(state);
-	
-	if(!status)
+	if (Device.Channels[channelNum]->GetChannelType() == POWER_SUPPLY_CHANNEL_TYPE)
 	{
-		const char* msg = "Channel doesn't support to change the output state.";
-		SCPI_ResultCharacters(context, msg, strlen(msg));
-		return SCPI_RES_ERR;
+		PS_Channel* psChannel = (PS_Channel*)Device.Channels[channelNum];
+		psChannel->SetEnabled(state);
+	}
+	else if (Device.Channels[channelNum]->GetChannelType() == DDS_CHANNEL_TYPE)
+	{
+		DDS_Channel* ddsChannel = (DDS_Channel*)Device.Channels[channelNum];
+		ddsChannel->SetEnabled(state);
 	}
 	
 	return SCPI_RES_OK;
@@ -52,7 +54,20 @@ scpi_result_t scpi_cmd_outputStateQ(scpi_t * context)
 		return SCPI_RES_ERR;
 	}
 	
-	SCPI_ResultBool(context, Device.Channels[channelNum].GetEnabled());
+	bool outputState = false;
+	
+	if (Device.Channels[channelNum]->GetChannelType() == POWER_SUPPLY_CHANNEL_TYPE)
+	{
+		PS_Channel* psChannel = (PS_Channel*)Device.Channels[channelNum];
+		outputState = psChannel->GetEnabled();
+	}
+	else if (Device.Channels[channelNum]->GetChannelType() == DDS_CHANNEL_TYPE)
+	{
+		DDS_Channel* ddsChannel = (DDS_Channel*)Device.Channels[channelNum];
+		outputState = ddsChannel->GetEnabled();
+	}
+	
+	SCPI_ResultBool(context, outputState);
 	
 	return SCPI_RES_OK;
 }

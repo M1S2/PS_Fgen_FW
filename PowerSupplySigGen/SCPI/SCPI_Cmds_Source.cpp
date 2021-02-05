@@ -27,14 +27,18 @@ scpi_result_t scpi_cmd_sourceVoltage(scpi_t * context)
 		return SCPI_RES_ERR;
 	}
 	
-	float amplitude = Device.Channels[channelNum].GetAmplitude();
-	if (!SCPI_GetVoltageFromParam(context, param, amplitude, Device.Channels[channelNum].Amplitude.Min, Device.Channels[channelNum].Amplitude.Max, Device.Channels[channelNum].Amplitude.Def, Device.Channels[channelNum].Amplitude.Step))
+	if (Device.Channels[channelNum]->GetChannelType() == POWER_SUPPLY_CHANNEL_TYPE)
 	{
-		return SCPI_RES_ERR;
+		PS_Channel* psChannel = (PS_Channel*)Device.Channels[channelNum];
+		
+		float amplitude = psChannel->GetAmplitude();
+		if (!SCPI_GetVoltageFromParam(context, param, amplitude, psChannel->Amplitude.Min, psChannel->Amplitude.Max, psChannel->Amplitude.Def, psChannel->Amplitude.Step))
+		{
+			return SCPI_RES_ERR;
+		}
+		bool status = psChannel->SetAmplitude(amplitude);
 	}
-	bool status = Device.Channels[channelNum].SetAmplitude(amplitude);
-	
-	if(!status)
+	else
 	{
 		const char* msg = "Channel doesn't support to change the amplitude.";
 		SCPI_ResultCharacters(context, msg, strlen(msg));
@@ -57,7 +61,17 @@ scpi_result_t scpi_cmd_sourceVoltageQ(scpi_t * context)
 		return SCPI_RES_ERR;
 	}
 	
-	SCPI_ResultFloat(context, Device.Channels[channelNum].GetAmplitude());
-		
+	if (Device.Channels[channelNum]->GetChannelType() == POWER_SUPPLY_CHANNEL_TYPE)
+	{
+		PS_Channel* psChannel = (PS_Channel*)Device.Channels[channelNum];
+		SCPI_ResultFloat(context, psChannel->GetAmplitude());
+	}
+	else
+	{
+		const char* msg = "Channel doesn't support to read the amplitude.";
+		SCPI_ResultCharacters(context, msg, strlen(msg));
+		return SCPI_RES_ERR;
+	}
+	
 	return SCPI_RES_OK;
 }

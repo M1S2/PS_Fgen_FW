@@ -10,14 +10,9 @@
 
 PS_Channel::PS_Channel(float minAmpl, float maxAmpl, float minLoad, float maxLoad) : Channel(POWER_SUPPLY_CHANNEL_TYPE)
 {
-	Enabled = Parameter<bool>(false, false, true, false, true, true);
-	OnEnabledChanged = &PSEnabledChanged;
-
-	Amplitude = Parameter<float>(0, minAmpl, maxAmpl, 0, 1, true);
-	OnAmplitudeChanged = &PSAmplitudeChanged;
-	
-	LoadImpedance = Parameter<float>(0, minLoad, maxLoad, 0, 1, true);
-	OnLoadImpedanceChanged = &PSLoadImpedanceChanged;
+	Enabled = Parameter<bool>(false, false, true, false, true);
+	Amplitude = Parameter<float>(0, minAmpl, maxAmpl, 0, 1);
+	LoadImpedance = Parameter<float>(0, minLoad, maxLoad, 0, 1);
 }
 
 void PS_Channel::UpdateOutput()
@@ -35,6 +30,62 @@ void PS_Channel::UpdateOutput()
 	}
 }
 
+//----------------------------------------------------------------------------------------------------------
+
+bool PS_Channel::SetEnabled(bool enabled)
+{
+	if (Enabled.Val != enabled)
+	{
+		Enabled.Val = enabled;
+		PSEnabledChanged(this);
+	}
+	return true;
+}
+
+bool PS_Channel::GetEnabled()
+{
+	return Enabled.Val;
+}
+
+//----------------------------------------------------------------------------------------------------------
+
+bool PS_Channel::SetAmplitude(float amplitude)
+{
+	if (amplitude > Amplitude.Max || amplitude < Amplitude.Min) { return false; }
+
+	if (Amplitude.Val != amplitude)
+	{
+		Amplitude.Val = amplitude;
+		PSAmplitudeChanged(this);
+	}
+	return true;
+}
+
+float PS_Channel::GetAmplitude()
+{
+	return Amplitude.Val;
+}
+
+//----------------------------------------------------------------------------------------------------------
+
+bool PS_Channel::SetLoadImpedance(float loadImpedance)
+{
+	if (loadImpedance > LoadImpedance.Max || loadImpedance < LoadImpedance.Min) { return false; }
+
+	if (LoadImpedance.Val != loadImpedance)
+	{
+		LoadImpedance.Val = loadImpedance;
+		PSLoadImpedanceChanged(this);
+	}
+	return true;
+}
+
+float PS_Channel::GetLoadImpedance()
+{
+	return LoadImpedance.Val;
+}
+
+//----------------------------------------------------------------------------------------------------------
 
 void PS_Channel::PSEnabledChanged(void* channel)
 {

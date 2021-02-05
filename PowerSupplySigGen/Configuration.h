@@ -25,7 +25,7 @@
 #define SETTINGS_AUTOSAVE_DELAY_SEC		60						// Seconds between automatic saves of the device settings
 
 /***** SCPI ***************************************************/
-//#define SCPI_ENABLED											// Comment this line out to disable the SCPI parser
+#define SCPI_ENABLED											// Comment this line out to disable the SCPI parser
 #define SCPI_INPUT_BUFFER_LENGTH		256						// Length of the SCPI input buffer. If this buffer overflows, there will be an error message.
 #define SCPI_ERROR_QUEUE_SIZE			17						// Maximum number of errors in the error queue. If this queue overflows, the last error message will be replaced by an overflow error message.
 #define SCPI_IDN_MANUFACTURER			"Markus Scheich"		// Manufacturer info used in *IDN? query
@@ -57,12 +57,20 @@
 /***** UserInputHandler ***************************************/
 #define USERINPUT_QUEUE_LENGTH			256						// Length of the queue used to buffer the user inputs (keys, encoder, Usart)
 
-/***** Power Supply *******************************************/
-#define PS_INTERNAL_IMPEDANCE			5.7						// Internal impedance in Ohm of the PowerSupply output
-#define PS_MIN_LOAD_IMPEDANCE			1.0						// Minimum allowed load impedance setting
-
 /***** Channels ***********************************************/
 #define NUM_OUTPUT_CHANNELS				3						// Number of output channels
-#define CHANNELS PSCHANNEL(0, 10, PS_MIN_LOAD_IMPEDANCE, 1000000), DDSCHANNEL(0, 1000, 0, 20, -10, 10), DDSCHANNEL(0, 2000, 0, 20, -10, 10)		// Definition of output channels
+
+#define PS_INTERNAL_IMPEDANCE			5.7						// Internal impedance in Ohm of the PowerSupply output
+#define PS_MIN_AMPLITUDE				0
+#define PS_MAX_AMPLITUDE				10
+#define PS_MIN_LOAD						1						// Minimum allowed load impedance setting
+#define PS_MAX_LOAD						1000000
+
+#define DDS_MIN_FREQ					1
+#define DDS_MAX_FREQ					1000
+#define DDS_MIN_AMPLITUDE				0
+#define DDS_MAX_AMPLITUDE				20
+#define DDS_MIN_OFFSET					-10
+#define DDS_MAX_OFFSET					10
 
 #endif /* CONFIGURATION_H_ */

@@ -18,12 +18,11 @@ class Parameter
 	T Max;
 	T Def;
 	T Step;
-	bool Supported;
 
-	Parameter() : Supported(false)
+	Parameter()
 	{ }
 
-	Parameter(T val, T min, T max, T def, T step, bool supported) : Val(val), Min(min), Max(max), Def(def), Step(step), Supported(supported)
+	Parameter(T val, T min, T max, T def, T step) : Val(val), Min(min), Max(max), Def(def), Step(step)
 	{ }
 };
 

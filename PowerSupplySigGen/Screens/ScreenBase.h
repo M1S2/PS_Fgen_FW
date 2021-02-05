@@ -21,11 +21,11 @@ class ScreenBase
 {
 	protected:
 		UserControlBase* _userControls[MAX_SCREEN_USER_CONTROLS];
-		char _numUserControls;
-		char _selectedUserControl;
+		uint8_t _numUserControls;
+		uint8_t _selectedUserControl;
 
 		UserIndicatorBase* _userIndicators[MAX_SCREEN_USER_INDICATORS];
-		char _numUserIndicators;
+		uint8_t _numUserIndicators;
 
 	public:
 		const char* TabName;

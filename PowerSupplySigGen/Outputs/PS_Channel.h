@@ -18,8 +18,21 @@
 class PS_Channel : public Channel
 {
 	public:
+		Parameter<bool> Enabled;
+		Parameter<float> Amplitude;
+		Parameter<float> LoadImpedance;
+		
 		PS_Channel(float minAmpl, float maxAmpl, float minLoad, float maxLoad);
 		void UpdateOutput();
+	
+		bool SetEnabled(bool enabled);
+		bool GetEnabled();
+
+		bool SetAmplitude(float amplitude);
+		float GetAmplitude();
+
+		bool SetLoadImpedance(float loadImpedance);
+		float GetLoadImpedance();
 	
 		static void PSEnabledChanged(void* channel);
 		static void PSAmplitudeChanged(void* channel);

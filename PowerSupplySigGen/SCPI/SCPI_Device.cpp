@@ -80,6 +80,14 @@ const scpi_command_t scpi_commands[] =
 	{"DISPlay[:WINdow]:CLEar", scpi_cmd_displayWindowClear, 0},
 	{"DISPlay[:WINdow]:INVerse", scpi_cmd_displayWindowInverse, 0},	
 	{"DISPlay[:WINdow]:INVerse?", scpi_cmd_displayWindowInverseQ, 0},	
+		
+	/****** Instrument Subsystem ***********************/
+	{"INSTrument[:SELect]", scpi_cmd_instrumentSelect, 0},
+	{"INSTrument[:SELect]?", scpi_cmd_instrumentSelectQ, 0},
+	{"INSTrument:NSELect", scpi_cmd_instrumentNSelect, 0},
+	{"INSTrument:NSELect?", scpi_cmd_instrumentNSelectQ, 0},
+	{"INSTrument:CATalog?", scpi_cmd_instrumentCatalogQ, 0},
+	{"INSTrument:CATalog:FULL?", scpi_cmd_instrumentCatalogFullQ, 0},
 									
 	SCPI_CMD_LIST_END
 };

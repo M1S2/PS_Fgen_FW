@@ -69,4 +69,12 @@ scpi_result_t scpi_cmd_displayWindowClear(scpi_t * context);
 scpi_result_t scpi_cmd_displayWindowInverse(scpi_t * context);
 scpi_result_t scpi_cmd_displayWindowInverseQ(scpi_t * context);
 
+/******* SCPI_Cmds_Instrument.cpp *************************/
+scpi_result_t scpi_cmd_instrumentSelect(scpi_t * context);
+scpi_result_t scpi_cmd_instrumentSelectQ(scpi_t * context);
+scpi_result_t scpi_cmd_instrumentNSelect(scpi_t * context);
+scpi_result_t scpi_cmd_instrumentNSelectQ(scpi_t * context);
+scpi_result_t scpi_cmd_instrumentCatalogQ(scpi_t * context);
+scpi_result_t scpi_cmd_instrumentCatalogFullQ(scpi_t * context);
+
 #endif /* SCPI_DEVICE_H_ */

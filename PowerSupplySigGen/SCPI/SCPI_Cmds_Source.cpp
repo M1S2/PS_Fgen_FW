@@ -36,7 +36,7 @@ scpi_result_t scpi_cmd_sourceVoltage(scpi_t * context)
 		{
 			return SCPI_RES_ERR;
 		}
-		bool status = psChannel->SetAmplitude(amplitude);
+		psChannel->SetAmplitude(amplitude);
 	}
 	else
 	{

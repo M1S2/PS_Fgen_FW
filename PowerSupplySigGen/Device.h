@@ -72,6 +72,8 @@ class DeviceClass
 		DDS_Channel DdsChannel2;
 		Channel* Channels[NUM_OUTPUT_CHANNELS];			// !!! Channels must be initialized before ScreenManager, therefore it is necessary that the Channels are initialized with the initializer list. Otherwise uninitialized channel limits are used in the screen controls !!!
 		
+		uint8_t SelectedScpiChannelIndex;
+		
 		DeviceControlStates_t DeviceControlState;
 		DeviceVoltages_t DeviceVoltages;
 

@@ -20,6 +20,17 @@
 
 #include "../Configuration.h"
 
+typedef enum SCPIChannelParameters
+{
+	SCPI_CHPARAM_OUTPUTSTATE,
+	SCPI_CHPARAM_AMPLITUDE,
+	SCPI_CHPARAM_OFFSET,
+	SCPI_CHPARAM_FREQUENCY,
+	SCPI_CHPARAM_LOADIMPEDANCE
+} SCPIChannelParameters_t;
+
+//----------------------------------------------------------------------------------------------------------
+
 extern scpi_t scpi_context;
 
 size_t SCPI_Write(scpi_t * context, const char * data, size_t len);
@@ -29,7 +40,13 @@ scpi_result_t SCPI_Control(scpi_t * context, scpi_ctrl_name_t ctrl, scpi_reg_val
 scpi_result_t SCPI_Reset(scpi_t * context);
 
 void SCPI_Init_Device();
-bool SCPI_GetVoltageFromParam(scpi_t* context, const scpi_number_t& param, float& value, float minVoltage, float maxVoltage, float defVoltage, float stepVoltage);
+
+scpi_result_t SCPI_SetResult_ChannelOutOfRange(scpi_t * context);
+scpi_result_t SCPI_SetResult_NotSupportedByChannel(scpi_t * context);
+
+scpi_result_t SCPI_QueryChannelParameter(scpi_t * context, SCPIChannelParameters_t paramType);
+scpi_result_t SCPI_SetNumericChannelParameter(scpi_t * context, SCPIChannelParameters_t paramType);
+bool SCPI_GetNumericFromParam(scpi_t* context, const scpi_number_t& param, float& value, scpi_unit_t unit, float minVoltage, float maxVoltage, float defVoltage, float stepVoltage);
 
 /******* SCPI_Cmds_Output.cpp ****************************/
 scpi_result_t scpi_cmd_outputState(scpi_t * context);
@@ -38,8 +55,14 @@ scpi_result_t scpi_cmd_outputGeneral(scpi_t * context);
 scpi_result_t scpi_cmd_outputGeneralQ(scpi_t * context);
 
 /******* SCPI_Cmds_Source.cpp ****************************/
-scpi_result_t scpi_cmd_sourceVoltage(scpi_t * context);
-scpi_result_t scpi_cmd_sourceVoltageQ(scpi_t * context);
+scpi_result_t scpi_cmd_sourceVoltageLevelImmediateAmplitude(scpi_t * context);
+scpi_result_t scpi_cmd_sourceVoltageLevelImmediateAmplitudeQ(scpi_t * context);
+scpi_result_t scpi_cmd_sourceVoltageLevelImmediateOffset(scpi_t * context);
+scpi_result_t scpi_cmd_sourceVoltageLevelImmediateOffsetQ(scpi_t * context);
+scpi_result_t scpi_cmd_sourceFrequencyFixed(scpi_t * context);
+scpi_result_t scpi_cmd_sourceFrequencyFixedQ(scpi_t * context);
+scpi_result_t scpi_cmd_sourceLoadImpedance(scpi_t * context);
+scpi_result_t scpi_cmd_sourceLoadImpedanceQ(scpi_t * context);
 
 /******* SCPI_Cmds_System.cpp ****************************/
 scpi_result_t scpi_cmd_systemLocal(scpi_t * context);

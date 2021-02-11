@@ -42,7 +42,7 @@ Instrument
 INSTrument
     [:SELect] {<channel>}				Selects the output to be programmed
     :CATalog?						Returns a quoted string of the list of valid choices for the instrument channels
-        :FULL?						Returns a list of string – number pairs
+        :FULL?						Returns a list of string - number pairs
     :NSELect {<channel>}				Selects the output to be programmed
 
 ===============================================
@@ -66,7 +66,7 @@ MEMory
 ===============================================
 Output
 ===============================================
-OUTPut
+OUTPut[<n>]
     [:STATe] {<bool>}					Turn on/off the specified output channel
     :GENeral <bool>					Turn on/off all channels simultaneously
     :GENeral?						Get a string with all output states
@@ -77,25 +77,40 @@ Source
 [SOURce[<n>]]
     :CURRent
         [:LEVel]
-            [:IMMediate][:AMPLitude] {<current>}	Sets the output current (MINimum|MAXimum|UP|DOWN|<Current>)
+            [:IMMediate]
+                [:AMPLitude] {<current>}		Sets the output current (MINimum|MAXimum|UP|DOWN|<Current>)
             :STEP[:INCRement]				Sets the current step size
         :LIMit
-            [:POSitive][:IMMediate][:AMPLitude] {<current>}	Sets the output current limit
+            [:AMPLitude] {<current>}			Sets the output current limit
         :PROTection
+            [:LEVel]					Sets the over-current protection (OCP) level
             :STATe {<bool>}				Enables/disables over-current protection on the selected channel
             :TRIPped?					Returns status of over-current protection activation
+            :CLEar					Clear the over-current protection
+    :FUNCtion
+        [:SHAPe]					Selects the shape of the output signal (DC|SINusoid|SQUare|TRIangle|USER)
+        :MODE?						Determines which signal characteristic is being controlled. Only "VOLTage" is supported
+    :FREQuency
+        [:CW] {<frequency>}				Set the frequency of a non-swept signal
+    :LOADimpedance {<impedance>}			Set the load impedance
     :POWer
-        :LIMit {<power>}				Sets the output power limit
-        :PROTection[:LEVel]				Sets the over-power protection (OPP) level
+        :LIMit 
+            [:AMPLitude] {<power>}			Sets the output power limit
+        :PROTection
+            [:LEVel]					Sets the over-power protection (OPP) level
             :STATe {<bool>}				Enables/disables over-power protection on the selected channel
             :TRIPped?					Returns status of over-power protection activation
+            :CLEar					Clear the over-power protection
     :VOLTage
         [:LEVel]
-            [:IMMediate][:AMPLitude] {<voltage>}	Sets the output voltage (MINimum|MAXimum|UP|DOWN|<Voltage>)
+            [:IMMediate]
+                [:AMPLitude] {<voltage>}		Sets the output amplitude (MINimum|MAXimum|UP|DOWN|<Voltage>)
+                :OFFSet {<voltage>}			Sets the output offset (non-time varying component of the signal) (MINimum|MAXimum|UP|DOWN|<Voltage>)
             :STEP[:INCRement]				Sets the voltage step size
         :LIMit
-            [:POSitive][:IMMediate][:AMPLitude] {<voltage>}	Sets the output voltage limit
-        :PROTection[:LEVel]				Sets the over-voltage protection (OVP) level
+            [:AMPLitude] {<voltage>}			Sets the output voltage limit
+        :PROTection
+            [:LEVel]					Sets the over-voltage protection (OVP) level
             :STATe {<bool>}				Enables/disables over-voltage protection on the selected channel
             :TRIPped?					Returns status of over-voltage protection activation
             :CLEar					Reset the OVP state of the channel

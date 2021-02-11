@@ -52,8 +52,14 @@ const scpi_command_t scpi_commands[] =
 	{"OUTPut:GENeral?", scpi_cmd_outputGeneralQ, 0},
 			
 	/****** Source Subsystem ***************************/
-	{"SOURce#:VOLTage[:LEVel][:IMMediate][:AMPLitude]", scpi_cmd_sourceVoltage, 0},	
-	{"SOURce#:VOLTage[:LEVel][:IMMediate][:AMPLitude]?", scpi_cmd_sourceVoltageQ, 0},		
+	{"SOURce#:VOLTage[:LEVel][:IMMediate][:AMPLitude]", scpi_cmd_sourceVoltageLevelImmediateAmplitude, 0},
+	{"SOURce#:VOLTage[:LEVel][:IMMediate][:AMPLitude]?", scpi_cmd_sourceVoltageLevelImmediateAmplitudeQ, 0},
+	{"SOURce#:VOLTage[:LEVel][:IMMediate]:OFFSet", scpi_cmd_sourceVoltageLevelImmediateOffset, 0},
+	{"SOURce#:VOLTage[:LEVel][:IMMediate]:OFFSet?", scpi_cmd_sourceVoltageLevelImmediateOffsetQ, 0},
+	{"SOURce#:FREQuency[:CW]", scpi_cmd_sourceFrequencyFixed, 0},
+	{"SOURce#:FREQuency[:CW]?", scpi_cmd_sourceFrequencyFixedQ, 0},	
+	{"SOURce#:LOADimpedance", scpi_cmd_sourceLoadImpedance, 0},
+	{"SOURce#:LOADimpedance?", scpi_cmd_sourceLoadImpedanceQ, 0},
 	
 	/****** System Subsystem ***************************/
 	{"SYSTem:LOCal", scpi_cmd_systemLocal, 0},
@@ -158,32 +164,215 @@ void SCPI_Init_Device()
 				scpi_error_queue_data, SCPI_ERROR_QUEUE_SIZE);
 }
 
+//----------------------------------------------------------------------------------------------------------
 
-bool SCPI_GetVoltageFromParam(scpi_t* context, const scpi_number_t& param, float& value, float minVoltage, float maxVoltage, float defVoltage, float stepVoltage) 
+scpi_result_t SCPI_SetResult_ChannelOutOfRange(scpi_t * context)
+{
+	const char* msg = "Channel number out of range.";
+	SCPI_ResultCharacters(context, msg, strlen(msg));
+	return SCPI_RES_ERR;
+}
+
+scpi_result_t SCPI_SetResult_NotSupportedByChannel(scpi_t * context)
+{
+	const char* msg = "Operation not supported by channel.";
+	SCPI_ResultCharacters(context, msg, strlen(msg));
+	return SCPI_RES_ERR;
+}
+
+//----------------------------------------------------------------------------------------------------------
+
+scpi_result_t SCPI_QueryChannelParameter(scpi_t * context, SCPIChannelParameters_t paramType)
+{
+	int32_t sourceNumbers[1];
+	SCPI_CommandNumbers(context, sourceNumbers, 1, Device.SelectedScpiChannelIndex);
+	
+	int32_t channelNum = sourceNumbers[0];
+	if(channelNum < 0 || channelNum >= NUM_OUTPUT_CHANNELS)
+	{
+		return SCPI_SetResult_ChannelOutOfRange(context);
+	}
+	
+	if (Device.Channels[channelNum]->GetChannelType() == POWER_SUPPLY_CHANNEL_TYPE)
+	{
+		PS_Channel* psChannel = (PS_Channel*)Device.Channels[channelNum];
+		switch(paramType)
+		{
+			case SCPI_CHPARAM_OUTPUTSTATE: SCPI_ResultBool(context, psChannel->GetEnabled()); break;
+			case SCPI_CHPARAM_AMPLITUDE: SCPI_ResultFloat(context, psChannel->GetAmplitude()); break;
+			case SCPI_CHPARAM_OFFSET: return SCPI_SetResult_NotSupportedByChannel(context);
+			case SCPI_CHPARAM_FREQUENCY: return SCPI_SetResult_NotSupportedByChannel(context);
+			case SCPI_CHPARAM_LOADIMPEDANCE: SCPI_ResultFloat(context, psChannel->GetLoadImpedance()); break;
+		}
+	}
+	else if (Device.Channels[channelNum]->GetChannelType() == DDS_CHANNEL_TYPE)
+	{
+		DDS_Channel* ddsChannel = (DDS_Channel*)Device.Channels[channelNum];
+		switch(paramType)
+		{
+			case SCPI_CHPARAM_OUTPUTSTATE: SCPI_ResultBool(context, ddsChannel->GetEnabled()); break;
+			case SCPI_CHPARAM_AMPLITUDE: SCPI_ResultFloat(context, ddsChannel->GetAmplitude()); break;
+			case SCPI_CHPARAM_OFFSET: SCPI_ResultFloat(context, ddsChannel->GetOffset()); break;
+			case SCPI_CHPARAM_FREQUENCY: SCPI_ResultFloat(context, ddsChannel->GetFrequency()); break;
+			case SCPI_CHPARAM_LOADIMPEDANCE: return SCPI_SetResult_NotSupportedByChannel(context);
+		}
+	}
+	else
+	{
+		return SCPI_SetResult_NotSupportedByChannel(context);
+	}
+	
+	return SCPI_RES_OK;
+}
+
+//----------------------------------------------------------------------------------------------------------
+
+scpi_result_t SCPI_SetNumericChannelParameter(scpi_t * context, SCPIChannelParameters_t paramType)
+{
+	int32_t sourceNumbers[1];
+	SCPI_CommandNumbers(context, sourceNumbers, 1, Device.SelectedScpiChannelIndex);
+	
+	int32_t channelNum = sourceNumbers[0];
+	if(channelNum < 0 || channelNum >= NUM_OUTPUT_CHANNELS)
+	{
+		return SCPI_SetResult_ChannelOutOfRange(context);
+	}
+	
+	if (Device.Channels[channelNum]->GetChannelType() == POWER_SUPPLY_CHANNEL_TYPE)
+	{
+		PS_Channel* psChannel = (PS_Channel*)Device.Channels[channelNum];
+		
+		switch(paramType)
+		{
+			case SCPI_CHPARAM_OUTPUTSTATE:
+			{
+				scpi_bool_t state;
+				if(!SCPI_ParamBool(context, &state, TRUE)) { return SCPI_RES_ERR; }
+					
+				psChannel->SetEnabled(state);
+				break;
+			}
+			case SCPI_CHPARAM_AMPLITUDE:
+			{
+				scpi_number_t param;
+				if(!SCPI_ParamNumber(context, scpi_special_numbers_def, &param, TRUE)) { return SCPI_RES_ERR; }
+				
+				float amplitude = psChannel->GetAmplitude();
+				if (!SCPI_GetNumericFromParam(context, param, amplitude, SCPI_UNIT_VOLT, psChannel->Amplitude.Min, psChannel->Amplitude.Max, psChannel->Amplitude.Def, psChannel->Amplitude.Step))
+				{
+					return SCPI_RES_ERR;
+				}
+				psChannel->SetAmplitude(amplitude);
+				break;
+			}
+			case SCPI_CHPARAM_OFFSET: return SCPI_SetResult_NotSupportedByChannel(context);
+			case SCPI_CHPARAM_FREQUENCY: return SCPI_SetResult_NotSupportedByChannel(context);
+			case SCPI_CHPARAM_LOADIMPEDANCE:
+			{
+				scpi_number_t param;
+				if(!SCPI_ParamNumber(context, scpi_special_numbers_def, &param, TRUE)) { return SCPI_RES_ERR; }
+				
+				float load = psChannel->GetLoadImpedance();
+				if (!SCPI_GetNumericFromParam(context, param, load, SCPI_UNIT_OHM, psChannel->LoadImpedance.Min, psChannel->LoadImpedance.Max, psChannel->LoadImpedance.Def, psChannel->LoadImpedance.Step))
+				{
+					return SCPI_RES_ERR;
+				}
+				psChannel->SetLoadImpedance(load);
+				break;
+			}
+		}
+	}
+	else if (Device.Channels[channelNum]->GetChannelType() == DDS_CHANNEL_TYPE)
+	{
+		DDS_Channel* ddsChannel = (DDS_Channel*)Device.Channels[channelNum];
+		
+		switch(paramType)
+		{
+			case SCPI_CHPARAM_OUTPUTSTATE:
+			{
+				scpi_bool_t state;
+				if(!SCPI_ParamBool(context, &state, TRUE)) { return SCPI_RES_ERR; }
+
+				ddsChannel->SetEnabled(state);
+				break;
+			}
+			case SCPI_CHPARAM_AMPLITUDE:
+			{
+				scpi_number_t param;
+				if(!SCPI_ParamNumber(context, scpi_special_numbers_def, &param, TRUE)) { return SCPI_RES_ERR; }
+					
+				float amplitude = ddsChannel->GetAmplitude();
+				if (!SCPI_GetNumericFromParam(context, param, amplitude, SCPI_UNIT_VOLT, ddsChannel->Amplitude.Min, ddsChannel->Amplitude.Max, ddsChannel->Amplitude.Def, ddsChannel->Amplitude.Step))
+				{
+					return SCPI_RES_ERR;
+				}
+				ddsChannel->SetAmplitude(amplitude);
+				break;
+			}
+			case SCPI_CHPARAM_OFFSET:
+			{
+				scpi_number_t param;
+				if(!SCPI_ParamNumber(context, scpi_special_numbers_def, &param, TRUE)) { return SCPI_RES_ERR; }
+					
+				float offset = ddsChannel->GetOffset();
+				if (!SCPI_GetNumericFromParam(context, param, offset, SCPI_UNIT_VOLT, ddsChannel->Offset.Min, ddsChannel->Offset.Max, ddsChannel->Offset.Def, ddsChannel->Offset.Step))
+				{
+					return SCPI_RES_ERR;
+				}
+				ddsChannel->SetOffset(offset);
+				break;
+			}
+			case SCPI_CHPARAM_FREQUENCY:
+			{
+				scpi_number_t param;
+				if(!SCPI_ParamNumber(context, scpi_special_numbers_def, &param, TRUE)) { return SCPI_RES_ERR; }
+					
+				float frequency = ddsChannel->GetFrequency();
+				if (!SCPI_GetNumericFromParam(context, param, frequency, SCPI_UNIT_HERTZ, ddsChannel->Frequency.Min, ddsChannel->Frequency.Max, ddsChannel->Frequency.Def, ddsChannel->Frequency.Step))
+				{
+					return SCPI_RES_ERR;
+				}
+				ddsChannel->SetFrequency(frequency);
+				break;
+			}
+			case SCPI_CHPARAM_LOADIMPEDANCE: return SCPI_SetResult_NotSupportedByChannel(context);
+		}
+	}
+	else
+	{
+		return SCPI_SetResult_NotSupportedByChannel(context);
+	}
+	
+	return SCPI_RES_OK;
+}
+
+//----------------------------------------------------------------------------------------------------------
+
+bool SCPI_GetNumericFromParam(scpi_t* context, const scpi_number_t& param, float& value, scpi_unit_t unit, float min, float max, float def, float step) 
 {
 	if (param.special) 
 	{
 		if (param.content.tag == SCPI_NUM_MAX) 
 		{
-			value = maxVoltage;
+			value = max;
 		}
 		else if (param.content.tag == SCPI_NUM_MIN)
 		{
-			value = minVoltage;
+			value = min;
 		}
 		else if (param.content.tag == SCPI_NUM_DEF) 
 		{
-			value = defVoltage;
+			value = def;
 		}
 		else if (param.content.tag == SCPI_NUM_UP) 
 		{
-			value += stepVoltage;
-			if (value > maxVoltage) value = maxVoltage;
+			value += step;
+			if (value > max) value = max;
 		}
 		else if (param.content.tag == SCPI_NUM_DOWN) 
 		{
-			value -= stepVoltage;
-			if (value < minVoltage) value = minVoltage;
+			value -= step;
+			if (value < min) value = min;
 		}
 		else 
 		{
@@ -193,13 +382,13 @@ bool SCPI_GetVoltageFromParam(scpi_t* context, const scpi_number_t& param, float
 	}
 	else 
 	{
-		if (param.unit != SCPI_UNIT_NONE && param.unit != SCPI_UNIT_VOLT) 
+		if (param.unit != SCPI_UNIT_NONE && param.unit != unit) 
 		{
 			SCPI_ErrorPush(context, SCPI_ERROR_INVALID_SUFFIX);
 			return false;
 		}
 
-		if ((float)param.content.value < minVoltage || (float)param.content.value > maxVoltage) 
+		if ((float)param.content.value < min || (float)param.content.value > max)
 		{
 			SCPI_ErrorPush(context, SCPI_ERROR_DATA_OUT_OF_RANGE);
 			return false;

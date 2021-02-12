@@ -38,20 +38,9 @@ scpi_result_t scpi_cmd_instrumentSelect(scpi_t * context)
 }
 
 scpi_result_t scpi_cmd_instrumentSelectQ(scpi_t * context)
-{
-	char buffer[256] = { 0 };
-	//sprintf(buffer, "CH%d", (Device.SelectedScpiChannelIndex + 1));
-	
-	int i=0;
-	while(channel_choice[i].name != NULL && i < NUM_OUTPUT_CHANNELS)
-	{
-		if(channel_choice[i].tag == (Device.SelectedScpiChannelIndex + 1))
-		{
-			strcpy(buffer, channel_choice[i].name);
-			break;
-		}
-		i++;
-	}
+{  
+	const char* buffer;
+	if (!SCPI_ChoiceToName(channel_choice, (int32_t)(Device.SelectedScpiChannelIndex + 1), &buffer)) { return SCPI_RES_ERR; }
 
 	SCPI_ResultCharacters(context, buffer, strlen(buffer));
 	return SCPI_RES_OK;
@@ -99,7 +88,7 @@ scpi_result_t scpi_cmd_instrumentCatalogQ(scpi_t * context)
 	return SCPI_RES_OK;
 }
 
-//Returns a list of string – number pairs (e.g. "CH1",1,"CH2",2,"CH3",3)
+//Returns a list of string - number pairs (e.g. "CH1",1,"CH2",2,"CH3",3)
 scpi_result_t scpi_cmd_instrumentCatalogFullQ(scpi_t * context)
 {
 	char buffer[256] = { 0 };

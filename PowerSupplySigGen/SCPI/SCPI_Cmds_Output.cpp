@@ -10,7 +10,7 @@
 
 scpi_result_t scpi_cmd_outputState(scpi_t * context)
 {
-	return SCPI_SetNumericChannelParameter(context, SCPI_CHPARAM_OUTPUTSTATE);
+	return SCPI_SetChannelParameter(context, SCPI_CHPARAM_OUTPUTSTATE);
 }
 
 //----------------------------------------------------------------------------------------------------------

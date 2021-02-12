@@ -15,6 +15,15 @@ char scpi_input_buffer[SCPI_INPUT_BUFFER_LENGTH];
 scpi_error_t scpi_error_queue_data[SCPI_ERROR_QUEUE_SIZE];
 char resultBuffer[256];
 
+static scpi_choice_def_t signalform_choice[] =
+{
+	{ "SINusoid", SINE },
+	{ "SQUare", RECTANGLE },
+	{ "TRIangle", TRIANGLE },
+	{ "SAWtooth", SAWTOOTH },
+	SCPI_CHOICE_LIST_END /* termination of option list */
+};
+
 const scpi_command_t scpi_commands[] = 
 {
 	/* IEEE Mandated Commands (SCPI std V1999.0 4.1.1) */
@@ -60,7 +69,10 @@ const scpi_command_t scpi_commands[] =
 	{"SOURce#:FREQuency[:CW]?", scpi_cmd_sourceFrequencyFixedQ, 0},	
 	{"SOURce#:LOADimpedance", scpi_cmd_sourceLoadImpedance, 0},
 	{"SOURce#:LOADimpedance?", scpi_cmd_sourceLoadImpedanceQ, 0},
-	
+	{"SOURce#:FUNCtion[:SHAPe]", scpi_cmd_sourceFunctionShape, 0},
+	{"SOURce#:FUNCtion[:SHAPe]?", scpi_cmd_sourceFunctionShapeQ, 0},
+	{"SOURce#:FUNCtion:MODE?", scpi_cmd_sourceFunctionModeQ, 0},
+
 	/****** System Subsystem ***************************/
 	{"SYSTem:LOCal", scpi_cmd_systemLocal, 0},
 	{"SYSTem:REMote", scpi_cmd_systemRemote, 0},
@@ -203,6 +215,7 @@ scpi_result_t SCPI_QueryChannelParameter(scpi_t * context, SCPIChannelParameters
 			case SCPI_CHPARAM_OFFSET: return SCPI_SetResult_NotSupportedByChannel(context);
 			case SCPI_CHPARAM_FREQUENCY: return SCPI_SetResult_NotSupportedByChannel(context);
 			case SCPI_CHPARAM_LOADIMPEDANCE: SCPI_ResultFloat(context, psChannel->GetLoadImpedance()); break;
+			case SCPI_CHPARAM_SIGNALFORM: return SCPI_SetResult_NotSupportedByChannel(context);
 		}
 	}
 	else if (Device.Channels[channelNum]->GetChannelType() == DDS_CHANNEL_TYPE)
@@ -215,6 +228,14 @@ scpi_result_t SCPI_QueryChannelParameter(scpi_t * context, SCPIChannelParameters
 			case SCPI_CHPARAM_OFFSET: SCPI_ResultFloat(context, ddsChannel->GetOffset()); break;
 			case SCPI_CHPARAM_FREQUENCY: SCPI_ResultFloat(context, ddsChannel->GetFrequency()); break;
 			case SCPI_CHPARAM_LOADIMPEDANCE: return SCPI_SetResult_NotSupportedByChannel(context);
+			case SCPI_CHPARAM_SIGNALFORM: 
+			{
+				const char* buffer;
+				if (!SCPI_ChoiceToName(signalform_choice, (int32_t)ddsChannel->GetSignalForm(), &buffer)) { return SCPI_RES_ERR; }
+				
+				SCPI_ResultCharacters(context, buffer, strlen(buffer));
+				break;
+			}
 		}
 	}
 	else
@@ -227,7 +248,7 @@ scpi_result_t SCPI_QueryChannelParameter(scpi_t * context, SCPIChannelParameters
 
 //----------------------------------------------------------------------------------------------------------
 
-scpi_result_t SCPI_SetNumericChannelParameter(scpi_t * context, SCPIChannelParameters_t paramType)
+scpi_result_t SCPI_SetChannelParameter(scpi_t * context, SCPIChannelParameters_t paramType)
 {
 	int32_t sourceNumbers[1];
 	SCPI_CommandNumbers(context, sourceNumbers, 1, Device.SelectedScpiChannelIndex);
@@ -280,6 +301,7 @@ scpi_result_t SCPI_SetNumericChannelParameter(scpi_t * context, SCPIChannelParam
 				psChannel->SetLoadImpedance(load);
 				break;
 			}
+			case SCPI_CHPARAM_SIGNALFORM: return SCPI_SetResult_NotSupportedByChannel(context);
 		}
 	}
 	else if (Device.Channels[channelNum]->GetChannelType() == DDS_CHANNEL_TYPE)
@@ -336,6 +358,14 @@ scpi_result_t SCPI_SetNumericChannelParameter(scpi_t * context, SCPIChannelParam
 				break;
 			}
 			case SCPI_CHPARAM_LOADIMPEDANCE: return SCPI_SetResult_NotSupportedByChannel(context);
+			case SCPI_CHPARAM_SIGNALFORM:
+			{
+				int32_t signalForm;
+				if (!SCPI_ParamChoice(context, signalform_choice, &signalForm, TRUE)) { return SCPI_RES_ERR; }
+				
+				ddsChannel->SetSignalForm((SignalForms_t)signalForm);
+				break;
+			}
 		}
 	}
 	else

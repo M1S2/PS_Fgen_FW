@@ -5,45 +5,45 @@ It is based on https://www.envox.hr/eez/eez-bench-box-3/bb3-scpi-reference-manua
 ===============================================
 Common
 ===============================================
-*CLS							Clears all status data structures
-*ESE {<value>}						Programs the Standard Event Status Enable register bits
-*ESE?							Reads the Standard Event Status Enable register bits
-*ESR?							Reads the Standard Event Status Register
-*IDN?							Returns the UNIQUE identification of the device
-*OPC							Operation Complete Command used for program synchronization
-*OPC?							Read the Operation Complete status
-*RCL {<profile>}					Recalls the device state stored in the specified storage location
-*RST							Reset device to the initial state
-*SAV {<profile>}					Stores the current device state in the specified storage location
-*SRE							Service Request Enable Command
-*SRE?							Service Request Enable Query
-*STB?							Reads the Status Byte register
-*TST?							Returns Self-Test results
-*WAI							Waits until all pending commands are completed
+*CLS							[OK]	Clears all status data structures
+*ESE {<value>}						[OK]	Programs the Standard Event Status Enable register bits
+*ESE?							[OK]	Reads the Standard Event Status Enable register bits
+*ESR?							[OK]	Reads the Standard Event Status Register
+*IDN?							[OK]	Returns the UNIQUE identification of the device
+*OPC							[OK]	Operation Complete Command used for program synchronization
+*OPC?							[OK]	Read the Operation Complete status
+*RCL {<profile>}					[OK]	Recalls the device state stored in the specified storage location
+*RST							[OK]	Reset device to the initial state
+*SAV {<profile>}					[OK]	Stores the current device state in the specified storage location
+*SRE							[OK]	Service Request Enable Command
+*SRE?							[OK]	Service Request Enable Query
+*STB?							[OK]	Reads the Status Byte register
+*TST?							[TODO]	Returns Self-Test results
+*WAI							[OK]	Waits until all pending commands are completed
 
 ===============================================
 Display
 ===============================================
 DISPlay
     [:WINDow]
-(       :BRIGhtness {<value>}				Sets the intensity of the front panel display (0..1) )
-(       :CONTrast {<value>}				Sets the contrast of the front panel display (0..1) )
-        :INVerse {<bool>}				Sets the front panel display to inverse mode
-(       :REMote {<bool>}				Enables / disables display updating when the device is remotely controlled )
-        [:STATe] {<bool>}				Controls whether the whole display is visible
-        [:STATe]?					Query whether the whole display is visible
-        :TEXT						Display a user text on the display
-        :TEXT?						Query the user text
-        :CLEar						Clear the user text
+        :INVerse {<bool>}				[OK]	Sets the front panel display to inverse mode
+        :INVerse?					[OK]	Query the front panel display inverse mode
+        [:STATe] {<bool>}				[OK]	Controls whether the whole display is visible
+        [:STATe]?					[OK]	Query whether the whole display is visible
+        :TEXT						[OK]	Display a user text on the display
+        :TEXT?						[OK]	Query the user text
+        :CLEar						[OK]	Clear the user text
 
 ===============================================
 Instrument
 ===============================================
 INSTrument
-    [:SELect] {<channel>}				Selects the output to be programmed
-    :CATalog?						Returns a quoted string of the list of valid choices for the instrument channels
-        :FULL?						Returns a list of string - number pairs
-    :NSELect {<channel>}				Selects the output to be programmed
+    [:SELect] {<channel>}				[OK]	Selects the output to be programmed (CH1|CH2|CH3)
+    [:SELect]?						[OK]	Query the selected output
+    :CATalog?						[OK]	Returns a quoted string of the list of valid choices for the instrument channels
+        :FULL?						[OK]	Returns a list of string - number pairs
+    :NSELect {<channel>}				[OK]	Selects the output number to be programmed (1..3)
+    :NSELect?						[OK]	Query the selected output number
 
 ===============================================
 Measure
@@ -51,139 +51,149 @@ Measure
 MEASure
     [:SCALar]
         :CURRent
-            [:DC]? [<channel>]				Takes a measurement; returns the average current
+            [:DC]? [<channel>]				[TODO]	Takes a measurement; returns the average current
         :POWer
-            [:DC]? [<channel>]				Takes a measurement; returns the average power
+            [:DC]? [<channel>]				[TODO]	Takes a measurement; returns the average power
         [:VOLTage]
-            [:DC]? [<channel>]				Takes a measurement; returns the average voltage
+            [:DC]? [<channel>]				[TODO]	Takes a measurement; returns the average voltage
 
 ===============================================
 Memory
 ===============================================
 MEMory
-    :NSTates?						Returns total number of state storage memory locations
+    :NSTates?						[OK]	Returns total number of state storage memory locations
 
 ===============================================
 Output
 ===============================================
 OUTPut[<n>]
-    [:STATe] {<bool>}					Turn on/off the specified output channel
-    :GENeral <bool>					Turn on/off all channels simultaneously
-    :GENeral?						Get a string with all output states
+    [:STATe] {<bool>}					[OK]	Turn on/off the specified output channel
+    [:STATe]?						[OK]	Query the state of the specified output channel
+    :GENeral <bool>					[OK]	Turn on/off all channels simultaneously
+    :GENeral?						[OK]	Get a string with all output states
 
 ===============================================
 Source
 ===============================================
-[SOURce[<n>]]
+SOURce[<n>]
     :CURRent
         [:LEVel]
             [:IMMediate]
-                [:AMPLitude] {<current>}		Sets the output current (MINimum|MAXimum|UP|DOWN|<Current>)
-            :STEP[:INCRement]				Sets the current step size
-        :LIMit
-            [:AMPLitude] {<current>}			Sets the output current limit
+                [:AMPLitude] {<current>}		[TODO]	Sets the output current (MINimum|MAXimum|UP|DOWN|<Current>)
+                [:AMPLitude]?				[TODO]	Query the output current
+            :STEP
+                [:INCRement]				[TODO]	Sets the current step size
+                [:INCRement]?				[TODO]	Query the current step size
         :PROTection
-            [:LEVel]					Sets the over-current protection (OCP) level
-            :STATe {<bool>}				Enables/disables over-current protection on the selected channel
-            :TRIPped?					Returns status of over-current protection activation
-            :CLEar					Clear the over-current protection
+            [:LEVel]					[TODO]	Sets the over-current protection (OCP) level
+            [:LEVel]?					[TODO]	Query the over-current protection (OCP) level
+            :STATe {<bool>}				[TODO]	Enables/disables over-current protection on the selected channel
+            :STATe?					[TODO]	Query the state of the over-current protection on the selected channel
+            :TRIPped?					[TODO]	Returns status of over-current protection activation
+            :CLEar					[TODO]	Clear the over-current protection
     :FUNCtion
-        [:SHAPe]					Selects the shape of the output signal (DC|SINusoid|SQUare|TRIangle|USER)
-        :MODE?						Determines which signal characteristic is being controlled. Only "VOLTage" is supported
+        [:SHAPe]					[OK]	Selects the shape of the output signal (DC|SINusoid|SQUare|TRIangle|SAWtooth|USER)
+        [:SHAPe]?					[OK]	Query the shape of the output signal
+        :MODE?						[OK]	Determines which signal characteristic is being controlled. Only "VOLTage" is supported
     :FREQuency
-        [:CW] {<frequency>}				Set the frequency of a non-swept signal
-    :LOADimpedance {<impedance>}			Set the load impedance
+        [:CW] {<frequency>}				[OK]	Set the frequency of a non-swept signal
+        [:CW]?						[OK]	Query the frequency of a non-swept signal
+    :LOADimpedance {<impedance>}			[OK]	Set the load impedance of the channel
+    :LOADimpedance?					[OK]	Query the load impedance of the channel
     :POWer
-        :LIMit 
-            [:AMPLitude] {<power>}			Sets the output power limit
         :PROTection
-            [:LEVel]					Sets the over-power protection (OPP) level
-            :STATe {<bool>}				Enables/disables over-power protection on the selected channel
-            :TRIPped?					Returns status of over-power protection activation
-            :CLEar					Clear the over-power protection
+            [:LEVel]					[TODO]	Sets the over-power protection (OPP) level
+            [:LEVel]?					[TODO]	Query the over-power protection (OPP) level
+            :STATe {<bool>}				[TODO]	Enables/disables over-power protection on the selected channel
+            :STATe?					[TODO]	Query the state of the over-power protection on the selected channel
+            :TRIPped?					[TODO]	Returns status of over-power protection activation
+            :CLEar					[TODO]	Clear the over-power protection
     :VOLTage
         [:LEVel]
             [:IMMediate]
-                [:AMPLitude] {<voltage>}		Sets the output amplitude (MINimum|MAXimum|UP|DOWN|<Voltage>)
-                :OFFSet {<voltage>}			Sets the output offset (non-time varying component of the signal) (MINimum|MAXimum|UP|DOWN|<Voltage>)
-            :STEP[:INCRement]				Sets the voltage step size
-        :LIMit
-            [:AMPLitude] {<voltage>}			Sets the output voltage limit
+                [:AMPLitude] {<voltage>}		[OK]	Sets the output amplitude (MINimum|MAXimum|UP|DOWN|<Voltage>)
+                [:AMPLitude]?				[OK]	Query the output amplitude
+                :OFFSet {<voltage>}			[OK]	Sets the output offset (non-time varying component of the signal) (MINimum|MAXimum|UP|DOWN|<Voltage>)
+                :OFFSet?				[OK]	Query the output offset
+            :STEP
+                [:INCRement]				[TODO]	Sets the voltage step size
+                [:INCRement]?				[TODO]	Query the voltage step size
         :PROTection
-            [:LEVel]					Sets the over-voltage protection (OVP) level
-            :STATe {<bool>}				Enables/disables over-voltage protection on the selected channel
-            :TRIPped?					Returns status of over-voltage protection activation
-            :CLEar					Reset the OVP state of the channel
+            [:LEVel]					[TODO]	Sets the over-voltage protection (OVP) level
+            [:LEVel]?					[TODO]	Query the over-voltage protection (OVP) level
+            :STATe {<bool>}				[TODO]	Enables/disables over-voltage protection on the selected channel
+            :STATe?					[TODO]	Query the state of the over-voltage protection on the selected channel
+            :TRIPped?					[TODO]	Returns status of over-voltage protection activation
+            :CLEar					[TODO]	Reset the OVP state of the channel
 
 ===============================================
 Status
 ===============================================
 STATus
     :OPERation
-        [:EVENt]?					Returns the value of the Operation Event register
-        :CONDition?					Returns the value of the Operation Instrument Condition register
-        :ENABle {<value>}				Enables specific bits in the Operation Event register
+        [:EVENt]?					[TODO]	Returns the value of the Operation Event register
+        :CONDition?					[TODO]	Returns the value of the Operation Instrument Condition register
+        :ENABle {<value>}				[TODO]	Enables specific bits in the Operation Event register
 
         :INSTrument[<n>]
-            [:EVENt]?					Returns the value of the Operation Instrument Event register
-            :CONDition?					Returns the value of the Operation Instrument Condition register
-            :ENABle {<value>}				Enables specific bits in the Operation Instrument Event register
+            [:EVENt]?					[TODO]	Returns the value of the Operation Instrument Event register
+            :CONDition?					[TODO]	Returns the value of the Operation Instrument Condition register
+            :ENABle {<value>}				[TODO]	Enables specific bits in the Operation Instrument Event register
             :ISUMmary<n>
-                [:EVENt]?				Returns the value of the Operation Instrument Isummary Event register
-                :CONDition?				Returns the value of the Operation Instrument Isummary Condition register
-                :ENABle {<value>}			Enables specific bits in the Operation Instrument Isummary Event register
-    :PREset						Presets all enable registers to power-on state
+                [:EVENt]?				[TODO]	Returns the value of the Operation Instrument Isummary Event register
+                :CONDition?				[TODO]	Returns the value of the Operation Instrument Isummary Condition register
+                :ENABle {<value>}			[TODO]	Enables specific bits in the Operation Instrument Isummary Event register
+    :PREset						[OK]	Presets all enable registers to power-on state
     :QUEStionable
-        [:EVENt]?					Returns the value of the Questionable Event register
-        :CONDition?					Returns the value of the Questionable Condition register
-        :ENABle {<value>}				Enables specific bits in the Questionable Event register
+        [:EVENt]?					[OK]	Returns the value of the Questionable Event register
+        :CONDition?					[TODO]	Returns the value of the Questionable Condition register
+        :ENABle {<value>}				[OK]	Enables specific bits in the Questionable Event register
 
         :INSTrument[<n>]
-            [:EVENt]?					Returns the value of the Questionable Instrument Event register
-            :CONDition?					Returns the value of the Questionable Instrument Condition register
-            :ENABle {<value>}				Enables specific bits in the Questionable Instrument Event register
+            [:EVENt]?					[TODO]	Returns the value of the Questionable Instrument Event register
+            :CONDition?					[TODO]	Returns the value of the Questionable Instrument Condition register
+            :ENABle {<value>}				[TODO]	Enables specific bits in the Questionable Instrument Event register
             :ISUMmary<n>
-                [:EVENt]?				Returns the value of the Questionable Instrument Isummary Event register
-                :CONDition?				Returns the value of the Questionable Instrument Isummary Condition register
-                :ENABle {<value>}			Enables specific bits in the Questionable Instrument Isummary Event register
+                [:EVENt]?				[TODO]	Returns the value of the Questionable Instrument Isummary Event register
+                :CONDition?				[TODO]	Returns the value of the Questionable Instrument Isummary Condition register
+                :ENABle {<value>}			[TODO]	Enables specific bits in the Questionable Instrument Isummary Event register
 
 ===============================================
 System
 ===============================================
 SYSTem
-    :CAPability?					Returns an <instrument_specifier>: "(DCPSUPPLY WITH MEASURE|...)"
+    :CAPability?					[TODO]	Returns an <instrument_specifier>: "(DCPSUPPLY WITH MEASURE|FUNCGEN|FUNCGEN)"
     :CHANnel
-        [:COUNt]?					Returns the number of output channels
+        [:COUNt]?					[OK]	Returns the number of output channels
         :INFOrmation
-            :CURRent?					Returns output current capability
-            :POWer?					Returns output power capability
-            :VOLTage?					Returns output voltage capability
-        :MODel?						Returns the channel model and version name
-        :SNO?						Returns the channel serial number
-        :VERSion?					Returns the channel version number
+            :CURRent?					[TODO]	Returns output current capability
+            :POWer?					[TODO]	Returns output power capability
+            :VOLTage?					[TODO]	Returns output voltage capability
+        :MODel?						[TODO]	Returns the channel model and version name
+        :SNO?						[TODO]	Returns the channel serial number
+        :VERSion?					[TODO]	Returns the channel version number
     :COMMunicate
-        :ENABle {<bool>, <interface>}			Enables the remote interface
-        :RLSTate {<state>}				Places the instrument in remote or local mode
         :SERial
-            :BAUD <number>				Set the Serial baud rate
-            :ECHO <bool>				Enable/disalbe the serial echo
+            :BAUD <number>				[OK]	Set the serial baud rate
+            :BAUD?					[OK]	Query the serial baud rate
+            :ECHO <bool>				[OK]	Enable/disalbe the serial echo
+            :ECHO?					[OK]	Query the state of the serial echo
     :CPU
-        :FIRMware?					Returns device firmware version
+        :FIRMware?					[OK]	Returns device firmware version
         :INFOrmation
-            :TYPE?					Returns the type of CPU
-        :SNO?						Returns the device serial number
-        :VERSion?					Returns the CPU board version number
+            :TYPE?					[OK]	Returns the type of CPU
+        :SNO?						[OK]	Returns the device serial number
+        :VERSion?					[OK]	Returns the CPU board version number
     :ERRor
-        [:NEXT]?					Queries and clears errors from the error queue
-        :COUNt?						Queries the error/event queue for the number of unread items
-    :INHibit?						Queries system inhibit state
-    :LOCal						Places the device in the local mode
+        [:NEXT]?					[OK]	Queries and clears errors from the error queue
+        :COUNt?						[OK]	Queries the error/event queue for the number of unread items
+    :LOCal						[OK]	Places the device in the local mode
     :MEASure
         [:SCALar]
             [:VOLTage]
-                [:DC]? {<device>}			Takes a voltage measurement of the RTC battery
-    :PON:OUTPut:DISable {<bool>}			Sets output state on power up
-    :POWer {<bool>}					Enters the device into the standby mode
-    :REMote						Places the device in the remote mode
-    :RWLock						Places the device in the remote mode and disables front panel [lock/unlock] icon
-    :VERSion?						Returns the SCPI version number
+                [:DC]? {<device>}			[TODO]	Takes a voltage measurement of the RTC battery
+    :PON:OUTPut:DISable {<bool>}			[TODO]	Sets output state on power up
+    :POWer {<bool>}					[TODO]	Enters the device into the standby mode
+    :REMote						[OK]	Places the device in the remote mode
+    :RWLock						[OK]	Places the device in the remote mode and disables front panel [lock/unlock] icon
+    :VERSion?						[OK]	Returns the SCPI version number

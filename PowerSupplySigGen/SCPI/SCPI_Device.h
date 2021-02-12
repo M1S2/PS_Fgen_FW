@@ -26,7 +26,8 @@ typedef enum SCPIChannelParameters
 	SCPI_CHPARAM_AMPLITUDE,
 	SCPI_CHPARAM_OFFSET,
 	SCPI_CHPARAM_FREQUENCY,
-	SCPI_CHPARAM_LOADIMPEDANCE
+	SCPI_CHPARAM_LOADIMPEDANCE,
+	SCPI_CHPARAM_SIGNALFORM
 } SCPIChannelParameters_t;
 
 //----------------------------------------------------------------------------------------------------------
@@ -45,7 +46,7 @@ scpi_result_t SCPI_SetResult_ChannelOutOfRange(scpi_t * context);
 scpi_result_t SCPI_SetResult_NotSupportedByChannel(scpi_t * context);
 
 scpi_result_t SCPI_QueryChannelParameter(scpi_t * context, SCPIChannelParameters_t paramType);
-scpi_result_t SCPI_SetNumericChannelParameter(scpi_t * context, SCPIChannelParameters_t paramType);
+scpi_result_t SCPI_SetChannelParameter(scpi_t * context, SCPIChannelParameters_t paramType);
 bool SCPI_GetNumericFromParam(scpi_t* context, const scpi_number_t& param, float& value, scpi_unit_t unit, float minVoltage, float maxVoltage, float defVoltage, float stepVoltage);
 
 /******* SCPI_Cmds_Output.cpp ****************************/
@@ -63,6 +64,9 @@ scpi_result_t scpi_cmd_sourceFrequencyFixed(scpi_t * context);
 scpi_result_t scpi_cmd_sourceFrequencyFixedQ(scpi_t * context);
 scpi_result_t scpi_cmd_sourceLoadImpedance(scpi_t * context);
 scpi_result_t scpi_cmd_sourceLoadImpedanceQ(scpi_t * context);
+scpi_result_t scpi_cmd_sourceFunctionShape(scpi_t * context);
+scpi_result_t scpi_cmd_sourceFunctionShapeQ(scpi_t * context);
+scpi_result_t scpi_cmd_sourceFunctionModeQ(scpi_t * context);
 
 /******* SCPI_Cmds_System.cpp ****************************/
 scpi_result_t scpi_cmd_systemLocal(scpi_t * context);

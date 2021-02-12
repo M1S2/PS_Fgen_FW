@@ -22,6 +22,10 @@ class PS_Channel : public Channel
 		Parameter<float> Amplitude;
 		Parameter<float> LoadImpedance;
 		
+		float MeasuredAmplitude;
+		float MeasuredCurrent;
+		float MeasuredPower;
+		
 		PS_Channel(float minAmpl, float maxAmpl, float minLoad, float maxLoad);
 		void UpdateOutput();
 	

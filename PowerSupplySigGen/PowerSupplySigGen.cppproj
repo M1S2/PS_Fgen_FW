@@ -421,6 +421,9 @@
     <Compile Include="SCPI\SCPI_Cmds_Instrument.cpp">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="SCPI\SCPI_Cmds_Measure.cpp">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="SCPI\SCPI_Cmds_Memory.cpp">
       <SubType>compile</SubType>
     </Compile>

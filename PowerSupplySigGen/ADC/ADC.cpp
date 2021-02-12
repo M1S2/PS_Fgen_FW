@@ -36,12 +36,12 @@ ISR(ADC_vect)
 	switch (adcChannel)
 	{
 		case 0:
-			Device.DeviceVoltages.PS_CURR = adcVoltage / 2.4;		// Ucurr = R24 * (R22 / R23) * IL	=> IL = Ucurr / (R24 * (R22 / R23))
-			Device.DeviceVoltages.PS_POWER = Device.DeviceVoltages.PS_VOLT * Device.DeviceVoltages.PS_CURR;
+			Device.PsChannel.MeasuredCurrent = adcVoltage / 2.4;		// Ucurr = R24 * (R22 / R23) * IL	=> IL = Ucurr / (R24 * (R22 / R23))
+			Device.PsChannel.MeasuredPower = Device.PsChannel.MeasuredAmplitude * Device.PsChannel.MeasuredCurrent;
 			break;
 		case 1:
-			Device.DeviceVoltages.PS_VOLT = adcVoltage * 2;
-			Device.DeviceVoltages.PS_POWER = Device.DeviceVoltages.PS_VOLT * Device.DeviceVoltages.PS_CURR;
+			Device.PsChannel.MeasuredAmplitude = adcVoltage * 2;
+			Device.PsChannel.MeasuredPower = Device.PsChannel.MeasuredAmplitude * Device.PsChannel.MeasuredCurrent;
 			break;
 		case 2:
 			Device.DeviceVoltages.ATX_12V_NEG = -adcVoltage * 2.4;

@@ -48,14 +48,14 @@ INSTrument
 ===============================================
 Measure
 ===============================================
-MEASure
+MEASure[<channel>]
     [:SCALar]
         :CURRent
-            [:DC]? [<channel>]				[TODO]	Takes a measurement; returns the average current
+            [:DC]?					[OK]	Query the measured current on the channel
         :POWer
-            [:DC]? [<channel>]				[TODO]	Takes a measurement; returns the average power
+            [:DC]?					[OK]	Query the measured power on the channel
         [:VOLTage]
-            [:DC]? [<channel>]				[TODO]	Takes a measurement; returns the average voltage
+            [:DC]?					[OK]	Query the measured voltage on the channel
 
 ===============================================
 Memory
@@ -66,7 +66,7 @@ MEMory
 ===============================================
 Output
 ===============================================
-OUTPut[<n>]
+OUTPut[<channel>]
     [:STATe] {<bool>}					[OK]	Turn on/off the specified output channel
     [:STATe]?						[OK]	Query the state of the specified output channel
     :GENeral <bool>					[OK]	Turn on/off all channels simultaneously
@@ -75,7 +75,7 @@ OUTPut[<n>]
 ===============================================
 Source
 ===============================================
-SOURce[<n>]
+SOURce[<channel>]
     :CURRent
         [:LEVel]
             [:IMMediate]

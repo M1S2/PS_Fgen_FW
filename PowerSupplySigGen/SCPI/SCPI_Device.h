@@ -27,7 +27,10 @@ typedef enum SCPIChannelParameters
 	SCPI_CHPARAM_OFFSET,
 	SCPI_CHPARAM_FREQUENCY,
 	SCPI_CHPARAM_LOADIMPEDANCE,
-	SCPI_CHPARAM_SIGNALFORM
+	SCPI_CHPARAM_SIGNALFORM,
+	SCPI_CHPARAM_MEASURED_AMPLITUDE,
+	SCPI_CHPARAM_MEASURED_CURRENT,
+	SCPI_CHPARAM_MEASURED_POWER,
 } SCPIChannelParameters_t;
 
 //----------------------------------------------------------------------------------------------------------
@@ -54,6 +57,11 @@ scpi_result_t scpi_cmd_outputState(scpi_t * context);
 scpi_result_t scpi_cmd_outputStateQ(scpi_t * context);
 scpi_result_t scpi_cmd_outputGeneral(scpi_t * context);
 scpi_result_t scpi_cmd_outputGeneralQ(scpi_t * context);
+
+/******* SCPI_Cmds_Measure.cpp ***************************/
+scpi_result_t scpi_cmd_measureScalarCurrentDCQ(scpi_t * context);
+scpi_result_t scpi_cmd_measureScalarPowerDCQ(scpi_t * context);
+scpi_result_t scpi_cmd_measureScalarVoltageDCQ(scpi_t * context);
 
 /******* SCPI_Cmds_Source.cpp ****************************/
 scpi_result_t scpi_cmd_sourceVoltageLevelImmediateAmplitude(scpi_t * context);

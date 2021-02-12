@@ -9,7 +9,7 @@
 #include "../Device.h"
 #include "../UserControlsIndicators/UserControlNumeric.cpp"
 #include "../UserControlsIndicators/UserControlEnum.cpp"
-#include "../Outputs/DDS_Channel.h"
+#include "../Channels/DDS_Channel.h"
 
 ScreenDDS::ScreenDDS() : ScreenBase("DDS1"),
 	_ctrlDDSSignalForm(SIGNALFORM_CONTROL_POSX, SIGNALFORM_CONTROL_POSY, &Device.DdsChannel1.SignalForm.Val, SignalFormsNames, 4, &Device.DdsChannel1, &DDS_Channel::DDSSignalFormChanged),

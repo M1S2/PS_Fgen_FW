@@ -14,6 +14,8 @@ static scpi_choice_def_t channel_choice[] =
 	{ "CH1", 1 },
 	{ "CH2", 2 },
 	{ "CH3", 3 },
+	{ "CH4", 4 },
+	{ "CH5", 5 }, 
 	SCPI_CHOICE_LIST_END /* termination of option list */
 };
 
@@ -26,7 +28,7 @@ scpi_result_t scpi_cmd_instrumentSelect(scpi_t * context)
 	}
 	channelIdx--;	// channel index must be zero based
 
-	if (channelIdx < 0 || channelIdx >= NUM_OUTPUT_CHANNELS)
+	if (channelIdx < 0 || channelIdx >= NUM_CHANNELS)
 	{
 		const char* msg = "Channel number out of range.";
 		SCPI_ResultCharacters(context, msg, strlen(msg));
@@ -55,7 +57,7 @@ scpi_result_t scpi_cmd_instrumentNSelect(scpi_t * context)
 	}
 	channelIdx--;	// channel index must be zero based
 
-	if (channelIdx < 0 || channelIdx >= NUM_OUTPUT_CHANNELS)
+	if (channelIdx < 0 || channelIdx >= NUM_CHANNELS)
 	{
 		const char* msg = "Channel number out of range.";
 		SCPI_ResultCharacters(context, msg, strlen(msg));
@@ -77,7 +79,7 @@ scpi_result_t scpi_cmd_instrumentCatalogQ(scpi_t * context)
 {
 	char buffer[256] = { 0 };
 	int i=0;
-	while(channel_choice[i].name != NULL && i < NUM_OUTPUT_CHANNELS)
+	while(channel_choice[i].name != NULL && i < NUM_CHANNELS)
 	{
 		sprintf(buffer + strlen(buffer), "\"%s\",", channel_choice[i].name);	//strlen() used to append to the buffer
 		i++;
@@ -93,7 +95,7 @@ scpi_result_t scpi_cmd_instrumentCatalogFullQ(scpi_t * context)
 {
 	char buffer[256] = { 0 };
 	int i=0;
-	while(channel_choice[i].name != NULL && i < NUM_OUTPUT_CHANNELS)
+	while(channel_choice[i].name != NULL && i < NUM_CHANNELS)
 	{
 		sprintf(buffer + strlen(buffer), "\"%s\",%ld,", channel_choice[i].name, channel_choice[i].tag);	//strlen() used to append to the buffer
 		i++;

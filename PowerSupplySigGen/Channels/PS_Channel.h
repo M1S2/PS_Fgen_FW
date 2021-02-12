@@ -13,8 +13,6 @@
 #include "../Configuration.h"
 #include "Channel.h"
 
-#define PSCHANNEL(MINAMPL, MAXAMPL, MINLOAD, MAXLOAD) PS_Channel(MINAMPL, MAXAMPL, MINLOAD, MAXLOAD)
-
 class PS_Channel : public Channel
 {
 	public:

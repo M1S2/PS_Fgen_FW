@@ -205,7 +205,7 @@ scpi_result_t SCPI_QueryChannelParameter(scpi_t * context, SCPIChannelParameters
 	SCPI_CommandNumbers(context, sourceNumbers, 1, Device.SelectedScpiChannelIndex);
 	
 	int32_t channelNum = sourceNumbers[0];
-	if(channelNum < 0 || channelNum >= NUM_OUTPUT_CHANNELS)
+	if(channelNum < 0 || channelNum >= NUM_CHANNELS)
 	{
 		return SCPI_SetResult_ChannelOutOfRange(context);
 	}
@@ -217,13 +217,11 @@ scpi_result_t SCPI_QueryChannelParameter(scpi_t * context, SCPIChannelParameters
 		{
 			case SCPI_CHPARAM_OUTPUTSTATE: SCPI_ResultBool(context, psChannel->GetEnabled()); break;
 			case SCPI_CHPARAM_AMPLITUDE: SCPI_ResultFloat(context, psChannel->GetAmplitude()); break;
-			case SCPI_CHPARAM_OFFSET: return SCPI_SetResult_NotSupportedByChannel(context);
-			case SCPI_CHPARAM_FREQUENCY: return SCPI_SetResult_NotSupportedByChannel(context);
 			case SCPI_CHPARAM_LOADIMPEDANCE: SCPI_ResultFloat(context, psChannel->GetLoadImpedance()); break;
-			case SCPI_CHPARAM_SIGNALFORM: return SCPI_SetResult_NotSupportedByChannel(context);
 			case SCPI_CHPARAM_MEASURED_AMPLITUDE: SCPI_ResultFloat(context, psChannel->MeasuredAmplitude); break;
 			case SCPI_CHPARAM_MEASURED_CURRENT: SCPI_ResultFloat(context, psChannel->MeasuredCurrent); break;
 			case SCPI_CHPARAM_MEASURED_POWER: SCPI_ResultFloat(context, psChannel->MeasuredPower); break;
+			default: return SCPI_SetResult_NotSupportedByChannel(context);
 		}
 	}
 	else if (Device.Channels[channelNum]->GetChannelType() == DDS_CHANNEL_TYPE)
@@ -235,7 +233,6 @@ scpi_result_t SCPI_QueryChannelParameter(scpi_t * context, SCPIChannelParameters
 			case SCPI_CHPARAM_AMPLITUDE: SCPI_ResultFloat(context, ddsChannel->GetAmplitude()); break;
 			case SCPI_CHPARAM_OFFSET: SCPI_ResultFloat(context, ddsChannel->GetOffset()); break;
 			case SCPI_CHPARAM_FREQUENCY: SCPI_ResultFloat(context, ddsChannel->GetFrequency()); break;
-			case SCPI_CHPARAM_LOADIMPEDANCE: return SCPI_SetResult_NotSupportedByChannel(context);
 			case SCPI_CHPARAM_SIGNALFORM: 
 			{
 				const char* buffer;
@@ -244,9 +241,16 @@ scpi_result_t SCPI_QueryChannelParameter(scpi_t * context, SCPIChannelParameters
 				SCPI_ResultCharacters(context, buffer, strlen(buffer));
 				break;
 			}
-			case SCPI_CHPARAM_MEASURED_AMPLITUDE: return SCPI_SetResult_NotSupportedByChannel(context);
-			case SCPI_CHPARAM_MEASURED_CURRENT: return SCPI_SetResult_NotSupportedByChannel(context);
-			case SCPI_CHPARAM_MEASURED_POWER: return SCPI_SetResult_NotSupportedByChannel(context);
+			default: return SCPI_SetResult_NotSupportedByChannel(context);
+		}
+	}
+	else if (Device.Channels[channelNum]->GetChannelType() == DMM_CHANNEL_TYPE)
+	{
+		DMM_Channel* dmmChannel = (DMM_Channel*)Device.Channels[channelNum];
+		switch(paramType)
+		{
+			case SCPI_CHPARAM_MEASURED_AMPLITUDE: SCPI_ResultFloat(context, dmmChannel->MeasuredVoltage); break;
+			default: return SCPI_SetResult_NotSupportedByChannel(context);
 		}
 	}
 	else
@@ -265,7 +269,7 @@ scpi_result_t SCPI_SetChannelParameter(scpi_t * context, SCPIChannelParameters_t
 	SCPI_CommandNumbers(context, sourceNumbers, 1, Device.SelectedScpiChannelIndex);
 	
 	int32_t channelNum = sourceNumbers[0];
-	if(channelNum < 0 || channelNum >= NUM_OUTPUT_CHANNELS)
+	if(channelNum < 0 || channelNum >= NUM_CHANNELS)
 	{
 		return SCPI_SetResult_ChannelOutOfRange(context);
 	}

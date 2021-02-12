@@ -17,9 +17,10 @@
 #include <stdbool.h>
 #include "UserInputHandler/UserInputHandler.h"
 #include "Screens/ScreenManager.h"
-#include "Outputs/Channel.h"
-#include "Outputs/DDS_Channel.h"
-#include "Outputs/PS_Channel.h"
+#include "Channels/Channel.h"
+#include "Channels/DDS_Channel.h"
+#include "Channels/PS_Channel.h"
+#include "Channels/DMM_Channel.h"
 #include "Configuration.h"
 
 typedef enum DeviceControlStates
@@ -35,8 +36,6 @@ typedef struct DeviceVoltagesStruct
 	float ATX_5V;
 	float ATX_12V;
 	float ATX_12V_NEG;
-	float DMM1;
-	float DMM2;
 }DeviceVoltages_t;
 
 /* This structure is only used internally to store to / read from EEPROM */
@@ -67,7 +66,9 @@ class DeviceClass
 		PS_Channel PsChannel;
 		DDS_Channel DdsChannel1;
 		DDS_Channel DdsChannel2;
-		Channel* Channels[NUM_OUTPUT_CHANNELS];			// !!! Channels must be initialized before ScreenManager, therefore it is necessary that the Channels are initialized with the initializer list. Otherwise uninitialized channel limits are used in the screen controls !!!
+		DMM_Channel DmmChannel1;
+		DMM_Channel DmmChannel2;
+		Channel* Channels[NUM_CHANNELS];			// !!! Channels must be initialized before ScreenManager, therefore it is necessary that the Channels are initialized with the initializer list. Otherwise uninitialized channel limits are used in the screen controls !!!
 		
 		uint8_t SelectedScpiChannelIndex;
 		

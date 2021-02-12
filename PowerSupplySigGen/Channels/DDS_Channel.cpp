@@ -193,7 +193,7 @@ void DDS_Channel::DDSSignalFormChanged(void* channel)
 void DDS_Channel::DDSEnabledChanged(void* channel)
 {
 	bool areDDSChannelsEnabled = false;
-	for (int i = 0; i < NUM_OUTPUT_CHANNELS; i++)
+	for (int i = 0; i < NUM_CHANNELS; i++)
 	{
 		if (Device.Channels[i]->GetChannelType() == DDS_CHANNEL_TYPE && ((DDS_Channel*)Device.Channels[i])->Enabled.Val)
 		{

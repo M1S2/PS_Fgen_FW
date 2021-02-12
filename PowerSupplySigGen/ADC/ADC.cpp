@@ -56,10 +56,10 @@ ISR(ADC_vect)
 			Device.DeviceVoltages.ATX_3V3 = adcVoltage;
 			break;
 		case 6:
-			Device.DeviceVoltages.DMM1 = adcVoltage * 5.17;
+			Device.DmmChannel1.MeasuredVoltage = adcVoltage * 5.17;
 			break;
 		case 7:
-			Device.DeviceVoltages.DMM2 = adcVoltage * 5.17;
+			Device.DmmChannel2.MeasuredVoltage = adcVoltage * 5.17;
 			break;
 		default: break;
 	}

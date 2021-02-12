@@ -18,7 +18,9 @@ DeviceClass::DeviceClass() :
 	PsChannel(PS_MIN_AMPLITUDE, PS_MAX_AMPLITUDE, PS_MIN_LOAD, PS_MAX_LOAD),
 	DdsChannel1(DDS_MIN_FREQ, DDS_MAX_FREQ, DDS_MIN_AMPLITUDE, DDS_MAX_AMPLITUDE, DDS_MIN_OFFSET, DDS_MAX_OFFSET),
 	DdsChannel2(DDS_MIN_FREQ, DDS_MAX_FREQ, DDS_MIN_AMPLITUDE, DDS_MAX_AMPLITUDE, DDS_MIN_OFFSET, DDS_MAX_OFFSET),
-	Channels{ &PsChannel, &DdsChannel1, &DdsChannel2 }
+	DmmChannel1(),
+	DmmChannel2(),
+	Channels{ &PsChannel, &DdsChannel1, &DdsChannel2, &DmmChannel1, &DmmChannel2 }
 {
 	DeviceControlState = DEV_CTRL_LOCAL;
 }

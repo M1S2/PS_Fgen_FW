@@ -31,7 +31,7 @@ scpi_result_t scpi_cmd_systemRWLock(scpi_t * context)
 
 scpi_result_t scpi_cmd_systemChannelCountQ(scpi_t * context)
 {
-	SCPI_ResultInt(context, NUM_OUTPUT_CHANNELS);
+	SCPI_ResultInt(context, NUM_CHANNELS);
 	return SCPI_RES_OK;
 }
 

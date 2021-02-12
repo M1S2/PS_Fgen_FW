@@ -24,7 +24,8 @@ extern const char* SignalFormsNames[];
 typedef enum ChannelTypes
 {
 	POWER_SUPPLY_CHANNEL_TYPE,
-	DDS_CHANNEL_TYPE
+	DDS_CHANNEL_TYPE,
+	DMM_CHANNEL_TYPE
 } ChannelTypes_t;
 
 

@@ -8,8 +8,8 @@
 #ifndef CONFIGURATION_H_
 #define CONFIGURATION_H_
 
-#include "Outputs/DDS_Channel.h"
-#include "Outputs/PS_Channel.h"
+#include "Channels/DDS_Channel.h"
+#include "Channels/PS_Channel.h"
 
 #define AVR_VCC_REF						5.27					// AVR VCC Reference voltage in V
 
@@ -58,7 +58,7 @@
 #define USERINPUT_QUEUE_LENGTH			256						// Length of the queue used to buffer the user inputs (keys, encoder, Usart)
 
 /***** Channels ***********************************************/
-#define NUM_OUTPUT_CHANNELS				3						// Number of output channels
+#define NUM_CHANNELS					5						// Number of channels
 
 #define PS_INTERNAL_IMPEDANCE			5.7						// Internal impedance in Ohm of the PowerSupply output
 #define PS_MIN_AMPLITUDE				0						// Minimum allowed power supply amplitude setting

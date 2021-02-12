@@ -9,7 +9,7 @@
 #include "../Device.h"
 #include "../UserControlsIndicators/UserControlNumeric.cpp"
 #include "../UserControlsIndicators/UserIndicatorNumeric.cpp"
-#include "../Outputs/PS_Channel.h"
+#include "../Channels/PS_Channel.h"
 
 ScreenPS::ScreenPS() : ScreenBase("PS"),
 	_ctrlPSVoltage(VOLTAGE_CONTROL_POSX, VOLTAGE_CONTROL_POSY, &Device.PsChannel.Amplitude.Val, "V", 0, Device.PsChannel.Amplitude.Min, Device.PsChannel.Amplitude.Max, &Device.PsChannel, &PS_Channel::PSAmplitudeChanged),

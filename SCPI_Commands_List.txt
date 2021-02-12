@@ -191,7 +191,7 @@ SYSTem
     :MEASure
         [:SCALar]
             [:VOLTage]
-                [:DC]? {<device>}			[TODO]	Takes a voltage measurement of the RTC battery
+                [:DC]?					[OK]	Query all system ATX voltages (<ATX_3V3>,<ATX_5V>,<ATX_12V>,<ATX_12V_NEG>) 
     :PON:OUTPut:DISable {<bool>}			[TODO]	Sets output state on power up
     :POWer {<bool>}					[TODO]	Enters the device into the standby mode
     :REMote						[OK]	Places the device in the remote mode

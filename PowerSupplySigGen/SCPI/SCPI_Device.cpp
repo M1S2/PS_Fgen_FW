@@ -91,6 +91,7 @@ const scpi_command_t scpi_commands[] =
 	{"SYSTem:COMMunicate:SERial:BAUD?", scpi_cmd_systemCommunicateSerialBaudQ, 0},
 	{"SYSTem:COMMunicate:SERial:ECHO", scpi_cmd_systemCommunicateSerialEcho, 0},
 	{"SYSTem:COMMunicate:SERial:ECHO?", scpi_cmd_systemCommunicateSerialEchoQ, 0},
+	{"SYSTem:MEASure[:SCALar][:VOLTage][:DC]?", scpi_cmd_systemMeasureScalarVoltageDCQ, 0},
 		
 	/****** Memory Subsystem ***************************/
 	{"MEMory:NSTates?", scpi_cmd_memoryNStatesQ, 0},		
@@ -301,8 +302,6 @@ scpi_result_t SCPI_SetChannelParameter(scpi_t * context, SCPIChannelParameters_t
 				psChannel->SetAmplitude(amplitude);
 				break;
 			}
-			case SCPI_CHPARAM_OFFSET: return SCPI_SetResult_NotSupportedByChannel(context);
-			case SCPI_CHPARAM_FREQUENCY: return SCPI_SetResult_NotSupportedByChannel(context);
 			case SCPI_CHPARAM_LOADIMPEDANCE:
 			{
 				scpi_number_t param;
@@ -316,10 +315,7 @@ scpi_result_t SCPI_SetChannelParameter(scpi_t * context, SCPIChannelParameters_t
 				psChannel->SetLoadImpedance(load);
 				break;
 			}
-			case SCPI_CHPARAM_SIGNALFORM: return SCPI_SetResult_NotSupportedByChannel(context);
-			case SCPI_CHPARAM_MEASURED_AMPLITUDE: return SCPI_SetResult_NotSupportedByChannel(context);
-			case SCPI_CHPARAM_MEASURED_CURRENT: return SCPI_SetResult_NotSupportedByChannel(context);
-			case SCPI_CHPARAM_MEASURED_POWER: return SCPI_SetResult_NotSupportedByChannel(context);
+			default: return SCPI_SetResult_NotSupportedByChannel(context);
 		}
 	}
 	else if (Device.Channels[channelNum]->GetChannelType() == DDS_CHANNEL_TYPE)
@@ -375,7 +371,6 @@ scpi_result_t SCPI_SetChannelParameter(scpi_t * context, SCPIChannelParameters_t
 				ddsChannel->SetFrequency(frequency);
 				break;
 			}
-			case SCPI_CHPARAM_LOADIMPEDANCE: return SCPI_SetResult_NotSupportedByChannel(context);
 			case SCPI_CHPARAM_SIGNALFORM:
 			{
 				int32_t signalForm;
@@ -384,9 +379,7 @@ scpi_result_t SCPI_SetChannelParameter(scpi_t * context, SCPIChannelParameters_t
 				ddsChannel->SetSignalForm((SignalForms_t)signalForm);
 				break;
 			}
-			case SCPI_CHPARAM_MEASURED_AMPLITUDE: return SCPI_SetResult_NotSupportedByChannel(context);
-			case SCPI_CHPARAM_MEASURED_CURRENT: return SCPI_SetResult_NotSupportedByChannel(context);
-			case SCPI_CHPARAM_MEASURED_POWER: return SCPI_SetResult_NotSupportedByChannel(context);
+			default: return SCPI_SetResult_NotSupportedByChannel(context);
 		}
 	}
 	else

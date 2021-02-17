@@ -35,6 +35,29 @@ scpi_result_t scpi_cmd_systemChannelCountQ(scpi_t * context)
 	return SCPI_RES_OK;
 }
 
+scpi_result_t scpi_cmd_systemCapabilityQ(scpi_t * context)
+{
+	SCPI_ResultCharacters(context, SCPI_SYSTEM_CAPABILITIES, strlen(SCPI_SYSTEM_CAPABILITIES));
+	return SCPI_RES_OK;
+}
+
+scpi_result_t scpi_cmd_systemPonOutputDisable(scpi_t * context)
+{
+	scpi_bool_t disabled;
+	if(!SCPI_ParamBool(context, &disabled, TRUE))
+	{
+		return SCPI_RES_ERR;
+	}
+	Device.PowerOnOutputsDisabled = disabled;
+	return SCPI_RES_OK;
+}
+
+scpi_result_t scpi_cmd_systemPonOutputDisableQ(scpi_t * context)
+{
+	SCPI_ResultBool(context, Device.PowerOnOutputsDisabled);
+	return SCPI_RES_OK;
+}
+
 /***** CPU ******************************************************************************************************************************/
 
 scpi_result_t scpi_cmd_systemCPUFirmwareQ(scpi_t * context)

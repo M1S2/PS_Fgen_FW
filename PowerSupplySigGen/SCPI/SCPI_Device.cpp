@@ -79,6 +79,7 @@ const scpi_command_t scpi_commands[] =
 	{"SOURce#:FUNCtion:MODE?", scpi_cmd_sourceFunctionModeQ, 0},
 
 	/****** System Subsystem ***************************/
+	{"SYSTem:CAPability?", scpi_cmd_systemCapabilityQ, 0},
 	{"SYSTem:LOCal", scpi_cmd_systemLocal, 0},
 	{"SYSTem:REMote", scpi_cmd_systemRemote, 0},
 	{"SYSTem:RWLock", scpi_cmd_systemRWLock, 0},
@@ -92,7 +93,9 @@ const scpi_command_t scpi_commands[] =
 	{"SYSTem:COMMunicate:SERial:ECHO", scpi_cmd_systemCommunicateSerialEcho, 0},
 	{"SYSTem:COMMunicate:SERial:ECHO?", scpi_cmd_systemCommunicateSerialEchoQ, 0},
 	{"SYSTem:MEASure[:SCALar][:VOLTage][:DC]?", scpi_cmd_systemMeasureScalarVoltageDCQ, 0},
-		
+	{"SYSTem:PON:OUTPut:DISable", scpi_cmd_systemPonOutputDisable, 0},
+	{"SYSTem:PON:OUTPut:DISable?", scpi_cmd_systemPonOutputDisableQ, 0},
+				
 	/****** Memory Subsystem ***************************/
 	{"MEMory:NSTates?", scpi_cmd_memoryNStatesQ, 0},		
 

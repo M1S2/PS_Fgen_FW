@@ -85,11 +85,21 @@ void DeviceClass::SaveSettings()
 	
 	settings.PS_Voltage = PsChannel.GetAmplitude();
 	settings.PS_LoadImpedance = PsChannel.GetLoadImpedance();
+	settings.PS_Enabled = PsChannel.GetEnabled();
 		
 	settings.DDS1_Frequency = DdsChannel1.GetFrequency();
 	settings.DDS1_SignalForm = DdsChannel1.GetSignalForm();
 	settings.DDS1_Amplitude = DdsChannel1.GetAmplitude();
 	settings.DDS1_Offset = DdsChannel1.GetOffset();
+	settings.DDS1_Enabled = DdsChannel1.GetEnabled();
+
+	settings.DDS2_Frequency = DdsChannel2.GetFrequency();
+	settings.DDS2_SignalForm = DdsChannel2.GetSignalForm();
+	settings.DDS2_Amplitude = DdsChannel2.GetAmplitude();
+	settings.DDS2_Offset = DdsChannel2.GetOffset();
+	settings.DDS2_Enabled = DdsChannel2.GetEnabled();
+
+	settings.PowerOnOutputsDisabled = PowerOnOutputsDisabled;
 
 	eeprom_write_block((const void*)&settings, (void*)&NonVolatileSettings, sizeof(DevSettingsEEPROMLayout_t));
 	
@@ -110,14 +120,23 @@ void DeviceClass::LoadSettings()
 	SetSerialEchoEnabled(settings.Device_SerialEchoEnabled);
 	
 	PsChannel.SetAmplitude(settings.PS_Voltage);
-	PsChannel.SetEnabled(false);
 	PsChannel.SetLoadImpedance(settings.PS_LoadImpedance);
-		
-	DdsChannel1.SetEnabled(false);
+			
 	DdsChannel1.SetFrequency(settings.DDS1_Frequency);
 	DdsChannel1.SetSignalForm(settings.DDS1_SignalForm);
 	DdsChannel1.SetAmplitude(settings.DDS1_Amplitude);
 	DdsChannel1.SetOffset(settings.DDS1_Offset);
+	
+	DdsChannel2.SetFrequency(settings.DDS2_Frequency);
+	DdsChannel2.SetSignalForm(settings.DDS2_SignalForm);
+	DdsChannel2.SetAmplitude(settings.DDS2_Amplitude);
+	DdsChannel2.SetOffset(settings.DDS2_Offset);
+	
+	PowerOnOutputsDisabled = settings.PowerOnOutputsDisabled;
+	
+	PsChannel.SetEnabled(PowerOnOutputsDisabled ? false : settings.PS_Enabled);
+	DdsChannel1.SetEnabled(PowerOnOutputsDisabled ? false : settings.DDS1_Enabled);
+	DdsChannel2.SetEnabled(PowerOnOutputsDisabled ? false : settings.DDS2_Enabled);
 	
 	DevSettingsNeedSaving = false;
 }
@@ -137,6 +156,14 @@ void DeviceClass::ResetDevice()
 	DdsChannel1.SetSignalForm(SINE);
 	DdsChannel1.SetAmplitude(10);
 	DdsChannel1.SetOffset(0);
+	
+	DdsChannel2.SetEnabled(false);
+	DdsChannel2.SetFrequency(1000);
+	DdsChannel2.SetSignalForm(SINE);
+	DdsChannel2.SetAmplitude(10);
+	DdsChannel2.SetOffset(0);
+	
+	PowerOnOutputsDisabled = true;
 	
 	SaveSettings();
 }

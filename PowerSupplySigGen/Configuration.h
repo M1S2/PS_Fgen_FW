@@ -32,6 +32,7 @@
 #define SCPI_IDN_MODEL					"PowerSupplySigGen"		// Model info used in *IDN? query
 #define SCPI_IDN_SERIAL_NUMBER			"01"					// Serial number used in *IDN? query
 #define SCPI_IDN_SOFTWARE_REVISION		VERSION					// Software version used in *IDN? query
+#define SCPI_SYSTEM_CAPABILITIES		"(DCPSUPPLY WITH MEASURE|FUNCGEN|FUNCGEN)"		// All capabilites of the system					
 
 /***** Screens ************************************************/
 #define NUM_SCREENS						5						// Number of screens.

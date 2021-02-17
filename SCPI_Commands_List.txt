@@ -162,7 +162,7 @@ STATus
 System
 ===============================================
 SYSTem
-    :CAPability?					[TODO]	Returns an <instrument_specifier>: "(DCPSUPPLY WITH MEASURE|FUNCGEN|FUNCGEN)"
+    :CAPability?					[OK]	Returns an <instrument_specifier>: "(DCPSUPPLY WITH MEASURE|FUNCGEN|FUNCGEN)"
     :CHANnel
         [:COUNt]?					[OK]	Returns the number of output channels
         :INFOrmation
@@ -192,8 +192,7 @@ SYSTem
         [:SCALar]
             [:VOLTage]
                 [:DC]?					[OK]	Query all system ATX voltages (<ATX_3V3>,<ATX_5V>,<ATX_12V>,<ATX_12V_NEG>) 
-    :PON:OUTPut:DISable {<bool>}			[TODO]	Sets output state on power up
-    :POWer {<bool>}					[TODO]	Enters the device into the standby mode
+    :PON:OUTPut:DISable {<bool>}			[OK]	Sets output state on power up
     :REMote						[OK]	Places the device in the remote mode
     :RWLock						[OK]	Places the device in the remote mode and disables front panel [lock/unlock] icon
     :VERSion?						[OK]	Returns the SCPI version number

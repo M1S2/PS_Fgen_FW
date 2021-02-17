@@ -85,11 +85,14 @@ scpi_result_t scpi_cmd_systemCPUFirmwareQ(scpi_t * context);
 scpi_result_t scpi_cmd_systemCPUInformationTypeQ(scpi_t * context);
 scpi_result_t scpi_cmd_systemCPUSnoQ(scpi_t * context);
 scpi_result_t scpi_cmd_systemCPUVersionQ(scpi_t * context);
+scpi_result_t scpi_cmd_systemCapabilityQ(scpi_t * context);
 scpi_result_t scpi_cmd_systemCommunicateSerialBaud(scpi_t * context);
 scpi_result_t scpi_cmd_systemCommunicateSerialBaudQ(scpi_t * context);
 scpi_result_t scpi_cmd_systemCommunicateSerialEcho(scpi_t * context);
 scpi_result_t scpi_cmd_systemCommunicateSerialEchoQ(scpi_t * context);
 scpi_result_t scpi_cmd_systemMeasureScalarVoltageDCQ(scpi_t * context);
+scpi_result_t scpi_cmd_systemPonOutputDisable(scpi_t * context);
+scpi_result_t scpi_cmd_systemPonOutputDisableQ(scpi_t * context);
 
 /******* SCPI_Cmds_Memory.cpp ****************************/
 scpi_result_t scpi_cmd_memoryRcl(scpi_t * context);

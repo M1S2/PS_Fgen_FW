@@ -42,7 +42,7 @@ typedef struct DeviceVoltagesStruct
 typedef struct DevSettingsEEPROMLayout
 {
 	float PS_Voltage;
-	//bool PS_Output_Enabled;
+	bool PS_Enabled;
 	float PS_LoadImpedance;
 	
 	uint8_t Screens_TabIndex;
@@ -55,9 +55,16 @@ typedef struct DevSettingsEEPROMLayout
 	SignalForms_t DDS1_SignalForm;
 	float DDS1_Amplitude;
 	float DDS1_Offset;
-	//bool DDS1_Enabled;
+	bool DDS1_Enabled;
+	
+	float DDS2_Frequency;
+	SignalForms_t DDS2_SignalForm;
+	float DDS2_Amplitude;
+	float DDS2_Offset;
+	bool DDS2_Enabled;
+	
+	bool PowerOnOutputsDisabled;
 }DevSettingsEEPROMLayout_t;
-
 
 
 class DeviceClass
@@ -71,6 +78,8 @@ class DeviceClass
 		Channel* Channels[NUM_CHANNELS];			// !!! Channels must be initialized before ScreenManager, therefore it is necessary that the Channels are initialized with the initializer list. Otherwise uninitialized channel limits are used in the screen controls !!!
 		
 		uint8_t SelectedScpiChannelIndex;
+		
+		bool PowerOnOutputsDisabled;				// true -> outputs are disabled on power on; false -> last output states are restored on power on
 		
 		DeviceControlStates_t DeviceControlState;
 		DeviceVoltages_t DeviceVoltages;

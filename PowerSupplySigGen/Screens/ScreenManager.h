@@ -28,7 +28,7 @@ class ScreenManagerClass
 		ScreenDMM _screenDmm;
 		ScreenATX _screenAtx;
 	
-		u8g_t* _u8g;
+		u8g_t _u8g;
 		ScreenBase* _screens[NUM_SCREENS];
 	    bool _isControlActive;
 		bool _displayEnabled;
@@ -46,7 +46,10 @@ class ScreenManagerClass
 		bool IsSplashScreenShown;
 	
 		ScreenManagerClass();
-		void Draw(bool isFirstPage);
+		void Init();
+		
+		void DrawAll();
+		void DrawPage(bool isFirstPage);
 		
 		void KeyInput(Keys_t key);
 		void EncoderInput(EncoderDirection_t encDir);
@@ -56,8 +59,6 @@ class ScreenManagerClass
 		bool GetDisplayEnabled();
 
 		void SetDisplayInverted(bool displayInverted);
-
-		void SetU8GLib_Object(u8g_t *u8g) { _u8g = u8g; }
 };
 
 #endif /* SCREENMANAGER_H_ */

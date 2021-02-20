@@ -68,7 +68,7 @@ typedef struct DevSettingsEEPROMLayout
 
 
 class DeviceClass
-{
+{			
 	public:	
 		PS_Channel PsChannel;
 		DDS_Channel DdsChannel1;
@@ -92,7 +92,11 @@ class DeviceClass
 		
 		bool DevSettingsNeedSaving;
 	
+		uint16_t UserTimerTickCounter;
+	
 		DeviceClass();
+		void Init();
+		void InitUserTimer();
 		
 		void SaveSettings();
 		void LoadSettings();

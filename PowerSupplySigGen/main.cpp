@@ -32,15 +32,12 @@
 
 #include <stdio.h>
 
-u8g_t u8g;
 bool redraw_screen;
-
-uint16_t UserTimerTickCounter;
 
 ISR(TIMER1_COMPA_vect)
 {
 	redraw_screen = true;
-	UserTimerTickCounter++;
+	Device.UserTimerTickCounter++;
 	Keys_t key = KeyPad_GetKeys();
 	if(key != KEYNONE)
 	{
@@ -52,43 +49,9 @@ ISR(TIMER1_COMPA_vect)
 	}
 }
 
-/* Initialize 16-bit Timer/Counter1 */
-void InitUserTimer()
-{
-	TCCR1B = (1 << WGM12);							// Configure for CTC mode
-	TCCR1B |= ((1 << CS10) | (1 << CS11));			// Prescaler 64
-	TIMSK1 = (1 << OCIE1A);							// Enable Output Compare A Match Interrupt
-	OCR1A = (F_CPU / 64 / USER_TIMER_TICK_FREQ);	// Set compare register A (USER_TIMER_TICK_FREQ Hz)
-}
-
 int main(void)
 {
-	cli();
-	Pins_Init();
-	SPI_Init();
-	DisableDDSTimer();
-	Encoder_Init();
-	ADC_init();
-	Usart0Init(9600);		/* Always init with 9600 baud to output the power on message. */
-	InitUserTimer();
-	sei();
-	
-	Usart0TransmitStr("Power On\r\n");
-		
-	ADC_startConversion();
-	MCP4922_DisableLatching();
-	
-	u8g_InitSPI(&u8g, &u8g_dev_s1d15721_hw_spi, PN(1, 7), PN(1, 5), PN(1, 1), PN(1, 0), U8G_PIN_NONE);
-	
-	Device.ScreenManager.SetU8GLib_Object(&u8g);
-	
-	Device.LoadSettings();
-		
-	UserTimerTickCounter = 0;
-	
-	#ifdef SCPI_ENABLED
-		SCPI_Init_Device();
-	#endif
+	Device.Init();
 	
 	for(;;)
 	{		
@@ -96,31 +59,25 @@ int main(void)
 		
 		if(redraw_screen)
 		{
-			bool isFirstPage = true;
-			u8g_FirstPage(&u8g);
-			do
-			{
-				Device.ScreenManager.Draw(isFirstPage);
-				isFirstPage = false;
-			} while ( u8g_NextPage(&u8g) );
+			Device.ScreenManager.DrawAll();
 			redraw_screen = false;
 		}
 			
 		#ifdef SPLASHSCREEN_ENABLED
 			/* Hide splash screen after some time */
-			if(Device.ScreenManager.IsSplashScreenShown && ((UserTimerTickCounter * (1 / (float)USER_TIMER_TICK_FREQ)) >= SPLASHSCREEN_DELAY_SEC))
+			if(Device.ScreenManager.IsSplashScreenShown && ((Device.UserTimerTickCounter * (1 / (float)USER_TIMER_TICK_FREQ)) >= SPLASHSCREEN_DELAY_SEC))
 			{
 				Device.ScreenManager.IsSplashScreenShown = false;
 			}
 		#endif
 		
-		if((UserTimerTickCounter * (1 / (float)USER_TIMER_TICK_FREQ)) >= SETTINGS_AUTOSAVE_DELAY_SEC)
+		if((Device.UserTimerTickCounter * (1 / (float)USER_TIMER_TICK_FREQ)) >= SETTINGS_AUTOSAVE_DELAY_SEC)
 		{
 			if(Device.DevSettingsNeedSaving)
 			{
 				Device.SaveSettings();
 			}
-			UserTimerTickCounter = 0;
+			Device.UserTimerTickCounter = 0;
 		}
 	}
 	

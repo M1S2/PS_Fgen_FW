@@ -8,6 +8,9 @@
 #include "Device.h"
 #include "Screens/ScreenManager.h"
 #include "USART/USART.h"
+#include "ADC/ADC.h"
+#include "Spi/spi.h"
+#include "SCPI/SCPI_Device.h"
 
 #include <stdio.h>
 
@@ -24,6 +27,44 @@ DeviceClass::DeviceClass() :
 {
 	DeviceControlState = DEV_CTRL_LOCAL;
 }
+
+void DeviceClass::Init()
+{
+	cli();
+	Pins_Init();
+	SPI_Init();
+	DisableDDSTimer();
+	Encoder_Init();
+	ADC_init();
+	Usart0Init(9600);			// Always init with 9600 baud to output the power on message.
+	InitUserTimer();
+	sei();
+	
+	Usart0TransmitStr("Power On\r\n");
+	
+	ADC_startConversion();
+	MCP4922_DisableLatching();
+	
+	ScreenManager.Init();
+	
+	Device.LoadSettings();
+	
+	#ifdef SCPI_ENABLED
+		SCPI_Init_Device();
+	#endif
+}
+
+/* Initialize 16-bit Timer/Counter1 */
+void DeviceClass::InitUserTimer()
+{
+	UserTimerTickCounter = 0;
+	TCCR1B = (1 << WGM12);							// Configure for CTC mode
+	TCCR1B |= ((1 << CS10) | (1 << CS11));			// Prescaler 64
+	TIMSK1 = (1 << OCIE1A);							// Enable Output Compare A Match Interrupt
+	OCR1A = (F_CPU / 64 / USER_TIMER_TICK_FREQ);	// Set compare register A (USER_TIMER_TICK_FREQ Hz)
+}
+
+// ##### Device Control State ########################################################################################################
 
 bool DeviceClass::IsUserInputLocked() 
 {
@@ -46,6 +87,8 @@ void DeviceClass::UpdateControlStateOnUserInput()
 		}
 	}	
 }
+
+// ##### Communication ###############################################################################################################
 
 void DeviceClass::SetSerialBaudRate(uint32_t baud)
 {

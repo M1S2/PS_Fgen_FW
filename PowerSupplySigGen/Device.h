@@ -91,12 +91,18 @@ class DeviceClass
 		bool SerialEchoEnabled;
 		
 		bool DevSettingsNeedSaving;
+		bool IsScreenRedrawRequested;
 	
-		uint16_t UserTimerTickCounter;
+		uint16_t TimerTickCounter_KeyPolling;
+		uint16_t TimerTickCounter_AutoSave;
 	
 		DeviceClass();
 		void Init();
-		void InitUserTimer();
+		void InitDeviceTimer();
+		
+		void DeviceMainLoop();
+		
+		void DeviceTimerTickISR(uint16_t currentPeriod_ms);
 		
 		void SaveSettings();
 		void LoadSettings();

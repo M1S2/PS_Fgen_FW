@@ -22,6 +22,7 @@ void ScreenManagerClass::Init()
 {
 	u8g_InitSPI(&_u8g, &u8g_dev_s1d15721_hw_spi, PN(1, 7), PN(1, 5), PN(1, 1), PN(1, 0), U8G_PIN_NONE);
 	IsSplashScreenShown = true;
+	TimerTickCounter_SplashScreen = 0;
 }
 
 void ScreenManagerClass::drawScreenTabs(int selectedTabIndex)
@@ -58,12 +59,12 @@ void ScreenManagerClass::DrawAll()
 	u8g_FirstPage(&_u8g);
 	do
 	{
-		DrawPage(isFirstPage);
+		drawPage(isFirstPage);
 		isFirstPage = false;
 	} while ( u8g_NextPage(&_u8g) );
 }
 
-void ScreenManagerClass::DrawPage(bool isFirstPage)
+void ScreenManagerClass::drawPage(bool isFirstPage)
 {
 #ifdef SPLASHSCREEN_ENABLED
 	if(IsSplashScreenShown)
@@ -139,6 +140,19 @@ void ScreenManagerClass::drawSplashScreen()
 	
 		sprintf(buffer, "SW: %s", SCPI_IDN_SOFTWARE_REVISION);
 		u8g_DrawStr(&_u8g, u8g_GetWidth(&_u8g) - 55, u8g_GetHeight(&_u8g) - 3, buffer);
+	#endif
+}
+
+void ScreenManagerClass::DeviceTimerTickISR(uint16_t currentPeriod_ms)
+{
+	#ifdef SPLASHSCREEN_ENABLED
+		if(IsSplashScreenShown) { TimerTickCounter_SplashScreen++; }
+			
+		/* Hide splash screen after some time */
+		if(IsSplashScreenShown && ((TimerTickCounter_SplashScreen * (1 / (float)DEVICE_TIMER_TICK_FREQ)) >= SPLASHSCREEN_DELAY_SEC))
+		{
+			IsSplashScreenShown = false;
+		}
 	#endif
 }
 

@@ -36,6 +36,7 @@ class ScreenManagerClass
 		void drawScreenTabs(int selectedTabIndex);
 		void drawMessage();
 		void drawSplashScreen();
+		void drawPage(bool isFirstPage);
 		
 	public:
 		uint8_t TabIndex;
@@ -44,12 +45,14 @@ class ScreenManagerClass
 		char UserMessage[MAX_MESSAGE_LEN];
 	
 		bool IsSplashScreenShown;
+		uint16_t TimerTickCounter_SplashScreen;
 	
 		ScreenManagerClass();
 		void Init();
 		
 		void DrawAll();
-		void DrawPage(bool isFirstPage);
+		
+		void DeviceTimerTickISR(uint16_t currentPeriod_ms);
 		
 		void KeyInput(Keys_t key);
 		void EncoderInput(EncoderDirection_t encDir);

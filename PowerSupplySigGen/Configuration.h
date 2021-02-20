@@ -20,8 +20,9 @@
 #define CPU_TYPE						"ATMEGA1284P"			// Type of the controller
 #define CPU_BOARD_VERSION				"v1.2"					// Version of the controller board
 
-/***** User Timer and Saving **********************************/
-#define USER_TIMER_TICK_FREQ			5						// Tick frequency of the UserTimer in Hz. The UserTimer is used to periodically read the keys and the encoder.
+/***** Timers *************************************************/
+#define DEVICE_TIMER_TICK_FREQ			1000					// Tick frequency of the DeviceTimer in Hz. The DeviceTimer is used to e.g. periodically read the keys and the encoder.
+#define KEY_POLLING_DELAY_SEC			0.2						// Frequency for key polling (keys and encoder button). This must be lower than the DeviceTimer frequency because it's derived from this device timer.
 #define SETTINGS_AUTOSAVE_DELAY_SEC		60						// Seconds between automatic saves of the device settings
 
 /***** SCPI ***************************************************/

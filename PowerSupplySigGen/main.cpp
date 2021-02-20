@@ -13,41 +13,8 @@
 * -U efuse:w:0xFC:m (Brown-out detection level at VCC=4.3 V)
 ********************************************************/
 
-#include <avr/io.h>
 #include <avr/interrupt.h>
-#include "Spi/spi.h"
-#include "Pins/Pins.h"
-#include "GLCD/u8g.h"
-#include "Channels/DAC_MCP492x.h"
-#include "Channels/DDS_Channel.h"
-#include "KeyPad/KeyPad.h"
-#include "Encoder/Encoder.h"
-#include "ADC/ADC.h"
-#include "USART/USART.h"
-#include "SCPI/SCPI_Device.h"
-#include "Screens/ScreenManager.h"
-#include "Configuration.h"
-
 #include "Device.h"
-
-#include <stdio.h>
-
-bool redraw_screen;
-
-ISR(TIMER1_COMPA_vect)
-{
-	redraw_screen = true;
-	Device.UserTimerTickCounter++;
-	Keys_t key = KeyPad_GetKeys();
-	if(key != KEYNONE)
-	{
-		Device.UserInputHandler.EnqueueKeyInput(key);
-	}
-	if(Encoder_IsButtonPressed())
-	{
-		Device.UserInputHandler.EnqueueEncoderButtonInput();
-	}
-}
 
 int main(void)
 {
@@ -55,30 +22,7 @@ int main(void)
 	
 	for(;;)
 	{		
-		Device.UserInputHandler.ProcessInputs();
-		
-		if(redraw_screen)
-		{
-			Device.ScreenManager.DrawAll();
-			redraw_screen = false;
-		}
-			
-		#ifdef SPLASHSCREEN_ENABLED
-			/* Hide splash screen after some time */
-			if(Device.ScreenManager.IsSplashScreenShown && ((Device.UserTimerTickCounter * (1 / (float)USER_TIMER_TICK_FREQ)) >= SPLASHSCREEN_DELAY_SEC))
-			{
-				Device.ScreenManager.IsSplashScreenShown = false;
-			}
-		#endif
-		
-		if((Device.UserTimerTickCounter * (1 / (float)USER_TIMER_TICK_FREQ)) >= SETTINGS_AUTOSAVE_DELAY_SEC)
-		{
-			if(Device.DevSettingsNeedSaving)
-			{
-				Device.SaveSettings();
-			}
-			Device.UserTimerTickCounter = 0;
-		}
+		Device.DeviceMainLoop();
 	}
 	
 }

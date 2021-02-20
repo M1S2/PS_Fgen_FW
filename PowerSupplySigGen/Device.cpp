@@ -37,7 +37,7 @@ void DeviceClass::Init()
 	Encoder_Init();
 	ADC_init();
 	Usart0Init(9600);			// Always init with 9600 baud to output the power on message.
-	InitUserTimer();
+	InitDeviceTimer();
 	sei();
 	
 	Usart0TransmitStr("Power On\r\n");
@@ -54,14 +54,65 @@ void DeviceClass::Init()
 	#endif
 }
 
-/* Initialize 16-bit Timer/Counter1 */
-void DeviceClass::InitUserTimer()
+void DeviceClass::DeviceMainLoop()
 {
-	UserTimerTickCounter = 0;
+	UserInputHandler.ProcessInputs();
+	
+	if(IsScreenRedrawRequested)
+	{
+		ScreenManager.DrawAll();
+		IsScreenRedrawRequested = false;
+	}
+	
+	if((TimerTickCounter_AutoSave * (1 / (float)DEVICE_TIMER_TICK_FREQ)) >= SETTINGS_AUTOSAVE_DELAY_SEC)
+	{
+		TimerTickCounter_AutoSave = 0;
+		if(DevSettingsNeedSaving)
+		{
+			SaveSettings();
+		}
+	}
+}
+
+// ##### Timer #######################################################################################################################
+
+ISR(TIMER1_COMPA_vect)
+{
+	Device.DeviceTimerTickISR(1000 / DEVICE_TIMER_TICK_FREQ);
+}
+
+/* Initialize 16-bit Timer/Counter1 */
+void DeviceClass::InitDeviceTimer()
+{
+	TimerTickCounter_KeyPolling = 0;
+	TimerTickCounter_AutoSave = 0;
 	TCCR1B = (1 << WGM12);							// Configure for CTC mode
 	TCCR1B |= ((1 << CS10) | (1 << CS11));			// Prescaler 64
 	TIMSK1 = (1 << OCIE1A);							// Enable Output Compare A Match Interrupt
-	OCR1A = (F_CPU / 64 / USER_TIMER_TICK_FREQ);	// Set compare register A (USER_TIMER_TICK_FREQ Hz)
+	OCR1A = (F_CPU / 64 / DEVICE_TIMER_TICK_FREQ);	// Set compare register A (USER_TIMER_TICK_FREQ Hz)
+}
+
+void DeviceClass::DeviceTimerTickISR(uint16_t currentPeriod_ms)
+{	
+	TimerTickCounter_KeyPolling++;
+	if((TimerTickCounter_KeyPolling * (1 / (float)DEVICE_TIMER_TICK_FREQ)) >= KEY_POLLING_DELAY_SEC)
+	{
+		IsScreenRedrawRequested = true;
+		
+		TimerTickCounter_KeyPolling = 0;
+		Keys_t key = KeyPad_GetKeys();
+		if(key != KEYNONE)
+		{
+			UserInputHandler.EnqueueKeyInput(key);
+		}
+		if(Encoder_IsButtonPressed())
+		{
+			UserInputHandler.EnqueueEncoderButtonInput();
+		}
+	}
+	
+	TimerTickCounter_AutoSave++;		// AutoSave is handled in DeviceMainLoop()
+	ScreenManager.DeviceTimerTickISR(currentPeriod_ms);
 }
 
 // ##### Device Control State ########################################################################################################

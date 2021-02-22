@@ -45,7 +45,7 @@ class ScreenManagerClass
 		char UserMessage[MAX_MESSAGE_LEN];
 	
 		bool IsSplashScreenShown;
-		uint16_t TimerTickCounter_SplashScreen;
+		uint16_t TimeCounter_SplashScreen_ms;
 	
 		ScreenManagerClass();
 		void Init();

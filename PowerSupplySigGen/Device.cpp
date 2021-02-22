@@ -64,9 +64,9 @@ void DeviceClass::DeviceMainLoop()
 		IsScreenRedrawRequested = false;
 	}
 	
-	if((TimerTickCounter_AutoSave * (1 / (float)DEVICE_TIMER_TICK_FREQ)) >= SETTINGS_AUTOSAVE_DELAY_SEC)
+	if(TimeCounter_AutoSave_ms >= SETTINGS_AUTOSAVE_DELAY_MS)
 	{
-		TimerTickCounter_AutoSave = 0;
+		TimeCounter_AutoSave_ms = 0;
 		if(DevSettingsNeedSaving)
 		{
 			SaveSettings();
@@ -78,28 +78,28 @@ void DeviceClass::DeviceMainLoop()
 
 ISR(TIMER1_COMPA_vect)
 {
-	Device.DeviceTimerTickISR(1000 / DEVICE_TIMER_TICK_FREQ);
+	Device.DeviceTimerTickISR(DEVICE_TIMER_TICK_INTERVAL_MS);
 }
 
 /* Initialize 16-bit Timer/Counter1 */
 void DeviceClass::InitDeviceTimer()
 {
-	TimerTickCounter_KeyPolling = 0;
-	TimerTickCounter_AutoSave = 0;
-	TCCR1B = (1 << WGM12);							// Configure for CTC mode
-	TCCR1B |= ((1 << CS10) | (1 << CS11));			// Prescaler 64
-	TIMSK1 = (1 << OCIE1A);							// Enable Output Compare A Match Interrupt
-	OCR1A = (F_CPU / 64 / DEVICE_TIMER_TICK_FREQ);	// Set compare register A (USER_TIMER_TICK_FREQ Hz)
+	TimeCounter_KeyPolling_ms = 0;
+	TimeCounter_AutoSave_ms = 0;
+	TCCR1B = (1 << WGM12);											// Configure for CTC mode
+	TCCR1B |= ((1 << CS10) | (1 << CS11));							// Prescaler 64
+	TIMSK1 = (1 << OCIE1A);											// Enable Output Compare A Match Interrupt
+	OCR1A = (F_CPU / 64 / (1000 / DEVICE_TIMER_TICK_INTERVAL_MS));	// Set compare register A (USER_TIMER_TICK_FREQ Hz)
 }
 
 void DeviceClass::DeviceTimerTickISR(uint16_t currentPeriod_ms)
 {	
-	TimerTickCounter_KeyPolling++;
-	if((TimerTickCounter_KeyPolling * (1 / (float)DEVICE_TIMER_TICK_FREQ)) >= KEY_POLLING_DELAY_SEC)
+	TimeCounter_KeyPolling_ms += currentPeriod_ms;
+	if(TimeCounter_KeyPolling_ms >= KEY_POLLING_DELAY_MS)
 	{
 		IsScreenRedrawRequested = true;
 		
-		TimerTickCounter_KeyPolling = 0;
+		TimeCounter_KeyPolling_ms = 0;
 		Keys_t key = KeyPad_GetKeys();
 		if(key != KEYNONE)
 		{
@@ -111,8 +111,9 @@ void DeviceClass::DeviceTimerTickISR(uint16_t currentPeriod_ms)
 		}
 	}
 	
-	TimerTickCounter_AutoSave++;		// AutoSave is handled in DeviceMainLoop()
+	TimeCounter_AutoSave_ms += currentPeriod_ms;			// AutoSave is handled in DeviceMainLoop()
 	ScreenManager.DeviceTimerTickISR(currentPeriod_ms);
+	PsChannel.DeviceTimerTickISR(currentPeriod_ms);
 }
 
 // ##### Device Control State ########################################################################################################
@@ -180,6 +181,8 @@ void DeviceClass::SaveSettings()
 	settings.PS_Voltage = PsChannel.GetAmplitude();
 	settings.PS_LoadImpedance = PsChannel.GetLoadImpedance();
 	settings.PS_Enabled = PsChannel.GetEnabled();
+	settings.PS_OvpLevel = PsChannel.GetOvpLevel();
+	settings.PS_OvpState = PsChannel.GetOvpState();
 		
 	settings.DDS1_Frequency = DdsChannel1.GetFrequency();
 	settings.DDS1_SignalForm = DdsChannel1.GetSignalForm();
@@ -215,6 +218,8 @@ void DeviceClass::LoadSettings()
 	
 	PsChannel.SetAmplitude(settings.PS_Voltage);
 	PsChannel.SetLoadImpedance(settings.PS_LoadImpedance);
+	PsChannel.SetOvpLevel(settings.PS_OvpLevel);
+	PsChannel.SetOvpState(settings.PS_OvpState);
 			
 	DdsChannel1.SetFrequency(settings.DDS1_Frequency);
 	DdsChannel1.SetSignalForm(settings.DDS1_SignalForm);
@@ -244,6 +249,8 @@ void DeviceClass::ResetDevice()
 	PsChannel.SetAmplitude(5);
 	PsChannel.SetEnabled(false);
 	PsChannel.SetLoadImpedance(1000000);
+	PsChannel.SetOvpLevel(120);
+	PsChannel.SetOvpState(false);
 	
 	DdsChannel1.SetEnabled(false);
 	DdsChannel1.SetFrequency(1000);

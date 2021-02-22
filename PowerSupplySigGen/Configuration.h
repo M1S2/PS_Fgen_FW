@@ -21,9 +21,10 @@
 #define CPU_BOARD_VERSION				"v1.2"					// Version of the controller board
 
 /***** Timers *************************************************/
-#define DEVICE_TIMER_TICK_FREQ			1000					// Tick frequency of the DeviceTimer in Hz. The DeviceTimer is used to e.g. periodically read the keys and the encoder.
-#define KEY_POLLING_DELAY_SEC			0.2						// Frequency for key polling (keys and encoder button). This must be lower than the DeviceTimer frequency because it's derived from this device timer.
-#define SETTINGS_AUTOSAVE_DELAY_SEC		60						// Seconds between automatic saves of the device settings
+#define DEVICE_TIMER_TICK_INTERVAL_MS	1						// Tick interval of the DeviceTimer in ms. The DeviceTimer is used to e.g. periodically read the keys and the encoder.
+#define KEY_POLLING_DELAY_MS			200						// Time period for key polling (keys and encoder button). This must be higher than the DeviceTimer tick interval because it's derived from this device timer.
+#define SETTINGS_AUTOSAVE_DELAY_MS		60000					// Milliseconds between automatic saves of the device settings
+#define SPLASHSCREEN_DELAY_MS			3000					// Time that the splash screen is shown in milliseconds
 
 /***** SCPI ***************************************************/
 #define SCPI_ENABLED											// Comment this line out to disable the SCPI parser
@@ -49,7 +50,6 @@
 #define MAX_MESSAGE_LEN					256						// Maximum length of user or error messages
 
 #define SPLASHSCREEN_ENABLED									// Comment this line out to disable the Splashscreen
-#define SPLASHSCREEN_DELAY_SEC			3						// Time that the splash screen is shown in seconds
 
 /***** UserControlsIndicators **********************************/
 #define CONTROLS_FONT_HEIGHT			8						// Font Height in pixels of the text used in UserControls

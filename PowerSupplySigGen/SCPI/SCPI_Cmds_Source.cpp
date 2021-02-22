@@ -32,6 +32,30 @@ scpi_result_t scpi_cmd_sourceVoltageLevelImmediateOffsetQ(scpi_t * context)
 
 //----------------------------------------------------------------------------------------------------------
 
+scpi_result_t scpi_cmd_sourceVoltageProtectionLevel(scpi_t * context)
+{
+	return SCPI_SetChannelParameter(context, SCPI_CHPARAM_OVP_LEVEL);
+}
+
+scpi_result_t scpi_cmd_sourceVoltageProtectionLevelQ(scpi_t * context)
+{
+	return SCPI_QueryChannelParameter(context, SCPI_CHPARAM_OVP_LEVEL);
+}
+
+//----------------------------------------------------------------------------------------------------------
+
+scpi_result_t scpi_cmd_sourceVoltageProtectionState(scpi_t * context)
+{
+	return SCPI_SetChannelParameter(context, SCPI_CHPARAM_OVP_STATE);
+}
+
+scpi_result_t scpi_cmd_sourceVoltageProtectionStateQ(scpi_t * context)
+{
+	return SCPI_QueryChannelParameter(context, SCPI_CHPARAM_OVP_STATE);
+}
+
+//----------------------------------------------------------------------------------------------------------
+
 scpi_result_t scpi_cmd_sourceFrequencyFixed(scpi_t * context)
 {
 	return SCPI_SetChannelParameter(context, SCPI_CHPARAM_FREQUENCY);

@@ -20,9 +20,8 @@ int main(void)
 {
 	Device.Init();
 	
-	for(;;)
+	while(true)
 	{		
 		Device.DeviceMainLoop();
 	}
-	
 }

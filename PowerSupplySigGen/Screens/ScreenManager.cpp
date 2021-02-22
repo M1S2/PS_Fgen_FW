@@ -22,7 +22,7 @@ void ScreenManagerClass::Init()
 {
 	u8g_InitSPI(&_u8g, &u8g_dev_s1d15721_hw_spi, PN(1, 7), PN(1, 5), PN(1, 1), PN(1, 0), U8G_PIN_NONE);
 	IsSplashScreenShown = true;
-	TimerTickCounter_SplashScreen = 0;
+	TimeCounter_SplashScreen_ms = 0;
 }
 
 void ScreenManagerClass::drawScreenTabs(int selectedTabIndex)
@@ -146,10 +146,10 @@ void ScreenManagerClass::drawSplashScreen()
 void ScreenManagerClass::DeviceTimerTickISR(uint16_t currentPeriod_ms)
 {
 	#ifdef SPLASHSCREEN_ENABLED
-		if(IsSplashScreenShown) { TimerTickCounter_SplashScreen++; }
+		if(IsSplashScreenShown) { TimeCounter_SplashScreen_ms += currentPeriod_ms; }
 			
 		/* Hide splash screen after some time */
-		if(IsSplashScreenShown && ((TimerTickCounter_SplashScreen * (1 / (float)DEVICE_TIMER_TICK_FREQ)) >= SPLASHSCREEN_DELAY_SEC))
+		if(IsSplashScreenShown && (TimeCounter_SplashScreen_ms >= SPLASHSCREEN_DELAY_MS))
 		{
 			IsSplashScreenShown = false;
 		}

@@ -119,10 +119,10 @@ SOURce[<channel>]
                 [:INCRement]				[TODO]	Sets the voltage step size
                 [:INCRement]?				[TODO]	Query the voltage step size
         :PROTection
-            [:LEVel]					[TODO]	Sets the over-voltage protection (OVP) level
-            [:LEVel]?					[TODO]	Query the over-voltage protection (OVP) level
-            :STATe {<bool>}				[TODO]	Enables/disables over-voltage protection on the selected channel
-            :STATe?					[TODO]	Query the state of the over-voltage protection on the selected channel
+            [:LEVel]					[OK]	Sets the over-voltage protection (OVP) level
+            [:LEVel]?					[OK]	Query the over-voltage protection (OVP) level
+            :STATe {<bool>}				[OK]	Enables/disables over-voltage protection on the selected channel
+            :STATe?					[OK]	Query the state of the over-voltage protection on the selected channel
             :TRIPped?					[TODO]	Returns status of over-voltage protection activation
             :CLEar					[TODO]	Reset the OVP state of the channel
 

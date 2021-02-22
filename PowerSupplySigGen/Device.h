@@ -44,6 +44,8 @@ typedef struct DevSettingsEEPROMLayout
 	float PS_Voltage;
 	bool PS_Enabled;
 	float PS_LoadImpedance;
+	uint8_t PS_OvpLevel;
+	bool PS_OvpState;
 	
 	uint8_t Screens_TabIndex;
 	uint8_t Screens_Inverted;
@@ -93,8 +95,8 @@ class DeviceClass
 		bool DevSettingsNeedSaving;
 		bool IsScreenRedrawRequested;
 	
-		uint16_t TimerTickCounter_KeyPolling;
-		uint16_t TimerTickCounter_AutoSave;
+		uint16_t TimeCounter_KeyPolling_ms;
+		uint16_t TimeCounter_AutoSave_ms;
 	
 		DeviceClass();
 		void Init();

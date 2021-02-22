@@ -70,6 +70,10 @@ const scpi_command_t scpi_commands[] =
 	{"SOURce#:VOLTage[:LEVel][:IMMediate][:AMPLitude]?", scpi_cmd_sourceVoltageLevelImmediateAmplitudeQ, 0},
 	{"SOURce#:VOLTage[:LEVel][:IMMediate]:OFFSet", scpi_cmd_sourceVoltageLevelImmediateOffset, 0},
 	{"SOURce#:VOLTage[:LEVel][:IMMediate]:OFFSet?", scpi_cmd_sourceVoltageLevelImmediateOffsetQ, 0},
+	{"SOURce#:VOLTage:PROTection[:LEVel]", scpi_cmd_sourceVoltageProtectionLevel, 0},
+	{"SOURce#:VOLTage:PROTection[:LEVel]?", scpi_cmd_sourceVoltageProtectionLevelQ, 0},
+	{"SOURce#:VOLTage:PROTection:STATe", scpi_cmd_sourceVoltageProtectionState, 0},
+	{"SOURce#:VOLTage:PROTection:STATe?", scpi_cmd_sourceVoltageProtectionStateQ, 0},
 	{"SOURce#:FREQuency[:CW]", scpi_cmd_sourceFrequencyFixed, 0},
 	{"SOURce#:FREQuency[:CW]?", scpi_cmd_sourceFrequencyFixedQ, 0},	
 	{"SOURce#:LOADimpedance", scpi_cmd_sourceLoadImpedance, 0},
@@ -225,6 +229,8 @@ scpi_result_t SCPI_QueryChannelParameter(scpi_t * context, SCPIChannelParameters
 			case SCPI_CHPARAM_MEASURED_AMPLITUDE: SCPI_ResultFloat(context, psChannel->MeasuredAmplitude); break;
 			case SCPI_CHPARAM_MEASURED_CURRENT: SCPI_ResultFloat(context, psChannel->MeasuredCurrent); break;
 			case SCPI_CHPARAM_MEASURED_POWER: SCPI_ResultFloat(context, psChannel->MeasuredPower); break;
+			case SCPI_CHPARAM_OVP_LEVEL: SCPI_ResultUInt8(context, psChannel->GetOvpLevel()); break;
+			case SCPI_CHPARAM_OVP_STATE: SCPI_ResultBool(context, psChannel->GetOvpState()); break;
 			default: return SCPI_SetResult_NotSupportedByChannel(context);
 		}
 	}
@@ -318,6 +324,27 @@ scpi_result_t SCPI_SetChannelParameter(scpi_t * context, SCPIChannelParameters_t
 				psChannel->SetLoadImpedance(load);
 				break;
 			}
+			case SCPI_CHPARAM_OVP_LEVEL:
+			{
+				scpi_number_t param;
+				if(!SCPI_ParamNumber(context, scpi_special_numbers_def, &param, TRUE)) { return SCPI_RES_ERR; }
+				
+				float ovpLevel = (float)psChannel->GetOvpLevel();
+				if (!SCPI_GetNumericFromParam(context, param, ovpLevel, SCPI_UNIT_NONE, psChannel->OvpLevel.Min, psChannel->OvpLevel.Max, psChannel->OvpLevel.Def, psChannel->OvpLevel.Step))
+				{
+					return SCPI_RES_ERR;
+				}
+				psChannel->SetOvpLevel((uint8_t)ovpLevel);
+				break;
+			}
+			case SCPI_CHPARAM_OVP_STATE:
+			{
+				scpi_bool_t state;
+				if(!SCPI_ParamBool(context, &state, TRUE)) { return SCPI_RES_ERR; }
+				
+				psChannel->SetOvpState(state);
+				break;
+			}			
 			default: return SCPI_SetResult_NotSupportedByChannel(context);
 		}
 	}

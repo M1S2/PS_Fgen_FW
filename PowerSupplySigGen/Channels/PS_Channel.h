@@ -20,12 +20,18 @@ class PS_Channel : public Channel
 		Parameter<float> Amplitude;
 		Parameter<float> LoadImpedance;
 		
+		Parameter<bool> OvpState;
+		Parameter<uint8_t> OvpLevel;		// OVP trip level in percentage of the Amplitude
+		
 		float MeasuredAmplitude;
 		float MeasuredCurrent;
 		float MeasuredPower;
 		
 		PS_Channel(float minAmpl, float maxAmpl, float minLoad, float maxLoad);
+		void SwitchOffOutput();
 		void UpdateOutput();
+	
+		void DeviceTimerTickISR(uint16_t currentPeriod_ms);
 	
 		bool SetEnabled(bool enabled);
 		bool GetEnabled();
@@ -35,10 +41,18 @@ class PS_Channel : public Channel
 
 		bool SetLoadImpedance(float loadImpedance);
 		float GetLoadImpedance();
+		
+		bool SetOvpLevel(uint8_t ovpLevel);
+		uint8_t GetOvpLevel();
+
+		bool SetOvpState(bool ovpState);
+		bool GetOvpState();
 	
 		static void PSEnabledChanged(void* channel);
 		static void PSAmplitudeChanged(void* channel);
 		static void PSLoadImpedanceChanged(void* channel);
+		static void PSOvpLevelChanged(void* channel);
+		static void PSOvpStateChanged(void* channel);
 };
 
 #endif /* POWERSUPPLY_H_ */

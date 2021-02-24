@@ -77,6 +77,8 @@ scpi_result_t scpi_cmd_sourceVoltageProtectionState(scpi_t * context);
 scpi_result_t scpi_cmd_sourceVoltageProtectionStateQ(scpi_t * context);
 scpi_result_t scpi_cmd_sourceVoltageProtectionDelay(scpi_t * context);
 scpi_result_t scpi_cmd_sourceVoltageProtectionDelayQ(scpi_t * context);
+scpi_result_t scpi_cmd_sourceVoltageProtectionTrippedQ(scpi_t * context);
+scpi_result_t scpi_cmd_sourceVoltageProtectionClear(scpi_t * context);
 scpi_result_t scpi_cmd_sourceFrequencyFixed(scpi_t * context);
 scpi_result_t scpi_cmd_sourceFrequencyFixedQ(scpi_t * context);
 scpi_result_t scpi_cmd_sourceLoadImpedance(scpi_t * context);

@@ -76,6 +76,8 @@ const scpi_command_t scpi_commands[] =
 	{"SOURce#:VOLTage:PROTection:STATe?", scpi_cmd_sourceVoltageProtectionStateQ, 0},
 	{"SOURce#:VOLTage:PROTection:DELay", scpi_cmd_sourceVoltageProtectionDelay, 0},
 	{"SOURce#:VOLTage:PROTection:DELay?", scpi_cmd_sourceVoltageProtectionDelayQ, 0},
+	{"SOURce#:VOLTage:PROTection:TRIPped?", scpi_cmd_sourceVoltageProtectionTrippedQ, 0},
+	{"SOURce#:VOLTage:PROTection:CLEar", scpi_cmd_sourceVoltageProtectionClear, 0},
 	{"SOURce#:FREQuency[:CW]", scpi_cmd_sourceFrequencyFixed, 0},
 	{"SOURce#:FREQuency[:CW]?", scpi_cmd_sourceFrequencyFixedQ, 0},	
 	{"SOURce#:LOADimpedance", scpi_cmd_sourceLoadImpedance, 0},

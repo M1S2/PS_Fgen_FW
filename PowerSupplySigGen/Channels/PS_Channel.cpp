@@ -8,15 +8,18 @@
 #include "PS_Channel.h"
 #include "../Device.h"
 
-PS_Channel::PS_Channel(float minAmpl, float maxAmpl, float minLoad, float maxLoad) : Channel(POWER_SUPPLY_CHANNEL_TYPE)
+PS_Channel::PS_Channel(float minAmpl, float maxAmpl, float minLoad, float maxLoad, uint8_t minOvpLevel, uint8_t maxOvpLevel, float minOvpDelay, float maxOvpDelay) : Channel(POWER_SUPPLY_CHANNEL_TYPE)
 {
 	Enabled = Parameter<bool>(false, false, true, false, true);
 	Amplitude = Parameter<float>(0, minAmpl, maxAmpl, 0, 1);
 	LoadImpedance = Parameter<float>(0, minLoad, maxLoad, 0, 1);
 	
 	OvpState = Parameter<bool>(false, false, true, false, true);
-	OvpLevel = Parameter<uint8_t>(0, 100, 200, 120, 1);
-	OvpDelay = Parameter<float>(0.1, 0, 20, 0.1, 0.1);
+	OvpLevel = Parameter<uint8_t>(0, minOvpLevel, maxOvpLevel, 120, 1);
+	OvpDelay = Parameter<float>(0.1, minOvpDelay, maxOvpDelay, 0.1, 0.1);
+	
+	TimeCounter_OvpDelay_ms = 0;
+	_psState = PS_STATE_CV;
 }
 
 void PS_Channel::SwitchOffOutput()
@@ -26,7 +29,7 @@ void PS_Channel::SwitchOffOutput()
 		
 void PS_Channel::UpdateOutput()
 {
-	if(GetEnabled())
+	if(GetEnabled() && _psState == PS_STATE_CV)
 	{
 		if(GetLoadImpedance() == 0) { LoadImpedance.Val = LoadImpedance.Min; }
 		
@@ -41,7 +44,47 @@ void PS_Channel::UpdateOutput()
 
 void PS_Channel::DeviceTimerTickISR(uint16_t currentPeriod_ms)
 {
-	/* ... */
+	if(GetOvpState() && MeasuredAmplitude > (GetAmplitude() * (GetOvpLevel() / 100.0f)))
+	{
+		TimeCounter_OvpDelay_ms += currentPeriod_ms;
+	}
+	else
+	{
+		TimeCounter_OvpDelay_ms = 0;
+	}
+
+	if(TimeCounter_OvpDelay_ms >= (1000 * GetOvpDelay()))
+	{
+		_psState = PS_STATE_OVP;
+		TimeCounter_OvpDelay_ms = 0;
+		SwitchOffOutput();
+	}
+
+	/* ... OCP, OPP ...*/
+
+}
+
+void PS_Channel::ClearProtections()
+{
+	if(_psState == PS_STATE_OVP)
+	{
+		_psState = PS_STATE_CV;
+		TimeCounter_OvpDelay_ms = 0;
+		UpdateOutput();
+	}
+	else if(_psState == PS_STATE_OCP)
+	{
+		/* ... */
+	}
+	else if(_psState == PS_STATE_OPP)
+	{
+		/* ... */
+	}
+}
+
+PsStates_t PS_Channel::GetPsState()
+{
+	return _psState;
 }
 
 //----------------------------------------------------------------------------------------------------------

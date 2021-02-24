@@ -67,6 +67,10 @@
 #define PS_MAX_AMPLITUDE				10						// Maximum allowed power supply amplitude setting
 #define PS_MIN_LOAD						1						// Minimum allowed power supply load impedance setting
 #define PS_MAX_LOAD						1000000					// Maximum allowed power supply load impedance setting
+#define PS_MIN_OVP_LEVEL_PERCENTAGE		90						// Minimum allowed power supply OVP level setting
+#define PS_MAX_OVP_LEVEL_PERCENTAGE		200						// Maximum allowed power supply OVP level setting
+#define PS_MIN_OVP_DELAY				0						// Minimum allowed power supply OVP delay setting
+#define PS_MAX_OVP_DELAY				20						// Maximum allowed power supply OVP delay setting
 
 #define DDS_MIN_FREQ					1						// Minimum allowed DDS frequency setting
 #define DDS_MAX_FREQ					1000					// Maximum allowed DDS frequency setting

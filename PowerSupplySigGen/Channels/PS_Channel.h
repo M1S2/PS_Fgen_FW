@@ -13,9 +13,22 @@
 #include "../Configuration.h"
 #include "Channel.h"
 
+typedef enum PsStates
+{
+	PS_STATE_CV,
+	PS_STATE_CC,
+	PS_STATE_OVP,
+	PS_STATE_OCP,
+	PS_STATE_OPP
+} PsStates_t;
+
+
 class PS_Channel : public Channel
 {
-	public:
+	private:
+		PsStates_t _psState;
+	
+	public:		
 		Parameter<bool> Enabled;
 		Parameter<float> Amplitude;
 		Parameter<float> LoadImpedance;
@@ -28,11 +41,15 @@ class PS_Channel : public Channel
 		float MeasuredCurrent;
 		float MeasuredPower;
 		
-		PS_Channel(float minAmpl, float maxAmpl, float minLoad, float maxLoad);
+		uint16_t TimeCounter_OvpDelay_ms;
+		
+		PS_Channel(float minAmpl, float maxAmpl, float minLoad, float maxLoad, uint8_t minOvpLevel, uint8_t maxOvpLevel, float minOvpDelay, float maxOvpDelay);
 		void SwitchOffOutput();
 		void UpdateOutput();
 	
 		void DeviceTimerTickISR(uint16_t currentPeriod_ms);
+	
+		PsStates_t GetPsState();
 	
 		bool SetEnabled(bool enabled);
 		bool GetEnabled();
@@ -51,6 +68,8 @@ class PS_Channel : public Channel
 		
 		bool SetOvpDelay(float ovpDelay);
 		float GetOvpDelay();
+	
+		void ClearProtections();
 	
 		static void PSEnabledChanged(void* channel);
 		static void PSAmplitudeChanged(void* channel);

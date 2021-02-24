@@ -183,6 +183,7 @@ void DeviceClass::SaveSettings()
 	settings.PS_Enabled = PsChannel.GetEnabled();
 	settings.PS_OvpLevel = PsChannel.GetOvpLevel();
 	settings.PS_OvpState = PsChannel.GetOvpState();
+	settings.PS_OvpDelay = PsChannel.GetOvpDelay();
 		
 	settings.DDS1_Frequency = DdsChannel1.GetFrequency();
 	settings.DDS1_SignalForm = DdsChannel1.GetSignalForm();
@@ -220,6 +221,7 @@ void DeviceClass::LoadSettings()
 	PsChannel.SetLoadImpedance(settings.PS_LoadImpedance);
 	PsChannel.SetOvpLevel(settings.PS_OvpLevel);
 	PsChannel.SetOvpState(settings.PS_OvpState);
+	PsChannel.SetOvpDelay(settings.PS_OvpDelay);
 			
 	DdsChannel1.SetFrequency(settings.DDS1_Frequency);
 	DdsChannel1.SetSignalForm(settings.DDS1_SignalForm);
@@ -251,6 +253,7 @@ void DeviceClass::ResetDevice()
 	PsChannel.SetLoadImpedance(1000000);
 	PsChannel.SetOvpLevel(120);
 	PsChannel.SetOvpState(false);
+	PsChannel.SetOvpDelay(20);
 	
 	DdsChannel1.SetEnabled(false);
 	DdsChannel1.SetFrequency(1000);

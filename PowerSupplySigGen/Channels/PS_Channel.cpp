@@ -16,6 +16,7 @@ PS_Channel::PS_Channel(float minAmpl, float maxAmpl, float minLoad, float maxLoa
 	
 	OvpState = Parameter<bool>(false, false, true, false, true);
 	OvpLevel = Parameter<uint8_t>(0, 100, 200, 120, 1);
+	OvpDelay = Parameter<float>(0.1, 0, 20, 0.1, 0.1);
 }
 
 void PS_Channel::SwitchOffOutput()
@@ -138,6 +139,25 @@ bool PS_Channel::GetOvpState()
 
 //----------------------------------------------------------------------------------------------------------
 
+bool PS_Channel::SetOvpDelay(float ovpDelay)
+{
+	if (ovpDelay > OvpDelay.Max || ovpDelay < OvpDelay.Min) { return false; }
+
+	if (OvpDelay.Val != ovpDelay)
+	{
+		OvpDelay.Val = ovpDelay;
+		PSOvpDelayChanged(this);
+	}
+	return true;
+}
+
+float PS_Channel::GetOvpDelay()
+{
+	return OvpDelay.Val;
+}
+
+//----------------------------------------------------------------------------------------------------------
+
 void PS_Channel::PSEnabledChanged(void* channel)
 {
 	if (((Channel*)channel)->GetChannelType() != POWER_SUPPLY_CHANNEL_TYPE) { return; }
@@ -170,6 +190,13 @@ void PS_Channel::PSOvpLevelChanged(void* channel)
 }
 
 void PS_Channel::PSOvpStateChanged(void* channel)
+{
+	if (((Channel*)channel)->GetChannelType() != POWER_SUPPLY_CHANNEL_TYPE) { return; }
+	/* Parameter only used in DeviceTimerTickISR() */
+	Device.DevSettingsNeedSaving = true;
+}
+
+void PS_Channel::PSOvpDelayChanged(void* channel)
 {
 	if (((Channel*)channel)->GetChannelType() != POWER_SUPPLY_CHANNEL_TYPE) { return; }
 	/* Parameter only used in DeviceTimerTickISR() */

@@ -32,7 +32,8 @@ typedef enum SCPIChannelParameters
 	SCPI_CHPARAM_MEASURED_CURRENT,
 	SCPI_CHPARAM_MEASURED_POWER,
 	SCPI_CHPARAM_OVP_LEVEL,
-	SCPI_CHPARAM_OVP_STATE
+	SCPI_CHPARAM_OVP_STATE,
+	SCPI_CHPARAM_OVP_DELAY
 } SCPIChannelParameters_t;
 
 //----------------------------------------------------------------------------------------------------------
@@ -74,6 +75,8 @@ scpi_result_t scpi_cmd_sourceVoltageProtectionLevel(scpi_t * context);
 scpi_result_t scpi_cmd_sourceVoltageProtectionLevelQ(scpi_t * context);
 scpi_result_t scpi_cmd_sourceVoltageProtectionState(scpi_t * context);
 scpi_result_t scpi_cmd_sourceVoltageProtectionStateQ(scpi_t * context);
+scpi_result_t scpi_cmd_sourceVoltageProtectionDelay(scpi_t * context);
+scpi_result_t scpi_cmd_sourceVoltageProtectionDelayQ(scpi_t * context);
 scpi_result_t scpi_cmd_sourceFrequencyFixed(scpi_t * context);
 scpi_result_t scpi_cmd_sourceFrequencyFixedQ(scpi_t * context);
 scpi_result_t scpi_cmd_sourceLoadImpedance(scpi_t * context);

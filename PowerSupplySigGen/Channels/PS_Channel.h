@@ -22,6 +22,7 @@ class PS_Channel : public Channel
 		
 		Parameter<bool> OvpState;
 		Parameter<uint8_t> OvpLevel;		// OVP trip level in percentage of the Amplitude
+		Parameter<float> OvpDelay;
 		
 		float MeasuredAmplitude;
 		float MeasuredCurrent;
@@ -47,12 +48,16 @@ class PS_Channel : public Channel
 
 		bool SetOvpState(bool ovpState);
 		bool GetOvpState();
+		
+		bool SetOvpDelay(float ovpDelay);
+		float GetOvpDelay();
 	
 		static void PSEnabledChanged(void* channel);
 		static void PSAmplitudeChanged(void* channel);
 		static void PSLoadImpedanceChanged(void* channel);
 		static void PSOvpLevelChanged(void* channel);
 		static void PSOvpStateChanged(void* channel);
+		static void PSOvpDelayChanged(void* channel);
 };
 
 #endif /* POWERSUPPLY_H_ */

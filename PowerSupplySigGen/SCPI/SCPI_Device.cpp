@@ -74,6 +74,8 @@ const scpi_command_t scpi_commands[] =
 	{"SOURce#:VOLTage:PROTection[:LEVel]?", scpi_cmd_sourceVoltageProtectionLevelQ, 0},
 	{"SOURce#:VOLTage:PROTection:STATe", scpi_cmd_sourceVoltageProtectionState, 0},
 	{"SOURce#:VOLTage:PROTection:STATe?", scpi_cmd_sourceVoltageProtectionStateQ, 0},
+	{"SOURce#:VOLTage:PROTection:DELay", scpi_cmd_sourceVoltageProtectionDelay, 0},
+	{"SOURce#:VOLTage:PROTection:DELay?", scpi_cmd_sourceVoltageProtectionDelayQ, 0},
 	{"SOURce#:FREQuency[:CW]", scpi_cmd_sourceFrequencyFixed, 0},
 	{"SOURce#:FREQuency[:CW]?", scpi_cmd_sourceFrequencyFixedQ, 0},	
 	{"SOURce#:LOADimpedance", scpi_cmd_sourceLoadImpedance, 0},
@@ -231,6 +233,7 @@ scpi_result_t SCPI_QueryChannelParameter(scpi_t * context, SCPIChannelParameters
 			case SCPI_CHPARAM_MEASURED_POWER: SCPI_ResultFloat(context, psChannel->MeasuredPower); break;
 			case SCPI_CHPARAM_OVP_LEVEL: SCPI_ResultUInt8(context, psChannel->GetOvpLevel()); break;
 			case SCPI_CHPARAM_OVP_STATE: SCPI_ResultBool(context, psChannel->GetOvpState()); break;
+			case SCPI_CHPARAM_OVP_DELAY: SCPI_ResultFloat(context, psChannel->GetOvpDelay()); break;
 			default: return SCPI_SetResult_NotSupportedByChannel(context);
 		}
 	}
@@ -345,6 +348,19 @@ scpi_result_t SCPI_SetChannelParameter(scpi_t * context, SCPIChannelParameters_t
 				psChannel->SetOvpState(state);
 				break;
 			}			
+			case SCPI_CHPARAM_OVP_DELAY: 
+			{
+				scpi_number_t param;
+				if(!SCPI_ParamNumber(context, scpi_special_numbers_def, &param, TRUE)) { return SCPI_RES_ERR; }
+				
+				float ovpDelay = psChannel->GetOvpDelay();
+				if (!SCPI_GetNumericFromParam(context, param, ovpDelay, SCPI_UNIT_SECOND, psChannel->OvpDelay.Min, psChannel->OvpDelay.Max, psChannel->OvpDelay.Def, psChannel->OvpDelay.Step))
+				{
+					return SCPI_RES_ERR;
+				}
+				psChannel->SetOvpDelay(ovpDelay);
+				break;
+			}
 			default: return SCPI_SetResult_NotSupportedByChannel(context);
 		}
 	}

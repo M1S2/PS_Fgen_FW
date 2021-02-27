@@ -13,8 +13,8 @@ DDS_Channel::DDS_Channel(float minFreq, float maxFreq, float minAmpl, float maxA
 {
 	Enabled = Parameter<bool>(false, false, true, false, true);
 	SignalForm = Parameter<SignalForms_t>(SINE, SINE, SAWTOOTH, SINE, SINE);
-	Frequency = Parameter<float>(0, minFreq, maxFreq, 0, 1);
-	Amplitude = Parameter<float>(0, minAmpl, maxAmpl, 0, 1);
+	Frequency = Parameter<float>(0, minFreq, maxFreq, 1000, 1);
+	Amplitude = Parameter<float>(0, minAmpl, maxAmpl, 10, 1);
 	Offset = Parameter<float>(0, minOffset, maxOffset, 0, 1);
 
 	Accumulator = 0;

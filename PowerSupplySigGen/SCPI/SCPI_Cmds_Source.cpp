@@ -118,6 +118,87 @@ scpi_result_t scpi_cmd_sourceVoltageProtectionClear(scpi_t * context)
 
 //----------------------------------------------------------------------------------------------------------
 
+scpi_result_t scpi_cmd_sourceCurrentLevelImmediateAmplitude(scpi_t * context)
+{
+	return SCPI_SetChannelParameter(context, SCPI_CHPARAM_CURRENT);
+}
+
+scpi_result_t scpi_cmd_sourceCurrentLevelImmediateAmplitudeQ(scpi_t * context)
+{
+	return SCPI_QueryChannelParameter(context, SCPI_CHPARAM_CURRENT);
+}
+
+//----------------------------------------------------------------------------------------------------------
+
+scpi_result_t scpi_cmd_sourceCurrentProtectionLevel(scpi_t * context)
+{
+	return SCPI_SetChannelParameter(context, SCPI_CHPARAM_OCP_LEVEL);
+}
+
+scpi_result_t scpi_cmd_sourceCurrentProtectionLevelQ(scpi_t * context)
+{
+	return SCPI_QueryChannelParameter(context, SCPI_CHPARAM_OCP_LEVEL);
+}
+
+//----------------------------------------------------------------------------------------------------------
+
+scpi_result_t scpi_cmd_sourceCurrentProtectionState(scpi_t * context)
+{
+	return SCPI_SetChannelParameter(context, SCPI_CHPARAM_OCP_STATE);
+}
+
+scpi_result_t scpi_cmd_sourceCurrentProtectionStateQ(scpi_t * context)
+{
+	return SCPI_QueryChannelParameter(context, SCPI_CHPARAM_OCP_STATE);
+}
+
+//----------------------------------------------------------------------------------------------------------
+
+scpi_result_t scpi_cmd_sourceCurrentProtectionDelay(scpi_t * context)
+{
+	return SCPI_SetChannelParameter(context, SCPI_CHPARAM_OCP_DELAY);
+}
+
+scpi_result_t scpi_cmd_sourceCurrentProtectionDelayQ(scpi_t * context)
+{
+	return SCPI_QueryChannelParameter(context, SCPI_CHPARAM_OCP_DELAY);
+}
+
+//----------------------------------------------------------------------------------------------------------
+
+scpi_result_t scpi_cmd_sourceCurrentProtectionTrippedQ(scpi_t * context)
+{
+	int32_t sourceNumbers[1];
+	SCPI_CommandNumbers(context, sourceNumbers, 1, Device.SelectedScpiChannelIndex);
+	
+	int32_t channelNum = sourceNumbers[0];
+	if(channelNum < 0 || channelNum >= NUM_CHANNELS)
+	{
+		return SCPI_SetResult_ChannelOutOfRange(context);
+	}
+	
+	if (Device.Channels[channelNum]->GetChannelType() == POWER_SUPPLY_CHANNEL_TYPE)
+	{
+		PS_Channel* psChannel = (PS_Channel*)Device.Channels[channelNum];
+		SCPI_ResultBool(context, (psChannel->GetPsState() == PS_STATE_OCP));
+	}
+	else
+	{
+		return SCPI_SetResult_NotSupportedByChannel(context);
+	}
+	return SCPI_RES_OK;
+}
+
+//----------------------------------------------------------------------------------------------------------
+
+scpi_result_t scpi_cmd_sourceCurrentProtectionClear(scpi_t * context)
+{
+	/* It is only supported to clear all protections together. So no differences to VoltageProtectionClear function exists. */
+	return scpi_cmd_sourceVoltageProtectionClear(context);
+}
+
+//----------------------------------------------------------------------------------------------------------
+
 scpi_result_t scpi_cmd_sourceFrequencyFixed(scpi_t * context)
 {
 	return SCPI_SetChannelParameter(context, SCPI_CHPARAM_FREQUENCY);

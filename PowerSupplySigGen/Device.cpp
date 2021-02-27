@@ -18,7 +18,7 @@ DeviceClass Device;
 DevSettingsEEPROMLayout_t EEMEM NonVolatileSettings;
 
 DeviceClass::DeviceClass() :
-	PsChannel(PS_MIN_AMPLITUDE, PS_MAX_AMPLITUDE, PS_MIN_LOAD, PS_MAX_LOAD, PS_MIN_OVP_LEVEL_PERCENTAGE, PS_MAX_OVP_LEVEL_PERCENTAGE, PS_MIN_OVP_DELAY, PS_MAX_OVP_DELAY),
+	PsChannel(PS_MIN_AMPLITUDE, PS_MAX_AMPLITUDE, PS_MIN_CURRENT, PS_MAX_CURRENT, PS_MIN_LOAD, PS_MAX_LOAD, PS_MIN_OVP_LEVEL_PERCENTAGE, PS_MAX_OVP_LEVEL_PERCENTAGE, PS_MIN_OVP_DELAY, PS_MAX_OVP_DELAY, PS_MIN_OCP_LEVEL_PERCENTAGE, PS_MAX_OCP_LEVEL_PERCENTAGE, PS_MIN_OCP_DELAY, PS_MAX_OCP_DELAY),
 	DdsChannel1(DDS_MIN_FREQ, DDS_MAX_FREQ, DDS_MIN_AMPLITUDE, DDS_MAX_AMPLITUDE, DDS_MIN_OFFSET, DDS_MAX_OFFSET),
 	DdsChannel2(DDS_MIN_FREQ, DDS_MAX_FREQ, DDS_MIN_AMPLITUDE, DDS_MAX_AMPLITUDE, DDS_MIN_OFFSET, DDS_MAX_OFFSET),
 	DmmChannel1(),
@@ -47,7 +47,7 @@ void DeviceClass::Init()
 	
 	ScreenManager.Init();
 	
-	Device.LoadSettings();
+	LoadSettings();
 	
 	#ifdef SCPI_ENABLED
 		SCPI_Init_Device();
@@ -179,11 +179,15 @@ void DeviceClass::SaveSettings()
 	settings.Device_SerialEchoEnabled = SerialEchoEnabled;
 	
 	settings.PS_Voltage = PsChannel.GetAmplitude();
+	settings.PS_Current = PsChannel.GetCurrent();
 	settings.PS_LoadImpedance = PsChannel.GetLoadImpedance();
 	settings.PS_Enabled = PsChannel.GetEnabled();
 	settings.PS_OvpLevel = PsChannel.GetOvpLevel();
 	settings.PS_OvpState = PsChannel.GetOvpState();
 	settings.PS_OvpDelay = PsChannel.GetOvpDelay();
+	settings.PS_OcpLevel = PsChannel.GetOcpLevel();
+	settings.PS_OcpState = PsChannel.GetOcpState();
+	settings.PS_OcpDelay = PsChannel.GetOcpDelay();
 		
 	settings.DDS1_Frequency = DdsChannel1.GetFrequency();
 	settings.DDS1_SignalForm = DdsChannel1.GetSignalForm();
@@ -218,10 +222,14 @@ void DeviceClass::LoadSettings()
 	SetSerialEchoEnabled(settings.Device_SerialEchoEnabled);
 	
 	PsChannel.SetAmplitude(settings.PS_Voltage);
+	PsChannel.SetCurrent(settings.PS_Current);
 	PsChannel.SetLoadImpedance(settings.PS_LoadImpedance);
 	PsChannel.SetOvpLevel(settings.PS_OvpLevel);
 	PsChannel.SetOvpState(settings.PS_OvpState);
 	PsChannel.SetOvpDelay(settings.PS_OvpDelay);
+	PsChannel.SetOcpLevel(settings.PS_OcpLevel);
+	PsChannel.SetOcpState(settings.PS_OcpState);
+	PsChannel.SetOcpDelay(settings.PS_OcpDelay);
 			
 	DdsChannel1.SetFrequency(settings.DDS1_Frequency);
 	DdsChannel1.SetSignalForm(settings.DDS1_SignalForm);
@@ -248,24 +256,28 @@ void DeviceClass::ResetDevice()
 	ScreenManager.SetDisplayEnabled(true);
 	ScreenManager.SetDisplayInverted(false);
 	
-	PsChannel.SetAmplitude(5);
+	PsChannel.SetAmplitude(PsChannel.Amplitude.Def);
+	PsChannel.SetCurrent(PsChannel.Current.Def);
 	PsChannel.SetEnabled(false);
-	PsChannel.SetLoadImpedance(1000000);
-	PsChannel.SetOvpLevel(120);
-	PsChannel.SetOvpState(false);
-	PsChannel.SetOvpDelay(20);
+	PsChannel.SetLoadImpedance(PsChannel.LoadImpedance.Def);
+	PsChannel.SetOvpLevel(PsChannel.OvpLevel.Def);
+	PsChannel.SetOvpState(PsChannel.OvpState.Def);
+	PsChannel.SetOvpDelay(PsChannel.OvpDelay.Def);
+	PsChannel.SetOcpLevel(PsChannel.OcpLevel.Def);
+	PsChannel.SetOcpState(PsChannel.OcpState.Def);
+	PsChannel.SetOcpDelay(PsChannel.OcpDelay.Def);
 	
 	DdsChannel1.SetEnabled(false);
-	DdsChannel1.SetFrequency(1000);
-	DdsChannel1.SetSignalForm(SINE);
-	DdsChannel1.SetAmplitude(10);
-	DdsChannel1.SetOffset(0);
+	DdsChannel1.SetFrequency(DdsChannel1.Frequency.Def);
+	DdsChannel1.SetSignalForm(DdsChannel1.SignalForm.Def);
+	DdsChannel1.SetAmplitude(DdsChannel1.Amplitude.Def);
+	DdsChannel1.SetOffset(DdsChannel1.Offset.Def);
 	
 	DdsChannel2.SetEnabled(false);
-	DdsChannel2.SetFrequency(1000);
-	DdsChannel2.SetSignalForm(SINE);
-	DdsChannel2.SetAmplitude(10);
-	DdsChannel2.SetOffset(0);
+	DdsChannel2.SetFrequency(DdsChannel2.Frequency.Def);
+	DdsChannel2.SetSignalForm(DdsChannel2.SignalForm.Def);
+	DdsChannel2.SetAmplitude(DdsChannel2.Amplitude.Def);
+	DdsChannel2.SetOffset(DdsChannel2.Offset.Def);
 	
 	PowerOnOutputsDisabled = true;
 	

@@ -42,11 +42,15 @@ typedef struct DeviceVoltagesStruct
 typedef struct DevSettingsEEPROMLayout
 {
 	float PS_Voltage;
+	float PS_Current;
 	bool PS_Enabled;
 	float PS_LoadImpedance;
 	uint8_t PS_OvpLevel;
 	bool PS_OvpState;
 	float PS_OvpDelay;
+	uint8_t PS_OcpLevel;
+	bool PS_OcpState;
+	float PS_OcpDelay;
 	
 	uint8_t Screens_TabIndex;
 	uint8_t Screens_Inverted;

@@ -79,20 +79,20 @@ SOURce[<channel>]
     :CURRent
         [:LEVel]
             [:IMMediate]
-                [:AMPLitude] {<current>}		[TODO]	Sets the output current (MINimum|MAXimum|UP|DOWN|<Current>)
-                [:AMPLitude]?				[TODO]	Query the output current
+                [:AMPLitude] {<current>}		[OK]	Sets the output current (MINimum|MAXimum|UP|DOWN|<Current>)
+                [:AMPLitude]?				[OK]	Query the output current
             :STEP
                 [:INCRement]				[TODO]	Sets the current step size
                 [:INCRement]?				[TODO]	Query the current step size
         :PROTection
-            [:LEVel]					[TODO]	Sets the over-current protection (OCP) level
-            [:LEVel]?					[TODO]	Query the over-current protection (OCP) level
-            :STATe {<bool>}				[TODO]	Enables/disables over-current protection on the selected channel
-            :STATe?					[TODO]	Query the state of the over-current protection on the selected channel
-            :DELay {<time>}				[TODO]	Protection function will not be triggered during the delay time. After the delay time has expired, the protection function will be active.
-            :DELay?					[TODO]	Query the protection delay
-            :TRIPped?					[TODO]	Returns status of over-current protection activation
-            :CLEar					[TODO]	Clear the over-current protection
+            [:LEVel]					[OK]	Sets the over-current protection (OCP) level
+            [:LEVel]?					[OK]	Query the over-current protection (OCP) level
+            :STATe {<bool>}				[OK]	Enables/disables over-current protection on the selected channel
+            :STATe?					[OK]	Query the state of the over-current protection on the selected channel
+            :DELay {<time>}				[OK]	Protection function will not be triggered during the delay time. After the delay time has expired, the protection function will be active.
+            :DELay?					[OK]	Query the protection delay
+            :TRIPped?					[OK]	Returns status of over-current protection activation
+            :CLEar					[OK]	Clear the over-current protection
     :FUNCtion
         [:SHAPe]					[OK]	Selects the shape of the output signal (DC|SINusoid|SQUare|TRIangle|SAWtooth|USER)
         [:SHAPe]?					[OK]	Query the shape of the output signal

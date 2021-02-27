@@ -25,6 +25,7 @@ typedef enum SCPIChannelParameters
 	SCPI_CHPARAM_OUTPUTSTATE,
 	SCPI_CHPARAM_AMPLITUDE,
 	SCPI_CHPARAM_OFFSET,
+	SCPI_CHPARAM_CURRENT,
 	SCPI_CHPARAM_FREQUENCY,
 	SCPI_CHPARAM_LOADIMPEDANCE,
 	SCPI_CHPARAM_SIGNALFORM,
@@ -33,7 +34,10 @@ typedef enum SCPIChannelParameters
 	SCPI_CHPARAM_MEASURED_POWER,
 	SCPI_CHPARAM_OVP_LEVEL,
 	SCPI_CHPARAM_OVP_STATE,
-	SCPI_CHPARAM_OVP_DELAY
+	SCPI_CHPARAM_OVP_DELAY,
+	SCPI_CHPARAM_OCP_LEVEL,
+	SCPI_CHPARAM_OCP_STATE,
+	SCPI_CHPARAM_OCP_DELAY
 } SCPIChannelParameters_t;
 
 //----------------------------------------------------------------------------------------------------------
@@ -79,6 +83,16 @@ scpi_result_t scpi_cmd_sourceVoltageProtectionDelay(scpi_t * context);
 scpi_result_t scpi_cmd_sourceVoltageProtectionDelayQ(scpi_t * context);
 scpi_result_t scpi_cmd_sourceVoltageProtectionTrippedQ(scpi_t * context);
 scpi_result_t scpi_cmd_sourceVoltageProtectionClear(scpi_t * context);
+scpi_result_t scpi_cmd_sourceCurrentLevelImmediateAmplitude(scpi_t * context);
+scpi_result_t scpi_cmd_sourceCurrentLevelImmediateAmplitudeQ(scpi_t * context);
+scpi_result_t scpi_cmd_sourceCurrentProtectionLevel(scpi_t * context);
+scpi_result_t scpi_cmd_sourceCurrentProtectionLevelQ(scpi_t * context);
+scpi_result_t scpi_cmd_sourceCurrentProtectionState(scpi_t * context);
+scpi_result_t scpi_cmd_sourceCurrentProtectionStateQ(scpi_t * context);
+scpi_result_t scpi_cmd_sourceCurrentProtectionDelay(scpi_t * context);
+scpi_result_t scpi_cmd_sourceCurrentProtectionDelayQ(scpi_t * context);
+scpi_result_t scpi_cmd_sourceCurrentProtectionTrippedQ(scpi_t * context);
+scpi_result_t scpi_cmd_sourceCurrentProtectionClear(scpi_t * context);
 scpi_result_t scpi_cmd_sourceFrequencyFixed(scpi_t * context);
 scpi_result_t scpi_cmd_sourceFrequencyFixedQ(scpi_t * context);
 scpi_result_t scpi_cmd_sourceLoadImpedance(scpi_t * context);

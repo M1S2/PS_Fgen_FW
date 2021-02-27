@@ -31,19 +31,25 @@ class PS_Channel : public Channel
 	public:		
 		Parameter<bool> Enabled;
 		Parameter<float> Amplitude;
+		Parameter<float> Current;
 		Parameter<float> LoadImpedance;
 		
 		Parameter<bool> OvpState;
 		Parameter<uint8_t> OvpLevel;		// OVP trip level in percentage of the Amplitude
 		Parameter<float> OvpDelay;
 		
+		Parameter<bool> OcpState;
+		Parameter<uint8_t> OcpLevel;		// OCP trip level in percentage of the Current
+		Parameter<float> OcpDelay;
+		
 		float MeasuredAmplitude;
 		float MeasuredCurrent;
 		float MeasuredPower;
 		
 		uint16_t TimeCounter_OvpDelay_ms;
+		uint16_t TimeCounter_OcpDelay_ms;
 		
-		PS_Channel(float minAmpl, float maxAmpl, float minLoad, float maxLoad, uint8_t minOvpLevel, uint8_t maxOvpLevel, float minOvpDelay, float maxOvpDelay);
+		PS_Channel(float minAmpl, float maxAmpl, float minCurrent, float maxCurrent, float minLoad, float maxLoad, uint8_t minOvpLevel, uint8_t maxOvpLevel, float minOvpDelay, float maxOvpDelay, uint8_t minOcpLevel, uint8_t maxOcpLevel, float minOcpDelay, float maxOcpDelay);
 		void SwitchOffOutput();
 		void UpdateOutput();
 	
@@ -57,6 +63,9 @@ class PS_Channel : public Channel
 		bool SetAmplitude(float amplitude);
 		float GetAmplitude();
 
+		bool SetCurrent(float current);
+		float GetCurrent();
+	
 		bool SetLoadImpedance(float loadImpedance);
 		float GetLoadImpedance();
 		
@@ -69,14 +78,27 @@ class PS_Channel : public Channel
 		bool SetOvpDelay(float ovpDelay);
 		float GetOvpDelay();
 	
+		bool SetOcpLevel(uint8_t ovpLevel);
+		uint8_t GetOcpLevel();
+
+		bool SetOcpState(bool ovpState);
+		bool GetOcpState();
+		
+		bool SetOcpDelay(float ovpDelay);
+		float GetOcpDelay();
+	
 		void ClearProtections();
 	
 		static void PSEnabledChanged(void* channel);
 		static void PSAmplitudeChanged(void* channel);
+		static void PSCurrentChanged(void* channel);
 		static void PSLoadImpedanceChanged(void* channel);
 		static void PSOvpLevelChanged(void* channel);
 		static void PSOvpStateChanged(void* channel);
 		static void PSOvpDelayChanged(void* channel);
+		static void PSOcpLevelChanged(void* channel);
+		static void PSOcpStateChanged(void* channel);
+		static void PSOcpDelayChanged(void* channel);
 };
 
 #endif /* POWERSUPPLY_H_ */

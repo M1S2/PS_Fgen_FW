@@ -37,7 +37,10 @@ typedef enum SCPIChannelParameters
 	SCPI_CHPARAM_OVP_DELAY,
 	SCPI_CHPARAM_OCP_LEVEL,
 	SCPI_CHPARAM_OCP_STATE,
-	SCPI_CHPARAM_OCP_DELAY
+	SCPI_CHPARAM_OCP_DELAY,
+	SCPI_CHPARAM_OPP_LEVEL,
+	SCPI_CHPARAM_OPP_STATE,
+	SCPI_CHPARAM_OPP_DELAY,
 } SCPIChannelParameters_t;
 
 //----------------------------------------------------------------------------------------------------------
@@ -93,6 +96,14 @@ scpi_result_t scpi_cmd_sourceCurrentProtectionDelay(scpi_t * context);
 scpi_result_t scpi_cmd_sourceCurrentProtectionDelayQ(scpi_t * context);
 scpi_result_t scpi_cmd_sourceCurrentProtectionTrippedQ(scpi_t * context);
 scpi_result_t scpi_cmd_sourceCurrentProtectionClear(scpi_t * context);
+scpi_result_t scpi_cmd_sourcePowerProtectionLevel(scpi_t * context);
+scpi_result_t scpi_cmd_sourcePowerProtectionLevelQ(scpi_t * context);
+scpi_result_t scpi_cmd_sourcePowerProtectionState(scpi_t * context);
+scpi_result_t scpi_cmd_sourcePowerProtectionStateQ(scpi_t * context);
+scpi_result_t scpi_cmd_sourcePowerProtectionDelay(scpi_t * context);
+scpi_result_t scpi_cmd_sourcePowerProtectionDelayQ(scpi_t * context);
+scpi_result_t scpi_cmd_sourcePowerProtectionTrippedQ(scpi_t * context);
+scpi_result_t scpi_cmd_sourcePowerProtectionClear(scpi_t * context);
 scpi_result_t scpi_cmd_sourceFrequencyFixed(scpi_t * context);
 scpi_result_t scpi_cmd_sourceFrequencyFixedQ(scpi_t * context);
 scpi_result_t scpi_cmd_sourceLoadImpedance(scpi_t * context);

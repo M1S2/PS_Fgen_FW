@@ -88,6 +88,14 @@ const scpi_command_t scpi_commands[] =
 	{"SOURce#:CURRent:PROTection:DELay?", scpi_cmd_sourceCurrentProtectionDelayQ, 0},
 	{"SOURce#:CURRent:PROTection:TRIPped?", scpi_cmd_sourceCurrentProtectionTrippedQ, 0},
 	{"SOURce#:CURRent:PROTection:CLEar", scpi_cmd_sourceCurrentProtectionClear, 0},
+	{"SOURce#:POWer:PROTection[:LEVel]", scpi_cmd_sourcePowerProtectionLevel, 0},
+	{"SOURce#:POWer:PROTection[:LEVel]?", scpi_cmd_sourcePowerProtectionLevelQ, 0},
+	{"SOURce#:POWer:PROTection:STATe", scpi_cmd_sourcePowerProtectionState, 0},
+	{"SOURce#:POWer:PROTection:STATe?", scpi_cmd_sourcePowerProtectionStateQ, 0},
+	{"SOURce#:POWer:PROTection:DELay", scpi_cmd_sourcePowerProtectionDelay, 0},
+	{"SOURce#:POWer:PROTection:DELay?", scpi_cmd_sourcePowerProtectionDelayQ, 0},
+	{"SOURce#:POWer:PROTection:TRIPped?", scpi_cmd_sourcePowerProtectionTrippedQ, 0},
+	{"SOURce#:POWer:PROTection:CLEar", scpi_cmd_sourcePowerProtectionClear, 0},			
 	{"SOURce#:FREQuency[:CW]", scpi_cmd_sourceFrequencyFixed, 0},
 	{"SOURce#:FREQuency[:CW]?", scpi_cmd_sourceFrequencyFixedQ, 0},	
 	{"SOURce#:LOADimpedance", scpi_cmd_sourceLoadImpedance, 0},
@@ -250,6 +258,9 @@ scpi_result_t SCPI_QueryChannelParameter(scpi_t * context, SCPIChannelParameters
 			case SCPI_CHPARAM_OCP_LEVEL: SCPI_ResultUInt8(context, psChannel->GetOcpLevel()); break;
 			case SCPI_CHPARAM_OCP_STATE: SCPI_ResultBool(context, psChannel->GetOcpState()); break;
 			case SCPI_CHPARAM_OCP_DELAY: SCPI_ResultFloat(context, psChannel->GetOcpDelay()); break;
+			case SCPI_CHPARAM_OPP_LEVEL: SCPI_ResultFloat(context, psChannel->GetOppLevel()); break;
+			case SCPI_CHPARAM_OPP_STATE: SCPI_ResultBool(context, psChannel->GetOppState()); break;
+			case SCPI_CHPARAM_OPP_DELAY: SCPI_ResultFloat(context, psChannel->GetOppDelay()); break;
 			default: return SCPI_SetResult_NotSupportedByChannel(context);
 		}
 	}
@@ -423,7 +434,41 @@ scpi_result_t SCPI_SetChannelParameter(scpi_t * context, SCPIChannelParameters_t
 				}
 				psChannel->SetOcpDelay(ocpDelay);
 				break;
-			}			
+			}		
+			case SCPI_CHPARAM_OPP_LEVEL:
+			{
+				scpi_number_t param;
+				if(!SCPI_ParamNumber(context, scpi_special_numbers_def, &param, TRUE)) { return SCPI_RES_ERR; }
+				
+				float oppLevel = psChannel->GetOppLevel();
+				if (!SCPI_GetNumericFromParam(context, param, oppLevel, SCPI_UNIT_WATT, psChannel->OppLevel.Min, psChannel->OppLevel.Max, psChannel->OppLevel.Def, psChannel->OppLevel.Step))
+				{
+					return SCPI_RES_ERR;
+				}
+				psChannel->SetOppLevel(oppLevel);
+				break;
+			}
+			case SCPI_CHPARAM_OPP_STATE:
+			{
+				scpi_bool_t state;
+				if(!SCPI_ParamBool(context, &state, TRUE)) { return SCPI_RES_ERR; }
+				
+				psChannel->SetOppState(state);
+				break;
+			}
+			case SCPI_CHPARAM_OPP_DELAY:
+			{
+				scpi_number_t param;
+				if(!SCPI_ParamNumber(context, scpi_special_numbers_def, &param, TRUE)) { return SCPI_RES_ERR; }
+				
+				float oppDelay = psChannel->GetOppDelay();
+				if (!SCPI_GetNumericFromParam(context, param, oppDelay, SCPI_UNIT_SECOND, psChannel->OppDelay.Min, psChannel->OppDelay.Max, psChannel->OppDelay.Def, psChannel->OppDelay.Step))
+				{
+					return SCPI_RES_ERR;
+				}
+				psChannel->SetOppDelay(oppDelay);
+				break;
+			}				
 			default: return SCPI_SetResult_NotSupportedByChannel(context);
 		}
 	}

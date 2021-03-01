@@ -81,9 +81,6 @@ SOURce[<channel>]
             [:IMMediate]
                 [:AMPLitude] {<current>}		[OK]	Sets the output current (MINimum|MAXimum|UP|DOWN|<Current>)
                 [:AMPLitude]?				[OK]	Query the output current
-            :STEP
-                [:INCRement]				[TODO]	Sets the current step size
-                [:INCRement]?				[TODO]	Query the current step size
         :PROTection
             [:LEVel]					[OK]	Sets the over-current protection (OCP) level
             [:LEVel]?					[OK]	Query the over-current protection (OCP) level
@@ -104,14 +101,14 @@ SOURce[<channel>]
     :LOADimpedance?					[OK]	Query the load impedance of the channel
     :POWer
         :PROTection
-            [:LEVel]					[TODO]	Sets the over-power protection (OPP) level
-            [:LEVel]?					[TODO]	Query the over-power protection (OPP) level
-            :STATe {<bool>}				[TODO]	Enables/disables over-power protection on the selected channel
-            :STATe?					[TODO]	Query the state of the over-power protection on the selected channel
-            :DELay {<time>}				[TODO]	Protection function will not be triggered during the delay time. After the delay time has expired, the protection function will be active.
-            :DELay?					[TODO]	Query the protection delay
-            :TRIPped?					[TODO]	Returns status of over-power protection activation
-            :CLEar					[TODO]	Clear the over-power protection
+            [:LEVel]					[OK]	Sets the over-power protection (OPP) level
+            [:LEVel]?					[OK]	Query the over-power protection (OPP) level
+            :STATe {<bool>}				[OK]	Enables/disables over-power protection on the selected channel
+            :STATe?					[OK]	Query the state of the over-power protection on the selected channel
+            :DELay {<time>}				[OK]	Protection function will not be triggered during the delay time. After the delay time has expired, the protection function will be active.
+            :DELay?					[OK]	Query the protection delay
+            :TRIPped?					[OK]	Returns status of over-power protection activation
+            :CLEar					[OK]	Clear the over-power protection
     :VOLTage
         [:LEVel]
             [:IMMediate]
@@ -119,9 +116,6 @@ SOURce[<channel>]
                 [:AMPLitude]?				[OK]	Query the output amplitude
                 :OFFSet {<voltage>}			[OK]	Sets the output offset (non-time varying component of the signal) (MINimum|MAXimum|UP|DOWN|<Voltage>)
                 :OFFSet?				[OK]	Query the output offset
-            :STEP
-                [:INCRement]				[TODO]	Sets the voltage step size
-                [:INCRement]?				[TODO]	Query the voltage step size
         :PROTection
             [:LEVel]					[OK]	Sets the over-voltage protection (OVP) level
             [:LEVel]?					[OK]	Query the over-voltage protection (OVP) level

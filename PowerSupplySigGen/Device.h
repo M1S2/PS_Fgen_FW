@@ -51,6 +51,9 @@ typedef struct DevSettingsEEPROMLayout
 	uint8_t PS_OcpLevel;
 	bool PS_OcpState;
 	float PS_OcpDelay;
+	float PS_OppLevel;
+	bool PS_OppState;
+	float PS_OppDelay;
 	
 	uint8_t Screens_TabIndex;
 	uint8_t Screens_Inverted;

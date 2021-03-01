@@ -10,7 +10,7 @@
 
 const char* PSStatesNames[] = { "CV", "CC", "OVP", "OCP", "OPP" };
 
-PS_Channel::PS_Channel(float minAmpl, float maxAmpl, float minCurrent, float maxCurrent, float minLoad, float maxLoad, uint8_t minOvpLevel, uint8_t maxOvpLevel, float minOvpDelay, float maxOvpDelay, uint8_t minOcpLevel, uint8_t maxOcpLevel, float minOcpDelay, float maxOcpDelay) : Channel(POWER_SUPPLY_CHANNEL_TYPE)
+PS_Channel::PS_Channel(float minAmpl, float maxAmpl, float minCurrent, float maxCurrent, float minLoad, float maxLoad, uint8_t minOvpLevel, uint8_t maxOvpLevel, float minOvpDelay, float maxOvpDelay, uint8_t minOcpLevel, uint8_t maxOcpLevel, float minOcpDelay, float maxOcpDelay, float minOppLevel, float maxOppLevel, float minOppDelay, float maxOppDelay) : Channel(POWER_SUPPLY_CHANNEL_TYPE)
 {
 	Enabled = Parameter<bool>(false, false, true, false, true);
 	Amplitude = Parameter<float>(0, minAmpl, maxAmpl, 5, 1);
@@ -25,8 +25,13 @@ PS_Channel::PS_Channel(float minAmpl, float maxAmpl, float minCurrent, float max
 	OcpLevel = Parameter<uint8_t>(0, minOcpLevel, maxOcpLevel, 120, 1);
 	OcpDelay = Parameter<float>(0.1, minOcpDelay, maxOcpDelay, 0.1, 0.1);
 	
+	OppState = Parameter<bool>(false, false, true, false, true);
+	OppLevel = Parameter<float>(0, minOppLevel, maxOppLevel, 1, 0.1);
+	OppDelay = Parameter<float>(0.1, minOppDelay, maxOppDelay, 0.1, 0.1);
+	
 	TimeCounter_OvpDelay_ms = 0;
 	TimeCounter_OcpDelay_ms = 0;
+	TimeCounter_OppDelay_ms = 0;
 	PsState = PS_STATE_CV;
 }
 
@@ -64,6 +69,12 @@ void PS_Channel::DeviceTimerTickISR(uint16_t currentPeriod_ms)
 	}
 	else { TimeCounter_OcpDelay_ms = 0; }
 
+	if(GetOppState() && MeasuredPower > GetOppLevel())
+	{
+		TimeCounter_OppDelay_ms += currentPeriod_ms;
+	}
+	else { TimeCounter_OppDelay_ms = 0; }
+
 	if(TimeCounter_OvpDelay_ms >= (1000 * GetOvpDelay()))
 	{
 		PsState = PS_STATE_OVP;
@@ -76,8 +87,12 @@ void PS_Channel::DeviceTimerTickISR(uint16_t currentPeriod_ms)
 		TimeCounter_OcpDelay_ms = 0;
 		SwitchOffOutput();
 	}
-
-	/* ... OPP ...*/
+	else if(TimeCounter_OppDelay_ms >= (1000 * GetOppDelay()))
+	{
+		PsState = PS_STATE_OPP;
+		TimeCounter_OppDelay_ms = 0;
+		SwitchOffOutput();
+	}
 }
 
 void PS_Channel::ClearProtections()
@@ -96,7 +111,9 @@ void PS_Channel::ClearProtections()
 	}
 	else if(PsState == PS_STATE_OPP)
 	{
-		/* ... */
+		PsState = PS_STATE_CV;
+		TimeCounter_OppDelay_ms = 0;
+		UpdateOutput();
 	}
 }
 
@@ -295,6 +312,63 @@ float PS_Channel::GetOcpDelay()
 
 //----------------------------------------------------------------------------------------------------------
 
+bool PS_Channel::SetOppLevel(float oppLevel)
+{
+	if (oppLevel > OppLevel.Max || oppLevel < OppLevel.Min) { return false; }
+
+	if (OppLevel.Val != oppLevel)
+	{
+		OppLevel.Val = oppLevel;
+		PSOppLevelChanged(this);
+	}
+	return true;
+}
+
+float PS_Channel::GetOppLevel()
+{
+	return OppLevel.Val;
+}
+
+//----------------------------------------------------------------------------------------------------------
+
+bool PS_Channel::SetOppState(bool oppState)
+{
+	if (oppState > OppState.Max || oppState < OppState.Min) { return false; }
+
+	if (OppState.Val != oppState)
+	{
+		OppState.Val = oppState;
+		PSOppStateChanged(this);
+	}
+	return true;
+}
+
+bool PS_Channel::GetOppState()
+{
+	return OppState.Val;
+}
+
+//----------------------------------------------------------------------------------------------------------
+
+bool PS_Channel::SetOppDelay(float oppDelay)
+{
+	if (oppDelay > OppDelay.Max || oppDelay < OppDelay.Min) { return false; }
+
+	if (OppDelay.Val != oppDelay)
+	{
+		OppDelay.Val = oppDelay;
+		PSOppDelayChanged(this);
+	}
+	return true;
+}
+
+float PS_Channel::GetOppDelay()
+{
+	return OppDelay.Val;
+}
+
+//----------------------------------------------------------------------------------------------------------
+
 void PS_Channel::PSEnabledChanged(void* channel)
 {
 	if (((Channel*)channel)->GetChannelType() != POWER_SUPPLY_CHANNEL_TYPE) { return; }
@@ -363,6 +437,27 @@ void PS_Channel::PSOcpStateChanged(void* channel)
 }
 
 void PS_Channel::PSOcpDelayChanged(void* channel)
+{
+	if (((Channel*)channel)->GetChannelType() != POWER_SUPPLY_CHANNEL_TYPE) { return; }
+	/* Parameter only used in DeviceTimerTickISR() */
+	Device.DevSettingsNeedSaving = true;
+}
+
+void PS_Channel::PSOppLevelChanged(void* channel)
+{
+	if (((Channel*)channel)->GetChannelType() != POWER_SUPPLY_CHANNEL_TYPE) { return; }
+	/* Parameter only used in DeviceTimerTickISR() */
+	Device.DevSettingsNeedSaving = true;
+}
+
+void PS_Channel::PSOppStateChanged(void* channel)
+{
+	if (((Channel*)channel)->GetChannelType() != POWER_SUPPLY_CHANNEL_TYPE) { return; }
+	/* Parameter only used in DeviceTimerTickISR() */
+	Device.DevSettingsNeedSaving = true;
+}
+
+void PS_Channel::PSOppDelayChanged(void* channel)
 {
 	if (((Channel*)channel)->GetChannelType() != POWER_SUPPLY_CHANNEL_TYPE) { return; }
 	/* Parameter only used in DeviceTimerTickISR() */

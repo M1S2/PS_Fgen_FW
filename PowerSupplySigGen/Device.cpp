@@ -18,7 +18,7 @@ DeviceClass Device;
 DevSettingsEEPROMLayout_t EEMEM NonVolatileSettings;
 
 DeviceClass::DeviceClass() :
-	PsChannel(PS_MIN_AMPLITUDE, PS_MAX_AMPLITUDE, PS_MIN_CURRENT, PS_MAX_CURRENT, PS_MIN_LOAD, PS_MAX_LOAD, PS_MIN_OVP_LEVEL_PERCENTAGE, PS_MAX_OVP_LEVEL_PERCENTAGE, PS_MIN_OVP_DELAY, PS_MAX_OVP_DELAY, PS_MIN_OCP_LEVEL_PERCENTAGE, PS_MAX_OCP_LEVEL_PERCENTAGE, PS_MIN_OCP_DELAY, PS_MAX_OCP_DELAY),
+	PsChannel(PS_MIN_AMPLITUDE, PS_MAX_AMPLITUDE, PS_MIN_CURRENT, PS_MAX_CURRENT, PS_MIN_LOAD, PS_MAX_LOAD, PS_MIN_OVP_LEVEL_PERCENTAGE, PS_MAX_OVP_LEVEL_PERCENTAGE, PS_MIN_OVP_DELAY, PS_MAX_OVP_DELAY, PS_MIN_OCP_LEVEL_PERCENTAGE, PS_MAX_OCP_LEVEL_PERCENTAGE, PS_MIN_OCP_DELAY, PS_MAX_OCP_DELAY, PS_MIN_OPP_LEVEL, PS_MAX_OPP_LEVEL, PS_MIN_OPP_DELAY, PS_MAX_OPP_DELAY),
 	DdsChannel1(DDS_MIN_FREQ, DDS_MAX_FREQ, DDS_MIN_AMPLITUDE, DDS_MAX_AMPLITUDE, DDS_MIN_OFFSET, DDS_MAX_OFFSET),
 	DdsChannel2(DDS_MIN_FREQ, DDS_MAX_FREQ, DDS_MIN_AMPLITUDE, DDS_MAX_AMPLITUDE, DDS_MIN_OFFSET, DDS_MAX_OFFSET),
 	DmmChannel1(),
@@ -188,6 +188,9 @@ void DeviceClass::SaveSettings()
 	settings.PS_OcpLevel = PsChannel.GetOcpLevel();
 	settings.PS_OcpState = PsChannel.GetOcpState();
 	settings.PS_OcpDelay = PsChannel.GetOcpDelay();
+	settings.PS_OppLevel = PsChannel.GetOppLevel();
+	settings.PS_OppState = PsChannel.GetOppState();
+	settings.PS_OppDelay = PsChannel.GetOppDelay();
 		
 	settings.DDS1_Frequency = DdsChannel1.GetFrequency();
 	settings.DDS1_SignalForm = DdsChannel1.GetSignalForm();
@@ -230,6 +233,9 @@ void DeviceClass::LoadSettings()
 	PsChannel.SetOcpLevel(settings.PS_OcpLevel);
 	PsChannel.SetOcpState(settings.PS_OcpState);
 	PsChannel.SetOcpDelay(settings.PS_OcpDelay);
+	PsChannel.SetOppLevel(settings.PS_OppLevel);
+	PsChannel.SetOppState(settings.PS_OppState);
+	PsChannel.SetOppDelay(settings.PS_OppDelay);
 			
 	DdsChannel1.SetFrequency(settings.DDS1_Frequency);
 	DdsChannel1.SetSignalForm(settings.DDS1_SignalForm);
@@ -265,7 +271,10 @@ void DeviceClass::ResetDevice()
 	PsChannel.SetOvpDelay(PsChannel.OvpDelay.Def);
 	PsChannel.SetOcpLevel(PsChannel.OcpLevel.Def);
 	PsChannel.SetOcpState(PsChannel.OcpState.Def);
-	PsChannel.SetOcpDelay(PsChannel.OcpDelay.Def);
+	PsChannel.SetOcpDelay(PsChannel.OcpDelay.Def);	
+	PsChannel.SetOppLevel(PsChannel.OppLevel.Def);
+	PsChannel.SetOppState(PsChannel.OppState.Def);
+	PsChannel.SetOppDelay(PsChannel.OppDelay.Def);
 	
 	DdsChannel1.SetEnabled(false);
 	DdsChannel1.SetFrequency(DdsChannel1.Frequency.Def);

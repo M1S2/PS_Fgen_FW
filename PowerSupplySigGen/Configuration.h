@@ -77,6 +77,10 @@
 #define PS_MAX_OCP_LEVEL_PERCENTAGE		PS_MAX_OVP_LEVEL_PERCENTAGE		// Maximum allowed power supply OCP level setting
 #define PS_MIN_OCP_DELAY				PS_MIN_OVP_DELAY		// Minimum allowed power supply OCP delay setting
 #define PS_MAX_OCP_DELAY				PS_MAX_OVP_DELAY		// Maximum allowed power supply OCP delay setting
+#define PS_MIN_OPP_LEVEL				0						// Minimum allowed power supply OCP level setting
+#define PS_MAX_OPP_LEVEL				(PS_MAX_AMPLITUDE * PS_MAX_CURRENT)		// Maximum allowed power supply OCP level setting
+#define PS_MIN_OPP_DELAY				0						// Minimum allowed power supply OPP delay setting
+#define PS_MAX_OPP_DELAY				65						// Maximum allowed power supply OPP delay setting
 
 #define DDS_MIN_FREQ					1						// Minimum allowed DDS frequency setting
 #define DDS_MAX_FREQ					1000					// Maximum allowed DDS frequency setting

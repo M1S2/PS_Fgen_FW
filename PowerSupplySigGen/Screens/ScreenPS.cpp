@@ -9,6 +9,7 @@
 #include "../Device.h"
 #include "../UserControlsIndicators/UserControlNumeric.cpp"
 #include "../UserControlsIndicators/UserIndicatorNumeric.cpp"
+#include "../UserControlsIndicators/UserIndicatorEnum.cpp"
 #include "../Channels/PS_Channel.h"
 
 ScreenPS::ScreenPS() : ScreenBase("PS"),
@@ -17,7 +18,8 @@ ScreenPS::ScreenPS() : ScreenBase("PS"),
 	_ctrlOutputEnable(OUTPUT_STATE_CONTROL_POSX, OUTPUT_STATE_CONTROL_POSY, &Device.PsChannel.Enabled.Val, &Device.PsChannel, &PS_Channel::PSEnabledChanged),
 	_indPSVoltage(INFO_TEXTS_POSX, INFO_TEXT_VOLTAGE_POSY, &Device.PsChannel.MeasuredAmplitude, "V"),
 	_indPSCurrent(INFO_TEXTS_POSX, INFO_TEXT_CURRENT_POSY, &Device.PsChannel.MeasuredCurrent, "A"),
-	_indPSPower(INFO_TEXTS_POSX, INFO_TEXT_POWER_POSY, &Device.PsChannel.MeasuredPower, "W")
+	_indPSPower(INFO_TEXTS_POSX, INFO_TEXT_POWER_POSY, &Device.PsChannel.MeasuredPower, "W"),
+	_indPSState(INFO_TEXTS_POSX, INFO_TEXT_STATE_POSY, &Device.PsChannel.PsState, PSStatesNames, 5)
 {
 	_ctrlPSVoltage.IsSelected = true;
 	
@@ -29,7 +31,8 @@ ScreenPS::ScreenPS() : ScreenBase("PS"),
 	_userIndicators[0] = &_indPSVoltage;
 	_userIndicators[1] = &_indPSCurrent;
 	_userIndicators[2] = &_indPSPower;
-	_numUserIndicators = 3;
+	_userIndicators[3] = &_indPSState;
+	_numUserIndicators = 4;
 }
 
 void ScreenPS::Draw(u8g_t* u8g, bool isFirstPage)

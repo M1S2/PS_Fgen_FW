@@ -526,6 +526,12 @@
     <Compile Include="UserControlsIndicators\UserIndicatorBase.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="UserControlsIndicators\UserIndicatorEnum.cpp">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="UserControlsIndicators\UserIndicatorEnum.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="UserControlsIndicators\UserIndicatorNumeric.cpp">
       <SubType>compile</SubType>
     </Compile>

@@ -8,6 +8,8 @@
 #include "PS_Channel.h"
 #include "../Device.h"
 
+const char* PSStatesNames[] = { "CV", "CC", "OVP", "OCP", "OPP" };
+
 PS_Channel::PS_Channel(float minAmpl, float maxAmpl, float minCurrent, float maxCurrent, float minLoad, float maxLoad, uint8_t minOvpLevel, uint8_t maxOvpLevel, float minOvpDelay, float maxOvpDelay, uint8_t minOcpLevel, uint8_t maxOcpLevel, float minOcpDelay, float maxOcpDelay) : Channel(POWER_SUPPLY_CHANNEL_TYPE)
 {
 	Enabled = Parameter<bool>(false, false, true, false, true);
@@ -25,7 +27,7 @@ PS_Channel::PS_Channel(float minAmpl, float maxAmpl, float minCurrent, float max
 	
 	TimeCounter_OvpDelay_ms = 0;
 	TimeCounter_OcpDelay_ms = 0;
-	_psState = PS_STATE_CV;
+	PsState = PS_STATE_CV;
 }
 
 void PS_Channel::SwitchOffOutput()
@@ -35,7 +37,7 @@ void PS_Channel::SwitchOffOutput()
 		
 void PS_Channel::UpdateOutput()
 {
-	if(GetEnabled() && _psState == PS_STATE_CV)
+	if(GetEnabled() && PsState == PS_STATE_CV)
 	{
 		if(GetLoadImpedance() == 0) { LoadImpedance.Val = LoadImpedance.Min; }
 		
@@ -64,13 +66,13 @@ void PS_Channel::DeviceTimerTickISR(uint16_t currentPeriod_ms)
 
 	if(TimeCounter_OvpDelay_ms >= (1000 * GetOvpDelay()))
 	{
-		_psState = PS_STATE_OVP;
+		PsState = PS_STATE_OVP;
 		TimeCounter_OvpDelay_ms = 0;
 		SwitchOffOutput();
 	}
 	else if(TimeCounter_OcpDelay_ms >= (1000 * GetOcpDelay()))
 	{
-		_psState = PS_STATE_OCP;
+		PsState = PS_STATE_OCP;
 		TimeCounter_OcpDelay_ms = 0;
 		SwitchOffOutput();
 	}
@@ -80,19 +82,19 @@ void PS_Channel::DeviceTimerTickISR(uint16_t currentPeriod_ms)
 
 void PS_Channel::ClearProtections()
 {
-	if(_psState == PS_STATE_OVP)
+	if(PsState == PS_STATE_OVP)
 	{
-		_psState = PS_STATE_CV;
+		PsState = PS_STATE_CV;
 		TimeCounter_OvpDelay_ms = 0;
 		UpdateOutput();
 	}
-	else if(_psState == PS_STATE_OCP)
+	else if(PsState == PS_STATE_OCP)
 	{
-		_psState = PS_STATE_CV;
+		PsState = PS_STATE_CV;
 		TimeCounter_OcpDelay_ms = 0;
 		UpdateOutput();
 	}
-	else if(_psState == PS_STATE_OPP)
+	else if(PsState == PS_STATE_OPP)
 	{
 		/* ... */
 	}
@@ -100,7 +102,7 @@ void PS_Channel::ClearProtections()
 
 PsStates_t PS_Channel::GetPsState()
 {
-	return _psState;
+	return PsState;
 }
 
 //----------------------------------------------------------------------------------------------------------

@@ -21,14 +21,13 @@ typedef enum PsStates
 	PS_STATE_OCP,
 	PS_STATE_OPP
 } PsStates_t;
-
+extern const char* PSStatesNames[];
 
 class PS_Channel : public Channel
-{
-	private:
-		PsStates_t _psState;
-	
+{	
 	public:		
+		PsStates_t PsState;
+	
 		Parameter<bool> Enabled;
 		Parameter<float> Amplitude;
 		Parameter<float> Current;

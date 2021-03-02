@@ -35,8 +35,11 @@ class ScreenManagerClass
 				
 		void drawScreenTabs(int selectedTabIndex);
 		void drawMessage();
-		void drawSplashScreen();
 		void drawPage(bool isFirstPage);
+		
+		#ifdef SPLASHSCREEN_ENABLED
+			void drawSplashScreen();
+		#endif
 		
 	public:
 		uint8_t TabIndex;

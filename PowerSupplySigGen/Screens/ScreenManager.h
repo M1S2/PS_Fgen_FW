@@ -9,7 +9,7 @@
 #ifndef SCREENMANAGER_H_
 #define SCREENMANAGER_H_
 
-#include "../GLCD/u8g.h"
+#include "../libraries/u8glib/u8g.h"
 #include "ScreenBase.h"
 #include "../KeyPad/KeyPad.h"
 #include "../Encoder/Encoder.h"

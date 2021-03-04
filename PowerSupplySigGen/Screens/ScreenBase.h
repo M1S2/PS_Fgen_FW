@@ -9,7 +9,7 @@
 #ifndef SCREENBASE_H_
 #define SCREENBASE_H_
 
-#include "../GLCD/u8g.h"
+#include "../libraries/u8glib/u8g.h"
 #include "../UserControlsIndicators/UserControlBase.h"
 #include "../UserControlsIndicators/UserIndicatorBase.h"
 #include <stdlib.h>

@@ -289,106 +289,106 @@
     <Compile Include="Encoder\Encoder.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="GLCD\u8g.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="GLCD\u8g_bitmap.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="GLCD\u8g_circle.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="GLCD\u8g_clip.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="GLCD\u8g_com_api.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="GLCD\u8g_com_atmega_hw_spi.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="GLCD\u8g_com_atmega_st7920_hw_spi.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="GLCD\u8g_com_atmega_st7920_spi.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="GLCD\u8g_com_atmega_sw_spi.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="GLCD\u8g_com_io.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="GLCD\u8g_com_null.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="GLCD\u8g_com_std_sw_spi.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="GLCD\u8g_cursor.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="GLCD\u8g_delay.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="GLCD\u8g_dev_null.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="GLCD\u8g_dev_s1d15721.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="GLCD\u8g_ellipse.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="GLCD\u8g_font.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="GLCD\u8g_font_data.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="GLCD\u8g_line.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="GLCD\u8g_ll_api.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="GLCD\u8g_page.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="GLCD\u8g_pb.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="GLCD\u8g_pb8v2.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="GLCD\u8g_polygon.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="GLCD\u8g_rect.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="GLCD\u8g_rot.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="GLCD\u8g_scale.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="GLCD\u8g_state.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="GLCD\u8g_u16toa.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="GLCD\u8g_u8toa.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="GLCD\u8g_virtual_screen.c">
-      <SubType>compile</SubType>
-    </Compile>
     <Compile Include="KeyPad\KeyPad.cpp">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="KeyPad\KeyPad.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="libraries\u8glib\u8g.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="libraries\u8glib\u8g_bitmap.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="libraries\u8glib\u8g_circle.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="libraries\u8glib\u8g_clip.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="libraries\u8glib\u8g_com_api.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="libraries\u8glib\u8g_com_atmega_hw_spi.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="libraries\u8glib\u8g_com_atmega_st7920_hw_spi.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="libraries\u8glib\u8g_com_atmega_st7920_spi.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="libraries\u8glib\u8g_com_atmega_sw_spi.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="libraries\u8glib\u8g_com_io.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="libraries\u8glib\u8g_com_null.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="libraries\u8glib\u8g_com_std_sw_spi.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="libraries\u8glib\u8g_cursor.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="libraries\u8glib\u8g_delay.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="libraries\u8glib\u8g_dev_null.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="libraries\u8glib\u8g_dev_s1d15721.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="libraries\u8glib\u8g_ellipse.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="libraries\u8glib\u8g_font.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="libraries\u8glib\u8g_font_data.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="libraries\u8glib\u8g_line.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="libraries\u8glib\u8g_ll_api.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="libraries\u8glib\u8g_page.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="libraries\u8glib\u8g_pb.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="libraries\u8glib\u8g_pb8v2.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="libraries\u8glib\u8g_polygon.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="libraries\u8glib\u8g_rect.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="libraries\u8glib\u8g_rot.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="libraries\u8glib\u8g_scale.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="libraries\u8glib\u8g_state.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="libraries\u8glib\u8g_u16toa.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="libraries\u8glib\u8g_u8toa.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="libraries\u8glib\u8g_virtual_screen.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="main.cpp">
@@ -561,8 +561,8 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="GLCD" />
     <Folder Include="libraries\" />
+    <Folder Include="libraries\u8glib" />
     <Folder Include="libraries\scpi-parser\" />
     <Folder Include="libraries\scpi-parser\inc\" />
     <Folder Include="libraries\scpi-parser\inc\scpi\" />

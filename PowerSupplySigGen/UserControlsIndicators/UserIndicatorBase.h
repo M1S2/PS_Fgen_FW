@@ -9,7 +9,7 @@
 #ifndef USERINDICATORBASE_H_
 #define USERINDICATORBASE_H_
 
-#include "../GLCD/u8g.h"
+#include "../libraries/u8glib/u8g.h"
 #include <stdlib.h>
 #include <stdbool.h>
 

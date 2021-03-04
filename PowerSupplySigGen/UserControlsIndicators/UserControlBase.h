@@ -11,7 +11,7 @@
 
 #include "../KeyPad/KeyPad.h"
 #include "../Encoder/Encoder.h"
-#include "../GLCD/u8g.h"
+#include "../libraries/u8glib/u8g.h"
 #include <stdlib.h>
 #include <stdbool.h>
 

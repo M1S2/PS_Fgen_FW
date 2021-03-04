@@ -7,7 +7,7 @@
 
 #include "UserControlBool.h"
 
-UserControlBool::UserControlBool(uint8_t locx, uint8_t locy, bool* controlValue, void* valueChangedContext, void (*onValueChanged)(void*)) : UserControlBase(locx, locy, valueChangedContext, onValueChanged)
+UserControlBool::UserControlBool(uint8_t locx, uint8_t locy, bool* controlValue, void* valueChangedContext, void (*onValueChanged)(void*), uint8_t iconWidth, uint8_t iconHeight, const u8g_pgm_uint8_t* iconBits) : UserControlBase(locx, locy, valueChangedContext, onValueChanged, iconWidth, iconHeight, iconBits)
 {
 	_controlValue = controlValue;
 }
@@ -41,10 +41,10 @@ void UserControlBool::Draw(u8g_t *u8g, bool isFirstPage)
 
 	if(_controlValueDraw)
 	{
-		u8g_DrawStr(u8g, _locX + 3, _locY + 3 + CONTROLS_FONT_HEIGHT, "ON");
+		u8g_DrawStr(u8g, _locX + CONTROLS_ICON_WIDTH + 3, _locY + 3 + CONTROLS_FONT_HEIGHT, "ON");
 	}
 	else
 	{
-		u8g_DrawStr(u8g, _locX + 3, _locY + 3 + CONTROLS_FONT_HEIGHT, "OFF");
+		u8g_DrawStr(u8g, _locX + CONTROLS_ICON_WIDTH + 3, _locY + 3 + CONTROLS_FONT_HEIGHT, "OFF");
 	}
 }

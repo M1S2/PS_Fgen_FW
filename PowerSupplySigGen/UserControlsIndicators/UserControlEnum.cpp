@@ -8,7 +8,7 @@
 #include "UserControlEnum.h"
 
 template <class T>
-UserControlEnum<T>::UserControlEnum(uint8_t locx, uint8_t locy, T* controlValue, const char** enumNames, uint8_t numEnumValues, void* valueChangedContext, void (*onValueChanged)(void*)) : UserControlBase(locx, locy, valueChangedContext, onValueChanged)
+UserControlEnum<T>::UserControlEnum(uint8_t locx, uint8_t locy, T* controlValue, const char** enumNames, uint8_t numEnumValues, void* valueChangedContext, void (*onValueChanged)(void*), uint8_t iconWidth, uint8_t iconHeight, const u8g_pgm_uint8_t* iconBits) : UserControlBase(locx, locy, valueChangedContext, onValueChanged, iconWidth, iconHeight, iconBits)
 {
 	_enumNames = enumNames;
 	_numEnumValues = numEnumValues;
@@ -65,5 +65,5 @@ void UserControlEnum<T>::Draw(u8g_t *u8g, bool isFirstPage)
 	UserControlBase::Draw(u8g, isFirstPage);
 	if (isFirstPage) { _controlValueDraw = *_controlValue; }
 	
-	u8g_DrawStr(u8g, this->_locX + 3, this->_locY + 3 + CONTROLS_FONT_HEIGHT, _enumNames[_controlValueDraw]);
+	u8g_DrawStr(u8g, this->_locX + CONTROLS_ICON_WIDTH + 3, this->_locY + 3 + CONTROLS_FONT_HEIGHT, _enumNames[_controlValueDraw]);
 }

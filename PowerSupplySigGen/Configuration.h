@@ -54,6 +54,7 @@
 /***** UserControlsIndicators **********************************/
 #define CONTROLS_FONT_HEIGHT			8						// Font Height in pixels of the text used in UserControls
 #define CONTROLS_WIDTH					65						// Width in pixels of the UserControls
+#define CONTROLS_ICON_WIDTH				15						// Width in pixels of the UserControl icons
 #define INDICATORS_FONT_HEIGHT			8						// Font Height in pixels of the text used in UserIndicators
 
 /***** UserInputHandler ***************************************/

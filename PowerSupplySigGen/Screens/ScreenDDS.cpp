@@ -10,11 +10,12 @@
 #include "../UserControlsIndicators/UserControlNumeric.cpp"
 #include "../UserControlsIndicators/UserControlEnum.cpp"
 #include "../Channels/DDS_Channel.h"
+#include "Icons.h"
 
 ScreenDDS::ScreenDDS() : ScreenBase("DDS1"),
 	_ctrlDDSSignalForm(SIGNALFORM_CONTROL_POSX, SIGNALFORM_CONTROL_POSY, &Device.DdsChannel1.SignalForm.Val, SignalFormsNames, 4, &Device.DdsChannel1, &DDS_Channel::DDSSignalFormChanged),
 	_ctrlDDSFrequency(FREQUENCY_CONTROL_POSX, FREQUENCY_CONTROL_POSY, &Device.DdsChannel1.Frequency.Val, "Hz", 0, Device.DdsChannel1.Frequency.Min, Device.DdsChannel1.Frequency.Max, &Device.DdsChannel1, &DDS_Channel::DDSFrequencyChanged),
-	_ctrlDDSEnabled(ENABLED_CONTROL_POSX, ENABLED_CONTROL_POSY, &Device.DdsChannel1.Enabled.Val, &Device.DdsChannel1, &DDS_Channel::DDSEnabledChanged),
+	_ctrlDDSEnabled(ENABLED_CONTROL_POSX, ENABLED_CONTROL_POSY, &Device.DdsChannel1.Enabled.Val, &Device.DdsChannel1, &DDS_Channel::DDSEnabledChanged, icon_OnOff_width, icon_OnOff_height, icon_OnOff_bits),
 	_ctrlDDSAmplitude(AMPLITUDE_CONTROL_POSX, AMPLITUDE_CONTROL_POSY, &Device.DdsChannel1.Amplitude.Val, "Vpp", 0, Device.DdsChannel1.Amplitude.Min, Device.DdsChannel1.Amplitude.Max, &Device.DdsChannel1, &DDS_Channel::DDSAmplitudeChanged),
 	_ctrlDDSOffset(OFFSET_CONTROL_POSX, OFFSET_CONTROL_POSY, &Device.DdsChannel1.Offset.Val, "V", 0, Device.DdsChannel1.Offset.Min, Device.DdsChannel1.Offset.Max, &Device.DdsChannel1, &DDS_Channel::DDSOffsetChanged)
 {

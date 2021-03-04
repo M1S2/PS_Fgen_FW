@@ -1,1 +1,2 @@
 icon_powerCord:		https://www.pngwing.com/en/free-png-ptxtf
+icon_OnOff:		https://icon-icons.com/de/symbol/on-off-power--button/53938

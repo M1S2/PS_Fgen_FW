@@ -31,7 +31,7 @@ class UserControlNumeric : public UserControlBase
 		uint8_t extractDigit(float number, int8_t position);
 		
     public:
-        UserControlNumeric(uint8_t locx, uint8_t locy, T* controlValue, const char* baseUnit, int8_t valueStoreUnitPower, T minValue, T maxValue, void* valueChangedContext, void (*onValueChanged)(void*));        
+        UserControlNumeric(uint8_t locx, uint8_t locy, T* controlValue, const char* baseUnit, int8_t valueStoreUnitPower, T minValue, T maxValue, void* valueChangedContext, void (*onValueChanged)(void*), uint8_t iconWidth = 0, uint8_t iconHeight = 0, const u8g_pgm_uint8_t* iconBits = NULL);        
         void KeyInput(Keys_t key);
 	    void EncoderInput(EncoderDirection_t encDir);		
 		void EncoderPBInput();		

@@ -53,7 +53,7 @@ uint8_t UserControlNumeric<T>::extractDigit(float number, int8_t position)
 //------------------------------------------------------------------------------------------------------------------------------------------------
 
 template <class T>
-UserControlNumeric<T>::UserControlNumeric(uint8_t locx, uint8_t locy, T* controlValue, const char* baseUnit, int8_t valueStoreUnitPower, T minValue, T maxValue, void* valueChangedContext, void (*onValueChanged)(void*)) : UserControlBase(locx, locy, valueChangedContext, onValueChanged)
+UserControlNumeric<T>::UserControlNumeric(uint8_t locx, uint8_t locy, T* controlValue, const char* baseUnit, int8_t valueStoreUnitPower, T minValue, T maxValue, void* valueChangedContext, void (*onValueChanged)(void*), uint8_t iconWidth, uint8_t iconHeight, const u8g_pgm_uint8_t* iconBits) : UserControlBase(locx, locy, valueChangedContext, onValueChanged, iconWidth, iconHeight, iconBits)
 {
         _baseUnit = baseUnit;
         _valueStoreUnitPower = valueStoreUnitPower;
@@ -150,8 +150,8 @@ void UserControlNumeric<T>::Draw(u8g_t *u8g, bool isFirstPage)
 		if (stringBuffer[i] == ' ') { stringBuffer[i] = '0'; }
 	}
 	if(_displayValue < 0) { stringBuffer[0] = '-'; }
-	u8g_DrawStr(u8g, this->_locX + 3 - (_displayValue < 0 ? 1 : 0), this->_locY + 3 + CONTROLS_FONT_HEIGHT, stringBuffer);
+	u8g_DrawStr(u8g, this->_locX + CONTROLS_ICON_WIDTH + 3 - (_displayValue < 0 ? 1 : 0), this->_locY + 3 + CONTROLS_FONT_HEIGHT, stringBuffer);
 			
-	u8g_uint_t cursorXpos = this->_locX + (-_currentDigitPosition + 3) * 6 + (_currentDigitPosition < 0 ? 3 : 0);
+	u8g_uint_t cursorXpos = this->_locX + CONTROLS_ICON_WIDTH + (-_currentDigitPosition + 3) * 6 + (_currentDigitPosition < 0 ? 3 : 0);
 	u8g_DrawHLine(u8g, cursorXpos, this->_locY + CONTROLS_FONT_HEIGHT + 4, 5);
 }

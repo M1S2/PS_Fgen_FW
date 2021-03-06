@@ -14,9 +14,9 @@
 #include "Icons.h"
 
 ScreenPS::ScreenPS() : ScreenBase("PS"),
-	_ctrlPSVoltage(VOLTAGE_CONTROL_POSX, VOLTAGE_CONTROL_POSY, &Device.PsChannel.Amplitude.Val, "V", 0, Device.PsChannel.Amplitude.Min, Device.PsChannel.Amplitude.Max, &Device.PsChannel, &PS_Channel::PSAmplitudeChanged),
-	_ctrlLoadImpedance(LOAD_IMPEDANCE_CONTROL_POSX, LOAD_IMPEDANCE_CONTROL_POSY, &Device.PsChannel.LoadImpedance.Val, "Ohm", 0, Device.PsChannel.LoadImpedance.Min, Device.PsChannel.LoadImpedance.Max, &Device.PsChannel, &PS_Channel::PSLoadImpedanceChanged),
-	_ctrlOutputEnable(OUTPUT_STATE_CONTROL_POSX, OUTPUT_STATE_CONTROL_POSY, &Device.PsChannel.Enabled.Val, &Device.PsChannel, &PS_Channel::PSEnabledChanged, icon_OnOff_width, icon_OnOff_height, icon_OnOff_bits),
+	_ctrlPSVoltage(VOLTAGE_CONTROL_POSX, VOLTAGE_CONTROL_POSY, &Device.PsChannel.Amplitude.Val, "V", 0, Device.PsChannel.Amplitude.Min, Device.PsChannel.Amplitude.Max, &Device.PsChannel, &PS_Channel::PSAmplitudeChanged, icon_voltage_bits),
+	_ctrlLoadImpedance(LOAD_IMPEDANCE_CONTROL_POSX, LOAD_IMPEDANCE_CONTROL_POSY, &Device.PsChannel.LoadImpedance.Val, "Ohm", 0, Device.PsChannel.LoadImpedance.Min, Device.PsChannel.LoadImpedance.Max, &Device.PsChannel, &PS_Channel::PSLoadImpedanceChanged, icon_resistance_bits),
+	_ctrlOutputEnable(OUTPUT_STATE_CONTROL_POSX, OUTPUT_STATE_CONTROL_POSY, &Device.PsChannel.Enabled.Val, &Device.PsChannel, &PS_Channel::PSEnabledChanged, icon_OnOff_bits),
 	_indPSVoltage(INFO_TEXTS_POSX, INFO_TEXT_VOLTAGE_POSY, &Device.PsChannel.MeasuredAmplitude, "V"),
 	_indPSCurrent(INFO_TEXTS_POSX, INFO_TEXT_CURRENT_POSY, &Device.PsChannel.MeasuredCurrent, "A"),
 	_indPSPower(INFO_TEXTS_POSX, INFO_TEXT_POWER_POSY, &Device.PsChannel.MeasuredPower, "W"),
@@ -38,5 +38,7 @@ ScreenPS::ScreenPS() : ScreenBase("PS"),
 
 void ScreenPS::Draw(u8g_t* u8g, bool isFirstPage)
 {
+	u8g_DrawXBMP(u8g, u8g_GetWidth(u8g) - CONTROLS_ICON_SIZE - 2, u8g_GetHeight(u8g) - CONTROLS_ICON_SIZE - 2, CONTROLS_ICON_SIZE, CONTROLS_ICON_SIZE, icon_supplyDC_bits);
+	
 	ScreenBase::Draw(u8g, isFirstPage);
 }

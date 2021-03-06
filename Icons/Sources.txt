@@ -1,2 +1,18 @@
 icon_powerCord:		https://www.pngwing.com/en/free-png-ptxtf
-icon_OnOff:		https://icon-icons.com/de/symbol/on-off-power--button/53938
+icon_resistance:	selbst gezeichnet
+icon_signalForm:	https://www.dreamstime.com/stock-illustration-sound-types-duotone-icons-white-background-vector-illustration-image98138182
+icon_signalAmplitude:	https://www.dreamstime.com/stock-illustration-sound-types-duotone-icons-white-background-vector-illustration-image98138182
+icon_signalOffset:	selbst gezeichnet
+icon_frequency:		https://www.visualpharm.com/free-icons/frequency%20f-595b40b75ba036ed117d5fd7
+icon_supplyDC:		selbst gezeichent
+icon_supplyAC:		selbst gezeichnet
+icon_current:		selbst gezeichnet
+icon_voltage:		selbst gezeichnet
+icon_OnOff:		selbst gezeichnet
+icon_dmm:		selbst gezeichnet
+icon_protection:	https://www.freepik.com/free-icon/protection_863349.htm
+icon_delay:		selbst gezeichnet
+icon_level:		https://de.123rf.com/photo_108188591_levels-vector-icon-isolated-on-transparent-background-levels-logo-concept.html
+icon_serial:		selbst gezeichnet
+icon_echo:		https://thenounproject.com/term/echo-left/903885/
+icon_speed:		selbst gezeichnet

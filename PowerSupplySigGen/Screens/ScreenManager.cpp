@@ -82,24 +82,30 @@ void ScreenManagerClass::drawPage(bool isFirstPage)
 			_screens[i]->Draw(&_u8g, isFirstPage);
 		}
 	
-		if(Device.DevSettingsNeedSaving)
-		{
-			u8g_SetFont(&_u8g, u8g_font_7x14r);		// 10 pixel height font
-			u8g_DrawStr(&_u8g, u8g_GetWidth(&_u8g) - 8, 10, "*");
-		}
-	
-		u8g_SetFont(&_u8g, u8g_font_helvR08r);	// 8 pixel height font, 6 pixel width
-		switch(Device.DeviceControlState)
-		{
-			case DEV_CTRL_LOCAL: u8g_DrawStr(&_u8g, u8g_GetWidth(&_u8g) - 30, 10, "LOC"); break;
-			case DEV_CTRL_REMOTE: u8g_DrawStr(&_u8g, u8g_GetWidth(&_u8g) - 30, 10, "REM"); break;
-			case DEV_CTRL_RWLOCK: u8g_DrawStr(&_u8g, u8g_GetWidth(&_u8g) - 30, 10, "RWL"); break;
-		}
-	
+		drawStatusBar();
 		drawMessage();
 #ifdef SPLASHSCREEN_ENABLED
 	}
 #endif
+}
+
+void ScreenManagerClass::drawStatusBar()
+{
+	u8g_DrawFrame(&_u8g, u8g_GetWidth(&_u8g) - 32, 0, 32, 12);
+
+	if(Device.DevSettingsNeedSaving)
+	{
+		u8g_SetFont(&_u8g, u8g_font_7x14r);		// 10 pixel height font
+		u8g_DrawStr(&_u8g, u8g_GetWidth(&_u8g) - 8, 10, "*");
+	}
+			
+	u8g_SetFont(&_u8g, u8g_font_helvR08r);	// 8 pixel height font, 6 pixel width
+	switch(Device.DeviceControlState)
+	{
+		case DEV_CTRL_LOCAL: u8g_DrawStr(&_u8g, u8g_GetWidth(&_u8g) - 30, 10, "LOC"); break;
+		case DEV_CTRL_REMOTE: u8g_DrawStr(&_u8g, u8g_GetWidth(&_u8g) - 30, 10, "REM"); break;
+		case DEV_CTRL_RWLOCK: u8g_DrawStr(&_u8g, u8g_GetWidth(&_u8g) - 30, 10, "RWL"); break;
+	}
 }
 
 void ScreenManagerClass::drawMessage()

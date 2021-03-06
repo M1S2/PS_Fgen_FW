@@ -35,6 +35,7 @@ class ScreenManagerClass
 				
 		void drawScreenTabs(int selectedTabIndex);
 		void drawMessage();
+		void drawStatusBar();
 		void drawPage(bool isFirstPage);
 		
 		#ifdef SPLASHSCREEN_ENABLED

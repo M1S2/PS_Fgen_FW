@@ -12,10 +12,10 @@
 #include "ScreenBase.h"
 #include "../UserControlsIndicators/UserIndicatorProgressBar.h"
 
-#define DMM_COLUMN1_POSX		SCREEN_TAB_WIDTH + 7
+#define DMM_COLUMN1_POSX		SCREEN_TAB_WIDTH + 5
 #define DMM_COLUMN2_POSX		DMM_COLUMN1_POSX + 25
-#define DMM_ROW1_POSY			64 / 2 - 10
-#define DMM_ROW2_POSY			64 / 2 + INDICATORS_FONT_HEIGHT + 7
+#define DMM_ROW1_POSY			25
+#define DMM_ROW2_POSY			50
 
 class ScreenDMM : public ScreenBase
 {

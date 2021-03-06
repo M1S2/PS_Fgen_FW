@@ -9,6 +9,7 @@
 #include "../Device.h"
 #include "../UserControlsIndicators/UserIndicatorNumeric.cpp"
 #include "../UserControlsIndicators/UserIndicatorProgressBar.cpp"
+#include "Icons.h"
 
 ScreenDMM::ScreenDMM() : ScreenBase("DMM"),
 	_indDMM1(DMM_COLUMN2_POSX, DMM_ROW1_POSY, &Device.DmmChannel1.MeasuredVoltage, "V", 0, 20, 80, 10, PROGRESSBAR_ORIGIN_ZERO, 5),
@@ -21,6 +22,8 @@ ScreenDMM::ScreenDMM() : ScreenBase("DMM"),
 
 void ScreenDMM::Draw(u8g_t* u8g, bool isFirstPage)
 {	
+	u8g_DrawXBMP(u8g, DMM_COLUMN1_POSX, 5, CONTROLS_ICON_SIZE, CONTROLS_ICON_SIZE, icon_dmm_bits);
+	
 	u8g_DrawStr(u8g, DMM_COLUMN1_POSX, DMM_ROW1_POSY + INDICATORS_FONT_HEIGHT, "#1:");
 	u8g_DrawStr(u8g, DMM_COLUMN1_POSX, DMM_ROW2_POSY + INDICATORS_FONT_HEIGHT, "#2:");
 

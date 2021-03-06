@@ -20,7 +20,7 @@ private:
 	T _controlValueDraw;				// This variable is updated from the _controlValue on each draw of the first page.
 	
 public:
-	UserControlEnum(uint8_t locx, uint8_t locy, T* controlValue, const char** enumNames, uint8_t numEnumValues, void* valueChangedContext, void (*onValueChanged)(void*), uint8_t iconWidth = 0, uint8_t iconHeight = 0, const u8g_pgm_uint8_t* iconBits = NULL);
+	UserControlEnum(uint8_t locx, uint8_t locy, T* controlValue, const char** enumNames, uint8_t numEnumValues, void* valueChangedContext, void (*onValueChanged)(void*), const u8g_pgm_uint8_t* iconBits = NULL);
 	void KeyInput(Keys_t key);
 	void EncoderInput(EncoderDirection_t encDir);	
 	void EncoderPBInput();	

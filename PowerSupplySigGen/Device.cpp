@@ -18,7 +18,7 @@ DeviceClass Device;
 DevSettingsEEPROMLayout_t EEMEM NonVolatileSettings;
 
 DeviceClass::DeviceClass() :
-	PsChannel(PS_MIN_AMPLITUDE, PS_MAX_AMPLITUDE, PS_MIN_CURRENT, PS_MAX_CURRENT, PS_MIN_LOAD, PS_MAX_LOAD, PS_MIN_OVP_LEVEL_PERCENTAGE, PS_MAX_OVP_LEVEL_PERCENTAGE, PS_MIN_OVP_DELAY, PS_MAX_OVP_DELAY, PS_MIN_OCP_LEVEL_PERCENTAGE, PS_MAX_OCP_LEVEL_PERCENTAGE, PS_MIN_OCP_DELAY, PS_MAX_OCP_DELAY, PS_MIN_OPP_LEVEL, PS_MAX_OPP_LEVEL, PS_MIN_OPP_DELAY, PS_MAX_OPP_DELAY),
+	PsChannel(PS_MIN_AMPLITUDE, PS_MAX_AMPLITUDE, PS_MIN_CURRENT, PS_MAX_CURRENT, PS_MIN_OVP_LEVEL_PERCENTAGE, PS_MAX_OVP_LEVEL_PERCENTAGE, PS_MIN_OVP_DELAY, PS_MAX_OVP_DELAY, PS_MIN_OCP_LEVEL_PERCENTAGE, PS_MAX_OCP_LEVEL_PERCENTAGE, PS_MIN_OCP_DELAY, PS_MAX_OCP_DELAY, PS_MIN_OPP_LEVEL, PS_MAX_OPP_LEVEL, PS_MIN_OPP_DELAY, PS_MAX_OPP_DELAY),
 	DdsChannel1(DDS_MIN_FREQ, DDS_MAX_FREQ, DDS_MIN_AMPLITUDE, DDS_MAX_AMPLITUDE, DDS_MIN_OFFSET, DDS_MAX_OFFSET),
 	DdsChannel2(DDS_MIN_FREQ, DDS_MAX_FREQ, DDS_MIN_AMPLITUDE, DDS_MAX_AMPLITUDE, DDS_MIN_OFFSET, DDS_MAX_OFFSET),
 	DmmChannel1(),
@@ -180,7 +180,6 @@ void DeviceClass::SaveSettings()
 	
 	settings.PS_Voltage = PsChannel.GetAmplitude();
 	settings.PS_Current = PsChannel.GetCurrent();
-	settings.PS_LoadImpedance = PsChannel.GetLoadImpedance();
 	settings.PS_Enabled = PsChannel.GetEnabled();
 	settings.PS_OvpLevel = PsChannel.GetOvpLevel();
 	settings.PS_OvpState = PsChannel.GetOvpState();
@@ -226,7 +225,6 @@ void DeviceClass::LoadSettings()
 	
 	PsChannel.SetAmplitude(settings.PS_Voltage);
 	PsChannel.SetCurrent(settings.PS_Current);
-	PsChannel.SetLoadImpedance(settings.PS_LoadImpedance);
 	PsChannel.SetOvpLevel(settings.PS_OvpLevel);
 	PsChannel.SetOvpState(settings.PS_OvpState);
 	PsChannel.SetOvpDelay(settings.PS_OvpDelay);
@@ -265,7 +263,6 @@ void DeviceClass::ResetDevice()
 	PsChannel.SetAmplitude(PsChannel.Amplitude.Def);
 	PsChannel.SetCurrent(PsChannel.Current.Def);
 	PsChannel.SetEnabled(false);
-	PsChannel.SetLoadImpedance(PsChannel.LoadImpedance.Def);
 	PsChannel.SetOvpLevel(PsChannel.OvpLevel.Def);
 	PsChannel.SetOvpState(PsChannel.OvpState.Def);
 	PsChannel.SetOvpDelay(PsChannel.OvpDelay.Def);

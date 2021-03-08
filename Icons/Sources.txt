@@ -1,5 +1,4 @@
 icon_powerCord:		https://www.pngwing.com/en/free-png-ptxtf
-icon_resistance:	selbst gezeichnet
 icon_signalForm:	https://www.dreamstime.com/stock-illustration-sound-types-duotone-icons-white-background-vector-illustration-image98138182
 icon_signalAmplitude:	https://www.dreamstime.com/stock-illustration-sound-types-duotone-icons-white-background-vector-illustration-image98138182
 icon_signalOffset:	selbst gezeichnet

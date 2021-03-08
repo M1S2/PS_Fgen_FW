@@ -27,7 +27,6 @@ typedef enum SCPIChannelParameters
 	SCPI_CHPARAM_OFFSET,
 	SCPI_CHPARAM_CURRENT,
 	SCPI_CHPARAM_FREQUENCY,
-	SCPI_CHPARAM_LOADIMPEDANCE,
 	SCPI_CHPARAM_SIGNALFORM,
 	SCPI_CHPARAM_MEASURED_AMPLITUDE,
 	SCPI_CHPARAM_MEASURED_CURRENT,
@@ -106,8 +105,6 @@ scpi_result_t scpi_cmd_sourcePowerProtectionTrippedQ(scpi_t * context);
 scpi_result_t scpi_cmd_sourcePowerProtectionClear(scpi_t * context);
 scpi_result_t scpi_cmd_sourceFrequencyFixed(scpi_t * context);
 scpi_result_t scpi_cmd_sourceFrequencyFixedQ(scpi_t * context);
-scpi_result_t scpi_cmd_sourceLoadImpedance(scpi_t * context);
-scpi_result_t scpi_cmd_sourceLoadImpedanceQ(scpi_t * context);
 scpi_result_t scpi_cmd_sourceFunctionShape(scpi_t * context);
 scpi_result_t scpi_cmd_sourceFunctionShapeQ(scpi_t * context);
 scpi_result_t scpi_cmd_sourceFunctionModeQ(scpi_t * context);

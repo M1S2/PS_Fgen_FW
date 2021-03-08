@@ -97,8 +97,6 @@ SOURce[<channel>]
     :FREQuency
         [:CW] {<frequency>}				[OK]	Set the frequency of a non-swept signal
         [:CW]?						[OK]	Query the frequency of a non-swept signal
-    :LOADimpedance {<impedance>}			[OK]	Set the load impedance of the channel
-    :LOADimpedance?					[OK]	Query the load impedance of the channel
     :POWer
         :PROTection
             [:LEVel]					[OK]	Sets the over-power protection (OPP) level

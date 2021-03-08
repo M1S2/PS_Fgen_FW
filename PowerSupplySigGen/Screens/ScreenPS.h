@@ -18,8 +18,8 @@
 
 #define VOLTAGE_CONTROL_POSX			SCREEN_TAB_WIDTH + 5
 #define VOLTAGE_CONTROL_POSY			5
-#define LOAD_IMPEDANCE_CONTROL_POSX		VOLTAGE_CONTROL_POSX
-#define LOAD_IMPEDANCE_CONTROL_POSY		25
+#define CURRENT_CONTROL_POSX			VOLTAGE_CONTROL_POSX
+#define CURRENT_CONTROL_POSY			25
 #define OUTPUT_STATE_CONTROL_POSX		VOLTAGE_CONTROL_POSX
 #define OUTPUT_STATE_CONTROL_POSY		45
 #define INFO_TEXTS_POSX					VOLTAGE_CONTROL_POSX + 110
@@ -32,7 +32,7 @@ class ScreenPS : public ScreenBase
 {
 	private:
 		UserControlNumeric<float> _ctrlPSVoltage;
-		UserControlNumeric<float> _ctrlLoadImpedance;
+		UserControlNumeric<float> _ctrlPSCurrent;
 		UserControlBool _ctrlOutputEnable;
 		
 		UserIndicatorNumeric<float> _indPSVoltage;

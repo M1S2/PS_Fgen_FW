@@ -280,18 +280,6 @@ scpi_result_t scpi_cmd_sourceFrequencyFixedQ(scpi_t * context)
 
 //----------------------------------------------------------------------------------------------------------
 
-scpi_result_t scpi_cmd_sourceLoadImpedance(scpi_t * context)
-{
-	return SCPI_SetChannelParameter(context, SCPI_CHPARAM_LOADIMPEDANCE);
-}
-
-scpi_result_t scpi_cmd_sourceLoadImpedanceQ(scpi_t * context)
-{
-	return SCPI_QueryChannelParameter(context, SCPI_CHPARAM_LOADIMPEDANCE);
-}
-
-//----------------------------------------------------------------------------------------------------------
-
 scpi_result_t scpi_cmd_sourceFunctionShape(scpi_t * context)
 {
 	return SCPI_SetChannelParameter(context, SCPI_CHPARAM_SIGNALFORM);

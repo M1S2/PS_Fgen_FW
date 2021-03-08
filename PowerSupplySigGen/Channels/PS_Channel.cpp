@@ -10,12 +10,11 @@
 
 const char* PSStatesNames[] = { "CV", "CC", "OVP", "OCP", "OPP" };
 
-PS_Channel::PS_Channel(float minAmpl, float maxAmpl, float minCurrent, float maxCurrent, float minLoad, float maxLoad, uint8_t minOvpLevel, uint8_t maxOvpLevel, float minOvpDelay, float maxOvpDelay, uint8_t minOcpLevel, uint8_t maxOcpLevel, float minOcpDelay, float maxOcpDelay, float minOppLevel, float maxOppLevel, float minOppDelay, float maxOppDelay) : Channel(POWER_SUPPLY_CHANNEL_TYPE)
+PS_Channel::PS_Channel(float minAmpl, float maxAmpl, float minCurrent, float maxCurrent, uint8_t minOvpLevel, uint8_t maxOvpLevel, float minOvpDelay, float maxOvpDelay, uint8_t minOcpLevel, uint8_t maxOcpLevel, float minOcpDelay, float maxOcpDelay, float minOppLevel, float maxOppLevel, float minOppDelay, float maxOppDelay) : Channel(POWER_SUPPLY_CHANNEL_TYPE)
 {
 	Enabled = Parameter<bool>(false, false, true, false, true);
 	Amplitude = Parameter<float>(0, minAmpl, maxAmpl, 5, 1);
 	Current = Parameter<float>(0, minCurrent, maxCurrent, 0.1, 0.1);
-	LoadImpedance = Parameter<float>(0, minLoad, maxLoad, 1000000, 1);
 	
 	OvpState = Parameter<bool>(false, false, true, false, true);
 	OvpLevel = Parameter<uint8_t>(0, minOvpLevel, maxOvpLevel, 120, 1);
@@ -44,10 +43,6 @@ void PS_Channel::UpdateOutput()
 {
 	if(PsState == PS_STATE_CV && GetEnabled())
 	{
-		//if(GetLoadImpedance() == 0) { LoadImpedance.Val = LoadImpedance.Min; }
-		//float voltage = ((GetLoadImpedance() + PS_INTERNAL_IMPEDANCE) / GetLoadImpedance()) * GetAmplitude();				//Vset = ((Rload + Rinternal) / Rload) * Vout
-		//MCP4921_Voltage_Set(voltage / 2);		// divided by two because of OpAmp in circuit that has an amplification of 2
-		
 		MCP4921_Voltage_Set(_setDacAmplitude / 2);		// divided by two because of OpAmp in circuit that has an amplification of 2
 	}
 	else
@@ -182,25 +177,6 @@ bool PS_Channel::SetCurrent(float current)
 float PS_Channel::GetCurrent()
 {
 	return Current.Val;
-}
-
-//----------------------------------------------------------------------------------------------------------
-
-bool PS_Channel::SetLoadImpedance(float loadImpedance)
-{
-	if (loadImpedance > LoadImpedance.Max || loadImpedance < LoadImpedance.Min) { return false; }
-
-	if (LoadImpedance.Val != loadImpedance)
-	{
-		LoadImpedance.Val = loadImpedance;
-		PSLoadImpedanceChanged(this);
-	}
-	return true;
-}
-
-float PS_Channel::GetLoadImpedance()
-{
-	return LoadImpedance.Val;
 }
 
 //----------------------------------------------------------------------------------------------------------
@@ -393,14 +369,6 @@ void PS_Channel::PSAmplitudeChanged(void* channel)
 }
 
 void PS_Channel::PSCurrentChanged(void* channel)
-{
-	if (((Channel*)channel)->GetChannelType() != POWER_SUPPLY_CHANNEL_TYPE) { return; }
-	PS_Channel* psChannel = (PS_Channel*)channel;
-	psChannel->UpdateOutput();
-	Device.DevSettingsNeedSaving = true;
-}
-
-void PS_Channel::PSLoadImpedanceChanged(void* channel)
 {
 	if (((Channel*)channel)->GetChannelType() != POWER_SUPPLY_CHANNEL_TYPE) { return; }
 	PS_Channel* psChannel = (PS_Channel*)channel;

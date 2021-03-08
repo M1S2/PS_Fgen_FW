@@ -36,7 +36,6 @@ class PS_Channel : public Channel
 		Parameter<bool> Enabled;
 		Parameter<float> Amplitude;
 		Parameter<float> Current;
-		Parameter<float> LoadImpedance;
 		
 		Parameter<bool> OvpState;
 		Parameter<uint8_t> OvpLevel;		// OVP trip level in percentage of the Amplitude
@@ -58,7 +57,7 @@ class PS_Channel : public Channel
 		uint16_t TimeCounter_OcpDelay_ms;
 		uint16_t TimeCounter_OppDelay_ms;
 		
-		PS_Channel(float minAmpl, float maxAmpl, float minCurrent, float maxCurrent, float minLoad, float maxLoad, uint8_t minOvpLevel, uint8_t maxOvpLevel, float minOvpDelay, float maxOvpDelay, uint8_t minOcpLevel, uint8_t maxOcpLevel, float minOcpDelay, float maxOcpDelay, float minOppLevel, float maxOppLevel, float minOppDelay, float maxOppDelay);
+		PS_Channel(float minAmpl, float maxAmpl, float minCurrent, float maxCurrent, uint8_t minOvpLevel, uint8_t maxOvpLevel, float minOvpDelay, float maxOvpDelay, uint8_t minOcpLevel, uint8_t maxOcpLevel, float minOcpDelay, float maxOcpDelay, float minOppLevel, float maxOppLevel, float minOppDelay, float maxOppDelay);
 		void SwitchOffOutput();
 		void UpdateOutput();
 	
@@ -74,9 +73,6 @@ class PS_Channel : public Channel
 
 		bool SetCurrent(float current);
 		float GetCurrent();
-	
-		bool SetLoadImpedance(float loadImpedance);
-		float GetLoadImpedance();
 		
 		bool SetOvpLevel(uint8_t ovpLevel);
 		uint8_t GetOvpLevel();
@@ -110,7 +106,6 @@ class PS_Channel : public Channel
 		static void PSEnabledChanged(void* channel);
 		static void PSAmplitudeChanged(void* channel);
 		static void PSCurrentChanged(void* channel);
-		static void PSLoadImpedanceChanged(void* channel);
 		static void PSOvpLevelChanged(void* channel);
 		static void PSOvpStateChanged(void* channel);
 		static void PSOvpDelayChanged(void* channel);

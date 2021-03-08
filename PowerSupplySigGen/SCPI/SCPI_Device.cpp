@@ -98,8 +98,6 @@ const scpi_command_t scpi_commands[] =
 	{"SOURce#:POWer:PROTection:CLEar", scpi_cmd_sourcePowerProtectionClear, 0},			
 	{"SOURce#:FREQuency[:CW]", scpi_cmd_sourceFrequencyFixed, 0},
 	{"SOURce#:FREQuency[:CW]?", scpi_cmd_sourceFrequencyFixedQ, 0},	
-	{"SOURce#:LOADimpedance", scpi_cmd_sourceLoadImpedance, 0},
-	{"SOURce#:LOADimpedance?", scpi_cmd_sourceLoadImpedanceQ, 0},
 	{"SOURce#:FUNCtion[:SHAPe]", scpi_cmd_sourceFunctionShape, 0},
 	{"SOURce#:FUNCtion[:SHAPe]?", scpi_cmd_sourceFunctionShapeQ, 0},
 	{"SOURce#:FUNCtion:MODE?", scpi_cmd_sourceFunctionModeQ, 0},
@@ -248,7 +246,6 @@ scpi_result_t SCPI_QueryChannelParameter(scpi_t * context, SCPIChannelParameters
 			case SCPI_CHPARAM_OUTPUTSTATE: SCPI_ResultBool(context, psChannel->GetEnabled()); break;
 			case SCPI_CHPARAM_AMPLITUDE: SCPI_ResultFloat(context, psChannel->GetAmplitude()); break;
 			case SCPI_CHPARAM_CURRENT: SCPI_ResultFloat(context, psChannel->GetCurrent()); break;
-			case SCPI_CHPARAM_LOADIMPEDANCE: SCPI_ResultFloat(context, psChannel->GetLoadImpedance()); break;
 			case SCPI_CHPARAM_MEASURED_AMPLITUDE: SCPI_ResultFloat(context, psChannel->MeasuredAmplitude); break;
 			case SCPI_CHPARAM_MEASURED_CURRENT: SCPI_ResultFloat(context, psChannel->MeasuredCurrent); break;
 			case SCPI_CHPARAM_MEASURED_POWER: SCPI_ResultFloat(context, psChannel->MeasuredPower); break;
@@ -352,19 +349,6 @@ scpi_result_t SCPI_SetChannelParameter(scpi_t * context, SCPIChannelParameters_t
 					return SCPI_RES_ERR;
 				}
 				psChannel->SetCurrent(current);
-				break;
-			}
-			case SCPI_CHPARAM_LOADIMPEDANCE:
-			{
-				scpi_number_t param;
-				if(!SCPI_ParamNumber(context, scpi_special_numbers_def, &param, TRUE)) { return SCPI_RES_ERR; }
-				
-				float load = psChannel->GetLoadImpedance();
-				if (!SCPI_GetNumericFromParam(context, param, load, SCPI_UNIT_OHM, psChannel->LoadImpedance.Min, psChannel->LoadImpedance.Max, psChannel->LoadImpedance.Def, psChannel->LoadImpedance.Step))
-				{
-					return SCPI_RES_ERR;
-				}
-				psChannel->SetLoadImpedance(load);
 				break;
 			}
 			case SCPI_CHPARAM_OVP_LEVEL:

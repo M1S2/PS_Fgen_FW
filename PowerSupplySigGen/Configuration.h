@@ -28,7 +28,7 @@
 #define SPLASHSCREEN_DELAY_MS			3000					// Time that the splash screen is shown in milliseconds
 
 /***** SCPI ***************************************************/
-//#define SCPI_ENABLED											// Comment this line out to disable the SCPI parser
+#define SCPI_ENABLED											// Comment this line out to disable the SCPI parser
 #define SCPI_INPUT_BUFFER_LENGTH		256						// Length of the SCPI input buffer. If this buffer overflows, there will be an error message.
 #define SCPI_ERROR_QUEUE_SIZE			17						// Maximum number of errors in the error queue. If this queue overflows, the last error message will be replaced by an overflow error message.
 #define SCPI_IDN_MANUFACTURER			"Markus Scheich"		// Manufacturer info used in *IDN? query
@@ -69,8 +69,6 @@
 #define PS_MAX_AMPLITUDE				10						// Maximum allowed power supply amplitude setting
 #define PS_MIN_CURRENT					0						// Minimum allowed power supply current setting
 #define PS_MAX_CURRENT					2						// Maximum allowed power supply current setting
-#define PS_MIN_LOAD						1						// Minimum allowed power supply load impedance setting
-#define PS_MAX_LOAD						1000000					// Maximum allowed power supply load impedance setting
 #define PS_MIN_OVP_LEVEL_PERCENTAGE		90						// Minimum allowed power supply OVP level setting
 #define PS_MAX_OVP_LEVEL_PERCENTAGE		200						// Maximum allowed power supply OVP level setting
 #define PS_MIN_OVP_DELAY				0						// Minimum allowed power supply OVP delay setting

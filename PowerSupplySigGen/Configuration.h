@@ -21,8 +21,9 @@
 #define CPU_BOARD_VERSION				"v1.2"					// Version of the controller board
 
 /***** Timers *************************************************/
-#define DEVICE_TIMER_TICK_INTERVAL_MS	1						// Tick interval of the DeviceTimer in ms. The DeviceTimer is used to e.g. periodically read the keys and the encoder.
-#define KEY_POLLING_DELAY_MS			200						// Time period for key polling (keys and encoder button). This must be higher than the DeviceTimer tick interval because it's derived from this device timer.
+#define DEVICE_TIMER_TICK_INTERVAL_MS	250						// Tick interval of the DeviceTimer in ms. The DeviceTimer is used to e.g. periodically read the keys and the encoder.
+#define KEY_POLLING_DELAY_MS			250						// Time period for key polling (keys and encoder button). This must be higher than the DeviceTimer tick interval because it's derived from this device timer.
+#define SCREEN_REDRAW_DELAY_MS			500						// Time period for screen redraw. This must be higher than the DeviceTimer tick interval because it's derived from this device timer.
 #define SETTINGS_AUTOSAVE_DELAY_MS		60000					// Milliseconds between automatic saves of the device settings
 #define SPLASHSCREEN_DELAY_MS			3000					// Time that the splash screen is shown in milliseconds
 
@@ -82,6 +83,10 @@
 #define PS_MAX_OPP_LEVEL				(PS_MAX_AMPLITUDE * PS_MAX_CURRENT)		// Maximum allowed power supply OCP level setting
 #define PS_MIN_OPP_DELAY				0						// Minimum allowed power supply OPP delay setting
 #define PS_MAX_OPP_DELAY				65						// Maximum allowed power supply OPP delay setting
+
+#define PS_VOLT_PID_P					0.2f					// Proportional part of the voltage PID regulator
+#define PS_VOLT_PID_I					3.0f					// Integral part of the voltage PID regulator
+#define PS_VOLT_PID_D					0						// Differential part of the voltage PID regulator
 
 #define DDS_MIN_FREQ					1						// Minimum allowed DDS frequency setting
 #define DDS_MAX_FREQ					1000					// Maximum allowed DDS frequency setting

@@ -58,10 +58,10 @@ void DeviceClass::DeviceMainLoop()
 {
 	UserInputHandler.ProcessInputs();
 	
-	if(IsScreenRedrawRequested)
+	if(TimeCounter_ScreenRedraw_ms >= SCREEN_REDRAW_DELAY_MS)
 	{
 		ScreenManager.DrawAll();
-		IsScreenRedrawRequested = false;
+		TimeCounter_ScreenRedraw_ms = 0;
 	}
 	
 	if(TimeCounter_AutoSave_ms >= SETTINGS_AUTOSAVE_DELAY_MS)
@@ -85,6 +85,7 @@ ISR(TIMER1_COMPA_vect)
 void DeviceClass::InitDeviceTimer()
 {
 	TimeCounter_KeyPolling_ms = 0;
+	TimeCounter_ScreenRedraw_ms = 0;
 	TimeCounter_AutoSave_ms = 0;
 	TCCR1B = (1 << WGM12);											// Configure for CTC mode
 	TCCR1B |= ((1 << CS10) | (1 << CS11));							// Prescaler 64
@@ -96,9 +97,7 @@ void DeviceClass::DeviceTimerTickISR(uint16_t currentPeriod_ms)
 {	
 	TimeCounter_KeyPolling_ms += currentPeriod_ms;
 	if(TimeCounter_KeyPolling_ms >= KEY_POLLING_DELAY_MS)
-	{
-		IsScreenRedrawRequested = true;
-		
+	{		
 		TimeCounter_KeyPolling_ms = 0;
 		Keys_t key = KeyPad_GetKeys();
 		if(key != KEYNONE)
@@ -111,6 +110,7 @@ void DeviceClass::DeviceTimerTickISR(uint16_t currentPeriod_ms)
 		}
 	}
 	
+	TimeCounter_ScreenRedraw_ms += currentPeriod_ms;		// Screen redraw is handled in DeviceMainLoop()	
 	TimeCounter_AutoSave_ms += currentPeriod_ms;			// AutoSave is handled in DeviceMainLoop()
 	ScreenManager.DeviceTimerTickISR(currentPeriod_ms);
 	PsChannel.DeviceTimerTickISR(currentPeriod_ms);

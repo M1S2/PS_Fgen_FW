@@ -25,6 +25,11 @@ extern const char* PSStatesNames[];
 
 class PS_Channel : public Channel
 {	
+	private:
+		float _PIDVoltErrorSum;				// PID voltage regulator
+		float _PIDVoltErrorLast;
+		float _setDacAmplitude;
+	
 	public:		
 		PsStates_t PsState;
 	
@@ -42,7 +47,7 @@ class PS_Channel : public Channel
 		Parameter<float> OcpDelay;
 		
 		Parameter<bool> OppState;
-		Parameter<float> OppLevel;		// OPP trip level in Watt
+		Parameter<float> OppLevel;			// OPP trip level in Watt
 		Parameter<float> OppDelay;
 		
 		float MeasuredAmplitude;

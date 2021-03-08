@@ -42,12 +42,13 @@ void PS_Channel::SwitchOffOutput()
 		
 void PS_Channel::UpdateOutput()
 {
-	if(GetEnabled() && PsState == PS_STATE_CV)
+	if(PsState == PS_STATE_CV && GetEnabled())
 	{
-		if(GetLoadImpedance() == 0) { LoadImpedance.Val = LoadImpedance.Min; }
+		//if(GetLoadImpedance() == 0) { LoadImpedance.Val = LoadImpedance.Min; }
+		//float voltage = ((GetLoadImpedance() + PS_INTERNAL_IMPEDANCE) / GetLoadImpedance()) * GetAmplitude();				//Vset = ((Rload + Rinternal) / Rload) * Vout
+		//MCP4921_Voltage_Set(voltage / 2);		// divided by two because of OpAmp in circuit that has an amplification of 2
 		
-		float voltage = ((GetLoadImpedance() + PS_INTERNAL_IMPEDANCE) / GetLoadImpedance()) * GetAmplitude();				//Vset = ((Rload + Rinternal) / Rload) * Vout
-		MCP4921_Voltage_Set(voltage / 2);		// divided by two because of OpAmp in circuit that has an amplification of 2
+		MCP4921_Voltage_Set(_setDacAmplitude / 2);		// divided by two because of OpAmp in circuit that has an amplification of 2
 	}
 	else
 	{
@@ -57,6 +58,13 @@ void PS_Channel::UpdateOutput()
 
 void PS_Channel::DeviceTimerTickISR(uint16_t currentPeriod_ms)
 {
+	/* Voltage PID regulator 
+	   see: https://rn-wissen.de/wiki/index.php/Regelungstechnik */
+	float PIDVoltError = GetAmplitude() - MeasuredAmplitude;		// Usoll - Umess
+	_PIDVoltErrorSum += PIDVoltError;
+	_setDacAmplitude = PS_VOLT_PID_P * PIDVoltError + PS_VOLT_PID_I * (currentPeriod_ms / 1000.0f) * _PIDVoltErrorSum + (PS_VOLT_PID_D / (currentPeriod_ms / 1000.0f)) * (PIDVoltError - _PIDVoltErrorLast);
+	_PIDVoltErrorLast = PIDVoltError;
+	
 	if(GetOvpState() && MeasuredAmplitude > (GetAmplitude() * (GetOvpLevel() / 100.0f)))
 	{
 		TimeCounter_OvpDelay_ms += currentPeriod_ms;
@@ -79,20 +87,19 @@ void PS_Channel::DeviceTimerTickISR(uint16_t currentPeriod_ms)
 	{
 		PsState = PS_STATE_OVP;
 		TimeCounter_OvpDelay_ms = 0;
-		SwitchOffOutput();
 	}
 	else if(TimeCounter_OcpDelay_ms >= (1000 * GetOcpDelay()))
 	{
 		PsState = PS_STATE_OCP;
 		TimeCounter_OcpDelay_ms = 0;
-		SwitchOffOutput();
 	}
 	else if(TimeCounter_OppDelay_ms >= (1000 * GetOppDelay()))
 	{
 		PsState = PS_STATE_OPP;
 		TimeCounter_OppDelay_ms = 0;
-		SwitchOffOutput();
 	}
+	
+	UpdateOutput();
 }
 
 void PS_Channel::ClearProtections()

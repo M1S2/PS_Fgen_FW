@@ -101,9 +101,9 @@ class DeviceClass
 		bool SerialEchoEnabled;
 		
 		bool DevSettingsNeedSaving;
-		bool IsScreenRedrawRequested;
 	
 		uint16_t TimeCounter_KeyPolling_ms;
+		uint16_t TimeCounter_ScreenRedraw_ms;
 		uint16_t TimeCounter_AutoSave_ms;
 	
 		DeviceClass();

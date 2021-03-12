@@ -11,6 +11,10 @@
 #include "Channels/DDS_Channel.h"
 #include "Channels/PS_Channel.h"
 
+
+#define DEVELOPMENT								// This define is used to disable some parts for development purposes. This must be removed later !!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+
 #define AVR_VCC_REF						5.27					// AVR VCC Reference voltage in V
 
 /***** Version ************************************************/
@@ -28,7 +32,7 @@
 #define SPLASHSCREEN_DELAY_MS			3000					// Time that the splash screen is shown in milliseconds
 
 /***** SCPI ***************************************************/
-#define SCPI_ENABLED											// Comment this line out to disable the SCPI parser
+//#define SCPI_ENABLED											// Comment this line out to disable the SCPI parser
 #define SCPI_INPUT_BUFFER_LENGTH		256						// Length of the SCPI input buffer. If this buffer overflows, there will be an error message.
 #define SCPI_ERROR_QUEUE_SIZE			17						// Maximum number of errors in the error queue. If this queue overflows, the last error message will be replaced by an overflow error message.
 #define SCPI_IDN_MANUFACTURER			"Markus Scheich"		// Manufacturer info used in *IDN? query
@@ -50,7 +54,7 @@
 #define MESSAGE_MARGIN					5						// Margin of the message popup box (user messages or error messages) to the display outline
 #define MAX_MESSAGE_LEN					256						// Maximum length of user or error messages
 
-#define SPLASHSCREEN_ENABLED									// Comment this line out to disable the Splashscreen
+//#define SPLASHSCREEN_ENABLED									// Comment this line out to disable the Splashscreen
 
 /***** UserControlsIndicators **********************************/
 #define CONTROLS_FONT_HEIGHT			8						// Font Height in pixels of the text used in UserControls

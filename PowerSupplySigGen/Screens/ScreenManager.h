@@ -23,10 +23,12 @@
 class ScreenManagerClass
 {
 	private:
-		ScreenPS _screenPs;
-		ScreenDDS _screenDds;
-		ScreenDMM _screenDmm;
-		ScreenATX _screenAtx;
+		#ifndef DEVELOPMENT
+			ScreenPS _screenPs;
+			ScreenDDS _screenDds;
+			ScreenDMM _screenDmm;
+			ScreenATX _screenAtx;
+		#endif
 	
 		u8g_t _u8g;
 		ScreenBase* _screens[NUM_SCREENS];

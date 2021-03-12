@@ -113,7 +113,10 @@ void DeviceClass::DeviceTimerTickISR(uint16_t currentPeriod_ms)
 	TimeCounter_ScreenRedraw_ms += currentPeriod_ms;		// Screen redraw is handled in DeviceMainLoop()	
 	TimeCounter_AutoSave_ms += currentPeriod_ms;			// AutoSave is handled in DeviceMainLoop()
 	ScreenManager.DeviceTimerTickISR(currentPeriod_ms);
-	PsChannel.DeviceTimerTickISR(currentPeriod_ms);
+	
+	#ifndef DEVELOPMENT
+		PsChannel.DeviceTimerTickISR(currentPeriod_ms);
+	#endif
 }
 
 // ##### Device Control State ########################################################################################################

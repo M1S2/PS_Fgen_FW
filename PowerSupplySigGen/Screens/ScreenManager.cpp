@@ -9,13 +9,17 @@
 #include "ScreenManager.h"
 #include "../Device.h"
 
+#include "../UI_Lib/UI_Lib_Test.h"
+
 ScreenManagerClass::ScreenManagerClass()
 {	
-	_screens[0] = &_screenPs;
-	_screens[1] = &_screenDds;
-	_screens[2] = NULL;
-	_screens[3] = &_screenDmm;
-	_screens[4] = &_screenAtx;
+	#ifndef DEVELOPMENT
+		_screens[0] = &_screenPs;
+		_screens[1] = &_screenDds;
+		_screens[2] = NULL;
+		_screens[3] = &_screenDmm;
+		_screens[4] = &_screenAtx;
+	#endif
 }
 
 void ScreenManagerClass::Init()
@@ -23,6 +27,13 @@ void ScreenManagerClass::Init()
 	u8g_InitSPI(&_u8g, &u8g_dev_s1d15721_hw_spi, PN(1, 7), PN(1, 5), PN(1, 1), PN(1, 0), U8G_PIN_NONE);
 	IsSplashScreenShown = true;
 	TimeCounter_SplashScreen_ms = 0;
+	
+	#ifdef DEVELOPMENT
+		u8g_SetFont(&_u8g, u8g_font_helvR08r);	// 8 pixel height font, 6 pixel width
+		u8g_SetDefaultForegroundColor(&_u8g);
+		u8g_SetFontPosTop(&_u8g);
+		UI_Test_BuildTree();
+	#endif
 }
 
 void ScreenManagerClass::drawScreenTabs(int selectedTabIndex)
@@ -58,8 +69,13 @@ void ScreenManagerClass::DrawAll()
 	bool isFirstPage = true;
 	u8g_FirstPage(&_u8g);
 	do
-	{
-		drawPage(isFirstPage);
+	{		
+		#ifndef DEVELOPMENT
+			drawPage(isFirstPage);
+		#else		
+			UI_Test_Draw(&_u8g, isFirstPage);
+		#endif
+		
 		isFirstPage = false;
 	} while ( u8g_NextPage(&_u8g) );
 }

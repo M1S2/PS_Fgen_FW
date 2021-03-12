@@ -496,6 +496,51 @@
     <Compile Include="Spi\spi.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="UI_Lib\BoolIndicator.cpp">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="UI_Lib\BoolIndicator.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="UI_Lib\Container.cpp">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="UI_Lib\Container.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="UI_Lib\Label.cpp">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="UI_Lib\Label.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="UI_Lib\Page.cpp">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="UI_Lib\Page.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="UI_Lib\UIElement.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="UI_Lib\UIElementType.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="UI_Lib\UI_Elements.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="UI_Lib\UI_Lib_Test.cpp">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="UI_Lib\UI_Lib_Test.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="UI_Lib\UI_ScreenManager.cpp">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="UI_Lib\UI_ScreenManager.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="USART\USART.cpp">
       <SubType>compile</SubType>
     </Compile>
@@ -567,6 +612,7 @@
     <Folder Include="libraries\scpi-parser\inc\" />
     <Folder Include="libraries\scpi-parser\inc\scpi\" />
     <Folder Include="libraries\scpi-parser\src\" />
+    <Folder Include="UI_Lib" />
     <Folder Include="SCPI" />
     <Folder Include="USART" />
     <Folder Include="UserControlsIndicators" />

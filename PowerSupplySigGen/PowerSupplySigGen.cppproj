@@ -496,6 +496,12 @@
     <Compile Include="Spi\spi.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="UI_Lib\BoolControl.cpp">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="UI_Lib\BoolControl.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="UI_Lib\BoolIndicator.cpp">
       <SubType>compile</SubType>
     </Compile>
@@ -506,6 +512,18 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="UI_Lib\Container.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="UI_Lib\EnumControl.cpp">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="UI_Lib\EnumControl.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="UI_Lib\EnumIndicator.cpp">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="UI_Lib\EnumIndicator.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="UI_Lib\Label.cpp">

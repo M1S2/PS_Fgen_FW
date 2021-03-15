@@ -12,6 +12,9 @@
 #include "UIElement.h"
 #include "Label.h"
 #include "BoolIndicator.h"
+#include "BoolControl.h"
+#include "EnumIndicator.h"
+#include "EnumControl.h"
 #include "Container.h"
 #include "Page.h"
 

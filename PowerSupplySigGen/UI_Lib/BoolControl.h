@@ -20,6 +20,7 @@ class BoolControl : public UIElement
 	public:
 		BoolControl(unsigned char locX, unsigned char locY, unsigned char width, unsigned char height, bool* controlValuePointer);
 		virtual void Draw(u8g_t *u8g, bool isFirstPage) override;
+		virtual bool KeyInput(Keys_t key) override;
 
 		void ToggleValue();
 };

@@ -22,11 +22,31 @@ void EnumControl<T>::Draw(u8g_t *u8g, bool isFirstPage)
 
 	if (Visible)
 	{
-		if (HasFocus)
+		if (IsEditMode)
 		{
-
-		}		
+			u8g_DrawBox(u8g, LocX, LocY, Width, Height);
+			u8g_SetDefaultBackgroundColor(u8g);
+		}	
+		u8g_DrawHLine(u8g, LocX, LocY + Height, Width);	
 		u8g_DrawStr(u8g, LocX, LocY, _enumNames[_controlValueDraw]);
+		if(IsEditMode) { u8g_SetDefaultForegroundColor(u8g); }
+	}
+}
+
+template <class T>
+bool EnumControl<T>::KeyInput(Keys_t key)
+{
+	switch (key)
+	{
+		case KEYUP:
+			return PreviousValue();
+		case KEYDOWN:
+			return NextValue();
+		case KEYOK:
+			ToggleEditMode();
+			return true;
+		default:
+			return false;
 	}
 }
 
@@ -35,9 +55,11 @@ bool EnumControl<T>::PreviousValue()
 {
 	if (IsEditMode)
 	{
-		if (*_controlValuePointer > 0) { (*_controlValuePointer)--; }
-		else if(*_controlValuePointer == 0) { (*_controlValuePointer) = _numEnumValues - 1; }
+		if (*_controlValuePointer > 0) { (*((int*)_controlValuePointer))--; }
+		else if(*_controlValuePointer == 0) { (*_controlValuePointer) = (T)(_numEnumValues - 1); }
+		return true;
 	}
+	return false;
 }
 
 template <class T>
@@ -45,9 +67,11 @@ bool EnumControl<T>::NextValue()
 {
 	if (IsEditMode)
 	{
-		if(*_controlValuePointer < (_numEnumValues - 1)) { (*_controlValuePointer)++; }
-		else if(*_controlValuePointer >= (_numEnumValues - 1)) { (*_controlValuePointer) = 0; }
+		if(*_controlValuePointer < (_numEnumValues - 1)) { (*((int*)_controlValuePointer))++; }
+		else if(*_controlValuePointer >= (_numEnumValues - 1)) { (*_controlValuePointer) = (T)0; }
+		return true;
 	}
+	return false;
 }
 
 template <class T>

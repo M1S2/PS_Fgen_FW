@@ -20,19 +20,38 @@ void Page::Draw(u8g_t *u8g, bool isFirstPage)
 	}
 }
 
+bool Page::KeyInput(Keys_t key)
+{
+	switch (key)
+	{
+		case KEYUP:
+			PreviousItem();
+			return true;
+		case KEYDOWN:
+			NextItem();
+			return true;
+		default:
+			return false;
+	}
+}
+
 UIElement* Page::GetSelectedItem()
 {
 	return _items[_selectedItemIndex];
 }
 
-void Page::NextItem()
+UIElement* Page::NextItem()
 {
 	_selectedItemIndex++;
 	if (_selectedItemIndex >= _numItems) { _selectedItemIndex = 0; }
+	ActiveChild = GetSelectedItem();
+	return ActiveChild;
 }
 
-void Page::PreviousItem()
+UIElement* Page::PreviousItem()
 {
 	_selectedItemIndex--;
 	if (_selectedItemIndex < 0) { _selectedItemIndex = _numItems - 1; }
+	ActiveChild = GetSelectedItem();
+	return ActiveChild;
 }

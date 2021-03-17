@@ -17,30 +17,46 @@ UI_ScreenManager::UI_ScreenManager()
 void UI_ScreenManager::Draw(u8g_t *u8g, bool isFirstPage)
 {
 	if (_visualTreeRoot == NULL) { return; }
+	
+	if(_focusElement != NULL) { u8g_DrawFrame(u8g, _focusElement->LocX - 1, _focusElement->LocY - 1, _focusElement->Width + 2, _focusElement->Height + 2); }
 	_visualTreeRoot->Draw(u8g, isFirstPage);
 }
 
 void UI_ScreenManager::ChangeVisualTreeRoot(UIElement* visualTreeRoot)
 {
 	_visualTreeRoot = visualTreeRoot;
-	SetFocus(visualTreeRoot);
+	SetFocusToLeaf();
 }
 
-void UI_ScreenManager::SetFocus(UIElement* focusElement)
+// Traverse down the visual tree until an element without a child is reached and focus this element.
+void UI_ScreenManager::SetFocusToLeaf()
 {
-	if (_focusElement != NULL) { _focusElement->HasFocus = false; }
-	_focusElement = focusElement;
-	if (_focusElement != NULL) { _focusElement->HasFocus = true; }
+	if (_visualTreeRoot == NULL) { return; }
+	
+	UIElement* visualTreeElement = _visualTreeRoot;
+	UIElement* leaf = NULL;
+
+	while (visualTreeElement != NULL)
+	{
+		leaf = visualTreeElement;
+		visualTreeElement = visualTreeElement->ActiveChild;		// Traverse down the tree
+	}
+	_focusElement = leaf;
 }
 
-void UI_ScreenManager::KeyInput(char key)
+bool UI_ScreenManager::KeyInput(Keys_t key)
 {
-}
-
-void UI_ScreenManager::EncoderInput(bool clockwise)
-{
-}
-
-void UI_ScreenManager::EncoderPBInput()
-{
+	SetFocusToLeaf();
+		
+	bool keyProcessed = false;
+	UIElement* visualTreeElement = _focusElement;
+	while (!keyProcessed && visualTreeElement != NULL)
+	{
+		keyProcessed = visualTreeElement->KeyInput(key);
+		if (!keyProcessed)
+		{
+			visualTreeElement = visualTreeElement->Parent;		// Traverse up the tree
+		}
+	}
+	return keyProcessed;
 }

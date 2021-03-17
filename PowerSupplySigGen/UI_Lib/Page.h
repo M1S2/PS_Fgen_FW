@@ -19,9 +19,11 @@ class Page : public Container
 	public:
 		Page();
 		virtual void Draw(u8g_t *u8g, bool isFirstPage) override;
+		virtual bool KeyInput(Keys_t key) override;
+		
 		UIElement* GetSelectedItem();
-		void NextItem();
-		void PreviousItem();
+		UIElement* NextItem();
+		UIElement* PreviousItem();
 };
 
 #endif /* PAGE_H_ */

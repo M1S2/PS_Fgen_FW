@@ -7,6 +7,7 @@
 
 #include "UI_Lib_Test.h"
 #include "EnumControl.cpp"
+#include "EnumIndicator.cpp"
 
 enum TestEnum
 {
@@ -19,11 +20,11 @@ const char* TestEnumNames[] = { "Test A", "Test B", "Test C" };
 UI_ScreenManager ui_ScreenManager;
 bool boolVal1;
 TestEnum enumVal1;
-Label label1(0, 0, 0, 0, "LABEL1");
-BoolIndicator boolInd1(0, 15, 0, 0, &boolVal1);
-BoolControl boolCtrl1(0, 30, 0, 0, &boolVal1);
-EnumControl<TestEnum> enumInd1(0, 45, 0, 0, &enumVal1, TestEnumNames, 3);
-EnumControl<TestEnum> enumCtrl1(0, 55, 0, 0, &enumVal1, TestEnumNames, 3);
+Label label1(5, 5, 60, 10, "LABEL1");
+BoolIndicator boolInd1(5, 15, 60, 10, &boolVal1);
+BoolControl boolCtrl1(5, 30, 60, 10, &boolVal1);
+EnumIndicator<TestEnum> enumInd1(80, 15, 60, 10, &enumVal1, TestEnumNames, 3);
+EnumControl<TestEnum> enumCtrl1(80, 30, 60, 10, &enumVal1, TestEnumNames, 3);
 Page page1;
 
 void UI_Test_BuildTree()
@@ -43,5 +44,5 @@ void UI_Test_Draw(u8g_t *u8g, bool isFirstPage)
 
 void UI_Test_KeyInput(Keys_t key)
 {
-	boolCtrl1.ToggleValue();	
+	ui_ScreenManager.KeyInput(key);
 }

@@ -10,6 +10,7 @@
 #define UIELEMENT_H_
 
 #include "UIElementType.h"
+#include "Keys.h"
 #include "../libraries/u8glib/u8g.h"
 
 class UIElement
@@ -21,14 +22,14 @@ class UIElement
 		unsigned char Width;
 		unsigned char Height;
 		bool Visible;
-		bool HasFocus;
 		UIElement* Parent;
+		UIElement* ActiveChild;
 
 		UIElement(UIElementType type)
 		{
 			Visible = true;
-			HasFocus = false;
 			Type = type;
+			ActiveChild = NULL;
 		}
 
 		UIElement(unsigned char locX, unsigned char locY, unsigned char width, unsigned char height, UIElementType type)
@@ -38,11 +39,12 @@ class UIElement
 			Width = width;
 			Height = height;
 			Visible = true;
-			HasFocus = false;
 			Type = type;
+			ActiveChild = NULL;
 		}
 
 		virtual void Draw(u8g_t *u8g, bool isFirstPage) = 0;
+		virtual bool KeyInput(Keys_t key) { return false; }
 };
 
 #endif /* UIELEMENT_H_ */

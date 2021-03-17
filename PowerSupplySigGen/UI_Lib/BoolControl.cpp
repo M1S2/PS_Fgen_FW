@@ -18,11 +18,20 @@ void BoolControl::Draw(u8g_t *u8g, bool isFirstPage)
 
 	if (Visible)
 	{
-		if (HasFocus)
-		{
-
-		}
+		u8g_DrawHLine(u8g, LocX, LocY + Height, Width);
 		u8g_DrawStr(u8g, LocX, LocY, (_controlValueDraw ? "true" : "false"));
+	}
+}
+
+bool BoolControl::KeyInput(Keys_t key)
+{
+	switch (key)
+	{
+		case KEYOK:
+			ToggleValue();
+			return true;
+		default:
+			return false;
 	}
 }
 

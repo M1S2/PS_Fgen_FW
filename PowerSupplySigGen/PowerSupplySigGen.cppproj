@@ -526,6 +526,9 @@
     <Compile Include="UI_Lib\EnumIndicator.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="UI_Lib\Keys.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="UI_Lib\Label.cpp">
       <SubType>compile</SubType>
     </Compile>

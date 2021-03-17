@@ -17,16 +17,14 @@ class UI_ScreenManager
 		UIElement* _visualTreeRoot;
 		UIElement* _focusElement;
 
-	public:
+		public:
 		UI_ScreenManager();
 
 		void Draw(u8g_t *u8g, bool isFirstPage);
 		void ChangeVisualTreeRoot(UIElement* visualTreeRoot);
-		void SetFocus(UIElement* focusElement);
+		void SetFocusToLeaf();
 
-		void KeyInput(char key);
-		void EncoderInput(bool clockwise);
-		void EncoderPBInput();
+		bool KeyInput(Keys_t key);
 };
 
 #endif /* UI_SCREENMANAGER_H_ */

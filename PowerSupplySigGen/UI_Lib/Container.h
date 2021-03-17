@@ -22,6 +22,7 @@ class Container : public UIElement
 	public:
 		Container();
 		virtual void Draw(u8g_t *u8g, bool isFirstPage) { }  //= 0;
+		virtual bool KeyInput(Keys_t key) { return false; }  // = 0;
 		void AddItem(UIElement* item);
 };
 

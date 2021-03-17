@@ -19,4 +19,6 @@ void Container::AddItem(UIElement* item)
 	item->Parent = this;
 	_items[_numItems] = item;
 	_numItems++;
+	
+	if (ActiveChild == NULL) { ActiveChild = item; }
 }

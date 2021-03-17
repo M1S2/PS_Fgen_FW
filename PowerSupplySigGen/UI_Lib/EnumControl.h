@@ -25,7 +25,8 @@ class EnumControl : public UIElement
 	
 		EnumControl(unsigned char locX, unsigned char locY, unsigned char width, unsigned char height, T* controlValuePointer, const char** enumNames, uint8_t numEnumValues);
 		virtual void Draw(u8g_t *u8g, bool isFirstPage) override;
-	
+		virtual bool KeyInput(Keys_t key) override;
+			
 		bool PreviousValue();
 		bool NextValue();
 		void ToggleEditMode();

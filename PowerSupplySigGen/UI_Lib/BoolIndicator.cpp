@@ -17,12 +17,7 @@ void BoolIndicator::Draw(u8g_t *u8g, bool isFirstPage)
 	if (isFirstPage) { _controlValue = *_controlValuePointer; }
 
 	if (Visible)
-	{
-		if (HasFocus)
-		{
-			
-		}
-		
+	{	
 		u8g_DrawStr(u8g, LocX, LocY, (_controlValue ? "true" : "false"));
 	}
 }

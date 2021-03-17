@@ -22,10 +22,6 @@ void EnumIndicator<T>::Draw(u8g_t *u8g, bool isFirstPage)
 
 	if (Visible)
 	{
-		if (HasFocus)
-		{
-
-		}
 		u8g_DrawStr(u8g, LocX, LocY, _enumNames[_controlValueDraw]);
 	}
 }

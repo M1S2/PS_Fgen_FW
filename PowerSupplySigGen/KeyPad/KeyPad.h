@@ -16,23 +16,26 @@
 
 typedef enum Keys
 {
-	KEYNONE = 0,
-	KEY0 = (1 << 0),
-	KEY1 = (1 << 1),
-	KEY2 = (1 << 2),
-	KEY3 = (1 << 3),
-	KEY4 = (1 << 4),
-	KEY5 = (1 << 5),
-	KEY6 = (1 << 6),
-	KEY7 = (1 << 7),
-	KEY8 = (1 << 8),
-	KEY9 = (1 << 9),
-	KEYKILO = (1 << 10),
-	KEYMILLI = (1 << 11),
-	KEYCOMMA = (1 << 12),
-	KEYMINUS = (1 << 13),
-	KEYLEFT = (1 << 14),
-	KEYRIGHT = (1 << 15)
+	KEYNONE,
+	KEY0,
+	KEY1,
+	KEY2,
+	KEY3,
+	KEY4,
+	KEY5,
+	KEY6,
+	KEY7,
+	KEY8,
+	KEY9,
+	KEYKILO,
+	KEYMILLI,
+	KEYCOMMA,
+	KEYMINUS,
+	KEYLEFT,
+	KEYRIGHT,
+	KEYUP,
+	KEYDOWN,
+	KEYOK
 }Keys_t;
 
 

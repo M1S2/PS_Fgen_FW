@@ -106,7 +106,7 @@ void DeviceClass::DeviceTimerTickISR(uint16_t currentPeriod_ms)
 		}
 		if(Encoder_IsButtonPressed())
 		{
-			UserInputHandler.EnqueueEncoderButtonInput();
+			UserInputHandler.EnqueueKeyInput(KEYOK);
 		}
 	}
 	

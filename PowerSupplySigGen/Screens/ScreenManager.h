@@ -12,7 +12,6 @@
 #include "../libraries/u8glib/u8g.h"
 #include "ScreenBase.h"
 #include "../KeyPad/KeyPad.h"
-#include "../Encoder/Encoder.h"
 #include "ScreenPS.h"
 #include "ScreenDDS.h"
 #include "ScreenDMM.h"
@@ -61,8 +60,6 @@ class ScreenManagerClass
 		void DeviceTimerTickISR(uint16_t currentPeriod_ms);
 		
 		void KeyInput(Keys_t key);
-		void EncoderInput(EncoderDirection_t encDir);
-		void EncoderPBInput();
 		
 		void SetDisplayEnabled(bool displayEnabled);
 		bool GetDisplayEnabled();

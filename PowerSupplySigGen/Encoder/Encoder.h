@@ -12,6 +12,7 @@
 #include <avr/interrupt.h>
 #include "../Pins/Pins.h"
 
+#warning Remove EncoderDirection enum!!!
 typedef enum EncoderDirection
 {
 	ENCNONE = 0,

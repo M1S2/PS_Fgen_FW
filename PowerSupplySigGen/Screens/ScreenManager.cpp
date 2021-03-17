@@ -159,45 +159,49 @@ void ScreenManagerClass::DeviceTimerTickISR(uint16_t currentPeriod_ms)
 
 void ScreenManagerClass::KeyInput(Keys_t key)
 {
-	if(_isControlActive)
+	UI_Test_KeyInput(key);
+	
+	if(key == KEYOK)
 	{
 		if(_screens[TabIndex] != NULL)
 		{
-			_screens[TabIndex]->KeyInput(key);
+			_isControlActive = !_isControlActive;
+			_screens[TabIndex]->ActivateSelectedControl(_isControlActive);
+			_screens[TabIndex]->EncoderPBInput();
+			_isControlActive = _screens[TabIndex]->IsSelectedControlActive();
+		}
+	}
+	else if(key == KEYDOWN || key == KEYUP)
+	{
+		if(_screens[TabIndex] != NULL)
+		{
+			if(key == KEYDOWN) { _screens[TabIndex]->EncoderInput(ENCCLOCKWISE, _isControlActive); }
+			else { _screens[TabIndex]->EncoderInput(ENCCOUNTERCLOCKWISE, _isControlActive); }
 			_isControlActive = _screens[TabIndex]->IsSelectedControlActive();
 		}
 	}
 	else
 	{
-		if(key == KEYLEFT) 
+		if(_isControlActive)
 		{
-			 TabIndex = (TabIndex - 1 < 0 ? NUM_SCREENS - 1 : TabIndex - 1); 
+			if(_screens[TabIndex] != NULL)
+			{
+				_screens[TabIndex]->KeyInput(key);
+				_isControlActive = _screens[TabIndex]->IsSelectedControlActive();
+			}
 		}
-		else if(key == KEYRIGHT) 
+		else
 		{
-			 TabIndex = (TabIndex + 1 == NUM_SCREENS ? 0: TabIndex + 1); 
+			if(key == KEYLEFT) 
+			{
+				 TabIndex = (TabIndex - 1 < 0 ? NUM_SCREENS - 1 : TabIndex - 1); 
+			}
+			else if(key == KEYRIGHT) 
+			{
+				 TabIndex = (TabIndex + 1 == NUM_SCREENS ? 0: TabIndex + 1); 
+			}
+			Device.SaveSettings();
 		}
-		Device.SaveSettings();
-	}
-}
-
-void ScreenManagerClass::EncoderInput(EncoderDirection_t encDir)
-{
-	if(_screens[TabIndex] != NULL)
-	{
-		_screens[TabIndex]->EncoderInput(encDir, _isControlActive);
-		_isControlActive = _screens[TabIndex]->IsSelectedControlActive();
-	}
-}
-
-void ScreenManagerClass::EncoderPBInput()
-{
-	if(_screens[TabIndex] != NULL)
-	{
-		_isControlActive = !_isControlActive;
-		_screens[TabIndex]->ActivateSelectedControl(_isControlActive);
-		_screens[TabIndex]->EncoderPBInput();
-		_isControlActive = _screens[TabIndex]->IsSelectedControlActive();
 	}
 }
 

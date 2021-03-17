@@ -25,32 +25,6 @@ void UserInputHandlerClass::EnqueueKeyInput(Keys_t userKeyInput)
 	}
 }
 
-void UserInputHandlerClass::EnqueueEncoderInput(EncoderDirection_t userEncoderInput)
-{
-	if(!_userInputRingBuffer.full())
-	{
-		UserInputData encInput(userEncoderInput);
-		_userInputRingBuffer.enqueue(&encInput);
-	}
-	else
-	{
-		strcpy(Device.ScreenManager.SystemMessage, USERINPUT_QUEUE_FULL_MSG);
-	}
-}
-
-void UserInputHandlerClass::EnqueueEncoderButtonInput()
-{
-	if(!_userInputRingBuffer.full())
-	{
-		UserInputData encButtonInput(true);
-		_userInputRingBuffer.enqueue(&encButtonInput);
-	}
-	else
-	{
-		strcpy(Device.ScreenManager.SystemMessage, USERINPUT_QUEUE_FULL_MSG);
-	}
-}
-
 void UserInputHandlerClass::EnqueueUsartInput(uint8_t userDataInput)
 {
 	if(!_userInputRingBuffer.full())
@@ -82,16 +56,6 @@ void UserInputHandlerClass::ProcessInputs()
 				case USERDATA_KEY: 
 				{
 					Device.ScreenManager.KeyInput(data->Key);
-					break;
-				}
-				case USERDATA_ENCODER: 
-				{		
-					Device.ScreenManager.EncoderInput(data->EncDir);
-					break;
-				}
-				case USERDATA_ENCODER_BUTTON:
-				{				
-					Device.ScreenManager.EncoderPBInput();
 					break;
 				}
 				case USERDATA_USART: 

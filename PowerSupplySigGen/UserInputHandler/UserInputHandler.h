@@ -11,7 +11,6 @@
 
 #include "CircularBuffer.h"
 #include "../KeyPad/KeyPad.h"
-#include "../Encoder/Encoder.h"
 #include <stdbool.h>
 
 #include "../Configuration.h"
@@ -22,8 +21,6 @@
 typedef enum UserInputDataTypes
 {
 	USERDATA_KEY,
-	USERDATA_ENCODER,
-	USERDATA_ENCODER_BUTTON,
 	USERDATA_USART
 } UserInputDataTypes_t;
 
@@ -33,8 +30,6 @@ class UserInputData
 	public:
 		UserInputDataTypes_t DataType;
 		Keys_t Key;
-		EncoderDirection_t EncDir;
-		bool EncBtn;
 		uint8_t UsartChr;
 	
 		UserInputData() 
@@ -44,17 +39,7 @@ class UserInputData
 		{
 			DataType = USERDATA_KEY;
 		}
-		
-		UserInputData(EncoderDirection_t encDir) : EncDir(encDir)
-		{
-			DataType = USERDATA_ENCODER;
-		}
-		
-		UserInputData(bool encBtn) : EncBtn(encBtn)
-		{
-			DataType = USERDATA_ENCODER_BUTTON;
-		}
-		
+			
 		UserInputData(uint8_t usartChr) : UsartChr(usartChr)
 		{
 			DataType = USERDATA_USART;
@@ -69,8 +54,6 @@ class UserInputHandlerClass
 		
 	public:		
 		void EnqueueKeyInput(Keys_t userKeyInput);
-		void EnqueueEncoderInput(EncoderDirection_t userEncoderInput);		
-		void EnqueueEncoderButtonInput();
 		void EnqueueUsartInput(uint8_t userDataInput);
 		
 		void ProcessInputs();

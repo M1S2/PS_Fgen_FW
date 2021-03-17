@@ -40,3 +40,8 @@ void UI_Test_Draw(u8g_t *u8g, bool isFirstPage)
 {
 	ui_ScreenManager.Draw(u8g, isFirstPage);
 }
+
+void UI_Test_KeyInput(Keys_t key)
+{
+	boolCtrl1.ToggleValue();	
+}

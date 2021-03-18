@@ -14,6 +14,13 @@ UI_ScreenManager::UI_ScreenManager()
 	_focusElement = NULL;
 }
 
+void UI_ScreenManager::Init(u8g_t *u8g)
+{
+	u8g_SetFont(u8g, u8g_font_helvR08r);		// 8 pixel height font, 6 pixel width
+	u8g_SetDefaultForegroundColor(u8g);
+	u8g_SetFontPosTop(u8g);
+}
+
 void UI_ScreenManager::Draw(u8g_t *u8g, bool isFirstPage)
 {
 	if (_visualTreeRoot == NULL) { return; }
@@ -46,8 +53,6 @@ void UI_ScreenManager::SetFocusToLeaf()
 
 bool UI_ScreenManager::KeyInput(Keys_t key)
 {
-	SetFocusToLeaf();
-		
 	bool keyProcessed = false;
 	UIElement* visualTreeElement = _focusElement;
 	while (!keyProcessed && visualTreeElement != NULL)
@@ -58,5 +63,6 @@ bool UI_ScreenManager::KeyInput(Keys_t key)
 			visualTreeElement = visualTreeElement->Parent;		// Traverse up the tree
 		}
 	}
+	SetFocusToLeaf();
 	return keyProcessed;
 }

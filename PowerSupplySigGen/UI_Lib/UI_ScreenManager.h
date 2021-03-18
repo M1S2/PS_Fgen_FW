@@ -19,6 +19,7 @@ class UI_ScreenManager
 
 		public:
 		UI_ScreenManager();
+		void Init(u8g_t *u8g);
 
 		void Draw(u8g_t *u8g, bool isFirstPage);
 		void ChangeVisualTreeRoot(UIElement* visualTreeRoot);

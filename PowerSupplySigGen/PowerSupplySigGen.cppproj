@@ -541,6 +541,18 @@
     <Compile Include="UI_Lib\Page.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="UI_Lib\TabControl.cpp">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="UI_Lib\TabControl.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="UI_Lib\TabPage.cpp">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="UI_Lib\TabPage.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="UI_Lib\UIElement.h">
       <SubType>compile</SubType>
     </Compile>

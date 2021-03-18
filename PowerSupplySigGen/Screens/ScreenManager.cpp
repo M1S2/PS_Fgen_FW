@@ -29,9 +29,7 @@ void ScreenManagerClass::Init()
 	TimeCounter_SplashScreen_ms = 0;
 	
 	#ifdef DEVELOPMENT
-		u8g_SetFont(&_u8g, u8g_font_helvR08r);	// 8 pixel height font, 6 pixel width
-		u8g_SetDefaultForegroundColor(&_u8g);
-		u8g_SetFontPosTop(&_u8g);
+		UI_Test_Init(&_u8g);
 		UI_Test_BuildTree();
 	#endif
 }

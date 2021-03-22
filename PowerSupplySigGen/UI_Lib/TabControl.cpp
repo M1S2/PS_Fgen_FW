@@ -6,11 +6,12 @@
  */ 
 
 #include "TabControl.h"
+#include <string.h>
 
 TabControl::TabControl(unsigned char locX, unsigned char locY, unsigned char width, unsigned char height, unsigned char tabWidth) : UIElement(locX, locY, width, height, UI_TABCONTROL)
 {
-	_numPages = 0;
-	_selectedPageIndex = 0;
+	_numTabs = 0;
+	_selectedTabIndex = 0;
 	_tabWidth = tabWidth;
 }
 
@@ -24,9 +25,9 @@ void TabControl::Draw(u8g_t *u8g, bool isFirstPage)
 		int tabFontHeight = u8g_GetFontAscent(u8g) - u8g_GetFontDescent(u8g);
 		int tabHeight = tabFontHeight + 4;
 		
-		for(int i = 0; i < _numPages; i++)
+		for(int i = 0; i < _numTabs; i++)
 		{
-			if(i == _selectedPageIndex)
+			if(i == _selectedTabIndex)
 			{
 				u8g_DrawFrame(u8g, LocX, yTab, _tabWidth, tabHeight);
 				u8g_SetDefaultBackgroundColor(u8g);
@@ -34,11 +35,11 @@ void TabControl::Draw(u8g_t *u8g, bool isFirstPage)
 				u8g_SetDefaultForegroundColor(u8g);				
 			}
 			
-			if(_pages[i] != NULL) { u8g_DrawStr(u8g, LocX + 2, yTab + ((tabHeight - tabFontHeight) / 2), _pages[i]->Header); }
+			if(_headers[i] != NULL) { u8g_DrawStr(u8g, LocX + 2, yTab + ((tabHeight - tabFontHeight) / 2), _headers[i]); }
 			yTab+=(tabHeight + TABCONTROL_TABPAGE_MARGIN);
 		}
 		
-		_pages[_selectedPageIndex]->Draw(u8g, isFirstPage);
+		_tabContents[_selectedTabIndex]->Draw(u8g, isFirstPage);
 	}
 }
 
@@ -47,37 +48,38 @@ bool TabControl::KeyInput(Keys_t key)
 	switch (key)
 	{
 		case KEYLEFT:
-			NextPage();
+			NextTab();
 			return true;
 		case KEYRIGHT:
-			PreviousPage();
+			PreviousTab();
 			return true;
 		default:
 			return false;
 	}
 }
 
-void TabControl::AddPage(TabPage* page)
+void TabControl::AddTab(const char* header, UIElement* tabContent)
 {
-	if (_numPages >= MAX_TABCONTROL_TABPAGES) { return; }
+	if (_numTabs >= MAX_TABCONTROL_TABS) { return; }
 
-	page->Parent = this;
-	_pages[_numPages] = page;
-	_numPages++;
+	tabContent->Parent = this;
+	_tabContents[_numTabs] = tabContent;
+	strcpy(_headers[_numTabs], header);
+	_numTabs++;
 
-	if (ActiveChild == NULL) { ActiveChild = page; }
+	if (ActiveChild == NULL) { ActiveChild = tabContent; }
 }
 
-void TabControl::NextPage()
+void TabControl::NextTab()
 {
-	_selectedPageIndex++;
-	if (_selectedPageIndex >= _numPages) { _selectedPageIndex = 0; }
-	ActiveChild = _pages[_selectedPageIndex];
+	_selectedTabIndex++;
+	if (_selectedTabIndex >= _numTabs) { _selectedTabIndex = 0; }
+	ActiveChild = _tabContents[_selectedTabIndex];
 }
 
-void TabControl::PreviousPage()
+void TabControl::PreviousTab()
 {
-	_selectedPageIndex--;
-	if (_selectedPageIndex < 0) { _selectedPageIndex = _numPages - 1; }
-	ActiveChild = _pages[_selectedPageIndex];
+	_selectedTabIndex--;
+	if (_selectedTabIndex < 0) { _selectedTabIndex = _numTabs - 1; }
+	ActiveChild = _tabContents[_selectedTabIndex];
 }

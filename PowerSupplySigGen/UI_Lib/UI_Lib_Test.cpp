@@ -26,12 +26,10 @@ BoolControl boolCtrl1(40, 35, 60, 10, &boolVal1);
 EnumIndicator<TestEnum> enumInd1(115, 20, 60, 10, &enumVal1, TestEnumNames, 3);
 EnumControl<TestEnum> enumCtrl1(115, 35, 60, 10, &enumVal1, TestEnumNames, 3);
 Page page1;
-TabPage tabPage1("Tab1");
 
 Label label2(40, 5, 60, 10, "LABEL2");
 BoolControl boolCtrl2(40, 20, 60, 10, &boolVal1);
 Page page2;
-TabPage tabPage2("Tab2");
 
 TabControl tabControl(0, 0, 240, 64, 32);
 
@@ -45,14 +43,12 @@ void UI_Test_BuildTree()
 	page1.AddItem(&boolCtrl1);
 	page1.AddItem(&enumInd1);
 	page1.AddItem(&enumCtrl1);	
-	tabPage1.SetContent(&page1);
 	
 	page2.AddItem(&label2);
 	page2.AddItem(&boolCtrl2);
-	tabPage2.SetContent(&page2);
 	
-	tabControl.AddPage(&tabPage1);
-	tabControl.AddPage(&tabPage2);
+	tabControl.AddTab("Tab1", &page1);
+	tabControl.AddTab("Tab2", &page2);
 	
 	mainPage.AddItem(&tabControl);
 	mainPage.AddItem(&labelUILib);

@@ -10,27 +10,28 @@
 #define TABCONTROL_H_
 
 #include "UIElement.h"
-#include "TabPage.h"
 
-#define MAX_TABCONTROL_TABPAGES		5
+#define MAX_TABCONTROL_TABS			5
+#define MAX_HEADER_LENGTH			10
 #define TABCONTROL_TABPAGE_MARGIN	0
 
 class TabControl : public UIElement
 {
 	private:
-		TabPage* _pages[MAX_TABCONTROL_TABPAGES];
-		int _numPages;
-		int _selectedPageIndex;
+		UIElement* _tabContents[MAX_TABCONTROL_TABS];
+		char _headers[MAX_TABCONTROL_TABS][MAX_HEADER_LENGTH];
+		int _numTabs;
+		int _selectedTabIndex;
 		unsigned char _tabWidth;
 
 	public:
 		TabControl(unsigned char locX, unsigned char locY, unsigned char width, unsigned char height, unsigned char tabWidth);
 		virtual void Draw(u8g_t *u8g, bool isFirstPage) override;
 		virtual bool KeyInput(Keys_t key) override;
-
-		void AddPage(TabPage* page);
-		void NextPage();
-		void PreviousPage();
+		
+		void AddTab(const char* header, UIElement* tabContent);
+		void NextTab();
+		void PreviousTab();
 };
 
 #endif /* TABCONTROL_H_ */

@@ -17,7 +17,6 @@
 #include "EnumControl.h"
 #include "Container.h"
 #include "Page.h"
-#include "TabPage.h"
 #include "TabControl.h"
 
 #endif /* UI_ELEMENTS_H_ */

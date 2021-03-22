@@ -15,6 +15,7 @@
 #include "BoolControl.h"
 #include "EnumIndicator.h"
 #include "EnumControl.h"
+#include "NumericIndicator.h"
 #include "Container.h"
 #include "Page.h"
 #include "TabControl.h"

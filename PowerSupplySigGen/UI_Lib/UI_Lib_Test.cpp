@@ -17,7 +17,7 @@ enum TestEnum
 };
 const char* TestEnumNames[] = { "Test A", "Test B", "Test C" };
 
-UI_ScreenManager ui_ScreenManager;
+UI_Manager ui_Manager;
 bool boolVal1;
 TestEnum enumVal1;
 Label label1(40, 5, 60, 10, "LABEL1");
@@ -57,20 +57,20 @@ void UI_Test_BuildTree()
 	mainPage.AddItem(&tabControl);
 	mainPage.AddItem(&labelUILib);
 	
-	ui_ScreenManager.ChangeVisualTreeRoot(&mainPage);	
+	ui_Manager.ChangeVisualTreeRoot(&mainPage);	
 }
 
 void UI_Test_Init(u8g_t *u8g)
 {
-	ui_ScreenManager.Init(u8g);
+	ui_Manager.Init(u8g);
 }
 
 void UI_Test_Draw(u8g_t *u8g, bool isFirstPage)
 {
-	ui_ScreenManager.Draw(u8g, isFirstPage);
+	ui_Manager.Draw(u8g, isFirstPage);
 }
 
 void UI_Test_KeyInput(Keys_t key)
 {
-	ui_ScreenManager.KeyInput(key);
+	ui_Manager.KeyInput(key);
 }

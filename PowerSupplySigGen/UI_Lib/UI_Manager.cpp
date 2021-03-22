@@ -1,27 +1,27 @@
 /*
- * UI_Element.cpp
+ * UI_Manager.cpp
  *
  * Created: 12.03.2021 18:49:21
  *  Author: V17
  */ 
 
-#include "UI_ScreenManager.h"
+#include "UI_Manager.h"
 #include "UI_Elements.h"
 
-UI_ScreenManager::UI_ScreenManager()
+UI_Manager::UI_Manager()
 {
 	_visualTreeRoot = NULL;
 	_focusElement = NULL;
 }
 
-void UI_ScreenManager::Init(u8g_t *u8g)
+void UI_Manager::Init(u8g_t *u8g)
 {
 	u8g_SetFont(u8g, u8g_font_helvR08r);		// 8 pixel height font, 6 pixel width
 	u8g_SetDefaultForegroundColor(u8g);
 	u8g_SetFontPosTop(u8g);
 }
 
-void UI_ScreenManager::Draw(u8g_t *u8g, bool isFirstPage)
+void UI_Manager::Draw(u8g_t *u8g, bool isFirstPage)
 {
 	if (_visualTreeRoot == NULL) { return; }
 	
@@ -29,14 +29,14 @@ void UI_ScreenManager::Draw(u8g_t *u8g, bool isFirstPage)
 	_visualTreeRoot->Draw(u8g, isFirstPage);
 }
 
-void UI_ScreenManager::ChangeVisualTreeRoot(UIElement* visualTreeRoot)
+void UI_Manager::ChangeVisualTreeRoot(UIElement* visualTreeRoot)
 {
 	_visualTreeRoot = visualTreeRoot;
 	SetFocusToLeaf();
 }
 
 // Traverse down the visual tree until an element without a child is reached and focus this element.
-void UI_ScreenManager::SetFocusToLeaf()
+void UI_Manager::SetFocusToLeaf()
 {
 	if (_visualTreeRoot == NULL) { return; }
 	
@@ -51,7 +51,7 @@ void UI_ScreenManager::SetFocusToLeaf()
 	_focusElement = leaf;
 }
 
-bool UI_ScreenManager::KeyInput(Keys_t key)
+bool UI_Manager::KeyInput(Keys_t key)
 {
 	bool keyProcessed = false;
 	UIElement* visualTreeElement = _focusElement;

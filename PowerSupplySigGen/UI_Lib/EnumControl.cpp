@@ -8,27 +8,23 @@
 #include "EnumControl.h"
 
 template <class T>
-EnumControl<T>::EnumControl(unsigned char locX, unsigned char locY, unsigned char width, unsigned char height, T* controlValuePointer, const char** enumNames, uint8_t numEnumValues) : UIElement(locX, locY, width, height, UI_ENUMCONTROL)
+EnumControl<T>::EnumControl(unsigned char locX, unsigned char locY, unsigned char width, unsigned char height, T* valuePointer, const char** enumNames, uint8_t numEnumValues) : EnumIndicator<T>(locX, locY, width, height, valuePointer, enumNames, numEnumValues)
 {
-	_enumNames = enumNames;
-	_numEnumValues = numEnumValues;
-	_controlValuePointer = controlValuePointer;
+	this->Type = UI_ENUMINDICATOR;
 }
 
 template <class T>
 void EnumControl<T>::Draw(u8g_t *u8g, bool isFirstPage)
 {
-	if (isFirstPage) { _controlValueDraw = *_controlValuePointer; }
-
-	if (Visible)
+	if (this->Visible)
 	{
 		if (IsEditMode)
 		{
-			u8g_DrawBox(u8g, LocX, LocY, Width, Height);
+			u8g_DrawBox(u8g, this->LocX, this->LocY, this->Width, this->Height);
 			u8g_SetDefaultBackgroundColor(u8g);
 		}	
-		u8g_DrawHLine(u8g, LocX, LocY + Height, Width);	
-		u8g_DrawStr(u8g, LocX, LocY, _enumNames[_controlValueDraw]);
+		u8g_DrawHLine(u8g, this->LocX, this->LocY + this->Height, this->Width);	
+		EnumIndicator<T>::Draw(u8g, isFirstPage);
 		if(IsEditMode) { u8g_SetDefaultForegroundColor(u8g); }
 	}
 }
@@ -55,8 +51,8 @@ bool EnumControl<T>::PreviousValue()
 {
 	if (IsEditMode)
 	{
-		if (*_controlValuePointer > 0) { (*((int*)_controlValuePointer))--; }
-		else if(*_controlValuePointer == 0) { (*_controlValuePointer) = (T)(_numEnumValues - 1); }
+		if (*this->_valuePointer > 0) { (*((int*)this->_valuePointer))--; }
+		else if(*this->_valuePointer == 0) { (*this->_valuePointer) = (T)(this->_numEnumValues - 1); }
 		return true;
 	}
 	return false;
@@ -67,8 +63,8 @@ bool EnumControl<T>::NextValue()
 {
 	if (IsEditMode)
 	{
-		if(*_controlValuePointer < (_numEnumValues - 1)) { (*((int*)_controlValuePointer))++; }
-		else if(*_controlValuePointer >= (_numEnumValues - 1)) { (*_controlValuePointer) = (T)0; }
+		if(*this->_valuePointer < (this->_numEnumValues - 1)) { (*((int*)this->_valuePointer))++; }
+		else if(*this->_valuePointer >= (this->_numEnumValues - 1)) { (*this->_valuePointer) = (T)0; }
 		return true;
 	}
 	return false;

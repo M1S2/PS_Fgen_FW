@@ -9,16 +9,12 @@
 #ifndef BOOLCONTROL_H_
 #define BOOLCONTROL_H_
 
-#include "UIElement.h"
+#include "BoolIndicator.h"
 
-class BoolControl : public UIElement
+class BoolControl : public BoolIndicator
 {
-	private:
-		bool* _controlValuePointer;
-		bool _controlValueDraw;
-
 	public:
-		BoolControl(unsigned char locX, unsigned char locY, unsigned char width, unsigned char height, bool* controlValuePointer);
+		BoolControl(unsigned char locX, unsigned char locY, unsigned char width, unsigned char height, bool* valuePointer);
 		virtual void Draw(u8g_t *u8g, bool isFirstPage) override;
 		virtual bool KeyInput(Keys_t key) override;
 

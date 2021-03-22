@@ -568,10 +568,10 @@
     <Compile Include="UI_Lib\UI_Lib_Test.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="UI_Lib\UI_ScreenManager.cpp">
+    <Compile Include="UI_Lib\UI_Manager.cpp">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="UI_Lib\UI_ScreenManager.h">
+    <Compile Include="UI_Lib\UI_Manager.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="USART\USART.cpp">

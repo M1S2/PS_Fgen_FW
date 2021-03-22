@@ -7,17 +7,17 @@
 
 #include "BoolIndicator.h"
 
-BoolIndicator::BoolIndicator(unsigned char locX, unsigned char locY, unsigned char width, unsigned char height, bool* controlValuePointer) : UIElement(locX, locY, width, height, UI_BOOLINDICATOR)
+BoolIndicator::BoolIndicator(unsigned char locX, unsigned char locY, unsigned char width, unsigned char height, bool* valuePointer) : UIElement(locX, locY, width, height, UI_BOOLINDICATOR)
 {
-	_controlValuePointer = controlValuePointer;
+	_valuePointer = valuePointer;
 }
 
 void BoolIndicator::Draw(u8g_t *u8g, bool isFirstPage)
 {
-	if (isFirstPage) { _controlValue = *_controlValuePointer; }
-
 	if (Visible)
 	{	
-		u8g_DrawStr(u8g, LocX, LocY, (_controlValue ? "true" : "false"));
+		if (isFirstPage) { _valueDraw = *_valuePointer; }
+			
+		u8g_DrawStr(u8g, LocX, LocY, (_valueDraw ? "true" : "false"));
 	}
 }

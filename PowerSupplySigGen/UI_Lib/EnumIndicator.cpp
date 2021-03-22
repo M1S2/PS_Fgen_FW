@@ -8,20 +8,20 @@
 #include "EnumIndicator.h"
 
 template <class T>
-EnumIndicator<T>::EnumIndicator(unsigned char locX, unsigned char locY, unsigned char width, unsigned char height, T* controlValuePointer, const char** enumNames, uint8_t numEnumValues) : UIElement(locX, locY, width, height, UI_ENUMINDICATOR)
+EnumIndicator<T>::EnumIndicator(unsigned char locX, unsigned char locY, unsigned char width, unsigned char height, T* valuePointer, const char** enumNames, uint8_t numEnumValues) : UIElement(locX, locY, width, height, UI_ENUMINDICATOR)
 {
 	_enumNames = enumNames;
 	_numEnumValues = numEnumValues;
-	_controlValuePointer = controlValuePointer;
+	_valuePointer = valuePointer;
 }
 
 template <class T>
 void EnumIndicator<T>::Draw(u8g_t *u8g, bool isFirstPage)
 {
-	if (isFirstPage) { _controlValueDraw = *_controlValuePointer; }
-
 	if (Visible)
 	{
-		u8g_DrawStr(u8g, LocX, LocY, _enumNames[_controlValueDraw]);
+		if (isFirstPage) { _valueDraw = *_valuePointer; }
+			
+		u8g_DrawStr(u8g, LocX, LocY, _enumNames[_valueDraw]);
 	}
 }

@@ -9,21 +9,15 @@
 #ifndef ENUMCONTROL_H_
 #define ENUMCONTROL_H_
 
-#include "UIElement.h"
+#include "EnumIndicator.h"
 
 template <class T>
-class EnumControl : public UIElement
-{
-	private:
-		const char** _enumNames;
-		uint8_t _numEnumValues;
-		T* _controlValuePointer;
-		T _controlValueDraw;				// This variable is updated from the _controlValue on each draw of the first page.
-		
+class EnumControl : public EnumIndicator<T>
+{	
 	public:
 		bool IsEditMode;
 	
-		EnumControl(unsigned char locX, unsigned char locY, unsigned char width, unsigned char height, T* controlValuePointer, const char** enumNames, uint8_t numEnumValues);
+		EnumControl(unsigned char locX, unsigned char locY, unsigned char width, unsigned char height, T* valuePointer, const char** enumNames, uint8_t numEnumValues);
 		virtual void Draw(u8g_t *u8g, bool isFirstPage) override;
 		virtual bool KeyInput(Keys_t key) override;
 			

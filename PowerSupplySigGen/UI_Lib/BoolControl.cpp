@@ -7,19 +7,17 @@
 
 #include "BoolControl.h"
 
-BoolControl::BoolControl(unsigned char locX, unsigned char locY, unsigned char width, unsigned char height, bool* controlValuePointer) : UIElement(locX, locY, width, height, UI_BOOLCONTROL)
+BoolControl::BoolControl(unsigned char locX, unsigned char locY, unsigned char width, unsigned char height, bool* valuePointer) : BoolIndicator(locX, locY, width, height, valuePointer)
 {
-	_controlValuePointer = controlValuePointer;
+	Type = UI_BOOLCONTROL;
 }
 
 void BoolControl::Draw(u8g_t *u8g, bool isFirstPage)
 {
-	if (isFirstPage) { _controlValueDraw = *_controlValuePointer; }
-
 	if (Visible)
 	{
+		BoolIndicator::Draw(u8g, isFirstPage);
 		u8g_DrawHLine(u8g, LocX, LocY + Height, Width);
-		u8g_DrawStr(u8g, LocX, LocY, (_controlValueDraw ? "true" : "false"));
 	}
 }
 
@@ -37,5 +35,5 @@ bool BoolControl::KeyInput(Keys_t key)
 
 void BoolControl::ToggleValue()
 {
-	(*_controlValuePointer) = !(*_controlValuePointer);
+	(*_valuePointer) = !(*_valuePointer);
 }

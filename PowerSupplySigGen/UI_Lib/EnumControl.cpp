@@ -23,8 +23,10 @@ void EnumControl<T>::Draw(u8g_t *u8g, bool isFirstPage)
 			u8g_DrawBox(u8g, this->LocX, this->LocY, this->Width, this->Height);
 			u8g_SetDefaultBackgroundColor(u8g);
 		}	
-		u8g_DrawHLine(u8g, this->LocX, this->LocY + this->Height, this->Width);	
+		else { u8g_DrawHLine(u8g, this->LocX, this->LocY + this->Height, this->Width); }
+				
 		EnumIndicator<T>::Draw(u8g, isFirstPage);
+		
 		if(IsEditMode) { u8g_SetDefaultForegroundColor(u8g); }
 	}
 }
@@ -35,9 +37,9 @@ bool EnumControl<T>::KeyInput(Keys_t key)
 	switch (key)
 	{
 		case KEYUP:
-			return PreviousValue();
-		case KEYDOWN:
 			return NextValue();
+		case KEYDOWN:
+			return PreviousValue();
 		case KEYOK:
 			ToggleEditMode();
 			return true;

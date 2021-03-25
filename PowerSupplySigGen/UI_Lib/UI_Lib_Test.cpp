@@ -9,6 +9,7 @@
 #include "EnumControl.cpp"
 #include "EnumIndicator.cpp"
 #include "NumericIndicator.cpp"
+#include "NumericControl.cpp"
 
 enum TestEnum
 {
@@ -32,8 +33,9 @@ Page page1;
 
 Label label2(40, 5, 60, 10, "LABEL2");
 BoolControl boolCtrl2(40, 20, 60, 10, &boolVal1);
-NumericIndicator<float> numInd1(115, 20, 60, 10, &numVal1, "V", 3, 3);
-NumericIndicator<int> numInd2(40, 35, 60, 10, &numVal2, "A", 5, 0);
+NumericIndicator<float> numInd1(115, 20, 60, 10, &numVal1, "V", 2000, 3);
+NumericControl<float> numCtrl1(115, 35, 60, 10, &numVal1, "V", -10, 2000, 3);
+NumericIndicator<int> numInd2(40, 35, 60, 10, &numVal2, "A", 5000, 0);
 Page page2;
 
 TabControl tabControl(0, 0, 240, 64, 32);
@@ -52,6 +54,7 @@ void UI_Test_BuildTree()
 	page2.AddItem(&label2);
 	page2.AddItem(&boolCtrl2);
 	page2.AddItem(&numInd1);
+	page2.AddItem(&numCtrl1);
 	page2.AddItem(&numInd2);
 	
 	tabControl.AddTab("Tab1", &page1);

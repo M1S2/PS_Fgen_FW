@@ -26,10 +26,10 @@ ISR(INT0_vect)
 {
 	if(!BIT_IS_CLEARED(PIND, ENC_B))
 	{
-		Device.UserInputHandler.EnqueueKeyInput(KEYDOWN);
+		Device.UserInputHandler.EnqueueKeyInput(KEYUP);
 	}
 	else
 	{
-		Device.UserInputHandler.EnqueueKeyInput(KEYUP);
+		Device.UserInputHandler.EnqueueKeyInput(KEYDOWN);
 	}
 }

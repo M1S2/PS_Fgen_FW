@@ -33,4 +33,6 @@ typedef enum Keys
 	KEYOK
 }Keys_t;
 
+unsigned char Keys_GetKeyNumInt(Keys_t key);
+
 #endif /* KEYS_H_ */

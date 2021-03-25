@@ -25,10 +25,10 @@ bool Page::KeyInput(Keys_t key)
 	switch (key)
 	{
 		case KEYUP:
-			PreviousItem();
+			NextItem();
 			return true;
 		case KEYDOWN:
-			NextItem();
+			PreviousItem();
 			return true;
 		default:
 			return false;

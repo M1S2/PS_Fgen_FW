@@ -10,6 +10,8 @@
 #include <stdio.h>
 #include <math.h>
 
+#include <stdlib.h>
+
 template <class T>
 void NumericIndicator<T>::calculateDisplayValue()
 {
@@ -19,9 +21,10 @@ void NumericIndicator<T>::calculateDisplayValue()
 	_displayValue = (float)_valueDraw;
 	_unitPrefixPower = 0;
 
-	if (_displayValue == 0)
+	if (fabs(_displayValue) < pow(10, -_numFractionalDigits))
 	{
-		/* Nothing to do here. Values are set above. */
+		_displayValue = 0;
+		/* _unitPrefixPower is set above. */
 	}
 	else if (fabs(_displayValue) >= 1000)
 	{
@@ -43,15 +46,30 @@ void NumericIndicator<T>::calculateDisplayValue()
 	_unitPrefix = (_unitPrefixPower == -3 ? "m" : (_unitPrefixPower == 0 ? "" : (_unitPrefixPower == 3 ? "k" : (_unitPrefixPower == 6 ? "M" : ""))));
 }
 
+// https://stackoverflow.com/questions/1489830/efficient-way-to-determine-number-of-digits-in-an-integer
+template <class T>
+int NumericIndicator<T>::numNonFractionalDigits(T number)
+{
+	int digits = 0;
+	//if (number < 0) digits = 1; // remove this line if '-' counts as a digit
+	while (fabs(number) >= 1)
+	{
+		number /= 10;
+		digits++;
+	}
+	return digits;
+}
+
 
 template <class T>
-NumericIndicator<T>::NumericIndicator(unsigned char locX, unsigned char locY, unsigned char width, unsigned char height, T* valuePointer, const char* baseUnit, unsigned char numNonFractionalDigits, unsigned char numFractionalDigits) : UIElement(locX, locY, width, height, UI_NUMERICINDICATOR)
+NumericIndicator<T>::NumericIndicator(unsigned char locX, unsigned char locY, unsigned char width, unsigned char height, T* valuePointer, const char* baseUnit, T maxValue, unsigned char numFractionalDigits) : UIElement(locX, locY, width, height, UI_NUMERICINDICATOR)
 {
 	_valuePointer = valuePointer;
 	_baseUnit = baseUnit;
 	_unitPrefix = "";
-	_numNonFractionalDigits = numNonFractionalDigits;
+	_maxValue = maxValue;
 	_numFractionalDigits = numFractionalDigits;
+	_numDigits = _numFractionalDigits + numNonFractionalDigits(maxValue);
 }
 
 template <class T>
@@ -65,15 +83,13 @@ void NumericIndicator<T>::Draw(u8g_t *u8g, bool isFirstPage)
 
 		//https://stackoverflow.com/questions/5932214/printf-string-variable-length-item
 		char formatStringBuffer[10];
-		sprintf(formatStringBuffer, "%%0%d.%df%s%s", _numNonFractionalDigits + _numFractionalDigits + 1 + (_numFractionalDigits > 0 ? 1 : 0), _numFractionalDigits, _unitPrefix, _baseUnit);	// if _numFractionalDigits is 0, no decimal point is used (one character less)
+		sprintf(formatStringBuffer, "%%0%d.%df%s%s", _numDigits + (_numFractionalDigits > 0 ? 1 : 0), _numFractionalDigits + _unitPrefixPower, _unitPrefix, _baseUnit);	// if _numFractionalDigits is 0, no decimal point is used (one character less)
 
-		char stringBufferLen = _numFractionalDigits + _numNonFractionalDigits + 1 + strlen(_unitPrefix) + strlen(_baseUnit) + 1;
+		char stringBufferLen = _numDigits + 1 + strlen(_unitPrefix) + strlen(_baseUnit) + 1;
 		char stringBuffer[stringBufferLen];
 		sprintf(stringBuffer, formatStringBuffer, fabs(_displayValue));
 		
-		if (_displayValue < 0) { stringBuffer[0] = '-'; }
-		else { stringBuffer[0] = ' '; }
-
-		u8g_DrawStr(u8g, LocX, LocY, stringBuffer);
+		u8g_DrawStr(u8g, LocX + 5, LocY, stringBuffer);						// Draw value without minus sign
+		if (_displayValue < 0) { u8g_DrawStr(u8g, LocX, LocY, "-"); }		// Draw minus sign	
 	}
 }

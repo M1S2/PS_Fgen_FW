@@ -11,12 +11,33 @@
 Label::Label(unsigned char locX, unsigned char locY, unsigned char width, unsigned char height, const char* text) : UIElement(locX, locY, width, height, UI_LABEL)
 {
 	strcpy(Text, text);
+	_font = NULL;
+}
+
+Label::Label(unsigned char locX, unsigned char locY, unsigned char width, unsigned char height, const char* text, const u8g_fntpgm_uint8_t* font) : UIElement(locX, locY, width, height, UI_LABEL)
+{
+	strcpy(Text, text);
+	_font = font;
 }
 
 void Label::Draw(u8g_t *u8g, bool isFirstPage)
 {
 	if (Visible)
 	{
+		const u8g_fntpgm_uint8_t* tmp_font;
+		if(_font != NULL) 
+		{
+			tmp_font = u8g->font;
+			u8g_SetFont(u8g, _font);
+			u8g_SetFontPosTop(u8g);
+		}
+		
 		u8g_DrawStr(u8g, LocX, LocY, Text);
+		
+		if(_font !=NULL) 
+		{ 
+			u8g_SetFont(u8g, tmp_font); 
+			u8g_SetFontPosTop(u8g); 
+		}
 	}
 }

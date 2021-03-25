@@ -41,7 +41,7 @@ Page page2;
 TabControl tabControl(0, 0, 240, 64, 32);
 
 Page mainPage;
-Label labelUILib(205, 5, 60, 10, "UI LIB");
+Label labelUILib(195, 5, 60, 10, "UI LIB", u8g_font_ncenB08r);
 
 void UI_Test_BuildTree()
 {

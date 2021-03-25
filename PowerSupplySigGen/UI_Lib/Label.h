@@ -15,10 +15,14 @@
 
 class Label : public UIElement
 {
+	private:
+		const u8g_fntpgm_uint8_t* _font;
+	
 	public:
 		char Text[MAX_LABEL_STRING_LENGTH];
 
 		Label(unsigned char locX, unsigned char locY, unsigned char width, unsigned char height, const char* text);
+		Label(unsigned char locX, unsigned char locY, unsigned char width, unsigned char height, const char* text, const u8g_fntpgm_uint8_t* font);
 		virtual void Draw(u8g_t *u8g, bool isFirstPage) override;
 };
 

@@ -28,8 +28,9 @@ int numVal2 = 123;
 Label label1(40, 5, 60, 10, "LABEL1");
 BoolIndicator boolInd1(40, 20, 60, 10, &boolVal1);
 BoolControl boolCtrl1(40, 35, 60, 10, &boolVal1);
-EnumIndicator<TestEnum> enumInd1(115, 20, 60, 10, &enumVal1, TestEnumNames, 3);
-EnumControl<TestEnum> enumCtrl1(115, 35, 60, 10, &enumVal1, TestEnumNames, 3);
+EnumIndicator<TestEnum> enumInd1(132, 20, 60, 10, &enumVal1, TestEnumNames, 3);
+EnumControl<TestEnum> enumCtrl1(132, 35, 60, 10, &enumVal1, TestEnumNames, 3);
+Icon enumCtrl1Icon(115, 35, ui_icon_speed_width, ui_icon_speed_height, ui_icon_speed_bits);
 Page page1;
 
 Label label2(40, 5, 60, 10, "LABEL2");
@@ -52,7 +53,8 @@ void UI_Test_BuildTree()
 	page1.AddItem(&boolInd1);
 	page1.AddItem(&boolCtrl1);
 	page1.AddItem(&enumInd1);
-	page1.AddItem(&enumCtrl1);	
+	page1.AddItem(&enumCtrl1);
+	page1.AddItem(&enumCtrl1Icon);	
 	
 	page2.AddItem(&label2);
 	page2.AddItem(&boolCtrl2);
@@ -63,6 +65,7 @@ void UI_Test_BuildTree()
 	
 	tabControl.AddTab("Tab1", &page1);
 	tabControl.AddTab("Tab2", &page2);
+	tabControl.SelectTab(1);
 	
 	mainPage.AddItem(&tabControl);
 	mainPage.AddItem(&labelUILib);

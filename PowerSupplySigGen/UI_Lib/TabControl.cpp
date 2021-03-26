@@ -73,13 +73,25 @@ void TabControl::AddTab(const char* header, UIElement* tabContent)
 void TabControl::NextTab()
 {
 	_selectedTabIndex++;
-	if (_selectedTabIndex >= _numTabs) { _selectedTabIndex = 0; }
-	ActiveChild = _tabContents[_selectedTabIndex];
+	SelectTab(_selectedTabIndex);
 }
 
 void TabControl::PreviousTab()
 {
 	_selectedTabIndex--;
-	if (_selectedTabIndex < 0) { _selectedTabIndex = _numTabs - 1; }
+	SelectTab(_selectedTabIndex);
+}
+
+void TabControl::SelectTab(int index)
+{	
+	_selectedTabIndex = index;
+	if (_selectedTabIndex >= _numTabs) { _selectedTabIndex = 0; }
+	else if (_selectedTabIndex < 0) { _selectedTabIndex = _numTabs - 1; }
+	
 	ActiveChild = _tabContents[_selectedTabIndex];
+}
+
+int TabControl::GetSelectedTabIndex()
+{
+	return _selectedTabIndex;
 }

@@ -32,6 +32,8 @@ class TabControl : public UIElement
 		void AddTab(const char* header, UIElement* tabContent);
 		void NextTab();
 		void PreviousTab();
+		void SelectTab(int index);
+		int GetSelectedTabIndex();
 };
 
 #endif /* TABCONTROL_H_ */

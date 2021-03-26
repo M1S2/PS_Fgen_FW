@@ -10,6 +10,7 @@
 #include "EnumIndicator.cpp"
 #include "NumericIndicator.cpp"
 #include "NumericControl.cpp"
+#include "ProgressBar.cpp"
 
 enum TestEnum
 {
@@ -36,6 +37,7 @@ BoolControl boolCtrl2(40, 20, 60, 10, &boolVal1);
 NumericIndicator<float> numInd1(115, 20, 60, 10, &numVal1, "V", 2000, 3);
 NumericControl<float> numCtrl1(115, 35, 60, 10, &numVal1, "V", -10, 2000, 3);
 NumericIndicator<int> numInd2(40, 35, 60, 10, &numVal2, "A", 5000, 0);
+ProgressBar<float> progress1(115, 50, 100, 10, &numVal1, -10, 2000, PROGRESSBAR_ORIGIN_ZERO, 0);
 Page page2;
 
 TabControl tabControl(0, 0, 240, 64, 32);
@@ -56,6 +58,7 @@ void UI_Test_BuildTree()
 	page2.AddItem(&numInd1);
 	page2.AddItem(&numCtrl1);
 	page2.AddItem(&numInd2);
+	page2.AddItem(&progress1);
 	
 	tabControl.AddTab("Tab1", &page1);
 	tabControl.AddTab("Tab2", &page2);

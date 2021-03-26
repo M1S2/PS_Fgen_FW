@@ -557,6 +557,12 @@
     <Compile Include="UI_Lib\Page.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="UI_Lib\ProgressBar.cpp">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="UI_Lib\ProgressBar.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="UI_Lib\TabControl.cpp">
       <SubType>compile</SubType>
     </Compile>

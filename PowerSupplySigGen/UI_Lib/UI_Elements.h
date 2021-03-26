@@ -20,5 +20,6 @@
 #include "Container.h"
 #include "Page.h"
 #include "TabControl.h"
+#include "Icon.h"
 
 #endif /* UI_ELEMENTS_H_ */

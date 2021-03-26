@@ -527,6 +527,12 @@
     <Compile Include="UI_Lib\EnumIndicator.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="UI_Lib\Icon.cpp">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="UI_Lib\Icon.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="UI_Lib\Keys.cpp">
       <SubType>compile</SubType>
     </Compile>

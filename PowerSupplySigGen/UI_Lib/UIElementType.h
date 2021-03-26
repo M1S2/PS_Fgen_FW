@@ -23,6 +23,7 @@ enum UIElementType
 	UI_CONTAINER,
 	UI_PAGE,
 	UI_LIST,
+	UI_ICON
 };
 
 #endif /* UIELEMENTTYPE_H_ */

@@ -44,6 +44,7 @@ TabControl tabControl(0, 0, 240, 64, 32);
 
 Page mainPage;
 Label labelUILib(195, 5, 60, 10, "UI LIB", u8g_font_ncenB08r);
+Icon speedIcon(195, 20, ui_icon_speed_width, ui_icon_speed_height, ui_icon_speed_bits);
 
 void UI_Test_BuildTree()
 {
@@ -65,6 +66,7 @@ void UI_Test_BuildTree()
 	
 	mainPage.AddItem(&tabControl);
 	mainPage.AddItem(&labelUILib);
+	mainPage.AddItem(&speedIcon);
 	
 	ui_Manager.ChangeVisualTreeRoot(&mainPage);	
 }

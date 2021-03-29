@@ -9,7 +9,7 @@
 
 BoolControl::BoolControl(unsigned char locX, unsigned char locY, unsigned char width, unsigned char height, bool* valuePointer) : BoolIndicator(locX, locY, width, height, valuePointer)
 {
-	Type = UI_BOOLCONTROL;
+	Type = UI_CONTROL;
 }
 
 void BoolControl::Draw(u8g_t *u8g, bool isFirstPage)

@@ -8,7 +8,7 @@
 #include "EnumIndicator.h"
 
 template <class T>
-EnumIndicator<T>::EnumIndicator(unsigned char locX, unsigned char locY, unsigned char width, unsigned char height, T* valuePointer, const char** enumNames, uint8_t numEnumValues) : UIElement(locX, locY, width, height, UI_ENUMINDICATOR)
+EnumIndicator<T>::EnumIndicator(unsigned char locX, unsigned char locY, unsigned char width, unsigned char height, T* valuePointer, const char** enumNames, uint8_t numEnumValues) : UIElement(locX, locY, width, height, UI_INDICATOR)
 {
 	_enumNames = enumNames;
 	_numEnumValues = numEnumValues;

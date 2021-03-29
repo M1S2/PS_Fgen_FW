@@ -515,6 +515,12 @@
     <Compile Include="UI_Lib\Container.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="UI_Lib\ContainerList.cpp">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="UI_Lib\ContainerList.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="UI_Lib\EnumControl.cpp">
       <SubType>compile</SubType>
     </Compile>
@@ -557,10 +563,10 @@
     <Compile Include="UI_Lib\NumericIndicator.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="UI_Lib\Page.cpp">
+    <Compile Include="UI_Lib\ContainerPage.cpp">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="UI_Lib\Page.h">
+    <Compile Include="UI_Lib\ContainerPage.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="UI_Lib\ProgressBar.cpp">

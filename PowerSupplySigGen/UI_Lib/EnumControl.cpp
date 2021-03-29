@@ -10,7 +10,7 @@
 template <class T>
 EnumControl<T>::EnumControl(unsigned char locX, unsigned char locY, unsigned char width, unsigned char height, T* valuePointer, const char** enumNames, uint8_t numEnumValues) : EnumIndicator<T>(locX, locY, width, height, valuePointer, enumNames, numEnumValues)
 {
-	this->Type = UI_ENUMINDICATOR;
+	this->Type = UI_CONTROL;
 }
 
 template <class T>

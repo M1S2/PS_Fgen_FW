@@ -7,7 +7,7 @@
 
 #include "Icon.h"
 
-Icon::Icon(unsigned char locX, unsigned char locY, unsigned char iconWidth, unsigned char iconHeight, const u8g_pgm_uint8_t* iconBits) : UIElement(locX, locY, iconWidth, iconHeight, UI_ICON)
+Icon::Icon(unsigned char locX, unsigned char locY, unsigned char iconWidth, unsigned char iconHeight, const u8g_pgm_uint8_t* iconBits) : UIElement(locX, locY, iconWidth, iconHeight, UI_INDICATOR)
 {
 	_iconBits = iconBits;
 }

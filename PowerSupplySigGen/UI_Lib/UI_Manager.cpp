@@ -25,7 +25,10 @@ void UI_Manager::Draw(u8g_t *u8g, bool isFirstPage)
 {
 	if (_visualTreeRoot == NULL) { return; }
 	
-	if(_focusElement != NULL) { u8g_DrawFrame(u8g, _focusElement->LocX - 1, _focusElement->LocY - 1, _focusElement->Width + 2, _focusElement->Height + 2); }
+	if(_focusElement != NULL && _focusElement->Visible && _focusElement->Type != UI_INDICATOR) 
+	{ 
+		u8g_DrawFrame(u8g, _focusElement->LocX - 1, _focusElement->LocY - 1, _focusElement->Width + 2, _focusElement->Height + 2); 
+	}
 	_visualTreeRoot->Draw(u8g, isFirstPage);
 }
 

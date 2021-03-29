@@ -11,7 +11,7 @@
 template <class T>
 NumericControl<T>::NumericControl(unsigned char locX, unsigned char locY, unsigned char width, unsigned char height, T* valuePointer, const char* baseUnit, T minValue, T maxValue, int numFractionalDigits) : NumericIndicator<T>(locX, locY, width, height, valuePointer, baseUnit, maxValue, numFractionalDigits)
 {
-	this->Type = UI_NUMERICCONTROL;
+	this->Type = UI_CONTROL;
 	IsEditMode = false;
 	_currentDigitPosition = 0;
 	_minValue = minValue;

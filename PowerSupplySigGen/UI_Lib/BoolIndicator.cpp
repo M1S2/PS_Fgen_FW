@@ -7,7 +7,7 @@
 
 #include "BoolIndicator.h"
 
-BoolIndicator::BoolIndicator(unsigned char locX, unsigned char locY, unsigned char width, unsigned char height, bool* valuePointer) : UIElement(locX, locY, width, height, UI_BOOLINDICATOR)
+BoolIndicator::BoolIndicator(unsigned char locX, unsigned char locY, unsigned char width, unsigned char height, bool* valuePointer) : UIElement(locX, locY, width, height, UI_INDICATOR)
 {
 	_valuePointer = valuePointer;
 }

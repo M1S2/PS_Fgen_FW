@@ -12,6 +12,11 @@ Container::Container() : UIElement(UI_CONTAINER)
 	_numItems = 0;
 }
 
+UIElement* Container::GetSelectedItem()
+{
+	return _items[_selectedItemIndex];
+}
+
 void Container::AddItem(UIElement* item)
 {
 	if (_numItems >= MAX_CONTAINER_ITEMS) { return; }

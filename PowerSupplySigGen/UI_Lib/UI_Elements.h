@@ -18,7 +18,8 @@
 #include "NumericIndicator.h"
 #include "NumericControl.h"
 #include "Container.h"
-#include "Page.h"
+#include "ContainerPage.h"
+#include "ContainerList.h"
 #include "TabControl.h"
 #include "Icon.h"
 

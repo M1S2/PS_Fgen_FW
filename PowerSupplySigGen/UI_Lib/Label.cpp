@@ -8,13 +8,13 @@
 #include "Label.h"
 #include <string.h>
 
-Label::Label(unsigned char locX, unsigned char locY, unsigned char width, unsigned char height, const char* text) : UIElement(locX, locY, width, height, UI_LABEL)
+Label::Label(unsigned char locX, unsigned char locY, unsigned char width, unsigned char height, const char* text) : UIElement(locX, locY, width, height, UI_INDICATOR)
 {
 	strcpy(Text, text);
 	_font = NULL;
 }
 
-Label::Label(unsigned char locX, unsigned char locY, unsigned char width, unsigned char height, const char* text, const u8g_fntpgm_uint8_t* font) : UIElement(locX, locY, width, height, UI_LABEL)
+Label::Label(unsigned char locX, unsigned char locY, unsigned char width, unsigned char height, const char* text, const u8g_fntpgm_uint8_t* font) : UIElement(locX, locY, width, height, UI_INDICATOR)
 {
 	strcpy(Text, text);
 	_font = font;

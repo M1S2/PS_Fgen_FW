@@ -12,9 +12,13 @@
 #include "BoolIndicator.h"
 
 class BoolControl : public BoolIndicator
-{
+{	
+	private:
+		void* _controlContext;							// Context pointer that is returned with the _onValueChanged function pointer
+		void(*_onValueChanged)(void* controlContext);	// Function pointer for _onValueChanged event
+	
 	public:
-		BoolControl(unsigned char locX, unsigned char locY, unsigned char width, unsigned char height, bool* valuePointer);
+		BoolControl(unsigned char locX, unsigned char locY, unsigned char width, unsigned char height, bool* valuePointer, void* controlContext = NULL, void(*onValueChanged)(void* controlContext) = NULL);
 		virtual void Draw(u8g_t *u8g, bool isFirstPage) override;
 		virtual bool KeyInput(Keys_t key) override;
 

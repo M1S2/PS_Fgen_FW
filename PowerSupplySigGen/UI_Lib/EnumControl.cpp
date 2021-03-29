@@ -8,9 +8,11 @@
 #include "EnumControl.h"
 
 template <class T>
-EnumControl<T>::EnumControl(unsigned char locX, unsigned char locY, unsigned char width, unsigned char height, T* valuePointer, const char** enumNames, uint8_t numEnumValues) : EnumIndicator<T>(locX, locY, width, height, valuePointer, enumNames, numEnumValues)
+EnumControl<T>::EnumControl(unsigned char locX, unsigned char locY, unsigned char width, unsigned char height, T* valuePointer, const char** enumNames, uint8_t numEnumValues, void* controlContext, void(*onValueChanged)(void* controlContext)) : EnumIndicator<T>(locX, locY, width, height, valuePointer, enumNames, numEnumValues)
 {
 	this->Type = UI_CONTROL;
+	_controlContext = controlContext;
+	_onValueChanged = onValueChanged;
 }
 
 template <class T>
@@ -55,6 +57,8 @@ bool EnumControl<T>::PreviousValue()
 	{
 		if (*this->_valuePointer > 0) { (*((int*)this->_valuePointer))--; }
 		else if(*this->_valuePointer == 0) { (*this->_valuePointer) = (T)(this->_numEnumValues - 1); }
+			
+		if (_onValueChanged != NULL) { _onValueChanged(_controlContext); }
 		return true;
 	}
 	return false;
@@ -67,6 +71,8 @@ bool EnumControl<T>::NextValue()
 	{
 		if(*this->_valuePointer < (this->_numEnumValues - 1)) { (*((int*)this->_valuePointer))++; }
 		else if(*this->_valuePointer >= (this->_numEnumValues - 1)) { (*this->_valuePointer) = (T)0; }
+		
+		if (_onValueChanged != NULL) { _onValueChanged(_controlContext); }
 		return true;
 	}
 	return false;

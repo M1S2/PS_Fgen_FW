@@ -26,9 +26,13 @@ TestEnum enumVal1;
 float numVal1 = 23.456;
 int numVal2 = 123;
 
+void OnBoolVal1Changed(void* context);
+void OnNumVal1Changed(void* context);
+
 Label labelBool(40, 5, 60, 10, "Boolean");
 BoolIndicator boolInd1(40, 20, 60, 10, &boolVal1);
-BoolControl boolCtrl1(40, 35, 60, 10, &boolVal1);
+BoolControl boolCtrl1(40, 35, 60, 10, &boolVal1, &boolVal1, &OnBoolVal1Changed);
+Icon infoIcon(120, 5, icon_info_width, icon_info_height, icon_info_bits);
 ContainerPage page_boolean;
 Label labelEnum(40, 5, 60, 10, "Enumerations");
 EnumIndicator<TestEnum> enumInd1(58, 20, 60, 10, &enumVal1, TestEnumNames, 3);
@@ -40,7 +44,7 @@ ContainerList list1(40, 0, 240 - 40, 64);
 Label labelNum(40, 5, 60, 10, "Numerics");
 NumericIndicator<int> numInd2(40, 20, 60, 10, &numVal2, "A", 5000, 0);
 NumericIndicator<float> numInd1(115, 20, 60, 10, &numVal1, "V", 2000, 3);
-NumericControl<float> numCtrl1(115, 35, 60, 10, &numVal1, "V", -10, 2000, 3);
+NumericControl<float> numCtrl1(115, 35, 60, 10, &numVal1, "V", -10, 2000, 3, &numVal1, &OnNumVal1Changed);
 ProgressBar<float> progress1(115, 50, 100, 10, &numVal1, -10, 2000, PROGRESSBAR_ORIGIN_ZERO, 0);
 ContainerPage page_numeric;
 
@@ -50,11 +54,23 @@ ContainerPage mainPage;
 Label labelUILib(185, 5, 60, 10, "UI LIB", u8g_font_ncenB08r);
 Icon speedIcon(185, 20, ui_icon_speed_width, ui_icon_speed_height, ui_icon_speed_bits);
 
+void OnBoolVal1Changed(void* context)
+{
+	bool boolVal = *((bool*)context);
+	speedIcon.Visible = boolVal;
+}
+
+void OnNumVal1Changed(void* context)
+{
+	numVal2++;	
+}
+
 void UI_Test_BuildTree()
 {
 	page_boolean.AddItem(&labelBool);
 	page_boolean.AddItem(&boolInd1);
 	page_boolean.AddItem(&boolCtrl1);
+	page_boolean.AddItem(&infoIcon);
 	page_boolean.InitItems();
 	page_enum.AddItem(&labelEnum);
 	page_enum.AddItem(&enumInd1);

@@ -9,12 +9,14 @@
 #include <math.h>
 
 template <class T>
-NumericControl<T>::NumericControl(unsigned char locX, unsigned char locY, unsigned char width, unsigned char height, T* valuePointer, const char* baseUnit, T minValue, T maxValue, int numFractionalDigits) : NumericIndicator<T>(locX, locY, width, height, valuePointer, baseUnit, maxValue, numFractionalDigits)
+NumericControl<T>::NumericControl(unsigned char locX, unsigned char locY, unsigned char width, unsigned char height, T* valuePointer, const char* baseUnit, T minValue, T maxValue, int numFractionalDigits, void* controlContext, void(*onValueChanged)(void* controlContext)) : NumericIndicator<T>(locX, locY, width, height, valuePointer, baseUnit, maxValue, numFractionalDigits)
 {
 	this->Type = UI_CONTROL;
 	IsEditMode = false;
 	_currentDigitPosition = 0;
 	_minValue = minValue;
+	_controlContext = controlContext;
+	_onValueChanged = onValueChanged;
 }
 
 template <class T>
@@ -107,6 +109,8 @@ bool NumericControl<T>::KeyKilo()
 	{
 		float multiplicator = pow(10, 3 - this->_unitPrefixPower);
 		(*this->_valuePointer) = coerceValue((*this->_valuePointer) * multiplicator);
+		
+		if (_onValueChanged != NULL && multiplicator != 1) { _onValueChanged(_controlContext); }
 		return true;
 	}
 	return false;
@@ -119,6 +123,8 @@ bool NumericControl<T>::KeyMilli()
 	{
 		float multiplicator = pow(10, -3 - this->_unitPrefixPower);
 		(*this->_valuePointer) = coerceValue((*this->_valuePointer) * multiplicator);
+		
+		if (_onValueChanged != NULL && multiplicator != 1) { _onValueChanged(_controlContext); }
 		return true;
 	}
 	return false;
@@ -131,6 +137,8 @@ bool NumericControl<T>::KeyComma()			// Is used as x1 key
 	{
 		float multiplicator = pow(10, 0 - this->_unitPrefixPower);
 		(*this->_valuePointer) = coerceValue((*this->_valuePointer) * multiplicator);
+		
+		if (_onValueChanged != NULL && multiplicator != 1) { _onValueChanged(_controlContext); }
 		return true;
 	}
 	return false;
@@ -142,6 +150,8 @@ bool NumericControl<T>::KeyMinus()
 	if (IsEditMode)
 	{
 		(*this->_valuePointer) = coerceValue(-(*this->_valuePointer));
+		
+		if (_onValueChanged != NULL && (*this->_valuePointer) != 0) { _onValueChanged(_controlContext); }
 		return true;
 	}
 	return false;
@@ -152,12 +162,15 @@ bool NumericControl<T>::KeyNumeric(Keys_t key)
 {
 	if (IsEditMode)
 	{
+		T oldValue = *this->_valuePointer;
+		
 		unsigned char keyNum = Keys_GetKeyNumInt(key);
-		unsigned char digit = extractDigit(*this->_valuePointer, _currentDigitPosition);
+		unsigned char digit = extractDigit(oldValue, _currentDigitPosition);
 		float multiplicator = pow(10, _currentDigitPosition);
-		(*this->_valuePointer) = coerceValue((*this->_valuePointer) - (digit * multiplicator) + (keyNum * multiplicator));
+		(*this->_valuePointer) = coerceValue(oldValue - (digit * multiplicator) + (keyNum * multiplicator));
 		if (_currentDigitPosition > -this->_numFractionalDigits) { _currentDigitPosition--; }	// Move cursor right
 
+		if (_onValueChanged != NULL && oldValue != (*this->_valuePointer)) { _onValueChanged(_controlContext); }
 		return true;
 	}
 	return false;
@@ -170,6 +183,8 @@ bool NumericControl<T>::ValueUp()
 	{
 		float deltaValue = pow(10, _currentDigitPosition);
 		(*this->_valuePointer) = coerceValue((*this->_valuePointer) + deltaValue);
+		
+		if (_onValueChanged != NULL && deltaValue != 0) { _onValueChanged(_controlContext); }
 		return true;
 	}
 	return false;
@@ -182,6 +197,8 @@ bool NumericControl<T>::ValueDown()
 	{
 		float deltaValue = pow(10, _currentDigitPosition);
 		(*this->_valuePointer) = coerceValue((*this->_valuePointer) - deltaValue);
+		
+		if (_onValueChanged != NULL && deltaValue != 0) { _onValueChanged(_controlContext); }
 		return true;
 	}
 	return false;

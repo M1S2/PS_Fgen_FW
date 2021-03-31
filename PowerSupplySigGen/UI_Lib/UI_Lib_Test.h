@@ -9,9 +9,8 @@
 #ifndef UI_LIB_TEST_H_
 #define UI_LIB_TEST_H_
 
-#include "UI_Manager.h"
-#include "UI_Elements.h"
-#include "../KeyPad/KeyPad.h"
+#include "Core/UI_Manager.h"
+#include "Core/UI_Elements.h"
 
 void UI_Test_Init(u8g_t *u8g);
 void UI_Test_BuildTree();

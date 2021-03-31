@@ -9,7 +9,7 @@
 #ifndef BOOLINDICATOR_H_
 #define BOOLINDICATOR_H_
 
-#include "UIElement.h"
+#include "../Core/UIElement.h"
 
 class BoolIndicator : public UIElement
 {

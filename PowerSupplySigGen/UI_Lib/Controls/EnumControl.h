@@ -9,7 +9,7 @@
 #ifndef ENUMCONTROL_H_
 #define ENUMCONTROL_H_
 
-#include "EnumIndicator.h"
+#include "../Indicators/EnumIndicator.h"
 
 template <class T>
 class EnumControl : public EnumIndicator<T>

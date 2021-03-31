@@ -9,7 +9,7 @@
 #ifndef BUTTONCONTROL_H_
 #define BUTTONCONTROL_H_
 
-#include "UIElement.h"
+#include "../Core/UIElement.h"
 
 #define MAX_BUTTON_STRING_LENGTH		20
 

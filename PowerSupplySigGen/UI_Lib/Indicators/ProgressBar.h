@@ -9,7 +9,7 @@
 #ifndef PROGRESSBAR_H_
 #define PROGRESSBAR_H_
 
-#include "UIElement.h"
+#include "../Core/UIElement.h"
 
 typedef enum ProgressBarOrigin
 {

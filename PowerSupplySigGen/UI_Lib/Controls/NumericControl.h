@@ -9,7 +9,7 @@
 #ifndef NUMERICCONTROL_H_
 #define NUMERICCONTROL_H_
 
-#include "NumericIndicator.h"
+#include "../Indicators/NumericIndicator.h"
 
 template <class T>
 class NumericControl : public NumericIndicator<T>

@@ -9,7 +9,7 @@
 #ifndef LABEL_H_
 #define LABEL_H_
 
-#include "UIElement.h"
+#include "../Core/UIElement.h"
 
 #define MAX_LABEL_STRING_LENGTH		50
 

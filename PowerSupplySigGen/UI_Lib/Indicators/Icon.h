@@ -9,7 +9,7 @@
 #ifndef ICON_H_
 #define ICON_H_
 
-#include "UIElement.h"
+#include "../Core/UIElement.h"
 
 class Icon : public UIElement
 {

@@ -9,7 +9,7 @@
 #ifndef NUMERICINDICATOR_H_
 #define NUMERICINDICATOR_H_
 
-#include "UIElement.h"
+#include "../Core/UIElement.h"
 
 template <class T>
 class NumericIndicator : public UIElement

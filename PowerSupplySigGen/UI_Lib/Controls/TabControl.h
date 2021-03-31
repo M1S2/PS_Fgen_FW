@@ -9,7 +9,7 @@
 #ifndef TABCONTROL_H_
 #define TABCONTROL_H_
 
-#include "UIElement.h"
+#include "../Core/UIElement.h"
 
 #define MAX_TABCONTROL_TABS			5
 #define MAX_HEADER_LENGTH			10

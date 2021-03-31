@@ -10,7 +10,7 @@
 #define KEYPAD_H_
 
 #include "../Pins/Pins.h"
-#include "../UI_Lib/Keys.h"
+#include "../UI_Lib/Core/Keys.h"
 
 Keys_t KeyPad_GetKeys();
 

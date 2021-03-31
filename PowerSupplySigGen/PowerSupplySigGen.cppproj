@@ -497,121 +497,121 @@
     <Compile Include="Spi\spi.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="UI_Lib\BoolControl.cpp">
+    <Compile Include="UI_Lib\Containers\Container.cpp">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="UI_Lib\BoolControl.h">
+    <Compile Include="UI_Lib\Containers\Container.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="UI_Lib\BoolIndicator.cpp">
+    <Compile Include="UI_Lib\Containers\ContainerList.cpp">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="UI_Lib\BoolIndicator.h">
+    <Compile Include="UI_Lib\Containers\ContainerList.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="UI_Lib\ButtonControl.cpp">
+    <Compile Include="UI_Lib\Containers\ContainerPage.cpp">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="UI_Lib\ButtonControl.h">
+    <Compile Include="UI_Lib\Containers\ContainerPage.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="UI_Lib\Container.cpp">
+    <Compile Include="UI_Lib\Controls\BoolControl.cpp">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="UI_Lib\Container.h">
+    <Compile Include="UI_Lib\Controls\BoolControl.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="UI_Lib\ContainerList.cpp">
+    <Compile Include="UI_Lib\Controls\ButtonControl.cpp">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="UI_Lib\ContainerList.h">
+    <Compile Include="UI_Lib\Controls\ButtonControl.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="UI_Lib\EnumControl.cpp">
+    <Compile Include="UI_Lib\Controls\EnumControl.cpp">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="UI_Lib\EnumControl.h">
+    <Compile Include="UI_Lib\Controls\EnumControl.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="UI_Lib\EnumIndicator.cpp">
+    <Compile Include="UI_Lib\Controls\MessageDialog.cpp">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="UI_Lib\EnumIndicator.h">
+    <Compile Include="UI_Lib\Controls\MessageDialog.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="UI_Lib\Icon.cpp">
+    <Compile Include="UI_Lib\Controls\NumericControl.cpp">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="UI_Lib\Icon.h">
+    <Compile Include="UI_Lib\Controls\NumericControl.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="UI_Lib\Keys.cpp">
+    <Compile Include="UI_Lib\Controls\TabControl.cpp">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="UI_Lib\Keys.h">
+    <Compile Include="UI_Lib\Controls\TabControl.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="UI_Lib\Label.cpp">
+    <Compile Include="UI_Lib\Core\Keys.cpp">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="UI_Lib\Label.h">
+    <Compile Include="UI_Lib\Core\Keys.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="UI_Lib\MessageDialog.cpp">
+    <Compile Include="UI_Lib\Core\UIElement.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="UI_Lib\MessageDialog.h">
+    <Compile Include="UI_Lib\Core\UIElementType.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="UI_Lib\NumericControl.cpp">
+    <Compile Include="UI_Lib\Core\UI_Elements.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="UI_Lib\NumericControl.h">
+    <Compile Include="UI_Lib\Core\UI_Manager.cpp">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="UI_Lib\NumericIndicator.cpp">
+    <Compile Include="UI_Lib\Core\UI_Manager.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="UI_Lib\NumericIndicator.h">
+    <Compile Include="UI_Lib\Indicators\BoolIndicator.cpp">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="UI_Lib\ContainerPage.cpp">
+    <Compile Include="UI_Lib\Indicators\BoolIndicator.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="UI_Lib\ContainerPage.h">
+    <Compile Include="UI_Lib\Indicators\EnumIndicator.cpp">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="UI_Lib\ProgressBar.cpp">
+    <Compile Include="UI_Lib\Indicators\EnumIndicator.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="UI_Lib\ProgressBar.h">
+    <Compile Include="UI_Lib\Indicators\Icon.cpp">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="UI_Lib\TabControl.cpp">
+    <Compile Include="UI_Lib\Indicators\Icon.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="UI_Lib\TabControl.h">
+    <Compile Include="UI_Lib\Indicators\Label.cpp">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="UI_Lib\UIElement.h">
+    <Compile Include="UI_Lib\Indicators\Label.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="UI_Lib\UIElementType.h">
+    <Compile Include="UI_Lib\Indicators\NumericIndicator.cpp">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="UI_Lib\UI_Elements.h">
+    <Compile Include="UI_Lib\Indicators\NumericIndicator.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="UI_Lib\Indicators\ProgressBar.cpp">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="UI_Lib\Indicators\ProgressBar.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="UI_Lib\UI_Lib_Test.cpp">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="UI_Lib\UI_Lib_Test.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="UI_Lib\UI_Manager.cpp">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="UI_Lib\UI_Manager.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="USART\USART.cpp">
@@ -687,6 +687,10 @@
     <Folder Include="libraries\scpi-parser\src\" />
     <Folder Include="UI_Lib" />
     <Folder Include="SCPI" />
+    <Folder Include="UI_Lib\Indicators" />
+    <Folder Include="UI_Lib\Controls" />
+    <Folder Include="UI_Lib\Containers" />
+    <Folder Include="UI_Lib\Core" />
     <Folder Include="USART" />
     <Folder Include="UserControlsIndicators" />
     <Folder Include="Channels" />

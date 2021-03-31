@@ -9,7 +9,7 @@
 #ifndef ENUMINDICATOR_H_
 #define ENUMINDICATOR_H_
 
-#include "UIElement.h"
+#include "../Core/UIElement.h"
 
 template <class T>
 class EnumIndicator : public UIElement

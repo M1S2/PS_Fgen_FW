@@ -9,7 +9,7 @@
 #ifndef BOOLCONTROL_H_
 #define BOOLCONTROL_H_
 
-#include "BoolIndicator.h"
+#include "../Indicators/BoolIndicator.h"
 
 class BoolControl : public BoolIndicator
 {	

@@ -9,7 +9,7 @@
 #ifndef CONTAINER_H_
 #define CONTAINER_H_
 
-#include "UIElement.h"
+#include "../Core/UIElement.h"
 
 #define MAX_CONTAINER_ITEMS		20
 

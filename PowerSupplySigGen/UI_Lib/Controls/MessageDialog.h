@@ -9,11 +9,11 @@
 #ifndef MESSAGEDIALOG_H_
 #define MESSAGEDIALOG_H_
 
-#include "UIElement.h"
-#include "ContainerPage.h"
-#include "Label.h"
-#include "Icon.h"
-#include "ButtonControl.h"
+#include "../Core/UIElement.h"
+#include "../Containers/ContainerPage.h"
+#include "../Indicators/Label.h"
+#include "../Indicators/Icon.h"
+#include "../Controls/ButtonControl.h"
 
 #define MAX_MESSAGEDIALOG_STRING_LENGTH		256
 

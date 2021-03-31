@@ -48,10 +48,10 @@ bool TabControl::KeyInput(Keys_t key)
 	switch (key)
 	{
 		case KEYLEFT:
-			NextTab();
+			PreviousTab();
 			return true;
 		case KEYRIGHT:
-			PreviousTab();
+			NextTab();
 			return true;
 		default:
 			return false;

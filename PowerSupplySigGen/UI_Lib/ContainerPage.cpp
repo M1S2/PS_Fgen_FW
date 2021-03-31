@@ -88,7 +88,7 @@ bool ContainerPage::NextControlItem()
 bool ContainerPage::PreviousControlItem()
 {
 	int previousControlIndex = -1;
-	for (int i = (_selectedItemIndex - 1); i > 0; i--)
+	for (int i = (_selectedItemIndex - 1); i >= 0; i--)
 	{
 		if (_items[i]->Type == UI_CONTROL)
 		{

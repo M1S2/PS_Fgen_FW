@@ -32,7 +32,7 @@ void Label::Draw(u8g_t *u8g, bool isFirstPage)
 			u8g_SetFontPosTop(u8g);
 		}
 		
-		u8g_DrawStr(u8g, LocX, LocY, Text);
+		u8g_DrawStrMultiline(u8g, LocX, LocY, Text);
 		
 		if(_font !=NULL) 
 		{ 

@@ -28,11 +28,13 @@ int numVal2 = 123;
 
 void OnBoolVal1Changed(void* context);
 void OnNumVal1Changed(void* context);
+void OnButtonReset(void* context);
+void OnMsgOk(void* context);
+void OnShowError(void* context);
 
 Label labelBool(40, 5, 60, 10, "Boolean");
 BoolIndicator boolInd1(40, 20, 60, 10, &boolVal1);
 BoolControl boolCtrl1(40, 35, 60, 10, &boolVal1, &boolVal1, &OnBoolVal1Changed);
-Icon infoIcon(120, 5, icon_info_width, icon_info_height, icon_info_bits);
 ContainerPage page_boolean;
 Label labelEnum(40, 5, 60, 10, "Enumerations");
 EnumIndicator<TestEnum> enumInd1(58, 20, 60, 10, &enumVal1, TestEnumNames, 3);
@@ -48,6 +50,13 @@ NumericControl<float> numCtrl1(115, 35, 60, 10, &numVal1, "V", -10, 2000, 3, &nu
 ProgressBar<float> progress1(115, 50, 100, 10, &numVal1, -10, 2000, PROGRESSBAR_ORIGIN_ZERO, 0);
 ContainerPage page_numeric;
 
+ButtonControl buttonReset(40, 20, 60, 10, "Reset", NULL, &OnButtonReset);
+ButtonControl buttonShowTestError(40, 35, 60, 10, "Show Error", NULL, &OnShowError);
+MessageDialog msgReset(5, 5, 240 - 5, 64 - 5, "Reset sucessful.", MSG_INFO, true, NULL, &OnMsgOk);
+MessageDialog msgTestWarning(5, 5, 240 - 5, 64 - 5, "Warning message.\nWith Newline.", MSG_WARNING, true, NULL, &OnMsgOk);
+MessageDialog msgTestError(5, 5, 240 - 5, 64 - 5, "Error message.", MSG_ERROR, true, NULL, &OnMsgOk);
+ContainerPage page_dialogs;
+
 TabControl tabControl(0, 0, 240, 64, 32);
 
 ContainerPage mainPage;
@@ -58,6 +67,7 @@ void OnBoolVal1Changed(void* context)
 {
 	bool boolVal = *((bool*)context);
 	speedIcon.Visible = boolVal;
+	ui_Manager.ChangeVisualTreeRoot(&msgTestWarning);
 }
 
 void OnNumVal1Changed(void* context)
@@ -65,12 +75,30 @@ void OnNumVal1Changed(void* context)
 	numVal2++;	
 }
 
+void OnButtonReset(void* context)
+{
+	boolVal1 = false;
+	enumVal1 = Test_A;
+	numVal1 = 0;
+	numVal2 = 0;
+	ui_Manager.ChangeVisualTreeRoot(&msgReset);
+}
+
+void OnShowError(void* context)
+{
+	ui_Manager.ChangeVisualTreeRoot(&msgTestError);
+}
+
+void OnMsgOk(void* context)
+{
+	ui_Manager.ChangeVisualTreeRoot(&mainPage);	
+}
+
 void UI_Test_BuildTree()
 {
 	page_boolean.AddItem(&labelBool);
 	page_boolean.AddItem(&boolInd1);
 	page_boolean.AddItem(&boolCtrl1);
-	page_boolean.AddItem(&infoIcon);
 	page_boolean.InitItems();
 	page_enum.AddItem(&labelEnum);
 	page_enum.AddItem(&enumInd1);
@@ -87,8 +115,13 @@ void UI_Test_BuildTree()
 	page_numeric.AddItem(&progress1);
 	page_numeric.InitItems();
 	
+	page_dialogs.AddItem(&buttonReset);
+	page_dialogs.AddItem(&buttonShowTestError);
+	page_dialogs.InitItems();
+	
 	tabControl.AddTab("Tab1", &list1);
 	tabControl.AddTab("Tab2", &page_numeric);
+	tabControl.AddTab("Tab3", &page_dialogs);
 	tabControl.SelectTab(0);
 	
 	mainPage.AddItem(&tabControl);

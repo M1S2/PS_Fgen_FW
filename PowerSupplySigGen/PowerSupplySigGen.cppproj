@@ -509,6 +509,12 @@
     <Compile Include="UI_Lib\BoolIndicator.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="UI_Lib\ButtonControl.cpp">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="UI_Lib\ButtonControl.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="UI_Lib\Container.cpp">
       <SubType>compile</SubType>
     </Compile>
@@ -549,6 +555,12 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="UI_Lib\Label.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="UI_Lib\MessageDialog.cpp">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="UI_Lib\MessageDialog.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="UI_Lib\NumericControl.cpp">

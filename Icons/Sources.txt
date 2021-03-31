@@ -16,3 +16,5 @@ icon_serial:		selbst gezeichnet
 icon_echo:		https://thenounproject.com/term/echo-left/903885/
 icon_speed:		selbst gezeichnet
 icon_info:		selbst gezeichnet
+icon_error:		selbst gezeichnet
+icon_warning:		selbst gezeichnet

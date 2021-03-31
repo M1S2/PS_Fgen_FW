@@ -22,5 +22,7 @@
 #include "ContainerList.h"
 #include "TabControl.h"
 #include "Icon.h"
+#include "ButtonControl.h"
+#include "MessageDialog.h"
 
 #endif /* UI_ELEMENTS_H_ */

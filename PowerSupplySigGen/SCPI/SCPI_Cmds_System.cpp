@@ -48,7 +48,7 @@ scpi_result_t scpi_cmd_systemPonOutputDisable(scpi_t * context)
 	{
 		return SCPI_RES_ERR;
 	}
-	if(Device.PowerOnOutputsDisabled != disabled) { Device.DevSettingsNeedSaving = true; }
+	if(Device.PowerOnOutputsDisabled != disabled) { Device.SetSettingsChanged(true); }
 	Device.PowerOnOutputsDisabled = disabled;
 	return SCPI_RES_OK;
 }

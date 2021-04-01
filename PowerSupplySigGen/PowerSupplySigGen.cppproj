@@ -482,7 +482,7 @@
     <Compile Include="Screens\ScreenManager.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="Screens\ScreenManager_SplashScreen.cpp">
+    <Compile Include="Screens\SplashScreen.cpp">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="Screens\ScreenPS.cpp">

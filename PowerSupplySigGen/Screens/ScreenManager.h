@@ -17,24 +17,28 @@
 #include "ScreenDMM.h"
 #include "ScreenATX.h"
 
+#include "Icons.h"
 #include "../Configuration.h"
+
+#include "../UI_Lib/Core/UI_Manager.h"
+#include "../UI_Lib/Core/UI_Elements.h"
+
+#ifdef SPLASHSCREEN_ENABLED 
+	UIElement* uiBuildSplashScreen();
+#endif
+UIElement* uiBuildScreenPS();
+UIElement* uiBuildScreenDDS();
 
 class ScreenManagerClass
 {
 	private:
-		#ifndef DEVELOPMENT
-			ScreenPS _screenPs;
-			ScreenDDS _screenDds;
-			ScreenDMM _screenDmm;
-			ScreenATX _screenAtx;
-		#endif
+		UI_Manager _uiManager;
+		void uiBuildTree();
 	
 		u8g_t _u8g;
-		ScreenBase* _screens[NUM_SCREENS];
 	    bool _isControlActive;
 		bool _displayEnabled;
 				
-		void drawScreenTabs(int selectedTabIndex);
 		void drawMessage();
 		void drawStatusBar();
 		void drawPage(bool isFirstPage);
@@ -58,6 +62,8 @@ class ScreenManagerClass
 		void DrawAll();
 		
 		void DeviceTimerTickISR(uint16_t currentPeriod_ms);
+		
+		void UpdateSettingsChangedIndicator(bool settingsChanged);
 		
 		void KeyInput(Keys_t key);
 		

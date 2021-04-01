@@ -13,6 +13,18 @@
 #include "../Channels/PS_Channel.h"
 #include "Icons.h"
 
+Label lbl_PSOverview_caption(40, 5, "PowerSupply");
+ContainerPage page_PSOverview;
+
+UIElement* uiBuildScreenPS()
+{
+	page_PSOverview.AddItem(&lbl_PSOverview_caption);
+	page_PSOverview.InitItems();
+			
+	return &page_PSOverview;
+}
+
+
 ScreenPS::ScreenPS() : ScreenBase("PS"),
 	_ctrlPSVoltage(VOLTAGE_CONTROL_POSX, VOLTAGE_CONTROL_POSY, &Device.PsChannel.Amplitude.Val, "V", 0, Device.PsChannel.Amplitude.Min, Device.PsChannel.Amplitude.Max, &Device.PsChannel, &PS_Channel::PSAmplitudeChanged, icon_voltage_bits),
 	_ctrlPSCurrent(CURRENT_CONTROL_POSX, CURRENT_CONTROL_POSY, &Device.PsChannel.Current.Val, "A", 0, Device.PsChannel.Current.Min, Device.PsChannel.Current.Max, &Device.PsChannel, &PS_Channel::PSCurrentChanged, icon_current_bits),

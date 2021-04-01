@@ -21,8 +21,8 @@ class Label : public UIElement
 	public:
 		char Text[MAX_LABEL_STRING_LENGTH];
 
-		Label(unsigned char locX, unsigned char locY, unsigned char width, unsigned char height, const char* text);
-		Label(unsigned char locX, unsigned char locY, unsigned char width, unsigned char height, const char* text, const u8g_fntpgm_uint8_t* font);
+		Label(unsigned char locX, unsigned char locY, const char* text);
+		Label(unsigned char locX, unsigned char locY, const char* text, const u8g_fntpgm_uint8_t* font);
 		virtual void Draw(u8g_t *u8g, bool isFirstPage) override;
 };
 

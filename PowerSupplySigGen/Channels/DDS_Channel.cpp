@@ -162,7 +162,7 @@ void DDS_Channel::DDSFrequencyChanged(void* channel)
 	if (((Channel*)channel)->GetChannelType() != DDS_CHANNEL_TYPE) { return;  }
 	DDS_Channel* ddsChannel = (DDS_Channel*)channel;
 	ddsChannel->UpdateIncrement();
-	Device.DevSettingsNeedSaving = true;
+	Device.SetSettingsChanged(true);
 }
 
 void DDS_Channel::DDSAmplitudeChanged(void* channel)
@@ -170,7 +170,7 @@ void DDS_Channel::DDSAmplitudeChanged(void* channel)
 	if (((Channel*)channel)->GetChannelType() != DDS_CHANNEL_TYPE) { return; }
 	DDS_Channel* ddsChannel = (DDS_Channel*)channel;
 	ddsChannel->UpdateWaveTable();
-	Device.DevSettingsNeedSaving = true;
+	Device.SetSettingsChanged(true);
 }
 
 void DDS_Channel::DDSOffsetChanged(void* channel)
@@ -178,7 +178,7 @@ void DDS_Channel::DDSOffsetChanged(void* channel)
 	if (((Channel*)channel)->GetChannelType() != DDS_CHANNEL_TYPE) { return; }
 	DDS_Channel* ddsChannel = (DDS_Channel*)channel;
 	ddsChannel->UpdateWaveTable();
-	Device.DevSettingsNeedSaving = true;
+	Device.SetSettingsChanged(true);
 }
 
 void DDS_Channel::DDSSignalFormChanged(void* channel)
@@ -187,7 +187,7 @@ void DDS_Channel::DDSSignalFormChanged(void* channel)
 	DDS_Channel* ddsChannel = (DDS_Channel*)channel;
 	ddsChannel->UpdateOriginalWaveTable();
 	ddsChannel->UpdateWaveTable();
-	Device.DevSettingsNeedSaving = true;
+	Device.SetSettingsChanged(true);
 }
 
 void DDS_Channel::DDSEnabledChanged(void* channel)
@@ -210,5 +210,5 @@ void DDS_Channel::DDSEnabledChanged(void* channel)
 		DisableDDSTimer();
 	}
 
-	Device.DevSettingsNeedSaving = true;
+	Device.SetSettingsChanged(true);
 }

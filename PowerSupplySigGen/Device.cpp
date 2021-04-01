@@ -17,6 +17,8 @@
 DeviceClass Device;
 DevSettingsEEPROMLayout_t EEMEM NonVolatileSettings;
 
+const char* DeviceControlStateNames[] = { "LOC", "REM", "RWL" };
+
 DeviceClass::DeviceClass() :
 	PsChannel(PS_MIN_AMPLITUDE, PS_MAX_AMPLITUDE, PS_MIN_CURRENT, PS_MAX_CURRENT, PS_MIN_OVP_LEVEL_PERCENTAGE, PS_MAX_OVP_LEVEL_PERCENTAGE, PS_MIN_OVP_DELAY, PS_MAX_OVP_DELAY, PS_MIN_OCP_LEVEL_PERCENTAGE, PS_MAX_OCP_LEVEL_PERCENTAGE, PS_MIN_OCP_DELAY, PS_MAX_OCP_DELAY, PS_MIN_OPP_LEVEL, PS_MAX_OPP_LEVEL, PS_MIN_OPP_DELAY, PS_MAX_OPP_DELAY),
 	DdsChannel1(DDS_MIN_FREQ, DDS_MAX_FREQ, DDS_MIN_AMPLITUDE, DDS_MAX_AMPLITUDE, DDS_MIN_OFFSET, DDS_MAX_OFFSET),
@@ -67,7 +69,7 @@ void DeviceClass::DeviceMainLoop()
 	if(TimeCounter_AutoSave_ms >= SETTINGS_AUTOSAVE_DELAY_MS)
 	{
 		TimeCounter_AutoSave_ms = 0;
-		if(DevSettingsNeedSaving)
+		if(_settingsChanged)
 		{
 			SaveSettings();
 		}
@@ -155,7 +157,7 @@ void DeviceClass::SetSerialBaudRate(uint32_t baud)
 	
 	if(SerialBaudRate != baud && baud > 0 && baud < 115200)
 	{
-		DevSettingsNeedSaving = true;
+		SetSettingsChanged(true);
 		char buffer[60];
 		sprintf(buffer, "Changing Baud rate from %lu to %lu\r\n", (SerialBaudRate == 0 ? 9600 : SerialBaudRate), baud);
 		Usart0TransmitStr(buffer);
@@ -166,11 +168,17 @@ void DeviceClass::SetSerialBaudRate(uint32_t baud)
 
 void DeviceClass::SetSerialEchoEnabled(bool echoEnabled)
 {
-	DevSettingsNeedSaving = (SerialEchoEnabled != echoEnabled);
+	SetSettingsChanged(SerialEchoEnabled != echoEnabled);
 	SerialEchoEnabled = echoEnabled;
 }
 
 // ##### Settings ####################################################################################################################
+
+void DeviceClass::SetSettingsChanged(bool settingsChanged)
+{
+	_settingsChanged = settingsChanged;
+	ScreenManager.UpdateSettingsChangedIndicator(settingsChanged);
+}
 
 void DeviceClass::SaveSettings()
 {
@@ -210,7 +218,7 @@ void DeviceClass::SaveSettings()
 
 	eeprom_write_block((const void*)&settings, (void*)&NonVolatileSettings, sizeof(DevSettingsEEPROMLayout_t));
 	
-	DevSettingsNeedSaving = false;
+	SetSettingsChanged(false);
 }
 
 void DeviceClass::LoadSettings()
@@ -254,7 +262,7 @@ void DeviceClass::LoadSettings()
 	DdsChannel1.SetEnabled(PowerOnOutputsDisabled ? false : settings.DDS1_Enabled);
 	DdsChannel2.SetEnabled(PowerOnOutputsDisabled ? false : settings.DDS2_Enabled);
 	
-	DevSettingsNeedSaving = false;
+	SetSettingsChanged(false);
 }
 
 void DeviceClass::ResetDevice()

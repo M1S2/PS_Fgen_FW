@@ -39,7 +39,7 @@ void TabControl::Draw(u8g_t *u8g, bool isFirstPage)
 			yTab+=(tabHeight + TABCONTROL_TABPAGE_MARGIN);
 		}
 		
-		_tabContents[_selectedTabIndex]->Draw(u8g, isFirstPage);
+		if(_tabContents[_selectedTabIndex] != NULL) { _tabContents[_selectedTabIndex]->Draw(u8g, isFirstPage); }
 	}
 }
 

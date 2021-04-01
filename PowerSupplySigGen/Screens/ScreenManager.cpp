@@ -10,16 +10,18 @@
 #include "../Device.h"
 
 #include "../UI_Lib/UI_Lib_Test.h"
+#include "../UI_Lib/Indicators/EnumIndicator.cpp"
+
+ContainerPage page_Main;
+EnumIndicator<DeviceControlStates_t> enumInd_deviceState(240 - 37, 2, 32, 12, &Device.DeviceControlState, DeviceControlStateNames, 3);
+Label lbl_devSettingsNeedSaving(240 - 15, 0, "*", u8g_font_7x14r);
+
+TabControl tabControlMain(0, 0, 240, 64, 32);
+
 
 ScreenManagerClass::ScreenManagerClass()
 {	
-	#ifndef DEVELOPMENT
-		_screens[0] = &_screenPs;
-		_screens[1] = &_screenDds;
-		_screens[2] = NULL;
-		_screens[3] = &_screenDmm;
-		_screens[4] = &_screenAtx;
-	#endif
+	
 }
 
 void ScreenManagerClass::Init()
@@ -29,37 +31,37 @@ void ScreenManagerClass::Init()
 	TimeCounter_SplashScreen_ms = 0;
 	
 	#ifdef DEVELOPMENT
-		UI_Test_Init(&_u8g);
-		UI_Test_BuildTree();
+		_uiManager.Init(&_u8g);
+		uiBuildTree();
+		
+		//UI_Test_Init(&_u8g);
+		//UI_Test_BuildTree();
 	#endif
 }
 
-void ScreenManagerClass::drawScreenTabs(int selectedTabIndex)
-{	
-	selectedTabIndex %= NUM_SCREENS;
+void ScreenManagerClass::uiBuildTree()
+{
+	tabControlMain.AddTab("PS", uiBuildScreenPS());	
+	tabControlMain.AddTab("DDS", uiBuildScreenDDS());	// Containing DDS1 and DDS2
+	tabControlMain.AddTab("Meas", NULL);				// Containing DMM and ATX measurements
+	tabControlMain.AddTab("Conf", NULL);
+	tabControlMain.SelectTab(0);
 	
-	u8g_SetFont(&_u8g, u8g_font_helvR08r);	// 8 pixel height font, 6 pixel width
-	u8g_SetDefaultForegroundColor(&_u8g);
-	u8g_DrawFrame(&_u8g, SCREEN_TAB_WIDTH - 1, 0, u8g_GetWidth(&_u8g) - SCREEN_TAB_WIDTH + 1, u8g_GetHeight(&_u8g));
-	int yTab = 0;
-	for(int i=0; i<NUM_SCREENS; i++)
-	{
-		if(i==selectedTabIndex)
-		{
-			u8g_DrawFrame(&_u8g, 0, yTab, SCREEN_TAB_WIDTH, SCREEN_TAB_HEIGHT);
-			
-			u8g_SetDefaultBackgroundColor(&_u8g);
-			u8g_DrawVLine(&_u8g, SCREEN_TAB_WIDTH - 1, yTab + 1, SCREEN_TAB_HEIGHT - 2);
-			u8g_SetDefaultForegroundColor(&_u8g);
+	page_Main.AddItem(&tabControlMain);
+	page_Main.AddItem(&enumInd_deviceState);
+	page_Main.AddItem(&lbl_devSettingsNeedSaving);
+	page_Main.InitItems();
+	
+	#ifdef SPLASHSCREEN_ENABLED 
+		_uiManager.ChangeVisualTreeRoot(uiBuildSplashScreen());
+	#else
+		_uiManager.ChangeVisualTreeRoot(&page_Main);
+	#endif
+}
 
-			if(_screens[i] != NULL) { u8g_DrawStr(&_u8g, 2, yTab + SCREEN_TAB_FONT_HEIGHT + ((SCREEN_TAB_HEIGHT - SCREEN_TAB_FONT_HEIGHT) / 2), _screens[i]->TabName); }
-		}
-		else
-		{
-			if(_screens[i] != NULL) { u8g_DrawStr(&_u8g, 2, yTab + SCREEN_TAB_FONT_HEIGHT + ((SCREEN_TAB_HEIGHT - SCREEN_TAB_FONT_HEIGHT) / 2), _screens[i]->TabName); }
-		}
-		yTab+=(SCREEN_TAB_HEIGHT + SCREEN_TAB_MARGIN);
-	}
+void ScreenManagerClass::UpdateSettingsChangedIndicator(bool settingsChanged)
+{
+	lbl_devSettingsNeedSaving.Visible = settingsChanged;
 }
 
 void ScreenManagerClass::DrawAll()
@@ -68,11 +70,8 @@ void ScreenManagerClass::DrawAll()
 	u8g_FirstPage(&_u8g);
 	do
 	{		
-		#ifndef DEVELOPMENT
-			drawPage(isFirstPage);
-		#else		
-			UI_Test_Draw(&_u8g, isFirstPage);
-		#endif
+		_uiManager.Draw(&_u8g, isFirstPage);	
+		//UI_Test_Draw(&_u8g, isFirstPage);
 		
 		isFirstPage = false;
 	} while ( u8g_NextPage(&_u8g) );
@@ -80,46 +79,13 @@ void ScreenManagerClass::DrawAll()
 
 void ScreenManagerClass::drawPage(bool isFirstPage)
 {
-#ifdef SPLASHSCREEN_ENABLED
-	if(IsSplashScreenShown)
-	{
-		drawSplashScreen();
-	}
-	else
-	{
-#endif
-		TabIndex %= NUM_SCREENS;
-		drawScreenTabs(TabIndex);
-		for(int i=0; i<NUM_SCREENS; i++)
-		{
-			if(i != TabIndex || _screens[i] == NULL) { continue; }
-			_screens[i]->Draw(&_u8g, isFirstPage);
-		}
-	
-		drawStatusBar();
-		drawMessage();
-#ifdef SPLASHSCREEN_ENABLED
-	}
-#endif
+	drawStatusBar();
+	drawMessage();
 }
 
 void ScreenManagerClass::drawStatusBar()
 {
 	u8g_DrawFrame(&_u8g, u8g_GetWidth(&_u8g) - 32, 0, 32, 12);
-
-	if(Device.DevSettingsNeedSaving)
-	{
-		u8g_SetFont(&_u8g, u8g_font_7x14r);		// 10 pixel height font
-		u8g_DrawStr(&_u8g, u8g_GetWidth(&_u8g) - 8, 10, "*");
-	}
-			
-	u8g_SetFont(&_u8g, u8g_font_helvR08r);	// 8 pixel height font, 6 pixel width
-	switch(Device.DeviceControlState)
-	{
-		case DEV_CTRL_LOCAL: u8g_DrawStr(&_u8g, u8g_GetWidth(&_u8g) - 30, 10, "LOC"); break;
-		case DEV_CTRL_REMOTE: u8g_DrawStr(&_u8g, u8g_GetWidth(&_u8g) - 30, 10, "REM"); break;
-		case DEV_CTRL_RWLOCK: u8g_DrawStr(&_u8g, u8g_GetWidth(&_u8g) - 30, 10, "RWL"); break;
-	}
 }
 
 void ScreenManagerClass::drawMessage()
@@ -151,56 +117,17 @@ void ScreenManagerClass::DeviceTimerTickISR(uint16_t currentPeriod_ms)
 		if(IsSplashScreenShown && (TimeCounter_SplashScreen_ms >= SPLASHSCREEN_DELAY_MS))
 		{
 			IsSplashScreenShown = false;
+			_uiManager.ChangeVisualTreeRoot(&page_Main);
 		}
 	#endif
 }
 
 void ScreenManagerClass::KeyInput(Keys_t key)
 {
-	UI_Test_KeyInput(key);
+	_uiManager.KeyInput(key);
+	//UI_Test_KeyInput(key);
 	
-	if(key == KEYOK)
-	{
-		if(_screens[TabIndex] != NULL)
-		{
-			_isControlActive = !_isControlActive;
-			_screens[TabIndex]->ActivateSelectedControl(_isControlActive);
-			_screens[TabIndex]->EncoderPBInput();
-			_isControlActive = _screens[TabIndex]->IsSelectedControlActive();
-		}
-	}
-	else if(key == KEYDOWN || key == KEYUP)
-	{
-		if(_screens[TabIndex] != NULL)
-		{
-			if(key == KEYDOWN) { _screens[TabIndex]->EncoderInput(ENCCLOCKWISE, _isControlActive); }
-			else { _screens[TabIndex]->EncoderInput(ENCCOUNTERCLOCKWISE, _isControlActive); }
-			_isControlActive = _screens[TabIndex]->IsSelectedControlActive();
-		}
-	}
-	else
-	{
-		if(_isControlActive)
-		{
-			if(_screens[TabIndex] != NULL)
-			{
-				_screens[TabIndex]->KeyInput(key);
-				_isControlActive = _screens[TabIndex]->IsSelectedControlActive();
-			}
-		}
-		else
-		{
-			if(key == KEYLEFT) 
-			{
-				 TabIndex = (TabIndex - 1 < 0 ? NUM_SCREENS - 1 : TabIndex - 1); 
-			}
-			else if(key == KEYRIGHT) 
-			{
-				 TabIndex = (TabIndex + 1 == NUM_SCREENS ? 0: TabIndex + 1); 
-			}
-			Device.SaveSettings();
-		}
-	}
+	//Device.SaveSettings();
 }
 
 void ScreenManagerClass::SetDisplayEnabled(bool displayEnabled)
@@ -217,7 +144,7 @@ bool ScreenManagerClass::GetDisplayEnabled()
 
 void ScreenManagerClass::SetDisplayInverted(bool displayInverse)
 {
-	Device.DevSettingsNeedSaving = (DisplayInverted != displayInverse);
+	Device.SetSettingsChanged(DisplayInverted != displayInverse);
 	DisplayInverted = displayInverse;
 	u8g_Invert(&_u8g, (uint8_t)displayInverse);
 }

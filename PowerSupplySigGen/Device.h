@@ -29,6 +29,7 @@ typedef enum DeviceControlStates
 	DEV_CTRL_REMOTE,
 	DEV_CTRL_RWLOCK
 }DeviceControlStates_t; 
+extern const char* DeviceControlStateNames[3];
 
 typedef struct DeviceVoltagesStruct
 {
@@ -78,6 +79,9 @@ typedef struct DevSettingsEEPROMLayout
 
 class DeviceClass
 {			
+	private:
+		bool _settingsChanged;
+		
 	public:	
 		PS_Channel PsChannel;
 		DDS_Channel DdsChannel1;
@@ -98,8 +102,6 @@ class DeviceClass
 
 		uint32_t SerialBaudRate;
 		bool SerialEchoEnabled;
-		
-		bool DevSettingsNeedSaving;
 	
 		uint16_t TimeCounter_KeyPolling_ms;
 		uint16_t TimeCounter_ScreenRedraw_ms;
@@ -112,6 +114,8 @@ class DeviceClass
 		void DeviceMainLoop();
 		
 		void DeviceTimerTickISR(uint16_t currentPeriod_ms);
+		
+		void SetSettingsChanged(bool settingsChanged);
 		
 		void SaveSettings();
 		void LoadSettings();

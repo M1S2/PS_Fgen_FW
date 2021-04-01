@@ -357,7 +357,7 @@ void PS_Channel::PSEnabledChanged(void* channel)
 	if (((Channel*)channel)->GetChannelType() != POWER_SUPPLY_CHANNEL_TYPE) { return; }
 	PS_Channel* psChannel = (PS_Channel*)channel;
 	psChannel->UpdateOutput();
-	Device.DevSettingsNeedSaving = true;
+	Device.SetSettingsChanged(true);
 }
 
 void PS_Channel::PSAmplitudeChanged(void* channel)
@@ -365,7 +365,7 @@ void PS_Channel::PSAmplitudeChanged(void* channel)
 	if (((Channel*)channel)->GetChannelType() != POWER_SUPPLY_CHANNEL_TYPE) { return; }
 	PS_Channel* psChannel = (PS_Channel*)channel;
 	psChannel->UpdateOutput();
-	Device.DevSettingsNeedSaving = true;
+	Device.SetSettingsChanged(true);
 }
 
 void PS_Channel::PSCurrentChanged(void* channel)
@@ -373,68 +373,68 @@ void PS_Channel::PSCurrentChanged(void* channel)
 	if (((Channel*)channel)->GetChannelType() != POWER_SUPPLY_CHANNEL_TYPE) { return; }
 	PS_Channel* psChannel = (PS_Channel*)channel;
 	psChannel->UpdateOutput();
-	Device.DevSettingsNeedSaving = true;
+	Device.SetSettingsChanged(true);
 }
 
 void PS_Channel::PSOvpLevelChanged(void* channel)
 {
 	if (((Channel*)channel)->GetChannelType() != POWER_SUPPLY_CHANNEL_TYPE) { return; }
 	/* Parameter only used in DeviceTimerTickISR() */
-	Device.DevSettingsNeedSaving = true;
+	Device.SetSettingsChanged(true);
 }
 
 void PS_Channel::PSOvpStateChanged(void* channel)
 {
 	if (((Channel*)channel)->GetChannelType() != POWER_SUPPLY_CHANNEL_TYPE) { return; }
 	/* Parameter only used in DeviceTimerTickISR() */
-	Device.DevSettingsNeedSaving = true;
+	Device.SetSettingsChanged(true);
 }
 
 void PS_Channel::PSOvpDelayChanged(void* channel)
 {
 	if (((Channel*)channel)->GetChannelType() != POWER_SUPPLY_CHANNEL_TYPE) { return; }
 	/* Parameter only used in DeviceTimerTickISR() */
-	Device.DevSettingsNeedSaving = true;
+	Device.SetSettingsChanged(true);
 }
 
 void PS_Channel::PSOcpLevelChanged(void* channel)
 {
 	if (((Channel*)channel)->GetChannelType() != POWER_SUPPLY_CHANNEL_TYPE) { return; }
 	/* Parameter only used in DeviceTimerTickISR() */
-	Device.DevSettingsNeedSaving = true;
+	Device.SetSettingsChanged(true);
 }
 
 void PS_Channel::PSOcpStateChanged(void* channel)
 {
 	if (((Channel*)channel)->GetChannelType() != POWER_SUPPLY_CHANNEL_TYPE) { return; }
 	/* Parameter only used in DeviceTimerTickISR() */
-	Device.DevSettingsNeedSaving = true;
+	Device.SetSettingsChanged(true);
 }
 
 void PS_Channel::PSOcpDelayChanged(void* channel)
 {
 	if (((Channel*)channel)->GetChannelType() != POWER_SUPPLY_CHANNEL_TYPE) { return; }
 	/* Parameter only used in DeviceTimerTickISR() */
-	Device.DevSettingsNeedSaving = true;
+	Device.SetSettingsChanged(true);
 }
 
 void PS_Channel::PSOppLevelChanged(void* channel)
 {
 	if (((Channel*)channel)->GetChannelType() != POWER_SUPPLY_CHANNEL_TYPE) { return; }
 	/* Parameter only used in DeviceTimerTickISR() */
-	Device.DevSettingsNeedSaving = true;
+	Device.SetSettingsChanged(true);
 }
 
 void PS_Channel::PSOppStateChanged(void* channel)
 {
 	if (((Channel*)channel)->GetChannelType() != POWER_SUPPLY_CHANNEL_TYPE) { return; }
 	/* Parameter only used in DeviceTimerTickISR() */
-	Device.DevSettingsNeedSaving = true;
+	Device.SetSettingsChanged(true);
 }
 
 void PS_Channel::PSOppDelayChanged(void* channel)
 {
 	if (((Channel*)channel)->GetChannelType() != POWER_SUPPLY_CHANNEL_TYPE) { return; }
 	/* Parameter only used in DeviceTimerTickISR() */
-	Device.DevSettingsNeedSaving = true;
+	Device.SetSettingsChanged(true);
 }

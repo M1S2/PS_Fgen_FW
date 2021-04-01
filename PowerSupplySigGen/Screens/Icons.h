@@ -9,6 +9,8 @@
 #ifndef ICONS_H_
 #define ICONS_H_
 
+#include "../libraries/u8glib/u8g.h"
+
 /**** Icon Power Cord *****/
 #define icon_powerCord_width 28
 #define icon_powerCord_height 25

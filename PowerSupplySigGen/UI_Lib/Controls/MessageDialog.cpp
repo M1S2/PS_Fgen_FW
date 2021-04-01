@@ -10,7 +10,7 @@
 MessageDialog::MessageDialog(unsigned char locX, unsigned char locY, unsigned char width, unsigned char height, const char* message, MessageSeverity severity, bool showOkButton, void* controlContext, void(*onOkClick)(void* controlContext)) : UIElement(locX, locY, width, height, UI_CONTROL),
 	_page(),
 	_severityIcon(locX, locY, icon_info_width, icon_info_height, (severity == MSG_INFO ? icon_info_bits : (severity == MSG_WARNING ? icon_warning_bits : icon_error_bits))),
-	_message(locX + icon_info_width + 5, locY, width - icon_info_width - 5, height - 10, message),
+	_message(locX + icon_info_width + 5, locY, message),
 	_buttonOk(locX + width / 2 - 10, locY + height - 12, 20, 10, "OK", controlContext, onOkClick)
 {
 	_severity = severity;

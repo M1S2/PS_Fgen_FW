@@ -12,6 +12,28 @@
 #include "../Channels/DDS_Channel.h"
 #include "Icons.h"
 
+Label lbl_DDS1_caption(40, 5, "DDS1");
+ContainerPage page_DDS1;
+
+Label lbl_DDS2_caption(40, 5, "DDS2");
+ContainerPage page_DDS2;
+
+ContainerList list_DDS(40, 0, 240 - 40, 64);
+
+UIElement* uiBuildScreenDDS()
+{
+	page_DDS1.AddItem(&lbl_DDS1_caption);
+	page_DDS1.InitItems();
+	
+	page_DDS2.AddItem(&lbl_DDS2_caption);
+	page_DDS2.InitItems();
+	
+	list_DDS.AddItem(&page_DDS1);
+	list_DDS.AddItem(&page_DDS2);
+	
+	return &list_DDS;
+}
+
 ScreenDDS::ScreenDDS() : ScreenBase("DDS1"),
 	_ctrlDDSSignalForm(SIGNALFORM_CONTROL_POSX, SIGNALFORM_CONTROL_POSY, &Device.DdsChannel1.SignalForm.Val, SignalFormsNames, 4, &Device.DdsChannel1, &DDS_Channel::DDSSignalFormChanged, icon_signalForm_bits),
 	_ctrlDDSFrequency(FREQUENCY_CONTROL_POSX, FREQUENCY_CONTROL_POSY, &Device.DdsChannel1.Frequency.Val, "Hz", 0, Device.DdsChannel1.Frequency.Min, Device.DdsChannel1.Frequency.Max, &Device.DdsChannel1, &DDS_Channel::DDSFrequencyChanged, icon_frequency_bits),

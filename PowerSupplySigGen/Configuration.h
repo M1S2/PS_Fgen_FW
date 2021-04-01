@@ -54,7 +54,7 @@
 #define MESSAGE_MARGIN					5						// Margin of the message popup box (user messages or error messages) to the display outline
 #define MAX_MESSAGE_LEN					256						// Maximum length of user or error messages
 
-//#define SPLASHSCREEN_ENABLED									// Comment this line out to disable the Splashscreen
+#define SPLASHSCREEN_ENABLED									// Comment this line out to disable the Splashscreen
 
 /***** UserControlsIndicators **********************************/
 #define CONTROLS_FONT_HEIGHT			8						// Font Height in pixels of the text used in UserControls

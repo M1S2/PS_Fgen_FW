@@ -9,7 +9,7 @@
 #ifndef SCREENATX_H_
 #define SCREENATX_H_
 
-#include "ScreenBase.h"
+/*#include "ScreenBase.h"
 #include "../UserControlsIndicators/UserIndicatorProgressBar.h"
 
 #define ATX_COLUMN1_POSX		SCREEN_TAB_WIDTH + 7
@@ -30,6 +30,6 @@ class ScreenATX : public ScreenBase
 	public:
 		ScreenATX();
 		virtual void Draw(u8g_t* u8g, bool isFirstPage);
-};
+};*/
 
 #endif /* SCREENATX_H_ */

@@ -21,7 +21,6 @@ TabControl tabControlMain(0, 0, 240, 64, 32);
 
 ScreenManagerClass::ScreenManagerClass()
 {	
-	
 }
 
 void ScreenManagerClass::Init()
@@ -42,8 +41,8 @@ void ScreenManagerClass::Init()
 void ScreenManagerClass::uiBuildTree()
 {
 	tabControlMain.AddTab("PS", uiBuildScreenPS());	
-	tabControlMain.AddTab("DDS", uiBuildScreenDDS());	// Containing DDS1 and DDS2
-	tabControlMain.AddTab("Meas", NULL);				// Containing DMM and ATX measurements
+	tabControlMain.AddTab("DDS", uiBuildScreenDDS());			// Containing DDS1 and DDS2
+	tabControlMain.AddTab("Meas", uiBuildScreenMeasure());		// Containing DMM and ATX measurements
 	tabControlMain.AddTab("Conf", NULL);
 	tabControlMain.SelectTab(0);
 	

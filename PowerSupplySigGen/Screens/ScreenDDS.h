@@ -9,7 +9,7 @@
 #ifndef SCREENDDS_H_
 #define SCREENDDS_H_
 
-#include "ScreenBase.h"
+/*#include "ScreenBase.h"
 #include "../UserControlsIndicators/UserControlBool.h"
 #include "../UserControlsIndicators/UserControlNumeric.h"
 #include "../UserControlsIndicators/UserControlEnum.h"
@@ -37,6 +37,6 @@ class ScreenDDS : public ScreenBase
 	public:
 		ScreenDDS();
 		virtual void Draw(u8g_t* u8g, bool isFirstPage);
-};
+};*/
 
 #endif /* SCREENDDS_H_ */

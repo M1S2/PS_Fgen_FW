@@ -5,27 +5,58 @@
  *  Author: V17
  */ 
 
-#include "ScreenPS.h"
+//#include "ScreenPS.h"
 #include "../Device.h"
-#include "../UserControlsIndicators/UserControlNumeric.cpp"
+/*#include "../UserControlsIndicators/UserControlNumeric.cpp"
 #include "../UserControlsIndicators/UserIndicatorNumeric.cpp"
 #include "../UserControlsIndicators/UserIndicatorEnum.cpp"
 #include "../Channels/PS_Channel.h"
-#include "Icons.h"
+#include "Icons.h"*/
 
-Label lbl_PSOverview_caption(40, 5, "PowerSupply");
+Icon ico_PSOverview(40, 3, icon_supplyDC_width, icon_supplyDC_height, icon_supplyDC_bits);
+Label lbl_PSOverview_caption(60, 5, "PowerSupply");
 ContainerPage page_PSOverview;
+
+Icon ico_PSProtection(40, 3, icon_protection_width, icon_protection_height, icon_protection_bits);
+Label lbl_PSProtectionOVP_caption(60, 5, "OVP");
+ContainerPage page_PSProtectionOVP;
+
+Label lbl_PSProtectionOCP_caption(60, 5, "OCP");
+ContainerPage page_PSProtectionOCP;
+
+Label lbl_PSProtectionOPP_caption(60, 5, "OPP");
+ContainerPage page_PSProtectionOPP;
+
+ContainerList list_PS(40, 0, 240 - 40, 64);
 
 UIElement* uiBuildScreenPS()
 {
+	page_PSOverview.AddItem(&ico_PSOverview);
 	page_PSOverview.AddItem(&lbl_PSOverview_caption);
 	page_PSOverview.InitItems();
+
+	page_PSProtectionOVP.AddItem(&ico_PSProtection);
+	page_PSProtectionOVP.AddItem(&lbl_PSProtectionOVP_caption);
+	page_PSProtectionOVP.InitItems();
+
+	page_PSProtectionOCP.AddItem(&ico_PSProtection);
+	page_PSProtectionOCP.AddItem(&lbl_PSProtectionOCP_caption);
+	page_PSProtectionOCP.InitItems();
+	
+	page_PSProtectionOPP.AddItem(&ico_PSProtection);
+	page_PSProtectionOPP.AddItem(&lbl_PSProtectionOPP_caption);
+	page_PSProtectionOPP.InitItems();
 			
-	return &page_PSOverview;
+	list_PS.AddItem(&page_PSOverview);
+	list_PS.AddItem(&page_PSProtectionOVP);
+	list_PS.AddItem(&page_PSProtectionOCP);
+	list_PS.AddItem(&page_PSProtectionOPP);
+						
+	return &list_PS;
 }
 
 
-ScreenPS::ScreenPS() : ScreenBase("PS"),
+/*ScreenPS::ScreenPS() : ScreenBase("PS"),
 	_ctrlPSVoltage(VOLTAGE_CONTROL_POSX, VOLTAGE_CONTROL_POSY, &Device.PsChannel.Amplitude.Val, "V", 0, Device.PsChannel.Amplitude.Min, Device.PsChannel.Amplitude.Max, &Device.PsChannel, &PS_Channel::PSAmplitudeChanged, icon_voltage_bits),
 	_ctrlPSCurrent(CURRENT_CONTROL_POSX, CURRENT_CONTROL_POSY, &Device.PsChannel.Current.Val, "A", 0, Device.PsChannel.Current.Min, Device.PsChannel.Current.Max, &Device.PsChannel, &PS_Channel::PSCurrentChanged, icon_current_bits),
 	_ctrlOutputEnable(OUTPUT_STATE_CONTROL_POSX, OUTPUT_STATE_CONTROL_POSY, &Device.PsChannel.Enabled.Val, &Device.PsChannel, &PS_Channel::PSEnabledChanged, icon_OnOff_bits),
@@ -53,4 +84,4 @@ void ScreenPS::Draw(u8g_t* u8g, bool isFirstPage)
 	u8g_DrawXBMP(u8g, u8g_GetWidth(u8g) - CONTROLS_ICON_SIZE - 2, u8g_GetHeight(u8g) - CONTROLS_ICON_SIZE - 2, CONTROLS_ICON_SIZE, CONTROLS_ICON_SIZE, icon_supplyDC_bits);
 	
 	ScreenBase::Draw(u8g, isFirstPage);
-}
+}*/

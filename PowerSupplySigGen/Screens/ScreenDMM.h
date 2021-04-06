@@ -9,7 +9,7 @@
 #ifndef SCREENDMM_H_
 #define SCREENDMM_H_
 
-#include "ScreenBase.h"
+/*#include "ScreenBase.h"
 #include "../UserControlsIndicators/UserIndicatorProgressBar.h"
 
 #define DMM_COLUMN1_POSX		SCREEN_TAB_WIDTH + 5
@@ -26,6 +26,6 @@ class ScreenDMM : public ScreenBase
 	public:
 		ScreenDMM();
 		virtual void Draw(u8g_t* u8g, bool isFirstPage);
-};
+};*/
 
 #endif /* SCREENDMM_H_ */

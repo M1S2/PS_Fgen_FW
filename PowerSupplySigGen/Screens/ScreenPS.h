@@ -9,7 +9,7 @@
 #ifndef SCREENPS_H_
 #define SCREENPS_H_
 
-#include "ScreenBase.h"
+/*#include "ScreenBase.h"
 #include "../UserControlsIndicators/UserControlBool.h"
 #include "../UserControlsIndicators/UserControlNumeric.h"
 #include "../UserControlsIndicators/UserIndicatorNumeric.h"
@@ -43,6 +43,6 @@ class ScreenPS : public ScreenBase
 	public:
 		ScreenPS();
 		virtual void Draw(u8g_t* u8g, bool isFirstPage);
-};
+};*/
 
 #endif /* SCREENPS_H_ */

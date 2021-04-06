@@ -28,6 +28,7 @@
 #endif
 UIElement* uiBuildScreenPS();
 UIElement* uiBuildScreenDDS();
+UIElement* uiBuildScreenMeasure();
 
 class ScreenManagerClass
 {

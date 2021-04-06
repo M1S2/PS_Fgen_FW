@@ -5,7 +5,7 @@
  *  Author: V17
  */ 
 
-#include "ScreenATX.h"
+/*#include "ScreenATX.h"
 #include "../Device.h"
 #include "../UserControlsIndicators/UserIndicatorNumeric.cpp"
 #include "../UserControlsIndicators/UserIndicatorProgressBar.cpp"
@@ -31,4 +31,4 @@ void ScreenATX::Draw(u8g_t* u8g, bool isFirstPage)
 	u8g_DrawStr(u8g, ATX_COLUMN1_POSX, ATX_ROW4_POSY + INDICATORS_FONT_HEIGHT, "-12V:");
 
 	ScreenBase::Draw(u8g, isFirstPage);
-}
+}*/

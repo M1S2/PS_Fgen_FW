@@ -5,7 +5,7 @@
  *  Author: V17
  */ 
 
-#include "ScreenDMM.h"
+/*#include "ScreenDMM.h"
 #include "../Device.h"
 #include "../UserControlsIndicators/UserIndicatorNumeric.cpp"
 #include "../UserControlsIndicators/UserIndicatorProgressBar.cpp"
@@ -28,4 +28,4 @@ void ScreenDMM::Draw(u8g_t* u8g, bool isFirstPage)
 	u8g_DrawStr(u8g, DMM_COLUMN1_POSX, DMM_ROW2_POSY + INDICATORS_FONT_HEIGHT, "#2:");
 
 	ScreenBase::Draw(u8g, isFirstPage);
-}
+}*/

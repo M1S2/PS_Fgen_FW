@@ -11,10 +11,6 @@
 #include "Channels/DDS_Channel.h"
 #include "Channels/PS_Channel.h"
 
-
-#define DEVELOPMENT								// This define is used to disable some parts for development purposes. This must be removed later !!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
-
 #define AVR_VCC_REF						5.27					// AVR VCC Reference voltage in V
 
 /***** Version ************************************************/

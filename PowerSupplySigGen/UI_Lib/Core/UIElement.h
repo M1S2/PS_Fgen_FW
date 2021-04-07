@@ -13,6 +13,9 @@
 #include "Keys.h"
 #include "../../libraries/u8glib/u8g.h"
 
+#define DEFAULT_UI_ELEMENT_WIDTH	60
+#define DEFAULT_UI_ELEMENT_HEIGHT	10
+
 class UIElement
 {
 	public:

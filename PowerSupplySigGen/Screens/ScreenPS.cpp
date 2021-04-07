@@ -5,34 +5,59 @@
  *  Author: V17
  */ 
 
-//#include "ScreenPS.h"
 #include "../Device.h"
-/*#include "../UserControlsIndicators/UserControlNumeric.cpp"
-#include "../UserControlsIndicators/UserIndicatorNumeric.cpp"
-#include "../UserControlsIndicators/UserIndicatorEnum.cpp"
-#include "../Channels/PS_Channel.h"
-#include "Icons.h"*/
+#include "../UI_Lib/Indicators/NumericIndicator.cpp"
+#include "../UI_Lib/Controls/NumericControl.cpp"
+#include "../UI_Lib/Indicators/EnumIndicator.cpp"
+#include "../UI_Lib/Controls/EnumControl.cpp"
 
-Icon ico_PSOverview(40, 3, icon_supplyDC_width, icon_supplyDC_height, icon_supplyDC_bits);
-Label lbl_PSOverview_caption(60, 5, "PowerSupply");
+ContainerList list_PS(SCREEN_TAB_WIDTH, 0, 240 - SCREEN_TAB_WIDTH, 64);
+
+// ***** Power Supply Overview page *****
+Icon ico_PSOverview(SCREEN_TAB_WIDTH + 5, 3, icon_supplyDC_width, icon_supplyDC_height, icon_supplyDC_bits);
+Label lbl_PSOverview_caption(SCREEN_TAB_WIDTH + 25, 5, "PowerSupply");
+
+Icon ico_PSOverviewVoltage(SCREEN_TAB_WIDTH + 5, 23, icon_voltage_width, icon_voltage_height, icon_voltage_bits);
+NumericControl<float> numCtrl_PSOverviewVoltage(SCREEN_TAB_WIDTH + 23, 25, DEFAULT_UI_ELEMENT_WIDTH, DEFAULT_UI_ELEMENT_HEIGHT, &Device.PsChannel.Amplitude.Val, "V", PS_MIN_AMPLITUDE, PS_MAX_AMPLITUDE, 3, &Device.PsChannel, &PS_Channel::PSAmplitudeChanged);
+Icon ico_PSOverviewCurrent(SCREEN_TAB_WIDTH + 5, 43, icon_current_width, icon_current_height, icon_current_bits);
+NumericControl<float> numCtrl_PSOverviewCurrent(SCREEN_TAB_WIDTH + 23, 45, DEFAULT_UI_ELEMENT_WIDTH, DEFAULT_UI_ELEMENT_HEIGHT, &Device.PsChannel.Current.Val, "A", PS_MIN_CURRENT, PS_MAX_CURRENT, 3, &Device.PsChannel, &PS_Channel::PSCurrentChanged);
+Icon ico_PSOverviewEnabled(SCREEN_TAB_WIDTH + 95, 23, icon_OnOff_width, icon_OnOff_height, icon_OnOff_bits);
+BoolControl boolCtrl_PSOverviewEnabled(SCREEN_TAB_WIDTH + 113, 25, 25, DEFAULT_UI_ELEMENT_HEIGHT, &Device.PsChannel.Enabled.Val, &Device.PsChannel, &PS_Channel::PSEnabledChanged);
+
+NumericIndicator<float> numInd_PsOverviewVoltage(SCREEN_TAB_WIDTH + 151, 18, DEFAULT_UI_ELEMENT_WIDTH, DEFAULT_UI_ELEMENT_HEIGHT, &Device.PsChannel.MeasuredAmplitude, "V", PS_MAX_AMPLITUDE, 3);
+NumericIndicator<float> numInd_PsOverviewCurrent(SCREEN_TAB_WIDTH + 151, 28, DEFAULT_UI_ELEMENT_WIDTH, DEFAULT_UI_ELEMENT_HEIGHT, &Device.PsChannel.MeasuredCurrent, "A", PS_MAX_CURRENT, 3);
+NumericIndicator<float> numInd_PsOverviewPower(SCREEN_TAB_WIDTH + 151, 38, DEFAULT_UI_ELEMENT_WIDTH, DEFAULT_UI_ELEMENT_HEIGHT, &Device.PsChannel.MeasuredPower, "W", PS_MAX_AMPLITUDE * PS_MAX_CURRENT, 3);
+EnumIndicator<PsStates_t> enumInd_PsOverviewState(SCREEN_TAB_WIDTH + 155, 48, DEFAULT_UI_ELEMENT_WIDTH, DEFAULT_UI_ELEMENT_HEIGHT, &Device.PsChannel.PsState, PSStatesNames, 5);
+
 ContainerPage page_PSOverview;
 
+// ***** Power Supply Protection OVP page *****
 Icon ico_PSProtection(40, 3, icon_protection_width, icon_protection_height, icon_protection_bits);
 Label lbl_PSProtectionOVP_caption(60, 5, "OVP");
 ContainerPage page_PSProtectionOVP;
 
+// ***** Power Supply Protection OCP page *****
 Label lbl_PSProtectionOCP_caption(60, 5, "OCP");
 ContainerPage page_PSProtectionOCP;
 
+// ***** Power Supply Protection OPP page *****
 Label lbl_PSProtectionOPP_caption(60, 5, "OPP");
 ContainerPage page_PSProtectionOPP;
-
-ContainerList list_PS(40, 0, 240 - 40, 64);
 
 UIElement* uiBuildScreenPS()
 {
 	page_PSOverview.AddItem(&ico_PSOverview);
 	page_PSOverview.AddItem(&lbl_PSOverview_caption);
+	page_PSOverview.AddItem(&ico_PSOverviewVoltage);
+	page_PSOverview.AddItem(&numCtrl_PSOverviewVoltage);
+	page_PSOverview.AddItem(&ico_PSOverviewCurrent);
+	page_PSOverview.AddItem(&numCtrl_PSOverviewCurrent);
+	page_PSOverview.AddItem(&ico_PSOverviewEnabled);
+	page_PSOverview.AddItem(&boolCtrl_PSOverviewEnabled);
+	page_PSOverview.AddItem(&numInd_PsOverviewVoltage);
+	page_PSOverview.AddItem(&numInd_PsOverviewCurrent);
+	page_PSOverview.AddItem(&numInd_PsOverviewPower);
+	page_PSOverview.AddItem(&enumInd_PsOverviewState);
 	page_PSOverview.InitItems();
 
 	page_PSProtectionOVP.AddItem(&ico_PSProtection);
@@ -54,34 +79,3 @@ UIElement* uiBuildScreenPS()
 						
 	return &list_PS;
 }
-
-
-/*ScreenPS::ScreenPS() : ScreenBase("PS"),
-	_ctrlPSVoltage(VOLTAGE_CONTROL_POSX, VOLTAGE_CONTROL_POSY, &Device.PsChannel.Amplitude.Val, "V", 0, Device.PsChannel.Amplitude.Min, Device.PsChannel.Amplitude.Max, &Device.PsChannel, &PS_Channel::PSAmplitudeChanged, icon_voltage_bits),
-	_ctrlPSCurrent(CURRENT_CONTROL_POSX, CURRENT_CONTROL_POSY, &Device.PsChannel.Current.Val, "A", 0, Device.PsChannel.Current.Min, Device.PsChannel.Current.Max, &Device.PsChannel, &PS_Channel::PSCurrentChanged, icon_current_bits),
-	_ctrlOutputEnable(OUTPUT_STATE_CONTROL_POSX, OUTPUT_STATE_CONTROL_POSY, &Device.PsChannel.Enabled.Val, &Device.PsChannel, &PS_Channel::PSEnabledChanged, icon_OnOff_bits),
-	_indPSVoltage(INFO_TEXTS_POSX, INFO_TEXT_VOLTAGE_POSY, &Device.PsChannel.MeasuredAmplitude, "V"),
-	_indPSCurrent(INFO_TEXTS_POSX, INFO_TEXT_CURRENT_POSY, &Device.PsChannel.MeasuredCurrent, "A"),
-	_indPSPower(INFO_TEXTS_POSX, INFO_TEXT_POWER_POSY, &Device.PsChannel.MeasuredPower, "W"),
-	_indPSState(INFO_TEXTS_POSX, INFO_TEXT_STATE_POSY, &Device.PsChannel.PsState, PSStatesNames, 5)
-{
-	_ctrlPSVoltage.IsSelected = true;
-	
-	_userControls[0] = &_ctrlPSVoltage;
-	_userControls[1] = &_ctrlPSCurrent;
-	_userControls[2] = &_ctrlOutputEnable;
-	_numUserControls = 3;
-	
-	_userIndicators[0] = &_indPSVoltage;
-	_userIndicators[1] = &_indPSCurrent;
-	_userIndicators[2] = &_indPSPower;
-	_userIndicators[3] = &_indPSState;
-	_numUserIndicators = 4;
-}
-
-void ScreenPS::Draw(u8g_t* u8g, bool isFirstPage)
-{
-	u8g_DrawXBMP(u8g, u8g_GetWidth(u8g) - CONTROLS_ICON_SIZE - 2, u8g_GetHeight(u8g) - CONTROLS_ICON_SIZE - 2, CONTROLS_ICON_SIZE, CONTROLS_ICON_SIZE, icon_supplyDC_bits);
-	
-	ScreenBase::Draw(u8g, isFirstPage);
-}*/

@@ -16,7 +16,7 @@ ContainerPage page_Main;
 EnumIndicator<DeviceControlStates_t> enumInd_deviceState(240 - 37, 2, 32, 12, &Device.DeviceControlState, DeviceControlStateNames, 3);
 Label lbl_devSettingsNeedSaving(240 - 15, 0, "*", u8g_font_7x14r);
 
-TabControl tabControlMain(0, 0, 240, 64, 32);
+TabControl tabControlMain(0, 0, 240, 64, SCREEN_TAB_WIDTH);
 
 
 ScreenManagerClass::ScreenManagerClass()
@@ -29,13 +29,11 @@ void ScreenManagerClass::Init()
 	IsSplashScreenShown = true;
 	TimeCounter_SplashScreen_ms = 0;
 	
-	#ifdef DEVELOPMENT
-		_uiManager.Init(&_u8g);
-		uiBuildTree();
+	_uiManager.Init(&_u8g);
+	uiBuildTree();
 		
-		//UI_Test_Init(&_u8g);
-		//UI_Test_BuildTree();
-	#endif
+	//UI_Test_Init(&_u8g);
+	//UI_Test_BuildTree();
 }
 
 void ScreenManagerClass::uiBuildTree()

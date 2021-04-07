@@ -12,10 +12,6 @@
 #include "../libraries/u8glib/u8g.h"
 #include "ScreenBase.h"
 #include "../KeyPad/KeyPad.h"
-#include "ScreenPS.h"
-#include "ScreenDDS.h"
-#include "ScreenDMM.h"
-#include "ScreenATX.h"
 
 #include "Icons.h"
 #include "../Configuration.h"

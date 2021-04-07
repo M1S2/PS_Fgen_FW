@@ -18,6 +18,6 @@ void BoolIndicator::Draw(u8g_t *u8g, bool isFirstPage)
 	{	
 		if (isFirstPage) { _valueDraw = *_valuePointer; }
 			
-		u8g_DrawStr(u8g, LocX, LocY, (_valueDraw ? "true" : "false"));
+		u8g_DrawStr(u8g, LocX, LocY, (_valueDraw ? "ON" : "OFF"));
 	}
 }

@@ -491,9 +491,6 @@
     <Compile Include="Screens\ScreenPS.cpp">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="Screens\ScreenPS.h">
-      <SubType>compile</SubType>
-    </Compile>
     <Compile Include="Spi\spi.cpp">
       <SubType>compile</SubType>
     </Compile>

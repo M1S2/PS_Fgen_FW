@@ -24,6 +24,7 @@
 UIElement* uiBuildScreenPS();
 UIElement* uiBuildScreenDDS();
 UIElement* uiBuildScreenMeasure();
+UIElement* uiBuildScreenSettings();
 
 class ScreenManagerClass
 {

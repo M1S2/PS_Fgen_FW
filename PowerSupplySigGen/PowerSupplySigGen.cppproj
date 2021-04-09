@@ -467,6 +467,9 @@
     <Compile Include="Screens\ScreenMeasure.cpp">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="Screens\ScreenSettings.cpp">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="Screens\SplashScreen.cpp">
       <SubType>compile</SubType>
     </Compile>

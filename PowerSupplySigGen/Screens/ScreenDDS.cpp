@@ -16,12 +16,12 @@ ContainerList list_DDS(40, 0, 240 - 40, 64);
 
 // ***** DDS1 page *****
 ContainerPage page_DDS1;
-Icon ico_dds(40, 3, icon_supplyAC_width, icon_supplyAC_height, icon_supplyAC_bits);
-Label lbl_DDS1_caption(60, 5, "DDS1");
+Icon ico_dds(SCREEN_TAB_WIDTH + 5, 3, icon_supplyAC_width, icon_supplyAC_height, icon_supplyAC_bits);
+Label lbl_DDS1_caption(SCREEN_TAB_WIDTH + 25, 5, "DDS1");
 
 // ***** DDS2 page *****
 ContainerPage page_DDS2;
-Label lbl_DDS2_caption(60, 5, "DDS2");
+Label lbl_DDS2_caption(SCREEN_TAB_WIDTH + 25, 5, "DDS2");
 
 UIElement* uiBuildScreenDDS()
 {

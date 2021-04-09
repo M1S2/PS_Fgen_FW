@@ -18,3 +18,4 @@ icon_speed:		selbst gezeichnet
 icon_info:		selbst gezeichnet
 icon_error:		selbst gezeichnet
 icon_warning:		selbst gezeichnet
+icon_settings:		https://findicons.com/icon/70239/wrench

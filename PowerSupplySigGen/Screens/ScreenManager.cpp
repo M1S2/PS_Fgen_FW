@@ -41,7 +41,7 @@ void ScreenManagerClass::uiBuildTree()
 	tabControlMain.AddTab("PS", uiBuildScreenPS());	
 	tabControlMain.AddTab("DDS", uiBuildScreenDDS());			// Containing DDS1 and DDS2
 	tabControlMain.AddTab("Meas", uiBuildScreenMeasure());		// Containing DMM and ATX measurements
-	tabControlMain.AddTab("Conf", NULL);
+	tabControlMain.AddTab("Conf", uiBuildScreenSettings());
 	tabControlMain.SelectTab(0);
 	
 	page_Main.AddItem(&tabControlMain);

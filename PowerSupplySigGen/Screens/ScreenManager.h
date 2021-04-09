@@ -10,14 +10,13 @@
 #define SCREENMANAGER_H_
 
 #include "../libraries/u8glib/u8g.h"
-#include "ScreenBase.h"
+#include "../Encoder/Encoder.h"
 #include "../KeyPad/KeyPad.h"
-
-#include "Icons.h"
 #include "../Configuration.h"
-
 #include "../UI_Lib/Core/UI_Manager.h"
 #include "../UI_Lib/Core/UI_Elements.h"
+#include "Icons.h"
+#include <string.h>
 
 #ifdef SPLASHSCREEN_ENABLED 
 	UIElement* uiBuildSplashScreen();

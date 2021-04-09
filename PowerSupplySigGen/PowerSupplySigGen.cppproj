@@ -452,12 +452,6 @@
     <Compile Include="Screens\Icons.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="Screens\ScreenATX.cpp">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="Screens\ScreenATX.h">
-      <SubType>compile</SubType>
-    </Compile>
     <Compile Include="Screens\ScreenBase.cpp">
       <SubType>compile</SubType>
     </Compile>
@@ -468,12 +462,6 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="Screens\ScreenDDS.cpp">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="Screens\ScreenDMM.cpp">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="Screens\ScreenDMM.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="Screens\ScreenManager.cpp">

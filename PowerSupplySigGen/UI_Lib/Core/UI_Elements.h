@@ -11,18 +11,27 @@
 
 #include "UIElement.h"
 #include "../Indicators/Label.h"
+#include "../Indicators/Icon.h"
 #include "../Indicators/BoolIndicator.h"
 #include "../Controls/BoolControl.h"
 #include "../Indicators/EnumIndicator.h"
 #include "../Controls/EnumControl.h"
 #include "../Indicators/NumericIndicator.h"
 #include "../Controls/NumericControl.h"
+#include "../Indicators/ProgressBar.h"
 #include "../Containers/Container.h"
 #include "../Containers/ContainerPage.h"
 #include "../Containers/ContainerList.h"
 #include "../Controls/TabControl.h"
-#include "../Indicators/Icon.h"
 #include "../Controls/ButtonControl.h"
 #include "../Controls/MessageDialog.h"
+
+/*
+#include "../Indicators/EnumIndicator.cpp"
+#include "../Controls/EnumControl.cpp"
+#include "../Indicators/NumericIndicator.cpp"
+#include "../Indicators/ProgressBar.cpp"
+#include "../Controls/NumericControl.cpp"
+*/
 
 #endif /* UI_ELEMENTS_H_ */

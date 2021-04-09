@@ -12,14 +12,16 @@
 #include "../Channels/DDS_Channel.h"
 #include "Icons.h"*/
 
+ContainerList list_DDS(40, 0, 240 - 40, 64);
+
+// ***** DDS1 page *****
+ContainerPage page_DDS1;
 Icon ico_dds(40, 3, icon_supplyAC_width, icon_supplyAC_height, icon_supplyAC_bits);
 Label lbl_DDS1_caption(60, 5, "DDS1");
-ContainerPage page_DDS1;
 
-Label lbl_DDS2_caption(60, 5, "DDS2");
+// ***** DDS2 page *****
 ContainerPage page_DDS2;
-
-ContainerList list_DDS(40, 0, 240 - 40, 64);
+Label lbl_DDS2_caption(60, 5, "DDS2");
 
 UIElement* uiBuildScreenDDS()
 {

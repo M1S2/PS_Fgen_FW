@@ -8,8 +8,10 @@
 #include "TabControl.h"
 #include <string.h>
 
-TabControl::TabControl(unsigned char locX, unsigned char locY, unsigned char width, unsigned char height, unsigned char tabWidth) : UIElement(locX, locY, width, height, UI_CONTROL)
+TabControl::TabControl(unsigned char locX, unsigned char locY, unsigned char width, unsigned char height, unsigned char tabWidth) : UIElement(locX, locY, UI_CONTROL)
 {
+	Width = width;
+	Height = height;
 	_numTabs = 0;
 	_selectedTabIndex = 0;
 	_tabWidth = tabWidth;

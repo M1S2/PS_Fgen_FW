@@ -17,8 +17,10 @@ unsigned char ProgressBar<T>::xCoordinateFromValue(T value)
 //------------------------------------------------------------------------------------------------------------------------------------------------
 
 template <class T>
-ProgressBar<T>::ProgressBar(unsigned char locX, unsigned char locY, unsigned char width, unsigned char height, T* valuePointer, T minValue, T maxValue, ProgressBarOrigin_t origin, T tickIncrement): UIElement(locX, locY, width, height, UI_INDICATOR)
+ProgressBar<T>::ProgressBar(unsigned char locX, unsigned char locY, unsigned char width, unsigned char height, T* valuePointer, T minValue, T maxValue, ProgressBarOrigin_t origin, T tickIncrement): UIElement(locX, locY, UI_INDICATOR)
 {
+	Width = width;
+	Height = height;
 	_valuePointer = valuePointer;
 	_minValue = minValue;
 	_maxValue = maxValue;

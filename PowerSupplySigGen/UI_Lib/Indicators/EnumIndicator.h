@@ -21,7 +21,7 @@ class EnumIndicator : public UIElement
 		T _valueDraw;				// This variable is updated from the _valuePointer on each draw of the first page.
 	
 	public:
-		EnumIndicator(unsigned char locX, unsigned char locY, unsigned char width, unsigned char height, T* valuePointer, const char** enumNames, uint8_t numEnumValues);
+		EnumIndicator(unsigned char locX, unsigned char locY, T* valuePointer, const char** enumNames, uint8_t numEnumValues);
 		virtual void Draw(u8g_t *u8g, bool isFirstPage) override;
 };
 

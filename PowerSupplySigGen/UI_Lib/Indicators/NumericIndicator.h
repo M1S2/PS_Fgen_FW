@@ -32,7 +32,7 @@ class NumericIndicator : public UIElement
 		signed char _unitPrefixPower;			// Current display prefix power (m = -3, k = 3, M = 6)
 
 	public:
-		NumericIndicator(unsigned char locX, unsigned char locY, unsigned char width, unsigned char height, T* valuePointer, const char* baseUnit, T maxValue, unsigned char numFractionalDigits);
+		NumericIndicator(unsigned char locX, unsigned char locY, T* valuePointer, const char* baseUnit, T maxValue, unsigned char numFractionalDigits);
 		virtual void Draw(u8g_t *u8g, bool isFirstPage) override;
 };
 

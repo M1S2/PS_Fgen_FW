@@ -7,15 +7,17 @@
 
 #include "../Device.h"
 
+ContainerList list_Measure(40, 0, 240 - 40, 64);
+
+// ***** Measure DMM page *****
+ContainerPage page_DMM;
 Icon ico_dmm(40, 3, icon_dmm_width, icon_dmm_height, icon_dmm_bits);
 Label lbl_DMM_caption(60, 5, "DMM");
-ContainerPage page_DMM;
 
+// ***** Measure ATX page *****
+ContainerPage page_ATX;
 Icon ico_atx(40, 3, icon_voltage_width, icon_voltage_height, icon_voltage_bits);
 Label lbl_ATX_caption(60, 5, "ATX");
-ContainerPage page_ATX;
-
-ContainerList list_Measure(40, 0, 240 - 40, 64);
 
 UIElement* uiBuildScreenMeasure()
 {

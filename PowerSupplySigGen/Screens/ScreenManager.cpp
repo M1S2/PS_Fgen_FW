@@ -13,7 +13,7 @@
 #include "../UI_Lib/Indicators/EnumIndicator.cpp"
 
 ContainerPage page_Main;
-EnumIndicator<DeviceControlStates_t> enumInd_deviceState(240 - 37, 2, 32, 12, &Device.DeviceControlState, DeviceControlStateNames, 3);
+EnumIndicator<DeviceControlStates_t> enumInd_deviceState(240 - 37, 2, &Device.DeviceControlState, DeviceControlStateNames, 3);
 Label lbl_devSettingsNeedSaving(240 - 15, 0, "*", u8g_font_7x14r);
 
 TabControl tabControlMain(0, 0, 240, 64, SCREEN_TAB_WIDTH);

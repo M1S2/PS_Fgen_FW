@@ -21,7 +21,7 @@ class EnumControl : public EnumIndicator<T>
 	public:
 		bool IsEditMode;
 	
-		EnumControl(unsigned char locX, unsigned char locY, unsigned char width, unsigned char height, T* valuePointer, const char** enumNames, uint8_t numEnumValues, void* controlContext = NULL, void(*onValueChanged)(void* controlContext) = NULL);
+		EnumControl(unsigned char locX, unsigned char locY, T* valuePointer, const char** enumNames, uint8_t numEnumValues, void* controlContext = NULL, void(*onValueChanged)(void* controlContext) = NULL);
 		virtual void Draw(u8g_t *u8g, bool isFirstPage) override;
 		virtual bool KeyInput(Keys_t key) override;
 			

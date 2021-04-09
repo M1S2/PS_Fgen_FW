@@ -35,12 +35,12 @@ class UIElement
 			ActiveChild = NULL;
 		}
 
-		UIElement(unsigned char locX, unsigned char locY, unsigned char width, unsigned char height, UIElementType type)
+		UIElement(unsigned char locX, unsigned char locY, UIElementType type)
 		{
 			LocX = locX;
 			LocY = locY;
-			Width = width;
-			Height = height;
+			Width = DEFAULT_UI_ELEMENT_WIDTH;
+			Height = DEFAULT_UI_ELEMENT_HEIGHT;
 			Visible = true;
 			Type = type;
 			ActiveChild = NULL;

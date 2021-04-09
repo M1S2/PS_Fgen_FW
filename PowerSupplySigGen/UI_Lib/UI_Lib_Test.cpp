@@ -33,20 +33,20 @@ void OnMsgOk(void* context);
 void OnShowError(void* context);
 
 Label labelBool(40, 5, "Boolean");
-BoolIndicator boolInd1(40, 20, 60, 10, &boolVal1);
-BoolControl boolCtrl1(40, 35, 60, 10, &boolVal1, &boolVal1, &OnBoolVal1Changed);
+BoolIndicator boolInd1(40, 20, &boolVal1);
+BoolControl boolCtrl1(40, 35, &boolVal1, &boolVal1, &OnBoolVal1Changed);
 ContainerPage page_boolean;
 Label labelEnum(40, 5, "Enumerations");
-EnumIndicator<TestEnum> enumInd1(58, 20, 60, 10, &enumVal1, TestEnumNames, 3);
-EnumControl<TestEnum> enumCtrl1(58, 35, 60, 10, &enumVal1, TestEnumNames, 3);
+EnumIndicator<TestEnum> enumInd1(58, 20, &enumVal1, TestEnumNames, 3);
+EnumControl<TestEnum> enumCtrl1(58, 35, &enumVal1, TestEnumNames, 3);
 Icon enumCtrl1Icon(40, 35, ui_icon_speed_width, ui_icon_speed_height, ui_icon_speed_bits);
 ContainerPage page_enum;
 ContainerList list1(40, 0, 240 - 40, 64);
 
 Label labelNum(40, 5, "Numerics");
-NumericIndicator<int> numInd2(40, 20, 60, 10, &numVal2, "A", 5000, 0);
-NumericIndicator<float> numInd1(115, 20, 60, 10, &numVal1, "V", 2000, 3);
-NumericControl<float> numCtrl1(115, 35, 60, 10, &numVal1, "V", -10, 2000, 3, &numVal1, &OnNumVal1Changed);
+NumericIndicator<int> numInd2(40, 20, &numVal2, "A", 5000, 0);
+NumericIndicator<float> numInd1(115, 20, &numVal1, "V", 2000, 3);
+NumericControl<float> numCtrl1(115, 35, &numVal1, "V", -10, 2000, 3, &numVal1, &OnNumVal1Changed);
 ProgressBar<float> progress1(115, 50, 100, 10, &numVal1, -10, 2000, PROGRESSBAR_ORIGIN_ZERO, 0);
 ContainerPage page_numeric;
 

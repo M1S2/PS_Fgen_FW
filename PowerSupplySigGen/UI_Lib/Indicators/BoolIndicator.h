@@ -18,7 +18,7 @@ class BoolIndicator : public UIElement
 		bool _valueDraw;			// This variable is updated from the _valuePointer on each draw of the first page.
 
 	public:
-		BoolIndicator(unsigned char locX, unsigned char locY, unsigned char width, unsigned char height, bool* valuePointer);
+		BoolIndicator(unsigned char locX, unsigned char locY, bool* valuePointer);
 		virtual void Draw(u8g_t *u8g, bool isFirstPage) override;
 };
 

@@ -18,7 +18,7 @@ class BoolControl : public BoolIndicator
 		void(*_onValueChanged)(void* controlContext);	// Function pointer for _onValueChanged event
 	
 	public:
-		BoolControl(unsigned char locX, unsigned char locY, unsigned char width, unsigned char height, bool* valuePointer, void* controlContext = NULL, void(*onValueChanged)(void* controlContext) = NULL);
+		BoolControl(unsigned char locX, unsigned char locY, bool* valuePointer, void* controlContext = NULL, void(*onValueChanged)(void* controlContext) = NULL);
 		virtual void Draw(u8g_t *u8g, bool isFirstPage) override;
 		virtual bool KeyInput(Keys_t key) override;
 

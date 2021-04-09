@@ -8,8 +8,10 @@
 #include "ButtonControl.h"
 #include <string.h>
 
-ButtonControl::ButtonControl(unsigned char locX, unsigned char locY, unsigned char width, unsigned char height, const char* buttonText, void* controlContext, void(*onClick)(void* controlContext)) : UIElement(locX, locY, width, height, UI_CONTROL)
+ButtonControl::ButtonControl(unsigned char locX, unsigned char locY, unsigned char width, unsigned char height, const char* buttonText, void* controlContext, void(*onClick)(void* controlContext)) : UIElement(locX, locY, UI_CONTROL)
 {
+	Width = width;
+	Height = height;
 	strcpy(_buttonText, buttonText);
 	_controlContext = controlContext;
 	_onClick = onClick;

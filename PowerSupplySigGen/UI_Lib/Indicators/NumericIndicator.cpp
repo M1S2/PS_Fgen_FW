@@ -62,7 +62,7 @@ int NumericIndicator<T>::numNonFractionalDigits(T number)
 
 
 template <class T>
-NumericIndicator<T>::NumericIndicator(unsigned char locX, unsigned char locY, unsigned char width, unsigned char height, T* valuePointer, const char* baseUnit, T maxValue, unsigned char numFractionalDigits) : UIElement(locX, locY, width, height, UI_INDICATOR)
+NumericIndicator<T>::NumericIndicator(unsigned char locX, unsigned char locY, T* valuePointer, const char* baseUnit, T maxValue, unsigned char numFractionalDigits) : UIElement(locX, locY, UI_INDICATOR)
 {
 	_valuePointer = valuePointer;
 	_baseUnit = baseUnit;

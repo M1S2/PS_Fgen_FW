@@ -8,7 +8,7 @@
 #include "EnumControl.h"
 
 template <class T>
-EnumControl<T>::EnumControl(unsigned char locX, unsigned char locY, unsigned char width, unsigned char height, T* valuePointer, const char** enumNames, uint8_t numEnumValues, void* controlContext, void(*onValueChanged)(void* controlContext)) : EnumIndicator<T>(locX, locY, width, height, valuePointer, enumNames, numEnumValues)
+EnumControl<T>::EnumControl(unsigned char locX, unsigned char locY, T* valuePointer, const char** enumNames, uint8_t numEnumValues, void* controlContext, void(*onValueChanged)(void* controlContext)) : EnumIndicator<T>(locX, locY, valuePointer, enumNames, numEnumValues)
 {
 	this->Type = UI_CONTROL;
 	_controlContext = controlContext;

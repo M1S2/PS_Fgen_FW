@@ -9,7 +9,7 @@
 #include <math.h>
 
 template <class T>
-NumericControl<T>::NumericControl(unsigned char locX, unsigned char locY, unsigned char width, unsigned char height, T* valuePointer, const char* baseUnit, T minValue, T maxValue, int numFractionalDigits, void* controlContext, void(*onValueChanged)(void* controlContext)) : NumericIndicator<T>(locX, locY, width, height, valuePointer, baseUnit, maxValue, numFractionalDigits)
+NumericControl<T>::NumericControl(unsigned char locX, unsigned char locY, T* valuePointer, const char* baseUnit, T minValue, T maxValue, int numFractionalDigits, void* controlContext, void(*onValueChanged)(void* controlContext)) : NumericIndicator<T>(locX, locY, valuePointer, baseUnit, maxValue, numFractionalDigits)
 {
 	this->Type = UI_CONTROL;
 	IsEditMode = false;

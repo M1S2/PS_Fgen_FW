@@ -41,7 +41,6 @@ class ScreenManagerClass
 		#endif
 		
 	public:
-		uint8_t TabIndex;
 		bool DisplayInverted;
 		char SystemMessage[MAX_MESSAGE_LEN];
 		char UserMessage[MAX_MESSAGE_LEN];

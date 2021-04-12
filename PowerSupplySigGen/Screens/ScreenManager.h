@@ -35,10 +35,6 @@ class ScreenManagerClass
 		u8g_t _u8g;
 	    bool _isControlActive;
 		bool _displayEnabled;
-				
-		void drawMessage();
-		void drawStatusBar();
-		void drawPage(bool isFirstPage);
 		
 		#ifdef SPLASHSCREEN_ENABLED
 			void drawSplashScreen();

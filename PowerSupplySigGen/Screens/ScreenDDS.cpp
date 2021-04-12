@@ -5,19 +5,32 @@
  *  Author: V17
  */ 
 
-//#include "ScreenDDS.h"
 #include "../Device.h"
-/*#include "../UserControlsIndicators/UserControlNumeric.cpp"
-#include "../UserControlsIndicators/UserControlEnum.cpp"
-#include "../Channels/DDS_Channel.h"
-#include "Icons.h"*/
 
 ContainerList list_DDS(40, 0, 240 - 40, 64);
 
 // ***** DDS1 page *****
+#define DDS1_COLUMN1_POSX		SCREEN_TAB_WIDTH + 5
+#define DDS1_COLUMN2_POSX		DDS1_COLUMN1_POSX + 78
+#define DDS1_COLUMN3_POSX		DDS1_COLUMN2_POSX + 20
+#define DDS1_COLUMN4_POSX		DDS1_COLUMN3_POSX + 50
+#define DDS1_ROW1_POSY			25
+#define DDS1_ROW2_POSY			DDS1_ROW1_POSY + 20
+
 ContainerPage page_DDS1;
 Icon ico_dds(SCREEN_TAB_WIDTH + 5, 3, icon_supplyAC_width, icon_supplyAC_height, icon_supplyAC_bits);
 Label<5> lbl_DDS1_caption(SCREEN_TAB_WIDTH + 25, 5, "DDS1");
+
+Icon ico_DDS1_Frequency(DDS1_COLUMN1_POSX, DDS1_ROW1_POSY - 2, icon_frequency_width, icon_frequency_height, icon_frequency_bits);
+NumericControl<float> numCtrl_DDS1_Frequency(DDS1_COLUMN1_POSX + icon_frequency_width + 3, DDS1_ROW1_POSY, &Device.DdsChannel1.Frequency.Val, "Hz", DDS_MIN_FREQ, DDS_MAX_FREQ, 3, &Device.DdsChannel1, &DDS_Channel::DDSFrequencyChanged);
+Icon ico_DDS1_SignalForm(DDS1_COLUMN3_POSX, DDS1_ROW1_POSY - 2, icon_signalForm_width, icon_signalForm_height, icon_signalForm_bits);
+EnumControl<SignalForms_t> enumCtrl_DDS1_SignalForm(DDS1_COLUMN3_POSX + icon_signalForm_width + 3, DDS1_ROW1_POSY, &Device.DdsChannel1.SignalForm.Val, SignalFormsNames, 4, &Device.DdsChannel1, &DDS_Channel::DDSFrequencyChanged);
+Icon ico_DDS1_Amplitude(DDS1_COLUMN1_POSX, DDS1_ROW2_POSY - 2, icon_signalAmplitude_width, icon_signalAmplitude_height, icon_signalAmplitude_bits);
+NumericControl<float> numCtrl_DDS1_Amplitude(DDS1_COLUMN1_POSX + icon_signalAmplitude_width + 3, DDS1_ROW2_POSY, &Device.DdsChannel1.Amplitude.Val, "Vpp", DDS_MIN_AMPLITUDE, DDS_MAX_AMPLITUDE, 2, &Device.DdsChannel1, &DDS_Channel::DDSAmplitudeChanged);
+Icon ico_DDS1_Offset(DDS1_COLUMN2_POSX, DDS1_ROW2_POSY - 2, icon_signalOffset_width, icon_signalOffset_height, icon_signalOffset_bits);
+NumericControl<float> numCtrl_DDS1_Offset(DDS1_COLUMN2_POSX + icon_signalOffset_width + 3, DDS1_ROW2_POSY, &Device.DdsChannel1.Offset.Val, "V", DDS_MIN_OFFSET, DDS_MAX_OFFSET, 2, &Device.DdsChannel1, &DDS_Channel::DDSOffsetChanged);
+Icon ico_DDS1_Enabled(DDS1_COLUMN4_POSX, DDS1_ROW2_POSY, icon_OnOff_width, icon_OnOff_height, icon_OnOff_bits);
+BoolControl boolCtrl_DDS1_Enabled(DDS1_COLUMN4_POSX + icon_OnOff_width + 3, DDS1_ROW2_POSY, &Device.DdsChannel1.Enabled.Val, &Device.DdsChannel1, &DDS_Channel::DDSEnabledChanged);
 
 // ***** DDS2 page *****
 ContainerPage page_DDS2;
@@ -25,8 +38,22 @@ Label<5> lbl_DDS2_caption(SCREEN_TAB_WIDTH + 25, 5, "DDS2");
 
 UIElement* uiBuildScreenDDS()
 {
+	numCtrl_DDS1_Frequency.Width = 70;
+	numCtrl_DDS1_Amplitude.Width = 53;
+	numCtrl_DDS1_Offset.Width = 42;
+	
 	page_DDS1.AddItem(&ico_dds);
 	page_DDS1.AddItem(&lbl_DDS1_caption);
+	page_DDS1.AddItem(&ico_DDS1_Frequency);
+	page_DDS1.AddItem(&numCtrl_DDS1_Frequency);
+	page_DDS1.AddItem(&ico_DDS1_SignalForm);
+	page_DDS1.AddItem(&enumCtrl_DDS1_SignalForm);
+	page_DDS1.AddItem(&ico_DDS1_Amplitude);
+	page_DDS1.AddItem(&numCtrl_DDS1_Amplitude);
+	page_DDS1.AddItem(&ico_DDS1_Offset);
+	page_DDS1.AddItem(&numCtrl_DDS1_Offset);
+	page_DDS1.AddItem(&ico_DDS1_Enabled);
+	page_DDS1.AddItem(&boolCtrl_DDS1_Enabled);
 	page_DDS1.InitItems();
 	
 	page_DDS2.AddItem(&ico_dds);
@@ -38,27 +65,3 @@ UIElement* uiBuildScreenDDS()
 	
 	return &list_DDS;
 }
-
-/*ScreenDDS::ScreenDDS() : ScreenBase("DDS1"),
-	_ctrlDDSSignalForm(SIGNALFORM_CONTROL_POSX, SIGNALFORM_CONTROL_POSY, &Device.DdsChannel1.SignalForm.Val, SignalFormsNames, 4, &Device.DdsChannel1, &DDS_Channel::DDSSignalFormChanged, icon_signalForm_bits),
-	_ctrlDDSFrequency(FREQUENCY_CONTROL_POSX, FREQUENCY_CONTROL_POSY, &Device.DdsChannel1.Frequency.Val, "Hz", 0, Device.DdsChannel1.Frequency.Min, Device.DdsChannel1.Frequency.Max, &Device.DdsChannel1, &DDS_Channel::DDSFrequencyChanged, icon_frequency_bits),
-	_ctrlDDSEnabled(ENABLED_CONTROL_POSX, ENABLED_CONTROL_POSY, &Device.DdsChannel1.Enabled.Val, &Device.DdsChannel1, &DDS_Channel::DDSEnabledChanged, icon_OnOff_bits),
-	_ctrlDDSAmplitude(AMPLITUDE_CONTROL_POSX, AMPLITUDE_CONTROL_POSY, &Device.DdsChannel1.Amplitude.Val, "Vpp", 0, Device.DdsChannel1.Amplitude.Min, Device.DdsChannel1.Amplitude.Max, &Device.DdsChannel1, &DDS_Channel::DDSAmplitudeChanged, icon_signalAmplitude_bits),
-	_ctrlDDSOffset(OFFSET_CONTROL_POSX, OFFSET_CONTROL_POSY, &Device.DdsChannel1.Offset.Val, "V", 0, Device.DdsChannel1.Offset.Min, Device.DdsChannel1.Offset.Max, &Device.DdsChannel1, &DDS_Channel::DDSOffsetChanged, icon_signalOffset_bits)
-{
-	_ctrlDDSFrequency.IsSelected = true;
-	
-	_userControls[0] = &_ctrlDDSSignalForm;
-	_userControls[1] = &_ctrlDDSFrequency;
-	_userControls[2] = &_ctrlDDSEnabled;
-	_userControls[3] = &_ctrlDDSAmplitude;
-	_userControls[4] = &_ctrlDDSOffset;
-	_numUserControls = 5;
-}
-
-void ScreenDDS::Draw(u8g_t* u8g, bool isFirstPage)
-{
-	u8g_DrawXBMP(u8g, u8g_GetWidth(u8g) - CONTROLS_ICON_SIZE - 2, u8g_GetHeight(u8g) - CONTROLS_ICON_SIZE - 2, CONTROLS_ICON_SIZE, CONTROLS_ICON_SIZE, icon_supplyAC_bits);
-	
-	ScreenBase::Draw(u8g, isFirstPage);
-}*/

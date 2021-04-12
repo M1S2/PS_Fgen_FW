@@ -87,7 +87,7 @@
 #define PS_VOLT_PID_D					0						// Differential part of the voltage PID regulator
 
 #define DDS_MIN_FREQ					1						// Minimum allowed DDS frequency setting
-#define DDS_MAX_FREQ					1000					// Maximum allowed DDS frequency setting
+#define DDS_MAX_FREQ					2000					// Maximum allowed DDS frequency setting
 #define DDS_MIN_AMPLITUDE				0						// Minimum allowed DDS amplitude setting
 #define DDS_MAX_AMPLITUDE				20						// Maximum allowed DDS amplitude setting
 #define DDS_MIN_OFFSET					-10						// Minimum allowed DDS offset setting

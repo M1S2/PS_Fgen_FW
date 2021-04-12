@@ -30,9 +30,6 @@ void ScreenManagerClass::Init()
 	
 	_uiManager.Init(&_u8g);
 	uiBuildTree();
-		
-	//UI_Test_Init(&_u8g);
-	//UI_Test_BuildTree();
 }
 
 void ScreenManagerClass::uiBuildTree()
@@ -66,25 +63,12 @@ void ScreenManagerClass::DrawAll()
 	u8g_FirstPage(&_u8g);
 	do
 	{		
-		_uiManager.Draw(&_u8g, isFirstPage);	
-		//UI_Test_Draw(&_u8g, isFirstPage);
-		
+		_uiManager.Draw(&_u8g, isFirstPage);			
 		isFirstPage = false;
 	} while ( u8g_NextPage(&_u8g) );
 }
 
-void ScreenManagerClass::drawPage(bool isFirstPage)
-{
-	drawStatusBar();
-	drawMessage();
-}
-
-void ScreenManagerClass::drawStatusBar()
-{
-	u8g_DrawFrame(&_u8g, u8g_GetWidth(&_u8g) - 32, 0, 32, 12);
-}
-
-void ScreenManagerClass::drawMessage()
+/*void ScreenManagerClass::drawMessage()
 {
 	if((SystemMessage != NULL && strcmp(SystemMessage, "") != 0) || (UserMessage != NULL && strcmp(UserMessage, "") != 0))
 	{
@@ -102,7 +86,7 @@ void ScreenManagerClass::drawMessage()
 	{
 		u8g_DrawStrMultiline(&_u8g, MESSAGE_MARGIN + 2, MESSAGE_MARGIN + 2 + 8, UserMessage);
 	}
-}
+}*/
 
 void ScreenManagerClass::DeviceTimerTickISR(uint16_t currentPeriod_ms)
 {
@@ -121,7 +105,6 @@ void ScreenManagerClass::DeviceTimerTickISR(uint16_t currentPeriod_ms)
 void ScreenManagerClass::KeyInput(Keys_t key)
 {
 	_uiManager.KeyInput(key);
-	//UI_Test_KeyInput(key);
 	
 	//Device.SaveSettings();
 }

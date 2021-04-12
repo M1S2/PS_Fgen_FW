@@ -452,9 +452,6 @@
     <Compile Include="Screens\Icons.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="Screens\ScreenDDS.h">
-      <SubType>compile</SubType>
-    </Compile>
     <Compile Include="Screens\ScreenDDS.cpp">
       <SubType>compile</SubType>
     </Compile>

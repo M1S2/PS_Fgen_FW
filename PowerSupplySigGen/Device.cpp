@@ -57,6 +57,20 @@ void DeviceClass::Init()
 
 void DeviceClass::DeviceMainLoop()
 {
+	if(TimeCounter_KeyPolling_ms >= KEY_POLLING_DELAY_MS)
+	{
+		TimeCounter_KeyPolling_ms = 0;
+		Keys_t key = KeyPad_GetKeys();
+		if(key != KEYNONE)
+		{
+			UserInputHandler.EnqueueKeyInput(key);
+		}
+		if(Encoder_IsButtonPressed())
+		{
+			UserInputHandler.EnqueueKeyInput(KEYOK);
+		}
+	}
+	
 	UserInputHandler.ProcessInputs();
 	
 	if(TimeCounter_ScreenRedraw_ms >= SCREEN_REDRAW_DELAY_MS)
@@ -97,7 +111,7 @@ void DeviceClass::InitDeviceTimer()
 void DeviceClass::DeviceTimerTickISR(uint16_t currentPeriod_ms)
 {	
 	TimeCounter_KeyPolling_ms += currentPeriod_ms;
-	if(TimeCounter_KeyPolling_ms >= KEY_POLLING_DELAY_MS)
+	/*if(TimeCounter_KeyPolling_ms >= KEY_POLLING_DELAY_MS)
 	{		
 		TimeCounter_KeyPolling_ms = 0;
 		Keys_t key = KeyPad_GetKeys();
@@ -109,7 +123,7 @@ void DeviceClass::DeviceTimerTickISR(uint16_t currentPeriod_ms)
 		{
 			UserInputHandler.EnqueueKeyInput(KEYOK);
 		}
-	}
+	}*/
 	
 	TimeCounter_ScreenRedraw_ms += currentPeriod_ms;		// Screen redraw is handled in DeviceMainLoop()	
 	TimeCounter_AutoSave_ms += currentPeriod_ms;			// AutoSave is handled in DeviceMainLoop()

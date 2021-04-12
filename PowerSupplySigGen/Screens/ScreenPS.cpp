@@ -45,10 +45,10 @@ UIElement* uiBuildScreenPS()
 	page_PSOverview.AddItem(&lbl_PSOverview_caption);
 	page_PSOverview.AddItem(&ico_PSOverviewVoltage);
 	page_PSOverview.AddItem(&numCtrl_PSOverviewVoltage);
-	page_PSOverview.AddItem(&ico_PSOverviewCurrent);
-	page_PSOverview.AddItem(&numCtrl_PSOverviewCurrent);
 	page_PSOverview.AddItem(&ico_PSOverviewEnabled);
 	page_PSOverview.AddItem(&boolCtrl_PSOverviewEnabled);
+	page_PSOverview.AddItem(&ico_PSOverviewCurrent);
+	page_PSOverview.AddItem(&numCtrl_PSOverviewCurrent);
 	page_PSOverview.AddItem(&numInd_PsOverviewVoltage);
 	page_PSOverview.AddItem(&numInd_PsOverviewCurrent);
 	page_PSOverview.AddItem(&numInd_PsOverviewPower);

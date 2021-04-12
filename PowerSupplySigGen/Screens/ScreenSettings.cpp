@@ -10,7 +10,7 @@
 // ***** Settings page *****
 ContainerPage page_Settings;
 Icon ico_settings(SCREEN_TAB_WIDTH + 5, 3, icon_settings_width, icon_settings_height, icon_settings_bits);
-Label lbl_Settings_caption(SCREEN_TAB_WIDTH + 25, 5, "Settings");
+Label<10> lbl_Settings_caption(SCREEN_TAB_WIDTH + 25, 5, "Settings");
 
 UIElement* uiBuildScreenSettings()
 {

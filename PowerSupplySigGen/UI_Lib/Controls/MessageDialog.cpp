@@ -6,6 +6,7 @@
  */ 
 
 #include "MessageDialog.h"
+#include "../Indicators/Label.cpp"
 
 MessageDialog::MessageDialog(unsigned char locX, unsigned char locY, unsigned char width, unsigned char height, const char* message, MessageSeverity severity, bool showOkButton, void* controlContext, void(*onOkClick)(void* controlContext)) : UIElement(locX, locY, UI_CONTROL),
 	_page(),

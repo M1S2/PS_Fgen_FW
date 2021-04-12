@@ -12,7 +12,7 @@ ContainerList list_PS(SCREEN_TAB_WIDTH, 0, 240 - SCREEN_TAB_WIDTH, 64);
 // ***** Power Supply Overview page *****
 ContainerPage page_PSOverview;
 Icon ico_PSOverview(SCREEN_TAB_WIDTH + 5, 3, icon_supplyDC_width, icon_supplyDC_height, icon_supplyDC_bits);
-Label lbl_PSOverview_caption(SCREEN_TAB_WIDTH + 25, 5, "PowerSupply");
+Label<15> lbl_PSOverview_caption(SCREEN_TAB_WIDTH + 25, 5, "PowerSupply");
 
 Icon ico_PSOverviewVoltage(SCREEN_TAB_WIDTH + 5, 23, icon_voltage_width, icon_voltage_height, icon_voltage_bits);
 NumericControl<float> numCtrl_PSOverviewVoltage(SCREEN_TAB_WIDTH + 23, 25, &Device.PsChannel.Amplitude.Val, "V", PS_MIN_AMPLITUDE, PS_MAX_AMPLITUDE, 3, &Device.PsChannel, &PS_Channel::PSAmplitudeChanged);
@@ -29,15 +29,15 @@ EnumIndicator<PsStates_t> enumInd_PsOverviewState(SCREEN_TAB_WIDTH + 155, 48, &D
 // ***** Power Supply Protection OVP page *****
 ContainerPage page_PSProtectionOVP;
 Icon ico_PSProtection(40, 3, icon_protection_width, icon_protection_height, icon_protection_bits);
-Label lbl_PSProtectionOVP_caption(60, 5, "OVP");
+Label<5> lbl_PSProtectionOVP_caption(60, 5, "OVP");
 
 // ***** Power Supply Protection OCP page *****
 ContainerPage page_PSProtectionOCP;
-Label lbl_PSProtectionOCP_caption(60, 5, "OCP");
+Label<5> lbl_PSProtectionOCP_caption(60, 5, "OCP");
 
 // ***** Power Supply Protection OPP page *****
 ContainerPage page_PSProtectionOPP;
-Label lbl_PSProtectionOPP_caption(60, 5, "OPP");
+Label<5> lbl_PSProtectionOPP_caption(60, 5, "OPP");
 
 UIElement* uiBuildScreenPS()
 {

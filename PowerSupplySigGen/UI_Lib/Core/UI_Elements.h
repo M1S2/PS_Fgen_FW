@@ -31,5 +31,6 @@
 #include "../Indicators/NumericIndicator.cpp"
 #include "../Controls/NumericControl.cpp"
 #include "../Indicators/ProgressBar.cpp"
+#include "../Indicators/Label.cpp"
 
 #endif /* UI_ELEMENTS_H_ */

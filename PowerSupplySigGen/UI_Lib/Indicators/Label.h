@@ -11,19 +11,22 @@
 
 #include "../Core/UIElement.h"
 
-#define MAX_LABEL_STRING_LENGTH		50
+#define DEFAULT_LABEL_STRING_LENGTH		50
 
+template <int StringLength>
 class Label : public UIElement
 {
 	private:
 		const u8g_fntpgm_uint8_t* _font;
 	
 	public:
-		char Text[MAX_LABEL_STRING_LENGTH];
+		char Text[StringLength];
 
 		Label(unsigned char locX, unsigned char locY, const char* text);
 		Label(unsigned char locX, unsigned char locY, const char* text, const u8g_fntpgm_uint8_t* font);
 		virtual void Draw(u8g_t *u8g, bool isFirstPage) override;
 };
+
+typedef Label<DEFAULT_LABEL_STRING_LENGTH> LabelDefault;
 
 #endif /* LABEL_H_ */

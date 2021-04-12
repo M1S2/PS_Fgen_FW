@@ -8,19 +8,22 @@
 #include "Label.h"
 #include <string.h>
 
-Label::Label(unsigned char locX, unsigned char locY, const char* text) : UIElement(locX, locY, UI_INDICATOR)
+template <int StringLength>
+Label<StringLength>::Label(unsigned char locX, unsigned char locY, const char* text) : UIElement(locX, locY, UI_INDICATOR)
 {
 	strcpy(Text, text);
 	_font = NULL;
 }
 
-Label::Label(unsigned char locX, unsigned char locY, const char* text, const u8g_fntpgm_uint8_t* font) : UIElement(locX, locY, UI_INDICATOR)
+template <int StringLength>
+Label<StringLength>::Label(unsigned char locX, unsigned char locY, const char* text, const u8g_fntpgm_uint8_t* font) : UIElement(locX, locY, UI_INDICATOR)
 {
 	strcpy(Text, text);
 	_font = font;
 }
 
-void Label::Draw(u8g_t *u8g, bool isFirstPage)
+template <int StringLength>
+void Label<StringLength>::Draw(u8g_t *u8g, bool isFirstPage)
 {
 	if (Visible)
 	{

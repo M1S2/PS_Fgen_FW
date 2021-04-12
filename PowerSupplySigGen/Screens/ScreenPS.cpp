@@ -6,10 +6,6 @@
  */ 
 
 #include "../Device.h"
-#include "../UI_Lib/Indicators/NumericIndicator.cpp"
-#include "../UI_Lib/Controls/NumericControl.cpp"
-#include "../UI_Lib/Indicators/EnumIndicator.cpp"
-#include "../UI_Lib/Controls/EnumControl.cpp"
 
 ContainerList list_PS(SCREEN_TAB_WIDTH, 0, 240 - SCREEN_TAB_WIDTH, 64);
 

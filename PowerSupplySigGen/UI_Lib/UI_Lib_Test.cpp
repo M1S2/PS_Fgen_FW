@@ -6,11 +6,6 @@
  */ 
 
 #include "UI_Lib_Test.h"
-#include "Controls/EnumControl.cpp"
-#include "Indicators/EnumIndicator.cpp"
-#include "Indicators/NumericIndicator.cpp"
-#include "Controls/NumericControl.cpp"
-#include "Indicators/ProgressBar.cpp"
 
 enum TestEnum
 {

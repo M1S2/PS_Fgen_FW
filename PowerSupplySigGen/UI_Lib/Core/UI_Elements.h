@@ -26,12 +26,10 @@
 #include "../Controls/ButtonControl.h"
 #include "../Controls/MessageDialog.h"
 
-/*
 #include "../Indicators/EnumIndicator.cpp"
 #include "../Controls/EnumControl.cpp"
 #include "../Indicators/NumericIndicator.cpp"
-#include "../Indicators/ProgressBar.cpp"
 #include "../Controls/NumericControl.cpp"
-*/
+#include "../Indicators/ProgressBar.cpp"
 
 #endif /* UI_ELEMENTS_H_ */

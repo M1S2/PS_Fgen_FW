@@ -6,8 +6,6 @@
  */ 
 
 #include "../Device.h"
-#include "../UI_Lib/Indicators/NumericIndicator.cpp"
-#include "../UI_Lib/Indicators/ProgressBar.cpp"
 
 ContainerList list_Measure(40, 0, 240 - 40, 64);
 

@@ -10,7 +10,6 @@
 #include "../Device.h"
 
 #include "../UI_Lib/UI_Lib_Test.h"
-#include "../UI_Lib/Indicators/EnumIndicator.cpp"
 
 ContainerPage page_Main;
 EnumIndicator<DeviceControlStates_t> enumInd_deviceState(240 - 37, 2, &Device.DeviceControlState, DeviceControlStateNames, 3);

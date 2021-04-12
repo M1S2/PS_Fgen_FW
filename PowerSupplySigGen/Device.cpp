@@ -6,7 +6,6 @@
  */ 
 
 #include "Device.h"
-#include "Screens/ScreenManager.h"
 #include "USART/USART.h"
 #include "ADC/ADC.h"
 #include "Spi/spi.h"

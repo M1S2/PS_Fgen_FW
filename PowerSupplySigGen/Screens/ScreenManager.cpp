@@ -11,7 +11,6 @@
 
 #include "../UI_Lib/UI_Lib_Test.h"
 
-ContainerPage page_Main;
 EnumIndicator<DeviceControlStates_t> enumInd_deviceState(240 - 37, 2, &Device.DeviceControlState, DeviceControlStateNames, 3);
 Label<5> lbl_devSettingsNeedSaving(240 - 15, 0, "*", u8g_font_7x14r);
 
@@ -28,7 +27,7 @@ void ScreenManagerClass::Init()
 	IsSplashScreenShown = true;
 	TimeCounter_SplashScreen_ms = 0;
 	
-	_uiManager.Init(&_u8g);
+	UiManager.Init(&_u8g);
 	uiBuildTree();
 }
 
@@ -46,9 +45,9 @@ void ScreenManagerClass::uiBuildTree()
 	page_Main.InitItems();
 	
 	#ifdef SPLASHSCREEN_ENABLED 
-		_uiManager.ChangeVisualTreeRoot(uiBuildSplashScreen());
+		UiManager.ChangeVisualTreeRoot(uiBuildSplashScreen());
 	#else
-		_uiManager.ChangeVisualTreeRoot(&page_Main);
+		UiManager.ChangeVisualTreeRoot(&page_Main);
 	#endif
 }
 
@@ -63,7 +62,7 @@ void ScreenManagerClass::DrawAll()
 	u8g_FirstPage(&_u8g);
 	do
 	{		
-		_uiManager.Draw(&_u8g, isFirstPage);			
+		UiManager.Draw(&_u8g, isFirstPage);			
 		isFirstPage = false;
 	} while ( u8g_NextPage(&_u8g) );
 }
@@ -97,14 +96,14 @@ void ScreenManagerClass::DeviceTimerTickISR(uint16_t currentPeriod_ms)
 		if(IsSplashScreenShown && (TimeCounter_SplashScreen_ms >= SPLASHSCREEN_DELAY_MS))
 		{
 			IsSplashScreenShown = false;
-			_uiManager.ChangeVisualTreeRoot(&page_Main);
+			UiManager.ChangeVisualTreeRoot(&page_Main);
 		}
 	#endif
 }
 
 void ScreenManagerClass::KeyInput(Keys_t key)
 {
-	_uiManager.KeyInput(key);
+	UiManager.KeyInput(key);
 	
 	//Device.SaveSettings();
 }

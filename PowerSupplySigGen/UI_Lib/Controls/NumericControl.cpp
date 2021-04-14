@@ -35,8 +35,8 @@ void NumericControl<T>::Draw(u8g_t *u8g, bool isFirstPage)
 		
 		if(IsEditMode)
 		{																								 
-			uint8_t cursorDigitIndex = (-_currentDigitPosition + (this->_numDigits - this->_numFractionalDigits)) + ((this->_numFractionalDigits + this->_unitPrefixPower) == 0 ? 1 : 0);	// if (this->_numFractionalDigits + this->_unitPrefixPower) == 0,  no comma is available
-			uint8_t cursorXpos = this->LocX + cursorDigitIndex * 6 + (_currentDigitPosition < this->_unitPrefixPower ? 3 : 0) - 1;															// if (_currentDigitPosition < _unitPrefixPower) cursor is right of comma
+			uint8_t cursorDigitIndex = (-_currentDigitPosition + (this->_numDigits - this->_numFractionalDigits)) + (((this->_numFractionalDigits + this->_unitPrefixPower) == 0 && this->_numFractionalDigits != 0) ? 1 : 0);	// if (this->_numFractionalDigits + this->_unitPrefixPower) == 0,  no comma is available
+			uint8_t cursorXpos = this->LocX + cursorDigitIndex * 6 + (_currentDigitPosition < this->_unitPrefixPower ? 3 : 0) - 1;																								// if (_currentDigitPosition < _unitPrefixPower) cursor is right of comma
 			u8g_DrawHLine(u8g, cursorXpos, this->LocY + this->Height, 5);		// Draw cursor
 
 			u8g_SetDefaultForegroundColor(u8g); 

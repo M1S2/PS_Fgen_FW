@@ -29,7 +29,6 @@ UIElement* uiBuildScreenSettings();
 class ScreenManagerClass
 {
 	private:
-		UI_Manager _uiManager;
 		void uiBuildTree();
 	
 		u8g_t _u8g;
@@ -41,6 +40,9 @@ class ScreenManagerClass
 		#endif
 		
 	public:
+		UI_Manager UiManager;
+		ContainerPage page_Main;
+			
 		bool DisplayInverted;
 		char SystemMessage[MAX_MESSAGE_LEN];
 		char UserMessage[MAX_MESSAGE_LEN];

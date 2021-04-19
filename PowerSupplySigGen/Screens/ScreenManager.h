@@ -41,7 +41,7 @@ class ScreenManagerClass
 		
 	public:
 		UI_Manager UiManager;
-		ContainerPage page_Main;
+		void ShowUiMainPage();
 			
 		bool DisplayInverted;
 		char SystemMessage[MAX_MESSAGE_LEN];

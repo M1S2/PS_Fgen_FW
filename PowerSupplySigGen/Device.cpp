@@ -17,7 +17,8 @@ DeviceClass Device;
 DevSettingsEEPROMLayout_t EEMEM NonVolatileSettings;
 
 const char* DeviceControlStateNames[] = { "LOC", "REM", "RWL" };
-
+const char* DevicePowerUpOutputEnabledStateNames[] = { "OFF", "LAST", "ON" };
+	
 DeviceClass::DeviceClass() :
 	PsChannel(PS_MIN_AMPLITUDE, PS_MAX_AMPLITUDE, PS_MIN_CURRENT, PS_MAX_CURRENT, PS_MIN_OVP_LEVEL_PERCENTAGE, PS_MAX_OVP_LEVEL_PERCENTAGE, PS_MIN_OVP_DELAY, PS_MAX_OVP_DELAY, PS_MIN_OCP_LEVEL_PERCENTAGE, PS_MAX_OCP_LEVEL_PERCENTAGE, PS_MIN_OCP_DELAY, PS_MAX_OCP_DELAY, PS_MIN_OPP_LEVEL, PS_MAX_OPP_LEVEL, PS_MIN_OPP_DELAY, PS_MAX_OPP_DELAY),
 	DdsChannel1(DDS_MIN_FREQ, DDS_MAX_FREQ, DDS_MIN_AMPLITUDE, DDS_MAX_AMPLITUDE, DDS_MIN_OFFSET, DDS_MAX_OFFSET),
@@ -209,7 +210,7 @@ void DeviceClass::SaveSettings()
 	settings.DDS2_Offset = DdsChannel2.GetOffset();
 	settings.DDS2_Enabled = DdsChannel2.GetEnabled();
 
-	settings.PowerOnOutputsDisabled = PowerOnOutputsDisabled;
+	settings.PowerOnOutputsState = PowerOnOutputsState;
 
 	eeprom_write_block((const void*)&settings, (void*)&NonVolatileSettings, sizeof(DevSettingsEEPROMLayout_t));
 	
@@ -250,11 +251,11 @@ void DeviceClass::LoadSettings()
 	DdsChannel2.SetAmplitude(settings.DDS2_Amplitude);
 	DdsChannel2.SetOffset(settings.DDS2_Offset);
 	
-	PowerOnOutputsDisabled = settings.PowerOnOutputsDisabled;
+	PowerOnOutputsState = settings.PowerOnOutputsState;
 	
-	PsChannel.SetEnabled(PowerOnOutputsDisabled ? false : settings.PS_Enabled);
-	DdsChannel1.SetEnabled(PowerOnOutputsDisabled ? false : settings.DDS1_Enabled);
-	DdsChannel2.SetEnabled(PowerOnOutputsDisabled ? false : settings.DDS2_Enabled);
+	PsChannel.SetEnabled(PowerOnOutputsState == DEV_POWERUP_OUTPUTS_OFF ? false : (PowerOnOutputsState == DEV_POWERUP_OUTPUTS_ON ? true : settings.PS_Enabled));
+	DdsChannel1.SetEnabled(PowerOnOutputsState == DEV_POWERUP_OUTPUTS_OFF ? false : (PowerOnOutputsState == DEV_POWERUP_OUTPUTS_ON ? true : settings.DDS1_Enabled));
+	DdsChannel2.SetEnabled(PowerOnOutputsState == DEV_POWERUP_OUTPUTS_OFF ? false : (PowerOnOutputsState == DEV_POWERUP_OUTPUTS_ON ? true : settings.DDS2_Enabled));
 	
 	SetSettingsChanged(false);
 }
@@ -289,7 +290,7 @@ void DeviceClass::ResetDevice()
 	DdsChannel2.SetAmplitude(DdsChannel2.Amplitude.Def);
 	DdsChannel2.SetOffset(DdsChannel2.Offset.Def);
 	
-	PowerOnOutputsDisabled = true;
+	PowerOnOutputsState = DEV_POWERUP_OUTPUTS_OFF;
 	
 	SaveSettings();
 }

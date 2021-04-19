@@ -81,7 +81,7 @@ void PSProtectionsClear(void* controlContext)
 
 void PSProtectionsClearedOK(void* controlContext)
 {
-	Device.ScreenManager.UiManager.ChangeVisualTreeRoot(&Device.ScreenManager.page_Main);
+	Device.ScreenManager.ShowUiMainPage();
 }
 
 UIElement* uiBuildScreenPS()

@@ -48,14 +48,24 @@ scpi_result_t scpi_cmd_systemPonOutputDisable(scpi_t * context)
 	{
 		return SCPI_RES_ERR;
 	}
-	if(Device.PowerOnOutputsDisabled != disabled) { Device.SetSettingsChanged(true); }
-	Device.PowerOnOutputsDisabled = disabled;
+
+	if(disabled && Device.PowerOnOutputsState != DEV_POWERUP_OUTPUTS_OFF)
+	{
+		Device.PowerOnOutputsState = DEV_POWERUP_OUTPUTS_OFF;
+		Device.SetSettingsChanged(true); 
+	}
+	else if(!disabled && Device.PowerOnOutputsState != DEV_POWERUP_OUTPUTS_LASTSTATE)
+	{
+		Device.PowerOnOutputsState = DEV_POWERUP_OUTPUTS_LASTSTATE;
+		Device.SetSettingsChanged(true);
+	}
+	
 	return SCPI_RES_OK;
 }
 
 scpi_result_t scpi_cmd_systemPonOutputDisableQ(scpi_t * context)
 {
-	SCPI_ResultBool(context, Device.PowerOnOutputsDisabled);
+	SCPI_ResultBool(context, Device.PowerOnOutputsState == DEV_POWERUP_OUTPUTS_OFF);
 	return SCPI_RES_OK;
 }
 

@@ -19,3 +19,5 @@ icon_info:		selbst gezeichnet
 icon_error:		selbst gezeichnet
 icon_warning:		selbst gezeichnet
 icon_settings:		https://findicons.com/icon/70239/wrench
+icon_colorInvert:	https://www.flaticon.com/free-icon/invert-colors-button_61136
+icon_boot:		https://icons-for-free.com/apps+reboot-131996350970633026/

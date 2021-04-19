@@ -31,6 +31,15 @@ typedef enum DeviceControlStates
 }DeviceControlStates_t; 
 extern const char* DeviceControlStateNames[3];
 
+typedef enum DevicePowerUpOutputEnabledStates
+{
+	DEV_POWERUP_OUTPUTS_OFF,
+	DEV_POWERUP_OUTPUTS_LASTSTATE,
+	DEV_POWERUP_OUTPUTS_ON
+}DevicePowerUpOutputEnabledStates_t;
+extern const char* DevicePowerUpOutputEnabledStateNames[3];
+
+
 typedef struct DeviceVoltagesStruct
 {
 	float ATX_3V3;
@@ -72,7 +81,7 @@ typedef struct DevSettingsEEPROMLayout
 	float DDS2_Offset;
 	bool DDS2_Enabled;
 	
-	bool PowerOnOutputsDisabled;
+	DevicePowerUpOutputEnabledStates_t PowerOnOutputsState;
 }DevSettingsEEPROMLayout_t;
 
 
@@ -91,7 +100,7 @@ class DeviceClass
 		
 		uint8_t SelectedScpiChannelIndex;
 		
-		bool PowerOnOutputsDisabled;				// true -> outputs are disabled on power on; false -> last output states are restored on power on
+		DevicePowerUpOutputEnabledStates_t PowerOnOutputsState;
 		
 		DeviceControlStates_t DeviceControlState;
 		DeviceVoltages_t DeviceVoltages;

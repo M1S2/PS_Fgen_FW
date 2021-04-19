@@ -11,6 +11,7 @@
 
 #include "../UI_Lib/UI_Lib_Test.h"
 
+ContainerPage page_Main;
 EnumIndicator<DeviceControlStates_t> enumInd_deviceState(240 - 37, 2, &Device.DeviceControlState, DeviceControlStateNames, 3);
 Label<5> lbl_devSettingsNeedSaving(240 - 15, 0, "*", u8g_font_7x14r);
 
@@ -49,6 +50,11 @@ void ScreenManagerClass::uiBuildTree()
 	#else
 		UiManager.ChangeVisualTreeRoot(&page_Main);
 	#endif
+}
+
+void ScreenManagerClass::ShowUiMainPage()
+{
+	UiManager.ChangeVisualTreeRoot(&page_Main);
 }
 
 void ScreenManagerClass::UpdateSettingsChangedIndicator(bool settingsChanged)

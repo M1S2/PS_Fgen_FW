@@ -23,9 +23,12 @@ class TabControl : public UIElement
 		int _numTabs;
 		int _selectedTabIndex;
 		unsigned char _tabWidth;
+		
+		void* _controlContext;									// Context pointer that is returned with the _onSelectedTabChanged function pointer
+		void(*_onSelectedTabChanged)(void* controlContext);		// Function pointer for _onSelectedTabChanged event
 
 	public:
-		TabControl(unsigned char locX, unsigned char locY, unsigned char width, unsigned char height, unsigned char tabWidth);
+		TabControl(unsigned char locX, unsigned char locY, unsigned char width, unsigned char height, unsigned char tabWidth, void* controlContext = NULL, void(*onSelectedTabChanged)(void* controlContext) = NULL);
 		virtual void Draw(u8g_t *u8g, bool isFirstPage) override;
 		virtual bool KeyInput(Keys_t key) override;
 		

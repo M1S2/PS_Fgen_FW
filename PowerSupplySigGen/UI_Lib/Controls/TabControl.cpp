@@ -8,13 +8,15 @@
 #include "TabControl.h"
 #include <string.h>
 
-TabControl::TabControl(unsigned char locX, unsigned char locY, unsigned char width, unsigned char height, unsigned char tabWidth) : UIElement(locX, locY, UI_CONTROL)
+TabControl::TabControl(unsigned char locX, unsigned char locY, unsigned char width, unsigned char height, unsigned char tabWidth, void* controlContext, void(*onSelectedTabChanged)(void* controlContext)) : UIElement(locX, locY, UI_CONTROL)
 {
 	Width = width;
 	Height = height;
 	_numTabs = 0;
 	_selectedTabIndex = 0;
 	_tabWidth = tabWidth;
+	_controlContext = controlContext;
+	_onSelectedTabChanged = onSelectedTabChanged;
 }
 
 void TabControl::Draw(u8g_t *u8g, bool isFirstPage) 
@@ -91,6 +93,8 @@ void TabControl::SelectTab(int index)
 	else if (_selectedTabIndex < 0) { _selectedTabIndex = _numTabs - 1; }
 	
 	ActiveChild = _tabContents[_selectedTabIndex];
+	
+	if (_onSelectedTabChanged != NULL) { _onSelectedTabChanged(_controlContext); }
 }
 
 int TabControl::GetSelectedTabIndex()

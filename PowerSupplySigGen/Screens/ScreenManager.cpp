@@ -17,7 +17,7 @@ ContainerPage page_Main;
 EnumIndicator<DeviceControlStates_t> enumInd_deviceState(240 - 37, 2, &Device.DeviceControlState, DeviceControlStateNames, 3);
 Label<5> lbl_devSettingsNeedSaving(240 - 15, 0, "*", u8g_font_7x14r);
 
-TabControl tabControlMain(0, 0, 240, 64, SCREEN_TAB_WIDTH, &Device, &TabControlTabChanged);
+TabControl tabControlMain(0, 0, 240, 64, SCREEN_TAB_WIDTH); //, &Device, &TabControlTabChanged);
 
 
 ScreenManagerClass::ScreenManagerClass()
@@ -40,7 +40,6 @@ void ScreenManagerClass::uiBuildTree()
 	tabControlMain.AddTab("DDS", uiBuildScreenDDS());			// Containing DDS1 and DDS2
 	tabControlMain.AddTab("Meas", uiBuildScreenMeasure());		// Containing DMM and ATX measurements
 	tabControlMain.AddTab("Conf", uiBuildScreenSettings());
-	tabControlMain.SelectTab(0);
 	
 	page_Main.AddItem(&tabControlMain);
 	page_Main.AddItem(&enumInd_deviceState);
@@ -64,10 +63,10 @@ void ScreenManagerClass::UpdateSettingsChangedIndicator(bool settingsChanged)
 	lbl_devSettingsNeedSaving.Visible = settingsChanged;
 }
 
-void TabControlTabChanged(void* context)
+/*void TabControlTabChanged(void* context)
 {
 	Device.SaveSettings();
-}
+}*/
 
 void ScreenManagerClass::DrawAll()
 {

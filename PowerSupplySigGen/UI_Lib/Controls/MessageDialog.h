@@ -17,12 +17,19 @@
 
 #define MAX_MESSAGEDIALOG_STRING_LENGTH		256
 
-enum MessageSeverity
+typedef enum MessageSeverity
 {
 	MSG_INFO,
 	MSG_WARNING,
 	MSG_ERROR
-};
+}MessageSeverity_t;
+
+typedef enum MessageButtons
+{
+	MSG_BTN_NONE,
+	MSG_BTN_OK,
+	MSG_BTN_OK_CANCEL
+}MessageButtons_t;
 
 #define icon_info_width 16
 #define icon_info_height 16
@@ -51,11 +58,12 @@ class MessageDialog : public UIElement
 		ContainerPage _page;
 		Label<MAX_MESSAGEDIALOG_STRING_LENGTH> _message;
 		Icon _severityIcon;
-		MessageSeverity _severity;
+		MessageSeverity_t _severity;
 		ButtonControl _buttonOk;
+		ButtonControl _buttonCancel;
 
 	public:
-		MessageDialog(unsigned char locX, unsigned char locY, unsigned char width, unsigned char height, const char* message, MessageSeverity severity, bool showOkButton = true, void* controlContext = NULL, void(*onOkClick)(void* controlContext) = NULL);
+		MessageDialog(unsigned char locX, unsigned char locY, unsigned char width, unsigned char height, const char* message, MessageSeverity_t severity, MessageButtons_t buttons = MSG_BTN_OK, void* controlContext = NULL, void(*onOkClick)(void* controlContext) = NULL, void(*onCancelClick)(void* controlContext) = NULL);
 		virtual void Draw(u8g_t *u8g, bool isFirstPage) override;
 
 		virtual bool KeyInput(Keys_t key) override;

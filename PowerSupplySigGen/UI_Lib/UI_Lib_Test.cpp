@@ -47,9 +47,9 @@ ContainerPage page_numeric;
 
 ButtonControl buttonReset(40, 20, 60, 10, "Reset", NULL, &OnButtonReset);
 ButtonControl buttonShowTestError(40, 35, 60, 10, "Show Error", NULL, &OnShowError);
-MessageDialog msgReset(5, 5, 240 - 5, 64 - 5, "Reset sucessful.", MSG_INFO, true, NULL, &OnMsgOk);
-MessageDialog msgTestWarning(5, 5, 240 - 5, 64 - 5, "Warning message.\nWith Newline.", MSG_WARNING, true, NULL, &OnMsgOk);
-MessageDialog msgTestError(5, 5, 240 - 5, 64 - 5, "Error message.", MSG_ERROR, true, NULL, &OnMsgOk);
+MessageDialog msgReset(5, 5, 240 - 5, 64 - 5, "Reset sucessful.", MSG_INFO, MSG_BTN_OK, NULL, &OnMsgOk);
+MessageDialog msgTestWarning(5, 5, 240 - 5, 64 - 5, "Warning message.\nWith Newline.", MSG_WARNING, MSG_BTN_OK, NULL, &OnMsgOk);
+MessageDialog msgTestError(5, 5, 240 - 5, 64 - 5, "Error message.", MSG_ERROR, MSG_BTN_OK, NULL, &OnMsgOk);
 ContainerPage page_dialogs;
 
 TabControl tabControl(0, 0, 240, 64, 32);

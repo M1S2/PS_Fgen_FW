@@ -18,6 +18,18 @@ Icon ico_settings(SCREEN_TAB_WIDTH + 5, 3, icon_settings_width, icon_settings_he
 
 void SettingsChanged(void* context);
 
+// ***** Settings Device page *****
+void OnButtonSettingsSave(void* context);
+void OnButtonDeviceReset(void* context);
+void OnResetConfirmation(void* context);
+void OnResetCancel(void* context);
+
+ContainerPage page_Settings_Device;
+Label<20> lbl_Settings_Device_caption(SCREEN_TAB_WIDTH + 25, 5, "Settings Device");
+ButtonControl button_Settings_Save(SETTINGS_COLUMN1_POSX, SETTINGS_ROW1_POSY, 70, DEFAULT_UI_ELEMENT_HEIGHT, "Save Settings", &Device, &OnButtonSettingsSave);
+ButtonControl button_Settings_Reset(SETTINGS_COLUMN1_POSX, SETTINGS_ROW2_POSY, 70, DEFAULT_UI_ELEMENT_HEIGHT, "Reset Device", &Device, &OnButtonDeviceReset);
+MessageDialog msg_Settings_ResetConfirmation(0, 0, 240, 64, "Do you really want to reset the device?\nThis can't be undone!", MSG_WARNING, MSG_BTN_OK_CANCEL, &Device, &OnResetConfirmation, &OnResetCancel);
+
 // ***** Settings Display page *****
 void SettingsDisplayInvertedChanged(void* context);
 
@@ -63,6 +75,27 @@ void SettingsChanged(void* context)
 	Device.SetSettingsChanged(true);
 }
 
+void OnButtonSettingsSave(void* context)
+{
+	Device.SaveSettings();
+}
+
+void OnButtonDeviceReset(void* context)
+{
+	Device.ScreenManager.UiManager.ChangeVisualTreeRoot(&msg_Settings_ResetConfirmation);
+}
+
+void OnResetConfirmation(void* context)
+{
+	Device.ResetDevice();
+	Device.ScreenManager.ShowUiMainPage();
+}
+
+void OnResetCancel(void* context)
+{
+	Device.ScreenManager.ShowUiMainPage();
+}
+
 void SettingsDisplayInvertedChanged(void* context)
 {
 	Device.ScreenManager.SetDisplayInverted(Device.ScreenManager.DisplayInverted);
@@ -78,6 +111,12 @@ void SettingsDisplayInvertedChanged(void* context)
 
 UIElement* uiBuildScreenSettings()
 {
+	page_Settings_Device.AddItem(&ico_settings);
+	page_Settings_Device.AddItem(&lbl_Settings_Device_caption);
+	page_Settings_Device.AddItem(&button_Settings_Save);
+	page_Settings_Device.AddItem(&button_Settings_Reset);
+	page_Settings_Device.InitItems();
+	
 	page_Settings_Display.AddItem(&ico_settings);
 	page_Settings_Display.AddItem(&lbl_Settings_Display_caption);
 	page_Settings_Display.AddItem(&ico_Settings_Display_Inverse);
@@ -109,6 +148,7 @@ UIElement* uiBuildScreenSettings()
 	page_Settings_VersionInfo.AddItem(&lbl_Settings_VersionInfo_swVersion);
 	page_Settings_VersionInfo.InitItems();
 	
+	list_Settings.AddItem(&page_Settings_Device);
 	list_Settings.AddItem(&page_Settings_Display);
 	list_Settings.AddItem(&page_Settings_Communication);
 	list_Settings.AddItem(&page_Settings_PowerUp);

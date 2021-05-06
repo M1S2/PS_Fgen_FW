@@ -18,6 +18,7 @@ DevSettingsEEPROMLayout_t EEMEM NonVolatileSettings;
 
 const char* DeviceControlStateNames[] = { "LOC", "REM", "RWL" };
 const char* DevicePowerUpOutputEnabledStateNames[] = { "OFF", "LAST", "ON" };
+const char* DeviceBaudRateNames[] = { "110", "150", "300", "1200", "2400", "4800", "9600", "19200", "38400", "57600" };
 	
 DeviceClass::DeviceClass() :
 	PsChannel(PS_MIN_AMPLITUDE, PS_MAX_AMPLITUDE, PS_MIN_CURRENT, PS_MAX_CURRENT, PS_MIN_OVP_LEVEL_PERCENTAGE, PS_MAX_OVP_LEVEL_PERCENTAGE, PS_MIN_OVP_DELAY, PS_MAX_OVP_DELAY, PS_MIN_OCP_LEVEL_PERCENTAGE, PS_MAX_OCP_LEVEL_PERCENTAGE, PS_MIN_OCP_DELAY, PS_MAX_OCP_DELAY, PS_MIN_OPP_LEVEL, PS_MAX_OPP_LEVEL, PS_MIN_OPP_DELAY, PS_MAX_OPP_DELAY),
@@ -144,22 +145,36 @@ void DeviceClass::UpdateControlStateOnUserInput()
 
 // ##### Communication ###############################################################################################################
 
-void DeviceClass::SetSerialBaudRate(uint32_t baud)
+uint32_t DeviceBaudRateEnumToNumber(DeviceBaudRates_t baudRateEnum)
 {
-	if(baud != 110 && baud != 150 && baud != 300 && baud != 1200 && baud != 2400 && baud != 4800 && baud != 9600 && baud != 19200 && baud != 38400 && baud != 57600)		/* Check for invalid baud rates */
+	switch(baudRateEnum)
 	{
-		Usart0TransmitStr("Invalid baud rate selected. Nothing done.\r\n");
-		return;
+		case DEV_BAUD_110: return 110;
+		case DEV_BAUD_150: return 150;
+		case DEV_BAUD_300: return 300;
+		case DEV_BAUD_1200: return 1200;
+		case DEV_BAUD_2400: return 2400;
+		case DEV_BAUD_4800: return 4800;
+		case DEV_BAUD_9600: return 9600;
+		case DEV_BAUD_19200: return 19200;
+		case DEV_BAUD_38400: return 38400;
+		case DEV_BAUD_57600: return 57600;
+		default: return 9600;
 	}
-	
-	if(SerialBaudRate != baud && baud > 0 && baud < 115200)
-	{
+}
+
+void DeviceClass::SetSerialBaudRate(DeviceBaudRates_t baud)
+{
+	if(SerialBaudRate != baud)
+	{		
+		uint32_t baudNum = DeviceBaudRateEnumToNumber(baud);
+		
 		SetSettingsChanged(true);
 		char buffer[60];
-		sprintf(buffer, "Changing Baud rate from %lu to %lu\r\n", (SerialBaudRate == 0 ? 9600 : SerialBaudRate), baud);
+		sprintf(buffer, "Changing Baud rate to %lu\r\n", baudNum);
 		Usart0TransmitStr(buffer);
 		SerialBaudRate = baud;
-		Usart0ChangeBaudRate(baud);	
+		Usart0ChangeBaudRate(baudNum);	
 	}
 }
 

@@ -172,7 +172,7 @@ SYSTem
         :VERSion?					[TODO]	Returns the channel version number
     :COMMunicate
         :SERial
-            :BAUD <number>				[OK]	Set the serial baud rate
+            :BAUD <baudRate>				[OK]	Set the serial baud rate (allowed values "110", "150", "300", "1200", "2400", "4800", "9600", "19200", "38400", "57600")
             :BAUD?					[OK]	Query the serial baud rate
             :ECHO <bool>				[OK]	Enable/disalbe the serial echo
             :ECHO?					[OK]	Query the state of the serial echo

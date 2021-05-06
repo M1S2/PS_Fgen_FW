@@ -39,6 +39,21 @@ typedef enum DevicePowerUpOutputEnabledStates
 }DevicePowerUpOutputEnabledStates_t;
 extern const char* DevicePowerUpOutputEnabledStateNames[3];
 
+typedef enum DeviceBaudRates
+{
+	DEV_BAUD_110,
+	DEV_BAUD_150,
+	DEV_BAUD_300,
+	DEV_BAUD_1200,
+	DEV_BAUD_2400,
+	DEV_BAUD_4800,
+	DEV_BAUD_9600,
+	DEV_BAUD_19200,
+	DEV_BAUD_38400,
+	DEV_BAUD_57600
+}DeviceBaudRates_t;
+extern const char* DeviceBaudRateNames[10];
+uint32_t DeviceBaudRateEnumToNumber(DeviceBaudRates_t baudRateEnum);
 
 typedef struct DeviceVoltagesStruct
 {
@@ -66,7 +81,7 @@ typedef struct DevSettingsEEPROMLayout
 
 	uint8_t Screens_Inverted;
 	
-	uint32_t Device_SerialBaudRate;
+	DeviceBaudRates_t Device_SerialBaudRate;
 	bool Device_SerialEchoEnabled;
 	
 	float DDS1_Frequency;
@@ -108,7 +123,7 @@ class DeviceClass
 		UserInputHandlerClass UserInputHandler;
 		ScreenManagerClass ScreenManager;
 
-		uint32_t SerialBaudRate;
+		DeviceBaudRates_t SerialBaudRate;
 		bool SerialEchoEnabled;
 	
 		uint16_t TimeCounter_KeyPolling_ms;
@@ -132,7 +147,7 @@ class DeviceClass
 		bool IsUserInputLocked();
 		void UpdateControlStateOnUserInput();
 		
-		void SetSerialBaudRate(uint32_t baud);
+		void SetSerialBaudRate(DeviceBaudRates_t baud);
 		void SetSerialEchoEnabled(bool echoEnabled);
 };
 

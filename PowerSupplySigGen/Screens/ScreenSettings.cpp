@@ -40,15 +40,15 @@ BoolControl boolCtrl_Settings_Display_Inverse(SETTINGS_COLUMN1_POSX + icon_color
 Label<20> lbl_Settings_Display_Inverse(SETTINGS_COLUMN2_POSX, SETTINGS_ROW1_POSY, "Display Inverted");
 
 // ***** Settings Communication page *****
-//void SettingsCommunicationBaudRateChanged(void* context);
+void SettingsCommunicationBaudRateChanged(void* context);
 
 ContainerPage page_Settings_Communication;
 Icon ico_Settings_Communication(SCREEN_TAB_WIDTH + 5, 3, icon_serial_width, icon_serial_height, icon_serial_bits);
 Label<25> lbl_Settings_Communication_caption(SCREEN_TAB_WIDTH + 25, 5, "Settings Communication");
 
-//Icon ico_Settings_Comm_BaudRate(SETTINGS_COLUMN1_POSX, SETTINGS_ROW1_POSY - 2, icon_speed_width, icon_speed_height, icon_speed_bits);
-//NumericControl<uint32_t> numCtrl_Settings_Comm_BaudRate(SETTINGS_COLUMN1_POSX + icon_speed_width + 3, SETTINGS_ROW1_POSY, &Device.SerialBaudRate, "baud", 110, 57600, 0, &Device, &SettingsCommunicationBaudRateChanged);
-//Label<20> lbl_Settings_Comm_BaudRate(SETTINGS_COLUMN2_POSX, SETTINGS_ROW2_POSY, "Serial Baud Rate");
+Icon ico_Settings_Comm_BaudRate(SETTINGS_COLUMN1_POSX, SETTINGS_ROW1_POSY - 2, icon_speed_width, icon_speed_height, icon_speed_bits);
+EnumControl<DeviceBaudRates_t> enumCtrl_Settings_Comm_BaudRate(SETTINGS_COLUMN1_POSX + icon_speed_width + 3, SETTINGS_ROW1_POSY, &Device.SerialBaudRate, DeviceBaudRateNames, 10, &Device, &SettingsCommunicationBaudRateChanged);
+Label<20> lbl_Settings_Comm_BaudRate(SETTINGS_COLUMN2_POSX, SETTINGS_ROW1_POSY, "Serial Baud Rate");
 
 Icon ico_Settings_Comm_Echo(SETTINGS_COLUMN1_POSX, SETTINGS_ROW2_POSY - 2, icon_echo_width, icon_echo_height, icon_echo_bits);
 BoolControl boolCtrl_Settings_Comm_Echo(SETTINGS_COLUMN1_POSX + icon_echo_width + 3, SETTINGS_ROW2_POSY, &Device.SerialEchoEnabled, NULL, &SettingsChanged);
@@ -102,12 +102,12 @@ void SettingsDisplayInvertedChanged(void* context)
 	Device.SetSettingsChanged(true);
 }
 
-/*void SettingsCommunicationBaudRateChanged(void* context)
+void SettingsCommunicationBaudRateChanged(void* context)
 {
-	uint32_t baudRate = Device.SerialBaudRate;
-	Device.SerialBaudRate = 0;
-	Device.SetSerialBaudRate(Device.SerialBaudRate);
-}*/
+	DeviceBaudRates_t baudRate = Device.SerialBaudRate;
+	Device.SerialBaudRate = (baudRate == DEV_BAUD_110 ? DEV_BAUD_150 : DEV_BAUD_110);		//Set the SerialBaudRate to a value that is different from the set baud rate (to trigger the baud rate switch in SetSerialBaudRate())
+	Device.SetSerialBaudRate(baudRate);
+}
 
 UIElement* uiBuildScreenSettings()
 {
@@ -126,12 +126,12 @@ UIElement* uiBuildScreenSettings()
 
 	page_Settings_Communication.AddItem(&ico_Settings_Communication);
 	page_Settings_Communication.AddItem(&lbl_Settings_Communication_caption);
+	page_Settings_Communication.AddItem(&ico_Settings_Comm_BaudRate);
+	page_Settings_Communication.AddItem(&enumCtrl_Settings_Comm_BaudRate);
+	page_Settings_Communication.AddItem(&lbl_Settings_Comm_BaudRate);
 	page_Settings_Communication.AddItem(&ico_Settings_Comm_Echo);
 	page_Settings_Communication.AddItem(&boolCtrl_Settings_Comm_Echo);
 	page_Settings_Communication.AddItem(&lbl_Settings_Comm_Echo);
-	//page_Settings_Communication.AddItem(&ico_Settings_Comm_BaudRate);
-	//page_Settings_Communication.AddItem(&numCtrl_Settings_Comm_BaudRate);
-	//page_Settings_Communication.AddItem(&lbl_Settings_Comm_BaudRate);
 	page_Settings_Communication.InitItems();
 
 	page_Settings_PowerUp.AddItem(&ico_settings);

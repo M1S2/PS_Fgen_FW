@@ -17,7 +17,7 @@ ContainerPage page_Main;
 EnumIndicator<DeviceControlStates_t> enumInd_deviceState(240 - 37, 2, &Device.DeviceControlState, DeviceControlStateNames, 3);
 Label<5> lbl_devSettingsNeedSaving(240 - 15, 0, "*", u8g_font_7x14r);
 
-TabControl tabControlMain(0, 0, 240, 64, SCREEN_TAB_WIDTH); //, &Device, &TabControlTabChanged);
+TabControl tabControlMain(0, 0, 240, 64, SCREEN_TAB_WIDTH);
 
 
 ScreenManagerClass::ScreenManagerClass()
@@ -62,11 +62,6 @@ void ScreenManagerClass::UpdateSettingsChangedIndicator(bool settingsChanged)
 {
 	lbl_devSettingsNeedSaving.Visible = settingsChanged;
 }
-
-/*void TabControlTabChanged(void* context)
-{
-	Device.SaveSettings();
-}*/
 
 void ScreenManagerClass::DrawAll()
 {

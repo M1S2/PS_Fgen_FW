@@ -30,9 +30,6 @@ DISPlay
         :INVerse?					[OK]	Query the front panel display inverse mode
         [:STATe] {<bool>}				[OK]	Controls whether the whole display is visible
         [:STATe]?					[OK]	Query whether the whole display is visible
-        :TEXT						[OK]	Display a user text on the display
-        :TEXT?						[OK]	Query the user text
-        :CLEar						[OK]	Clear the user text
 
 ===============================================
 Instrument

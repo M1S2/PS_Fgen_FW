@@ -26,30 +26,6 @@ scpi_result_t scpi_cmd_displayWindowStateQ(scpi_t * context)
 	return SCPI_RES_OK;
 }
 
-scpi_result_t scpi_cmd_displayWindowText(scpi_t * context)
-{
-	char text[MAX_MESSAGE_LEN];
-	size_t textLen;
-	if(!SCPI_ParamCopyText(context, text, sizeof(text), &textLen, TRUE))
-	{
-		return SCPI_RES_ERR;
-	}
-	strcpy(Device.ScreenManager.UserMessage, text);
-	return SCPI_RES_OK;
-}
-
-scpi_result_t scpi_cmd_displayWindowTextQ(scpi_t * context)
-{
-	SCPI_ResultCharacters(context, Device.ScreenManager.UserMessage, strlen(Device.ScreenManager.UserMessage));
-	return SCPI_RES_OK;
-}
-
-scpi_result_t scpi_cmd_displayWindowClear(scpi_t * context)
-{
-	strcpy(Device.ScreenManager.UserMessage, "");
-	return SCPI_RES_OK;
-}
-
 scpi_result_t scpi_cmd_displayWindowInverse(scpi_t * context)
 {
 	scpi_bool_t inverted;

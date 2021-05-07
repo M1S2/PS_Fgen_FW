@@ -118,6 +118,7 @@ class DeviceClass
 		DevicePowerUpOutputEnabledStates_t PowerOnOutputsState;
 		
 		DeviceControlStates_t DeviceControlState;
+		
 		DeviceVoltages_t DeviceVoltages;
 
 		UserInputHandlerClass UserInputHandler;
@@ -144,6 +145,7 @@ class DeviceClass
 		void LoadSettings();
 		void ResetDevice();
 		
+		void SetDeviceControlState(DeviceControlStates_t controlState);
 		bool IsUserInputLocked();
 		void UpdateControlStateOnUserInput();
 		

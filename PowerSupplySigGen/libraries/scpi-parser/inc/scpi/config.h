@@ -147,7 +147,7 @@ extern "C" {
 #endif
 
 #ifndef USE_UNITS_TIME
-#define USE_UNITS_TIME SYSTEM_TYPE
+#define USE_UNITS_TIME 1
 #endif
 
 #ifndef USE_UNITS_TEMPERATURE

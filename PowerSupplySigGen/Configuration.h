@@ -29,7 +29,7 @@
 
 /***** SCPI ***************************************************/
 //#define SCPI_ENABLED											// Comment this line out to disable the SCPI parser
-#define SCPI_INPUT_BUFFER_LENGTH		256						// Length of the SCPI input buffer. If this buffer overflows, there will be an error message.
+#define SCPI_INPUT_BUFFER_LENGTH		64						// Length of the SCPI input buffer. If this buffer overflows, there will be an error message.
 #define SCPI_ERROR_QUEUE_SIZE			17						// Maximum number of errors in the error queue. If this queue overflows, the last error message will be replaced by an overflow error message.
 #define SCPI_IDN_MANUFACTURER			"Markus Scheich"		// Manufacturer info used in *IDN? query
 #define SCPI_IDN_MODEL					"PowerSupplySigGen"		// Model info used in *IDN? query
@@ -48,7 +48,6 @@
 #define MAX_SCREEN_USER_CONTROLS		5						// Maximum number of user controls allowed per Screen
 #define MAX_SCREEN_USER_INDICATORS		5						// Maximum number of user indicators allowed per Screen
 #define MESSAGE_MARGIN					5						// Margin of the message popup box (user messages or error messages) to the display outline
-#define MAX_MESSAGE_LEN					256						// Maximum length of user or error messages
 
 #define SPLASHSCREEN_ENABLED									// Comment this line out to disable the Splashscreen
 

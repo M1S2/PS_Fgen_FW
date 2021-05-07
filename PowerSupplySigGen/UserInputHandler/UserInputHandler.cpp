@@ -19,10 +19,6 @@ void UserInputHandlerClass::EnqueueKeyInput(Keys_t userKeyInput)
 		UserInputData keyInput(userKeyInput);
 		_userInputRingBuffer.enqueue(&keyInput);
 	}
-	else
-	{
-		strcpy(Device.ScreenManager.SystemMessage, USERINPUT_QUEUE_FULL_MSG);
-	}
 }
 
 void UserInputHandlerClass::EnqueueUsartInput(uint8_t userDataInput)
@@ -32,21 +28,12 @@ void UserInputHandlerClass::EnqueueUsartInput(uint8_t userDataInput)
 		UserInputData dataInput(userDataInput);
 		_userInputRingBuffer.enqueue(&dataInput);
 	}
-	else
-	{
-		strcpy(Device.ScreenManager.SystemMessage, USERINPUT_QUEUE_FULL_MSG);
-	}
 }
 
 void UserInputHandlerClass::ProcessInputs()
 {
 	while(!_userInputRingBuffer.empty())
 	{
-		if(!_userInputRingBuffer.full() && strcmp(Device.ScreenManager.SystemMessage, USERINPUT_QUEUE_FULL_MSG) == 0)	// Clear the queue full message, if the input buffer isn't full but the message is displayed
-		{
-			strcpy(Device.ScreenManager.SystemMessage, "");
-		}
-
 		UserInputData* data = _userInputRingBuffer.dequeue();
 
 		if(!Device.IsUserInputLocked() || data->DataType == USERDATA_USART)

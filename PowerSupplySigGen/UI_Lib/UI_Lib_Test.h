@@ -5,6 +5,7 @@
  *  Author: V17
  */ 
 
+#ifdef UI_LIB_TEST
 
 #ifndef UI_LIB_TEST_H_
 #define UI_LIB_TEST_H_
@@ -27,3 +28,5 @@ static unsigned char ui_icon_speed_bits[] U8G_PROGMEM = {
 	0x04, 0x20, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, };
 
 #endif /* UI_LIB_TEST_H_ */
+
+#endif

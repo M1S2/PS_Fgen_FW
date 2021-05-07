@@ -19,6 +19,7 @@ Label<5> lbl_devSettingsNeedSaving(240 - 15, 0, "*", u8g_font_7x14r);
 
 TabControl tabControlMain(0, 0, 240, 64, SCREEN_TAB_WIDTH);
 
+MessageDialog msg_DeviceRWLState(0, 0, 240, 64, "Device locked by SYST:RWL command.\nUnlock with SYST:LOC command.", MSG_WARNING, MSG_BTN_NONE);
 
 ScreenManagerClass::ScreenManagerClass()
 {	
@@ -74,25 +75,17 @@ void ScreenManagerClass::DrawAll()
 	} while ( u8g_NextPage(&_u8g) );
 }
 
-/*void ScreenManagerClass::drawMessage()
+void ScreenManagerClass::ShowHideDeviceRWLMessage(bool showMessage)
 {
-	if((SystemMessage != NULL && strcmp(SystemMessage, "") != 0) || (UserMessage != NULL && strcmp(UserMessage, "") != 0))
+	if(showMessage)
 	{
-		u8g_SetDefaultBackgroundColor(&_u8g);
-		u8g_DrawBox(&_u8g, MESSAGE_MARGIN, MESSAGE_MARGIN, u8g_GetWidth(&_u8g) - 2 * MESSAGE_MARGIN, u8g_GetHeight(&_u8g) - 2 * MESSAGE_MARGIN);
-		u8g_SetDefaultForegroundColor(&_u8g);
-		u8g_DrawFrame(&_u8g, MESSAGE_MARGIN, MESSAGE_MARGIN, u8g_GetWidth(&_u8g) - 2 * MESSAGE_MARGIN, u8g_GetHeight(&_u8g) - 2 * MESSAGE_MARGIN);
+		UiManager.ChangeVisualTreeRoot(&msg_DeviceRWLState);
 	}
-	
-	if(SystemMessage != NULL && strcmp(SystemMessage, "") != 0)
-	{
-		u8g_DrawStrMultiline(&_u8g, MESSAGE_MARGIN + 2, MESSAGE_MARGIN + 2 + 8, SystemMessage);
+	else 
+	{ 
+		ShowUiMainPage(); 
 	}
-	else if(UserMessage != NULL && strcmp(UserMessage, "") != 0)
-	{
-		u8g_DrawStrMultiline(&_u8g, MESSAGE_MARGIN + 2, MESSAGE_MARGIN + 2 + 8, UserMessage);
-	}
-}*/
+}
 
 void ScreenManagerClass::DeviceTimerTickISR(uint16_t currentPeriod_ms)
 {

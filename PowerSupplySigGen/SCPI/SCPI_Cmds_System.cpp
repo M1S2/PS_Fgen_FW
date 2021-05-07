@@ -26,22 +26,19 @@ static scpi_choice_def_t baudrate_choice[] =
 
 scpi_result_t scpi_cmd_systemLocal(scpi_t * context)
 {
-	Device.DeviceControlState = DEV_CTRL_LOCAL;
-	strcpy(Device.ScreenManager.SystemMessage, "");
+	Device.SetDeviceControlState(DEV_CTRL_LOCAL);
 	return SCPI_RES_OK;
 }
 
 scpi_result_t scpi_cmd_systemRemote(scpi_t * context)
 {
-	Device.DeviceControlState = DEV_CTRL_REMOTE;
-	strcpy(Device.ScreenManager.SystemMessage, "");
+	Device.SetDeviceControlState(DEV_CTRL_REMOTE);
 	return SCPI_RES_OK;	
 }
 
 scpi_result_t scpi_cmd_systemRWLock(scpi_t * context)
 {
-	Device.DeviceControlState = DEV_CTRL_RWLOCK;
-	strcpy(Device.ScreenManager.SystemMessage, "==== Remote controlled ====\nDevice locked by SYST:RWL command.\nOnly possible to unlock via SYST:LOC command.");
+	Device.SetDeviceControlState(DEV_CTRL_RWLOCK);
 	return SCPI_RES_OK;
 }
 

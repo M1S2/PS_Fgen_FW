@@ -135,9 +135,6 @@ scpi_result_t scpi_cmd_memoryNStatesQ(scpi_t * context);
 /******* SCPI_Cmds_Display.cpp ****************************/
 scpi_result_t scpi_cmd_displayWindowState(scpi_t * context);
 scpi_result_t scpi_cmd_displayWindowStateQ(scpi_t * context);
-scpi_result_t scpi_cmd_displayWindowText(scpi_t * context);
-scpi_result_t scpi_cmd_displayWindowTextQ(scpi_t * context);
-scpi_result_t scpi_cmd_displayWindowClear(scpi_t * context);
 scpi_result_t scpi_cmd_displayWindowInverse(scpi_t * context);
 scpi_result_t scpi_cmd_displayWindowInverseQ(scpi_t * context);
 

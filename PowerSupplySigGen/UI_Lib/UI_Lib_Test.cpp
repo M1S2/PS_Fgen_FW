@@ -5,6 +5,8 @@
  *  Author: V17
  */ 
 
+#ifdef UI_LIB_TEST
+
 #include "UI_Lib_Test.h"
 
 enum TestEnum
@@ -141,3 +143,5 @@ void UI_Test_KeyInput(Keys_t key)
 {
 	ui_Manager.KeyInput(key);
 }
+
+#endif

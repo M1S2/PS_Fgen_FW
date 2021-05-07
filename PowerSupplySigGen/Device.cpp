@@ -121,26 +121,25 @@ void DeviceClass::DeviceTimerTickISR(uint16_t currentPeriod_ms)
 
 // ##### Device Control State ########################################################################################################
 
+void DeviceClass::SetDeviceControlState(DeviceControlStates_t controlState)
+{
+	DeviceControlState = controlState;
+	ScreenManager.ShowHideDeviceRWLMessage(DeviceControlState == DEV_CTRL_RWLOCK);
+}
+
 bool DeviceClass::IsUserInputLocked() 
 {
-	 return (DeviceControlState != DEV_CTRL_LOCAL || strcmp(ScreenManager.UserMessage, "") != 0 || strcmp(ScreenManager.SystemMessage, "") != 0); 
+	 return (DeviceControlState != DEV_CTRL_LOCAL); 
 }
 
 void DeviceClass::UpdateControlStateOnUserInput()
 {
-	if(strcmp(ScreenManager.UserMessage, "") != 0)
+	switch(DeviceControlState)
 	{
-		strcpy(ScreenManager.UserMessage, "");
+		case DEV_CTRL_LOCAL: /* Nothing to do here. Device is already in local state. */ break;
+		case DEV_CTRL_REMOTE: SetDeviceControlState(DEV_CTRL_LOCAL); break;
+		case DEV_CTRL_RWLOCK: /* Nothing to do here. It is only possible to return from state RWLock via SCPI command. */ break;
 	}
-	else
-	{
-		switch(DeviceControlState)
-		{
-			case DEV_CTRL_LOCAL: strcpy(ScreenManager.SystemMessage, ""); /* Nothing to do here. Device is already in local state. */ break;
-			case DEV_CTRL_REMOTE: DeviceControlState = DEV_CTRL_LOCAL; break;
-			case DEV_CTRL_RWLOCK: /* Nothing to do here. It is only possible to return from state RWLock via SCPI command. */ break;
-		}
-	}	
 }
 
 // ##### Communication ###############################################################################################################

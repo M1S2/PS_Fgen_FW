@@ -13,7 +13,7 @@
 scpi_t scpi_context;
 char scpi_input_buffer[SCPI_INPUT_BUFFER_LENGTH];
 scpi_error_t scpi_error_queue_data[SCPI_ERROR_QUEUE_SIZE];
-char resultBuffer[256];
+char resultBuffer[64];
 
 static scpi_choice_def_t signalform_choice[] =
 {
@@ -126,9 +126,6 @@ const scpi_command_t scpi_commands[] =
 	/****** Display Subsystem ***************************/
 	{"DISPlay[:WINdow][:STATe]", scpi_cmd_displayWindowState, 0},
 	{"DISPlay[:WINdow][:STATe]?", scpi_cmd_displayWindowStateQ, 0},
-	{"DISPlay[:WINdow]:TEXT", scpi_cmd_displayWindowText, 0},
-	{"DISPlay[:WINdow]:TEXT?", scpi_cmd_displayWindowTextQ, 0},
-	{"DISPlay[:WINdow]:CLEar", scpi_cmd_displayWindowClear, 0},
 	{"DISPlay[:WINdow]:INVerse", scpi_cmd_displayWindowInverse, 0},	
 	{"DISPlay[:WINdow]:INVerse?", scpi_cmd_displayWindowInverseQ, 0},	
 		

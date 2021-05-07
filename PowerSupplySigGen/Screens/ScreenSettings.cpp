@@ -28,7 +28,7 @@ ContainerPage page_Settings_Device;
 Label<20> lbl_Settings_Device_caption(SCREEN_TAB_WIDTH + 25, 5, "Settings Device");
 ButtonControl button_Settings_Save(SETTINGS_COLUMN1_POSX, SETTINGS_ROW1_POSY, 70, DEFAULT_UI_ELEMENT_HEIGHT, "Save Settings", &Device, &OnButtonSettingsSave);
 ButtonControl button_Settings_Reset(SETTINGS_COLUMN1_POSX, SETTINGS_ROW2_POSY, 70, DEFAULT_UI_ELEMENT_HEIGHT, "Reset Device", &Device, &OnButtonDeviceReset);
-MessageDialog msg_Settings_ResetConfirmation(0, 0, 240, 64, "Do you really want to reset the device?\nThis can't be undone!", MSG_WARNING, MSG_BTN_OK_CANCEL, &Device, &OnResetConfirmation, &OnResetCancel);
+MessageDialog msg_Settings_ResetConfirmation(0, 0, 240, 64, "Really reset the device?\nThis can't be undone!", MSG_WARNING, MSG_BTN_OK_CANCEL, &Device, &OnResetConfirmation, &OnResetCancel);
 
 // ***** Settings Display page *****
 void SettingsDisplayInvertedChanged(void* context);

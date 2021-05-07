@@ -44,8 +44,6 @@ class ScreenManagerClass
 		void ShowUiMainPage();
 			
 		bool DisplayInverted;
-		char SystemMessage[MAX_MESSAGE_LEN];
-		char UserMessage[MAX_MESSAGE_LEN];
 	
 		bool IsSplashScreenShown;
 		uint16_t TimeCounter_SplashScreen_ms;
@@ -54,6 +52,8 @@ class ScreenManagerClass
 		void Init();
 		
 		void DrawAll();
+		
+		void ShowHideDeviceRWLMessage(bool showMessage);
 		
 		void DeviceTimerTickISR(uint16_t currentPeriod_ms);
 		

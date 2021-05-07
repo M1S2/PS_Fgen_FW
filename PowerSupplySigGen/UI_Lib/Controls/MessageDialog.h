@@ -15,7 +15,7 @@
 #include "../Indicators/Icon.h"
 #include "../Controls/ButtonControl.h"
 
-#define MAX_MESSAGEDIALOG_STRING_LENGTH		256
+#define MAX_MESSAGEDIALOG_STRING_LENGTH		75
 
 typedef enum MessageSeverity
 {

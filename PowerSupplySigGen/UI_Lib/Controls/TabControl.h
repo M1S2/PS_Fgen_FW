@@ -12,7 +12,7 @@
 #include "../Core/UIElement.h"
 
 #define MAX_TABCONTROL_TABS			5
-#define MAX_HEADER_LENGTH			10
+#define MAX_HEADER_LENGTH			8
 #define TABCONTROL_TABPAGE_MARGIN	0
 
 class TabControl : public UIElement

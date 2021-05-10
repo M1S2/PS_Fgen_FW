@@ -45,7 +45,7 @@ Icon ico_PSProtectionOVPState(PS_COLUMN2_POSX, PS_ROW1_POSY - 2, icon_OnOff_widt
 BoolControl boolCtrl_PSProtectionOVPState(PS_COLUMN2_POSX + icon_OnOff_width + 3, PS_ROW1_POSY, &Device.PsChannel.OvpState.Val, &Device.PsChannel, &PS_Channel::PSOvpStateChanged);
 Icon ico_PSProtectionOVPDelay(PS_COLUMN1_POSX, PS_ROW2_POSY - 2, icon_delay_width, icon_delay_height, icon_delay_bits);
 NumericControl<float> numCtrl_PSProtectionOVPDelay(PS_COLUMN1_POSX + icon_delay_width + 3, PS_ROW2_POSY, &Device.PsChannel.OvpDelay.Val, "s", PS_MIN_OVP_DELAY, PS_MAX_OVP_DELAY, 3, &Device.PsChannel, &PS_Channel::PSOvpDelayChanged);
-ButtonControl button_PSProtectionOVPClear(PS_COLUMN2_POSX, PS_ROW2_POSY, DEFAULT_UI_ELEMENT_WIDTH + 20, DEFAULT_UI_ELEMENT_HEIGHT, "Clear Protection", &Device.PsChannel, &PSProtectionsClear);
+ButtonControl<6> button_PSProtectionOVPClear(PS_COLUMN2_POSX, PS_ROW2_POSY, DEFAULT_UI_ELEMENT_WIDTH, DEFAULT_UI_ELEMENT_HEIGHT, "Clear", &Device.PsChannel, &PSProtectionsClear);
 
 // ***** Power Supply Protection OCP page *****
 ContainerPage page_PSProtectionOCP;
@@ -56,7 +56,7 @@ Icon ico_PSProtectionOCPState(PS_COLUMN2_POSX, PS_ROW1_POSY - 2, icon_OnOff_widt
 BoolControl boolCtrl_PSProtectionOCPState(PS_COLUMN2_POSX + icon_OnOff_width + 3, PS_ROW1_POSY, &Device.PsChannel.OcpState.Val, &Device.PsChannel, &PS_Channel::PSOcpStateChanged);
 Icon ico_PSProtectionOCPDelay(PS_COLUMN1_POSX, PS_ROW2_POSY - 2, icon_delay_width, icon_delay_height, icon_delay_bits);
 NumericControl<float> numCtrl_PSProtectionOCPDelay(PS_COLUMN1_POSX + icon_delay_width + 3, PS_ROW2_POSY, &Device.PsChannel.OcpDelay.Val, "s", PS_MIN_OCP_DELAY, PS_MAX_OCP_DELAY, 3, &Device.PsChannel, &PS_Channel::PSOcpDelayChanged);
-ButtonControl button_PSProtectionOCPClear(PS_COLUMN2_POSX, PS_ROW2_POSY, DEFAULT_UI_ELEMENT_WIDTH + 20, DEFAULT_UI_ELEMENT_HEIGHT, "Clear Protection", &Device.PsChannel, &PSProtectionsClear);
+ButtonControl<6> button_PSProtectionOCPClear(PS_COLUMN2_POSX, PS_ROW2_POSY, DEFAULT_UI_ELEMENT_WIDTH, DEFAULT_UI_ELEMENT_HEIGHT, "Clear", &Device.PsChannel, &PSProtectionsClear);
 
 // ***** Power Supply Protection OPP page *****
 ContainerPage page_PSProtectionOPP;
@@ -67,7 +67,7 @@ Icon ico_PSProtectionOPPState(PS_COLUMN2_POSX, PS_ROW1_POSY - 2, icon_OnOff_widt
 BoolControl boolCtrl_PSProtectionOPPState(PS_COLUMN2_POSX + icon_OnOff_width + 3, PS_ROW1_POSY, &Device.PsChannel.OppState.Val, &Device.PsChannel, &PS_Channel::PSOppStateChanged);
 Icon ico_PSProtectionOPPDelay(PS_COLUMN1_POSX, PS_ROW2_POSY - 2, icon_delay_width, icon_delay_height, icon_delay_bits);
 NumericControl<float> numCtrl_PSProtectionOPPDelay(PS_COLUMN1_POSX + icon_delay_width + 3, PS_ROW2_POSY, &Device.PsChannel.OppDelay.Val, "s", PS_MIN_OPP_DELAY, PS_MAX_OPP_DELAY, 3, &Device.PsChannel, &PS_Channel::PSOppDelayChanged);
-ButtonControl button_PSProtectionOPPClear(PS_COLUMN2_POSX, PS_ROW2_POSY, DEFAULT_UI_ELEMENT_WIDTH + 20, DEFAULT_UI_ELEMENT_HEIGHT, "Clear Protection", &Device.PsChannel, &PSProtectionsClear);
+ButtonControl<6> button_PSProtectionOPPClear(PS_COLUMN2_POSX, PS_ROW2_POSY, DEFAULT_UI_ELEMENT_WIDTH, DEFAULT_UI_ELEMENT_HEIGHT, "Clear", &Device.PsChannel, &PSProtectionsClear);
 
 
 MessageDialog msg_protectionsCleared(0, 0, 240, 64, "Protections Cleared.", MSG_INFO, MSG_BTN_OK, NULL, &PSProtectionsClearedOK);

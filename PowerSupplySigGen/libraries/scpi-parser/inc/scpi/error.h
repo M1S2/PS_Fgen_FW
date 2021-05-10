@@ -114,7 +114,7 @@ extern "C" {
     XE(SCPI_ERROR_ARM_DEADLOCK,                 -215, "Arm deadlock")                                 \
     XE(SCPI_ERROR_PARAMETER_ERROR,              -220, "Parameter error")                              \
     XE(SCPI_ERROR_SETTINGS_CONFLICT,            -221, "Settings conflict")                            \
-    XE(SCPI_ERROR_DATA_OUT_OF_RANGE,            -222, "Data out of range")                            \
+    X(SCPI_ERROR_DATA_OUT_OF_RANGE,             -222, "Data out of range")                            \
     XE(SCPI_ERROR_TOO_MUCH_DATA,                -223, "Too much data")                                \
     X(SCPI_ERROR_ILLEGAL_PARAMETER_VALUE,       -224, "Illegal parameter value")                      \
     XE(SCPI_ERROR_OUT_OF_MEMORY_FOR_REQ_OP,     -225, "Out of memory")                                \

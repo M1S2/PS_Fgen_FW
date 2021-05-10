@@ -28,9 +28,9 @@
 #define SPLASHSCREEN_DELAY_MS			3000					// Time that the splash screen is shown in milliseconds
 
 /***** SCPI ***************************************************/
-//#define SCPI_ENABLED											// Comment this line out to disable the SCPI parser
+#define SCPI_ENABLED											// Comment this line out to disable the SCPI parser
 #define SCPI_INPUT_BUFFER_LENGTH		64						// Length of the SCPI input buffer. If this buffer overflows, there will be an error message.
-#define SCPI_ERROR_QUEUE_SIZE			17						// Maximum number of errors in the error queue. If this queue overflows, the last error message will be replaced by an overflow error message.
+#define SCPI_ERROR_QUEUE_SIZE			4						// Maximum number of errors in the error queue. If this queue overflows, the last error message will be replaced by an overflow error message.
 #define SCPI_IDN_MANUFACTURER			"Markus Scheich"		// Manufacturer info used in *IDN? query
 #define SCPI_IDN_MODEL					"PowerSupplySigGen"		// Model info used in *IDN? query
 #define SCPI_IDN_SERIAL_NUMBER			"01"					// Serial number used in *IDN? query
@@ -38,27 +38,11 @@
 #define SCPI_SYSTEM_CAPABILITIES		"(DCPSUPPLY WITH MEASURE|FUNCGEN|FUNCGEN)"		// All capabilites of the system					
 
 /***** Screens ************************************************/
-#define NUM_SCREENS						5						// Number of screens.
-
 #define SCREEN_TAB_WIDTH				32						// Width in pixels of the Screen Tab control on the left side
-#define SCREEN_TAB_HEIGHT				12						// Height in pixels of the Screen Tab control on the left side
-#define SCREEN_TAB_MARGIN				1						// Margin in pixels between the Screen Tabs on the left side
-#define SCREEN_TAB_FONT_HEIGHT			8						// Font Height in pixels of the Screen Tabs text on the left side
-
-#define MAX_SCREEN_USER_CONTROLS		5						// Maximum number of user controls allowed per Screen
-#define MAX_SCREEN_USER_INDICATORS		5						// Maximum number of user indicators allowed per Screen
-#define MESSAGE_MARGIN					5						// Margin of the message popup box (user messages or error messages) to the display outline
-
 #define SPLASHSCREEN_ENABLED									// Comment this line out to disable the Splashscreen
 
-/***** UserControlsIndicators **********************************/
-#define CONTROLS_FONT_HEIGHT			8						// Font Height in pixels of the text used in UserControls
-#define CONTROLS_WIDTH					65						// Width in pixels of the UserControls (additional to the icon size)
-#define CONTROLS_ICON_SIZE				16						// Width and height in pixels of the UserControl icons
-#define INDICATORS_FONT_HEIGHT			8						// Font Height in pixels of the text used in UserIndicators
-
 /***** UserInputHandler ***************************************/
-#define USERINPUT_QUEUE_LENGTH			256						// Length of the queue used to buffer the user inputs (keys, encoder, Usart)
+#define USERINPUT_QUEUE_LENGTH			64						// Length of the queue used to buffer the user inputs (keys, encoder, Usart)
 
 /***** Channels ***********************************************/
 #define NUM_CHANNELS					5						// Number of channels

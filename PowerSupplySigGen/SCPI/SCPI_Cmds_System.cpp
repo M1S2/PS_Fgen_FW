@@ -10,16 +10,16 @@
 
 static scpi_choice_def_t baudrate_choice[] =
 {
-	{ "110", 110 },
-	{ "150", 150 },
-	{ "300", 300 },
-	{ "1200", 1200 },
-	{ "2400", 2400 },
-	{ "4800", 4800 },
-	{ "9600", 9600 },
-	{ "19200", 19200 },
-	{ "38400", 38400 },
-	{ "57600", 57600 },
+	{ "B110", 110 },
+	{ "B150", 150 },
+	{ "B300", 300 },
+	{ "B1200", 1200 },
+	{ "B2400", 2400 },
+	{ "B4800", 4800 },
+	{ "B9600", 9600 },
+	{ "B19200", 19200 },
+	{ "B38400", 38400 },
+	{ "B57600", 57600 },
 	SCPI_CHOICE_LIST_END /* termination of option list */
 };
 
@@ -44,7 +44,7 @@ scpi_result_t scpi_cmd_systemRWLock(scpi_t * context)
 
 scpi_result_t scpi_cmd_systemChannelCountQ(scpi_t * context)
 {
-	SCPI_ResultInt(context, NUM_CHANNELS);
+	SCPI_ResultInt32(context, NUM_CHANNELS);
 	return SCPI_RES_OK;
 }
 
@@ -141,7 +141,7 @@ scpi_result_t scpi_cmd_systemCommunicateSerialBaud(scpi_t * context)
 scpi_result_t scpi_cmd_systemCommunicateSerialBaudQ(scpi_t * context)
 {
 	const char* buffer;
-	if (!SCPI_ChoiceToName(baudrate_choice, (int32_t)Device.SerialBaudRate, &buffer)) 
+	if (!SCPI_ChoiceToName(baudrate_choice, (int32_t)DeviceBaudRateEnumToNumber(Device.SerialBaudRate), &buffer)) 
 	{
 		return SCPI_RES_ERR;
 	}	

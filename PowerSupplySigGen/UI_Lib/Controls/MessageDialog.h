@@ -51,7 +51,7 @@ static unsigned char icon_error_bits[] U8G_PROGMEM = {
 	0xc0, 0x03, 0x30, 0x0c, 0x0c, 0x30, 0x04, 0x20, 0x12, 0x48, 0x22, 0x44,
 	0x41, 0x82, 0x81, 0x81, 0x81, 0x81, 0x41, 0x82, 0x22, 0x44, 0x12, 0x48,
 	0x04, 0x20, 0x0c, 0x30, 0x30, 0x0c, 0xc0, 0x03 };
-	
+
 class MessageDialog : public UIElement
 {
 	private:
@@ -59,8 +59,8 @@ class MessageDialog : public UIElement
 		Label<MAX_MESSAGEDIALOG_STRING_LENGTH> _message;
 		Icon _severityIcon;
 		MessageSeverity_t _severity;
-		ButtonControl _buttonOk;
-		ButtonControl _buttonCancel;
+		ButtonControl<3> _buttonOk;
+		ButtonControl<7> _buttonCancel;
 
 	public:
 		MessageDialog(unsigned char locX, unsigned char locY, unsigned char width, unsigned char height, const char* message, MessageSeverity_t severity, MessageButtons_t buttons = MSG_BTN_OK, void* controlContext = NULL, void(*onOkClick)(void* controlContext) = NULL, void(*onCancelClick)(void* controlContext) = NULL);

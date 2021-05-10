@@ -11,12 +11,13 @@
 
 #include "../Core/UIElement.h"
 
-#define MAX_BUTTON_STRING_LENGTH		20
+#define DEFAULT_BUTTON_STRING_LENGTH		25
 
+template <int StringLength>
 class ButtonControl : public UIElement
 {
 	private:
-	char _buttonText[MAX_BUTTON_STRING_LENGTH];
+	char _buttonText[StringLength];
 
 	void* _controlContext;							// Context pointer that is returned with the _onClick function pointer
 	void(*_onClick)(void* controlContext);			// Function pointer for _onClick event
@@ -27,5 +28,7 @@ class ButtonControl : public UIElement
 
 	virtual bool KeyInput(Keys_t key) override;
 };
+
+typedef ButtonControl<DEFAULT_BUTTON_STRING_LENGTH> ButtonControlDefault;
 
 #endif /* BUTTONCONTROL_H_ */

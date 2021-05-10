@@ -7,6 +7,7 @@
 
 #include "MessageDialog.h"
 #include "../Indicators/Label.cpp"
+#include "../Controls/ButtonControl.cpp"
 
 MessageDialog::MessageDialog(unsigned char locX, unsigned char locY, unsigned char width, unsigned char height, const char* message, MessageSeverity_t severity, MessageButtons_t buttons, void* controlContext, void(*onOkClick)(void* controlContext), void(*onCancelClick)(void* controlContext)) : UIElement(locX, locY, UI_CONTROL),
 	_page(),

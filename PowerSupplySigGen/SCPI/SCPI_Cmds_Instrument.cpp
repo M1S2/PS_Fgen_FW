@@ -51,7 +51,7 @@ scpi_result_t scpi_cmd_instrumentSelectQ(scpi_t * context)
 scpi_result_t scpi_cmd_instrumentNSelect(scpi_t * context)
 {
 	int32_t channelIdx;
-	if (!SCPI_ParamInt(context, &channelIdx, TRUE))
+	if (!SCPI_ParamInt32(context, &channelIdx, TRUE))
 	{
 		return SCPI_RES_ERR;
 	}
@@ -70,7 +70,7 @@ scpi_result_t scpi_cmd_instrumentNSelect(scpi_t * context)
 
 scpi_result_t scpi_cmd_instrumentNSelectQ(scpi_t * context)
 {
-	SCPI_ResultInt(context, (Device.SelectedScpiChannelIndex + 1));
+	SCPI_ResultInt32(context, (Device.SelectedScpiChannelIndex + 1));
 	return SCPI_RES_OK;
 }
 

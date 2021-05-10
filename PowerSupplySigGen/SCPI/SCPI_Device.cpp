@@ -13,7 +13,7 @@
 scpi_t scpi_context;
 char scpi_input_buffer[SCPI_INPUT_BUFFER_LENGTH];
 scpi_error_t scpi_error_queue_data[SCPI_ERROR_QUEUE_SIZE];
-char resultBuffer[64];
+char resultBuffer[50];
 
 static scpi_choice_def_t signalform_choice[] =
 {

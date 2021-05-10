@@ -8,7 +8,8 @@
 #include "ButtonControl.h"
 #include <string.h>
 
-ButtonControl::ButtonControl(unsigned char locX, unsigned char locY, unsigned char width, unsigned char height, const char* buttonText, void* controlContext, void(*onClick)(void* controlContext)) : UIElement(locX, locY, UI_CONTROL)
+template <int StringLength>
+ButtonControl<StringLength>::ButtonControl(unsigned char locX, unsigned char locY, unsigned char width, unsigned char height, const char* buttonText, void* controlContext, void(*onClick)(void* controlContext)) : UIElement(locX, locY, UI_CONTROL)
 {
 	Width = width;
 	Height = height;
@@ -17,7 +18,8 @@ ButtonControl::ButtonControl(unsigned char locX, unsigned char locY, unsigned ch
 	_onClick = onClick;
 }
 
-void ButtonControl::Draw(u8g_t *u8g, bool isFirstPage)
+template <int StringLength>
+void ButtonControl<StringLength>::Draw(u8g_t *u8g, bool isFirstPage)
 {
 	if (Visible)
 	{
@@ -33,7 +35,8 @@ void ButtonControl::Draw(u8g_t *u8g, bool isFirstPage)
 	}
 }
 
-bool ButtonControl::KeyInput(Keys_t key)
+template <int StringLength>
+bool ButtonControl<StringLength>::KeyInput(Keys_t key)
 {
 	switch (key)
 	{

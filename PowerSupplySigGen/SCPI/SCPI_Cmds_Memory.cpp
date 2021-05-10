@@ -25,6 +25,6 @@ scpi_result_t scpi_cmd_memorySav(scpi_t * context)
 scpi_result_t scpi_cmd_memoryNStatesQ(scpi_t * context)
 {
 	/* Only one profile supported */
-	SCPI_ResultInt(context, 1);
+	SCPI_ResultInt32(context, 1);
 	return SCPI_RES_OK;
 }

@@ -26,8 +26,8 @@ void OnResetCancel(void* context);
 
 ContainerPage page_Settings_Device;
 Label<20> lbl_Settings_Device_caption(SCREEN_TAB_WIDTH + 25, 5, "Settings Device");
-ButtonControl button_Settings_Save(SETTINGS_COLUMN1_POSX, SETTINGS_ROW1_POSY, 70, DEFAULT_UI_ELEMENT_HEIGHT, "Save Settings", &Device, &OnButtonSettingsSave);
-ButtonControl button_Settings_Reset(SETTINGS_COLUMN1_POSX, SETTINGS_ROW2_POSY, 70, DEFAULT_UI_ELEMENT_HEIGHT, "Reset Device", &Device, &OnButtonDeviceReset);
+ButtonControl<14> button_Settings_Save(SETTINGS_COLUMN1_POSX, SETTINGS_ROW1_POSY, 70, DEFAULT_UI_ELEMENT_HEIGHT, "Save Settings", &Device, &OnButtonSettingsSave);
+ButtonControl<13> button_Settings_Reset(SETTINGS_COLUMN1_POSX, SETTINGS_ROW2_POSY, 70, DEFAULT_UI_ELEMENT_HEIGHT, "Reset Device", &Device, &OnButtonDeviceReset);
 MessageDialog msg_Settings_ResetConfirmation(0, 0, 240, 64, "Really reset the device?\nThis can't be undone!", MSG_WARNING, MSG_BTN_OK_CANCEL, &Device, &OnResetConfirmation, &OnResetCancel);
 
 // ***** Settings Display page *****
@@ -65,9 +65,9 @@ Label<15> lbl_Settings_PowerUp_OutputStates(SETTINGS_COLUMN2_POSX, SETTINGS_ROW1
 ContainerPage page_Settings_VersionInfo;
 Icon ico_versionInfo(SCREEN_TAB_WIDTH + 5, 3, icon_info_width, icon_info_height, icon_info_bits);
 Label<15> lbl_Settings_VersionInfo_caption(SCREEN_TAB_WIDTH + 25, 5, "Version Info");
-LabelDefault lbl_Settings_VersionInfo_manufacturer(SETTINGS_COLUMN1_POSX, SETTINGS_ROW1_POSY - 2, "by " SCPI_IDN_MANUFACTURER);
-LabelDefault lbl_Settings_VersionInfo_serialNo(SETTINGS_COLUMN1_POSX, SETTINGS_ROW1_POSY + 10, "SNo.: " SCPI_IDN_SERIAL_NUMBER);
-LabelDefault lbl_Settings_VersionInfo_swVersion(SETTINGS_COLUMN1_POSX, SETTINGS_ROW1_POSY + 22, "SW: " SCPI_IDN_SOFTWARE_REVISION);
+Label<20> lbl_Settings_VersionInfo_manufacturer(SETTINGS_COLUMN1_POSX, SETTINGS_ROW1_POSY - 2, "by " SCPI_IDN_MANUFACTURER);
+Label<10> lbl_Settings_VersionInfo_serialNo(SETTINGS_COLUMN1_POSX, SETTINGS_ROW1_POSY + 10, "SNo.: " SCPI_IDN_SERIAL_NUMBER);
+Label<12> lbl_Settings_VersionInfo_swVersion(SETTINGS_COLUMN1_POSX, SETTINGS_ROW1_POSY + 22, "SW: " SCPI_IDN_SOFTWARE_REVISION);
 
 
 void SettingsChanged(void* context)

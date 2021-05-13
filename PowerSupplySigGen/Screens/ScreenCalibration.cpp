@@ -71,6 +71,7 @@ void OnButtonCalNext(void* context)
 			Device.ScreenManager.UiManager.ChangeVisualTreeRoot(&msg_Cal_Finished);
 			break;
 		}
+		default: break;
 	}
 	CalStateNumber = (uint8_t)CalState;
 }

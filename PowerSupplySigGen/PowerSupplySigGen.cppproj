@@ -449,6 +449,9 @@
     <Compile Include="SCPI\SCPI_Device.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="Screens\Icons.cpp">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="Screens\Icons.h">
       <SubType>compile</SubType>
     </Compile>

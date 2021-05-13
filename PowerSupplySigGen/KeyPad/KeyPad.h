@@ -14,7 +14,4 @@
 
 Keys_t KeyPad_GetKeys();
 
-#warning Remove KeyPad_GetKeyNumInt method!!!
-uint8_t KeyPad_GetKeyNumInt(Keys_t key);
-
 #endif /* KEYPAD_H_ */

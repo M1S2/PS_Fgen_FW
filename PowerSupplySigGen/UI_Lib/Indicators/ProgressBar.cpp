@@ -65,7 +65,7 @@ void ProgressBar<T>::Draw(u8g_t *u8g, bool isFirstPage)
 
 		u8g_DrawBox(u8g, (unsigned char)fmin(valueXCoord, _originXCoord), LocY, (unsigned char)fabs(valueXCoord - _originXCoord), Height);
 		
-		if(_tickIncrement != 0)			// Use _tickIncrement=0 to disable ticks
+		if(_tickIncrement > 0)			// Use _tickIncrement<=0 to disable ticks
 		{
 			for (T xVal = _minValue; xVal <= _maxValue; xVal+=_tickIncrement)
 			{

@@ -12,14 +12,6 @@
 #include <avr/interrupt.h>
 #include "../Pins/Pins.h"
 
-#warning Remove EncoderDirection enum!!!
-typedef enum EncoderDirection
-{
-	ENCNONE = 0,
-	ENCCLOCKWISE = 1,
-	ENCCOUNTERCLOCKWISE = 2
-}EncoderDirection_t;
-
 void Encoder_Init();
 bool Encoder_IsButtonPressed();
 

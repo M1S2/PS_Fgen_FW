@@ -26,6 +26,9 @@ UIElement* uiBuildScreenDDS();
 UIElement* uiBuildScreenMeasure();
 UIElement* uiBuildScreenSettings();
 
+UIElement* uiBuildScreenCalibration();
+UIElement* StartCalibration();
+
 class ScreenManagerClass
 {
 	private:
@@ -42,7 +45,8 @@ class ScreenManagerClass
 	public:
 		UI_Manager UiManager;
 		void ShowUiMainPage();
-			
+		void ShowUiCalibrationMenu();
+		
 		bool DisplayInverted;
 	
 		bool IsSplashScreenShown;

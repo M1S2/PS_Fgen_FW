@@ -118,7 +118,7 @@ scpi_result_t scpi_cmd_systemCommunicateSerialBaud(scpi_t * context)
 		return SCPI_RES_ERR;
 	}
 	
-	DeviceBaudRates_t baudRateEnum;
+	DeviceBaudRates_t baudRateEnum = DEV_BAUD_9600;
 	switch(baudRate)
 	{
 		case 110: baudRateEnum = DEV_BAUD_110; break;

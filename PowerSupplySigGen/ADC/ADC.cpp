@@ -12,7 +12,7 @@
 
 void ADC_init()
 {
-	ADCSRA |= (1<<ADPS2) | (1<<ADPS1) | (1<<ADPS0);		// Set ADC clock to 1/128 of XTAL frequency
+	ADCSRA |= (1<<ADPS2) | (1<<ADPS1) | (1<<ADPS0);		// Set ADC clock to 1/128 of XTAL frequency ("the successive approximation circuitry requires an input clock frequency between 50 kHz and 200 kHz to get maximum resolution")
 	ADMUX &= ~(1<<REFS0 | 1<<REFS1);					// Set reference to AREF, Internal Vref turned off
 	ADCSRA |= 1<<ADIE;			// Enable ADC Interrupt
 	ADCSRA |= 1<<ADEN;			// Enable ADC
@@ -24,6 +24,7 @@ void ADC_init()
 
 void ADC_startConversion()
 {
+	ADMUX = (ADMUX & 0xF8) + 0;	// Set lower 3 bits of ADMUX to 0 to select ADC channel 0	
 	ADCSRA |= 1<<ADSC;			// Start ADC conversion
 }
 
@@ -36,36 +37,36 @@ ISR(ADC_vect)
 	switch (adcChannel)
 	{
 		case 0:
-			Device.PsChannel.MeasuredCurrent = adcVoltage / 2.4;		// Ucurr = R24 * (R22 / R23) * IL	=> IL = Ucurr / (R24 * (R22 / R23))
+			Device.PsChannel.MeasuredCurrent = (adcVoltage / 2.4) * 1;		// Ucurr = R24 * (R22 / R23) * IL	=> IL = Ucurr / (R24 * (R22 / R23))
 			Device.PsChannel.MeasuredPower = Device.PsChannel.MeasuredAmplitude * Device.PsChannel.MeasuredCurrent;
 			break;
 		case 1:
-			Device.PsChannel.MeasuredAmplitude = adcVoltage * 2;
+			Device.PsChannel.MeasuredAmplitude = adcVoltage * 2 * 1;
 			Device.PsChannel.MeasuredPower = Device.PsChannel.MeasuredAmplitude * Device.PsChannel.MeasuredCurrent;
 			break;
 		case 2:
-			Device.DeviceVoltages.ATX_12V_NEG = -adcVoltage * 2.4;
+			Device.DeviceVoltages.ATX_12V_NEG = -adcVoltage * 2.4 * 1;
 			break;
 		case 3:
-			Device.DeviceVoltages.ATX_12V = adcVoltage * 3; // 2.5;
+			Device.DeviceVoltages.ATX_12V = adcVoltage * 2.5 * 1.2; // 3;
 			break;
 		case 4:
-			Device.DeviceVoltages.ATX_5V = adcVoltage;
+			Device.DeviceVoltages.ATX_5V = adcVoltage * 1;
 			break;
 		case 5:
-			Device.DeviceVoltages.ATX_3V3 = adcVoltage;
+			Device.DeviceVoltages.ATX_3V3 = adcVoltage * 1;
 			break;
 		case 6:
-			Device.DmmChannel1.MeasuredVoltage = adcVoltage * 5.17;
+			Device.DmmChannel1.MeasuredVoltage = adcVoltage * 5.17 * 1;
 			break;
 		case 7:
-			Device.DmmChannel2.MeasuredVoltage = adcVoltage * 5.17;
+			Device.DmmChannel2.MeasuredVoltage = adcVoltage * 5.17 * 1;
 			break;
 		default: break;
 	}
 
 	adcChannel++;
 	if(adcChannel > 7) { adcChannel = 0; }
-	ADMUX = (ADMUX & 0xF8) + adcChannel;	// Set lower bits of ADMUX to select ADC channel
-	ADCSRA |= 1<<ADSC;						// Start new ADC conversion if not all channels are converted
+	ADMUX = (ADMUX & 0xF8) + adcChannel;	// Set lower 3 bits of ADMUX to select ADC channel
+	ADCSRA |= 1<<ADSC;						// Start new ADC conversion
 }

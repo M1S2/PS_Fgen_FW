@@ -27,7 +27,7 @@ class ProgressBar : public UIElement
 		T _minValue;
 		T _maxValue;
 		ProgressBarOrigin_t _origin;
-		T _tickIncrement;				// Set this to 0 to disable ticks
+		T _tickIncrement;				// Set this to 0 (or negative) to disable ticks
 
 		unsigned char _originXCoord;
 		unsigned char xCoordinateFromValue(T value);

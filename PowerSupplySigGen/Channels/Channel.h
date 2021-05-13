@@ -17,9 +17,10 @@ typedef enum SignalForms
 	SINE,
 	RECTANGLE,
 	TRIANGLE,
-	SAWTOOTH
+	SAWTOOTH,
+	NUM_SIGNALFORM_ELEMENTS		// The last element is used to determine the number of elements in the enumeration
 } SignalForms_t;
-extern const char* SignalFormsNames[];
+extern const char* SignalFormsNames[NUM_SIGNALFORM_ELEMENTS];
 
 typedef enum ChannelTypes
 {

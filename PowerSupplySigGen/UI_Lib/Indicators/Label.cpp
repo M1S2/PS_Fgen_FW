@@ -27,10 +27,9 @@ void Label<StringLength>::Draw(u8g_t *u8g, bool isFirstPage)
 {
 	if (Visible)
 	{
-		const u8g_fntpgm_uint8_t* tmp_font;
+		const u8g_fntpgm_uint8_t* tmp_font = u8g->font;
 		if(_font != NULL) 
 		{
-			tmp_font = u8g->font;
 			u8g_SetFont(u8g, _font);
 			u8g_SetFontPosTop(u8g);
 		}
@@ -43,4 +42,10 @@ void Label<StringLength>::Draw(u8g_t *u8g, bool isFirstPage)
 			u8g_SetFontPosTop(u8g); 
 		}
 	}
+}
+
+template <int StringLength>
+void Label<StringLength>::SetText(const char* text)
+{
+	strcpy(Text, text);
 }

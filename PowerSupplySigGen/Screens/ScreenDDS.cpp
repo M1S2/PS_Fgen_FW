@@ -24,7 +24,7 @@ Label<5> lbl_DDS1_caption(SCREEN_TAB_WIDTH + 25, 5, "DDS1");
 Icon ico_DDS1_Frequency(DDS1_COLUMN1_POSX, DDS1_ROW1_POSY - 2, icon_frequency_width, icon_frequency_height, icon_frequency_bits);
 NumericControl<float> numCtrl_DDS1_Frequency(DDS1_COLUMN1_POSX + icon_frequency_width + 3, DDS1_ROW1_POSY, &Device.DdsChannel1.Frequency.Val, "Hz", DDS_MIN_FREQ, DDS_MAX_FREQ, 3, &Device.DdsChannel1, &DDS_Channel::DDSFrequencyChanged);
 Icon ico_DDS1_SignalForm(DDS1_COLUMN3_POSX, DDS1_ROW1_POSY - 2, icon_signalForm_width, icon_signalForm_height, icon_signalForm_bits);
-EnumControl<SignalForms_t> enumCtrl_DDS1_SignalForm(DDS1_COLUMN3_POSX + icon_signalForm_width + 3, DDS1_ROW1_POSY, &Device.DdsChannel1.SignalForm.Val, SignalFormsNames, 4, &Device.DdsChannel1, &DDS_Channel::DDSFrequencyChanged);
+EnumControl<SignalForms_t> enumCtrl_DDS1_SignalForm(DDS1_COLUMN3_POSX + icon_signalForm_width + 3, DDS1_ROW1_POSY, &Device.DdsChannel1.SignalForm.Val, SignalFormsNames, NUM_SIGNALFORM_ELEMENTS, &Device.DdsChannel1, &DDS_Channel::DDSFrequencyChanged);
 Icon ico_DDS1_Amplitude(DDS1_COLUMN1_POSX, DDS1_ROW2_POSY - 2, icon_signalAmplitude_width, icon_signalAmplitude_height, icon_signalAmplitude_bits);
 NumericControl<float> numCtrl_DDS1_Amplitude(DDS1_COLUMN1_POSX + icon_signalAmplitude_width + 3, DDS1_ROW2_POSY, &Device.DdsChannel1.Amplitude.Val, "Vpp", DDS_MIN_AMPLITUDE, DDS_MAX_AMPLITUDE, 2, &Device.DdsChannel1, &DDS_Channel::DDSAmplitudeChanged);
 Icon ico_DDS1_Offset(DDS1_COLUMN2_POSX, DDS1_ROW2_POSY - 2, icon_signalOffset_width, icon_signalOffset_height, icon_signalOffset_bits);

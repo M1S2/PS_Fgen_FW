@@ -27,17 +27,19 @@ typedef enum DeviceControlStates
 {
 	DEV_CTRL_LOCAL,
 	DEV_CTRL_REMOTE,
-	DEV_CTRL_RWLOCK
+	DEV_CTRL_RWLOCK,
+	NUM_DEV_CTRL_ELEMENTS		// The last element is used to determine the number of elements in the enumeration
 }DeviceControlStates_t; 
-extern const char* DeviceControlStateNames[3];
+extern const char* DeviceControlStateNames[NUM_DEV_CTRL_ELEMENTS];
 
 typedef enum DevicePowerUpOutputEnabledStates
 {
 	DEV_POWERUP_OUTPUTS_OFF,
 	DEV_POWERUP_OUTPUTS_LASTSTATE,
-	DEV_POWERUP_OUTPUTS_ON
+	DEV_POWERUP_OUTPUTS_ON,
+	NUM_DEV_POWERUP_ELEMENTS		// The last element is used to determine the number of elements in the enumeration
 }DevicePowerUpOutputEnabledStates_t;
-extern const char* DevicePowerUpOutputEnabledStateNames[3];
+extern const char* DevicePowerUpOutputEnabledStateNames[NUM_DEV_POWERUP_ELEMENTS];
 
 typedef enum DeviceBaudRates
 {
@@ -50,9 +52,10 @@ typedef enum DeviceBaudRates
 	DEV_BAUD_9600,
 	DEV_BAUD_19200,
 	DEV_BAUD_38400,
-	DEV_BAUD_57600
+	DEV_BAUD_57600,
+	NUM_DEV_BAUD_ELEMENTS		// The last element is used to determine the number of elements in the enumeration
 }DeviceBaudRates_t;
-extern const char* DeviceBaudRateNames[10];
+extern const char* DeviceBaudRateNames[NUM_DEV_BAUD_ELEMENTS];
 uint32_t DeviceBaudRateEnumToNumber(DeviceBaudRates_t baudRateEnum);
 
 typedef struct DeviceVoltagesStruct
@@ -62,6 +65,15 @@ typedef struct DeviceVoltagesStruct
 	float ATX_12V;
 	float ATX_12V_NEG;
 }DeviceVoltages_t;
+
+typedef struct DeviceCalibrationFactors
+{
+	float Cal_RefVoltage;	// AVR VCC reference voltage in V
+	float Cal_ATX_3V3;		// Correction factor for the ATX 3V3 measurement
+	float Cal_ATX_5V;		// Correction factor for the ATX 5V measurement
+	float Cal_ATX_12V;		// Correction factor for the ATX 12V measurement
+	float Cal_ATX_12V_NEG;	// Correction factor for the ATX -12V measurement
+}DeviceCalibrationFactors_t;
 
 /* This structure is only used internally to store to / read from EEPROM */
 typedef struct DevSettingsEEPROMLayout
@@ -97,6 +109,8 @@ typedef struct DevSettingsEEPROMLayout
 	bool DDS2_Enabled;
 	
 	DevicePowerUpOutputEnabledStates_t PowerOnOutputsState;
+	
+	DeviceCalibrationFactors_t CalibrationFactors;
 }DevSettingsEEPROMLayout_t;
 
 
@@ -120,6 +134,7 @@ class DeviceClass
 		DeviceControlStates_t DeviceControlState;
 		
 		DeviceVoltages_t DeviceVoltages;
+		DeviceCalibrationFactors_t CalibrationFactors;
 
 		UserInputHandlerClass UserInputHandler;
 		ScreenManagerClass ScreenManager;

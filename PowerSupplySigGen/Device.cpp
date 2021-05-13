@@ -225,6 +225,7 @@ void DeviceClass::SaveSettings()
 	settings.DDS2_Enabled = DdsChannel2.GetEnabled();
 
 	settings.PowerOnOutputsState = PowerOnOutputsState;
+	settings.CalibrationFactors = CalibrationFactors;
 
 	eeprom_write_block((const void*)&settings, (void*)&NonVolatileSettings, sizeof(DevSettingsEEPROMLayout_t));
 	
@@ -266,6 +267,7 @@ void DeviceClass::LoadSettings()
 	DdsChannel2.SetOffset(settings.DDS2_Offset);
 	
 	PowerOnOutputsState = settings.PowerOnOutputsState;
+	CalibrationFactors = settings.CalibrationFactors;
 	
 	PsChannel.SetEnabled(PowerOnOutputsState == DEV_POWERUP_OUTPUTS_OFF ? false : (PowerOnOutputsState == DEV_POWERUP_OUTPUTS_ON ? true : settings.PS_Enabled));
 	DdsChannel1.SetEnabled(PowerOnOutputsState == DEV_POWERUP_OUTPUTS_OFF ? false : (PowerOnOutputsState == DEV_POWERUP_OUTPUTS_ON ? true : settings.DDS1_Enabled));
@@ -305,6 +307,7 @@ void DeviceClass::ResetDevice()
 	DdsChannel2.SetOffset(DdsChannel2.Offset.Def);
 	
 	PowerOnOutputsState = DEV_POWERUP_OUTPUTS_OFF;
+	//Calibration factors are not resetted. A new calibration must be done to change the factors.
 	
 	SaveSettings();
 }

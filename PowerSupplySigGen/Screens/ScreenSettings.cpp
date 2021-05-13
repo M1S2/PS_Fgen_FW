@@ -20,6 +20,7 @@ void SettingsChanged(void* context);
 
 // ***** Settings Device page *****
 void OnButtonSettingsSave(void* context);
+void OnButtonDeviceCalibration(void* context);
 void OnButtonDeviceReset(void* context);
 void OnResetConfirmation(void* context);
 void OnResetCancel(void* context);
@@ -27,6 +28,7 @@ void OnResetCancel(void* context);
 ContainerPage page_Settings_Device;
 Label<20> lbl_Settings_Device_caption(SCREEN_TAB_WIDTH + 25, 5, "Settings Device");
 ButtonControl<14> button_Settings_Save(SETTINGS_COLUMN1_POSX, SETTINGS_ROW1_POSY, 70, DEFAULT_UI_ELEMENT_HEIGHT, "Save Settings", &Device, &OnButtonSettingsSave);
+ButtonControl<15> button_Settings_Calibration(SETTINGS_COLUMN2_POSX, SETTINGS_ROW1_POSY, 70, DEFAULT_UI_ELEMENT_HEIGHT, "Calibration...", &Device, &OnButtonDeviceCalibration);
 ButtonControl<13> button_Settings_Reset(SETTINGS_COLUMN1_POSX, SETTINGS_ROW2_POSY, 70, DEFAULT_UI_ELEMENT_HEIGHT, "Reset Device", &Device, &OnButtonDeviceReset);
 MessageDialog msg_Settings_ResetConfirmation(0, 0, 240, 64, "Really reset the device?\nThis can't be undone!", MSG_WARNING, MSG_BTN_OK_CANCEL, &Device, &OnResetConfirmation, &OnResetCancel);
 
@@ -47,7 +49,7 @@ Icon ico_Settings_Communication(SCREEN_TAB_WIDTH + 5, 3, icon_serial_width, icon
 Label<25> lbl_Settings_Communication_caption(SCREEN_TAB_WIDTH + 25, 5, "Settings Communication");
 
 Icon ico_Settings_Comm_BaudRate(SETTINGS_COLUMN1_POSX, SETTINGS_ROW1_POSY - 2, icon_speed_width, icon_speed_height, icon_speed_bits);
-EnumControl<DeviceBaudRates_t> enumCtrl_Settings_Comm_BaudRate(SETTINGS_COLUMN1_POSX + icon_speed_width + 3, SETTINGS_ROW1_POSY, &Device.SerialBaudRate, DeviceBaudRateNames, 10, &Device, &SettingsCommunicationBaudRateChanged);
+EnumControl<DeviceBaudRates_t> enumCtrl_Settings_Comm_BaudRate(SETTINGS_COLUMN1_POSX + icon_speed_width + 3, SETTINGS_ROW1_POSY, &Device.SerialBaudRate, DeviceBaudRateNames, NUM_DEV_BAUD_ELEMENTS, &Device, &SettingsCommunicationBaudRateChanged);
 Label<20> lbl_Settings_Comm_BaudRate(SETTINGS_COLUMN2_POSX, SETTINGS_ROW1_POSY, "Serial Baud Rate");
 
 Icon ico_Settings_Comm_Echo(SETTINGS_COLUMN1_POSX, SETTINGS_ROW2_POSY - 2, icon_echo_width, icon_echo_height, icon_echo_bits);
@@ -58,7 +60,7 @@ Label<15> lbl_Settings_Comm_Echo(SETTINGS_COLUMN2_POSX, SETTINGS_ROW2_POSY, "Ser
 ContainerPage page_Settings_PowerUp;
 Label<20> lbl_Settings_PowerUp_caption(SCREEN_TAB_WIDTH + 25, 5, "Settings Power Up");
 Icon ico_Settings_PowerUp_OutputStates(SETTINGS_COLUMN1_POSX, SETTINGS_ROW1_POSY - 2, icon_boot_width, icon_boot_height, icon_boot_bits);
-EnumControl<DevicePowerUpOutputEnabledStates_t> enumCtrl_Settings_PowerUp_OutputStates(SETTINGS_COLUMN1_POSX + icon_boot_width + 3, SETTINGS_ROW1_POSY, &Device.PowerOnOutputsState, DevicePowerUpOutputEnabledStateNames, 3, NULL, &SettingsChanged);
+EnumControl<DevicePowerUpOutputEnabledStates_t> enumCtrl_Settings_PowerUp_OutputStates(SETTINGS_COLUMN1_POSX + icon_boot_width + 3, SETTINGS_ROW1_POSY, &Device.PowerOnOutputsState, DevicePowerUpOutputEnabledStateNames, NUM_DEV_POWERUP_ELEMENTS, NULL, &SettingsChanged);
 Label<15> lbl_Settings_PowerUp_OutputStates(SETTINGS_COLUMN2_POSX, SETTINGS_ROW1_POSY, "Output States");
 
 // ***** Settings Version Info page *****
@@ -78,6 +80,11 @@ void SettingsChanged(void* context)
 void OnButtonSettingsSave(void* context)
 {
 	Device.SaveSettings();
+}
+
+void OnButtonDeviceCalibration(void* context)
+{
+	Device.ScreenManager.ShowUiCalibrationMenu();
 }
 
 void OnButtonDeviceReset(void* context)
@@ -114,6 +121,7 @@ UIElement* uiBuildScreenSettings()
 	page_Settings_Device.AddItem(&ico_settings);
 	page_Settings_Device.AddItem(&lbl_Settings_Device_caption);
 	page_Settings_Device.AddItem(&button_Settings_Save);
+	page_Settings_Device.AddItem(&button_Settings_Calibration);
 	page_Settings_Device.AddItem(&button_Settings_Reset);
 	page_Settings_Device.InitItems();
 	

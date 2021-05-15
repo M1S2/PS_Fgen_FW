@@ -11,8 +11,6 @@
 #include "Channels/DDS_Channel.h"
 #include "Channels/PS_Channel.h"
 
-#define AVR_VCC_REF						5.27					// AVR VCC Reference voltage in V
-
 /***** Version ************************************************/
 #define VERSION							"v0.0.0"				// Software version. This should be incremented with every release.
 

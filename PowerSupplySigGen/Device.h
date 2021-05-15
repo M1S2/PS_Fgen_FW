@@ -69,10 +69,12 @@ typedef struct DeviceVoltagesStruct
 typedef struct DeviceCalibrationFactors
 {
 	float Cal_RefVoltage;	// AVR VCC reference voltage in V
-	float Cal_ATX_3V3;		// Correction factor for the ATX 3V3 measurement
 	float Cal_ATX_5V;		// Correction factor for the ATX 5V measurement
+	float Cal_ATX_3V3;		// Correction factor for the ATX 3V3 measurement
 	float Cal_ATX_12V;		// Correction factor for the ATX 12V measurement
 	float Cal_ATX_12V_NEG;	// Correction factor for the ATX -12V measurement
+	float Cal_DMM1;			// Correction factor for the DMM1 measurement
+	float Cal_DMM2;			// Correction factor for the DMM2 measurement
 }DeviceCalibrationFactors_t;
 
 /* This structure is only used internally to store to / read from EEPROM */

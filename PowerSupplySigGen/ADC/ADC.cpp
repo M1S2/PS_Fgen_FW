@@ -31,7 +31,7 @@ void ADC_startConversion()
 ISR(ADC_vect)
 {
 	uint16_t adcResult = ADCW;				// ADC conversion result with 10-bit resolution
-	float adcVoltage = (float)(adcResult * (AVR_VCC_REF / 1024.0f));		// Vin = ADC * Vref / 1024 ; Vref=5.27V
+	float adcVoltage = (float)(Device.CalibrationFactors.Cal_RefVoltage * (adcResult / 1024.0f));		// Vin = ADC * Vref / 1024 ; Vref=5.27V
 	char adcChannel = (ADMUX & 0x07);		// Lower 3 bits represent the current ADC channel
 
 	switch (adcChannel)
@@ -45,22 +45,22 @@ ISR(ADC_vect)
 			Device.PsChannel.MeasuredPower = Device.PsChannel.MeasuredAmplitude * Device.PsChannel.MeasuredCurrent;
 			break;
 		case 2:
-			Device.DeviceVoltages.ATX_12V_NEG = -adcVoltage * 2.4 * 1;
+			Device.DeviceVoltages.ATX_12V_NEG = -adcVoltage * 2.4 * Device.CalibrationFactors.Cal_ATX_12V_NEG;
 			break;
 		case 3:
-			Device.DeviceVoltages.ATX_12V = adcVoltage * 2.5 * 1.2; // 3;
+			Device.DeviceVoltages.ATX_12V = adcVoltage * 2.5 * Device.CalibrationFactors.Cal_ATX_12V;	//1.2; // 3;
 			break;
 		case 4:
-			Device.DeviceVoltages.ATX_5V = adcVoltage * 1;
+			Device.DeviceVoltages.ATX_5V = adcVoltage * Device.CalibrationFactors.Cal_ATX_5V;
 			break;
 		case 5:
-			Device.DeviceVoltages.ATX_3V3 = adcVoltage * 1;
+			Device.DeviceVoltages.ATX_3V3 = adcVoltage * Device.CalibrationFactors.Cal_ATX_3V3;
 			break;
 		case 6:
-			Device.DmmChannel1.MeasuredVoltage = adcVoltage * 5.17 * 1;
+			Device.DmmChannel1.MeasuredVoltage = adcVoltage * 5.17 * Device.CalibrationFactors.Cal_DMM1;
 			break;
 		case 7:
-			Device.DmmChannel2.MeasuredVoltage = adcVoltage * 5.17 * 1;
+			Device.DmmChannel2.MeasuredVoltage = adcVoltage * 5.17 * Device.CalibrationFactors.Cal_DMM2;
 			break;
 		default: break;
 	}

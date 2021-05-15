@@ -8,6 +8,7 @@
 
 #include "DAC_MCP492x.h"
 #include "../Spi/spi.h"
+#include "../Device.h"
 
 void MCP4921_DAC_Set(uint16_t dac_data)
 {
@@ -31,7 +32,7 @@ void MCP4921_DAC_Set(uint16_t dac_data)
 void MCP4921_Voltage_Set(float voltage)
 {
 	//VOUT = (GAIN * VREF * D/4096)
-	MCP4921_DAC_Set((uint16_t)(voltage * (4095.0f / AVR_VCC_REF)));
+	MCP4921_DAC_Set((uint16_t)(voltage * (4095.0f / Device.CalibrationFactors.Cal_RefVoltage)));
 }
 
 void MCP4922_DAC_Set(uint16_t dac_data, char channel_A_B)
@@ -61,7 +62,7 @@ void MCP4922_Voltage_Set(float voltage, char channel_A_B)
 {
 	//VOUT = (GAIN * VREF * D/4096)
 	voltage = (voltage + 10) / 4;
-	MCP4922_DAC_Set((uint16_t)(voltage * (4095.0f / AVR_VCC_REF)), channel_A_B);
+	MCP4922_DAC_Set((uint16_t)(voltage * (4095.0f / Device.CalibrationFactors.Cal_RefVoltage)), channel_A_B);
 }
 
 void MCP4922_DisableLatching()

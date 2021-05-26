@@ -1,5 +1,5 @@
 /*
- * PowerSupplySigGen.cpp
+ * main.cpp
  *
  * Created: 14.08.2020 19:23:21
  * Author : V17

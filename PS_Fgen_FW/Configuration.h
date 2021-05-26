@@ -30,7 +30,7 @@
 #define SCPI_INPUT_BUFFER_LENGTH		64						// Length of the SCPI input buffer. If this buffer overflows, there will be an error message.
 #define SCPI_ERROR_QUEUE_SIZE			4						// Maximum number of errors in the error queue. If this queue overflows, the last error message will be replaced by an overflow error message.
 #define SCPI_IDN_MANUFACTURER			"Markus Scheich"		// Manufacturer info used in *IDN? query
-#define SCPI_IDN_MODEL					"PowerSupplySigGen"		// Model info used in *IDN? query
+#define SCPI_IDN_MODEL					"PS_Fgen"				// Model info used in *IDN? query
 #define SCPI_IDN_SERIAL_NUMBER			"01"					// Serial number used in *IDN? query
 #define SCPI_IDN_SOFTWARE_REVISION		VERSION					// Software version used in *IDN? query
 #define SCPI_SYSTEM_CAPABILITIES		"(DCPSUPPLY WITH MEASURE|FUNCGEN|FUNCGEN)"		// All capabilites of the system					

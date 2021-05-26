@@ -12,9 +12,9 @@
     <OutputFileName>$(MSBuildProjectName)</OutputFileName>
     <OutputFileExtension>.elf</OutputFileExtension>
     <OutputDirectory>$(MSBuildProjectDirectory)\$(Configuration)</OutputDirectory>
-    <AssemblyName>PowerSupplySigGen</AssemblyName>
-    <Name>PowerSupplySigGen</Name>
-    <RootNamespace>PowerSupplySigGen</RootNamespace>
+    <AssemblyName>PS_Fgen_FW</AssemblyName>
+    <Name>PS_Fgen_FW</Name>
+    <RootNamespace>PS_Fgen_FW</RootNamespace>
     <ToolchainFlavour>Native</ToolchainFlavour>
     <KeepTimersRunning>true</KeepTimersRunning>
     <OverrideVtor>false</OverrideVtor>

@@ -156,9 +156,9 @@ void OnButtonCalNext(void* context)
 			// Do PS_VOLT calibration
 			Device.CalibrationFactors.Cal_PS_VOLT *= (Device.DmmChannel1.MeasuredVoltage / Device.PsChannel.MeasuredAmplitude);
 			
-			Usart0TransmitStr("\r\nPS_VOLT=");
+			/*Usart0TransmitStr("\r\nPS_VOLT=");
 			dtostrf(Device.CalibrationFactors.Cal_PS_VOLT, 10, 3, buffer);
-			Usart0TransmitStr(buffer);	
+			Usart0TransmitStr(buffer);*/
 			
 			Device.PsChannel.SetEnabled(false);
 			numCtrl_Cal_tmpVoltage.Visible = true;

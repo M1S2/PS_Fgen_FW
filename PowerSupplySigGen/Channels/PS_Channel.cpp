@@ -32,6 +32,9 @@ PS_Channel::PS_Channel(float minAmpl, float maxAmpl, float minCurrent, float max
 	TimeCounter_OcpDelay_ms = 0;
 	TimeCounter_OppDelay_ms = 0;
 	PsState = PS_STATE_CV;
+	_PIDVoltErrorSum = 0;
+	_setDacAmplitude = 0;
+	_PIDVoltErrorLast = 0;	
 }
 
 void PS_Channel::SwitchOffOutput()
@@ -53,48 +56,51 @@ void PS_Channel::UpdateOutput()
 
 void PS_Channel::DeviceTimerTickISR(uint16_t currentPeriod_ms)
 {
-	/* Voltage PID regulator 
-	   see: https://rn-wissen.de/wiki/index.php/Regelungstechnik */
-	float PIDVoltError = GetAmplitude() - MeasuredAmplitude;		// Usoll - Umess
-	_PIDVoltErrorSum += PIDVoltError;
-	_setDacAmplitude = PS_VOLT_PID_P * PIDVoltError + PS_VOLT_PID_I * (currentPeriod_ms / 1000.0f) * _PIDVoltErrorSum + (PS_VOLT_PID_D / (currentPeriod_ms / 1000.0f)) * (PIDVoltError - _PIDVoltErrorLast);
-	_PIDVoltErrorLast = PIDVoltError;
-	
-	if(GetOvpState() && MeasuredAmplitude > (GetAmplitude() * (GetOvpLevel() / 100.0f)))
+	if(GetEnabled())
 	{
-		TimeCounter_OvpDelay_ms += currentPeriod_ms;
-	}
-	else { TimeCounter_OvpDelay_ms = 0; }
+		/* Voltage PID regulator 
+		   see: https://rn-wissen.de/wiki/index.php/Regelungstechnik */
+		float PIDVoltError = GetAmplitude() - MeasuredAmplitude;		// Usoll - Umess
+		_PIDVoltErrorSum += PIDVoltError;
+		_setDacAmplitude = PS_VOLT_PID_P * PIDVoltError + PS_VOLT_PID_I * (currentPeriod_ms / 1000.0f) * _PIDVoltErrorSum + (PS_VOLT_PID_D / (currentPeriod_ms / 1000.0f)) * (PIDVoltError - _PIDVoltErrorLast);
+		_PIDVoltErrorLast = PIDVoltError;
 	
-	if(GetOcpState() && MeasuredCurrent > (GetCurrent() * (GetOcpLevel() / 100.0f)))
-	{
-		TimeCounter_OcpDelay_ms += currentPeriod_ms;
-	}
-	else { TimeCounter_OcpDelay_ms = 0; }
+		if(GetOvpState() && MeasuredAmplitude > (GetAmplitude() * (GetOvpLevel() / 100.0f)))
+		{
+			TimeCounter_OvpDelay_ms += currentPeriod_ms;
+		}
+		else { TimeCounter_OvpDelay_ms = 0; }
+	
+		if(GetOcpState() && MeasuredCurrent > (GetCurrent() * (GetOcpLevel() / 100.0f)))
+		{
+			TimeCounter_OcpDelay_ms += currentPeriod_ms;
+		}
+		else { TimeCounter_OcpDelay_ms = 0; }
 
-	if(GetOppState() && MeasuredPower > GetOppLevel())
-	{
-		TimeCounter_OppDelay_ms += currentPeriod_ms;
-	}
-	else { TimeCounter_OppDelay_ms = 0; }
+		if(GetOppState() && MeasuredPower > GetOppLevel())
+		{
+			TimeCounter_OppDelay_ms += currentPeriod_ms;
+		}
+		else { TimeCounter_OppDelay_ms = 0; }
 
-	if(TimeCounter_OvpDelay_ms >= (1000 * GetOvpDelay()))
-	{
-		PsState = PS_STATE_OVP;
-		TimeCounter_OvpDelay_ms = 0;
-	}
-	else if(TimeCounter_OcpDelay_ms >= (1000 * GetOcpDelay()))
-	{
-		PsState = PS_STATE_OCP;
-		TimeCounter_OcpDelay_ms = 0;
-	}
-	else if(TimeCounter_OppDelay_ms >= (1000 * GetOppDelay()))
-	{
-		PsState = PS_STATE_OPP;
-		TimeCounter_OppDelay_ms = 0;
-	}
+		if(TimeCounter_OvpDelay_ms >= (1000 * GetOvpDelay()))
+		{
+			PsState = PS_STATE_OVP;
+			TimeCounter_OvpDelay_ms = 0;
+		}
+		else if(TimeCounter_OcpDelay_ms >= (1000 * GetOcpDelay()))
+		{
+			PsState = PS_STATE_OCP;
+			TimeCounter_OcpDelay_ms = 0;
+		}
+		else if(TimeCounter_OppDelay_ms >= (1000 * GetOppDelay()))
+		{
+			PsState = PS_STATE_OPP;
+			TimeCounter_OppDelay_ms = 0;
+		}
 	
-	UpdateOutput();
+		UpdateOutput();
+	}
 }
 
 void PS_Channel::ClearProtections()

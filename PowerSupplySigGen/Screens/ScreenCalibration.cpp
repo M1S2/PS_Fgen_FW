@@ -17,6 +17,7 @@ typedef enum CalibrationStates
 	CAL_ATX_12V_NEG,			// Calibrate the ATX 12V NEG voltage
 	CAL_DMM1,					// Calibrate the DMM1 voltage
 	CAL_DMM2,					// Calibrate the DMM2 voltage
+	CAL_PS_VOLT,				// Calibrate the PS_VOLT voltage
 	//...
 	NUM_CAL_STEPS		// The last element is used to determine the number of elements in the enumeration
 }CalibrationStates_t;
@@ -50,6 +51,7 @@ UIElement* StartCalibration()
 	CalState = CAL_REF_VOLTAGE_ATX_5V;
 	CalStateNumber = (uint8_t)CalState;
 	CalTmpVoltage = Device.CalibrationFactors.Cal_RefVoltage;
+	numCtrl_Cal_tmpVoltage.Visible = true;
 	lbl_Cal_instruction.SetText("Measure voltage at the +5V output:");
 	return &page_Cal;
 }
@@ -117,7 +119,6 @@ void OnButtonCalNext(void* context)
 			Usart0TransmitStr(buffer);*/
 			
 			CalState = CAL_DMM1;
-			CalTmpVoltage = Device.DeviceVoltages.ATX_12V;
 			numCtrl_Cal_tmpVoltage.Visible = false;
 			lbl_Cal_instruction.SetText("Connect +12V output to DMM1 input.");
 			break;
@@ -132,8 +133,6 @@ void OnButtonCalNext(void* context)
 			Usart0TransmitStr(buffer);*/
 			
 			CalState = CAL_DMM2;
-			CalTmpVoltage = Device.DeviceVoltages.ATX_12V;
-			numCtrl_Cal_tmpVoltage.Visible = false;
 			lbl_Cal_instruction.SetText("Connect +12V output to DMM2 input.");
 			break;			
 		}
@@ -146,6 +145,22 @@ void OnButtonCalNext(void* context)
 			dtostrf(Device.CalibrationFactors.Cal_DMM2, 10, 3, buffer);
 			Usart0TransmitStr(buffer);*/			
 			
+			CalState = CAL_PS_VOLT;
+			Device.PsChannel.SetAmplitude(10);		// Set output to 10V and enable it
+			Device.PsChannel.SetEnabled(true);
+			lbl_Cal_instruction.SetText("Connect PS+ output to DMM1 input.");
+			break;
+		}
+		case CAL_PS_VOLT:
+		{
+			// Do PS_VOLT calibration
+			Device.CalibrationFactors.Cal_PS_VOLT *= (Device.DmmChannel1.MeasuredVoltage / Device.PsChannel.MeasuredAmplitude);
+			
+			Usart0TransmitStr("\r\nPS_VOLT=");
+			dtostrf(Device.CalibrationFactors.Cal_PS_VOLT, 10, 3, buffer);
+			Usart0TransmitStr(buffer);	
+			
+			Device.PsChannel.SetEnabled(false);
 			numCtrl_Cal_tmpVoltage.Visible = true;
 			
 			Device.SaveSettings();

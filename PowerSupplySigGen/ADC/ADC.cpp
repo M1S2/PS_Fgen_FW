@@ -41,14 +41,14 @@ ISR(ADC_vect)
 			Device.PsChannel.MeasuredPower = Device.PsChannel.MeasuredAmplitude * Device.PsChannel.MeasuredCurrent;
 			break;
 		case 1:
-			Device.PsChannel.MeasuredAmplitude = adcVoltage * 2 * 1;
+			Device.PsChannel.MeasuredAmplitude = adcVoltage * 2 * Device.CalibrationFactors.Cal_PS_VOLT;
 			Device.PsChannel.MeasuredPower = Device.PsChannel.MeasuredAmplitude * Device.PsChannel.MeasuredCurrent;
 			break;
 		case 2:
 			Device.DeviceVoltages.ATX_12V_NEG = -adcVoltage * 2.4 * Device.CalibrationFactors.Cal_ATX_12V_NEG;
 			break;
 		case 3:
-			Device.DeviceVoltages.ATX_12V = adcVoltage * 2.5 * Device.CalibrationFactors.Cal_ATX_12V;	//1.2; // 3;
+			Device.DeviceVoltages.ATX_12V = adcVoltage * 2.5 * Device.CalibrationFactors.Cal_ATX_12V;
 			break;
 		case 4:
 			Device.DeviceVoltages.ATX_5V = adcVoltage * Device.CalibrationFactors.Cal_ATX_5V;

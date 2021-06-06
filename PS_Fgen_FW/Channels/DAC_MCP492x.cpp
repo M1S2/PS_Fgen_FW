@@ -11,12 +11,7 @@
 #include "../Device.h"
 
 void MCP4921_DAC_Set(uint16_t dac_data)
-{
-	bool is_lcd_selected = BIT_IS_CLEARED(PORTB, LCD_CS);
-	SET_BIT(PORTB, LCD_CS);		//Deselect LCD
-	
-	SELECT_MCP4921
-		
+{		
 	uint8_t low_byte=0, high_byte=0;
 	high_byte |= (1 << MCP492X_SHDN);					/*Set SHDN bit high for DAC A active operation*/
 	high_byte |= (1 << MCP492X_BUFFERED);				/*Enable buffered inputs for Vref*/
@@ -24,6 +19,11 @@ void MCP4921_DAC_Set(uint16_t dac_data)
 
 	high_byte |= ((dac_data >> 8) & 0x0F);
 	low_byte |= dac_data;
+
+	bool is_lcd_selected = BIT_IS_CLEARED(PORTB, LCD_CS);
+	SET_BIT(PORTB, LCD_CS);		//Deselect LCD
+
+	SELECT_MCP4921
 
 	/*send the word*/
 	SPI_SendByte(high_byte);
@@ -50,12 +50,7 @@ void MCP4921_Voltage_Set(float voltage)
 }
 
 void MCP4922_DAC_Set(uint16_t dac_data, char channel_A_B)
-{	
-	bool is_lcd_selected = BIT_IS_CLEARED(PORTB, LCD_CS);
-	SET_BIT(PORTB, LCD_CS);		//Deselect LCD
-	
-	SELECT_MCP4922
-		
+{			
 	uint8_t low_byte=0, high_byte=0;
 	if(channel_A_B == 'B')
 	{
@@ -67,6 +62,11 @@ void MCP4922_DAC_Set(uint16_t dac_data, char channel_A_B)
 
 	high_byte |= ((dac_data >> 8) & 0x0F);
 	low_byte |= dac_data;
+
+	bool is_lcd_selected = BIT_IS_CLEARED(PORTB, LCD_CS);
+	SET_BIT(PORTB, LCD_CS);		//Deselect LCD
+
+	SELECT_MCP4922
 
 	/*send the word*/
 	SPI_SendByte(high_byte);

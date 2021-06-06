@@ -66,11 +66,8 @@ void DDS_Channel::UpdateOriginalWaveTable()
 
 bool DDS_Channel::SetEnabled(bool enabled)
 {
-	if (Enabled.Val != enabled)
-	{
-		Enabled.Val = enabled;
-		DDSEnabledChanged(this);
-	}
+	Enabled.Val = enabled;
+	DDSEnabledChanged(this);
 	return true;
 }
 
@@ -192,6 +189,9 @@ void DDS_Channel::DDSSignalFormChanged(void* channel)
 
 void DDS_Channel::DDSEnabledChanged(void* channel)
 {
+	if(((DDS_Channel*)channel) == ((DDS_Channel*)Device.Channels[1])) { DisableDDS1(); }
+	if(((DDS_Channel*)channel) == ((DDS_Channel*)Device.Channels[2])) { DisableDDS2(); }
+	
 	bool areDDSChannelsEnabled = false;
 	for (int i = 0; i < NUM_CHANNELS; i++)
 	{

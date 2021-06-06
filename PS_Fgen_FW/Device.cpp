@@ -36,13 +36,13 @@ void DeviceClass::Init()
 	cli();
 	Pins_Init();
 	SPI_Init();
-	DisableDDSTimer();
 	Encoder_Init();
 	ADC_init();
 	Usart0Init(9600);			// Always init with 9600 baud to output the power on message.
 	InitDeviceTimer();
 	sei();
 	
+	DisableDDSTimer();
 	Usart0TransmitStr("Power On\r\n");
 	
 	ADC_startConversion();
@@ -261,11 +261,15 @@ void DeviceClass::LoadSettings()
 	DdsChannel1.SetSignalForm(settings.DDS1_SignalForm);
 	DdsChannel1.SetAmplitude(settings.DDS1_Amplitude);
 	DdsChannel1.SetOffset(settings.DDS1_Offset);
-	
+	DdsChannel1.UpdateOriginalWaveTable();
+	DdsChannel1.UpdateWaveTable();
+		
 	DdsChannel2.SetFrequency(settings.DDS2_Frequency);
 	DdsChannel2.SetSignalForm(settings.DDS2_SignalForm);
 	DdsChannel2.SetAmplitude(settings.DDS2_Amplitude);
 	DdsChannel2.SetOffset(settings.DDS2_Offset);
+	DdsChannel2.UpdateOriginalWaveTable();
+	DdsChannel2.UpdateWaveTable();
 	
 	PowerOnOutputsState = settings.PowerOnOutputsState;
 	

@@ -18,6 +18,7 @@ typedef enum SignalForms
 	RECTANGLE,
 	TRIANGLE,
 	SAWTOOTH,
+	DC,
 	NUM_SIGNALFORM_ELEMENTS		// The last element is used to determine the number of elements in the enumeration
 } SignalForms_t;
 extern const char* SignalFormsNames[NUM_SIGNALFORM_ELEMENTS];

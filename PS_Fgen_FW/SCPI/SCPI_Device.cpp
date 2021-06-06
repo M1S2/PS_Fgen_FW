@@ -21,6 +21,7 @@ static scpi_choice_def_t signalform_choice[] =
 	{ "SQUare", RECTANGLE },
 	{ "TRIangle", TRIANGLE },
 	{ "SAWtooth", SAWTOOTH },
+	{ "DC", DC },
 	SCPI_CHOICE_LIST_END /* termination of option list */
 };
 

@@ -58,6 +58,7 @@ void DDS_Channel::UpdateOriginalWaveTable()
 		case RECTANGLE: OriginalWaveTable = RECT_WAVE_TABLE_12BIT; break;
 		case TRIANGLE: OriginalWaveTable = TRIANGLE_WAVE_TABLE_12BIT; break;
 		case SAWTOOTH: OriginalWaveTable = SAWTOOTH_WAVE_TABLE_12BIT; break;
+		case DC: OriginalWaveTable = DC_WAVE_TABLE_12BIT; break;
 		default: OriginalWaveTable = SINE_WAVE_TABLE_12BIT; break;
 	}
 }

@@ -9,16 +9,27 @@
 #include "../Device.h"
 #include <stddef.h>
 
-DDS_Channel::DDS_Channel(float minFreq, float maxFreq, float minAmpl, float maxAmpl, float minOffset, float maxOffset) : Channel(DDS_CHANNEL_TYPE), WaveTable{0}
+DDS_Channel::DDS_Channel(uint8_t ddsChannelNumber, float minFreq, float maxFreq, float minAmpl, float maxAmpl, float minOffset, float maxOffset) : Channel(DDS_CHANNEL_TYPE)
 {
+	DdsChannelNumber = ddsChannelNumber;
+	
 	Enabled = Parameter<bool>(false, false, true, false, true);
 	SignalForm = Parameter<SignalForms_t>(SINE, SINE, SAWTOOTH, SINE, SINE);
 	Frequency = Parameter<float>(0, minFreq, maxFreq, 1000, 1);
 	Amplitude = Parameter<float>(0, minAmpl, maxAmpl, 10, 1);
 	Offset = Parameter<float>(0, minOffset, maxOffset, 0, 1);
 
-	Accumulator = 0;
-	Increment = 1024;
+	if(DdsChannelNumber == 1)
+	{
+		p_Increment = &dds_channel1_increment;
+		p_WaveTable = dds_channel1_waveTable;
+	}
+	else
+	{
+		p_Increment = &dds_channel2_increment;
+		p_WaveTable = dds_channel2_waveTable;
+	}
+	*p_Increment = 1024;
 }
 
 void DDS_Channel::UpdateIncrement()
@@ -26,7 +37,7 @@ void DDS_Channel::UpdateIncrement()
 	// increment = 16800	-> 2 kHz
 	// increment = 8400		-> 1 kHz
 	// increment = 4200		-> 501 Hz
-	Increment = (uint16_t)((pow(2, DDS_PHASE_ACCU_BITS) / (float)DDS_TICK_FREQ) * GetFrequency() * 2);
+	*p_Increment = (uint16_t)((pow(2, DDS_PHASE_ACCU_BITS) / (float)DDS_TICK_FREQ) * GetFrequency() * 2);
 }
 
 void DDS_Channel::UpdateWaveTable()
@@ -46,7 +57,7 @@ void DDS_Channel::UpdateWaveTable()
 		if(waveTableValue > 4095) { waveTableValue = 4095; }	// Clipping
 		else if(waveTableValue < 0) { waveTableValue = 0; }		// Clipping
 
-		WaveTable[i] = (uint16_t)waveTableValue;
+		p_WaveTable[i] = (uint16_t)waveTableValue;
 	}
 }
 
@@ -190,8 +201,16 @@ void DDS_Channel::DDSSignalFormChanged(void* channel)
 
 void DDS_Channel::DDSEnabledChanged(void* channel)
 {
-	if(((DDS_Channel*)channel) == ((DDS_Channel*)Device.Channels[1])) { DisableDDS1(); }
-	if(((DDS_Channel*)channel) == ((DDS_Channel*)Device.Channels[2])) { DisableDDS2(); }
+	if(((DDS_Channel*)channel)->DdsChannelNumber == 1) 
+	{
+		DisableDDS1(); 
+		dds_channel1_enabled = ((DDS_Channel*)channel)->Enabled.Val;
+	}
+	else if(((DDS_Channel*)channel)->DdsChannelNumber == 2) 
+	{ 
+		DisableDDS2(); 
+		dds_channel2_enabled = ((DDS_Channel*)channel)->Enabled.Val;
+	}
 	
 	bool areDDSChannelsEnabled = false;
 	for (int i = 0; i < NUM_CHANNELS; i++)

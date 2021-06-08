@@ -15,6 +15,8 @@
 class DDS_Channel : public Channel
 {
 	public:
+		uint8_t DdsChannelNumber;				// 1-based channel number (DDS1 => 1, DDS2 => 2)
+	
 		Parameter<bool> Enabled;
 		Parameter<float> Frequency;
 		Parameter<float> Amplitude;
@@ -22,11 +24,10 @@ class DDS_Channel : public Channel
 		Parameter<SignalForms_t> SignalForm;
 	
 		const uint16_t* OriginalWaveTable;
-		uint16_t WaveTable[(1 << DDS_QUANTIZER_BITS)];	// Left shift to replace pow(2, DDS_QUANTIZER_BITS)
-		uint16_t Accumulator;
-		uint16_t Increment = 1024;
+		uint16_t* p_WaveTable;
+		uint16_t* p_Increment;
 
-		DDS_Channel(float minFreq, float maxFreq, float minAmpl, float maxAmpl, float minOffset, float maxOffset);
+		DDS_Channel(uint8_t ddsChannelNumber, float minFreq, float maxFreq, float minAmpl, float maxAmpl, float minOffset, float maxOffset);
 		void UpdateIncrement();
 		void UpdateWaveTable();
 		void UpdateOriginalWaveTable();

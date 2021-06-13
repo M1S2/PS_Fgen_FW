@@ -10,14 +10,14 @@
 #include "../Spi/spi.h"
 #include "../Device.h"
 
-uint16_t dds_channel1_accumulator;				// This variables aren't part of the DDS_Channel class to speed up the DDS ISR (no dereferencing neccessary)
-uint16_t dds_channel2_accumulator;
-uint16_t dds_channel1_increment;
-uint16_t dds_channel2_increment;
-uint16_t dds_channel1_waveTable[(1 << DDS_QUANTIZER_BITS)];		// Left shift to replace pow(2, DDS_QUANTIZER_BITS)
-uint16_t dds_channel2_waveTable[(1 << DDS_QUANTIZER_BITS)];		// Left shift to replace pow(2, DDS_QUANTIZER_BITS)
-bool dds_channel1_enabled;
-bool dds_channel2_enabled;
+volatile uint16_t dds_channel1_accumulator;				// This variables aren't part of the DDS_Channel class to speed up the DDS ISR (no dereferencing neccessary)
+volatile uint16_t dds_channel2_accumulator;
+volatile uint16_t dds_channel1_increment;
+volatile uint16_t dds_channel2_increment;
+volatile uint16_t dds_channel1_waveTable[(1 << DDS_QUANTIZER_BITS)];		// Left shift to replace pow(2, DDS_QUANTIZER_BITS)
+volatile uint16_t dds_channel2_waveTable[(1 << DDS_QUANTIZER_BITS)];		// Left shift to replace pow(2, DDS_QUANTIZER_BITS)
+volatile bool dds_channel1_enabled;
+volatile bool dds_channel2_enabled;
 
 /* Initialize 8-bit Timer/Counter2 */
 void InitDDSTimer()
@@ -67,14 +67,13 @@ ISR(TIMER2_COMPA_vect)
 	
 		uint8_t high_byte = (1 << MCP492X_SHDN) | (1 << MCP492X_BUFFERED) | (1 << MCP492X_GAIN_SELECT_SINGLE);			// Set SHDN bit high for DAC A active operation; Enable buffered inputs for Vref; Select single gain
 		high_byte |= ((dds1_data >> 8) & 0x0F);
-		uint8_t low_byte = (dds1_data & 0xFF);
-
+		
 		SPI_SPDR = high_byte;
+		uint8_t low_byte = (dds1_data & 0xFF);
 		while (!(SPI_SPSR & (1 << SPI_SPIF)));	// Wait until transmission is complete
 		SPI_SPDR = low_byte;
-		while (!(SPI_SPSR & (1 << SPI_SPIF)));	// Wait until transmission is complete
-
 		dds_channel1_accumulator += dds_channel1_increment;
+		while (!(SPI_SPSR & (1 << SPI_SPIF)));	// Wait until transmission is complete
 	}
 	if(dds_channel1_enabled && dds_channel2_enabled)					// After each write command, the data needs to be shifted into the DAC's input registers by raising the CS pin (The CS pin is then raised, causing the data to be latched into the selected DAC’s input registers.)
 	{
@@ -88,14 +87,13 @@ ISR(TIMER2_COMPA_vect)
 
 		uint8_t high_byte = (1 << MCP492X_SHDN) | (1 << MCP492X_BUFFERED) | (1 << MCP492X_GAIN_SELECT_SINGLE) | (1 << MCP492X_DACB);		// Set SHDN bit high for DAC A active operation; Enable buffered inputs for Vref; Select single gain; Select DAC channel B
 		high_byte |= ((dds2_data >> 8) & 0x0F);
-		uint8_t low_byte = (dds2_data & 0xFF);
 
 		SPI_SPDR = high_byte;
+		uint8_t low_byte = (dds2_data & 0xFF);
 		while (!(SPI_SPSR & (1 << SPI_SPIF)));	// Wait until transmission is complete
 		SPI_SPDR = low_byte;
-		while (!(SPI_SPSR & (1 << SPI_SPIF)));	// Wait until transmission is complete
-
 		dds_channel2_accumulator += dds_channel1_increment;
+		while (!(SPI_SPSR & (1 << SPI_SPIF)));	// Wait until transmission is complete
 	}
 	
 	DESELECT_MCP4922

@@ -41,23 +41,37 @@ To navigate between the main pages (Tabs), use the left and right arrow keys on 
 
 <mark>Description of all UI pages...</mark>
 - **SplashScreen:** <mark>...</mark>
+	![Splash Screen](/Doc/Images/SplashScreen.jpg)
 - **PS:** <mark>...</mark>
 	- *PowerSupply:* <mark>...</mark>
+		![Screen PS](/Doc/Images/Screen_PS.jpg)
 	- *OVP:* <mark>...</mark>
+		![Screen PS OVP](/Doc/Images/Screen_PS_OVP.jpg)
 	- *OCP:* <mark>...</mark>
+		![Screen PS OCP](/Doc/Images/Screen_PS_OCP.jpg)
 	- *OPP:* <mark>...</mark>
+		![Screen PS OPP](/Doc/Images/Screen_PS_OPP.jpg)
 - **DDS:** <mark>...</mark>
 	- *DDS1:* <mark>...</mark>
+		![Screen DDS1](/Doc/Images/Screen_DDS1.jpg)
 	- *DDS2:* <mark>...</mark>
+		![Screen DDS2](/Doc/Images/Screen_DDS2.jpg)
 - **Meas:** <mark>...</mark>
 	- *DMM:*  <mark>...</mark>
+		![Screen Meas DMM](/Doc/Images/Screen_Meas_DMM.jpg)
 	- *ATX:* <mark>...</mark>
+		![Screen Meas ATX](/Doc/Images/Screen_Meas_ATX.jpg)
 - **Conf**: <mark>...</mark>
 	- *Settings Device:* <mark>...</mark>
+		![Screen Config Device](/Doc/Images/Screen_Conf_Device.jpg)
 	-  *Display:* <mark>...</mark>
+		![Screen Config Display](/Doc/Images/Screen_Conf_Display.jpg)
 	- *Communication:* <mark>...</mark>
+		![Screen Config Communication](/Doc/Images/Screen_Conf_Communication.jpg)
 	- *PowerUp:* <mark>...</mark>
+		![Screen Config PowerUp](/Doc/Images/Screen_Conf_PowerUp.jpg)
 	- *Version:* <mark>...</mark>
+		![Screen Config Version](/Doc/Images/Screen_Conf_Version.jpg)
 
 ## Configuration
 The [Configuration.h](PS_Fgen_FW/Configuration.h) file contains some parameters that can be used to costumize the firmware. It has the following sections:

@@ -20,12 +20,12 @@
 #include <avr/interrupt.h>
 #include <avr/pgmspace.h>
 
-extern uint16_t dds_channel1_increment;
-extern uint16_t dds_channel2_increment;
-extern uint16_t dds_channel1_waveTable[(1 << DDS_QUANTIZER_BITS)];					// Left shift to replace pow(2, DDS_QUANTIZER_BITS)
-extern uint16_t dds_channel2_waveTable[(1 << DDS_QUANTIZER_BITS)];
-extern bool dds_channel1_enabled;
-extern bool dds_channel2_enabled;
+extern volatile uint16_t dds_channel1_increment;
+extern volatile uint16_t dds_channel2_increment;
+extern volatile uint16_t dds_channel1_waveTable[(1 << DDS_QUANTIZER_BITS)];					// Left shift to replace pow(2, DDS_QUANTIZER_BITS)
+extern volatile uint16_t dds_channel2_waveTable[(1 << DDS_QUANTIZER_BITS)];
+extern volatile bool dds_channel1_enabled;
+extern volatile bool dds_channel2_enabled;
 
 void InitDDSTimer();
 void DisableDDSTimer();

@@ -282,7 +282,8 @@ void DeviceClass::LoadSettings()
 	if(CalibrationFactors.Cal_DMM1 == 0 || isnan(CalibrationFactors.Cal_DMM1)) { CalibrationFactors.Cal_DMM1 = 1; }
 	if(CalibrationFactors.Cal_DMM2 == 0 || isnan(CalibrationFactors.Cal_DMM2)) { CalibrationFactors.Cal_DMM2 = 1; }
 	if(CalibrationFactors.Cal_PS_VOLT == 0 || isnan(CalibrationFactors.Cal_PS_VOLT)) { CalibrationFactors.Cal_PS_VOLT = 1; }
-					
+	if(CalibrationFactors.Cal_DDS_FREQ == 0 || isnan(CalibrationFactors.Cal_DDS_FREQ)) { CalibrationFactors.Cal_DDS_FREQ = 1; }
+						
 	PsChannel.SetEnabled(PowerOnOutputsState == DEV_POWERUP_OUTPUTS_OFF ? false : (PowerOnOutputsState == DEV_POWERUP_OUTPUTS_ON ? true : settings.PS_Enabled));
 	DdsChannel1.SetEnabled(PowerOnOutputsState == DEV_POWERUP_OUTPUTS_OFF ? false : (PowerOnOutputsState == DEV_POWERUP_OUTPUTS_ON ? true : settings.DDS1_Enabled));
 	DdsChannel2.SetEnabled(PowerOnOutputsState == DEV_POWERUP_OUTPUTS_OFF ? false : (PowerOnOutputsState == DEV_POWERUP_OUTPUTS_ON ? true : settings.DDS2_Enabled));

@@ -52,8 +52,7 @@
 #define KEY_C2		PORTC1
 #define KEY_C1		PORTC0
 
-// PORTD6 and PORTD7 not used
-#define ATX_PWR_ON	PORTD5
+// PORT5, PORTD6 and PORTD7 not used
 #define ENC_PB		PORTD4
 #define ENC_B		PORTD3
 #define ENC_A		PORTD2

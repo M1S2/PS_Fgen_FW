@@ -18,6 +18,7 @@ typedef enum CalibrationStates
 	CAL_DMM1,					// Calibrate the DMM1 voltage
 	CAL_DMM2,					// Calibrate the DMM2 voltage
 	CAL_PS_VOLT,				// Calibrate the PS_VOLT voltage
+	CAL_DDS_FREQ,				// Calibrate the DDS frequency
 	//...
 	NUM_CAL_STEPS		// The last element is used to determine the number of elements in the enumeration
 }CalibrationStates_t;
@@ -25,6 +26,7 @@ CalibrationStates_t CalState;
 uint8_t CalStateNumber;			// 1 .. Number calibration steps
 
 float CalTmpVoltage;				// Variable holding the entered voltage value for each calibration step. This is converted to the corresponding factor in the OnButtonCalNext() function
+float CalTmpFrequency;				// Variable holding the entered frequency value for the DDS frequency calibration step. This is converted to the corresponding factor in the OnButtonCalNext() function
 
 
 #define CAL_CAPTION_POSX	25
@@ -39,6 +41,7 @@ Icon ico_Cal(5, 3, icon_calibration_width, icon_calibration_height, icon_calibra
 Label<15> lbl_Cal_caption(CAL_CAPTION_POSX, 5, "Calibration");
 Label<40> lbl_Cal_instruction(CAL_CAPTION_POSX, 20, "...");
 NumericControl<float> numCtrl_Cal_tmpVoltage(CAL_CAPTION_POSX, 35, &CalTmpVoltage, "V", -15, 15, 3);
+NumericControl<float> numCtrl_Cal_tmpFrequency(CAL_CAPTION_POSX, 35, &CalTmpFrequency, "Hz", 1, 20000, 1);
 
 ButtonControl<5> button_Cal_Exit(160, CAL_BUTTONS_POSY, 30, DEFAULT_UI_ELEMENT_HEIGHT, "Exit", NULL, &OnButtonCalExit);
 ButtonControl<5> button_Cal_Next(200, CAL_BUTTONS_POSY, 30, DEFAULT_UI_ELEMENT_HEIGHT, "Next", NULL, &OnButtonCalNext);
@@ -52,6 +55,7 @@ UIElement* StartCalibration()
 	CalStateNumber = (uint8_t)CalState;
 	CalTmpVoltage = Device.CalibrationFactors.Cal_RefVoltage;
 	numCtrl_Cal_tmpVoltage.Visible = true;
+	numCtrl_Cal_tmpFrequency.Visible = false;
 	lbl_Cal_instruction.SetText("Measure voltage at the +5V output:");
 	return &page_Cal;
 }
@@ -161,7 +165,30 @@ void OnButtonCalNext(void* context)
 			Usart0TransmitStr(buffer);*/
 			
 			Device.PsChannel.SetEnabled(false);
+			
+			CalState = CAL_DDS_FREQ;
+			CalTmpFrequency = 1000;
+			Device.DdsChannel1.SetAmplitude(20);		// Set output to 10 V, 1 kHz and enable it
+			Device.DdsChannel1.SetFrequency(CalTmpFrequency);
+			Device.DdsChannel1.SetEnabled(true);
+			numCtrl_Cal_tmpFrequency.Visible = true;
+			lbl_Cal_instruction.SetText("Measure frequency at the DDS1 output:");
+			break;
+		}
+		case CAL_DDS_FREQ:
+		{
+			// Do DDS frequency calibration
+			Device.CalibrationFactors.Cal_DDS_FREQ = (1000.0f / CalTmpFrequency);		// 1000 = 1000 kHz desired frequency
+			
+			/*Usart0TransmitStr("\r\nDDS FREQ=");
+			dtostrf(Device.CalibrationFactors.Cal_DDS_FREQ, 10, 3, buffer);
+			Usart0TransmitStr(buffer);*/
+			
+			Device.DdsChannel1.UpdateIncrement();
+			Device.DdsChannel2.UpdateIncrement();
+			Device.DdsChannel1.SetEnabled(false);
 			numCtrl_Cal_tmpVoltage.Visible = true;
+			numCtrl_Cal_tmpFrequency.Visible = false;
 			
 			Device.SaveSettings();
 			Device.ScreenManager.UiManager.ChangeVisualTreeRoot(&msg_Cal_Finished);
@@ -184,10 +211,13 @@ void OnCalFinishedOK(void* context)
 
 UIElement* uiBuildScreenCalibration()
 {
+	numCtrl_Cal_tmpFrequency.Visible = false;
+	
 	page_Cal.AddItem(&lbl_Cal_caption);
 	page_Cal.AddItem(&ico_Cal);
 	page_Cal.AddItem(&lbl_Cal_instruction);
 	page_Cal.AddItem(&numCtrl_Cal_tmpVoltage);
+	page_Cal.AddItem(&numCtrl_Cal_tmpFrequency);
 	page_Cal.AddItem(&progress_Cal);
 	page_Cal.AddItem(&button_Cal_Exit);
 	page_Cal.AddItem(&button_Cal_Next);

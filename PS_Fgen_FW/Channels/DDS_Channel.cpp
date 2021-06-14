@@ -34,10 +34,7 @@ DDS_Channel::DDS_Channel(uint8_t ddsChannelNumber, float minFreq, float maxFreq,
 
 void DDS_Channel::UpdateIncrement()
 {
-	// increment = 16800	-> 2 kHz
-	// increment = 8400		-> 1 kHz
-	// increment = 4200		-> 501 Hz
-	*p_Increment = (uint16_t)((pow(2, DDS_PHASE_ACCU_BITS) / (float)DDS_TICK_FREQ) * GetFrequency() * 2);
+	*p_Increment = (uint16_t)((pow(2, DDS_PHASE_ACCU_BITS) / (float)DDS_TICK_FREQ) * GetFrequency() * Device.CalibrationFactors.Cal_DDS_FREQ);
 }
 
 void DDS_Channel::UpdateWaveTable()

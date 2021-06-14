@@ -59,9 +59,6 @@ void Pins_Init()
 	CLEAR_BIT(DDRC, KEY_C2);
 	CLEAR_BIT(DDRC, KEY_C1);
 	
-	// make ATX_PWR_ON output
-	SET_BIT(DDRD, ATX_PWR_ON);
-	
 	// make encoder pins inputs
 	CLEAR_BIT(DDRD, ENC_PB);
 	CLEAR_BIT(DDRD, ENC_B);

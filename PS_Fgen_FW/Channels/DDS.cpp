@@ -92,7 +92,7 @@ ISR(TIMER2_COMPA_vect)
 		uint8_t low_byte = (dds2_data & 0xFF);
 		while (!(SPI_SPSR & (1 << SPI_SPIF)));	// Wait until transmission is complete
 		SPI_SPDR = low_byte;
-		dds_channel2_accumulator += dds_channel1_increment;
+		dds_channel2_accumulator += dds_channel2_increment;
 		while (!(SPI_SPSR & (1 << SPI_SPIF)));	// Wait until transmission is complete
 	}
 	

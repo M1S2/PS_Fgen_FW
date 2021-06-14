@@ -76,6 +76,7 @@ typedef struct DeviceCalibrationFactors
 	float Cal_DMM1;			// Correction factor for the DMM1 measurement
 	float Cal_DMM2;			// Correction factor for the DMM2 measurement
 	float Cal_PS_VOLT;		// Correction factor for the PS_VOLT measurement
+	float Cal_DDS_FREQ;		// Correction factor for the DDS frequency setting
 }DeviceCalibrationFactors_t;
 
 /* This structure is only used internally to store to / read from EEPROM */

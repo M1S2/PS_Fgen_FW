@@ -29,6 +29,13 @@ DeviceClass::DeviceClass() :
 	Channels{ &PsChannel, &DdsChannel1, &DdsChannel2, &DmmChannel1, &DmmChannel2 }
 {
 	DeviceControlState = DEV_CTRL_LOCAL;
+	
+#warning Only Test Signal!!!
+	for(int i=0; i<255;i++)
+	{
+		DdsChannel1.UserWaveTable[i] = (i < 64 ? 4095 : (i < 128 ? 0 : (i < 192 ? 3071 : 1024))); // High - Low - Medium High - Medium Low signal
+		DdsChannel2.UserWaveTable[i] = 4095 * (i / (float)255);									// Sawtooth  signal
+	}
 }
 
 void DeviceClass::Init()

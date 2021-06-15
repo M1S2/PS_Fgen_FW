@@ -9,6 +9,8 @@
 #include "../Device.h"
 #include <stddef.h>
 
+const char* SignalFormsNames[] = { "SINE", "RECT", "TRIANGLE", "SAWTOOTH", "DC", "USER" };
+
 DDS_Channel::DDS_Channel(uint8_t ddsChannelNumber, float minFreq, float maxFreq, float minAmpl, float maxAmpl, float minOffset, float maxOffset) : Channel(DDS_CHANNEL_TYPE)
 {
 	DdsChannelNumber = ddsChannelNumber;
@@ -39,14 +41,22 @@ void DDS_Channel::UpdateIncrement()
 
 void DDS_Channel::UpdateWaveTable()
 {		
-	if(OriginalWaveTable == NULL) { return; }
+	if(OriginalWaveTable == NULL && SignalForm.Val != USER_SIGNAL) { return; }
 
 	int16_t offset_value = (int16_t)((GetOffset() / (float)DDS_AMPLITUDE_MAX) * DDS_SAMPLE_MAX);
 	int16_t sample_max_half = DDS_SAMPLE_MAX / 2;
 	
 	for(uint16_t i = 0; i < (1 << DDS_QUANTIZER_BITS); i++)			// Left shift to replace pow(2, DDS_QUANTIZER_BITS)
 	{
-		int16_t originalSample = pgm_read_word(&OriginalWaveTable[i]);
+		int16_t originalSample = 0;
+		if(SignalForm.Val == USER_SIGNAL)
+		{
+			originalSample = UserWaveTable[i];
+		}
+		else
+		{ 
+			originalSample = pgm_read_word(&OriginalWaveTable[i]);
+		}
 		
 		// ((Vpp/Vpp_max) * (sample - (sample_max / 2))) + (sample_max / 2) + (Offset/Vpp_max) * sample_max
 		int16_t waveTableValue = (int16_t)((GetAmplitude() / (float)DDS_AMPLITUDE_MAX) * (originalSample - sample_max_half)) + sample_max_half + offset_value;
@@ -67,6 +77,7 @@ void DDS_Channel::UpdateOriginalWaveTable()
 		case TRIANGLE: OriginalWaveTable = TRIANGLE_WAVE_TABLE_12BIT; break;
 		case SAWTOOTH: OriginalWaveTable = SAWTOOTH_WAVE_TABLE_12BIT; break;
 		case DC: OriginalWaveTable = DC_WAVE_TABLE_12BIT; break;
+		case USER_SIGNAL: OriginalWaveTable = NULL; break;
 		default: OriginalWaveTable = SINE_WAVE_TABLE_12BIT; break;
 	}
 }

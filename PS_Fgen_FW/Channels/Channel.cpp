@@ -7,8 +7,6 @@
 
 #include "Channel.h"
 
-const char* SignalFormsNames[] = { "SINE", "RECT", "TRIANGLE", "SAWTOOTH", "DC" };
-
 Channel::Channel(ChannelTypes_t channelType)
 {
 	_channelType = channelType;

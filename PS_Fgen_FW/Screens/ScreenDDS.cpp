@@ -12,8 +12,8 @@ ContainerList list_DDS(40, 0, 240 - 40, 64);
 // ***** DDS1 page *****
 #define DDS1_COLUMN1_POSX		SCREEN_TAB_WIDTH + 5
 #define DDS1_COLUMN2_POSX		DDS1_COLUMN1_POSX + 78
-#define DDS1_COLUMN3_POSX		DDS1_COLUMN2_POSX + 20
-#define DDS1_COLUMN4_POSX		DDS1_COLUMN3_POSX + 50
+#define DDS1_COLUMN3_POSX		DDS1_COLUMN2_POSX + 35
+#define DDS1_COLUMN4_POSX		DDS1_COLUMN3_POSX + 35
 #define DDS1_ROW1_POSY			25
 #define DDS1_ROW2_POSY			DDS1_ROW1_POSY + 20
 
@@ -52,7 +52,7 @@ BoolControl boolCtrl_DDS2_Enabled(DDS2_COLUMN4_POSX + icon_OnOff_width + 3, DDS2
 
 UIElement* uiBuildScreenDDS()
 {
-	numCtrl_DDS1_Frequency.Width = 70;
+	numCtrl_DDS1_Frequency.Width = 85;
 	numCtrl_DDS1_Amplitude.Width = 53;
 	numCtrl_DDS1_Offset.Width = 42;
 	
@@ -70,7 +70,7 @@ UIElement* uiBuildScreenDDS()
 	page_DDS1.AddItem(&boolCtrl_DDS1_Enabled);
 	page_DDS1.InitItems();
 	
-	numCtrl_DDS2_Frequency.Width = 70;
+	numCtrl_DDS2_Frequency.Width = 85;
 	numCtrl_DDS2_Amplitude.Width = 53;
 	numCtrl_DDS2_Offset.Width = 42;
 	

@@ -10,10 +10,10 @@
 #include "../Spi/spi.h"
 #include "../Device.h"
 
-volatile uint16_t dds_channel1_accumulator;				// This variables aren't part of the DDS_Channel class to speed up the DDS ISR (no dereferencing neccessary)
-volatile uint16_t dds_channel2_accumulator;
-volatile uint16_t dds_channel1_increment;
-volatile uint16_t dds_channel2_increment;
+volatile uint32_t dds_channel1_accumulator;				// This variables aren't part of the DDS_Channel class to speed up the DDS ISR (no dereferencing neccessary)
+volatile uint32_t dds_channel2_accumulator;
+volatile uint32_t dds_channel1_increment;
+volatile uint32_t dds_channel2_increment;
 volatile uint16_t dds_channel1_waveTable[(1 << DDS_QUANTIZER_BITS)];		// Left shift to replace pow(2, DDS_QUANTIZER_BITS)
 volatile uint16_t dds_channel2_waveTable[(1 << DDS_QUANTIZER_BITS)];		// Left shift to replace pow(2, DDS_QUANTIZER_BITS)
 volatile bool dds_channel1_enabled;

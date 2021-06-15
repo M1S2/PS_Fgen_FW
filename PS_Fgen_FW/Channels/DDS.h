@@ -10,7 +10,7 @@
 #define DDS_H_
 
 #define DDS_TICK_FREQ			62500	//125000					// Choose a value here that delivers an integer value for the OCR2A register (  ((F_CPU / 128) / DDS_TICK_FREQ) should be an integer value ) !!!
-#define DDS_PHASE_ACCU_BITS		16
+#define DDS_PHASE_ACCU_BITS		32
 #define DDS_QUANTIZER_BITS		8
 #define DDS_DAC_BITS			12						// 12-bit DAC
 #define DDS_SAMPLE_MAX			((1 << DDS_DAC_BITS) - 1)	
@@ -20,8 +20,8 @@
 #include <avr/interrupt.h>
 #include <avr/pgmspace.h>
 
-extern volatile uint16_t dds_channel1_increment;
-extern volatile uint16_t dds_channel2_increment;
+extern volatile uint32_t dds_channel1_increment;
+extern volatile uint32_t dds_channel2_increment;
 extern volatile uint16_t dds_channel1_waveTable[(1 << DDS_QUANTIZER_BITS)];					// Left shift to replace pow(2, DDS_QUANTIZER_BITS)
 extern volatile uint16_t dds_channel2_waveTable[(1 << DDS_QUANTIZER_BITS)];
 extern volatile bool dds_channel1_enabled;

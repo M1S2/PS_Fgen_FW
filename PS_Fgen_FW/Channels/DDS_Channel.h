@@ -25,7 +25,7 @@ class DDS_Channel : public Channel
 	
 		volatile const uint16_t* OriginalWaveTable;
 		volatile uint16_t* p_WaveTable;
-		volatile uint16_t* p_Increment;
+		volatile uint32_t* p_Increment;
 
 		DDS_Channel(uint8_t ddsChannelNumber, float minFreq, float maxFreq, float minAmpl, float maxAmpl, float minOffset, float maxOffset);
 		void UpdateIncrement();

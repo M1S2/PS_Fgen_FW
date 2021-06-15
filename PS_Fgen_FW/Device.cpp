@@ -245,6 +245,17 @@ void DeviceClass::LoadSettings()
 	SetSerialBaudRate(settings.Device_SerialBaudRate);
 	SetSerialEchoEnabled(settings.Device_SerialEchoEnabled);
 	
+	CalibrationFactors = settings.CalibrationFactors;
+	if(CalibrationFactors.Cal_RefVoltage == 0 || isnan(CalibrationFactors.Cal_RefVoltage)) { CalibrationFactors.Cal_RefVoltage = 5; }
+	if(CalibrationFactors.Cal_ATX_3V3 == 0 || isnan(CalibrationFactors.Cal_ATX_3V3)) { CalibrationFactors.Cal_ATX_3V3 = 1; }
+	if(CalibrationFactors.Cal_ATX_5V == 0 || isnan(CalibrationFactors.Cal_ATX_5V)) { CalibrationFactors.Cal_ATX_5V = 1; }
+	if(CalibrationFactors.Cal_ATX_12V == 0 || isnan(CalibrationFactors.Cal_ATX_12V)) { CalibrationFactors.Cal_ATX_12V = 1; }
+	if(CalibrationFactors.Cal_ATX_12V_NEG == 0 || isnan(CalibrationFactors.Cal_ATX_12V_NEG)) { CalibrationFactors.Cal_ATX_12V_NEG = 1; }
+	if(CalibrationFactors.Cal_DMM1 == 0 || isnan(CalibrationFactors.Cal_DMM1)) { CalibrationFactors.Cal_DMM1 = 1; }
+	if(CalibrationFactors.Cal_DMM2 == 0 || isnan(CalibrationFactors.Cal_DMM2)) { CalibrationFactors.Cal_DMM2 = 1; }
+	if(CalibrationFactors.Cal_PS_VOLT == 0 || isnan(CalibrationFactors.Cal_PS_VOLT)) { CalibrationFactors.Cal_PS_VOLT = 1; }
+	if(CalibrationFactors.Cal_DDS_FREQ == 0 || isnan(CalibrationFactors.Cal_DDS_FREQ)) { CalibrationFactors.Cal_DDS_FREQ = 1; }
+	
 	PsChannel.SetAmplitude(settings.PS_Voltage);
 	PsChannel.SetCurrent(settings.PS_Current);
 	PsChannel.SetOvpLevel(settings.PS_OvpLevel);
@@ -272,17 +283,6 @@ void DeviceClass::LoadSettings()
 	DdsChannel2.UpdateWaveTable();
 	
 	PowerOnOutputsState = settings.PowerOnOutputsState;
-	
-	CalibrationFactors = settings.CalibrationFactors;
-	if(CalibrationFactors.Cal_RefVoltage == 0 || isnan(CalibrationFactors.Cal_RefVoltage)) { CalibrationFactors.Cal_RefVoltage = 5; }
-	if(CalibrationFactors.Cal_ATX_3V3 == 0 || isnan(CalibrationFactors.Cal_ATX_3V3)) { CalibrationFactors.Cal_ATX_3V3 = 1; }
-	if(CalibrationFactors.Cal_ATX_5V == 0 || isnan(CalibrationFactors.Cal_ATX_5V)) { CalibrationFactors.Cal_ATX_5V = 1; }
-	if(CalibrationFactors.Cal_ATX_12V == 0 || isnan(CalibrationFactors.Cal_ATX_12V)) { CalibrationFactors.Cal_ATX_12V = 1; }
-	if(CalibrationFactors.Cal_ATX_12V_NEG == 0 || isnan(CalibrationFactors.Cal_ATX_12V_NEG)) { CalibrationFactors.Cal_ATX_12V_NEG = 1; }
-	if(CalibrationFactors.Cal_DMM1 == 0 || isnan(CalibrationFactors.Cal_DMM1)) { CalibrationFactors.Cal_DMM1 = 1; }
-	if(CalibrationFactors.Cal_DMM2 == 0 || isnan(CalibrationFactors.Cal_DMM2)) { CalibrationFactors.Cal_DMM2 = 1; }
-	if(CalibrationFactors.Cal_PS_VOLT == 0 || isnan(CalibrationFactors.Cal_PS_VOLT)) { CalibrationFactors.Cal_PS_VOLT = 1; }
-	if(CalibrationFactors.Cal_DDS_FREQ == 0 || isnan(CalibrationFactors.Cal_DDS_FREQ)) { CalibrationFactors.Cal_DDS_FREQ = 1; }
 						
 	PsChannel.SetEnabled(PowerOnOutputsState == DEV_POWERUP_OUTPUTS_OFF ? false : (PowerOnOutputsState == DEV_POWERUP_OUTPUTS_ON ? true : settings.PS_Enabled));
 	DdsChannel1.SetEnabled(PowerOnOutputsState == DEV_POWERUP_OUTPUTS_OFF ? false : (PowerOnOutputsState == DEV_POWERUP_OUTPUTS_ON ? true : settings.DDS1_Enabled));

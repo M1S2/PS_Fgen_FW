@@ -27,50 +27,68 @@ The user interface is made up of the following components:
 - KeyPad: A 16 button keypad can be used for value editing and menu navigation.
 ### GLCD handling
 The u8glib library is used for GLCD handling:
+
 [GitHub - olikraus/u8glib: Arduino Monochrom Graphics Library for LCDs and OLEDs](https://github.com/olikraus/u8glib)
 
 ### User Input Handling
-<mark>RingBuffer...</mark>
+All user inputs are directly enqueued into an RingBuffer when they occur. They are then later processed by the main loop. This approach is used to decouple the user input producers (ISRs) from the processing itself (which could take some time).
+The following user inputs are detected:
+- Keys: All pressed keys are enqueued as USERDATA_KEY types.
+- Encoder: All encoder rotations (clockwise, counterclockwise) and the encoder button are also enqueued as USERDATA_KEY types. This is done to simplify the later processing by minimizing different data types.
+- UART: Characters that are received via the serial communication interface are enqueued as USERDATA_USART types.
 
 ### UI design
 The user interface is based on a self developed UI library.
-<mark>...</mark>
+There is a separate [Readme for the UI library.](/PS_Fgen_FW/UI_Lib/README.md)
 
 ### UI Overview
 To navigate between the main pages (Tabs), use the left and right arrow keys on the KeyPad. The Encoder is used to scroll between the sub pages and the individual controls on the sub pages. A control can be activated/deactivated by pressing the Encoder button. If a control is activated, the KeyPad and Encoder can be used to edit the controls value (depending on the control type).
 
-<mark>Description of all UI pages...</mark>
-- **SplashScreen:** <mark>...</mark>
+- **SplashScreen:** Welcome screen that shows the project name, the developer, the serial number of the device and the software version number.
+	
 	![Splash Screen](/Doc/Images/SplashScreen.jpg)
-- **PS:** <mark>...</mark>
-	- *PowerSupply:* <mark>...</mark>
+- **PS:** User interface part for the power supply channel of the device.
+	- *PowerSupply:* This screen can be used to change the power supply voltage and current settings. Also the output can be enabled or disabled. Also the actual measurements (voltage, current, power) are shown.
+		
 		![Screen PS](/Doc/Images/Screen_PS.jpg)
-	- *OVP:* <mark>...</mark>
+	- *OVP:* Settings for the over voltage protection of the power supply channel (protection level in % of the configured output voltage, Enabled/Disabled state, protection delay after which the protection kicks in, button to clear an active protection)
+		
 		![Screen PS OVP](/Doc/Images/Screen_PS_OVP.jpg)
-	- *OCP:* <mark>...</mark>
+	- *OCP:* Settings for the over current protection of the power supply channel (protection level in % of the configured output current, Enabled/Disabled state, protection delay after which the protection kicks in, button to clear an active protection)
+		
 		![Screen PS OCP](/Doc/Images/Screen_PS_OCP.jpg)
-	- *OPP:* <mark>...</mark>
+	- *OPP:* Settings for the over power protection of the power supply channel (protection level in W, Enabled/Disabled state, protection delay after which the protection kicks in, button to clear an active protection)
+		
 		![Screen PS OPP](/Doc/Images/Screen_PS_OPP.jpg)
-- **DDS:** <mark>...</mark>
-	- *DDS1:* <mark>...</mark>
+- **DDS:** User interface part for the direct digital synthesis channels of the device.
+	- *DDS1:* This screen can be used to change the DDS parameters of channel 1 (frequency, waveform type, amplitude, offset, output enabled state).
+		
 		![Screen DDS1](/Doc/Images/Screen_DDS1.jpg)
-	- *DDS2:* <mark>...</mark>
+	- *DDS2:* This screen can be used to change the DDS parameters of channel 2 (frequency, waveform type, amplitude, offset, output enabled state).
+		
 		![Screen DDS2](/Doc/Images/Screen_DDS2.jpg)
-- **Meas:** <mark>...</mark>
-	- *DMM:*  <mark>...</mark>
+- **Meas:** User interface part for the measurement channels of the device.
+	- *DMM:*  Show the measurements of both digital multimeter channels (DMM1 & DMM2) as value and as bar graph.
+		
 		![Screen Meas DMM](/Doc/Images/Screen_Meas_DMM.jpg)
-	- *ATX:* <mark>...</mark>
+	- *ATX:* Show the measurements of all ATX voltages as values and as bar graphs.
+		
 		![Screen Meas ATX](/Doc/Images/Screen_Meas_ATX.jpg)
-- **Conf**: <mark>...</mark>
-	- *Settings Device:* <mark>...</mark>
+- **Conf**: User interface part for different settings of the device.
+	- *Settings Device:* This screen can be used to save all settings immediatelly (beside the automatic periodical saving), reset all settings and to start the calibration (guided calibration for all output and input channels).
+		
 		![Screen Config Device](/Doc/Images/Screen_Conf_Device.jpg)
-	-  *Display:* <mark>...</mark>
+	-  *Display:* Display settings can be used to invert the display color (background white, text non-white)
+		
 		![Screen Config Display](/Doc/Images/Screen_Conf_Display.jpg)
-	- *Communication:* <mark>...</mark>
+	- *Communication:* Settings for the serial communication interface (baud rate, Echo enabled/disabled)
+		
 		![Screen Config Communication](/Doc/Images/Screen_Conf_Communication.jpg)
-	- *PowerUp:* <mark>...</mark>
+	- *PowerUp:* Settings for the output states on power up. The ouputs can always be switched off or on on power up. Also the last output states can be restored on power up.
+		
 		![Screen Config PowerUp](/Doc/Images/Screen_Conf_PowerUp.jpg)
-	- *Version:* <mark>...</mark>
+	- *Version:* Screen that shows the same version informations as the welcome screen (project name, developer, serial number of the device, software version number).
+		
 		![Screen Config Version](/Doc/Images/Screen_Conf_Version.jpg)
 
 ## Configuration
@@ -91,19 +109,22 @@ All input and output capabilites are derived from a base class [``Channel``](PS_
 - ``POWER_SUPPLY_CHANNEL_TYPE``
 The power supply channel has settings for the output voltage, current, enabled state. Also the over voltage protection (OVP), over current protection (OCP) and over power protection (OPP) can be configured. The actual voltage and current is also stored here.
 The voltage is regulated to the required value using a software PID regulator.
-<mark>PID regulator...</mark>
+
+	<mark>PID regulator...</mark>
 
 - ``DDS_CHANNEL_TYPE``
 The DDS channel has settings for the output amplitude, offset, frequency, enabled state and signal form. It holds the table with all data points that are used by the DDS algorithm for signal creation.
 The following waveforms are supported: SINE, RECTANGLE, TRIANGLE, SAWTOOTH.
-<mark>DDS algorithm...</mark>
-<mark>Frequency range...</mark>
+
+	<mark>DDS algorithm...</mark>
+	<mark>Frequency range...</mark>
 
 - ``DMM_CHANNEL_TYPE``
 The DMM channel simply holds the measured ADC voltage value of the corresponding DMM input channel.
 
 ## SCPI Interface
 <mark>Commands, Parser, How to use, ...
+
 The USB input can be used to communicate to the device via serial port.</mark>
 
 ## Hardware

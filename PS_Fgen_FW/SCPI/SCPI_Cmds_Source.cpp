@@ -299,3 +299,12 @@ scpi_result_t scpi_cmd_sourceFunctionModeQ(scpi_t * context)
 	SCPI_ResultCharacters(context, buffer, strlen(buffer));
 	return SCPI_RES_OK;
 }
+
+//----------------------------------------------------------------------------------------------------------
+
+#ifdef DDS_USER_DEFINED_WAVEFORMS_ENABLED
+scpi_result_t scpi_cmd_sourceFunctionData(scpi_t * context)
+{
+	return SCPI_SetChannelParameter(context, SCPI_CHPARAM_USERWAVEFORMDATA);
+}
+#endif

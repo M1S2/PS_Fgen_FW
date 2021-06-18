@@ -28,6 +28,9 @@ typedef enum SCPIChannelParameters
 	SCPI_CHPARAM_CURRENT,
 	SCPI_CHPARAM_FREQUENCY,
 	SCPI_CHPARAM_SIGNALFORM,
+	#ifdef DDS_USER_DEFINED_WAVEFORMS_ENABLED
+		SCPI_CHPARAM_USERWAVEFORMDATA,
+	#endif
 	SCPI_CHPARAM_MEASURED_AMPLITUDE,
 	SCPI_CHPARAM_MEASURED_CURRENT,
 	SCPI_CHPARAM_MEASURED_POWER,
@@ -108,6 +111,9 @@ scpi_result_t scpi_cmd_sourceFrequencyFixedQ(scpi_t * context);
 scpi_result_t scpi_cmd_sourceFunctionShape(scpi_t * context);
 scpi_result_t scpi_cmd_sourceFunctionShapeQ(scpi_t * context);
 scpi_result_t scpi_cmd_sourceFunctionModeQ(scpi_t * context);
+#ifdef DDS_USER_DEFINED_WAVEFORMS_ENABLED
+	scpi_result_t scpi_cmd_sourceFunctionData(scpi_t * context);
+#endif
 
 /******* SCPI_Cmds_System.cpp ****************************/
 scpi_result_t scpi_cmd_systemLocal(scpi_t * context);

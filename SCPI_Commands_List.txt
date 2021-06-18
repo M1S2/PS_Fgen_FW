@@ -91,6 +91,7 @@ SOURce[<channel>]
         [:SHAPe]					[OK]	Selects the shape of the output signal (DC|SINusoid|SQUare|TRIangle|SAWtooth|USER)
         [:SHAPe]?					[OK]	Query the shape of the output signal
         :MODE?						[OK]	Determines which signal characteristic is being controlled. Only "VOLTage" is supported
+        :DATa #<NumBytesDigits><NumBytes><Bytes>	[Todo]	Set the user defined waveform data of the channel. Only used if SHAPe is set to USER 
     :FREQuency
         [:CW] {<frequency>}				[OK]	Set the frequency of a non-swept signal
         [:CW]?						[OK]	Query the frequency of a non-swept signal

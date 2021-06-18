@@ -10,6 +10,9 @@
 #include "../Device.h"
 #include <stdio.h>
 
+#warning Only testing!!!
+#include "../USART/USART.h"
+
 scpi_t scpi_context;
 char scpi_input_buffer[SCPI_INPUT_BUFFER_LENGTH];
 scpi_error_t scpi_error_queue_data[SCPI_ERROR_QUEUE_SIZE];
@@ -105,7 +108,10 @@ const scpi_command_t scpi_commands[] =
 	{"SOURce#:FUNCtion[:SHAPe]", scpi_cmd_sourceFunctionShape, 0},
 	{"SOURce#:FUNCtion[:SHAPe]?", scpi_cmd_sourceFunctionShapeQ, 0},
 	{"SOURce#:FUNCtion:MODE?", scpi_cmd_sourceFunctionModeQ, 0},
-
+	#ifdef DDS_USER_DEFINED_WAVEFORMS_ENABLED
+		{"SOURce#:FUNCtion:DATa", scpi_cmd_sourceFunctionData, 0},
+	#endif
+	
 	/****** System Subsystem ***************************/
 	{"SYSTem:CAPability?", scpi_cmd_systemCapabilityQ, 0},
 	{"SYSTem:LOCal", scpi_cmd_systemLocal, 0},
@@ -518,6 +524,29 @@ scpi_result_t SCPI_SetChannelParameter(scpi_t * context, SCPIChannelParameters_t
 				ddsChannel->SetSignalForm((SignalForms_t)signalForm);
 				break;
 			}
+			#ifdef DDS_USER_DEFINED_WAVEFORMS_ENABLED
+			case SCPI_CHPARAM_USERWAVEFORMDATA:
+			{
+				const char* userWaveformBuffer;
+				size_t arbitraryBlockLen;
+				if (!SCPI_ParamArbitraryBlock(context, &userWaveformBuffer, &arbitraryBlockLen, TRUE)) { return SCPI_RES_ERR; }
+				
+				for(int i = 0; i < (1 << DDS_QUANTIZER_BITS); i++)		// Set all array elements to 0
+				{
+					ddsChannel->UserWaveTable[i] = 0;
+				}
+				
+				for(unsigned int i = 0; i < arbitraryBlockLen; i+=2)		// Combine 2 bytes (only lower 12 bits are used in DDS algorithm) 
+				{
+					if(i >= arbitraryBlockLen || (i + 1) >= arbitraryBlockLen || (i / 2) >= (1 << DDS_QUANTIZER_BITS)) { break; }
+					
+					ddsChannel->UserWaveTable[i / 2] = (uint16_t)((userWaveformBuffer[i] << 8) + userWaveformBuffer[i + 1]);
+				}
+				ddsChannel->UpdateWaveTable();
+				
+				break;
+			}
+			#endif
 			default: return SCPI_SetResult_NotSupportedByChannel(context);
 		}
 	}

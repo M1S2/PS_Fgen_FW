@@ -11,6 +11,7 @@
 
 #include "DDS.h"
 #include "Channel.h"
+#include "../Configuration.h"
 
 typedef enum SignalForms
 {
@@ -19,7 +20,9 @@ typedef enum SignalForms
 	TRIANGLE,
 	SAWTOOTH,
 	DC,
-	USER_SIGNAL,
+	#ifdef DDS_USER_DEFINED_WAVEFORMS_ENABLED
+		USER_SIGNAL,
+	#endif
 	NUM_SIGNALFORM_ELEMENTS		// The last element is used to determine the number of elements in the enumeration
 } SignalForms_t;
 extern const char* SignalFormsNames[NUM_SIGNALFORM_ELEMENTS];
@@ -39,7 +42,9 @@ class DDS_Channel : public Channel
 		volatile uint16_t* p_WaveTable;
 		volatile uint32_t* p_Increment;
 		
-		volatile uint16_t UserWaveTable[(1 << DDS_QUANTIZER_BITS)];				// Left shift to replace pow(2, DDS_QUANTIZER_BITS)
+		#ifdef DDS_USER_DEFINED_WAVEFORMS_ENABLED
+			volatile uint16_t UserWaveTable[(1 << DDS_QUANTIZER_BITS)];				// Left shift to replace pow(2, DDS_QUANTIZER_BITS)
+		#endif
 
 		DDS_Channel(uint8_t ddsChannelNumber, float minFreq, float maxFreq, float minAmpl, float maxAmpl, float minOffset, float maxOffset);
 		void UpdateIncrement();

@@ -9,7 +9,11 @@
 #include "../Device.h"
 #include <stddef.h>
 
-const char* SignalFormsNames[] = { "SINE", "RECT", "TRIANGLE", "SAWTOOTH", "DC", "USER" };
+const char* SignalFormsNames[] = { "SINE", "RECT", "TRIANGLE", "SAWTOOTH", "DC", 
+	#ifdef DDS_USER_DEFINED_WAVEFORMS_ENABLED
+		"USER"
+	#endif
+	};
 
 DDS_Channel::DDS_Channel(uint8_t ddsChannelNumber, float minFreq, float maxFreq, float minAmpl, float maxAmpl, float minOffset, float maxOffset) : Channel(DDS_CHANNEL_TYPE)
 {
@@ -40,8 +44,12 @@ void DDS_Channel::UpdateIncrement()
 }
 
 void DDS_Channel::UpdateWaveTable()
-{		
-	if(OriginalWaveTable == NULL && SignalForm.Val != USER_SIGNAL) { return; }
+{
+	#ifdef DDS_USER_DEFINED_WAVEFORMS_ENABLED
+		if(OriginalWaveTable == NULL && SignalForm.Val != USER_SIGNAL) { return; }
+	#else
+		if(OriginalWaveTable == NULL) { return; }
+	#endif
 
 	int16_t offset_value = (int16_t)((GetOffset() / (float)DDS_AMPLITUDE_MAX) * DDS_SAMPLE_MAX);
 	int16_t sample_max_half = DDS_SAMPLE_MAX / 2;
@@ -49,14 +57,18 @@ void DDS_Channel::UpdateWaveTable()
 	for(uint16_t i = 0; i < (1 << DDS_QUANTIZER_BITS); i++)			// Left shift to replace pow(2, DDS_QUANTIZER_BITS)
 	{
 		int16_t originalSample = 0;
-		if(SignalForm.Val == USER_SIGNAL)
-		{
-			originalSample = UserWaveTable[i];
-		}
-		else
-		{ 
-			originalSample = pgm_read_word(&OriginalWaveTable[i]);
-		}
+		#ifdef DDS_USER_DEFINED_WAVEFORMS_ENABLED
+			if(SignalForm.Val == USER_SIGNAL)
+			{
+				originalSample = UserWaveTable[i];
+			}
+			else
+			{
+		#endif 
+				originalSample = pgm_read_word(&OriginalWaveTable[i]);
+		#ifdef DDS_USER_DEFINED_WAVEFORMS_ENABLED
+			}
+		#endif
 		
 		// ((Vpp/Vpp_max) * (sample - (sample_max / 2))) + (sample_max / 2) + (Offset/Vpp_max) * sample_max
 		int16_t waveTableValue = (int16_t)((GetAmplitude() / (float)DDS_AMPLITUDE_MAX) * (originalSample - sample_max_half)) + sample_max_half + offset_value;
@@ -77,7 +89,9 @@ void DDS_Channel::UpdateOriginalWaveTable()
 		case TRIANGLE: OriginalWaveTable = TRIANGLE_WAVE_TABLE_12BIT; break;
 		case SAWTOOTH: OriginalWaveTable = SAWTOOTH_WAVE_TABLE_12BIT; break;
 		case DC: OriginalWaveTable = DC_WAVE_TABLE_12BIT; break;
-		case USER_SIGNAL: OriginalWaveTable = NULL; break;
+		#ifdef DDS_USER_DEFINED_WAVEFORMS_ENABLED
+			case USER_SIGNAL: OriginalWaveTable = NULL; break;
+		#endif
 		default: OriginalWaveTable = SINE_WAVE_TABLE_12BIT; break;
 	}
 }

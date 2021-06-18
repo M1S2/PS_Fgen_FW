@@ -22,7 +22,9 @@ static scpi_choice_def_t signalform_choice[] =
 	{ "TRIangle", TRIANGLE },
 	{ "SAWtooth", SAWTOOTH },
 	{ "DC", DC },
-	{ "USER", USER_SIGNAL },
+	#ifdef DDS_USER_DEFINED_WAVEFORMS_ENABLED
+		{ "USER", USER_SIGNAL },
+	#endif
 	SCPI_CHOICE_LIST_END /* termination of option list */
 };
 

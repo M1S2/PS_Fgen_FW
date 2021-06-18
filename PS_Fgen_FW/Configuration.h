@@ -8,9 +8,6 @@
 #ifndef CONFIGURATION_H_
 #define CONFIGURATION_H_
 
-#include "Channels/DDS_Channel.h"
-#include "Channels/PS_Channel.h"
-
 /***** Version ************************************************/
 #define VERSION							"v0.0.0"				// Software version. This should be incremented with every release.
 
@@ -26,8 +23,8 @@
 #define SPLASHSCREEN_DELAY_MS			3000					// Time that the splash screen is shown in milliseconds
 
 /***** SCPI ***************************************************/
-//#define SCPI_ENABLED											// Comment this line out to disable the SCPI parser
-#define SCPI_INPUT_BUFFER_LENGTH		64						// Length of the SCPI input buffer. If this buffer overflows, there will be an error message.
+#define SCPI_ENABLED											// Comment this line out to disable the SCPI parser
+#define SCPI_INPUT_BUFFER_LENGTH		1024					// Length of the SCPI input buffer. If this buffer overflows, there will be an error message.
 #define SCPI_ERROR_QUEUE_SIZE			4						// Maximum number of errors in the error queue. If this queue overflows, the last error message will be replaced by an overflow error message.
 #define SCPI_IDN_MANUFACTURER			"Markus Scheich"		// Manufacturer info used in *IDN? query
 #define SCPI_IDN_MODEL					"PS_Fgen"				// Model info used in *IDN? query
@@ -73,5 +70,6 @@
 #define DDS_MAX_AMPLITUDE				20						// Maximum allowed DDS amplitude setting
 #define DDS_MIN_OFFSET					-10						// Minimum allowed DDS offset setting
 #define DDS_MAX_OFFSET					10						// Maximum allowed DDS offset setting
+#define DDS_USER_DEFINED_WAVEFORMS_ENABLED						// Comment this out to disable support for user defined waveforms for both DDS channels
 
 #endif /* CONFIGURATION_H_ */

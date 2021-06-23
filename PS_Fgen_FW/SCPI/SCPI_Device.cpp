@@ -543,6 +543,9 @@ scpi_result_t SCPI_SetChannelParameter(scpi_t * context, SCPIChannelParameters_t
 					ddsChannel->UserWaveTable[i / 2] = (uint16_t)((userWaveformBuffer[i] << 8) + userWaveformBuffer[i + 1]);
 				}
 				ddsChannel->UpdateWaveTable();
+				Device.SaveSettingsDDSUserWaveforms();
+				
+				Usart0TransmitStr("User Waveform updated\r\n");
 				
 				break;
 			}

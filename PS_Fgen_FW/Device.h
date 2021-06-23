@@ -115,8 +115,17 @@ typedef struct DevSettingsEEPROMLayout
 	DevicePowerUpOutputEnabledStates_t PowerOnOutputsState;
 	
 	DeviceCalibrationFactors_t CalibrationFactors;
+	
 }DevSettingsEEPROMLayout_t;
 
+#ifdef DDS_USER_DEFINED_WAVEFORMS_ENABLED
+	/* This structure is only used internally to store user waveform data to / read from EEPROM */
+	typedef struct DevSettingsUserDDSWaveformEEPROMLayout
+	{
+		uint16_t DDS1_UserWaveTable[(1 << DDS_QUANTIZER_BITS)];				// Left shift to replace pow(2, DDS_QUANTIZER_BITS)
+		uint16_t DDS2_UserWaveTable[(1 << DDS_QUANTIZER_BITS)];				// Left shift to replace pow(2, DDS_QUANTIZER_BITS)
+	}DevSettingsUserDDSWaveformEEPROMLayout_t;
+#endif
 
 class DeviceClass
 {			
@@ -163,6 +172,8 @@ class DeviceClass
 		void SaveSettings();
 		void LoadSettings();
 		void ResetDevice();
+		void SaveSettingsDDSUserWaveforms();
+		void LoadSettingsDDSUserWaveforms();
 		
 		void SetDeviceControlState(DeviceControlStates_t controlState);
 		bool IsUserInputLocked();

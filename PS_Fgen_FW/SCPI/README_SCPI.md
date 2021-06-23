@@ -82,7 +82,7 @@ SOURce[\<channel\>]:CURRent:PROTection:CLEar					| OK		| Clear the over-current 
 SOURce[\<channel\>]:FUNCtion[:SHAPe]						| OK		| Selects the shape of the output signal (DC\|SINusoid\|SQUare\|TRIangle\|SAWtooth\|USER)
 SOURce[\<channel\>]:FUNCtion[:SHAPe]?						| OK		| Query the shape of the output signal
 SOURce[\<channel\>]:FUNCtion:MODE?						| OK		| Determines which signal characteristic is being controlled. Only "VOLTage" is supported
-SOURce[\<channel\>]:FUNCtion:DATa #\<NumBytesDigits\>\<NumBytes\>\<Bytes\>	| Todo		| Set the user defined waveform data of the channel. Only used if SHAPe is set to USER 
+SOURce[\<channel\>]:FUNCtion:DATa #\<NumBytesDigits\>\<NumBytes\>\<Bytes\>	| OK		| Set the user defined waveform data of the channel. Only used if SHAPe is set to USER 
 SOURce[\<channel\>]:FREQuency[:CW] {\<frequency\>}				| OK		| Set the frequency of a non-swept signal
 SOURce[\<channel\>]:FREQuency[:CW]?						| OK		| Query the frequency of a non-swept signal
 SOURce[\<channel\>]:POWer:PROTection[:LEVel]					| OK		| Sets the over-power protection (OPP) level

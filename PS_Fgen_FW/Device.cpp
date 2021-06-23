@@ -15,6 +15,7 @@
 
 DeviceClass Device;
 DevSettingsEEPROMLayout_t EEMEM NonVolatileSettings;
+DevSettingsUserDDSWaveformEEPROMLayout_t EEMEM NonVolatileSettings_DDSUserWaveforms;
 
 const char* DeviceControlStateNames[] = { "LOC", "REM", "RWL" };
 const char* DevicePowerUpOutputEnabledStateNames[] = { "OFF", "LAST", "ON" };
@@ -29,15 +30,6 @@ DeviceClass::DeviceClass() :
 	Channels{ &PsChannel, &DdsChannel1, &DdsChannel2, &DmmChannel1, &DmmChannel2 }
 {
 	DeviceControlState = DEV_CTRL_LOCAL;
-	
-#warning Only Test Signal!!!
-	#ifdef DDS_USER_DEFINED_WAVEFORMS_ENABLED
-		for(int i=0; i<255;i++)
-		{
-			DdsChannel1.UserWaveTable[i] = (i < 64 ? 4095 : (i < 128 ? 0 : (i < 192 ? 3071 : 1024))); // High - Low - Medium High - Medium Low signal
-			DdsChannel2.UserWaveTable[i] = 4095 * (i / (float)255);									// Sawtooth  signal
-		}
-	#endif
 }
 
 void DeviceClass::Init()
@@ -242,6 +234,15 @@ void DeviceClass::SaveSettings()
 	SetSettingsChanged(false);
 }
 
+void DeviceClass::SaveSettingsDDSUserWaveforms()
+{
+	DevSettingsUserDDSWaveformEEPROMLayout_t settingsDDSUserWaveform;
+	memcpy(settingsDDSUserWaveform.DDS1_UserWaveTable, DdsChannel1.UserWaveTable, (1 << DDS_QUANTIZER_BITS) * sizeof(uint16_t));
+	memcpy(settingsDDSUserWaveform.DDS2_UserWaveTable, DdsChannel2.UserWaveTable, (1 << DDS_QUANTIZER_BITS) * sizeof(uint16_t));
+	
+	eeprom_write_block((const void*)&settingsDDSUserWaveform, (void*)&NonVolatileSettings_DDSUserWaveforms, sizeof(DevSettingsUserDDSWaveformEEPROMLayout_t));
+}
+
 void DeviceClass::LoadSettings()
 {
 	DevSettingsEEPROMLayout_t settings;
@@ -265,29 +266,29 @@ void DeviceClass::LoadSettings()
 	if(CalibrationFactors.Cal_PS_VOLT == 0 || isnan(CalibrationFactors.Cal_PS_VOLT)) { CalibrationFactors.Cal_PS_VOLT = 1; }
 	if(CalibrationFactors.Cal_DDS_FREQ == 0 || isnan(CalibrationFactors.Cal_DDS_FREQ)) { CalibrationFactors.Cal_DDS_FREQ = 1; }
 	
-	PsChannel.SetAmplitude(settings.PS_Voltage);
-	PsChannel.SetCurrent(settings.PS_Current);
-	PsChannel.SetOvpLevel(settings.PS_OvpLevel);
-	PsChannel.SetOvpState(settings.PS_OvpState);
-	PsChannel.SetOvpDelay(settings.PS_OvpDelay);
-	PsChannel.SetOcpLevel(settings.PS_OcpLevel);
-	PsChannel.SetOcpState(settings.PS_OcpState);
-	PsChannel.SetOcpDelay(settings.PS_OcpDelay);
-	PsChannel.SetOppLevel(settings.PS_OppLevel);
-	PsChannel.SetOppState(settings.PS_OppState);
-	PsChannel.SetOppDelay(settings.PS_OppDelay);
+	PsChannel.SetAmplitude(isnan(settings.PS_Voltage) ? PsChannel.Amplitude.Def : settings.PS_Voltage);
+	PsChannel.SetCurrent(isnan(settings.PS_Current) ? PsChannel.Current.Def : settings.PS_Current);
+	PsChannel.SetOvpLevel(isnan(settings.PS_OvpLevel) ? PsChannel.OvpLevel.Def : settings.PS_OvpLevel);
+	PsChannel.SetOvpState(isnan(settings.PS_OvpState) ? false : settings.PS_OvpState);
+	PsChannel.SetOvpDelay(isnan(settings.PS_OvpDelay) ? PsChannel.OvpDelay.Def : settings.PS_OvpDelay);
+	PsChannel.SetOcpLevel(isnan(settings.PS_OcpLevel) ? PsChannel.OcpLevel.Def : settings.PS_OcpLevel);
+	PsChannel.SetOcpState(isnan(settings.PS_OcpState) ? false : settings.PS_OcpState);
+	PsChannel.SetOcpDelay(isnan(settings.PS_OcpDelay) ? PsChannel.OcpDelay.Def : settings.PS_OcpDelay);
+	PsChannel.SetOppLevel(isnan(settings.PS_OppLevel) ? PsChannel.OppLevel.Def : settings.PS_OppLevel);
+	PsChannel.SetOppState(isnan(settings.PS_OppState) ? false : settings.PS_OppState);
+	PsChannel.SetOppDelay(isnan(settings.PS_OppDelay) ? PsChannel.OppDelay.Def : settings.PS_OppDelay);
 			
-	DdsChannel1.SetFrequency(settings.DDS1_Frequency);
-	DdsChannel1.SetSignalForm(settings.DDS1_SignalForm);
-	DdsChannel1.SetAmplitude(settings.DDS1_Amplitude);
-	DdsChannel1.SetOffset(settings.DDS1_Offset);
+	DdsChannel1.SetFrequency(isnan(settings.DDS1_Frequency) ? DdsChannel1.Frequency.Def : settings.DDS1_Frequency);
+	DdsChannel1.SetSignalForm(isnan(settings.DDS1_SignalForm) ? DdsChannel1.SignalForm.Def : settings.DDS1_SignalForm);
+	DdsChannel1.SetAmplitude(isnan(settings.DDS1_Amplitude) ? DdsChannel1.Amplitude.Def : settings.DDS1_Amplitude);
+	DdsChannel1.SetOffset(isnan(settings.DDS1_Offset) ? DdsChannel1.Offset.Def : settings.DDS1_Offset);
 	DdsChannel1.UpdateOriginalWaveTable();
 	DdsChannel1.UpdateWaveTable();
 		
-	DdsChannel2.SetFrequency(settings.DDS2_Frequency);
-	DdsChannel2.SetSignalForm(settings.DDS2_SignalForm);
-	DdsChannel2.SetAmplitude(settings.DDS2_Amplitude);
-	DdsChannel2.SetOffset(settings.DDS2_Offset);
+	DdsChannel2.SetFrequency(isnan(settings.DDS2_Frequency) ? DdsChannel2.Frequency.Def : settings.DDS2_Frequency);
+	DdsChannel2.SetSignalForm(isnan(settings.DDS2_SignalForm) ? DdsChannel2.SignalForm.Def : settings.DDS2_SignalForm);
+	DdsChannel2.SetAmplitude(isnan(settings.DDS2_Amplitude) ? DdsChannel2.Amplitude.Def : settings.DDS2_Amplitude);
+	DdsChannel2.SetOffset(isnan(settings.DDS2_Offset) ? DdsChannel2.Offset.Def : settings.DDS2_Offset);
 	DdsChannel2.UpdateOriginalWaveTable();
 	DdsChannel2.UpdateWaveTable();
 	
@@ -298,6 +299,17 @@ void DeviceClass::LoadSettings()
 	DdsChannel2.SetEnabled(PowerOnOutputsState == DEV_POWERUP_OUTPUTS_OFF ? false : (PowerOnOutputsState == DEV_POWERUP_OUTPUTS_ON ? true : settings.DDS2_Enabled));
 	
 	SetSettingsChanged(false);
+	
+	LoadSettingsDDSUserWaveforms();
+}
+
+void DeviceClass::LoadSettingsDDSUserWaveforms()
+{
+	DevSettingsUserDDSWaveformEEPROMLayout_t settingsDDSUserWaveform;
+	eeprom_read_block((void*)&settingsDDSUserWaveform, (const void*)&NonVolatileSettings_DDSUserWaveforms, sizeof(DevSettingsUserDDSWaveformEEPROMLayout_t));
+	
+	memcpy(DdsChannel1.UserWaveTable, settingsDDSUserWaveform.DDS1_UserWaveTable, (1 << DDS_QUANTIZER_BITS) * sizeof(uint16_t));
+	memcpy(DdsChannel2.UserWaveTable, settingsDDSUserWaveform.DDS2_UserWaveTable, (1 << DDS_QUANTIZER_BITS) * sizeof(uint16_t));	
 }
 
 void DeviceClass::ResetDevice()

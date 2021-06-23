@@ -123,9 +123,8 @@ The following waveforms are supported: SINE, RECTANGLE, TRIANGLE, SAWTOOTH.
 The DMM channel simply holds the measured ADC voltage value of the corresponding DMM input channel.
 
 ## SCPI Interface
-<mark>Commands, Parser, How to use, ...
-
-The USB input can be used to communicate to the device via serial port.</mark>
+The device supports SCPI (Standard Commands for Programmable Instruments) commands that can be used for remote control. All commands are received via the USB input (serial port).
+There is a separate [Readme for the SCPI Part](/PS_Fgen_FW/SCPI/README_SCPI.md) that contains a detailed list of all supported commands.
 
 ## Hardware
 The hardware for this power supply and function generator is developed in another repository:

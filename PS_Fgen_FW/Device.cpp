@@ -15,7 +15,9 @@
 
 DeviceClass Device;
 DevSettingsEEPROMLayout_t EEMEM NonVolatileSettings;
-DevSettingsUserDDSWaveformEEPROMLayout_t EEMEM NonVolatileSettings_DDSUserWaveforms;
+#ifdef DDS_USER_DEFINED_WAVEFORMS_ENABLED
+	DevSettingsUserDDSWaveformEEPROMLayout_t EEMEM NonVolatileSettings_DDSUserWaveforms;
+#endif
 
 const char* DeviceControlStateNames[] = { "LOC", "REM", "RWL" };
 const char* DevicePowerUpOutputEnabledStateNames[] = { "OFF", "LAST", "ON" };
@@ -234,6 +236,7 @@ void DeviceClass::SaveSettings()
 	SetSettingsChanged(false);
 }
 
+#ifdef DDS_USER_DEFINED_WAVEFORMS_ENABLED
 void DeviceClass::SaveSettingsDDSUserWaveforms()
 {
 	DevSettingsUserDDSWaveformEEPROMLayout_t settingsDDSUserWaveform;
@@ -242,6 +245,7 @@ void DeviceClass::SaveSettingsDDSUserWaveforms()
 	
 	eeprom_write_block((const void*)&settingsDDSUserWaveform, (void*)&NonVolatileSettings_DDSUserWaveforms, sizeof(DevSettingsUserDDSWaveformEEPROMLayout_t));
 }
+#endif
 
 void DeviceClass::LoadSettings()
 {
@@ -300,9 +304,12 @@ void DeviceClass::LoadSettings()
 	
 	SetSettingsChanged(false);
 	
-	LoadSettingsDDSUserWaveforms();
+	#ifdef DDS_USER_DEFINED_WAVEFORMS_ENABLED
+		LoadSettingsDDSUserWaveforms();
+	#endif
 }
 
+#ifdef DDS_USER_DEFINED_WAVEFORMS_ENABLED
 void DeviceClass::LoadSettingsDDSUserWaveforms()
 {
 	DevSettingsUserDDSWaveformEEPROMLayout_t settingsDDSUserWaveform;
@@ -311,6 +318,7 @@ void DeviceClass::LoadSettingsDDSUserWaveforms()
 	memcpy(DdsChannel1.UserWaveTable, settingsDDSUserWaveform.DDS1_UserWaveTable, (1 << DDS_QUANTIZER_BITS) * sizeof(uint16_t));
 	memcpy(DdsChannel2.UserWaveTable, settingsDDSUserWaveform.DDS2_UserWaveTable, (1 << DDS_QUANTIZER_BITS) * sizeof(uint16_t));	
 }
+#endif
 
 void DeviceClass::ResetDevice()
 {

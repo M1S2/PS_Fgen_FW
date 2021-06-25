@@ -9,9 +9,9 @@
 #include "../Device.h"
 #include <stddef.h>
 
-const char* SignalFormsNames[] = { "SINE", "RECT", "TRIANGLE", "SAWTOOTH", "DC", 
+const char* SignalFormsNames[] = { "SINE", "RECT", "TRIANGLE", "SAWTOOTH", "DC" 
 	#ifdef DDS_USER_DEFINED_WAVEFORMS_ENABLED
-		"USER"
+		, "USER"
 	#endif
 	};
 
@@ -20,7 +20,7 @@ DDS_Channel::DDS_Channel(uint8_t ddsChannelNumber, float minFreq, float maxFreq,
 	DdsChannelNumber = ddsChannelNumber;
 	
 	Enabled = Parameter<bool>(false, false, true, false, true);
-	SignalForm = Parameter<SignalForms_t>(SINE, SINE, SAWTOOTH, SINE, SINE);
+	SignalForm = Parameter<SignalForms_t>(SINE, SINE, (SignalForms_t)(((int)NUM_SIGNALFORM_ELEMENTS) - 1), SINE, SINE);
 	Frequency = Parameter<float>(0, minFreq, maxFreq, 1000, 1);
 	Amplitude = Parameter<float>(0, minAmpl, maxAmpl, 10, 1);
 	Offset = Parameter<float>(0, minOffset, maxOffset, 0, 1);

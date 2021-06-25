@@ -172,8 +172,11 @@ class DeviceClass
 		void SaveSettings();
 		void LoadSettings();
 		void ResetDevice();
-		void SaveSettingsDDSUserWaveforms();
-		void LoadSettingsDDSUserWaveforms();
+		
+		#ifdef DDS_USER_DEFINED_WAVEFORMS_ENABLED
+			void SaveSettingsDDSUserWaveforms();
+			void LoadSettingsDDSUserWaveforms();
+		#endif
 		
 		void SetDeviceControlState(DeviceControlStates_t controlState);
 		bool IsUserInputLocked();

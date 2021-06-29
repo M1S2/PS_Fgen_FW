@@ -113,9 +113,7 @@ typedef struct DevSettingsEEPROMLayout
 	bool DDS2_Enabled;
 	
 	DevicePowerUpOutputEnabledStates_t PowerOnOutputsState;
-	
-	DeviceCalibrationFactors_t CalibrationFactors;
-	
+		
 }DevSettingsEEPROMLayout_t;
 
 #ifdef DDS_USER_DEFINED_WAVEFORMS_ENABLED
@@ -172,6 +170,8 @@ class DeviceClass
 		void SaveSettings();
 		void LoadSettings();
 		void ResetDevice();
+		void LoadSettingsCalibrationFactors();
+		void SaveSettingsCalibrationFactors();
 		
 		#ifdef DDS_USER_DEFINED_WAVEFORMS_ENABLED
 			void SaveSettingsDDSUserWaveforms();

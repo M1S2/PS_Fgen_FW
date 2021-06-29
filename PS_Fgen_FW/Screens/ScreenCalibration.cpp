@@ -190,7 +190,7 @@ void OnButtonCalNext(void* context)
 			numCtrl_Cal_tmpVoltage.Visible = true;
 			numCtrl_Cal_tmpFrequency.Visible = false;
 			
-			Device.SaveSettings();
+			Device.SaveSettingsCalibrationFactors();
 			Device.ScreenManager.UiManager.ChangeVisualTreeRoot(&msg_Cal_Finished);
 			break;
 		}

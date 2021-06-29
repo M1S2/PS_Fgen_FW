@@ -15,6 +15,7 @@
 
 DeviceClass Device;
 DevSettingsEEPROMLayout_t EEMEM NonVolatileSettings;
+DeviceCalibrationFactors_t EEMEM NonVolatileSettings_CalibrationFactors;
 #ifdef DDS_USER_DEFINED_WAVEFORMS_ENABLED
 	DevSettingsUserDDSWaveformEEPROMLayout_t EEMEM NonVolatileSettings_DDSUserWaveforms;
 #endif
@@ -195,6 +196,8 @@ void DeviceClass::SetSettingsChanged(bool settingsChanged)
 	ScreenManager.UpdateSettingsChangedIndicator(settingsChanged);
 }
 
+// -----------------------------------------------------------------------------------------------------------------------------------
+
 void DeviceClass::SaveSettings()
 {
 	DevSettingsEEPROMLayout_t settings;
@@ -229,11 +232,15 @@ void DeviceClass::SaveSettings()
 	settings.DDS2_Enabled = DdsChannel2.GetEnabled();
 
 	settings.PowerOnOutputsState = PowerOnOutputsState;
-	settings.CalibrationFactors = CalibrationFactors;
 
 	eeprom_write_block((const void*)&settings, (void*)&NonVolatileSettings, sizeof(DevSettingsEEPROMLayout_t));
 	
 	SetSettingsChanged(false);
+}
+
+void DeviceClass::SaveSettingsCalibrationFactors()
+{
+	eeprom_write_block((const void*)&CalibrationFactors, (void*)&NonVolatileSettings_CalibrationFactors, sizeof(DeviceCalibrationFactors_t));
 }
 
 #ifdef DDS_USER_DEFINED_WAVEFORMS_ENABLED
@@ -247,8 +254,12 @@ void DeviceClass::SaveSettingsDDSUserWaveforms()
 }
 #endif
 
+// -----------------------------------------------------------------------------------------------------------------------------------
+
 void DeviceClass::LoadSettings()
 {
+	LoadSettingsCalibrationFactors();
+	
 	DevSettingsEEPROMLayout_t settings;
 	eeprom_read_block((void*)&settings, (const void*)&NonVolatileSettings, sizeof(DevSettingsEEPROMLayout_t));
 	
@@ -258,17 +269,6 @@ void DeviceClass::LoadSettings()
 	
 	SetSerialBaudRate(settings.Device_SerialBaudRate);
 	SetSerialEchoEnabled(settings.Device_SerialEchoEnabled);
-	
-	CalibrationFactors = settings.CalibrationFactors;
-	if(CalibrationFactors.Cal_RefVoltage == 0 || isnan(CalibrationFactors.Cal_RefVoltage)) { CalibrationFactors.Cal_RefVoltage = 5; }
-	if(CalibrationFactors.Cal_ATX_3V3 == 0 || isnan(CalibrationFactors.Cal_ATX_3V3)) { CalibrationFactors.Cal_ATX_3V3 = 1; }
-	if(CalibrationFactors.Cal_ATX_5V == 0 || isnan(CalibrationFactors.Cal_ATX_5V)) { CalibrationFactors.Cal_ATX_5V = 1; }
-	if(CalibrationFactors.Cal_ATX_12V == 0 || isnan(CalibrationFactors.Cal_ATX_12V)) { CalibrationFactors.Cal_ATX_12V = 1; }
-	if(CalibrationFactors.Cal_ATX_12V_NEG == 0 || isnan(CalibrationFactors.Cal_ATX_12V_NEG)) { CalibrationFactors.Cal_ATX_12V_NEG = 1; }
-	if(CalibrationFactors.Cal_DMM1 == 0 || isnan(CalibrationFactors.Cal_DMM1)) { CalibrationFactors.Cal_DMM1 = 1; }
-	if(CalibrationFactors.Cal_DMM2 == 0 || isnan(CalibrationFactors.Cal_DMM2)) { CalibrationFactors.Cal_DMM2 = 1; }
-	if(CalibrationFactors.Cal_PS_VOLT == 0 || isnan(CalibrationFactors.Cal_PS_VOLT)) { CalibrationFactors.Cal_PS_VOLT = 1; }
-	if(CalibrationFactors.Cal_DDS_FREQ == 0 || isnan(CalibrationFactors.Cal_DDS_FREQ)) { CalibrationFactors.Cal_DDS_FREQ = 1; }
 	
 	PsChannel.SetAmplitude(isnan(settings.PS_Voltage) ? PsChannel.Amplitude.Def : settings.PS_Voltage);
 	PsChannel.SetCurrent(isnan(settings.PS_Current) ? PsChannel.Current.Def : settings.PS_Current);
@@ -309,6 +309,21 @@ void DeviceClass::LoadSettings()
 	#endif
 }
 
+void DeviceClass::LoadSettingsCalibrationFactors()
+{
+	eeprom_read_block((void*)&CalibrationFactors, (const void*)&NonVolatileSettings_CalibrationFactors, sizeof(DeviceCalibrationFactors_t));
+	
+	if(CalibrationFactors.Cal_RefVoltage == 0 || isnan(CalibrationFactors.Cal_RefVoltage)) { CalibrationFactors.Cal_RefVoltage = 5; }
+	if(CalibrationFactors.Cal_ATX_3V3 == 0 || isnan(CalibrationFactors.Cal_ATX_3V3)) { CalibrationFactors.Cal_ATX_3V3 = 1; }
+	if(CalibrationFactors.Cal_ATX_5V == 0 || isnan(CalibrationFactors.Cal_ATX_5V)) { CalibrationFactors.Cal_ATX_5V = 1; }
+	if(CalibrationFactors.Cal_ATX_12V == 0 || isnan(CalibrationFactors.Cal_ATX_12V)) { CalibrationFactors.Cal_ATX_12V = 1; }
+	if(CalibrationFactors.Cal_ATX_12V_NEG == 0 || isnan(CalibrationFactors.Cal_ATX_12V_NEG)) { CalibrationFactors.Cal_ATX_12V_NEG = 1; }
+	if(CalibrationFactors.Cal_DMM1 == 0 || isnan(CalibrationFactors.Cal_DMM1)) { CalibrationFactors.Cal_DMM1 = 1; }
+	if(CalibrationFactors.Cal_DMM2 == 0 || isnan(CalibrationFactors.Cal_DMM2)) { CalibrationFactors.Cal_DMM2 = 1; }
+	if(CalibrationFactors.Cal_PS_VOLT == 0 || isnan(CalibrationFactors.Cal_PS_VOLT)) { CalibrationFactors.Cal_PS_VOLT = 1; }
+	if(CalibrationFactors.Cal_DDS_FREQ == 0 || isnan(CalibrationFactors.Cal_DDS_FREQ)) { CalibrationFactors.Cal_DDS_FREQ = 1; }
+}
+
 #ifdef DDS_USER_DEFINED_WAVEFORMS_ENABLED
 void DeviceClass::LoadSettingsDDSUserWaveforms()
 {
@@ -319,6 +334,8 @@ void DeviceClass::LoadSettingsDDSUserWaveforms()
 	memcpy(DdsChannel2.UserWaveTable, settingsDDSUserWaveform.DDS2_UserWaveTable, (1 << DDS_QUANTIZER_BITS) * sizeof(uint16_t));	
 }
 #endif
+
+// -----------------------------------------------------------------------------------------------------------------------------------
 
 void DeviceClass::ResetDevice()
 {

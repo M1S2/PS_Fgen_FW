@@ -1,9 +1,10 @@
-/*
- * ADC.cpp
+/**
+ * @file	ADC.cpp
+ * @date	15.09.2020 19:30:49
+ * @author	V17
+ * @brief	Containing the Analog Digital Converter part.
  *
- * Created: 15.09.2020 19:30:49
- *  Author: V17
- */ 
+ */
 
 #include "ADC.h"
 #include <avr/interrupt.h>
@@ -16,10 +17,6 @@ void ADC_init()
 	ADMUX &= ~(1<<REFS0 | 1<<REFS1);					// Set reference to AREF, Internal Vref turned off
 	ADCSRA |= 1<<ADIE;			// Enable ADC Interrupt
 	ADCSRA |= 1<<ADEN;			// Enable ADC
-
-	//After ADC_init():
-	//Enable Interrupts: sei();
-	//Then start first conversion: ADC_startConversion();
 }
 
 void ADC_startConversion()

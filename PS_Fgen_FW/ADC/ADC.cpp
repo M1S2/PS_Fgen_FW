@@ -1,10 +1,9 @@
-/**
- * @file	ADC.cpp
- * @date	15.09.2020 19:30:49
- * @author	V17
- * @brief	Containing the Analog Digital Converter part.
+/*
+ * ADC.cpp
  *
- */
+ * Created: 15.09.2020 19:30:49
+ *  Author: V17
+ */ 
 
 #include "ADC.h"
 #include <avr/interrupt.h>

@@ -1,39 +1,56 @@
-/*
- * DDS.h
- *
- * Created: 23.12.2020 18:23:27
- *  Author: V17
+/**
+ * @file	DDS.h
+ * @date	23.12.2020 18:23:27
+ * @author	V17
+ * @brief	Containing everything needed for the direct digital synthesis.
  */ 
-
 
 #ifndef DDS_H_
 #define DDS_H_
 
-#define DDS_TICK_FREQ			62500	//125000					// Choose a value here that delivers an integer value for the OCR2A register (  ((F_CPU / 128) / DDS_TICK_FREQ) should be an integer value ) !!!
-#define DDS_PHASE_ACCU_BITS		32
-#define DDS_QUANTIZER_BITS		8
-#define DDS_DAC_BITS			12						// 12-bit DAC
-#define DDS_SAMPLE_MAX			((1 << DDS_DAC_BITS) - 1)	
-#define DDS_AMPLITUDE_MAX		20.0f	
+#define DDS_TICK_FREQ			62500							/**< Frequency at which the phase accumulator is updated. Choose a value here that delivers an integer value for the OCR2A register (  ((F_CPU / 128) / DDS_TICK_FREQ) should be an integer value ) !!! */
+#define DDS_PHASE_ACCU_BITS		32								/**< Number of bits used by the phase accumulator of the direct digital synthesis */
+#define DDS_QUANTIZER_BITS		8								/**< Number of bits that are used to index into the look up tables */
+#define DDS_DAC_BITS			12								/**< Number of bits used by the DAC */
+#define DDS_SAMPLE_MAX			((1 << DDS_DAC_BITS) - 1)		/**< Maximum value that can be reached with the number of bits in DDS_DAC_BITS */
+#define DDS_AMPLITUDE_MAX		20.0f							/**< Maximum supported amplitude at the DDS outputs */
 
 #include "../Pins/Pins.h"
 #include <avr/interrupt.h>
 #include <avr/pgmspace.h>
 
-extern volatile uint32_t dds_channel1_increment;
-extern volatile uint32_t dds_channel2_increment;
-extern volatile uint16_t dds_channel1_waveTable[(1 << DDS_QUANTIZER_BITS)];					// Left shift to replace pow(2, DDS_QUANTIZER_BITS)
-extern volatile uint16_t dds_channel2_waveTable[(1 << DDS_QUANTIZER_BITS)];
-extern volatile bool dds_channel1_enabled;
-extern volatile bool dds_channel2_enabled;
+extern volatile uint32_t dds_channel1_increment;								/**< Variable holding the increment value of DDS channel 1. This value depends on the configured frequency of the channel. */
+extern volatile uint32_t dds_channel2_increment;								/**< Variable holding the increment value of DDS channel 2. This value depends on the configured frequency of the channel. */
+extern volatile uint16_t dds_channel1_waveTable[(1 << DDS_QUANTIZER_BITS)];		/**< Array holding the waveform that should be created on DDS channel 1. */
+extern volatile uint16_t dds_channel2_waveTable[(1 << DDS_QUANTIZER_BITS)];		/**< Array holding the waveform that should be created on DDS channel 2. */
+extern volatile bool dds_channel1_enabled;										/**< Variable holding the information if DDS channel 1 is enabled. */
+extern volatile bool dds_channel2_enabled;										/**< Variable holding the information if DDS channel 2 is enabled. */
 
+/**
+ * Initialize the DDS timer.
+ * This initializes all neccessary registers of the DDS timer and resets the phase accumulators.
+ */
 void InitDDSTimer();
+
+/**
+ * Disable the DDS timer and set both DDS channels to zero voltage.
+ */
 void DisableDDSTimer();
+
+/**
+ * Set the voltage of DDS channel 1 to zero.
+ */
 void DisableDDS1();
+
+/**
+ * Set the voltage of DDS channel 2 to zero.
+ */
 void DisableDDS2();
 
-// https://www.avrfreaks.net/forum/dds-function-generator-using-atmega328p
-// 12-bit sine wave table with 256 entries (8-bit index)
+/*
+ * 12-bit sine wave table with 256 entries (8-bit index)
+ * @see https://www.avrfreaks.net/forum/dds-function-generator-using-atmega328p
+ */
 const uint16_t SINE_WAVE_TABLE_12BIT[] PROGMEM =
 {
 	0x7FF,0x831,0x863,0x896,0x8C8,0x8FA,0x92B,0x95D,0x98E,0x9C0,0x9F1,0xA21,0xA51,0xA81,0xAB1,0xAE0,
@@ -54,7 +71,9 @@ const uint16_t SINE_WAVE_TABLE_12BIT[] PROGMEM =
 	0x4EF,0x51E,0x54D,0x57D,0x5AD,0x5DD,0x60D,0x63E,0x670,0x6A1,0x6D3,0x704,0x736,0x768,0x79B,0x7CD,
 };
 
-// 12-bit rectangle wave table with 256 entries (8-bit index)
+/*
+ * 12-bit rectangle wave table with 256 entries (8-bit index)
+ */
 const uint16_t RECT_WAVE_TABLE_12BIT[] PROGMEM =
 {
 	0x000,0x000,0x000,0x000,0x000,0x000,0x000,0x000,0x000,0x000,0x000,0x000,0x000,0x000,0x000,0x000,
@@ -75,7 +94,9 @@ const uint16_t RECT_WAVE_TABLE_12BIT[] PROGMEM =
 	0xFFF,0xFFF,0xFFF,0xFFF,0xFFF,0xFFF,0xFFF,0xFFF,0xFFF,0xFFF,0xFFF,0xFFF,0xFFF,0xFFF,0xFFF,0xFFF,
 };
 
-// 12-bit triangle wave table with 256 entries (8-bit index)
+/*
+ * 12-bit triangle wave table with 256 entries (8-bit index)
+ */
 const uint16_t TRIANGLE_WAVE_TABLE_12BIT[] PROGMEM =
 {
 	0x000,0x01F,0x03F,0x05F,0x07F,0x09F,0x0BF,0x0DF,0x0FF,0x11F,0x13F,0x15F,0x17F,0x19F,0x1BF,0x1DF,
@@ -96,7 +117,9 @@ const uint16_t TRIANGLE_WAVE_TABLE_12BIT[] PROGMEM =
 	0x200,0x1E0,0x1C0,0x1A0,0x180,0x160,0x140,0x120,0x100,0x0E0,0x0C0,0x0A0,0x080,0x060,0x040,0x020,
 };
 
-// 12-bit sawtooth wave table with 256 entries (8-bit index)
+/*
+ * 12-bit sawtooth wave table with 256 entries (8-bit index)
+ */
 const uint16_t SAWTOOTH_WAVE_TABLE_12BIT[] PROGMEM =
 {
 	0x000,0x010,0x020,0x030,0x040,0x050,0x060,0x070,0x080,0x090,0x0A0,0x0B0,0x0C0,0x0D0,0x0E0,0x0F0,
@@ -117,7 +140,9 @@ const uint16_t SAWTOOTH_WAVE_TABLE_12BIT[] PROGMEM =
 	0xF0E,0xF1E,0xF2E,0xF3E,0xF4E,0xF5E,0xF6E,0xF7E,0xF8E,0xF9E,0xFAE,0xFBE,0xFCE,0xFDE,0xFEE,0xFFF,
 };
 
-// 12-bit DC wave table with 256 entries (8-bit index)
+/**
+ * 12-bit DC wave table with 256 entries (8-bit index)
+ */
 const uint16_t DC_WAVE_TABLE_12BIT[] PROGMEM =
 {
 	0xFFF,0xFFF,0xFFF,0xFFF,0xFFF,0xFFF,0xFFF,0xFFF,0xFFF,0xFFF,0xFFF,0xFFF,0xFFF,0xFFF,0xFFF,0xFFF,

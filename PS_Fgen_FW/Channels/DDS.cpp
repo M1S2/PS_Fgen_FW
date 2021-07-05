@@ -1,8 +1,7 @@
 /*
  * DDS.cpp
- *
  * Created: 23.12.2020 18:23:15
- *  Author: V17
+ * Author: Markus Scheich
  */ 
 
 #include "DDS.h"
@@ -68,12 +67,12 @@ ISR(TIMER2_COMPA_vect)
 		uint8_t high_byte = (1 << MCP492X_SHDN) | (1 << MCP492X_BUFFERED) | (1 << MCP492X_GAIN_SELECT_SINGLE);			// Set SHDN bit high for DAC A active operation; Enable buffered inputs for Vref; Select single gain
 		high_byte |= ((dds1_data >> 8) & 0x0F);
 		
-		SPI_SPDR = high_byte;
+		SPDR = high_byte;
 		uint8_t low_byte = (dds1_data & 0xFF);
-		while (!(SPI_SPSR & (1 << SPI_SPIF)));	// Wait until transmission is complete
-		SPI_SPDR = low_byte;
+		while (!(SPSR & (1 << SPIF)));	// Wait until transmission is complete
+		SPDR = low_byte;
 		dds_channel1_accumulator += dds_channel1_increment;
-		while (!(SPI_SPSR & (1 << SPI_SPIF)));	// Wait until transmission is complete
+		while (!(SPSR & (1 << SPIF)));	// Wait until transmission is complete
 	}
 	if(dds_channel1_enabled && dds_channel2_enabled)					// After each write command, the data needs to be shifted into the DAC's input registers by raising the CS pin (The CS pin is then raised, causing the data to be latched into the selected DAC’s input registers.)
 	{
@@ -88,12 +87,12 @@ ISR(TIMER2_COMPA_vect)
 		uint8_t high_byte = (1 << MCP492X_SHDN) | (1 << MCP492X_BUFFERED) | (1 << MCP492X_GAIN_SELECT_SINGLE) | (1 << MCP492X_DACB);		// Set SHDN bit high for DAC A active operation; Enable buffered inputs for Vref; Select single gain; Select DAC channel B
 		high_byte |= ((dds2_data >> 8) & 0x0F);
 
-		SPI_SPDR = high_byte;
+		SPDR = high_byte;
 		uint8_t low_byte = (dds2_data & 0xFF);
-		while (!(SPI_SPSR & (1 << SPI_SPIF)));	// Wait until transmission is complete
-		SPI_SPDR = low_byte;
+		while (!(SPSR & (1 << SPIF)));	// Wait until transmission is complete
+		SPDR = low_byte;
 		dds_channel2_accumulator += dds_channel2_increment;
-		while (!(SPI_SPSR & (1 << SPI_SPIF)));	// Wait until transmission is complete
+		while (!(SPSR & (1 << SPIF)));	// Wait until transmission is complete
 	}
 	
 	DESELECT_MCP4922

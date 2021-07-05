@@ -1,8 +1,7 @@
 /*
  * DDS_Channel.cpp
- *
  * Created: 09.01.2021 16:58:31
- *  Author: V17
+ * Author: Markus Scheich
  */ 
 
 #include "DDS_Channel.h"

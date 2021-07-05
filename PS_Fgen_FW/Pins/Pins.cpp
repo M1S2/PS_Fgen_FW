@@ -1,8 +1,7 @@
 /*
  * Pins.cpp
- *
  * Created: 23.08.2020 21:40:04
- *  Author: V17
+ * Author: Markus Scheich
  */ 
 
 #include "Pins.h"

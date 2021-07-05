@@ -1,8 +1,7 @@
 /*
  * DAC_MCP492x.cpp
- *
  * Created: 31.08.2020 18:42:53
- *  Author: V17
+ * Author: Markus Scheich
  * see: https://github.com/murjay/MCP4922-DAC-Driver/blob/master/MCP4922_DAC_driver.c
  */ 
 

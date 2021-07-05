@@ -1,9 +1,7 @@
 /*
- * KeyPad.c
- *
+ * KeyPad.cpp
  * Created: 03.09.2020 21:45:53
- *  Author: V17
- * see: https://circuitdigest.com/microcontroller-projects/keypad-interfacing-with-avr-atmega32
+ * Author: Markus Scheich
  */ 
 
 #include "KeyPad.h"

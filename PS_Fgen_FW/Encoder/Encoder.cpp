@@ -1,8 +1,7 @@
 /*
  * Encoder.cpp
- *
  * Created: 07.09.2020 19:17:17
- *  Author: V17
+ * Author: Markus Scheich
  */ 
 
 #include "Encoder.h"
@@ -11,7 +10,6 @@
 
 void Encoder_Init()
 {
-	// see: https://www.leniwiec.org/en/2014/04/28/rotary-shaft-encoder-how-to-connect-it-and-handle-it-with-avr-atmega8-16-32-168-328/
 	EIMSK |= (1 << INT0);		// enable INT0
 	EICRA |= (1 << ISC01);		// INT0 - falling edge
 }

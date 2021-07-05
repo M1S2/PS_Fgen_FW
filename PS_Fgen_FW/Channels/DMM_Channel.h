@@ -1,7 +1,7 @@
 /**
  * @file	DMM_Channel.h
  * @date	12.02.2021 18:39:08
- * @author	V17
+ * @author	Markus Scheich
  * @brief	Containing an implementation for a digital multimeter channel.
  */ 
 

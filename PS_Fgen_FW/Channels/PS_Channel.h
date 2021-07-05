@@ -1,7 +1,7 @@
 /**
  * @file	PS_Channel.h
  * @date	23.09.2020 19:47:56
- * @author	V17
+ * @author	Markus Scheich
  * @brief	Containing an implementation for a power supply channel.
  */ 
 

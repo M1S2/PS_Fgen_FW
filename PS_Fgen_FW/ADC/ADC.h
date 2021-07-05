@@ -1,7 +1,7 @@
 /**
  * @file	ADC.h
  * @date	15.09.2020 19:30:30
- * @author	V17
+ * @author	Markus Scheich
  * @brief	Containing the Analog Digital Converter part.
  *
  * see: https://www.newbiehack.com/MicrocontrollersADCReadingMultipleAnalogVolageSources.aspx

@@ -1,7 +1,7 @@
 /**
  * @file	Channel.h
  * @date	03.02.2021 20:39:32
- * @author	V17
+ * @author	Markus Scheich
  * @brief	Containing the base class for all channels.
  */ 
 

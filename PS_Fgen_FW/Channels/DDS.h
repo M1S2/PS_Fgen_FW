@@ -1,7 +1,7 @@
 /**
  * @file	DDS.h
  * @date	23.12.2020 18:23:27
- * @author	V17
+ * @author	Markus Scheich
  * @brief	Containing everything needed for the direct digital synthesis.
  */ 
 

@@ -1,7 +1,7 @@
 /**
  * @file	Parameter.h
  * @date	03.02.2021 20:38:17
- * @author	V17
+ * @author	Markus Scheich
  * @brief	Containing a class used to bundle min, max, default and the current values for parameters.
  */ 
 

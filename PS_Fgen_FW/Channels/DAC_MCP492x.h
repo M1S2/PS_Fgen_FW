@@ -1,7 +1,7 @@
 /**
  * @file	DAC_MCP492x.h
  * @date	31.08.2020 18:43:02
- * @author	V17
+ * @author	Markus Scheich
  * @brief	Containing the functions to control the MCP492x DACs.
  */ 
 

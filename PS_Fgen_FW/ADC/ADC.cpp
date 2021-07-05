@@ -1,8 +1,7 @@
 /*
  * ADC.cpp
- *
  * Created: 15.09.2020 19:30:49
- *  Author: V17
+ * Author: Markus Scheich
  */ 
 
 #include "ADC.h"

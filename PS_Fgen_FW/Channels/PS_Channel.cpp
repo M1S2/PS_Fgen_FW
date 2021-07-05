@@ -1,8 +1,7 @@
 /*
  * PS_Channel.cpp
- *
  * Created: 23.09.2020 19:47:47
- *  Author: V17
+ * Author: Markus Scheich
  */ 
 
 #include "PS_Channel.h"

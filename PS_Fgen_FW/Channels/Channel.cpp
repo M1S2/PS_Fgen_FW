@@ -1,8 +1,7 @@
 /*
  * Channel.cpp
- *
  * Created: 03.02.2021 20:40:24
- *  Author: V17
+ * Author: Markus Scheich
  */ 
 
 #include "Channel.h"

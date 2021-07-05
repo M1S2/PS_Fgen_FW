@@ -25,7 +25,7 @@ const char* DevicePowerUpOutputEnabledStateNames[] = { "OFF", "LAST", "ON" };
 const char* DeviceBaudRateNames[] = { "110", "150", "300", "1200", "2400", "4800", "9600", "19200", "38400", "57600" };
 	
 DeviceClass::DeviceClass() :
-	PsChannel(PS_MIN_AMPLITUDE, PS_MAX_AMPLITUDE, PS_MIN_CURRENT, PS_MAX_CURRENT, PS_MIN_OVP_LEVEL_PERCENTAGE, PS_MAX_OVP_LEVEL_PERCENTAGE, PS_MIN_OVP_DELAY, PS_MAX_OVP_DELAY, PS_MIN_OCP_LEVEL_PERCENTAGE, PS_MAX_OCP_LEVEL_PERCENTAGE, PS_MIN_OCP_DELAY, PS_MAX_OCP_DELAY, PS_MIN_OPP_LEVEL, PS_MAX_OPP_LEVEL, PS_MIN_OPP_DELAY, PS_MAX_OPP_DELAY),
+	PsChannel(PS_MIN_VOLTAGE, PS_MAX_VOLTAGE, PS_MIN_CURRENT, PS_MAX_CURRENT, PS_MIN_OVP_LEVEL_PERCENTAGE, PS_MAX_OVP_LEVEL_PERCENTAGE, PS_MIN_OVP_DELAY, PS_MAX_OVP_DELAY, PS_MIN_OCP_LEVEL_PERCENTAGE, PS_MAX_OCP_LEVEL_PERCENTAGE, PS_MIN_OCP_DELAY, PS_MAX_OCP_DELAY, PS_MIN_OPP_LEVEL, PS_MAX_OPP_LEVEL, PS_MIN_OPP_DELAY, PS_MAX_OPP_DELAY),
 	DdsChannel1(1, DDS_MIN_FREQ, DDS_MAX_FREQ, DDS_MIN_AMPLITUDE, DDS_MAX_AMPLITUDE, DDS_MIN_OFFSET, DDS_MAX_OFFSET),
 	DdsChannel2(2, DDS_MIN_FREQ, DDS_MAX_FREQ, DDS_MIN_AMPLITUDE, DDS_MAX_AMPLITUDE, DDS_MIN_OFFSET, DDS_MAX_OFFSET),
 	DmmChannel1(),
@@ -206,7 +206,7 @@ void DeviceClass::SaveSettings()
 	settings.Device_SerialBaudRate = SerialBaudRate;
 	settings.Device_SerialEchoEnabled = SerialEchoEnabled;
 	
-	settings.PS_Voltage = PsChannel.GetAmplitude();
+	settings.PS_Voltage = PsChannel.GetVoltage();
 	settings.PS_Current = PsChannel.GetCurrent();
 	settings.PS_Enabled = PsChannel.GetEnabled();
 	settings.PS_OvpLevel = PsChannel.GetOvpLevel();
@@ -270,7 +270,7 @@ void DeviceClass::LoadSettings()
 	SetSerialBaudRate(settings.Device_SerialBaudRate);
 	SetSerialEchoEnabled(settings.Device_SerialEchoEnabled);
 	
-	PsChannel.SetAmplitude(isnan(settings.PS_Voltage) ? PsChannel.Amplitude.Def : settings.PS_Voltage);
+	PsChannel.SetVoltage(isnan(settings.PS_Voltage) ? PsChannel.Voltage.Def : settings.PS_Voltage);
 	PsChannel.SetCurrent(isnan(settings.PS_Current) ? PsChannel.Current.Def : settings.PS_Current);
 	PsChannel.SetOvpLevel(isnan(settings.PS_OvpLevel) ? PsChannel.OvpLevel.Def : settings.PS_OvpLevel);
 	PsChannel.SetOvpState(isnan(settings.PS_OvpState) ? false : settings.PS_OvpState);
@@ -342,7 +342,7 @@ void DeviceClass::ResetDevice()
 	ScreenManager.SetDisplayEnabled(true);
 	ScreenManager.SetDisplayInverted(false);
 	
-	PsChannel.SetAmplitude(PsChannel.Amplitude.Def);
+	PsChannel.SetVoltage(PsChannel.Voltage.Def);
 	PsChannel.SetCurrent(PsChannel.Current.Def);
 	PsChannel.SetEnabled(false);
 	PsChannel.SetOvpLevel(PsChannel.OvpLevel.Def);

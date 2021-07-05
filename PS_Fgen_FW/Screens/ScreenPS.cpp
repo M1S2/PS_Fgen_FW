@@ -24,15 +24,15 @@ Icon ico_PSOverview(SCREEN_TAB_WIDTH + 5, 3, icon_supplyDC_width, icon_supplyDC_
 Label<15> lbl_PSOverview_caption(SCREEN_TAB_WIDTH + 25, 5, "PowerSupply");
 
 Icon ico_PSOverviewVoltage(PS_COLUMN1_POSX, PS_ROW1_POSY - 2, icon_voltage_width, icon_voltage_height, icon_voltage_bits);
-NumericControl<float> numCtrl_PSOverviewVoltage(PS_COLUMN1_POSX + icon_voltage_width + 3, PS_ROW1_POSY, &Device.PsChannel.Amplitude.Val, "V", PS_MIN_AMPLITUDE, PS_MAX_AMPLITUDE, 3, &Device.PsChannel, &PS_Channel::PSAmplitudeChanged);
+NumericControl<float> numCtrl_PSOverviewVoltage(PS_COLUMN1_POSX + icon_voltage_width + 3, PS_ROW1_POSY, &Device.PsChannel.Voltage.Val, "V", PS_MIN_VOLTAGE, PS_MAX_VOLTAGE, 3, &Device.PsChannel, &PS_Channel::PSVoltageChanged);
 Icon ico_PSOverviewEnabled(PS_COLUMN2_POSX, PS_ROW1_POSY - 2, icon_OnOff_width, icon_OnOff_height, icon_OnOff_bits);
 BoolControl boolCtrl_PSOverviewEnabled(PS_COLUMN2_POSX + icon_OnOff_width + 3, PS_ROW1_POSY, &Device.PsChannel.Enabled.Val, &Device.PsChannel, &PS_Channel::PSEnabledChanged);
 Icon ico_PSOverviewCurrent(PS_COLUMN1_POSX, PS_ROW2_POSY - 2, icon_current_width, icon_current_height, icon_current_bits);
 NumericControl<float> numCtrl_PSOverviewCurrent(PS_COLUMN1_POSX + icon_current_width + 3, PS_ROW2_POSY, &Device.PsChannel.Current.Val, "A", PS_MIN_CURRENT, PS_MAX_CURRENT, 3, &Device.PsChannel, &PS_Channel::PSCurrentChanged);
 
-NumericIndicator<float> numInd_PsOverviewVoltage(PS_COLUMN3_POSX, 18, &Device.PsChannel.MeasuredAmplitude, "V", PS_MAX_AMPLITUDE, 3);
+NumericIndicator<float> numInd_PsOverviewVoltage(PS_COLUMN3_POSX, 18, &Device.PsChannel.MeasuredVoltage, "V", PS_MAX_VOLTAGE, 3);
 NumericIndicator<float> numInd_PsOverviewCurrent(PS_COLUMN3_POSX, 28, &Device.PsChannel.MeasuredCurrent, "A", PS_MAX_CURRENT, 3);
-NumericIndicator<float> numInd_PsOverviewPower(PS_COLUMN3_POSX, 38, &Device.PsChannel.MeasuredPower, "W", PS_MAX_AMPLITUDE * PS_MAX_CURRENT, 3);
+NumericIndicator<float> numInd_PsOverviewPower(PS_COLUMN3_POSX, 38, &Device.PsChannel.MeasuredPower, "W", PS_MAX_VOLTAGE * PS_MAX_CURRENT, 3);
 EnumIndicator<PsStates_t> enumInd_PsOverviewState(PS_COLUMN3_POSX + 4, 48, &Device.PsChannel.PsState, PSStatesNames, 5);
 
 // ***** Power Supply Protection OVP page *****

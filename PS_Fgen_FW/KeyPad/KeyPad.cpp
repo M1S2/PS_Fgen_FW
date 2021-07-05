@@ -42,7 +42,7 @@ Keys_t KeyPad_GetKeys()
 			case 0b01111110: keys = KEYLEFT; break;		// row 4 column 1
 			case 0b01111101: keys = KEY0; break;		// row 4 column 2
 			case 0b01111011: keys = KEYRIGHT; break;	// row 4 column 3
-			case 0b01110111: keys = KEYCOMMA; break;	// row 4 column 4
+			case 0b01110111: keys = KEYX1; break;	// row 4 column 4
 			default: break;
 		}
 		

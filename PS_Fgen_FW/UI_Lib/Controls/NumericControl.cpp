@@ -82,8 +82,8 @@ bool NumericControl<T>::KeyInput(Keys_t key)
 			return KeyKilo();
 		case KEYMILLI:
 			return KeyMilli();
-		case KEYCOMMA:
-			return KeyComma();
+		case KEYX1:
+			return KeyX1();
 		case KEYMINUS:
 			return KeyMinus();
 		case KEY0:
@@ -131,7 +131,7 @@ bool NumericControl<T>::KeyMilli()
 }
 
 template <class T>
-bool NumericControl<T>::KeyComma()			// Is used as x1 key
+bool NumericControl<T>::KeyX1()
 {
 	if (IsEditMode)
 	{

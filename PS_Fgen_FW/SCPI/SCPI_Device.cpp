@@ -251,9 +251,9 @@ scpi_result_t SCPI_QueryChannelParameter(scpi_t * context, SCPIChannelParameters
 		switch(paramType)
 		{
 			case SCPI_CHPARAM_OUTPUTSTATE: SCPI_ResultBool(context, psChannel->GetEnabled()); break;
-			case SCPI_CHPARAM_AMPLITUDE: SCPI_ResultFloat(context, psChannel->GetAmplitude()); break;
+			case SCPI_CHPARAM_AMPLITUDE: SCPI_ResultFloat(context, psChannel->GetVoltage()); break;
 			case SCPI_CHPARAM_CURRENT: SCPI_ResultFloat(context, psChannel->GetCurrent()); break;
-			case SCPI_CHPARAM_MEASURED_AMPLITUDE: SCPI_ResultFloat(context, psChannel->MeasuredAmplitude); break;
+			case SCPI_CHPARAM_MEASURED_AMPLITUDE: SCPI_ResultFloat(context, psChannel->MeasuredVoltage); break;
 			case SCPI_CHPARAM_MEASURED_CURRENT: SCPI_ResultFloat(context, psChannel->MeasuredCurrent); break;
 			case SCPI_CHPARAM_MEASURED_POWER: SCPI_ResultFloat(context, psChannel->MeasuredPower); break;
 			case SCPI_CHPARAM_OVP_LEVEL: SCPI_ResultUInt8(context, psChannel->GetOvpLevel()); break;
@@ -337,12 +337,12 @@ scpi_result_t SCPI_SetChannelParameter(scpi_t * context, SCPIChannelParameters_t
 				scpi_number_t param;
 				if(!SCPI_ParamNumber(context, scpi_special_numbers_def, &param, TRUE)) { return SCPI_RES_ERR; }
 				
-				float amplitude = psChannel->GetAmplitude();
-				if (!SCPI_GetNumericFromParam(context, param, amplitude, SCPI_UNIT_VOLT, psChannel->Amplitude.Min, psChannel->Amplitude.Max, psChannel->Amplitude.Def, psChannel->Amplitude.Step))
+				float amplitude = psChannel->GetVoltage();
+				if (!SCPI_GetNumericFromParam(context, param, amplitude, SCPI_UNIT_VOLT, psChannel->Voltage.Min, psChannel->Voltage.Max, psChannel->Voltage.Def, psChannel->Voltage.Step))
 				{
 					return SCPI_RES_ERR;
 				}
-				psChannel->SetAmplitude(amplitude);
+				psChannel->SetVoltage(amplitude);
 				break;
 			}
 			case SCPI_CHPARAM_CURRENT:

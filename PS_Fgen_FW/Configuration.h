@@ -43,8 +43,8 @@
 #define NUM_CHANNELS					5						// Number of channels
 
 #define PS_INTERNAL_IMPEDANCE			5.7						// Internal impedance in Ohm of the PowerSupply output
-#define PS_MIN_AMPLITUDE				0						// Minimum allowed power supply amplitude setting
-#define PS_MAX_AMPLITUDE				10						// Maximum allowed power supply amplitude setting
+#define PS_MIN_VOLTAGE					0						// Minimum allowed power supply voltage setting
+#define PS_MAX_VOLTAGE					10						// Maximum allowed power supply voltage setting
 #define PS_MIN_CURRENT					0						// Minimum allowed power supply current setting
 #define PS_MAX_CURRENT					2						// Maximum allowed power supply current setting
 #define PS_MIN_OVP_LEVEL_PERCENTAGE		90						// Minimum allowed power supply OVP level setting
@@ -56,7 +56,7 @@
 #define PS_MIN_OCP_DELAY				PS_MIN_OVP_DELAY		// Minimum allowed power supply OCP delay setting
 #define PS_MAX_OCP_DELAY				PS_MAX_OVP_DELAY		// Maximum allowed power supply OCP delay setting
 #define PS_MIN_OPP_LEVEL				0						// Minimum allowed power supply OCP level setting
-#define PS_MAX_OPP_LEVEL				(PS_MAX_AMPLITUDE * PS_MAX_CURRENT)		// Maximum allowed power supply OCP level setting
+#define PS_MAX_OPP_LEVEL				(PS_MAX_VOLTAGE * PS_MAX_CURRENT)		// Maximum allowed power supply OCP level setting
 #define PS_MIN_OPP_DELAY				0						// Minimum allowed power supply OPP delay setting
 #define PS_MAX_OPP_DELAY				65						// Maximum allowed power supply OPP delay setting
 

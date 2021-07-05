@@ -10,10 +10,10 @@
 
 const char* PSStatesNames[] = { "CV", "CC", "OVP", "OCP", "OPP" };
 
-PS_Channel::PS_Channel(float minAmpl, float maxAmpl, float minCurrent, float maxCurrent, uint8_t minOvpLevel, uint8_t maxOvpLevel, float minOvpDelay, float maxOvpDelay, uint8_t minOcpLevel, uint8_t maxOcpLevel, float minOcpDelay, float maxOcpDelay, float minOppLevel, float maxOppLevel, float minOppDelay, float maxOppDelay) : Channel(POWER_SUPPLY_CHANNEL_TYPE)
+PS_Channel::PS_Channel(float minVolt, float maxVolt, float minCurrent, float maxCurrent, uint8_t minOvpLevel, uint8_t maxOvpLevel, float minOvpDelay, float maxOvpDelay, uint8_t minOcpLevel, uint8_t maxOcpLevel, float minOcpDelay, float maxOcpDelay, float minOppLevel, float maxOppLevel, float minOppDelay, float maxOppDelay) : Channel(POWER_SUPPLY_CHANNEL_TYPE)
 {
 	Enabled = Parameter<bool>(false, false, true, false, true);
-	Amplitude = Parameter<float>(0, minAmpl, maxAmpl, 5, 1);
+	Voltage = Parameter<float>(0, minVolt, maxVolt, 5, 1);
 	Current = Parameter<float>(0, minCurrent, maxCurrent, 0.1, 0.1);
 	
 	OvpState = Parameter<bool>(false, false, true, false, true);
@@ -33,7 +33,7 @@ PS_Channel::PS_Channel(float minAmpl, float maxAmpl, float minCurrent, float max
 	TimeCounter_OppDelay_ms = 0;
 	PsState = PS_STATE_CV;
 	_PIDVoltErrorSum = 0;
-	_setDacAmplitude = 0;
+	_setDacVoltage = 0;
 	_PIDVoltErrorLast = 0;	
 }
 
@@ -46,7 +46,7 @@ void PS_Channel::UpdateOutput()
 {
 	if(PsState == PS_STATE_CV && GetEnabled())
 	{
-		MCP4921_Voltage_Set(_setDacAmplitude / 2);		// divided by two because of OpAmp in circuit that has an amplification of 2
+		MCP4921_Voltage_Set(_setDacVoltage / 2);		// divided by two because of OpAmp in circuit that has an amplification of 2
 	}
 	else
 	{
@@ -60,12 +60,12 @@ void PS_Channel::DeviceTimerTickISR(uint16_t currentPeriod_ms)
 	{
 		/* Voltage PID regulator 
 		   see: https://rn-wissen.de/wiki/index.php/Regelungstechnik */
-		float PIDVoltError = GetAmplitude() - MeasuredAmplitude;		// Usoll - Umess
+		float PIDVoltError = GetVoltage() - MeasuredVoltage;		// Usoll - Umess
 		_PIDVoltErrorSum += PIDVoltError;
-		_setDacAmplitude = PS_VOLT_PID_P * PIDVoltError + PS_VOLT_PID_I * (currentPeriod_ms / 1000.0f) * _PIDVoltErrorSum + (PS_VOLT_PID_D / (currentPeriod_ms / 1000.0f)) * (PIDVoltError - _PIDVoltErrorLast);
+		_setDacVoltage = PS_VOLT_PID_P * PIDVoltError + PS_VOLT_PID_I * (currentPeriod_ms / 1000.0f) * _PIDVoltErrorSum + (PS_VOLT_PID_D / (currentPeriod_ms / 1000.0f)) * (PIDVoltError - _PIDVoltErrorLast);
 		_PIDVoltErrorLast = PIDVoltError;
 	
-		if(GetOvpState() && MeasuredAmplitude > (GetAmplitude() * (GetOvpLevel() / 100.0f)))
+		if(GetOvpState() && MeasuredVoltage > (GetVoltage() * (GetOvpLevel() / 100.0f)))
 		{
 			TimeCounter_OvpDelay_ms += currentPeriod_ms;
 		}
@@ -149,21 +149,21 @@ bool PS_Channel::GetEnabled()
 
 //----------------------------------------------------------------------------------------------------------
 
-bool PS_Channel::SetAmplitude(float amplitude)
+bool PS_Channel::SetVoltage(float voltage)
 {
-	if (amplitude > Amplitude.Max || amplitude < Amplitude.Min) { return false; }
+	if (voltage > Voltage.Max || voltage < Voltage.Min) { return false; }
 
-	if (Amplitude.Val != amplitude)
+	if (Voltage.Val != voltage)
 	{
-		Amplitude.Val = amplitude;
-		PSAmplitudeChanged(this);
+		Voltage.Val = voltage;
+		PSVoltageChanged(this);
 	}
 	return true;
 }
 
-float PS_Channel::GetAmplitude()
+float PS_Channel::GetVoltage()
 {
-	return Amplitude.Val;
+	return Voltage.Val;
 }
 
 //----------------------------------------------------------------------------------------------------------
@@ -366,7 +366,7 @@ void PS_Channel::PSEnabledChanged(void* channel)
 	Device.SetSettingsChanged(true);
 }
 
-void PS_Channel::PSAmplitudeChanged(void* channel)
+void PS_Channel::PSVoltageChanged(void* channel)
 {
 	if (((Channel*)channel)->GetChannelType() != POWER_SUPPLY_CHANNEL_TYPE) { return; }
 	PS_Channel* psChannel = (PS_Channel*)channel;

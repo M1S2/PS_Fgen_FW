@@ -34,7 +34,7 @@ class NumericControl : public NumericIndicator<T>
 		bool KeyKilo();
 		bool KeyMilli();
 		bool KeyMinus();
-		bool KeyComma();			// Is used as x1 key
+		bool KeyX1();
 		bool KeyNumeric(Keys_t key);
 		bool ValueUp();
 		bool ValueDown();

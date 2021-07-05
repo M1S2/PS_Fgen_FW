@@ -150,7 +150,7 @@ void OnButtonCalNext(void* context)
 			Usart0TransmitStr(buffer);*/			
 			
 			CalState = CAL_PS_VOLT;
-			Device.PsChannel.SetAmplitude(10);		// Set output to 10V and enable it
+			Device.PsChannel.SetVoltage(10);		// Set output to 10V and enable it
 			Device.PsChannel.SetEnabled(true);
 			lbl_Cal_instruction.SetText("Connect PS+ output to DMM1 input.");
 			break;
@@ -158,7 +158,7 @@ void OnButtonCalNext(void* context)
 		case CAL_PS_VOLT:
 		{
 			// Do PS_VOLT calibration
-			Device.CalibrationFactors.Cal_PS_VOLT *= (Device.DmmChannel1.MeasuredVoltage / Device.PsChannel.MeasuredAmplitude);
+			Device.CalibrationFactors.Cal_PS_VOLT *= (Device.DmmChannel1.MeasuredVoltage / Device.PsChannel.MeasuredVoltage);
 			
 			/*Usart0TransmitStr("\r\nPS_VOLT=");
 			dtostrf(Device.CalibrationFactors.Cal_PS_VOLT, 10, 3, buffer);

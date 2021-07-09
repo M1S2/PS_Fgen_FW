@@ -1,8 +1,7 @@
 /*
  * SCPI_Cmds_System.cpp
- *
  * Created: 06.12.2020 14:50:38
- *  Author: V17
+ * Author: Markus Scheich
  */ 
 
 #include "SCPI_Device.h"

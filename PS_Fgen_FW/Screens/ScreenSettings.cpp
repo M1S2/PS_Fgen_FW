@@ -1,8 +1,7 @@
 /*
  * ScreenSettings.cpp
- *
  * Created: 09.04.2021 19:17:59
- *  Author: V17
+ * Author: Markus Scheich
  */ 
 
 #include "../Device.h"

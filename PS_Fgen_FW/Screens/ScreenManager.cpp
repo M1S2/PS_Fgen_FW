@@ -1,8 +1,7 @@
 /*
  * ScreenManager.cpp
- *
  * Created: 05.11.2020 18:45:05
- *  Author: V17
+ * Author: Markus Scheich
  */ 
 
 #include <stdio.h>

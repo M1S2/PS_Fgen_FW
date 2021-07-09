@@ -1,8 +1,7 @@
 /*
  * ScreenCalibration.cpp
- *
  * Created: 13.05.2021 20:59:49
- *  Author: V17
+ * Author: Markus Scheich
  */ 
 
 #include "../Device.h"

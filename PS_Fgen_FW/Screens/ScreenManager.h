@@ -1,10 +1,8 @@
 /*
  * ScreenManager.h
- *
  * Created: 05.11.2020 18:45:19
- *  Author: V17
+ * Author: Markus Scheich
  */ 
-
 
 #ifndef SCREENMANAGER_H_
 #define SCREENMANAGER_H_

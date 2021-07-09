@@ -1,17 +1,13 @@
 /*
  * SCPI_Device.cpp
- *
  * Created: 01.12.2020 18:08:13
- *  Author: V17
+ * Author: Markus Scheich
  */ 
 
 #include "SCPI_Device.h"
 #include "../USART/USART.h"
 #include "../Device.h"
 #include <stdio.h>
-
-#warning Only testing!!!
-#include "../USART/USART.h"
 
 scpi_t scpi_context;
 char scpi_input_buffer[SCPI_INPUT_BUFFER_LENGTH];

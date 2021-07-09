@@ -1,8 +1,7 @@
 /*
  * ScreenMeasure.cpp
- *
  * Created: 06.04.2021 19:45:48
- *  Author: V17
+ * Author: Markus Scheich
  */ 
 
 #include "../Device.h"

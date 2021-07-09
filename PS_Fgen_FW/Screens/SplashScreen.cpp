@@ -1,8 +1,7 @@
 /*
  * SplashScreen.cpp
- *
  * Created: 02.03.2021 20:48:14
- *  Author: V17
+ * Author: Markus Scheich
  */ 
 
 #include "ScreenManager.h"

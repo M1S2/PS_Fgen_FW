@@ -1,10 +1,9 @@
-/*
- * Icons.h
- *
- * Created: 02.03.2021 21:47:19
- *  Author: V17
+/**
+ * @file	Icons.h
+ * @date	02.03.2021 21:47:19
+ * @author	Markus Scheich
+ * @brief	Containing definitions for various icons.
  */ 
-
 
 #ifndef ICONS_H_
 #define ICONS_H_

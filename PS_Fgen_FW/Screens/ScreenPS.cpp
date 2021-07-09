@@ -1,8 +1,7 @@
 /*
  * ScreenPS.cpp
- *
  * Created: 07.11.2020 13:09:35
- *  Author: V17
+ * Author: Markus Scheich
  */ 
 
 #include "../Device.h"

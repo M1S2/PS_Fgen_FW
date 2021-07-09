@@ -1,8 +1,7 @@
 /*
  * SCPI_Cmds_Memory.cpp
- *
  * Created: 06.12.2020 17:09:22
- *  Author: V17
+ * Author: Markus Scheich
  */ 
 
 #include "SCPI_Device.h"

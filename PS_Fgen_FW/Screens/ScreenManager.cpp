@@ -114,14 +114,9 @@ void ScreenManagerClass::KeyInput(Keys_t key)
 
 void ScreenManagerClass::SetDisplayEnabled(bool displayEnabled)
 {
-	_displayEnabled = displayEnabled;
+	DisplayEnabled = displayEnabled;
 	if(displayEnabled) { u8g_SleepOff(&_u8g); }
 	else { u8g_SleepOn(&_u8g); }
-}
-
-bool ScreenManagerClass::GetDisplayEnabled()
-{
-	return _displayEnabled;
 }
 
 void ScreenManagerClass::SetDisplayInverted(bool displayInverse)

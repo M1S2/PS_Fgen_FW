@@ -21,7 +21,7 @@ scpi_result_t scpi_cmd_displayWindowState(scpi_t * context)
 
 scpi_result_t scpi_cmd_displayWindowStateQ(scpi_t * context)
 {
-	SCPI_ResultBool(context, Device.ScreenManager.GetDisplayEnabled());
+	SCPI_ResultBool(context, Device.ScreenManager.DisplayEnabled);
 	return SCPI_RES_OK;
 }
 

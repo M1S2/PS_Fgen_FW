@@ -1,10 +1,9 @@
-/*
- * UserInputHandler.h
- *
- * Created: 08.09.2020 19:31:51
- *  Author: V17
+/**
+ * @file	UserInputHandler.h
+ * @date	08.09.2020 19:31:51
+ * @author	Markus Scheich
+ * @brief	Containing a classes for user input handling and the corresponding data types.
  */ 
-
 
 #ifndef USERINPUTHANDLER_H_
 #define USERINPUTHANDLER_H_
@@ -15,31 +14,44 @@
 
 #include "../Configuration.h"
 
-#define USERINPUT_QUEUE_FULL_MSG	"The UserInput queue is full.\nThe device couldn't keep up with processing.\nPlease wait until this message disappears\nbefore sending new inputs."
-
-/* Enum used to differentiate the user input types */
+/**
+ * Enum used to differentiate the user input types
+ */
 typedef enum UserInputDataTypes
 {
-	USERDATA_KEY,
-	USERDATA_USART
+	USERDATA_KEY,				/**< User data type for Keys */
+	USERDATA_USART				/**< User data type for USART input */
 } UserInputDataTypes_t;
 
-/* Class that holds one user input made by keys, encoder or USART */
+/**
+ * Class that holds one user input made by keys (or encoder) or USART
+ */
 class UserInputData
 {
 	public:
-		UserInputDataTypes_t DataType;
-		Keys_t Key;
-		uint8_t UsartChr;
-	
+		UserInputDataTypes_t DataType;		/**< Type of the user input data */
+		Keys_t Key;							/**< Key pressed by the user if the DataType is USERDATA_KEY */
+		uint8_t UsartChr;					/**< Character received via Usart if the DataType is USERDATA_USART */
+
+		/** Empty Constructor. */	
 		UserInputData() 
 		{}
 	
+		/**
+		 * Constructor for the UserInputData class.
+		 * Use this constructor to initialize for a key.
+		 * @param key Key that should be stored with this class.
+		 */
 		UserInputData(Keys_t key) : Key(key)
 		{
 			DataType = USERDATA_KEY;
 		}
-			
+		
+		/**
+		 * Constructor for the UserInputData class.
+		 * Use this constructor to initialize for a Usart character.
+		 * @param usartChr Character that should be stored with this class.
+		 */	
 		UserInputData(uint8_t usartChr) : UsartChr(usartChr)
 		{
 			DataType = USERDATA_USART;
@@ -47,15 +59,33 @@ class UserInputData
 };
 
 
+/**
+ * Class used to enqueue and process user inputs.
+ */
 class UserInputHandlerClass 
 {
 	private:
-		CircularBuffer<UserInputData, USERINPUT_QUEUE_LENGTH> _userInputRingBuffer;
+		CircularBuffer<UserInputData, USERINPUT_QUEUE_LENGTH> _userInputRingBuffer;		/**< Circular buffer holding all user inputs. */
 		
 	public:		
+		/**
+		 * Enqueue the given key into the circular buffer for later processing.
+		 * The key is only enqueued and no further actions are taken.
+		 * @param userKeyInput Key that should be enqueued.
+		 */
 		void EnqueueKeyInput(Keys_t userKeyInput);
+		
+		/**
+		 * Enqueue the given Usart character into the circular buffer for later processing.
+		 * The character is only enqueued and no further actions are taken.
+		 * @param userDataInput Usart character that should be enqueued.
+		 */
 		void EnqueueUsartInput(uint8_t userDataInput);
 		
+		/**
+		 * Process all user inputs in the circular buffer until it is empty.
+		 * Keys are send to the ScreenManager, Usart characters to the SCPI parser.
+		 */
 		void ProcessInputs();
 };
 

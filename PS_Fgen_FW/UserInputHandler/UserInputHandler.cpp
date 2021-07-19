@@ -1,8 +1,7 @@
 /*
  * UserInputHandler.cpp
- *
  * Created: 08.09.2020 19:31:42
- *  Author: V17
+ * Author: Markus Scheich
  */ 
 
 #include "UserInputHandler.h"

@@ -1,8 +1,7 @@
 /*
  * Device.cpp
- *
  * Created: 06.12.2020 14:44:51
- *  Author: V17
+ * Author: Markus Scheich
  */ 
 
 #include "Device.h"

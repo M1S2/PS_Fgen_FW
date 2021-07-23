@@ -1,8 +1,7 @@
 /*
  * Container.cpp
- *
  * Created: 12.03.2021 18:32:11
- *  Author: V17
+ * Author: Markus Scheich
  */ 
 
 #include "Container.h"

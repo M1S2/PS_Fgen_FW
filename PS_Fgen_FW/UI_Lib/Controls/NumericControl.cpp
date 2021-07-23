@@ -165,6 +165,8 @@ bool NumericControl<T>::KeyNumeric(Keys_t key)
 		T oldValue = *this->_valuePointer;
 		
 		unsigned char keyNum = Keys_GetKeyNumInt(key);
+		if(keyNum < 0 || keyNum > 9) { return false; }		// if the keyNum isn't in the range 0..9, the given key is no numeric key
+			
 		unsigned char digit = extractDigit(oldValue, _currentDigitPosition);
 		float multiplicator = pow(10, _currentDigitPosition);
 		(*this->_valuePointer) = coerceValue(oldValue - (digit * multiplicator) + (keyNum * multiplicator));

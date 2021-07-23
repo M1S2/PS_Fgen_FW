@@ -1,8 +1,7 @@
 /*
  * UI_Manager.cpp
- *
  * Created: 12.03.2021 18:49:21
- *  Author: V17
+ * Author: Markus Scheich
  */ 
 
 #include "UI_Manager.h"
@@ -35,11 +34,10 @@ void UI_Manager::Draw(u8g_t *u8g, bool isFirstPage)
 void UI_Manager::ChangeVisualTreeRoot(UIElement* visualTreeRoot)
 {
 	_visualTreeRoot = visualTreeRoot;
-	SetFocusToLeaf();
+	setFocusToLeaf();
 }
 
-// Traverse down the visual tree until an element without a child is reached and focus this element.
-void UI_Manager::SetFocusToLeaf()
+void UI_Manager::setFocusToLeaf()
 {
 	if (_visualTreeRoot == NULL) { return; }
 	
@@ -66,6 +64,6 @@ bool UI_Manager::KeyInput(Keys_t key)
 			visualTreeElement = visualTreeElement->Parent;		// Traverse up the tree
 		}
 	}
-	SetFocusToLeaf();
+	setFocusToLeaf();
 	return keyProcessed;
 }

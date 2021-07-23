@@ -1,8 +1,7 @@
 /*
  * ContainerList.cpp
- *
  * Created: 29.03.2021 18:46:37
- *  Author: V17
+ * Author: Markus Scheic
  */ 
 
 #include "ContainerList.h"

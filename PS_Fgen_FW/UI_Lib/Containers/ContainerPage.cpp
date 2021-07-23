@@ -1,8 +1,7 @@
 /*
  * ContainerPage.cpp
- *
  * Created: 12.03.2021 18:33:36
- *  Author: V17
+ * Author: Markus Scheich
  */ 
 
 #include "ContainerPage.h"

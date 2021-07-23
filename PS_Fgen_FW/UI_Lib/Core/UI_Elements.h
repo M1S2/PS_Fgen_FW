@@ -1,10 +1,9 @@
-/*
- * UI_Elements.h
- *
- * Created: 12.03.2021 18:54:08
- *  Author: V17
+/**
+ * @file	UI_Elements.h
+ * @date	12.03.2021 18:54:08
+ * @author	Markus Scheich
+ * @brief	Containing all include files of the UI_Lib.
  */ 
-
 
 #ifndef UI_ELEMENTS_H_
 #define UI_ELEMENTS_H_

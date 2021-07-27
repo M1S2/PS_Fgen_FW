@@ -9,13 +9,14 @@
 #include "ADC/ADC.h"
 #include "Spi/spi.h"
 #include "SCPI/SCPI_Device.h"
+#include "Channels/DAC_MCP492x.h"
 
 #include <stdio.h>
 
 DeviceClass Device;
 DevSettingsEEPROMLayout_t EEMEM NonVolatileSettings;
 DeviceCalibrationFactors_t EEMEM NonVolatileSettings_CalibrationFactors;
-#ifdef DDS_USER_DEFINED_WAVEFORMS_ENABLED
+#if defined DDS_USER_DEFINED_WAVEFORMS_ENABLED && defined DDS_SUBSYSTEM_ENABLED
 	DevSettingsUserDDSWaveformEEPROMLayout_t EEMEM NonVolatileSettings_DDSUserWaveforms;
 #endif
 
@@ -24,12 +25,31 @@ const char* DevicePowerUpOutputEnabledStateNames[] = { "OFF", "LAST", "ON" };
 const char* DeviceBaudRateNames[] = { "110", "150", "300", "1200", "2400", "4800", "9600", "19200", "38400", "57600" };
 	
 DeviceClass::DeviceClass() :
+#ifdef PS_SUBSYSTEM_ENABLED
 	PsChannel(PS_MIN_VOLTAGE, PS_MAX_VOLTAGE, PS_MIN_CURRENT, PS_MAX_CURRENT, PS_MIN_OVP_LEVEL_PERCENTAGE, PS_MAX_OVP_LEVEL_PERCENTAGE, PS_MIN_OVP_DELAY, PS_MAX_OVP_DELAY, PS_MIN_OCP_LEVEL_PERCENTAGE, PS_MAX_OCP_LEVEL_PERCENTAGE, PS_MIN_OCP_DELAY, PS_MAX_OCP_DELAY, PS_MIN_OPP_LEVEL, PS_MAX_OPP_LEVEL, PS_MIN_OPP_DELAY, PS_MAX_OPP_DELAY),
+#endif
+#ifdef DDS_SUBSYSTEM_ENABLED
 	DdsChannel1(1, DDS_MIN_FREQ, DDS_MAX_FREQ, DDS_MIN_AMPLITUDE, DDS_MAX_AMPLITUDE, DDS_MIN_OFFSET, DDS_MAX_OFFSET),
 	DdsChannel2(2, DDS_MIN_FREQ, DDS_MAX_FREQ, DDS_MIN_AMPLITUDE, DDS_MAX_AMPLITUDE, DDS_MIN_OFFSET, DDS_MAX_OFFSET),
+#endif
+#ifdef MEASURE_SUBSYSTEM_ENABLED
 	DmmChannel1(),
 	DmmChannel2(),
-	Channels{ &PsChannel, &DdsChannel1, &DdsChannel2, &DmmChannel1, &DmmChannel2 }
+#endif
+	Channels 
+	{ 
+		#ifdef PS_SUBSYSTEM_ENABLED
+			&PsChannel, 
+		#endif
+		#ifdef DDS_SUBSYSTEM_ENABLED
+			&DdsChannel1, 
+			&DdsChannel2, 
+		#endif
+		#ifdef MEASURE_SUBSYSTEM_ENABLED
+			&DmmChannel1, 
+			&DmmChannel2 
+		#endif
+	}
 {
 	DeviceControlState = DEV_CTRL_LOCAL;
 }
@@ -45,7 +65,10 @@ void DeviceClass::Init()
 	InitDeviceTimer();
 	sei();
 	
-	DisableDDSTimer();
+	#ifdef DDS_SUBSYSTEM_ENABLED
+		DisableDDSTimer();
+	#endif
+	
 	Usart0TransmitStr("Power On\r\n");
 	
 	ADC_startConversion();
@@ -119,7 +142,9 @@ void DeviceClass::DeviceTimerTickISR(uint16_t currentPeriod_ms)
 	TimeCounter_ScreenRedraw_ms += currentPeriod_ms;		// Screen redraw is handled in DeviceMainLoop()	
 	TimeCounter_AutoSave_ms += currentPeriod_ms;			// AutoSave is handled in DeviceMainLoop()
 	ScreenManager.DeviceTimerTickISR(currentPeriod_ms);
-	PsChannel.DeviceTimerTickISR(currentPeriod_ms);
+	#ifdef PS_SUBSYSTEM_ENABLED
+		PsChannel.DeviceTimerTickISR(currentPeriod_ms);
+	#endif
 }
 
 // ##### Device Control State ########################################################################################################
@@ -205,31 +230,35 @@ void DeviceClass::SaveSettings()
 	settings.Device_SerialBaudRate = SerialBaudRate;
 	settings.Device_SerialEchoEnabled = SerialEchoEnabled;
 	
-	settings.PS_Voltage = PsChannel.GetVoltage();
-	settings.PS_Current = PsChannel.GetCurrent();
-	settings.PS_Enabled = PsChannel.GetEnabled();
-	settings.PS_OvpLevel = PsChannel.GetOvpLevel();
-	settings.PS_OvpState = PsChannel.GetOvpState();
-	settings.PS_OvpDelay = PsChannel.GetOvpDelay();
-	settings.PS_OcpLevel = PsChannel.GetOcpLevel();
-	settings.PS_OcpState = PsChannel.GetOcpState();
-	settings.PS_OcpDelay = PsChannel.GetOcpDelay();
-	settings.PS_OppLevel = PsChannel.GetOppLevel();
-	settings.PS_OppState = PsChannel.GetOppState();
-	settings.PS_OppDelay = PsChannel.GetOppDelay();
-		
-	settings.DDS1_Frequency = DdsChannel1.GetFrequency();
-	settings.DDS1_SignalForm = DdsChannel1.GetSignalForm();
-	settings.DDS1_Amplitude = DdsChannel1.GetAmplitude();
-	settings.DDS1_Offset = DdsChannel1.GetOffset();
-	settings.DDS1_Enabled = DdsChannel1.GetEnabled();
+	#ifdef PS_SUBSYSTEM_ENABLED
+		settings.PS_Voltage = PsChannel.GetVoltage();
+		settings.PS_Current = PsChannel.GetCurrent();
+		settings.PS_Enabled = PsChannel.GetEnabled();
+		settings.PS_OvpLevel = PsChannel.GetOvpLevel();
+		settings.PS_OvpState = PsChannel.GetOvpState();
+		settings.PS_OvpDelay = PsChannel.GetOvpDelay();
+		settings.PS_OcpLevel = PsChannel.GetOcpLevel();
+		settings.PS_OcpState = PsChannel.GetOcpState();
+		settings.PS_OcpDelay = PsChannel.GetOcpDelay();
+		settings.PS_OppLevel = PsChannel.GetOppLevel();
+		settings.PS_OppState = PsChannel.GetOppState();
+		settings.PS_OppDelay = PsChannel.GetOppDelay();
+	#endif
+	
+	#ifdef DDS_SUBSYSTEM_ENABLED
+		settings.DDS1_Frequency = DdsChannel1.GetFrequency();
+		settings.DDS1_SignalForm = DdsChannel1.GetSignalForm();
+		settings.DDS1_Amplitude = DdsChannel1.GetAmplitude();
+		settings.DDS1_Offset = DdsChannel1.GetOffset();
+		settings.DDS1_Enabled = DdsChannel1.GetEnabled();
 
-	settings.DDS2_Frequency = DdsChannel2.GetFrequency();
-	settings.DDS2_SignalForm = DdsChannel2.GetSignalForm();
-	settings.DDS2_Amplitude = DdsChannel2.GetAmplitude();
-	settings.DDS2_Offset = DdsChannel2.GetOffset();
-	settings.DDS2_Enabled = DdsChannel2.GetEnabled();
-
+		settings.DDS2_Frequency = DdsChannel2.GetFrequency();
+		settings.DDS2_SignalForm = DdsChannel2.GetSignalForm();
+		settings.DDS2_Amplitude = DdsChannel2.GetAmplitude();
+		settings.DDS2_Offset = DdsChannel2.GetOffset();
+		settings.DDS2_Enabled = DdsChannel2.GetEnabled();
+	#endif
+	
 	settings.PowerOnOutputsState = PowerOnOutputsState;
 
 	eeprom_write_block((const void*)&settings, (void*)&NonVolatileSettings, sizeof(DevSettingsEEPROMLayout_t));
@@ -242,7 +271,7 @@ void DeviceClass::SaveSettingsCalibrationFactors()
 	eeprom_write_block((const void*)&CalibrationFactors, (void*)&NonVolatileSettings_CalibrationFactors, sizeof(DeviceCalibrationFactors_t));
 }
 
-#ifdef DDS_USER_DEFINED_WAVEFORMS_ENABLED
+#if defined DDS_USER_DEFINED_WAVEFORMS_ENABLED && defined DDS_SUBSYSTEM_ENABLED
 void DeviceClass::SaveSettingsDDSUserWaveforms()
 {
 	DevSettingsUserDDSWaveformEEPROMLayout_t settingsDDSUserWaveform;
@@ -269,41 +298,44 @@ void DeviceClass::LoadSettings()
 	SetSerialBaudRate(settings.Device_SerialBaudRate);
 	SetSerialEchoEnabled(settings.Device_SerialEchoEnabled);
 	
-	PsChannel.SetVoltage(isnan(settings.PS_Voltage) ? PsChannel.Voltage.Def : settings.PS_Voltage);
-	PsChannel.SetCurrent(isnan(settings.PS_Current) ? PsChannel.Current.Def : settings.PS_Current);
-	PsChannel.SetOvpLevel(isnan(settings.PS_OvpLevel) ? PsChannel.OvpLevel.Def : settings.PS_OvpLevel);
-	PsChannel.SetOvpState(isnan(settings.PS_OvpState) ? false : settings.PS_OvpState);
-	PsChannel.SetOvpDelay(isnan(settings.PS_OvpDelay) ? PsChannel.OvpDelay.Def : settings.PS_OvpDelay);
-	PsChannel.SetOcpLevel(isnan(settings.PS_OcpLevel) ? PsChannel.OcpLevel.Def : settings.PS_OcpLevel);
-	PsChannel.SetOcpState(isnan(settings.PS_OcpState) ? false : settings.PS_OcpState);
-	PsChannel.SetOcpDelay(isnan(settings.PS_OcpDelay) ? PsChannel.OcpDelay.Def : settings.PS_OcpDelay);
-	PsChannel.SetOppLevel(isnan(settings.PS_OppLevel) ? PsChannel.OppLevel.Def : settings.PS_OppLevel);
-	PsChannel.SetOppState(isnan(settings.PS_OppState) ? false : settings.PS_OppState);
-	PsChannel.SetOppDelay(isnan(settings.PS_OppDelay) ? PsChannel.OppDelay.Def : settings.PS_OppDelay);
-			
-	DdsChannel1.SetFrequency(isnan(settings.DDS1_Frequency) ? DdsChannel1.Frequency.Def : settings.DDS1_Frequency);
-	DdsChannel1.SetSignalForm(isnan(settings.DDS1_SignalForm) ? DdsChannel1.SignalForm.Def : settings.DDS1_SignalForm);
-	DdsChannel1.SetAmplitude(isnan(settings.DDS1_Amplitude) ? DdsChannel1.Amplitude.Def : settings.DDS1_Amplitude);
-	DdsChannel1.SetOffset(isnan(settings.DDS1_Offset) ? DdsChannel1.Offset.Def : settings.DDS1_Offset);
-	DdsChannel1.UpdateOriginalWaveTable();
-	DdsChannel1.UpdateWaveTable();
-		
-	DdsChannel2.SetFrequency(isnan(settings.DDS2_Frequency) ? DdsChannel2.Frequency.Def : settings.DDS2_Frequency);
-	DdsChannel2.SetSignalForm(isnan(settings.DDS2_SignalForm) ? DdsChannel2.SignalForm.Def : settings.DDS2_SignalForm);
-	DdsChannel2.SetAmplitude(isnan(settings.DDS2_Amplitude) ? DdsChannel2.Amplitude.Def : settings.DDS2_Amplitude);
-	DdsChannel2.SetOffset(isnan(settings.DDS2_Offset) ? DdsChannel2.Offset.Def : settings.DDS2_Offset);
-	DdsChannel2.UpdateOriginalWaveTable();
-	DdsChannel2.UpdateWaveTable();
-	
 	PowerOnOutputsState = settings.PowerOnOutputsState;
-						
-	PsChannel.SetEnabled(PowerOnOutputsState == DEV_POWERUP_OUTPUTS_OFF ? false : (PowerOnOutputsState == DEV_POWERUP_OUTPUTS_ON ? true : settings.PS_Enabled));
-	DdsChannel1.SetEnabled(PowerOnOutputsState == DEV_POWERUP_OUTPUTS_OFF ? false : (PowerOnOutputsState == DEV_POWERUP_OUTPUTS_ON ? true : settings.DDS1_Enabled));
-	DdsChannel2.SetEnabled(PowerOnOutputsState == DEV_POWERUP_OUTPUTS_OFF ? false : (PowerOnOutputsState == DEV_POWERUP_OUTPUTS_ON ? true : settings.DDS2_Enabled));
 	
+	#ifdef PS_SUBSYSTEM_ENABLED
+		PsChannel.SetVoltage(isnan(settings.PS_Voltage) ? PsChannel.Voltage.Def : settings.PS_Voltage);
+		PsChannel.SetCurrent(isnan(settings.PS_Current) ? PsChannel.Current.Def : settings.PS_Current);
+		PsChannel.SetOvpLevel(isnan(settings.PS_OvpLevel) ? PsChannel.OvpLevel.Def : settings.PS_OvpLevel);
+		PsChannel.SetOvpState(isnan(settings.PS_OvpState) ? false : settings.PS_OvpState);
+		PsChannel.SetOvpDelay(isnan(settings.PS_OvpDelay) ? PsChannel.OvpDelay.Def : settings.PS_OvpDelay);
+		PsChannel.SetOcpLevel(isnan(settings.PS_OcpLevel) ? PsChannel.OcpLevel.Def : settings.PS_OcpLevel);
+		PsChannel.SetOcpState(isnan(settings.PS_OcpState) ? false : settings.PS_OcpState);
+		PsChannel.SetOcpDelay(isnan(settings.PS_OcpDelay) ? PsChannel.OcpDelay.Def : settings.PS_OcpDelay);
+		PsChannel.SetOppLevel(isnan(settings.PS_OppLevel) ? PsChannel.OppLevel.Def : settings.PS_OppLevel);
+		PsChannel.SetOppState(isnan(settings.PS_OppState) ? false : settings.PS_OppState);
+		PsChannel.SetOppDelay(isnan(settings.PS_OppDelay) ? PsChannel.OppDelay.Def : settings.PS_OppDelay);
+		PsChannel.SetEnabled(PowerOnOutputsState == DEV_POWERUP_OUTPUTS_OFF ? false : (PowerOnOutputsState == DEV_POWERUP_OUTPUTS_ON ? true : settings.PS_Enabled));
+	#endif
+	
+	#ifdef DDS_SUBSYSTEM_ENABLED		
+		DdsChannel1.SetFrequency(isnan(settings.DDS1_Frequency) ? DdsChannel1.Frequency.Def : settings.DDS1_Frequency);
+		DdsChannel1.SetSignalForm(isnan(settings.DDS1_SignalForm) ? DdsChannel1.SignalForm.Def : settings.DDS1_SignalForm);
+		DdsChannel1.SetAmplitude(isnan(settings.DDS1_Amplitude) ? DdsChannel1.Amplitude.Def : settings.DDS1_Amplitude);
+		DdsChannel1.SetOffset(isnan(settings.DDS1_Offset) ? DdsChannel1.Offset.Def : settings.DDS1_Offset);
+		DdsChannel1.UpdateOriginalWaveTable();
+		DdsChannel1.UpdateWaveTable();
+		DdsChannel1.SetEnabled(PowerOnOutputsState == DEV_POWERUP_OUTPUTS_OFF ? false : (PowerOnOutputsState == DEV_POWERUP_OUTPUTS_ON ? true : settings.DDS1_Enabled));
+		
+		DdsChannel2.SetFrequency(isnan(settings.DDS2_Frequency) ? DdsChannel2.Frequency.Def : settings.DDS2_Frequency);
+		DdsChannel2.SetSignalForm(isnan(settings.DDS2_SignalForm) ? DdsChannel2.SignalForm.Def : settings.DDS2_SignalForm);
+		DdsChannel2.SetAmplitude(isnan(settings.DDS2_Amplitude) ? DdsChannel2.Amplitude.Def : settings.DDS2_Amplitude);
+		DdsChannel2.SetOffset(isnan(settings.DDS2_Offset) ? DdsChannel2.Offset.Def : settings.DDS2_Offset);
+		DdsChannel2.UpdateOriginalWaveTable();
+		DdsChannel2.UpdateWaveTable();
+		DdsChannel2.SetEnabled(PowerOnOutputsState == DEV_POWERUP_OUTPUTS_OFF ? false : (PowerOnOutputsState == DEV_POWERUP_OUTPUTS_ON ? true : settings.DDS2_Enabled));
+	#endif					
+		
 	SetSettingsChanged(false);
 	
-	#ifdef DDS_USER_DEFINED_WAVEFORMS_ENABLED
+	#if defined DDS_USER_DEFINED_WAVEFORMS_ENABLED && defined DDS_SUBSYSTEM_ENABLED
 		LoadSettingsDDSUserWaveforms();
 	#endif
 }
@@ -323,7 +355,7 @@ void DeviceClass::LoadSettingsCalibrationFactors()
 	if(CalibrationFactors.Cal_DDS_FREQ == 0 || isnan(CalibrationFactors.Cal_DDS_FREQ)) { CalibrationFactors.Cal_DDS_FREQ = 1; }
 }
 
-#ifdef DDS_USER_DEFINED_WAVEFORMS_ENABLED
+#if defined DDS_USER_DEFINED_WAVEFORMS_ENABLED && defined DDS_SUBSYSTEM_ENABLED
 void DeviceClass::LoadSettingsDDSUserWaveforms()
 {
 	DevSettingsUserDDSWaveformEEPROMLayout_t settingsDDSUserWaveform;
@@ -341,31 +373,35 @@ void DeviceClass::ResetDevice()
 	ScreenManager.SetDisplayEnabled(true);
 	ScreenManager.SetDisplayInverted(false);
 	
-	PsChannel.SetVoltage(PsChannel.Voltage.Def);
-	PsChannel.SetCurrent(PsChannel.Current.Def);
-	PsChannel.SetEnabled(false);
-	PsChannel.SetOvpLevel(PsChannel.OvpLevel.Def);
-	PsChannel.SetOvpState(PsChannel.OvpState.Def);
-	PsChannel.SetOvpDelay(PsChannel.OvpDelay.Def);
-	PsChannel.SetOcpLevel(PsChannel.OcpLevel.Def);
-	PsChannel.SetOcpState(PsChannel.OcpState.Def);
-	PsChannel.SetOcpDelay(PsChannel.OcpDelay.Def);	
-	PsChannel.SetOppLevel(PsChannel.OppLevel.Def);
-	PsChannel.SetOppState(PsChannel.OppState.Def);
-	PsChannel.SetOppDelay(PsChannel.OppDelay.Def);
+	#ifdef PS_SUBSYSTEM_ENABLED
+		PsChannel.SetVoltage(PsChannel.Voltage.Def);
+		PsChannel.SetCurrent(PsChannel.Current.Def);
+		PsChannel.SetEnabled(false);
+		PsChannel.SetOvpLevel(PsChannel.OvpLevel.Def);
+		PsChannel.SetOvpState(PsChannel.OvpState.Def);
+		PsChannel.SetOvpDelay(PsChannel.OvpDelay.Def);
+		PsChannel.SetOcpLevel(PsChannel.OcpLevel.Def);
+		PsChannel.SetOcpState(PsChannel.OcpState.Def);
+		PsChannel.SetOcpDelay(PsChannel.OcpDelay.Def);	
+		PsChannel.SetOppLevel(PsChannel.OppLevel.Def);
+		PsChannel.SetOppState(PsChannel.OppState.Def);
+		PsChannel.SetOppDelay(PsChannel.OppDelay.Def);
+	#endif
 	
-	DdsChannel1.SetEnabled(false);
-	DdsChannel1.SetFrequency(DdsChannel1.Frequency.Def);
-	DdsChannel1.SetSignalForm(DdsChannel1.SignalForm.Def);
-	DdsChannel1.SetAmplitude(DdsChannel1.Amplitude.Def);
-	DdsChannel1.SetOffset(DdsChannel1.Offset.Def);
+	#ifdef DDS_SUBSYSTEM_ENABLED
+		DdsChannel1.SetEnabled(false);
+		DdsChannel1.SetFrequency(DdsChannel1.Frequency.Def);
+		DdsChannel1.SetSignalForm(DdsChannel1.SignalForm.Def);
+		DdsChannel1.SetAmplitude(DdsChannel1.Amplitude.Def);
+		DdsChannel1.SetOffset(DdsChannel1.Offset.Def);
 	
-	DdsChannel2.SetEnabled(false);
-	DdsChannel2.SetFrequency(DdsChannel2.Frequency.Def);
-	DdsChannel2.SetSignalForm(DdsChannel2.SignalForm.Def);
-	DdsChannel2.SetAmplitude(DdsChannel2.Amplitude.Def);
-	DdsChannel2.SetOffset(DdsChannel2.Offset.Def);
-	
+		DdsChannel2.SetEnabled(false);
+		DdsChannel2.SetFrequency(DdsChannel2.Frequency.Def);
+		DdsChannel2.SetSignalForm(DdsChannel2.SignalForm.Def);
+		DdsChannel2.SetAmplitude(DdsChannel2.Amplitude.Def);
+		DdsChannel2.SetOffset(DdsChannel2.Offset.Def);
+	#endif
+		
 	PowerOnOutputsState = DEV_POWERUP_OUTPUTS_OFF;
 	//Calibration factors are not resetted. A new calibration must be done to change the factors.
 	

@@ -14,10 +14,16 @@ typedef enum CalibrationStates
 	CAL_ATX_3V3,				// Calibrate the ATX 3V3 voltage
 	CAL_ATX_12V,				// Calibrate the ATX 12V voltage
 	CAL_ATX_12V_NEG,			// Calibrate the ATX 12V NEG voltage
-	CAL_DMM1,					// Calibrate the DMM1 voltage
-	CAL_DMM2,					// Calibrate the DMM2 voltage
-	CAL_PS_VOLT,				// Calibrate the PS_VOLT voltage
-	CAL_DDS_FREQ,				// Calibrate the DDS frequency
+	#ifdef MEASURE_SUBSYSTEM_ENABLED
+		CAL_DMM1,					// Calibrate the DMM1 voltage
+		CAL_DMM2,					// Calibrate the DMM2 voltage
+	#endif
+	#if defined MEASURE_SUBSYSTEM_ENABLED && defined PS_SUBSYSTEM_ENABLED 
+		CAL_PS_VOLT,				// Calibrate the PS_VOLT voltage
+	#endif
+	#if defined MEASURE_SUBSYSTEM_ENABLED && defined DDS_SUBSYSTEM_ENABLED
+		CAL_DDS_FREQ,				// Calibrate the DDS frequency
+	#endif
 	//...
 	NUM_CAL_STEPS		// The last element is used to determine the number of elements in the enumeration
 }CalibrationStates_t;
@@ -121,11 +127,17 @@ void OnButtonCalNext(void* context)
 			dtostrf(Device.CalibrationFactors.Cal_ATX_12V_NEG, 10, 3, buffer);
 			Usart0TransmitStr(buffer);*/
 			
-			CalState = CAL_DMM1;
-			numCtrl_Cal_tmpVoltage.Visible = false;
-			lbl_Cal_instruction.SetText("Connect +12V output to DMM1 input.");
+			#ifdef MEASURE_SUBSYSTEM_ENABLED
+				CalState = CAL_DMM1;
+				numCtrl_Cal_tmpVoltage.Visible = false;
+				lbl_Cal_instruction.SetText("Connect +12V output to DMM1 input.");
+			#else
+				Device.SaveSettingsCalibrationFactors();
+				Device.ScreenManager.UiManager.ChangeVisualTreeRoot(&msg_Cal_Finished);
+			#endif
 			break;
 		}
+	#ifdef MEASURE_SUBSYSTEM_ENABLED
 		case CAL_DMM1:
 		{
 			// Do DMM1 calibration
@@ -148,12 +160,27 @@ void OnButtonCalNext(void* context)
 			dtostrf(Device.CalibrationFactors.Cal_DMM2, 10, 3, buffer);
 			Usart0TransmitStr(buffer);*/			
 			
-			CalState = CAL_PS_VOLT;
-			Device.PsChannel.SetVoltage(10);		// Set output to 10V and enable it
-			Device.PsChannel.SetEnabled(true);
-			lbl_Cal_instruction.SetText("Connect PS+ output to DMM1 input.");
+			#ifdef PS_SUBSYSTEM_ENABLED 
+				CalState = CAL_PS_VOLT;
+				Device.PsChannel.SetVoltage(10);		// Set output to 10V and enable it
+				Device.PsChannel.SetEnabled(true);
+				lbl_Cal_instruction.SetText("Connect PS+ output to DMM1 input.");
+			#elif defined DDS_SUBSYSTEM_ENABLED
+				CalState = CAL_DDS_FREQ;
+				CalTmpFrequency = 1000;
+				Device.DdsChannel1.SetAmplitude(20);		// Set output to 10 V, 1 kHz and enable it
+				Device.DdsChannel1.SetFrequency(CalTmpFrequency);
+				Device.DdsChannel1.SetEnabled(true);
+				numCtrl_Cal_tmpFrequency.Visible = true;
+				lbl_Cal_instruction.SetText("Measure frequency at the DDS1 output:");
+			#else
+				Device.SaveSettingsCalibrationFactors();
+				Device.ScreenManager.UiManager.ChangeVisualTreeRoot(&msg_Cal_Finished);
+			#endif
 			break;
 		}
+	#endif
+	#if defined MEASURE_SUBSYSTEM_ENABLED && defined PS_SUBSYSTEM_ENABLED 
 		case CAL_PS_VOLT:
 		{
 			// Do PS_VOLT calibration
@@ -165,15 +192,22 @@ void OnButtonCalNext(void* context)
 			
 			Device.PsChannel.SetEnabled(false);
 			
-			CalState = CAL_DDS_FREQ;
-			CalTmpFrequency = 1000;
-			Device.DdsChannel1.SetAmplitude(20);		// Set output to 10 V, 1 kHz and enable it
-			Device.DdsChannel1.SetFrequency(CalTmpFrequency);
-			Device.DdsChannel1.SetEnabled(true);
-			numCtrl_Cal_tmpFrequency.Visible = true;
-			lbl_Cal_instruction.SetText("Measure frequency at the DDS1 output:");
+			#ifdef DDS_SUBSYSTEM_ENABLED 
+				CalState = CAL_DDS_FREQ;
+				CalTmpFrequency = 1000;
+				Device.DdsChannel1.SetAmplitude(20);		// Set output to 10 V, 1 kHz and enable it
+				Device.DdsChannel1.SetFrequency(CalTmpFrequency);
+				Device.DdsChannel1.SetEnabled(true);
+				numCtrl_Cal_tmpFrequency.Visible = true;
+				lbl_Cal_instruction.SetText("Measure frequency at the DDS1 output:");
+			#else
+				Device.SaveSettingsCalibrationFactors();
+				Device.ScreenManager.UiManager.ChangeVisualTreeRoot(&msg_Cal_Finished);
+			#endif
 			break;
 		}
+	#endif
+	#if defined MEASURE_SUBSYSTEM_ENABLED && defined DDS_SUBSYSTEM_ENABLED 
 		case CAL_DDS_FREQ:
 		{
 			// Do DDS frequency calibration
@@ -193,6 +227,7 @@ void OnButtonCalNext(void* context)
 			Device.ScreenManager.UiManager.ChangeVisualTreeRoot(&msg_Cal_Finished);
 			break;
 		}
+	#endif
 		default: break;
 	}
 	CalStateNumber = (uint8_t)CalState;

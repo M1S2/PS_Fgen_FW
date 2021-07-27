@@ -25,23 +25,29 @@
 	UIElement* uiBuildSplashScreen();
 #endif
 
-/**
- * Build the PowerSupply screen by linking all necessary components together.
- * @return UIElement representing the top level element of the PowerSupply screen.
- */
-UIElement* uiBuildScreenPS();
+#ifdef PS_SUBSYSTEM_ENABLED
+	/**
+	 * Build the PowerSupply screen by linking all necessary components together.
+	 * @return UIElement representing the top level element of the PowerSupply screen.
+	 */
+	UIElement* uiBuildScreenPS();
+#endif
 
-/**
- * Build the DDS screen by linking all necessary components together.
- * @return UIElement representing the top level element of the DDS screen.
- */
-UIElement* uiBuildScreenDDS();
+#ifdef DDS_SUBSYSTEM_ENABLED
+	/**
+	 * Build the DDS screen by linking all necessary components together.
+	 * @return UIElement representing the top level element of the DDS screen.
+	 */
+	UIElement* uiBuildScreenDDS();
+#endif
 
-/**
- * Build the Measure screen by linking all necessary components together.
- * @return UIElement representing the top level element of the Measure screen.
- */
-UIElement* uiBuildScreenMeasure();
+#ifdef MEASURE_SUBSYSTEM_ENABLED
+	/**
+	 * Build the Measure screen by linking all necessary components together.
+	 * @return UIElement representing the top level element of the Measure screen.
+	 */
+	UIElement* uiBuildScreenMeasure();
+#endif
 
 /**
  * Build the Settings screen by linking all necessary components together.

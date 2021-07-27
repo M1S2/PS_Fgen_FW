@@ -31,16 +31,20 @@ scpi_result_t scpi_cmd_outputGeneral(scpi_t * context)
 	
 	for(int i = 0; i < NUM_CHANNELS; i++)
 	{
-		if (Device.Channels[i]->GetChannelType() == POWER_SUPPLY_CHANNEL_TYPE)
-		{
-			PS_Channel* psChannel = (PS_Channel*)Device.Channels[i];
-			psChannel->SetEnabled(state);
-		}
-		else if (Device.Channels[i]->GetChannelType() == DDS_CHANNEL_TYPE)
-		{
-			DDS_Channel* ddsChannel = (DDS_Channel*)Device.Channels[i];
-			ddsChannel->SetEnabled(state);
-		}	
+		#ifdef PS_SUBSYSTEM_ENABLED
+			if (Device.Channels[i]->GetChannelType() == POWER_SUPPLY_CHANNEL_TYPE)
+			{
+				PS_Channel* psChannel = (PS_Channel*)Device.Channels[i];
+				psChannel->SetEnabled(state);
+			}
+		#endif
+		#ifdef DDS_SUBSYSTEM_ENABLED
+			if (Device.Channels[i]->GetChannelType() == DDS_CHANNEL_TYPE)
+			{
+				DDS_Channel* ddsChannel = (DDS_Channel*)Device.Channels[i];
+				ddsChannel->SetEnabled(state);
+			}	
+		#endif
 	}
 	
 	return SCPI_RES_OK;
@@ -54,18 +58,22 @@ scpi_result_t scpi_cmd_outputGeneralQ(scpi_t * context)
 	uint8_t numProcessedOutputs = 0;
 	for(int i = 0; i < NUM_CHANNELS; i++)
 	{
-		if (Device.Channels[i]->GetChannelType() == POWER_SUPPLY_CHANNEL_TYPE)
-		{
-			PS_Channel* psChannel = (PS_Channel*)Device.Channels[i];
-			outputStates[numProcessedOutputs] = (psChannel->GetEnabled() ? 1 : 0);
-			numProcessedOutputs++;
-		}
-		else if (Device.Channels[i]->GetChannelType() == DDS_CHANNEL_TYPE)
-		{
-			DDS_Channel* ddsChannel = (DDS_Channel*)Device.Channels[i];
-			outputStates[numProcessedOutputs] = (ddsChannel->GetEnabled() ? 1 : 0);
-			numProcessedOutputs++;
-		}
+		#ifdef PS_SUBSYSTEM_ENABLED
+			if (Device.Channels[i]->GetChannelType() == POWER_SUPPLY_CHANNEL_TYPE)
+			{
+				PS_Channel* psChannel = (PS_Channel*)Device.Channels[i];
+				outputStates[numProcessedOutputs] = (psChannel->GetEnabled() ? 1 : 0);
+				numProcessedOutputs++;
+			}
+		#endif
+		#ifdef DDS_SUBSYSTEM_ENABLED
+			if (Device.Channels[i]->GetChannelType() == DDS_CHANNEL_TYPE)
+			{
+				DDS_Channel* ddsChannel = (DDS_Channel*)Device.Channels[i];
+				outputStates[numProcessedOutputs] = (ddsChannel->GetEnabled() ? 1 : 0);
+				numProcessedOutputs++;
+			}
+		#endif
 	}
 	
 	SCPI_ResultArrayUInt8(context, outputStates, numProcessedOutputs, SCPI_FORMAT_ASCII);

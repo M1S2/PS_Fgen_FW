@@ -28,6 +28,10 @@ typedef enum SignalForms
 	#endif
 	NUM_SIGNALFORM_ELEMENTS		/**< The last element is used to determine the number of elements in the enumeration */
 } SignalForms_t;
+
+
+#ifdef DDS_SUBSYSTEM_ENABLED
+
 extern const char* SignalFormsNames[NUM_SIGNALFORM_ELEMENTS];
 
 /**
@@ -166,3 +170,5 @@ class DDS_Channel : public Channel
 };
 
 #endif /* DDS_CHANNEL_H_ */
+
+#endif /* DDS_SUBSYSTEM_ENABLED */

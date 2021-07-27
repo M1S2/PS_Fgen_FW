@@ -186,7 +186,7 @@ scpi_result_t scpi_cmd_sourceFrequencyFixedQ(scpi_t * context);						/**< Functi
 scpi_result_t scpi_cmd_sourceFunctionShape(scpi_t * context);						/**< Function executed when the SOURce#:FUNCtion[:SHAPe] command was received. */
 scpi_result_t scpi_cmd_sourceFunctionShapeQ(scpi_t * context);						/**< Function executed when the SOURce#:FUNCtion[:SHAPe]? command was received. */
 scpi_result_t scpi_cmd_sourceFunctionModeQ(scpi_t * context);						/**< Function executed when the SOURce#:FUNCtion:MODE? command was received. */
-#ifdef DDS_USER_DEFINED_WAVEFORMS_ENABLED
+#if defined DDS_USER_DEFINED_WAVEFORMS_ENABLED && defined DDS_SUBSYSTEM_ENABLED
 	scpi_result_t scpi_cmd_sourceFunctionData(scpi_t * context);					/**< Function executed when the SOURce#:FUNCtion:DATa command was received. */
 #endif
 

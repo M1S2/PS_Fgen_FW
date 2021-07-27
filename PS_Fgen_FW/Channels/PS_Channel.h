@@ -12,6 +12,8 @@
 #include "../Configuration.h"
 #include "Channel.h"
 
+#ifdef PS_SUBSYSTEM_ENABLED
+
 /**
  * Available power supply states.
  * Enumeration with all power supply states.
@@ -323,3 +325,5 @@ class PS_Channel : public Channel
 };
 
 #endif /* POWERSUPPLY_H_ */
+
+#endif /* PS_SUBSYSTEM_ENABLED */

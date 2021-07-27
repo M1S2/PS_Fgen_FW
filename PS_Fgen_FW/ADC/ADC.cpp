@@ -31,6 +31,7 @@ ISR(ADC_vect)
 
 	switch (adcChannel)
 	{
+	#ifdef PS_SUBSYSTEM_ENABLED
 		case 0:
 			Device.PsChannel.MeasuredCurrent = (adcVoltage / 2.4) * 1;		// Ucurr = R24 * (R22 / R23) * IL	=> IL = Ucurr / (R24 * (R22 / R23))
 			Device.PsChannel.MeasuredPower = Device.PsChannel.MeasuredVoltage * Device.PsChannel.MeasuredCurrent;
@@ -39,6 +40,7 @@ ISR(ADC_vect)
 			Device.PsChannel.MeasuredVoltage = adcVoltage * 2 * Device.CalibrationFactors.Cal_PS_VOLT;
 			Device.PsChannel.MeasuredPower = Device.PsChannel.MeasuredVoltage * Device.PsChannel.MeasuredCurrent;
 			break;
+	#endif
 		case 2:
 			Device.DeviceVoltages.ATX_12V_NEG = -adcVoltage * 2.4 * Device.CalibrationFactors.Cal_ATX_12V_NEG;
 			break;
@@ -51,12 +53,14 @@ ISR(ADC_vect)
 		case 5:
 			Device.DeviceVoltages.ATX_3V3 = adcVoltage * Device.CalibrationFactors.Cal_ATX_3V3;
 			break;
+	#ifdef MEASURE_SUBSYSTEM_ENABLED
 		case 6:
 			Device.DmmChannel1.MeasuredVoltage = adcVoltage * 5.17 * Device.CalibrationFactors.Cal_DMM1;
 			break;
 		case 7:
 			Device.DmmChannel2.MeasuredVoltage = adcVoltage * 5.17 * Device.CalibrationFactors.Cal_DMM2;
 			break;
+	#endif
 		default: break;
 	}
 

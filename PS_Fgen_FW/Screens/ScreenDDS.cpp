@@ -6,6 +6,8 @@
 
 #include "../Device.h"
 
+#ifdef DDS_SUBSYSTEM_ENABLED
+
 ContainerList list_DDS(40, 0, 240 - 40, 64);
 
 // ***** DDS1 page *****
@@ -92,3 +94,5 @@ UIElement* uiBuildScreenDDS()
 	
 	return &list_DDS;
 }
+
+#endif /* DDS_SUBSYSTEM_ENABLED */

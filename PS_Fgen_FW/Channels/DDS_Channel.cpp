@@ -8,6 +8,8 @@
 #include "../Device.h"
 #include <stddef.h>
 
+#ifdef DDS_SUBSYSTEM_ENABLED
+
 const char* SignalFormsNames[] = { "SINE", "RECT", "TRIANGLE", "SAWTOOTH", "DC" 
 	#ifdef DDS_USER_DEFINED_WAVEFORMS_ENABLED
 		, "USER"
@@ -253,3 +255,5 @@ void DDS_Channel::DDSEnabledChanged(void* channel)
 
 	Device.SetSettingsChanged(true);
 }
+
+#endif /* DDS_SUBSYSTEM_ENABLED */

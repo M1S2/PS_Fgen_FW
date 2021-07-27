@@ -17,9 +17,15 @@
  */
 typedef enum ChannelTypes
 {
-	POWER_SUPPLY_CHANNEL_TYPE,	/**< Power supply channel type. */ 
-	DDS_CHANNEL_TYPE,			/**< Direct digital synthesis channel type. */ 
-	DMM_CHANNEL_TYPE			/**< Digital multimeter channel type. */ 
+	#ifdef PS_SUBSYSTEM_ENABLED
+		POWER_SUPPLY_CHANNEL_TYPE,	/**< Power supply channel type. */ 
+	#endif
+	#ifdef DDS_SUBSYSTEM_ENABLED
+		DDS_CHANNEL_TYPE,			/**< Direct digital synthesis channel type. */
+	#endif
+	#ifdef MEASURE_SUBSYSTEM_ENABLED
+		DMM_CHANNEL_TYPE			/**< Digital multimeter channel type. */ 
+	#endif
 } ChannelTypes_t;
 
 /**

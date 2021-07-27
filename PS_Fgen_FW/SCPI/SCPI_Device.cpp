@@ -104,7 +104,7 @@ const scpi_command_t scpi_commands[] =
 	{"SOURce#:FUNCtion[:SHAPe]", scpi_cmd_sourceFunctionShape, 0},
 	{"SOURce#:FUNCtion[:SHAPe]?", scpi_cmd_sourceFunctionShapeQ, 0},
 	{"SOURce#:FUNCtion:MODE?", scpi_cmd_sourceFunctionModeQ, 0},
-	#ifdef DDS_USER_DEFINED_WAVEFORMS_ENABLED
+	#if defined DDS_USER_DEFINED_WAVEFORMS_ENABLED && defined DDS_SUBSYSTEM_ENABLED
 		{"SOURce#:FUNCtion:DATa", scpi_cmd_sourceFunctionData, 0},
 	#endif
 	
@@ -241,64 +241,69 @@ scpi_result_t SCPI_QueryChannelParameter(scpi_t * context, SCPIChannelParameters
 		return SCPI_SetResult_ChannelOutOfRange(context);
 	}
 	
-	if (Device.Channels[channelNum]->GetChannelType() == POWER_SUPPLY_CHANNEL_TYPE)
-	{
-		PS_Channel* psChannel = (PS_Channel*)Device.Channels[channelNum];
-		switch(paramType)
+	#ifdef PS_SUBSYSTEM_ENABLED
+		if (Device.Channels[channelNum]->GetChannelType() == POWER_SUPPLY_CHANNEL_TYPE)
 		{
-			case SCPI_CHPARAM_OUTPUTSTATE: SCPI_ResultBool(context, psChannel->GetEnabled()); break;
-			case SCPI_CHPARAM_AMPLITUDE: SCPI_ResultFloat(context, psChannel->GetVoltage()); break;
-			case SCPI_CHPARAM_CURRENT: SCPI_ResultFloat(context, psChannel->GetCurrent()); break;
-			case SCPI_CHPARAM_MEASURED_AMPLITUDE: SCPI_ResultFloat(context, psChannel->MeasuredVoltage); break;
-			case SCPI_CHPARAM_MEASURED_CURRENT: SCPI_ResultFloat(context, psChannel->MeasuredCurrent); break;
-			case SCPI_CHPARAM_MEASURED_POWER: SCPI_ResultFloat(context, psChannel->MeasuredPower); break;
-			case SCPI_CHPARAM_OVP_LEVEL: SCPI_ResultUInt8(context, psChannel->GetOvpLevel()); break;
-			case SCPI_CHPARAM_OVP_STATE: SCPI_ResultBool(context, psChannel->GetOvpState()); break;
-			case SCPI_CHPARAM_OVP_DELAY: SCPI_ResultFloat(context, psChannel->GetOvpDelay()); break;
-			case SCPI_CHPARAM_OCP_LEVEL: SCPI_ResultUInt8(context, psChannel->GetOcpLevel()); break;
-			case SCPI_CHPARAM_OCP_STATE: SCPI_ResultBool(context, psChannel->GetOcpState()); break;
-			case SCPI_CHPARAM_OCP_DELAY: SCPI_ResultFloat(context, psChannel->GetOcpDelay()); break;
-			case SCPI_CHPARAM_OPP_LEVEL: SCPI_ResultFloat(context, psChannel->GetOppLevel()); break;
-			case SCPI_CHPARAM_OPP_STATE: SCPI_ResultBool(context, psChannel->GetOppState()); break;
-			case SCPI_CHPARAM_OPP_DELAY: SCPI_ResultFloat(context, psChannel->GetOppDelay()); break;
-			default: return SCPI_SetResult_NotSupportedByChannel(context);
-		}
-	}
-	else if (Device.Channels[channelNum]->GetChannelType() == DDS_CHANNEL_TYPE)
-	{
-		DDS_Channel* ddsChannel = (DDS_Channel*)Device.Channels[channelNum];
-		switch(paramType)
-		{
-			case SCPI_CHPARAM_OUTPUTSTATE: SCPI_ResultBool(context, ddsChannel->GetEnabled()); break;
-			case SCPI_CHPARAM_AMPLITUDE: SCPI_ResultFloat(context, ddsChannel->GetAmplitude()); break;
-			case SCPI_CHPARAM_OFFSET: SCPI_ResultFloat(context, ddsChannel->GetOffset()); break;
-			case SCPI_CHPARAM_FREQUENCY: SCPI_ResultFloat(context, ddsChannel->GetFrequency()); break;
-			case SCPI_CHPARAM_SIGNALFORM: 
+			PS_Channel* psChannel = (PS_Channel*)Device.Channels[channelNum];
+			switch(paramType)
 			{
-				const char* buffer;
-				if (!SCPI_ChoiceToName(signalform_choice, (int32_t)ddsChannel->GetSignalForm(), &buffer)) { return SCPI_RES_ERR; }
-				
-				SCPI_ResultCharacters(context, buffer, strlen(buffer));
-				break;
+				case SCPI_CHPARAM_OUTPUTSTATE: SCPI_ResultBool(context, psChannel->GetEnabled()); break;
+				case SCPI_CHPARAM_AMPLITUDE: SCPI_ResultFloat(context, psChannel->GetVoltage()); break;
+				case SCPI_CHPARAM_CURRENT: SCPI_ResultFloat(context, psChannel->GetCurrent()); break;
+				case SCPI_CHPARAM_MEASURED_AMPLITUDE: SCPI_ResultFloat(context, psChannel->MeasuredVoltage); break;
+				case SCPI_CHPARAM_MEASURED_CURRENT: SCPI_ResultFloat(context, psChannel->MeasuredCurrent); break;
+				case SCPI_CHPARAM_MEASURED_POWER: SCPI_ResultFloat(context, psChannel->MeasuredPower); break;
+				case SCPI_CHPARAM_OVP_LEVEL: SCPI_ResultUInt8(context, psChannel->GetOvpLevel()); break;
+				case SCPI_CHPARAM_OVP_STATE: SCPI_ResultBool(context, psChannel->GetOvpState()); break;
+				case SCPI_CHPARAM_OVP_DELAY: SCPI_ResultFloat(context, psChannel->GetOvpDelay()); break;
+				case SCPI_CHPARAM_OCP_LEVEL: SCPI_ResultUInt8(context, psChannel->GetOcpLevel()); break;
+				case SCPI_CHPARAM_OCP_STATE: SCPI_ResultBool(context, psChannel->GetOcpState()); break;
+				case SCPI_CHPARAM_OCP_DELAY: SCPI_ResultFloat(context, psChannel->GetOcpDelay()); break;
+				case SCPI_CHPARAM_OPP_LEVEL: SCPI_ResultFloat(context, psChannel->GetOppLevel()); break;
+				case SCPI_CHPARAM_OPP_STATE: SCPI_ResultBool(context, psChannel->GetOppState()); break;
+				case SCPI_CHPARAM_OPP_DELAY: SCPI_ResultFloat(context, psChannel->GetOppDelay()); break;
+				default: return SCPI_SetResult_NotSupportedByChannel(context);
 			}
-			default: return SCPI_SetResult_NotSupportedByChannel(context);
+			return SCPI_RES_OK;
 		}
-	}
-	else if (Device.Channels[channelNum]->GetChannelType() == DMM_CHANNEL_TYPE)
-	{
-		DMM_Channel* dmmChannel = (DMM_Channel*)Device.Channels[channelNum];
-		switch(paramType)
+	#endif
+	#ifdef DDS_SUBSYSTEM_ENABLED
+		if (Device.Channels[channelNum]->GetChannelType() == DDS_CHANNEL_TYPE)
 		{
-			case SCPI_CHPARAM_MEASURED_AMPLITUDE: SCPI_ResultFloat(context, dmmChannel->MeasuredVoltage); break;
-			default: return SCPI_SetResult_NotSupportedByChannel(context);
+			DDS_Channel* ddsChannel = (DDS_Channel*)Device.Channels[channelNum];
+			switch(paramType)
+			{
+				case SCPI_CHPARAM_OUTPUTSTATE: SCPI_ResultBool(context, ddsChannel->GetEnabled()); break;
+				case SCPI_CHPARAM_AMPLITUDE: SCPI_ResultFloat(context, ddsChannel->GetAmplitude()); break;
+				case SCPI_CHPARAM_OFFSET: SCPI_ResultFloat(context, ddsChannel->GetOffset()); break;
+				case SCPI_CHPARAM_FREQUENCY: SCPI_ResultFloat(context, ddsChannel->GetFrequency()); break;
+				case SCPI_CHPARAM_SIGNALFORM: 
+				{
+					const char* buffer;
+					if (!SCPI_ChoiceToName(signalform_choice, (int32_t)ddsChannel->GetSignalForm(), &buffer)) { return SCPI_RES_ERR; }
+				
+					SCPI_ResultCharacters(context, buffer, strlen(buffer));
+					break;
+				}
+				default: return SCPI_SetResult_NotSupportedByChannel(context);
+			}
+			return SCPI_RES_OK;
 		}
-	}
-	else
-	{
-		return SCPI_SetResult_NotSupportedByChannel(context);
-	}
-	
-	return SCPI_RES_OK;
+	#endif
+	#ifdef MEASURE_SUBSYSTEM_ENABLED
+		if (Device.Channels[channelNum]->GetChannelType() == DMM_CHANNEL_TYPE)
+		{
+			DMM_Channel* dmmChannel = (DMM_Channel*)Device.Channels[channelNum];
+			switch(paramType)
+			{
+				case SCPI_CHPARAM_MEASURED_AMPLITUDE: SCPI_ResultFloat(context, dmmChannel->MeasuredVoltage); break;
+				default: return SCPI_SetResult_NotSupportedByChannel(context);
+			}
+			return SCPI_RES_OK;
+		}
+	#endif
+
+	return SCPI_SetResult_NotSupportedByChannel(context);
 }
 
 //----------------------------------------------------------------------------------------------------------
@@ -314,247 +319,249 @@ scpi_result_t SCPI_SetChannelParameter(scpi_t * context, SCPIChannelParameters_t
 		return SCPI_SetResult_ChannelOutOfRange(context);
 	}
 	
-	if (Device.Channels[channelNum]->GetChannelType() == POWER_SUPPLY_CHANNEL_TYPE)
-	{
-		PS_Channel* psChannel = (PS_Channel*)Device.Channels[channelNum];
-		
-		switch(paramType)
+	#ifdef PS_SUBSYSTEM_ENABLED
+		if (Device.Channels[channelNum]->GetChannelType() == POWER_SUPPLY_CHANNEL_TYPE)
 		{
-			case SCPI_CHPARAM_OUTPUTSTATE:
+			PS_Channel* psChannel = (PS_Channel*)Device.Channels[channelNum];
+		
+			switch(paramType)
 			{
-				scpi_bool_t state;
-				if(!SCPI_ParamBool(context, &state, TRUE)) { return SCPI_RES_ERR; }
+				case SCPI_CHPARAM_OUTPUTSTATE:
+				{
+					scpi_bool_t state;
+					if(!SCPI_ParamBool(context, &state, TRUE)) { return SCPI_RES_ERR; }
 					
-				psChannel->SetEnabled(state);
-				break;
-			}
-			case SCPI_CHPARAM_AMPLITUDE:
-			{
-				scpi_number_t param;
-				if(!SCPI_ParamNumber(context, scpi_special_numbers_def, &param, TRUE)) { return SCPI_RES_ERR; }
-				
-				float amplitude = psChannel->GetVoltage();
-				if (!SCPI_GetNumericFromParam(context, param, amplitude, SCPI_UNIT_VOLT, psChannel->Voltage.Min, psChannel->Voltage.Max, psChannel->Voltage.Def, psChannel->Voltage.Step))
-				{
-					return SCPI_RES_ERR;
+					psChannel->SetEnabled(state);
+					break;
 				}
-				psChannel->SetVoltage(amplitude);
-				break;
-			}
-			case SCPI_CHPARAM_CURRENT:
-			{
-				scpi_number_t param;
-				if(!SCPI_ParamNumber(context, scpi_special_numbers_def, &param, TRUE)) { return SCPI_RES_ERR; }
-				
-				float current = psChannel->GetCurrent();
-				if (!SCPI_GetNumericFromParam(context, param, current, SCPI_UNIT_AMPER, psChannel->Current.Min, psChannel->Current.Max, psChannel->Current.Def, psChannel->Current.Step))
+				case SCPI_CHPARAM_AMPLITUDE:
 				{
-					return SCPI_RES_ERR;
-				}
-				psChannel->SetCurrent(current);
-				break;
-			}
-			case SCPI_CHPARAM_OVP_LEVEL:
-			{
-				scpi_number_t param;
-				if(!SCPI_ParamNumber(context, scpi_special_numbers_def, &param, TRUE)) { return SCPI_RES_ERR; }
+					scpi_number_t param;
+					if(!SCPI_ParamNumber(context, scpi_special_numbers_def, &param, TRUE)) { return SCPI_RES_ERR; }
 				
-				float ovpLevel = (float)psChannel->GetOvpLevel();
-				if (!SCPI_GetNumericFromParam(context, param, ovpLevel, SCPI_UNIT_NONE, psChannel->OvpLevel.Min, psChannel->OvpLevel.Max, psChannel->OvpLevel.Def, psChannel->OvpLevel.Step))
+					float amplitude = psChannel->GetVoltage();
+					if (!SCPI_GetNumericFromParam(context, param, amplitude, SCPI_UNIT_VOLT, psChannel->Voltage.Min, psChannel->Voltage.Max, psChannel->Voltage.Def, psChannel->Voltage.Step))
+					{
+						return SCPI_RES_ERR;
+					}
+					psChannel->SetVoltage(amplitude);
+					break;
+				}
+				case SCPI_CHPARAM_CURRENT:
 				{
-					return SCPI_RES_ERR;
+					scpi_number_t param;
+					if(!SCPI_ParamNumber(context, scpi_special_numbers_def, &param, TRUE)) { return SCPI_RES_ERR; }
+				
+					float current = psChannel->GetCurrent();
+					if (!SCPI_GetNumericFromParam(context, param, current, SCPI_UNIT_AMPER, psChannel->Current.Min, psChannel->Current.Max, psChannel->Current.Def, psChannel->Current.Step))
+					{
+						return SCPI_RES_ERR;
+					}
+					psChannel->SetCurrent(current);
+					break;
 				}
-				psChannel->SetOvpLevel((uint8_t)ovpLevel);
-				break;
-			}
-			case SCPI_CHPARAM_OVP_STATE:
-			{
-				scpi_bool_t state;
-				if(!SCPI_ParamBool(context, &state, TRUE)) { return SCPI_RES_ERR; }
-				
-				psChannel->SetOvpState(state);
-				break;
-			}			
-			case SCPI_CHPARAM_OVP_DELAY: 
-			{
-				scpi_number_t param;
-				if(!SCPI_ParamNumber(context, scpi_special_numbers_def, &param, TRUE)) { return SCPI_RES_ERR; }
-				
-				float ovpDelay = psChannel->GetOvpDelay();
-				if (!SCPI_GetNumericFromParam(context, param, ovpDelay, SCPI_UNIT_SECOND, psChannel->OvpDelay.Min, psChannel->OvpDelay.Max, psChannel->OvpDelay.Def, psChannel->OvpDelay.Step))
+				case SCPI_CHPARAM_OVP_LEVEL:
 				{
-					return SCPI_RES_ERR;
-				}
-				psChannel->SetOvpDelay(ovpDelay);
-				break;
-			}
-			case SCPI_CHPARAM_OCP_LEVEL:
-			{
-				scpi_number_t param;
-				if(!SCPI_ParamNumber(context, scpi_special_numbers_def, &param, TRUE)) { return SCPI_RES_ERR; }
+					scpi_number_t param;
+					if(!SCPI_ParamNumber(context, scpi_special_numbers_def, &param, TRUE)) { return SCPI_RES_ERR; }
 				
-				float ocpLevel = (float)psChannel->GetOcpLevel();
-				if (!SCPI_GetNumericFromParam(context, param, ocpLevel, SCPI_UNIT_NONE, psChannel->OcpLevel.Min, psChannel->OcpLevel.Max, psChannel->OcpLevel.Def, psChannel->OcpLevel.Step))
+					float ovpLevel = (float)psChannel->GetOvpLevel();
+					if (!SCPI_GetNumericFromParam(context, param, ovpLevel, SCPI_UNIT_NONE, psChannel->OvpLevel.Min, psChannel->OvpLevel.Max, psChannel->OvpLevel.Def, psChannel->OvpLevel.Step))
+					{
+						return SCPI_RES_ERR;
+					}
+					psChannel->SetOvpLevel((uint8_t)ovpLevel);
+					break;
+				}
+				case SCPI_CHPARAM_OVP_STATE:
 				{
-					return SCPI_RES_ERR;
-				}
-				psChannel->SetOcpLevel((uint8_t)ocpLevel);
-				break;
-			}
-			case SCPI_CHPARAM_OCP_STATE:
-			{
-				scpi_bool_t state;
-				if(!SCPI_ParamBool(context, &state, TRUE)) { return SCPI_RES_ERR; }
+					scpi_bool_t state;
+					if(!SCPI_ParamBool(context, &state, TRUE)) { return SCPI_RES_ERR; }
 				
-				psChannel->SetOcpState(state);
-				break;
-			}
-			case SCPI_CHPARAM_OCP_DELAY:
-			{
-				scpi_number_t param;
-				if(!SCPI_ParamNumber(context, scpi_special_numbers_def, &param, TRUE)) { return SCPI_RES_ERR; }
-				
-				float ocpDelay = psChannel->GetOcpDelay();
-				if (!SCPI_GetNumericFromParam(context, param, ocpDelay, SCPI_UNIT_SECOND, psChannel->OcpDelay.Min, psChannel->OcpDelay.Max, psChannel->OcpDelay.Def, psChannel->OcpDelay.Step))
+					psChannel->SetOvpState(state);
+					break;
+				}			
+				case SCPI_CHPARAM_OVP_DELAY: 
 				{
-					return SCPI_RES_ERR;
-				}
-				psChannel->SetOcpDelay(ocpDelay);
-				break;
-			}		
-			case SCPI_CHPARAM_OPP_LEVEL:
-			{
-				scpi_number_t param;
-				if(!SCPI_ParamNumber(context, scpi_special_numbers_def, &param, TRUE)) { return SCPI_RES_ERR; }
+					scpi_number_t param;
+					if(!SCPI_ParamNumber(context, scpi_special_numbers_def, &param, TRUE)) { return SCPI_RES_ERR; }
 				
-				float oppLevel = psChannel->GetOppLevel();
-				if (!SCPI_GetNumericFromParam(context, param, oppLevel, SCPI_UNIT_WATT, psChannel->OppLevel.Min, psChannel->OppLevel.Max, psChannel->OppLevel.Def, psChannel->OppLevel.Step))
+					float ovpDelay = psChannel->GetOvpDelay();
+					if (!SCPI_GetNumericFromParam(context, param, ovpDelay, SCPI_UNIT_SECOND, psChannel->OvpDelay.Min, psChannel->OvpDelay.Max, psChannel->OvpDelay.Def, psChannel->OvpDelay.Step))
+					{
+						return SCPI_RES_ERR;
+					}
+					psChannel->SetOvpDelay(ovpDelay);
+					break;
+				}
+				case SCPI_CHPARAM_OCP_LEVEL:
 				{
-					return SCPI_RES_ERR;
+					scpi_number_t param;
+					if(!SCPI_ParamNumber(context, scpi_special_numbers_def, &param, TRUE)) { return SCPI_RES_ERR; }
+				
+					float ocpLevel = (float)psChannel->GetOcpLevel();
+					if (!SCPI_GetNumericFromParam(context, param, ocpLevel, SCPI_UNIT_NONE, psChannel->OcpLevel.Min, psChannel->OcpLevel.Max, psChannel->OcpLevel.Def, psChannel->OcpLevel.Step))
+					{
+						return SCPI_RES_ERR;
+					}
+					psChannel->SetOcpLevel((uint8_t)ocpLevel);
+					break;
 				}
-				psChannel->SetOppLevel(oppLevel);
-				break;
-			}
-			case SCPI_CHPARAM_OPP_STATE:
-			{
-				scpi_bool_t state;
-				if(!SCPI_ParamBool(context, &state, TRUE)) { return SCPI_RES_ERR; }
-				
-				psChannel->SetOppState(state);
-				break;
-			}
-			case SCPI_CHPARAM_OPP_DELAY:
-			{
-				scpi_number_t param;
-				if(!SCPI_ParamNumber(context, scpi_special_numbers_def, &param, TRUE)) { return SCPI_RES_ERR; }
-				
-				float oppDelay = psChannel->GetOppDelay();
-				if (!SCPI_GetNumericFromParam(context, param, oppDelay, SCPI_UNIT_SECOND, psChannel->OppDelay.Min, psChannel->OppDelay.Max, psChannel->OppDelay.Def, psChannel->OppDelay.Step))
+				case SCPI_CHPARAM_OCP_STATE:
 				{
-					return SCPI_RES_ERR;
+					scpi_bool_t state;
+					if(!SCPI_ParamBool(context, &state, TRUE)) { return SCPI_RES_ERR; }
+				
+					psChannel->SetOcpState(state);
+					break;
 				}
-				psChannel->SetOppDelay(oppDelay);
-				break;
-			}				
-			default: return SCPI_SetResult_NotSupportedByChannel(context);
+				case SCPI_CHPARAM_OCP_DELAY:
+				{
+					scpi_number_t param;
+					if(!SCPI_ParamNumber(context, scpi_special_numbers_def, &param, TRUE)) { return SCPI_RES_ERR; }
+				
+					float ocpDelay = psChannel->GetOcpDelay();
+					if (!SCPI_GetNumericFromParam(context, param, ocpDelay, SCPI_UNIT_SECOND, psChannel->OcpDelay.Min, psChannel->OcpDelay.Max, psChannel->OcpDelay.Def, psChannel->OcpDelay.Step))
+					{
+						return SCPI_RES_ERR;
+					}
+					psChannel->SetOcpDelay(ocpDelay);
+					break;
+				}		
+				case SCPI_CHPARAM_OPP_LEVEL:
+				{
+					scpi_number_t param;
+					if(!SCPI_ParamNumber(context, scpi_special_numbers_def, &param, TRUE)) { return SCPI_RES_ERR; }
+				
+					float oppLevel = psChannel->GetOppLevel();
+					if (!SCPI_GetNumericFromParam(context, param, oppLevel, SCPI_UNIT_WATT, psChannel->OppLevel.Min, psChannel->OppLevel.Max, psChannel->OppLevel.Def, psChannel->OppLevel.Step))
+					{
+						return SCPI_RES_ERR;
+					}
+					psChannel->SetOppLevel(oppLevel);
+					break;
+				}
+				case SCPI_CHPARAM_OPP_STATE:
+				{
+					scpi_bool_t state;
+					if(!SCPI_ParamBool(context, &state, TRUE)) { return SCPI_RES_ERR; }
+				
+					psChannel->SetOppState(state);
+					break;
+				}
+				case SCPI_CHPARAM_OPP_DELAY:
+				{
+					scpi_number_t param;
+					if(!SCPI_ParamNumber(context, scpi_special_numbers_def, &param, TRUE)) { return SCPI_RES_ERR; }
+				
+					float oppDelay = psChannel->GetOppDelay();
+					if (!SCPI_GetNumericFromParam(context, param, oppDelay, SCPI_UNIT_SECOND, psChannel->OppDelay.Min, psChannel->OppDelay.Max, psChannel->OppDelay.Def, psChannel->OppDelay.Step))
+					{
+						return SCPI_RES_ERR;
+					}
+					psChannel->SetOppDelay(oppDelay);
+					break;
+				}				
+				default: return SCPI_SetResult_NotSupportedByChannel(context);
+			}
+			return SCPI_RES_OK;
 		}
-	}
-	else if (Device.Channels[channelNum]->GetChannelType() == DDS_CHANNEL_TYPE)
-	{
-		DDS_Channel* ddsChannel = (DDS_Channel*)Device.Channels[channelNum];
-		
-		switch(paramType)
+	#endif
+	#ifdef DDS_SUBSYSTEM_ENABLED
+		if (Device.Channels[channelNum]->GetChannelType() == DDS_CHANNEL_TYPE)
 		{
-			case SCPI_CHPARAM_OUTPUTSTATE:
+			DDS_Channel* ddsChannel = (DDS_Channel*)Device.Channels[channelNum];
+		
+			switch(paramType)
 			{
-				scpi_bool_t state;
-				if(!SCPI_ParamBool(context, &state, TRUE)) { return SCPI_RES_ERR; }
+				case SCPI_CHPARAM_OUTPUTSTATE:
+				{
+					scpi_bool_t state;
+					if(!SCPI_ParamBool(context, &state, TRUE)) { return SCPI_RES_ERR; }
 
-				ddsChannel->SetEnabled(state);
-				break;
-			}
-			case SCPI_CHPARAM_AMPLITUDE:
-			{
-				scpi_number_t param;
-				if(!SCPI_ParamNumber(context, scpi_special_numbers_def, &param, TRUE)) { return SCPI_RES_ERR; }
+					ddsChannel->SetEnabled(state);
+					break;
+				}
+				case SCPI_CHPARAM_AMPLITUDE:
+				{
+					scpi_number_t param;
+					if(!SCPI_ParamNumber(context, scpi_special_numbers_def, &param, TRUE)) { return SCPI_RES_ERR; }
 					
-				float amplitude = ddsChannel->GetAmplitude();
-				if (!SCPI_GetNumericFromParam(context, param, amplitude, SCPI_UNIT_VOLT, ddsChannel->Amplitude.Min, ddsChannel->Amplitude.Max, ddsChannel->Amplitude.Def, ddsChannel->Amplitude.Step))
-				{
-					return SCPI_RES_ERR;
+					float amplitude = ddsChannel->GetAmplitude();
+					if (!SCPI_GetNumericFromParam(context, param, amplitude, SCPI_UNIT_VOLT, ddsChannel->Amplitude.Min, ddsChannel->Amplitude.Max, ddsChannel->Amplitude.Def, ddsChannel->Amplitude.Step))
+					{
+						return SCPI_RES_ERR;
+					}
+					ddsChannel->SetAmplitude(amplitude);
+					break;
 				}
-				ddsChannel->SetAmplitude(amplitude);
-				break;
-			}
-			case SCPI_CHPARAM_OFFSET:
-			{
-				scpi_number_t param;
-				if(!SCPI_ParamNumber(context, scpi_special_numbers_def, &param, TRUE)) { return SCPI_RES_ERR; }
+				case SCPI_CHPARAM_OFFSET:
+				{
+					scpi_number_t param;
+					if(!SCPI_ParamNumber(context, scpi_special_numbers_def, &param, TRUE)) { return SCPI_RES_ERR; }
 					
-				float offset = ddsChannel->GetOffset();
-				if (!SCPI_GetNumericFromParam(context, param, offset, SCPI_UNIT_VOLT, ddsChannel->Offset.Min, ddsChannel->Offset.Max, ddsChannel->Offset.Def, ddsChannel->Offset.Step))
-				{
-					return SCPI_RES_ERR;
+					float offset = ddsChannel->GetOffset();
+					if (!SCPI_GetNumericFromParam(context, param, offset, SCPI_UNIT_VOLT, ddsChannel->Offset.Min, ddsChannel->Offset.Max, ddsChannel->Offset.Def, ddsChannel->Offset.Step))
+					{
+						return SCPI_RES_ERR;
+					}
+					ddsChannel->SetOffset(offset);
+					break;
 				}
-				ddsChannel->SetOffset(offset);
-				break;
-			}
-			case SCPI_CHPARAM_FREQUENCY:
-			{
-				scpi_number_t param;
-				if(!SCPI_ParamNumber(context, scpi_special_numbers_def, &param, TRUE)) { return SCPI_RES_ERR; }
+				case SCPI_CHPARAM_FREQUENCY:
+				{
+					scpi_number_t param;
+					if(!SCPI_ParamNumber(context, scpi_special_numbers_def, &param, TRUE)) { return SCPI_RES_ERR; }
 					
-				float frequency = ddsChannel->GetFrequency();
-				if (!SCPI_GetNumericFromParam(context, param, frequency, SCPI_UNIT_HERTZ, ddsChannel->Frequency.Min, ddsChannel->Frequency.Max, ddsChannel->Frequency.Def, ddsChannel->Frequency.Step))
-				{
-					return SCPI_RES_ERR;
+					float frequency = ddsChannel->GetFrequency();
+					if (!SCPI_GetNumericFromParam(context, param, frequency, SCPI_UNIT_HERTZ, ddsChannel->Frequency.Min, ddsChannel->Frequency.Max, ddsChannel->Frequency.Def, ddsChannel->Frequency.Step))
+					{
+						return SCPI_RES_ERR;
+					}
+					ddsChannel->SetFrequency(frequency);
+					break;
 				}
-				ddsChannel->SetFrequency(frequency);
-				break;
-			}
-			case SCPI_CHPARAM_SIGNALFORM:
-			{
-				int32_t signalForm;
-				if (!SCPI_ParamChoice(context, signalform_choice, &signalForm, TRUE)) { return SCPI_RES_ERR; }
-				
-				ddsChannel->SetSignalForm((SignalForms_t)signalForm);
-				break;
-			}
-			#ifdef DDS_USER_DEFINED_WAVEFORMS_ENABLED
-			case SCPI_CHPARAM_USERWAVEFORMDATA:
-			{
-				const char* userWaveformBuffer;
-				size_t arbitraryBlockLen;
-				if (!SCPI_ParamArbitraryBlock(context, &userWaveformBuffer, &arbitraryBlockLen, TRUE)) { return SCPI_RES_ERR; }
-				
-				for(int i = 0; i < (1 << DDS_QUANTIZER_BITS); i++)		// Set all array elements to 0
+				case SCPI_CHPARAM_SIGNALFORM:
 				{
-					ddsChannel->UserWaveTable[i] = 0;
+					int32_t signalForm;
+					if (!SCPI_ParamChoice(context, signalform_choice, &signalForm, TRUE)) { return SCPI_RES_ERR; }
+				
+					ddsChannel->SetSignalForm((SignalForms_t)signalForm);
+					break;
 				}
-				
-				for(unsigned int i = 0; i < arbitraryBlockLen; i+=2)		// Combine 2 bytes (only lower 12 bits are used in DDS algorithm) 
+				#if defined DDS_USER_DEFINED_WAVEFORMS_ENABLED && defined DDS_SUBSYSTEM_ENABLED
+				case SCPI_CHPARAM_USERWAVEFORMDATA:
 				{
-					if(i >= arbitraryBlockLen || (i + 1) >= arbitraryBlockLen || (i / 2) >= (1 << DDS_QUANTIZER_BITS)) { break; }
+					const char* userWaveformBuffer;
+					size_t arbitraryBlockLen;
+					if (!SCPI_ParamArbitraryBlock(context, &userWaveformBuffer, &arbitraryBlockLen, TRUE)) { return SCPI_RES_ERR; }
+				
+					for(int i = 0; i < (1 << DDS_QUANTIZER_BITS); i++)		// Set all array elements to 0
+					{
+						ddsChannel->UserWaveTable[i] = 0;
+					}
+				
+					for(unsigned int i = 0; i < arbitraryBlockLen; i+=2)		// Combine 2 bytes (only lower 12 bits are used in DDS algorithm) 
+					{
+						if(i >= arbitraryBlockLen || (i + 1) >= arbitraryBlockLen || (i / 2) >= (1 << DDS_QUANTIZER_BITS)) { break; }
 					
-					ddsChannel->UserWaveTable[i / 2] = (uint16_t)((userWaveformBuffer[i] << 8) + userWaveformBuffer[i + 1]);
+						ddsChannel->UserWaveTable[i / 2] = (uint16_t)((userWaveformBuffer[i] << 8) + userWaveformBuffer[i + 1]);
+					}
+					ddsChannel->UpdateWaveTable();
+					Device.SaveSettingsDDSUserWaveforms();
+				
+					Usart0TransmitStr("User Waveform updated\r\n");
+				
+					break;
 				}
-				ddsChannel->UpdateWaveTable();
-				Device.SaveSettingsDDSUserWaveforms();
-				
-				Usart0TransmitStr("User Waveform updated\r\n");
-				
-				break;
+				#endif
+				default: return SCPI_SetResult_NotSupportedByChannel(context);
 			}
-			#endif
-			default: return SCPI_SetResult_NotSupportedByChannel(context);
+			return SCPI_RES_OK;
 		}
-	}
-	else
-	{
-		return SCPI_SetResult_NotSupportedByChannel(context);
-	}
-	
-	return SCPI_RES_OK;
+	#endif
+
+	return SCPI_SetResult_NotSupportedByChannel(context);
 }
 
 //----------------------------------------------------------------------------------------------------------

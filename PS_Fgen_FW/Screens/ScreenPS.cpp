@@ -6,6 +6,8 @@
 
 #include "../Device.h"
 
+#ifdef PS_SUBSYSTEM_ENABLED
+
 ContainerList list_PS(SCREEN_TAB_WIDTH, 0, 240 - SCREEN_TAB_WIDTH, 64);
 
 #define PS_COLUMN1_POSX		SCREEN_TAB_WIDTH + 5
@@ -139,3 +141,5 @@ UIElement* uiBuildScreenPS()
 						
 	return &list_PS;
 }
+
+#endif /* PS_SUBSYSTEM_ENABLED */

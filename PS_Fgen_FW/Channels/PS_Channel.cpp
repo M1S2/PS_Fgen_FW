@@ -7,6 +7,8 @@
 #include "PS_Channel.h"
 #include "../Device.h"
 
+#ifdef PS_SUBSYSTEM_ENABLED
+
 const char* PSStatesNames[] = { "CV", "CC", "OVP", "OCP", "OPP" };
 
 PS_Channel::PS_Channel(float minVolt, float maxVolt, float minCurrent, float maxCurrent, uint8_t minOvpLevel, uint8_t maxOvpLevel, float minOvpDelay, float maxOvpDelay, uint8_t minOcpLevel, uint8_t maxOcpLevel, float minOcpDelay, float maxOcpDelay, float minOppLevel, float maxOppLevel, float minOppDelay, float maxOppDelay) : Channel(POWER_SUPPLY_CHANNEL_TYPE)
@@ -443,3 +445,5 @@ void PS_Channel::PSOppDelayChanged(void* channel)
 	/* Parameter only used in DeviceTimerTickISR() */
 	Device.SetSettingsChanged(true);
 }
+
+#endif /* PS_SUBSYSTEM_ENABLED */

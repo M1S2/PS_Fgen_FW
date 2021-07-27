@@ -6,6 +6,8 @@
 
 #include "../Device.h"
 
+#ifdef MEASURE_SUBSYSTEM_ENABLED
+
 ContainerList list_Measure(40, 0, 240 - 40, 64);
 
 // ***** Measure DMM page *****
@@ -84,3 +86,5 @@ UIElement* uiBuildScreenMeasure()
 	
 	return &list_Measure;
 }
+
+#endif /* MEASURE_SUBSYSTEM_ENABLED */

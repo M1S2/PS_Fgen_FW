@@ -9,6 +9,8 @@
 #include "../Spi/spi.h"
 #include "../Device.h"
 
+#ifdef DDS_SUBSYSTEM_ENABLED
+
 volatile uint32_t dds_channel1_accumulator;				// This variables aren't part of the DDS_Channel class to speed up the DDS ISR (no dereferencing neccessary)
 volatile uint32_t dds_channel2_accumulator;
 volatile uint32_t dds_channel1_increment;
@@ -100,3 +102,5 @@ ISR(TIMER2_COMPA_vect)
 	if(is_mcp4921_selected) { SELECT_MCP4921 }
 	if(is_lcd_selected) { CLEAR_BIT(PORTB, LCD_CS); }
 }
+
+#endif /* DDS_SUBSYSTEM_ENABLED */

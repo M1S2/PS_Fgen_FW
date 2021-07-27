@@ -135,7 +135,7 @@ typedef struct DevSettingsEEPROMLayout
 		
 }DevSettingsEEPROMLayout_t;
 
-#ifdef DDS_USER_DEFINED_WAVEFORMS_ENABLED
+#if defined DDS_USER_DEFINED_WAVEFORMS_ENABLED && defined DDS_SUBSYSTEM_ENABLED
 	/**
 	  * Structure used internally to store user waveform data to / read from EEPROM 
 	  */
@@ -156,11 +156,17 @@ class DeviceClass
 		bool _settingsChanged;										/**< Variable used to keep track if all settings are changed (true if no unsaved settings exist; otherwise false) */
 		
 	public:	
-		PS_Channel PsChannel;										/**< Power supply channel object */
-		DDS_Channel DdsChannel1;									/**< DDS channel object 1 */
-		DDS_Channel DdsChannel2;									/**< DDS channel object 2 */
-		DMM_Channel DmmChannel1;									/**< DMM channel object 1 */
-		DMM_Channel DmmChannel2;									/**< DMM channel object 2 */
+		#ifdef PS_SUBSYSTEM_ENABLED
+			PS_Channel PsChannel;										/**< Power supply channel object */
+		#endif
+		#ifdef DDS_SUBSYSTEM_ENABLED
+			DDS_Channel DdsChannel1;									/**< DDS channel object 1 */
+			DDS_Channel DdsChannel2;									/**< DDS channel object 2 */
+		#endif
+		#ifdef MEASURE_SUBSYSTEM_ENABLED
+			DMM_Channel DmmChannel1;									/**< DMM channel object 1 */
+			DMM_Channel DmmChannel2;									/**< DMM channel object 2 */
+		#endif
 		Channel* Channels[NUM_CHANNELS];							/**< Array with pointers to all channel objects above */
 		
 		uint8_t SelectedScpiChannelIndex;							/**< Index of the channel selected by the "INSTrument[:SELect]" SCPI command */
@@ -216,7 +222,7 @@ class DeviceClass
 		/**< Load the calibration factors from the EEPROM */				
 		void LoadSettingsCalibrationFactors();						
 		
-		#ifdef DDS_USER_DEFINED_WAVEFORMS_ENABLED
+		#if defined DDS_USER_DEFINED_WAVEFORMS_ENABLED && defined DDS_SUBSYSTEM_ENABLED
 			/**< Save the user waveforms to the EEPROM */
 			void SaveSettingsDDSUserWaveforms();
 			

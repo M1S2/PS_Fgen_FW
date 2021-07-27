@@ -36,9 +36,15 @@ void ScreenManagerClass::Init()
 
 void ScreenManagerClass::uiBuildTree()
 {
-	tabControlMain.AddTab("PS", uiBuildScreenPS());	
-	tabControlMain.AddTab("DDS", uiBuildScreenDDS());			// Containing DDS1 and DDS2
-	tabControlMain.AddTab("Meas", uiBuildScreenMeasure());		// Containing DMM and ATX measurements
+	#ifdef PS_SUBSYSTEM_ENABLED
+		tabControlMain.AddTab("PS", uiBuildScreenPS());	
+	#endif
+	#ifdef DDS_SUBSYSTEM_ENABLED
+		tabControlMain.AddTab("DDS", uiBuildScreenDDS());			// Containing DDS1 and DDS2
+	#endif
+	#ifdef MEASURE_SUBSYSTEM_ENABLED
+		tabControlMain.AddTab("Meas", uiBuildScreenMeasure());		// Containing DMM and ATX measurements
+	#endif
 	tabControlMain.AddTab("Conf", uiBuildScreenSettings());
 	
 	page_Main.AddItem(&tabControlMain);

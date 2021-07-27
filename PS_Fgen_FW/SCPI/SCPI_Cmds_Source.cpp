@@ -78,16 +78,16 @@ scpi_result_t scpi_cmd_sourceVoltageProtectionTrippedQ(scpi_t * context)
 		return SCPI_SetResult_ChannelOutOfRange(context);
 	}
 	
-	if (Device.Channels[channelNum]->GetChannelType() == POWER_SUPPLY_CHANNEL_TYPE)
-	{
-		PS_Channel* psChannel = (PS_Channel*)Device.Channels[channelNum];
-		SCPI_ResultBool(context, (psChannel->GetPsState() == PS_STATE_OVP));
-	}
-	else
-	{
-		return SCPI_SetResult_NotSupportedByChannel(context);
-	}
-	return SCPI_RES_OK;
+	#ifdef PS_SUBSYSTEM_ENABLED
+		if (Device.Channels[channelNum]->GetChannelType() == POWER_SUPPLY_CHANNEL_TYPE)
+		{
+			PS_Channel* psChannel = (PS_Channel*)Device.Channels[channelNum];
+			SCPI_ResultBool(context, (psChannel->GetPsState() == PS_STATE_OVP));
+			return SCPI_RES_OK;
+		}
+	#endif
+	
+	return SCPI_SetResult_NotSupportedByChannel(context);
 }
 
 //----------------------------------------------------------------------------------------------------------
@@ -103,16 +103,16 @@ scpi_result_t scpi_cmd_sourceVoltageProtectionClear(scpi_t * context)
 		return SCPI_SetResult_ChannelOutOfRange(context);
 	}
 	
-	if (Device.Channels[channelNum]->GetChannelType() == POWER_SUPPLY_CHANNEL_TYPE)
-	{
-		PS_Channel* psChannel = (PS_Channel*)Device.Channels[channelNum];
-		psChannel->ClearProtections();
-	}
-	else
-	{
-		return SCPI_SetResult_NotSupportedByChannel(context);
-	}
-	return SCPI_RES_OK;
+	#ifdef PS_SUBSYSTEM_ENABLED
+		if (Device.Channels[channelNum]->GetChannelType() == POWER_SUPPLY_CHANNEL_TYPE)
+		{
+			PS_Channel* psChannel = (PS_Channel*)Device.Channels[channelNum];
+			psChannel->ClearProtections();
+			return SCPI_RES_OK;
+		}
+	#endif
+	
+	return SCPI_SetResult_NotSupportedByChannel(context);
 }
 
 //----------------------------------------------------------------------------------------------------------
@@ -176,16 +176,16 @@ scpi_result_t scpi_cmd_sourceCurrentProtectionTrippedQ(scpi_t * context)
 		return SCPI_SetResult_ChannelOutOfRange(context);
 	}
 	
-	if (Device.Channels[channelNum]->GetChannelType() == POWER_SUPPLY_CHANNEL_TYPE)
-	{
-		PS_Channel* psChannel = (PS_Channel*)Device.Channels[channelNum];
-		SCPI_ResultBool(context, (psChannel->GetPsState() == PS_STATE_OCP));
-	}
-	else
-	{
-		return SCPI_SetResult_NotSupportedByChannel(context);
-	}
-	return SCPI_RES_OK;
+	#ifdef PS_SUBSYSTEM_ENABLED
+		if (Device.Channels[channelNum]->GetChannelType() == POWER_SUPPLY_CHANNEL_TYPE)
+		{
+			PS_Channel* psChannel = (PS_Channel*)Device.Channels[channelNum];
+			SCPI_ResultBool(context, (psChannel->GetPsState() == PS_STATE_OCP));
+			return SCPI_RES_OK;
+		}
+	#endif
+	
+	return SCPI_SetResult_NotSupportedByChannel(context);
 }
 
 //----------------------------------------------------------------------------------------------------------
@@ -245,16 +245,16 @@ scpi_result_t scpi_cmd_sourcePowerProtectionTrippedQ(scpi_t * context)
 		return SCPI_SetResult_ChannelOutOfRange(context);
 	}
 	
-	if (Device.Channels[channelNum]->GetChannelType() == POWER_SUPPLY_CHANNEL_TYPE)
-	{
-		PS_Channel* psChannel = (PS_Channel*)Device.Channels[channelNum];
-		SCPI_ResultBool(context, (psChannel->GetPsState() == PS_STATE_OPP));
-	}
-	else
-	{
-		return SCPI_SetResult_NotSupportedByChannel(context);
-	}
-	return SCPI_RES_OK;
+	#ifdef PS_SUBSYSTEM_ENABLED
+		if (Device.Channels[channelNum]->GetChannelType() == POWER_SUPPLY_CHANNEL_TYPE)
+		{
+			PS_Channel* psChannel = (PS_Channel*)Device.Channels[channelNum];
+			SCPI_ResultBool(context, (psChannel->GetPsState() == PS_STATE_OPP));
+			return SCPI_RES_OK;
+		}
+	#endif
+	
+	return SCPI_SetResult_NotSupportedByChannel(context);
 }
 
 //----------------------------------------------------------------------------------------------------------

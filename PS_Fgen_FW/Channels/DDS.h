@@ -5,6 +5,10 @@
  * @brief	Containing everything needed for the direct digital synthesis.
  */ 
 
+#include "../Configuration.h"
+
+#ifdef DDS_SUBSYSTEM_ENABLED
+
 #ifndef DDS_H_
 #define DDS_H_
 
@@ -164,3 +168,5 @@ const uint16_t DC_WAVE_TABLE_12BIT[] PROGMEM =
 };
 
 #endif /* DDS_H_ */
+
+#endif /* DDS_SUBSYSTEM_ENABLED */

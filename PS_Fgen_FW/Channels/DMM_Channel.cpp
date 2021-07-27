@@ -7,7 +7,11 @@
 #include "DMM_Channel.h"
 #include "../Device.h"
 
+#ifdef MEASURE_SUBSYSTEM_ENABLED
+
 DMM_Channel::DMM_Channel() : Channel(DMM_CHANNEL_TYPE)
 {
 	
 }
+
+#endif /* MEASURE_SUBSYSTEM_ENABLED */

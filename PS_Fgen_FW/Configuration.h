@@ -23,7 +23,7 @@
 #define SPLASHSCREEN_DELAY_MS			3000					/**< Time that the splash screen is shown in milliseconds */
 
 /***** SCPI ***************************************************/
-#define SCPI_ENABLED											/**< Comment this line out to disable the SCPI parser */
+//#define SCPI_ENABLED											/**< Comment this line out to disable the SCPI parser */
 #define SCPI_INPUT_BUFFER_LENGTH		1024					/**< Length of the SCPI input buffer. If this buffer overflows, there will be an error message. */
 #define SCPI_ERROR_QUEUE_SIZE			4						/**< Maximum number of errors in the error queue. If this queue overflows, the last error message will be replaced by an overflow error message. */
 #define SCPI_IDN_MANUFACTURER			"Markus Scheich"		/**< Manufacturer info used in *IDN? query */
@@ -39,8 +39,31 @@
 /***** UserInputHandler ***************************************/
 #define USERINPUT_QUEUE_LENGTH			64						/**< Length of the queue used to buffer the user inputs (keys, encoder, Usart) */
 
+/***** Subsystems *********************************************/
+#define PS_SUBSYSTEM_ENABLED									/**< Comment this line out to disable the power supply subsystem */
+#define DDS_SUBSYSTEM_ENABLED									/**< Comment this line out to disable the direct digital synthesis subsystem */
+#define MEASURE_SUBSYSTEM_ENABLED								/**< Comment this line out to disable the measurement (ATX voltages and digital multimeters) subsystem */
+
 /***** Channels ***********************************************/
-#define NUM_CHANNELS					5						/**< Number of channels */
+#ifdef PS_SUBSYSTEM_ENABLED
+	#define NUM_PS_CHANNELS				1						/**< Number of power supply output channels if the PS subsystem is enabled */
+#else
+	#define NUM_PS_CHANNELS				0						/**< Number of power supply output channels if the PS subsystem is disabled */
+#endif
+
+#ifdef DDS_SUBSYSTEM_ENABLED
+	#define NUM_DDS_CHANNELS			2						/**< Number of direct digital synthesis output channels if the DDS subsystem is enabled */
+#else
+	#define NUM_DDS_CHANNELS			0						/**< Number of direct digital synthesis output channels if the DDS subsystem is disabled */
+#endif
+
+#ifdef MEASURE_SUBSYSTEM_ENABLED
+	#define NUM_MEASURE_CHANNELS		2						/**< Number of digital multimeter output channels if the DDS subsystem is enabled */
+#else
+	#define NUM_MEASURE_CHANNELS		0						/**< Number of digital multimeter output channels if the DDS subsystem is disabled */
+#endif
+
+#define NUM_CHANNELS					NUM_PS_CHANNELS + NUM_DDS_CHANNELS + NUM_MEASURE_CHANNELS	/**< Number of channels (this is the sum of NUM_PS_CHANNELS, NUM_DDS_CHANNELS and NUM_MEASURE_CHANNELS) */
 
 #define PS_INTERNAL_IMPEDANCE			5.7						/**< Internal impedance in Ohm of the PowerSupply output */
 #define PS_MIN_VOLTAGE					0						/**< Minimum allowed power supply voltage setting */

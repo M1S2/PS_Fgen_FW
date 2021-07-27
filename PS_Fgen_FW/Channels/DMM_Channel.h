@@ -11,6 +11,8 @@
 #include "../Configuration.h"
 #include "Channel.h"
 
+#ifdef MEASURE_SUBSYSTEM_ENABLED
+
 /**
  * Digital multimeter channel.
  * This is a channel holding all parameters of a DMM implementation.
@@ -27,3 +29,5 @@ class DMM_Channel : public Channel
 };
 
 #endif /* DMM_CHANNEL_H_ */
+
+#endif /* MEASURE_SUBSYSTEM_ENABLED */

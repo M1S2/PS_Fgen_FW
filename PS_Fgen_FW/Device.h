@@ -216,6 +216,9 @@ class DeviceClass
 		/** Reset all settings (except user waveforms and calibration factors) and save them to the EEPROM */								
 		void ResetDevice();					
 		
+		/** Write all calibration factor values to the serial output. */
+		void ReportCalibrationFactors();
+		
 		/** Coerce all calibration factors to valid values if neccessary. */
 		void CoerceCalibrationFactors();
 		

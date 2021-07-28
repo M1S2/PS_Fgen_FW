@@ -5,7 +5,6 @@
  */ 
 
 #include "../Device.h"
-#include "../USART/USART.h"
 
 typedef enum CalibrationStates
 {
@@ -127,57 +126,13 @@ void PrepareCalStep(CalibrationStates_t calState)
 	CalState = calState;
 }
 
-/**
- * Write all calibration factor values to the serial output.
- */
-void ReportCalibrationFactors()
-{
-	char buffer[50];
-	
-	Usart0TransmitStr("RefVoltage=");
-	dtostrf(Device.CalibrationFactors.Cal_RefVoltage, 10, 3, buffer);
-	Usart0TransmitStr(buffer);
-	
-	Usart0TransmitStr("\r\n5V=");
-	dtostrf(Device.CalibrationFactors.Cal_ATX_5V, 10, 3, buffer);
-	Usart0TransmitStr(buffer);
-	
-	Usart0TransmitStr("\r\n3V3=");
-	dtostrf(Device.CalibrationFactors.Cal_ATX_3V3, 10, 3, buffer);
-	Usart0TransmitStr(buffer);
-	
-	Usart0TransmitStr("\r\n12V=");
-	dtostrf(Device.CalibrationFactors.Cal_ATX_12V, 10, 3, buffer);
-	Usart0TransmitStr(buffer);
-	
-	Usart0TransmitStr("\r\n-12V=");
-	dtostrf(Device.CalibrationFactors.Cal_ATX_12V_NEG, 10, 3, buffer);
-	Usart0TransmitStr(buffer);
-	
-	Usart0TransmitStr("\r\nDMM1=");
-	dtostrf(Device.CalibrationFactors.Cal_DMM1, 10, 3, buffer);
-	Usart0TransmitStr(buffer);
-	
-	Usart0TransmitStr("\r\nDMM2=");
-	dtostrf(Device.CalibrationFactors.Cal_DMM2, 10, 3, buffer);
-	Usart0TransmitStr(buffer);
-	
-	Usart0TransmitStr("\r\nPS_VOLT=");
-	dtostrf(Device.CalibrationFactors.Cal_PS_VOLT, 10, 3, buffer);
-	Usart0TransmitStr(buffer);
-	
-	Usart0TransmitStr("\r\nDDS FREQ=");
-	dtostrf(Device.CalibrationFactors.Cal_DDS_FREQ, 10, 3, buffer);
-	Usart0TransmitStr(buffer);
-}
-
 /** 
  * Save all calibration factors and show a message that the calibration is finished. 
  */
 void CalibrationFinished()
 {
 	Device.SaveSettingsCalibrationFactors();
-	ReportCalibrationFactors();
+	Device.ReportCalibrationFactors();
 	Device.ScreenManager.UiManager.ChangeVisualTreeRoot(&msg_Cal_Finished);
 }
 

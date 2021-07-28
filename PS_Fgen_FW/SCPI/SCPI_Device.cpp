@@ -14,18 +14,20 @@ char scpi_input_buffer[SCPI_INPUT_BUFFER_LENGTH];
 scpi_error_t scpi_error_queue_data[SCPI_ERROR_QUEUE_SIZE];
 char resultBuffer[50];
 
-static scpi_choice_def_t signalform_choice[] =
-{
-	{ "SINusoid", SINE },
-	{ "SQUare", RECTANGLE },
-	{ "TRIangle", TRIANGLE },
-	{ "SAWtooth", SAWTOOTH },
-	{ "DC", DC },
-	#ifdef DDS_USER_DEFINED_WAVEFORMS_ENABLED
-		{ "USER", USER_SIGNAL },
-	#endif
-	SCPI_CHOICE_LIST_END /* termination of option list */
-};
+#ifdef DDS_SUBSYSTEM_ENABLED
+	static scpi_choice_def_t signalform_choice[] =
+	{
+		{ "SINusoid", SINE },
+		{ "SQUare", RECTANGLE },
+		{ "TRIangle", TRIANGLE },
+		{ "SAWtooth", SAWTOOTH },
+		{ "DC", DC },
+		#ifdef DDS_USER_DEFINED_WAVEFORMS_ENABLED
+			{ "USER", USER_SIGNAL },
+		#endif
+		SCPI_CHOICE_LIST_END /* termination of option list */
+	};
+#endif
 
 const scpi_command_t scpi_commands[] = 
 {

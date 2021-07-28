@@ -207,26 +207,29 @@ class DeviceClass
 		 */
 		void SetSettingsChanged(bool settingsChanged);
 		
-		/**< Save all settings (except user waveforms and calibration factors) to the EEPROM */
+		/** Save all settings (except user waveforms and calibration factors) to the EEPROM */
 		void SaveSettings();		
 										
-		/**< Load all settings (except user waveforms and calibration factors) from the EEPROM */
+		/** Load all settings (except user waveforms and calibration factors) from the EEPROM */
 		void LoadSettings();		
 		
-		/**< Reset all settings (except user waveforms and calibration factors) and save them to the EEPROM */								
+		/** Reset all settings (except user waveforms and calibration factors) and save them to the EEPROM */								
 		void ResetDevice();					
 		
-		/**< Save the calibration factors from the EEPROM */						
+		/** Coerce all calibration factors to valid values if neccessary. */
+		void CoerceCalibrationFactors();
+		
+		/** Save the calibration factors from the EEPROM */						
 		void SaveSettingsCalibrationFactors();		
 		
-		/**< Load the calibration factors from the EEPROM */				
+		/** Load the calibration factors from the EEPROM */				
 		void LoadSettingsCalibrationFactors();						
 		
 		#if defined DDS_USER_DEFINED_WAVEFORMS_ENABLED && defined DDS_SUBSYSTEM_ENABLED
-			/**< Save the user waveforms to the EEPROM */
+			/** Save the user waveforms to the EEPROM */
 			void SaveSettingsDDSUserWaveforms();
 			
-			/**< Load the user waveforms from the EEPROM */					
+			/** Load the user waveforms from the EEPROM */					
 			void LoadSettingsDDSUserWaveforms();					
 		#endif
 		

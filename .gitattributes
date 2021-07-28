@@ -1,2 +1,2 @@
 #treat all of the paths below as vendored and therefore doesn't include them in the language statistics for the repository on GitHub
-PS_Fgen_FW/libraries/* linguist-vendored
+PS_Fgen_FW/libraries/** linguist-vendored

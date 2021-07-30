@@ -29,17 +29,27 @@ typedef enum PsStates
 extern const char* PSStatesNames[];
 
 /**
- * Power supply channel.
+ * Power supply channel Class.
  * This is a channel holding all parameters of a power supply implementation.
+ *
+ * The voltage is regulated by a PID regulator. 
+ *
+ * An anti-windup provision is implemented on the PID integrator to prevent deep saturation (aka integrator windup) when the output is saturated:
+ * - The new control output with the latest integrator value is computed.
+ * - If the control output exceeds either output limit, <i>and</i> the latest change in the integrator is in the same direction, then the new integrator value is not saved for the next call.
+ * - Otherwise, the integrator is saved for the next call.
+ *
+ * @see https://rn-wissen.de/wiki/index.php/Regelungstechnik (for general PID regulator code)
+ * @see https://www.embeddedrelated.com/showcode/346.php (for PID anti-windup scheme)
  */
 class PS_Channel : public Channel
 {	
 	private:
 		float _PIDVoltErrorSum;				/**< PID voltage regulator error sum */
 		float _PIDVoltErrorLast;			/**< PID voltage regulator last error */
-		float _setDacVoltage;				/**< Voltage to which the DAC should be set. This value is calculated by the PID voltage regulator. */
+		float _setVoltage;					/**< Voltage to which the output should be set. This value is calculated by the PID voltage regulator. */
 	
-	public:		
+	public:
 		PsStates_t PsState;					/**< Current state of the power supply channel. */
 	
 		Parameter<bool> Enabled;			/**< Is the channel enabled or not. If enabled, the voltage is available at the output. */

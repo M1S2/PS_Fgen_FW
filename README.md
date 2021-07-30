@@ -108,7 +108,7 @@ The [``Device``](PS_Fgen_FW/Device.h) class bundles all class objects (like [``S
 All input and output capabilites are derived from a base class [``Channel``](PS_Fgen_FW/Channels/Channel.h). At the moment there are the following channel types:
 - ``POWER_SUPPLY_CHANNEL_TYPE``
 The power supply channel has settings for the output voltage, current, enabled state. Also the over voltage protection (OVP), over current protection (OCP) and over power protection (OPP) can be configured. The actual voltage and current is also stored here.
-The voltage is regulated to the required value using a software PID regulator.
+The voltage is regulated to the required value using a software PID regulator. An anti-windup scheme is also implemented with the PID integrator part to prevent integrator windup when the output is saturated.
 
 	<mark>PID regulator...</mark>
 

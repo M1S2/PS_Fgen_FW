@@ -34,7 +34,7 @@ PS_Channel::PS_Channel(float minVolt, float maxVolt, float minCurrent, float max
 	TimeCounter_OppDelay_ms = 0;
 	PsState = PS_STATE_CV;
 	_PIDVoltErrorSum = 0;
-	_setDacVoltage = 0;
+	_setVoltage = 0;
 	_PIDVoltErrorLast = 0;	
 }
 
@@ -47,7 +47,7 @@ void PS_Channel::UpdateOutput()
 {
 	if(PsState == PS_STATE_CV && GetEnabled())
 	{
-		MCP4921_Voltage_Set(_setDacVoltage / 2);		// divided by two because of OpAmp in circuit that has an amplification of 2
+		MCP4921_Voltage_Set(_setVoltage / 2);		// divided by two because of OpAmp in circuit that has an amplification of 2
 	}
 	else
 	{
@@ -57,15 +57,43 @@ void PS_Channel::UpdateOutput()
 
 void PS_Channel::DeviceTimerTickISR(uint16_t currentPeriod_ms)
 {
-	if(GetEnabled())
+	if(GetEnabled() && PsState == PS_STATE_CV)
 	{
-		/* Voltage PID regulator 
-		   see: https://rn-wissen.de/wiki/index.php/Regelungstechnik */
-		float PIDVoltError = GetVoltage() - MeasuredVoltage;		// Usoll - Umess
-		_PIDVoltErrorSum += PIDVoltError;
-		_setDacVoltage = PS_VOLT_PID_P * PIDVoltError + PS_VOLT_PID_I * (currentPeriod_ms / 1000.0f) * _PIDVoltErrorSum + (PS_VOLT_PID_D / (currentPeriod_ms / 1000.0f)) * (PIDVoltError - _PIDVoltErrorLast);
+		/********************************************************
+		 * Voltage PID regulator 
+		 * see: https://rn-wissen.de/wiki/index.php/Regelungstechnik 
+		 ********************************************************/
+		float PIDVoltError = GetVoltage() - MeasuredVoltage;			// U_target - U_measured
+		float tmpPIDVoltErrorSum = _PIDVoltErrorSum + PIDVoltError;
+		_setVoltage = PS_VOLT_PID_P * PIDVoltError + PS_VOLT_PID_I * (currentPeriod_ms / 1000.0f) * tmpPIDVoltErrorSum + (PS_VOLT_PID_D / (currentPeriod_ms / 1000.0f)) * (PIDVoltError - _PIDVoltErrorLast);
 		_PIDVoltErrorLast = PIDVoltError;
+		
+		/* Voltage PID Integrator anti-windup
+		   see: https://www.embeddedrelated.com/showcode/346.php */
+		if (_setVoltage > PS_MAX_VOLTAGE)				// Positive saturation? Output is not regulated (Open-loop).
+		{
+			_setVoltage = PS_MAX_VOLTAGE;				// Clamp the output			
+			if (PIDVoltError < 0)						// Error is the opposite sign? Update integration error.
+			{
+				_PIDVoltErrorSum = tmpPIDVoltErrorSum;
+			}
+		}
+		else if (_setVoltage < 0)						// Negative saturation? Output is not regulated (Open-loop).
+		{
+			_setVoltage = 0;							// Clamp the output
+			if (PIDVoltError > 0)						// Error is the opposite sign? Update integration error.
+			{
+				_PIDVoltErrorSum = tmpPIDVoltErrorSum;
+			}
+		}
+		else											// Output is regulated (Closed-loop).
+		{
+			_PIDVoltErrorSum = tmpPIDVoltErrorSum;
+		}
 	
+		/********************************************************
+		 * Output Protections 
+		 ********************************************************/
 		if(GetOvpState() && MeasuredVoltage > (GetVoltage() * (GetOvpLevel() / 100.0f)))
 		{
 			TimeCounter_OvpDelay_ms += currentPeriod_ms;

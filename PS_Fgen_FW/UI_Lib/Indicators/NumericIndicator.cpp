@@ -15,9 +15,6 @@
 template <class T>
 void NumericIndicator<T>::calculateDisplayValue()
 {
-	if (_lastValueDraw == _valueDraw) { return; }
-	_lastValueDraw = _valueDraw;
-
 	_displayValue = (float)_valueDraw;
 	_unitPrefixPower = 0;
 
@@ -70,6 +67,7 @@ NumericIndicator<T>::NumericIndicator(unsigned char locX, unsigned char locY, T*
 	_maxValue = maxValue;
 	_numFractionalDigits = numFractionalDigits;
 	_numDigits = _numFractionalDigits + numNonFractionalDigits(maxValue);
+	_firstDraw = true;
 }
 
 template <class T>
@@ -77,19 +75,23 @@ void NumericIndicator<T>::Draw(u8g_t *u8g, bool isFirstPage)
 {
 	if (Visible)
 	{
-		if (isFirstPage) { _valueDraw = *_valuePointer; }
+		if (isFirstPage)
+		{
+			_valueDraw = *_valuePointer;
+			if (_lastValueDraw != _valueDraw || _firstDraw)
+			{
+				_lastValueDraw = _valueDraw;
+				calculateDisplayValue();
 
-		calculateDisplayValue();
+				//https://stackoverflow.com/questions/5932214/printf-string-variable-length-item
+				char formatStringBuffer[10];
+				sprintf(formatStringBuffer, "%%0%d.%df%s%s", _numDigits + (_numFractionalDigits > 0 ? 1 : 0), _numFractionalDigits + _unitPrefixPower, _unitPrefix, _baseUnit);       // if _numFractionalDigits is 0, no decimal point is used (one character less)
 
-		//https://stackoverflow.com/questions/5932214/printf-string-variable-length-item
-		char formatStringBuffer[10];
-		sprintf(formatStringBuffer, "%%0%d.%df%s%s", _numDigits + (_numFractionalDigits > 0 ? 1 : 0), _numFractionalDigits + _unitPrefixPower, _unitPrefix, _baseUnit);	// if _numFractionalDigits is 0, no decimal point is used (one character less)
+				sprintf(_stringDrawBuffer, formatStringBuffer, fabs(_displayValue));
+			}
+		}
 
-		char stringBufferLen = _numDigits + 1 + strlen(_unitPrefix) + strlen(_baseUnit) + 1;
-		char stringBuffer[stringBufferLen];
-		sprintf(stringBuffer, formatStringBuffer, fabs(_displayValue));
-		
-		u8g_DrawStr(u8g, LocX + 5, LocY, stringBuffer);						// Draw value without minus sign
-		if (_displayValue < 0) { u8g_DrawStr(u8g, LocX, LocY, "-"); }		// Draw minus sign	
+		u8g_DrawStr(u8g, LocX + 5, LocY, _stringDrawBuffer);				// Draw value without minus sign
+		if (_displayValue < 0) { u8g_DrawStr(u8g, LocX, LocY, "-"); }		// Draw minus sign
 	}
 }

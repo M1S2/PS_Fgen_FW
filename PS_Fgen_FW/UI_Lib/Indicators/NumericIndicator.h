@@ -18,8 +18,10 @@ class NumericIndicator : public UIElement
 		void calculateDisplayValue();
 		int numNonFractionalDigits(T number);
 		T _lastValueDraw;
+		bool _firstDraw;
 		const char* _unitPrefix;		// Current display prefix character (m, k, M)
-
+		char _stringDrawBuffer[20];           // char stringBufferLen = _numDigits + 1 + strlen(_unitPrefix) + strlen(_baseUnit) + 1;
+		
 	protected:
 		const char* _baseUnit;
 		T* _valuePointer;

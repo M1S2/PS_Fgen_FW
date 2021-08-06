@@ -20,6 +20,9 @@ To download the firmware to the microcontroller either use a precompiled .hex fi
 To download the .hex file you can use any programmer of your choice.
 Make sure the fuse bits of the microcontroller are set as described in the [``main.cpp``](PS_Fgen_FW/main.cpp) file.
 
+## Detailed Documentation
+For the full doxygen generated documentation visit https://m1s2.github.io/PS_Fgen_FW
+
 ## User Interface
 The user interface is made up of the following components:
 - Graphical display: A 240x64 pixel graphical LCD is used to display the device status and current settings.

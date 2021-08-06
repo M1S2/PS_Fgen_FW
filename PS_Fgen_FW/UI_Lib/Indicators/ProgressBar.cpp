@@ -1,8 +1,7 @@
 /*
  * ProgressBar.cpp
- *
  * Created: 26.03.2021 18:17:56
- *  Author: V17
+ * Author: Markus Scheich
  */ 
 
 #include "ProgressBar.h"

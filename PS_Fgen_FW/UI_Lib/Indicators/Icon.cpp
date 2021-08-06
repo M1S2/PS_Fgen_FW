@@ -1,8 +1,7 @@
 /*
  * Icon.cpp
- *
  * Created: 26.03.2021 18:55:07
- *  Author: V17
+ * Author: Markus Scheich
  */ 
 
 #include "Icon.h"

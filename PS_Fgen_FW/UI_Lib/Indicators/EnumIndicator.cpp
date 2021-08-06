@@ -1,8 +1,7 @@
 /*
  * EnumIndicator.cpp
- *
  * Created: 15.03.2021 19:42:23
- *  Author: V17
+ * Author: Markus Scheich
  */ 
 
 #include "EnumIndicator.h"

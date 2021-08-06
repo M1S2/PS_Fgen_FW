@@ -1,8 +1,7 @@
 /*
  * NumericIndicator.cpp
- *
  * Created: 22.03.2021 19:08:47
- *  Author: V17
+ * Author: Markus Scheich
  */ 
 
 #include "NumericIndicator.h"
@@ -43,7 +42,6 @@ void NumericIndicator<T>::calculateDisplayValue()
 	_unitPrefix = (_unitPrefixPower == -3 ? "m" : (_unitPrefixPower == 0 ? "" : (_unitPrefixPower == 3 ? "k" : (_unitPrefixPower == 6 ? "M" : ""))));
 }
 
-// https://stackoverflow.com/questions/1489830/efficient-way-to-determine-number-of-digits-in-an-integer
 template <class T>
 int NumericIndicator<T>::numNonFractionalDigits(T number)
 {

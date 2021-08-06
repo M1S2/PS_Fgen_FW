@@ -1,8 +1,7 @@
 /*
  * BoolIndicator.cpp
- *
  * Created: 12.03.2021 18:26:42
- *  Author: V17
+ * Author: Markus Scheich
  */ 
 
 #include "BoolIndicator.h"

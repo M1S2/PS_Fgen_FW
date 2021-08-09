@@ -1,8 +1,7 @@
 /*
  * MessageDialog.cpp
- *
  * Created: 31.03.2021 20:55:40
- *  Author: V17
+ * Author: Markus Scheich
  */ 
 
 #include "MessageDialog.h"

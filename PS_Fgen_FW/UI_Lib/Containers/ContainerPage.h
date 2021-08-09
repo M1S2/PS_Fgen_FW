@@ -32,7 +32,7 @@ class ContainerPage : public Container
 		 * Process the given key.
 		 * If this element doesn't support the key type, the key is forwarded to the parent.
 		 * This is done until the key is processed or the root of the visual tree is reached.
-		 * @param key Key that should be processed. The following keys are supported: KEYUP, KEYDOWN
+		 * @param key Key that should be processed. Supported keys are: KEYUP, KEYDOWN
 		 * @return true if the key was processed; false if not.
 		 */
 		virtual bool KeyInput(Keys_t key) override;

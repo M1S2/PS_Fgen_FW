@@ -1,8 +1,7 @@
 /*
  * TabControl.cpp
- *
  * Created: 18.03.2021 18:51:05
- *  Author: V17
+ * Author: Markus Scheich
  */ 
 
 #include "TabControl.h"

@@ -1,8 +1,7 @@
 /*
  * NumericControl.cpp
- *
  * Created: 25.03.2021 20:52:48
- *  Author: V17
+ * Author: Markus Scheich
  */ 
 
 #include "NumericControl.h"
@@ -52,7 +51,6 @@ T NumericControl<T>::coerceValue(T value)
 	return value;
 }
 
-// https://www.quora.com/How-can-you-mathematically-extract-a-single-digit-from-a-number
 template <class T>
 unsigned char NumericControl<T>::extractDigit(float number, int8_t position)
 {

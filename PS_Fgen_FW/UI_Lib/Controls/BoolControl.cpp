@@ -1,8 +1,7 @@
 /*
  * BoolControl.cpp
- *
  * Created: 15.03.2021 19:12:22
- *  Author: V17
+ * Author: Markus Scheich
  */ 
 
 #include "BoolControl.h"

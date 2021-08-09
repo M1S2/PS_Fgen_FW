@@ -1,8 +1,7 @@
 /*
  * ButtonControl.cpp
- *
  * Created: 31.03.2021 20:42:49
- *  Author: V17
+ * Author: Markus Scheich
  */ 
 
 #include "ButtonControl.h"

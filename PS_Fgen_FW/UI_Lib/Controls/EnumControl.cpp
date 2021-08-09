@@ -1,8 +1,7 @@
 /*
  * EnumControl.cpp
- *
  * Created: 15.03.2021 19:19:15
- *  Author: V17
+ * Author: Markus Scheich
  */ 
 
 #include "EnumControl.h"

@@ -8,7 +8,7 @@ Firmware for an PowerSupply and Functiongenerator build from an ATX power supply
 
 ## Environment
 The firmware is developed with the following environment:
-|Parameter		| Value								|
+|Name		| Value								|
 |----------------------	| -------------------------------------------------------------	|
 | Microcontroller	| ATmega1284P							|
 | IDE			| Atmel Studio 7.0 (Windows 10 Environment)			|

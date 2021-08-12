@@ -1,0 +1,7 @@
+/*! @page pagedevice Device
+
+The Device class bundles all class objects (like ScreenManagerClass or UserInputHandlerClass), all channels and other device related settings together. 
+It is also responsible for loading and saving all settings from/to the EEPROM. 
+A global clock is also generated here used for PID regulators, KeyPad handling and some other components.
+
+ */

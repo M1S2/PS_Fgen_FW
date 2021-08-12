@@ -1,0 +1,15 @@
+/*! @mainpage PS_Fgen_FW Detailed Documentation
+@section intro_sec Introduction
+
+Firmware for an PowerSupply and Functiongenerator build from an ATX power supply.
+
+This is the detailed documentation for the PS_Fgen_FW project. For the source code visit the repository at https://github.com/M1S2/PS_Fgen_FW.
+
+@section content_sec Content
+
+See the following pages for more informations.
+- @ref pageuserinterface
+- @ref pagedevice
+- @ref pageinputoutputchannels
+- @ref pagescpiinterface
+*/

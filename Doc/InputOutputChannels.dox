@@ -1,0 +1,23 @@
+/*! @page pageinputoutputchannels Input / Output Channels
+All input and output capabilites are derived from a base class Channel. At the moment there are the following channel types:
+- ``POWER_SUPPLY_CHANNEL_TYPE``
+	The power supply channel has settings for the output voltage, current, enabled state. 
+	Also the over voltage protection (OVP), over current protection (OCP) and over power protection (OPP) can be configured. 
+	The actual voltage and current is also stored here.
+	The voltage is regulated to the required value using a software PID regulator. 
+	An anti-windup scheme is also implemented with the PID integrator part to prevent integrator windup when the output is saturated.
+
+	<mark>PID regulator...</mark>
+
+- ``DDS_CHANNEL_TYPE``
+	The DDS channel has settings for the output amplitude, offset, frequency, enabled state and signal form. 
+	It holds the table with all data points that are used by the DDS algorithm for signal creation.
+	The following waveforms are supported: SINE, RECTANGLE, TRIANGLE, SAWTOOTH.
+
+	<mark>DDS algorithm...</mark>
+	<mark>Frequency range...</mark>
+
+- ``DMM_CHANNEL_TYPE``
+	The DMM channel simply holds the measured ADC voltage value of the corresponding DMM input channel.
+
+ */

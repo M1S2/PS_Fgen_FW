@@ -1,0 +1,96 @@
+/*! @page pageuserinterface User Interface
+
+@section ui_components_sec UI Components
+The user interface is made up of the following components:
+- Graphical display: A 240x64 pixel graphical LCD is used to display the device status and current settings.
+- Encoder: A rotary encoder can be used for value editing and menu navigation.
+- KeyPad: A 16 button keypad can be used for value editing and menu navigation.
+
+@section ui_glcd_sec GLCD Handling
+The u8glib library is used for GLCD handling:
+
+[GitHub - olikraus/u8glib: Arduino Monochrom Graphics Library for LCDs and OLEDs](https://github.com/olikraus/u8glib)
+
+@section ui_input_sec User Input Handling
+All user inputs are directly enqueued into an RingBuffer when they occur. They are then later processed by the main loop. 
+This approach is used to decouple the user input producers (ISRs) from the processing itself (which could take some time).
+The following user inputs are detected:
+- Keys: All pressed keys are enqueued as USERDATA_KEY types.
+- Encoder: All encoder rotations (clockwise, counterclockwise) and the encoder button are also enqueued as USERDATA_KEY types. This is done to simplify the later processing by minimizing different data types.
+- UART: Characters that are received via the serial communication interface are enqueued as USERDATA_USART types.
+
+@section ui_library_sec UI Library
+The user interface is based on a self developed UI library.
+There is a separate [Readme for the UI library.](../PS_Fgen_FW/UI_Lib/README.md)
+
+@section ui_overview_sec UI Overview
+To navigate between the main pages (Tabs), use the left and right arrow keys on the KeyPad. 
+The Encoder is used to scroll between the sub pages and the individual controls on the sub pages. 
+A control can be activated/deactivated by pressing the Encoder button. 
+If a control is activated, the KeyPad and Encoder can be used to edit the controls value (depending on the control type).
+
+@subsection ui_overview_splashscreen_sec SplashScreen
+Welcome screen that shows the project name, the developer, the serial number of the device and the software version number.
+@image html SplashScreen.jpg "Splash Screen" width=400
+
+@subsection ui_overview_ps_sec PS
+User interface part for the power supply channel of the device.
+	@subsubsection ui_overview_powersupply_sec PowerSupply
+	This screen can be used to change the power supply voltage and current settings. Also the output can be enabled or disabled. Also the actual measurements (voltage, current, power) are shown.
+	@image html Screen_PS.jpg "Screen PS" width=400
+	
+	@subsubsection ui_overview_ovp_sec OVP
+	Settings for the over voltage protection of the power supply channel (protection level in % of the configured output voltage, Enabled/Disabled state, protection delay after which the protection kicks in, button to clear an active protection)
+	@image html Screen_PS_OVP.jpg "Screen PS OVP" width=400
+	
+	@subsubsection ui_overview_ocp_sec OCP
+	Settings for the over current protection of the power supply channel (protection level in % of the configured output current, Enabled/Disabled state, protection delay after which the protection kicks in, button to clear an active protection)
+	@image html Screen_PS_OCP.jpg "Screen PS OCP" width=400
+	
+	@subsubsection ui_overview_opp_sec OPP
+	Settings for the over power protection of the power supply channel (protection level in W, Enabled/Disabled state, protection delay after which the protection kicks in, button to clear an active protection)
+	@image html Screen_PS_OPP.jpg "Screen PS OPP" width=400
+		
+@subsection ui_overview_dds_sec DDS
+User interface part for the direct digital synthesis channels of the device.
+	@subsubsection ui_overview_dds1_sec DDS1
+	This screen can be used to change the DDS parameters of channel 1 (frequency, waveform type, amplitude, offset, output enabled state).
+	@image html Screen_DDS1.jpg "Screen DDS1" width=400
+	
+	@subsubsection ui_overview_dds2_sec DDS2
+	This screen can be used to change the DDS parameters of channel 2 (frequency, waveform type, amplitude, offset, output enabled state).
+	@image html Screen_DDS2.jpg "Screen DDS2" width=400
+
+@subsection ui_overview_meas_sec Meas
+User interface part for the measurement channels of the device.
+	@subsubsection ui_overview_dmm_sec DMM
+	Show the measurements of both digital multimeter channels (DMM1 & DMM2) as value and as bar graph.
+	@image html Screen_Meas_DMM.jpg "Screen Meas DMM" width=400
+	
+	@subsubsection ui_overview_atx_sec ATX
+	Show the measurements of all ATX voltages as values and as bar graphs.
+	@image html Screen_Meas_ATX.jpg "Screen Meas ATX" width=400
+	
+@subsection ui_overview_conf_sec Conf
+User interface part for different settings of the device.
+	@subsubsection ui_overview_settings_device_sec Device
+	This screen can be used to save all settings immediatelly (beside the automatic periodical saving), reset all settings and to start the calibration (guided calibration for all output and input channels).
+	@image html Screen_Conf_Device.jpg "Screen Config Device" width=400
+	
+	@subsubsection ui_overview_settings_display_sec Display
+	Display settings can be used to invert the display color (background white, text non-white)
+	@image html Screen_Conf_Display.jpg "Screen Config Display" width=400
+	
+	@subsubsection ui_overview_settings_communication_sec Communication
+	Settings for the serial communication interface (baud rate, Echo enabled/disabled)
+	@image html Screen_Conf_Communication.jpg "Screen Config Communication" width=400
+	
+	@subsubsection ui_overview_settings_powerup_sec Settings PowerUp
+	Settings for the output states on power up. The ouputs can always be switched off or on on power up. Also the last output states can be restored on power up.
+	@image html Screen_Conf_PowerUp.jpg "Screen Config PowerUp" width=400
+	
+	@subsubsection ui_overview_settings_version_sec Settings Version
+	Screen that shows the same version informations as the welcome screen (project name, developer, serial number of the device, software version number).
+	@image html Screen_Conf_Version.jpg "Screen Config Version" width=400
+
+ */

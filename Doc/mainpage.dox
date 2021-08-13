@@ -8,6 +8,7 @@ This is the detailed documentation for the PS_Fgen_FW project. For the source co
 @section content_sec Content
 
 See the following pages for more informations.
+- @ref pageconfiguration
 - @ref pageuserinterface
 - @ref pagedevice
 - @ref pageinputoutputchannels

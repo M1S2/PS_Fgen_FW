@@ -5,7 +5,7 @@ The following parser is used to decode all incoming SCPI commands:
 
 [GitHub - j123b567/scpi-parser: Open Source SCPI device library](https://github.com/j123b567/scpi-parser)
 
-The following list gives an overview of the implemented (and planned) SCPI commands. It is inspired by https://www.envox.hr/eez/eez-bench-box-3/bb3-scpi-reference-manual/bb3-scpi-commands-summary.html
+The following list gives an overview of the implemented (and planned) SCPI commands. It is inspired by [SCPI commands summary – EEZ – Envox Experimental Zone](https://www.envox.eu/eez-bench-box-3/bb3-scpi-reference-manual/bb3-scpi-commands-summary/)
 
 Try out sending one of the following commands to the device by simply opening a COM port and writing the characters. A good command for testing the connection and parser is "*IDN?" which returns some details about the device.
 
@@ -93,7 +93,7 @@ SOURce[\<channel\>]:POWer:PROTection:DELay {\<time\>}				| OK		| Protection func
 SOURce[\<channel\>]:POWer:PROTection:DELay?					| OK		| Query the protection delay
 SOURce[\<channel\>]:POWer:PROTection:TRIPped?					| OK		| Returns status of over-power protection activation
 SOURce[\<channel\>]:POWer:PROTection:CLEar					| OK		| Clear the over-power protection
-SOURce[\<channel\>]:VOLTage[:LEVel][:IMMediate][:AMPLitude] {\<voltage\>}	| OK		| Sets the output amplitude (MINimum|MAXimum|UP|DOWN|<Voltage>)
+SOURce[\<channel\>]:VOLTage[:LEVel][:IMMediate][:AMPLitude] {\<voltage\>}	| OK		| Sets the output amplitude (MINimum\|MAXimum\|UP\|DOWN\|\<Voltage\>)
 SOURce[\<channel\>]:VOLTage[:LEVel][:IMMediate][:AMPLitude]?			| OK		| Query the output amplitude
 SOURce[\<channel\>]:VOLTage[:LEVel][:IMMediate]:OFFSet {\<voltage\>}		| OK		| Sets the output offset (non-time varying component of the signal) (MINimum\|MAXimum\|UP\|DOWN\|\<Voltage\>)
 SOURce[\<channel\>]:VOLTage[:LEVel][:IMMediate]:OFFSet?				| OK		| Query the output offset

@@ -1,0 +1,12 @@
+/*! @page pageconfiguration Configuration
+
+The Configuration.h file contains some parameters that can be used to costumize the firmware. It has the following sections:
+- **Version:** Version of the firmware. This should be adapted during release creation.
+- **CPU Info:** Version of the controller board and type of the used microcontroller.
+- **Timers:** Time delays used for key polling, screen drawing and some other device functions.
+- **SCPI:** Use this section to configure buffers used by the SCPI parser or to set the IDN response elements. The SCPI subsystem can be completely removed from the build process (disabled), too.
+- **Screen:** Screen settings including a option to disable the splash screen.
+- **UserInputHandler:** The length of the user input queue can be defined here.
+- **Channels:** The minimum and maximum values for the channel parameters are defined here. Also other parameters (e.g. PID values) are defined here.
+
+ */

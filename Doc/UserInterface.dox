@@ -21,7 +21,7 @@ The following user inputs are detected:
 
 @section ui_library_sec UI Library
 The user interface is based on a self developed UI library.
-There is a separate [Readme for the UI library.](../PS_Fgen_FW/UI_Lib/README.md)
+There is a separate Readme for the @ref pageuilib.
 
 @section ui_overview_sec UI Overview
 To navigate between the main pages (Tabs), use the left and right arrow keys on the KeyPad. 

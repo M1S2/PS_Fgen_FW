@@ -73,6 +73,7 @@ class PS_Channel : public Channel
 		float MeasuredVoltage;				/**< Measured Voltage for this channel. This value is used for PID regulation of the output voltage in CV state. */
 		float MeasuredCurrent;				/**< Measured Current for this channel. This value is used for PID regulation of the output current in CC state. */
 		float MeasuredPower;				/**< Measured Power for this channel. This value is calculated from the MeasuredVoltage and MeasuredCurrent. */
+		float MeasuredLoadResistance;		/**< Measured Load Resistance for this channel. This value is calculated from the MeasuredVoltage and MeasuredCurrent. */
 		
 		uint16_t TimeCounter_OvpDelay_ms;	/**< Time counter used to measure how long the channel has an over voltage. If this value exceeds the OvpDelay, the over voltage protection kicks in. */
 		uint16_t TimeCounter_OcpDelay_ms;	/**< Time counter used to measure how long the channel has an over current. If this value exceeds the OcpDelay, the over current protection kicks in. */

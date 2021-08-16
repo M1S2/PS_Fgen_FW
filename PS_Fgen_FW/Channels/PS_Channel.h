@@ -22,9 +22,11 @@ typedef enum PsStates
 {
 	PS_STATE_CV,			/**< Power supply state constant voltage */
 	PS_STATE_CC,			/**< Power supply state constant current */
+	PS_STATE_OVL,			/**< Power supply state overload. The channel isn't able to regulate the voltage (or current) to the desired value, because it is at it's limits and running in open-loop. */
 	PS_STATE_OVP,			/**< Power supply state over voltage protection */
 	PS_STATE_OCP,			/**< Power supply state over current protection */
-	PS_STATE_OPP			/**< Power supply state over power protection */
+	PS_STATE_OPP,			/**< Power supply state over power protection */
+	NUM_PS_STATE_ELEMENTS	/**< The last element is used to determine the number of elements in the enumeration */
 } PsStates_t;
 extern const char* PSStatesNames[];
 

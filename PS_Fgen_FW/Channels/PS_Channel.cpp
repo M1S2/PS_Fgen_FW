@@ -9,7 +9,7 @@
 
 #ifdef PS_SUBSYSTEM_ENABLED
 
-const char* PSStatesNames[] = { "CV", "CC", "OVP", "OCP", "OPP" };
+const char* PSStatesNames[] = { "CV", "CC", "OVL", "OVP", "OCP", "OPP" };
 
 PS_Channel::PS_Channel(float minVolt, float maxVolt, float minCurrent, float maxCurrent, uint8_t minOvpLevel, uint8_t maxOvpLevel, float minOvpDelay, float maxOvpDelay, uint8_t minOcpLevel, uint8_t maxOcpLevel, float minOcpDelay, float maxOcpDelay, float minOppLevel, float maxOppLevel, float minOppDelay, float maxOppDelay) : Channel(POWER_SUPPLY_CHANNEL_TYPE)
 {
@@ -45,7 +45,7 @@ void PS_Channel::SwitchOffOutput()
 		
 void PS_Channel::UpdateOutput()
 {
-	if(PsState == PS_STATE_CV && GetEnabled())
+	if(GetEnabled() && (PsState == PS_STATE_CV || PsState == PS_STATE_CC || PsState == PS_STATE_OVL))
 	{
 		MCP4921_Voltage_Set(_setVoltage / 2);		// divided by two because of OpAmp in circuit that has an amplification of 2
 	}
@@ -57,7 +57,7 @@ void PS_Channel::UpdateOutput()
 
 void PS_Channel::DeviceTimerTickISR(uint16_t currentPeriod_ms)
 {
-	if(GetEnabled() && PsState == PS_STATE_CV)
+	if(GetEnabled() && (PsState == PS_STATE_CV || PsState == PS_STATE_CC || PsState == PS_STATE_OVL))
 	{
 		/********************************************************
 		 * Voltage PID regulator 
@@ -72,7 +72,8 @@ void PS_Channel::DeviceTimerTickISR(uint16_t currentPeriod_ms)
 		   see: https://www.embeddedrelated.com/showcode/346.php */
 		if (_setVoltage > PS_MAX_VOLTAGE)				// Positive saturation? Output is not regulated (Open-loop).
 		{
-			_setVoltage = PS_MAX_VOLTAGE;				// Clamp the output			
+			_setVoltage = PS_MAX_VOLTAGE;				// Clamp the output
+			PsState = PS_STATE_OVL;						// Set the power supply state to overload (because the output is saturated).
 			if (PIDVoltError < 0)						// Error is the opposite sign? Update integration error.
 			{
 				_PIDVoltErrorSum = tmpPIDVoltErrorSum;
@@ -81,6 +82,7 @@ void PS_Channel::DeviceTimerTickISR(uint16_t currentPeriod_ms)
 		else if (_setVoltage < 0)						// Negative saturation? Output is not regulated (Open-loop).
 		{
 			_setVoltage = 0;							// Clamp the output
+			PsState = PS_STATE_OVL;						// Set the power supply state to overload (because the output is saturated).
 			if (PIDVoltError > 0)						// Error is the opposite sign? Update integration error.
 			{
 				_PIDVoltErrorSum = tmpPIDVoltErrorSum;
@@ -88,6 +90,7 @@ void PS_Channel::DeviceTimerTickISR(uint16_t currentPeriod_ms)
 		}
 		else											// Output is regulated (Closed-loop).
 		{
+			PsState = PS_STATE_CV;
 			_PIDVoltErrorSum = tmpPIDVoltErrorSum;
 		}
 	

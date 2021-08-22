@@ -262,18 +262,16 @@ void DeviceClass::ReportCalibrationFactors()
 }
 
 void DeviceClass::CoerceCalibrationFactors()
-{
-	char buffer[50];
-	
-	if(CalibrationFactors.Cal_RefVoltage < 0.1 || isnan(CalibrationFactors.Cal_RefVoltage)) { CalibrationFactors.Cal_RefVoltage = 5; }
-	if(CalibrationFactors.Cal_ATX_3V3 < 0.1 || isnan(CalibrationFactors.Cal_ATX_3V3)) { CalibrationFactors.Cal_ATX_3V3 = 1; }
-	if(CalibrationFactors.Cal_ATX_5V < 0.1 || isnan(CalibrationFactors.Cal_ATX_5V)) { CalibrationFactors.Cal_ATX_5V = 1; }
-	if(CalibrationFactors.Cal_ATX_12V < 0.1 || isnan(CalibrationFactors.Cal_ATX_12V)) { CalibrationFactors.Cal_ATX_12V = 1; }
-	if(CalibrationFactors.Cal_ATX_12V_NEG < 0.1 || isnan(CalibrationFactors.Cal_ATX_12V_NEG)) { CalibrationFactors.Cal_ATX_12V_NEG = 1; }
-	if(CalibrationFactors.Cal_DMM1 < 0.1 || isnan(CalibrationFactors.Cal_DMM1)) { CalibrationFactors.Cal_DMM1 = 1; }
-	if(CalibrationFactors.Cal_DMM2 < 0.1 || isnan(CalibrationFactors.Cal_DMM2)) { CalibrationFactors.Cal_DMM2 = 1; }
-	if(CalibrationFactors.Cal_PS_VOLT < 0.1 || isnan(CalibrationFactors.Cal_PS_VOLT)) { CalibrationFactors.Cal_PS_VOLT = 1; }
-	if(CalibrationFactors.Cal_DDS_FREQ < 0.1 || isnan(CalibrationFactors.Cal_DDS_FREQ)) { CalibrationFactors.Cal_DDS_FREQ = 1; }
+{	
+	if(CalibrationFactors.Cal_RefVoltage < 0.1 || CalibrationFactors.Cal_RefVoltage > 10 || isnan(CalibrationFactors.Cal_RefVoltage)) { CalibrationFactors.Cal_RefVoltage = 5; }
+	if(CalibrationFactors.Cal_ATX_3V3 < 0.1 || CalibrationFactors.Cal_ATX_3V3 > 10 || isnan(CalibrationFactors.Cal_ATX_3V3)) { CalibrationFactors.Cal_ATX_3V3 = 1; }
+	if(CalibrationFactors.Cal_ATX_5V < 0.1 || CalibrationFactors.Cal_ATX_5V > 10 || isnan(CalibrationFactors.Cal_ATX_5V)) { CalibrationFactors.Cal_ATX_5V = 1; }
+	if(CalibrationFactors.Cal_ATX_12V < 0.1 || CalibrationFactors.Cal_ATX_12V > 10 || isnan(CalibrationFactors.Cal_ATX_12V)) { CalibrationFactors.Cal_ATX_12V = 1; }
+	if(CalibrationFactors.Cal_ATX_12V_NEG < 0.1 || CalibrationFactors.Cal_ATX_12V_NEG > 10 || isnan(CalibrationFactors.Cal_ATX_12V_NEG)) { CalibrationFactors.Cal_ATX_12V_NEG = 1; }
+	if(CalibrationFactors.Cal_DMM1 < 0.1 || CalibrationFactors.Cal_DMM1 > 10 || isnan(CalibrationFactors.Cal_DMM1)) { CalibrationFactors.Cal_DMM1 = 1; }
+	if(CalibrationFactors.Cal_DMM2 < 0.1 || CalibrationFactors.Cal_DMM2 > 10 || isnan(CalibrationFactors.Cal_DMM2)) { CalibrationFactors.Cal_DMM2 = 1; }
+	if(CalibrationFactors.Cal_PS_VOLT < 0.1 || CalibrationFactors.Cal_PS_VOLT > 10 || isnan(CalibrationFactors.Cal_PS_VOLT)) { CalibrationFactors.Cal_PS_VOLT = 1; }
+	if(CalibrationFactors.Cal_DDS_FREQ < 0.1 || CalibrationFactors.Cal_DDS_FREQ > 10 || isnan(CalibrationFactors.Cal_DDS_FREQ)) { CalibrationFactors.Cal_DDS_FREQ = 1; }
 }
 
 // -----------------------------------------------------------------------------------------------------------------------------------

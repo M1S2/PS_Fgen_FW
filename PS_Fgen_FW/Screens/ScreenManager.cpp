@@ -18,7 +18,7 @@ Label<5> lbl_devSettingsNeedSaving(240 - 15, 0, "*", u8g_font_7x14r);
 
 TabControl tabControlMain(0, 0, 240, 64, SCREEN_TAB_WIDTH);
 
-MessageDialog msg_DeviceRWLState(0, 0, 240, 64, "Device locked by SYST:RWL command.\nUnlock with SYST:LOC command.", MSG_WARNING, MSG_BTN_NONE);
+MessageDialog msg_DeviceRWLState(0, 0, 240, 64, "Device locked by SYST:RWL.\nUnlock with SYST:LOC.", MSG_WARNING, MSG_BTN_NONE);
 
 ScreenManagerClass::ScreenManagerClass()
 {	

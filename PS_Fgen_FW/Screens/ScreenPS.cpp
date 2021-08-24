@@ -31,9 +31,9 @@ BoolControl boolCtrl_PSOverviewEnabled(PS_COLUMN2_POSX + icon_OnOff_width + 3, P
 Icon ico_PSOverviewCurrent(PS_COLUMN1_POSX, PS_ROW2_POSY - 2, icon_current_width, icon_current_height, icon_current_bits);
 NumericControl<float> numCtrl_PSOverviewCurrent(PS_COLUMN1_POSX + icon_current_width + 3, PS_ROW2_POSY, &Device.PsChannel.Current.Val, "A", PS_MIN_CURRENT, PS_MAX_CURRENT, 3, &Device.PsChannel, &PS_Channel::PSCurrentChanged);
 
-NumericIndicator<float> numInd_PsOverviewVoltage(PS_COLUMN3_POSX, 18, &Device.PsChannel.MeasuredVoltage, "V", PS_MAX_VOLTAGE, 3);
-NumericIndicator<float> numInd_PsOverviewCurrent(PS_COLUMN3_POSX, 28, &Device.PsChannel.MeasuredCurrent, "A", PS_MAX_CURRENT, 3);
-NumericIndicator<float> numInd_PsOverviewPower(PS_COLUMN3_POSX, 38, &Device.PsChannel.MeasuredPower, "W", PS_MAX_VOLTAGE * PS_MAX_CURRENT, 3);
+NumericIndicator<float, 10> numInd_PsOverviewVoltage(PS_COLUMN3_POSX, 18, &Device.PsChannel.MeasuredVoltage, "V", PS_MAX_VOLTAGE, 3);
+NumericIndicator<float, 10> numInd_PsOverviewCurrent(PS_COLUMN3_POSX, 28, &Device.PsChannel.MeasuredCurrent, "A", PS_MAX_CURRENT, 3);
+NumericIndicator<float, 10> numInd_PsOverviewPower(PS_COLUMN3_POSX, 38, &Device.PsChannel.MeasuredPower, "W", PS_MAX_VOLTAGE * PS_MAX_CURRENT, 3);
 EnumIndicator<PsStates_t> enumInd_PsOverviewState(PS_COLUMN3_POSX + 4, 48, &Device.PsChannel.PsState, PSStatesNames, NUM_PS_STATE_ELEMENTS);
 
 // ***** Power Supply Protection OVP page *****

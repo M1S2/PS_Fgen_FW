@@ -7,8 +7,8 @@
 #include "NumericControl.h"
 #include <math.h>
 
-template <class T>
-NumericControl<T>::NumericControl(unsigned char locX, unsigned char locY, T* valuePointer, const char* baseUnit, T minValue, T maxValue, int numFractionalDigits, void* controlContext, void(*onValueChanged)(void* controlContext)) : NumericIndicator<T>(locX, locY, valuePointer, baseUnit, maxValue, numFractionalDigits)
+template <class T, int stringBufferLength>
+NumericControl<T, stringBufferLength>::NumericControl(unsigned char locX, unsigned char locY, T* valuePointer, const char* baseUnit, T minValue, T maxValue, int numFractionalDigits, void* controlContext, void(*onValueChanged)(void* controlContext)) : NumericIndicator<T, stringBufferLength>(locX, locY, valuePointer, baseUnit, maxValue, numFractionalDigits)
 {
 	this->Type = UI_CONTROL;
 	IsEditMode = false;
@@ -18,8 +18,8 @@ NumericControl<T>::NumericControl(unsigned char locX, unsigned char locY, T* val
 	_onValueChanged = onValueChanged;
 }
 
-template <class T>
-void NumericControl<T>::Draw(u8g_t *u8g, bool isFirstPage)
+template <class T, int stringBufferLength>
+void NumericControl<T, stringBufferLength>::Draw(u8g_t *u8g, bool isFirstPage)
 {
 	if (this->Visible)
 	{
@@ -30,7 +30,7 @@ void NumericControl<T>::Draw(u8g_t *u8g, bool isFirstPage)
 		}
 		else { u8g_DrawHLine(u8g, this->LocX, this->LocY + this->Height, this->Width); }
 		
-		NumericIndicator<T>::Draw(u8g, isFirstPage);
+		NumericIndicator<T, stringBufferLength>::Draw(u8g, isFirstPage);
 		
 		if(IsEditMode)
 		{																								 
@@ -43,16 +43,16 @@ void NumericControl<T>::Draw(u8g_t *u8g, bool isFirstPage)
 	}
 }
 
-template <class T>
-T NumericControl<T>::coerceValue(T value)
+template <class T, int stringBufferLength>
+T NumericControl<T, stringBufferLength>::coerceValue(T value)
 {
 	if (value > this->_maxValue) { value = this->_maxValue; }
 	else if (value < _minValue) { value = _minValue; }
 	return value;
 }
 
-template <class T>
-unsigned char NumericControl<T>::extractDigit(float number, int8_t position)
+template <class T, int stringBufferLength>
+unsigned char NumericControl<T, stringBufferLength>::extractDigit(float number, int8_t position)
 {
 	float divisor = pow(10, position);
 	uint32_t truncated = uint32_t((fabs(number) / divisor) + 0.1f);		// +0.1f not really clean workaround. Is there some rounding problem?
@@ -60,8 +60,8 @@ unsigned char NumericControl<T>::extractDigit(float number, int8_t position)
 }
 
 
-template <class T>
-bool NumericControl<T>::KeyInput(Keys_t key)
+template <class T, int stringBufferLength>
+bool NumericControl<T, stringBufferLength>::KeyInput(Keys_t key)
 {
 	switch (key)
 	{
@@ -100,8 +100,8 @@ bool NumericControl<T>::KeyInput(Keys_t key)
 	}
 }
 
-template <class T>
-bool NumericControl<T>::KeyKilo()
+template <class T, int stringBufferLength>
+bool NumericControl<T, stringBufferLength>::KeyKilo()
 {
 	if (IsEditMode)
 	{
@@ -114,8 +114,8 @@ bool NumericControl<T>::KeyKilo()
 	return false;
 }
 
-template <class T>
-bool NumericControl<T>::KeyMilli()
+template <class T, int stringBufferLength>
+bool NumericControl<T, stringBufferLength>::KeyMilli()
 {
 	if (IsEditMode)
 	{
@@ -128,8 +128,8 @@ bool NumericControl<T>::KeyMilli()
 	return false;
 }
 
-template <class T>
-bool NumericControl<T>::KeyX1()
+template <class T, int stringBufferLength>
+bool NumericControl<T, stringBufferLength>::KeyX1()
 {
 	if (IsEditMode)
 	{
@@ -142,8 +142,8 @@ bool NumericControl<T>::KeyX1()
 	return false;
 }
 
-template <class T>
-bool NumericControl<T>::KeyMinus()
+template <class T, int stringBufferLength>
+bool NumericControl<T, stringBufferLength>::KeyMinus()
 {
 	if (IsEditMode)
 	{
@@ -155,8 +155,8 @@ bool NumericControl<T>::KeyMinus()
 	return false;
 }
 
-template <class T>
-bool NumericControl<T>::KeyNumeric(Keys_t key)
+template <class T, int stringBufferLength>
+bool NumericControl<T, stringBufferLength>::KeyNumeric(Keys_t key)
 {
 	if (IsEditMode)
 	{
@@ -176,8 +176,8 @@ bool NumericControl<T>::KeyNumeric(Keys_t key)
 	return false;
 }
 
-template <class T>
-bool NumericControl<T>::ValueUp()
+template <class T, int stringBufferLength>
+bool NumericControl<T, stringBufferLength>::ValueUp()
 {
 	if (IsEditMode)
 	{
@@ -190,8 +190,8 @@ bool NumericControl<T>::ValueUp()
 	return false;
 }
 
-template <class T>
-bool NumericControl<T>::ValueDown()
+template <class T, int stringBufferLength>
+bool NumericControl<T, stringBufferLength>::ValueDown()
 {
 	if (IsEditMode)
 	{
@@ -204,8 +204,8 @@ bool NumericControl<T>::ValueDown()
 	return false;
 }
 
-template <class T>
-bool NumericControl<T>::CursorLeft()
+template <class T, int stringBufferLength>
+bool NumericControl<T, stringBufferLength>::CursorLeft()
 {
 	if (IsEditMode)
 	{
@@ -218,8 +218,8 @@ bool NumericControl<T>::CursorLeft()
 	return false;
 }
 
-template <class T>
-bool NumericControl<T>::CursorRight()
+template <class T, int stringBufferLength>
+bool NumericControl<T, stringBufferLength>::CursorRight()
 {
 	if (IsEditMode)
 	{
@@ -232,8 +232,8 @@ bool NumericControl<T>::CursorRight()
 	return false;
 }
 
-template <class T>
-void NumericControl<T>::ToggleEditMode()
+template <class T, int stringBufferLength>
+void NumericControl<T, stringBufferLength>::ToggleEditMode()
 {
 	IsEditMode = !IsEditMode;
 }

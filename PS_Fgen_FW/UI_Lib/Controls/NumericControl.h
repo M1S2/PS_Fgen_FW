@@ -13,9 +13,10 @@
 /**
  * Class for a numeric control that is showing a numeric variable value and offers the possibility to edit the value.
  * @tparam T Type of numeric variable handled by this control. This can be e.g. float or int.
+ * @tparam stringBufferLength Length for the internally used _stringDrawBuffer of the NumericIndicator
  */
-template <class T>
-class NumericControl : public NumericIndicator<T>
+template <class T, int stringBufferLength = 9>
+class NumericControl : public NumericIndicator<T, stringBufferLength>
 {
 	private:
 		signed char _currentDigitPosition;				/**< Position of the currently controlled digit. Range from (-_numFractionalDigits) to (_numDigits - _numFractionalDigits - 1) */

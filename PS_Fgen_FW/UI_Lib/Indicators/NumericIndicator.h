@@ -13,8 +13,9 @@
 /**
  * Class for a numeric indicator that is only showing a numeric variable value.
  * @tparam T Type of numeric variable handled by this indicator. This can be e.g. float or int.
+ * @tparam stringBufferLength Length for the internally used _stringDrawBuffer
  */
-template <class T>
+template <class T, int stringBufferLength = 9>
 class NumericIndicator : public UIElement
 {
 	private:
@@ -27,21 +28,21 @@ class NumericIndicator : public UIElement
 		 */
 		int numNonFractionalDigits(T number);
 		
-		T _lastValueDraw;						/**< Last drawn numeric value. Only if the _valueDraw differs from this value, the _stringDrawBuffer is recalculated. */
-		bool _firstDraw;						/**< Used to track if it's the first draw after the construction of the indicator. */
-		const char* _unitPrefix;				/**< Current display prefix character ("m", "k", "M") */
-		char _stringDrawBuffer[20];				/**< Buffer holding the string that is drawn to the screen. This is only recalculated on the firstPage and if the value has changed. `char stringBufferLen = _numDigits + 1 + strlen(_unitPrefix) + strlen(_baseUnit) + 1;` */
+		T _lastValueDraw;								/**< Last drawn numeric value. Only if the _valueDraw differs from this value, the _stringDrawBuffer is recalculated. */
+		bool _firstDraw;								/**< Used to track if it's the first draw after the construction of the indicator. */
+		const char* _unitPrefix;						/**< Current display prefix character ("m", "k", "M") */
+		char _stringDrawBuffer[stringBufferLength];		/**< Buffer holding the string that is drawn to the screen. This is only recalculated on the firstPage and if the value has changed. `char stringBufferLen = _numDigits + 1 + strlen(_unitPrefix) + strlen(_baseUnit) + 1;` */
 		
 	protected:
-		const char* _baseUnit;					/**< Base unit that is appended to the calculated prefix. E.g. "V" for voltage values. */
-		T* _valuePointer;						/**< Pointer to the numeric variable that is shown by this indicator. */
-		T _valueDraw;							/**< This variable is updated from the _valuePointer on each draw of the first page. */
-		T _maxValue;							/**< Maximum value that can be shown by this numeric indicator. It is used to determine the number of non-fractional digits. */
-		unsigned char _numFractionalDigits;		/**< Number of fractional digits that are shown by this indicator. E.g. 1.234 V has 3 fractional digits. */
-		unsigned char _numDigits;				/**< Number of digits calculated from the maxValue (_numFractionalDigits + numNonFractionalDigits). */
+		const char* _baseUnit;							/**< Base unit that is appended to the calculated prefix. E.g. "V" for voltage values. */
+		T* _valuePointer;								/**< Pointer to the numeric variable that is shown by this indicator. */
+		T _valueDraw;									/**< This variable is updated from the _valuePointer on each draw of the first page. */
+		T _maxValue;									/**< Maximum value that can be shown by this numeric indicator. It is used to determine the number of non-fractional digits. */
+		unsigned char _numFractionalDigits;				/**< Number of fractional digits that are shown by this indicator. E.g. 1.234 V has 3 fractional digits. */
+		unsigned char _numDigits;						/**< Number of digits calculated from the maxValue (_numFractionalDigits + numNonFractionalDigits). */
 
-		float _displayValue;					/**< Value that is displayed by Draw(). E.g. 999.760 if control value is 999760 Hz. */
-		signed char _unitPrefixPower;			/**< Current display prefix power (m = -3, k = 3, M = 6) */
+		float _displayValue;							/**< Value that is displayed by Draw(). E.g. 999.760 if control value is 999760 Hz. */
+		signed char _unitPrefixPower;					/**< Current display prefix power (m = -3, k = 3, M = 6) */
 
 	public:
 			

@@ -14,7 +14,7 @@
 #include "../Indicators/Icon.h"
 #include "../Controls/ButtonControl.h"
 
-#define MAX_MESSAGEDIALOG_STRING_LENGTH		75			/**< Default string length for the message dialog text. */
+#define MAX_MESSAGEDIALOG_STRING_LENGTH		55			/**< Default string length for the message dialog text. */
 
 /**
  * Available message dialog severity types.

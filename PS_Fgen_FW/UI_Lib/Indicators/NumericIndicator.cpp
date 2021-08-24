@@ -11,8 +11,8 @@
 
 #include <stdlib.h>
 
-template <class T>
-void NumericIndicator<T>::calculateDisplayValue()
+template <class T, int stringBufferLength>
+void NumericIndicator<T, stringBufferLength>::calculateDisplayValue()
 {
 	_displayValue = (float)_valueDraw;
 	_unitPrefixPower = 0;
@@ -42,8 +42,8 @@ void NumericIndicator<T>::calculateDisplayValue()
 	_unitPrefix = (_unitPrefixPower == -3 ? "m" : (_unitPrefixPower == 0 ? "" : (_unitPrefixPower == 3 ? "k" : (_unitPrefixPower == 6 ? "M" : ""))));
 }
 
-template <class T>
-int NumericIndicator<T>::numNonFractionalDigits(T number)
+template <class T, int stringBufferLength>
+int NumericIndicator<T, stringBufferLength>::numNonFractionalDigits(T number)
 {
 	int digits = 0;
 	//if (number < 0) digits = 1; // remove this line if '-' counts as a digit
@@ -56,8 +56,8 @@ int NumericIndicator<T>::numNonFractionalDigits(T number)
 }
 
 
-template <class T>
-NumericIndicator<T>::NumericIndicator(unsigned char locX, unsigned char locY, T* valuePointer, const char* baseUnit, T maxValue, unsigned char numFractionalDigits) : UIElement(locX, locY, UI_INDICATOR)
+template <class T, int stringBufferLength>
+NumericIndicator<T, stringBufferLength>::NumericIndicator(unsigned char locX, unsigned char locY, T* valuePointer, const char* baseUnit, T maxValue, unsigned char numFractionalDigits) : UIElement(locX, locY, UI_INDICATOR)
 {
 	_valuePointer = valuePointer;
 	_baseUnit = baseUnit;
@@ -68,8 +68,8 @@ NumericIndicator<T>::NumericIndicator(unsigned char locX, unsigned char locY, T*
 	_firstDraw = true;
 }
 
-template <class T>
-void NumericIndicator<T>::Draw(u8g_t *u8g, bool isFirstPage)
+template <class T, int stringBufferLength>
+void NumericIndicator<T, stringBufferLength>::Draw(u8g_t *u8g, bool isFirstPage)
 {
 	if (Visible)
 	{
@@ -86,6 +86,7 @@ void NumericIndicator<T>::Draw(u8g_t *u8g, bool isFirstPage)
 				sprintf(formatStringBuffer, "%%0%d.%df%s%s", _numDigits + (_numFractionalDigits > 0 ? 1 : 0), _numFractionalDigits + _unitPrefixPower, _unitPrefix, _baseUnit);       // if _numFractionalDigits is 0, no decimal point is used (one character less)
 
 				sprintf(_stringDrawBuffer, formatStringBuffer, fabs(_displayValue));
+				_firstDraw = false;
 			}
 		}
 

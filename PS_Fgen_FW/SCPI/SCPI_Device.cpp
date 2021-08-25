@@ -534,26 +534,52 @@ scpi_result_t SCPI_SetChannelParameter(scpi_t * context, SCPIChannelParameters_t
 				#if defined DDS_USER_DEFINED_WAVEFORMS_ENABLED && defined DDS_SUBSYSTEM_ENABLED
 				case SCPI_CHPARAM_USERWAVEFORMDATA:
 				{
+					/* SOURce[<channel>]:FUNCtion:DATa #<NumBytesDigits><NumBytes><Bytes>
+					 * Split waveform in multiple packets (e.g. each 32 bytes with data) because the scpi_input_buffer can not hold the complete waveform at the same time.
+					 * The packet length must be dividable by 2 because always 2 bytes are processed together (uint16_t).
+					 * Each packet is appended to the DDS channel UserWaveTabe until the array is completely filled. Then the channel is updated.
+					 * e.g. SOUR1:FUNC:DAT #23290ABCDEF90ABCDEF90ABCDEF90ABCDEF
+					 *      SOUR1:FUNC:DAT #23212345678123456781234567812345678
+					 *      ...
+					 *
+					 * Clear the receive index (fill the array from the beginning) by sending zero data:
+					 * e.g. SOUR1:FUNC:DAT #10
+					 */
+							
 					const char* userWaveformBuffer;
 					size_t arbitraryBlockLen;
 					if (!SCPI_ParamArbitraryBlock(context, &userWaveformBuffer, &arbitraryBlockLen, TRUE)) { return SCPI_RES_ERR; }
 				
-					for(int i = 0; i < (1 << DDS_QUANTIZER_BITS); i++)		// Set all array elements to 0
+					// Set all array elements of the UserWaveTable to 0 if
+					// - an command with zero data bytes was received or
+					// - the ReceiveIndex is pointing to the first array element
+					if(arbitraryBlockLen == 0 || ddsChannel->UserWaveTableReceiveIndex == 0)
 					{
-						ddsChannel->UserWaveTable[i] = 0;
+						for(int i = 0; i < (1 << DDS_QUANTIZER_BITS); i++)
+						{
+							ddsChannel->UserWaveTable[i] = 0;
+						}
+						ddsChannel->UserWaveTableReceiveIndex = 0;
 					}
 				
-					for(unsigned int i = 0; i < arbitraryBlockLen; i+=2)		// Combine 2 bytes (only lower 12 bits are used in DDS algorithm) 
+					// Combine 2 bytes (only lower 12 bits are used in DDS algorithm)
+					for(unsigned int i = 0; i < arbitraryBlockLen; i+=2)
 					{
-						if(i >= arbitraryBlockLen || (i + 1) >= arbitraryBlockLen || (i / 2) >= (1 << DDS_QUANTIZER_BITS)) { break; }
+						if((i + 1) >= arbitraryBlockLen || ddsChannel->UserWaveTableReceiveIndex >= (1 << DDS_QUANTIZER_BITS)) { break; }
+						
+						ddsChannel->UserWaveTable[ddsChannel->UserWaveTableReceiveIndex] = (uint16_t)((userWaveformBuffer[i] << 8) + userWaveformBuffer[i + 1]);
+						ddsChannel->UserWaveTableReceiveIndex++;
+					}
 					
-						ddsChannel->UserWaveTable[i / 2] = (uint16_t)((userWaveformBuffer[i] << 8) + userWaveformBuffer[i + 1]);
+					// If the ReceiveIndex is larger than the number of array elements, the new waveform was fully received => Update the DDS channel and reset the ReceiveIndex for a new waveform
+					if(ddsChannel->UserWaveTableReceiveIndex >= (1 << DDS_QUANTIZER_BITS))
+					{
+						ddsChannel->UserWaveTableReceiveIndex = 0;
+						ddsChannel->UpdateWaveTable();
+						Device.SaveSettingsDDSUserWaveforms();
+						Usart0TransmitStr("User Waveform updated\r\n");
 					}
-					ddsChannel->UpdateWaveTable();
-					Device.SaveSettingsDDSUserWaveforms();
-				
-					Usart0TransmitStr("User Waveform updated\r\n");
-				
+					
 					break;
 				}
 				#endif

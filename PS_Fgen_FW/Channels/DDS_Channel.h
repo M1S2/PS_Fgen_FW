@@ -55,6 +55,7 @@ class DDS_Channel : public Channel
 		
 		#ifdef DDS_USER_DEFINED_WAVEFORMS_ENABLED
 			uint16_t UserWaveTable[(1 << DDS_QUANTIZER_BITS)];	/**< Array holding the points representing a user defined signal form */
+			int UserWaveTableReceiveIndex = 0;			/**< Index for filling the UserWaveTable via SCPI command. The received data is inserted into the UserWaveTable array from this index. */
 		#endif
 
 		/**

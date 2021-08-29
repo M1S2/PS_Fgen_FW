@@ -29,7 +29,7 @@ Label<20> lbl_Settings_Device_caption(SCREEN_TAB_WIDTH + 25, 5, "Settings Device
 ButtonControl<14> button_Settings_Save(SETTINGS_COLUMN1_POSX, SETTINGS_ROW1_POSY, 70, DEFAULT_UI_ELEMENT_HEIGHT, "Save Settings", &Device, &OnButtonSettingsSave);
 ButtonControl<15> button_Settings_Calibration(SETTINGS_COLUMN2_POSX, SETTINGS_ROW1_POSY, 70, DEFAULT_UI_ELEMENT_HEIGHT, "Calibration...", &Device, &OnButtonDeviceCalibration);
 ButtonControl<13> button_Settings_Reset(SETTINGS_COLUMN1_POSX, SETTINGS_ROW2_POSY, 70, DEFAULT_UI_ELEMENT_HEIGHT, "Reset Device", &Device, &OnButtonDeviceReset);
-MessageDialog msg_Settings_ResetConfirmation(0, 0, 240, 64, "Really reset the device?\nThis can't be undone!", MSG_WARNING, MSG_BTN_OK_CANCEL, &Device, &OnResetConfirmation, &OnResetCancel);
+MessageDialog<50> msg_Settings_ResetConfirmation(0, 0, 240, 64, "Really reset the device?\nThis can't be undone!", MSG_WARNING, MSG_BTN_OK_CANCEL, &Device, &OnResetConfirmation, &OnResetCancel);
 
 // ***** Settings Display page *****
 void SettingsDisplayInvertedChanged(void* context);

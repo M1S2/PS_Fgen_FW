@@ -30,7 +30,8 @@
 #include "../Indicators/NumericIndicator.cpp"
 #include "../Controls/NumericControl.cpp"
 #include "../Indicators/ProgressBar.cpp"
-#include "../Indicators/Label.cpp"
-#include "../Controls/ButtonControl.cpp"
+#include "../Controls/MessageDialog.cpp"
+//#include "../Indicators/Label.cpp"			// Label.cpp is included by MessageDialog.cpp
+//#include "../Controls/ButtonControl.cpp"		// ButtonControl.cpp is included by MessageDialog.cpp
 
 #endif /* UI_ELEMENTS_H_ */

@@ -13,6 +13,7 @@
 #include "../Indicators/Label.h"
 #include "../Indicators/Icon.h"
 #include "../Controls/ButtonControl.h"
+#include "../Core/UI_Icons.h"
 
 #define MAX_MESSAGEDIALOG_STRING_LENGTH		55			/**< Default string length for the message dialog text. */
 
@@ -36,28 +37,18 @@ typedef enum MessageButtons
 	MSG_BTN_OK_CANCEL		/**< Dialog with an OK and CANCEL button. */
 }MessageButtons_t;
 
-#define icon_info_width 16									/**< Width of the info icon. */
-#define icon_info_height 16									/**< Height of the info icon. */
-extern unsigned char icon_info_bits[] U8G_PROGMEM;			/**< Data array of the info icon. */
-	
-#define icon_warning_width 16								/**< Width of the warning icon. */
-#define icon_warning_height 16								/**< Height of the warning icon. */
-extern unsigned char icon_warning_bits[] U8G_PROGMEM;		/**< Data array of the warning icon. */
-
-#define icon_error_width 16									/**< Width of the error icon. */
-#define icon_error_height 16								/**< Height of the error icon. */
-extern unsigned char icon_error_bits[] U8G_PROGMEM;			/**< Data array of the error icon. */
-
 /**
  * Class for a message dialog with optional Ok and Cancel buttons.
+ * @tparam messageLength Length for the internally used string buffer of the Label of the MessageDialog. This is the maximum length that the message can be.
  */
+template <int messageLength = MAX_MESSAGEDIALOG_STRING_LENGTH>
 class MessageDialog : public UIElement
 {
 	private:
 		ContainerPage _page;								/**< Container page that is internally used to group and handle all elements of the message dialog. */
-		Label<MAX_MESSAGEDIALOG_STRING_LENGTH> _message;	/**< Label UIElement used to display the dialog message. */
 		Icon _severityIcon;									/**< Icon UIElement used to display the message severity. */
 		MessageSeverity_t _severity;						/**< Message severity. */
+		Label<messageLength> _message;						/**< Label UIElement used to display the dialog message. */
 		ButtonControl<3> _buttonOk;							/**< Optional Ok button. */
 		ButtonControl<7> _buttonCancel;						/**< Optional Cancel button. */
 
@@ -93,5 +84,7 @@ class MessageDialog : public UIElement
 		 */
 		virtual bool KeyInput(Keys_t key) override;
 };
+
+typedef MessageDialog<> MessageDialogDefault;			/**< MessageDialog using the MAX_MESSAGEDIALOG_STRING_LENGTH as string length */
 
 #endif /* MESSAGEDIALOG_H_ */

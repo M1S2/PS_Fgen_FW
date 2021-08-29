@@ -8,22 +8,8 @@
 #include "../Indicators/Label.cpp"
 #include "../Controls/ButtonControl.cpp"
 
-unsigned char icon_info_bits[] U8G_PROGMEM = {
-	0xc0, 0x03, 0x30, 0x0c, 0x0c, 0x30, 0x84, 0x21, 0x82, 0x41, 0x02, 0x40,
-	0x81, 0x81, 0x81, 0x81, 0x81, 0x81, 0x81, 0x81, 0x82, 0x41, 0x82, 0x41,
-	0x84, 0x21, 0x0c, 0x30, 0x30, 0x0c, 0xc0, 0x03 };
-
-unsigned char icon_warning_bits[] U8G_PROGMEM = {
-	0x80, 0x01, 0x40, 0x02, 0x40, 0x02, 0x20, 0x04, 0x20, 0x04, 0x90, 0x09,
-	0x90, 0x09, 0x88, 0x11, 0x88, 0x11, 0x84, 0x21, 0x84, 0x21, 0x02, 0x40,
-	0x82, 0x41, 0x81, 0x81, 0x01, 0x80, 0xfe, 0x7f };
-
-unsigned char icon_error_bits[] U8G_PROGMEM = {
-	0xc0, 0x03, 0x30, 0x0c, 0x0c, 0x30, 0x04, 0x20, 0x12, 0x48, 0x22, 0x44,
-	0x41, 0x82, 0x81, 0x81, 0x81, 0x81, 0x41, 0x82, 0x22, 0x44, 0x12, 0x48,
-	0x04, 0x20, 0x0c, 0x30, 0x30, 0x0c, 0xc0, 0x03 };
-
-MessageDialog::MessageDialog(unsigned char locX, unsigned char locY, unsigned char width, unsigned char height, const char* message, MessageSeverity_t severity, MessageButtons_t buttons, void* controlContext, void(*onOkClick)(void* controlContext), void(*onCancelClick)(void* controlContext)) : UIElement(locX, locY, UI_CONTROL),
+template <int messageLength>
+MessageDialog<messageLength>::MessageDialog(unsigned char locX, unsigned char locY, unsigned char width, unsigned char height, const char* message, MessageSeverity_t severity, MessageButtons_t buttons, void* controlContext, void(*onOkClick)(void* controlContext), void(*onCancelClick)(void* controlContext)) : UIElement(locX, locY, UI_CONTROL),
 	_page(),
 	_severityIcon(locX, locY, icon_info_width, icon_info_height, (severity == MSG_INFO ? icon_info_bits : (severity == MSG_WARNING ? icon_warning_bits : icon_error_bits))),
 	_message(locX + icon_info_width + 5, locY, message),
@@ -52,12 +38,14 @@ MessageDialog::MessageDialog(unsigned char locX, unsigned char locY, unsigned ch
 	ActiveChild = &_page;
 }
 
-void MessageDialog::Draw(u8g_t *u8g, bool isFirstPage)
+template <int messageLength>
+void MessageDialog<messageLength>::Draw(u8g_t *u8g, bool isFirstPage)
 {
 	_page.Draw(u8g, isFirstPage);
 }
 
-bool MessageDialog::KeyInput(Keys_t key)
+template <int messageLength>
+bool MessageDialog<messageLength>::KeyInput(Keys_t key)
 {
 	return _page.KeyInput(key);
 }

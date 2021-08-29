@@ -71,8 +71,7 @@ NumericControl<float> numCtrl_PSProtectionOPPDelay(PS_COLUMN1_POSX + icon_delay_
 ButtonControl<6> button_PSProtectionOPPClear(PS_COLUMN2_POSX, PS_ROW2_POSY, DEFAULT_UI_ELEMENT_WIDTH, DEFAULT_UI_ELEMENT_HEIGHT, "Clear", &Device.PsChannel, &PSProtectionsClear);
 
 
-MessageDialog msg_protectionsCleared(0, 0, 240, 64, "Protections Cleared.", MSG_INFO, MSG_BTN_OK, NULL, &PSProtectionsClearedOK);
-
+MessageDialog<25> msg_protectionsCleared(0, 0, 240, 64, "Protections Cleared.", MSG_INFO, MSG_BTN_OK, NULL, &PSProtectionsClearedOK);
 
 void PSProtectionsClear(void* controlContext)
 {

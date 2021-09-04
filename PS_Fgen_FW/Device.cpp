@@ -256,13 +256,21 @@ void DeviceClass::ReportCalibrationFactors()
 	dtostrf(CalibrationFactors.Cal_PS_VOLT, 10, 3, buffer);
 	Usart0TransmitStr(buffer);
 	
+	Usart0TransmitStr("\r\nPS_CURR=");
+	dtostrf(CalibrationFactors.Cal_PS_CURR, 10, 3, buffer);
+	Usart0TransmitStr(buffer);
+	
+	Usart0TransmitStr("\r\nPS_CURR_OFFSET=");
+	dtostrf(CalibrationFactors.Cal_PS_CURR_OFFSET, 10, 5, buffer);
+	Usart0TransmitStr(buffer);
+		
 	Usart0TransmitStr("\r\nDDS FREQ=");
 	dtostrf(CalibrationFactors.Cal_DDS_FREQ, 10, 3, buffer);
 	Usart0TransmitStr(buffer);
 }
 
 void DeviceClass::CoerceCalibrationFactors()
-{	
+{		
 	if(CalibrationFactors.Cal_RefVoltage < 0.1 || CalibrationFactors.Cal_RefVoltage > 10 || isnan(CalibrationFactors.Cal_RefVoltage)) { CalibrationFactors.Cal_RefVoltage = 5; }
 	if(CalibrationFactors.Cal_ATX_3V3 < 0.1 || CalibrationFactors.Cal_ATX_3V3 > 10 || isnan(CalibrationFactors.Cal_ATX_3V3)) { CalibrationFactors.Cal_ATX_3V3 = 1; }
 	if(CalibrationFactors.Cal_ATX_5V < 0.1 || CalibrationFactors.Cal_ATX_5V > 10 || isnan(CalibrationFactors.Cal_ATX_5V)) { CalibrationFactors.Cal_ATX_5V = 1; }
@@ -271,6 +279,8 @@ void DeviceClass::CoerceCalibrationFactors()
 	if(CalibrationFactors.Cal_DMM1 < 0.1 || CalibrationFactors.Cal_DMM1 > 10 || isnan(CalibrationFactors.Cal_DMM1)) { CalibrationFactors.Cal_DMM1 = 1; }
 	if(CalibrationFactors.Cal_DMM2 < 0.1 || CalibrationFactors.Cal_DMM2 > 10 || isnan(CalibrationFactors.Cal_DMM2)) { CalibrationFactors.Cal_DMM2 = 1; }
 	if(CalibrationFactors.Cal_PS_VOLT < 0.1 || CalibrationFactors.Cal_PS_VOLT > 10 || isnan(CalibrationFactors.Cal_PS_VOLT)) { CalibrationFactors.Cal_PS_VOLT = 1; }
+	if(CalibrationFactors.Cal_PS_CURR < 0.1 || CalibrationFactors.Cal_PS_CURR > 10 || isnan(CalibrationFactors.Cal_PS_CURR)) { CalibrationFactors.Cal_PS_CURR = 1; }
+	if(abs(CalibrationFactors.Cal_PS_CURR_OFFSET) > 1 || isnan(CalibrationFactors.Cal_PS_CURR_OFFSET)) { CalibrationFactors.Cal_PS_CURR_OFFSET = 0; }
 	if(CalibrationFactors.Cal_DDS_FREQ < 0.1 || CalibrationFactors.Cal_DDS_FREQ > 10 || isnan(CalibrationFactors.Cal_DDS_FREQ)) { CalibrationFactors.Cal_DDS_FREQ = 1; }
 }
 

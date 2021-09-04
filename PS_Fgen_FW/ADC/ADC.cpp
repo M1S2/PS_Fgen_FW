@@ -33,7 +33,9 @@ ISR(ADC_vect)
 	{
 	#ifdef PS_SUBSYSTEM_ENABLED
 		case 0:
-			Device.PsChannel.MeasuredCurrent = (adcVoltage / 2.4) * 1;		// Ucurr = R24 * (R22 / R23) * IL	=> IL = Ucurr / (R24 * (R22 / R23))
+			// Ucurr = R24 * (R22 / R23) * IL	=> IL = Ucurr / (R24 * (R22 / R23))
+			Device.PsChannel.MeasuredCurrent = ((adcVoltage / 2.4f) * Device.CalibrationFactors.Cal_PS_CURR) - Device.CalibrationFactors.Cal_PS_CURR_OFFSET;
+			if(Device.PsChannel.MeasuredCurrent < 0) { Device.PsChannel.MeasuredCurrent = 0; }
 			Device.PsChannel.MeasuredPower = Device.PsChannel.MeasuredVoltage * Device.PsChannel.MeasuredCurrent;
 			Device.PsChannel.MeasuredLoadResistance = (Device.PsChannel.MeasuredCurrent == 0 ? 10000000 : (Device.PsChannel.MeasuredVoltage / Device.PsChannel.MeasuredCurrent));
 			break;
@@ -45,10 +47,10 @@ ISR(ADC_vect)
 	#endif
 	#ifdef MEASURE_SUBSYSTEM_ENABLED
 		case 2:
-			Device.DeviceVoltages.ATX_12V_NEG = -adcVoltage * 2.4 * Device.CalibrationFactors.Cal_ATX_12V_NEG;
+			Device.DeviceVoltages.ATX_12V_NEG = -adcVoltage * 2.4f * Device.CalibrationFactors.Cal_ATX_12V_NEG;
 			break;
 		case 3:
-			Device.DeviceVoltages.ATX_12V = adcVoltage * 2.5 * Device.CalibrationFactors.Cal_ATX_12V;
+			Device.DeviceVoltages.ATX_12V = adcVoltage * 2.5f * Device.CalibrationFactors.Cal_ATX_12V;
 			break;
 		case 4:
 			Device.DeviceVoltages.ATX_5V = adcVoltage * Device.CalibrationFactors.Cal_ATX_5V;
@@ -57,10 +59,10 @@ ISR(ADC_vect)
 			Device.DeviceVoltages.ATX_3V3 = adcVoltage * Device.CalibrationFactors.Cal_ATX_3V3;
 			break;
 		case 6:
-			Device.DmmChannel1.MeasuredVoltage = adcVoltage * 5.17 * Device.CalibrationFactors.Cal_DMM1;
+			Device.DmmChannel1.MeasuredVoltage = adcVoltage * 5.17f * Device.CalibrationFactors.Cal_DMM1;
 			break;
 		case 7:
-			Device.DmmChannel2.MeasuredVoltage = adcVoltage * 5.17 * Device.CalibrationFactors.Cal_DMM2;
+			Device.DmmChannel2.MeasuredVoltage = adcVoltage * 5.17f * Device.CalibrationFactors.Cal_DMM2;
 			break;
 	#endif
 		default: break;

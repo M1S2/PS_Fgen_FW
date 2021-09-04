@@ -23,7 +23,7 @@
 #define SPLASHSCREEN_DELAY_MS			3000					/**< Time that the splash screen is shown in milliseconds */
 
 /***** SCPI ***************************************************/
-#define SCPI_ENABLED											/**< Comment this line out to disable the SCPI parser */
+//#define SCPI_ENABLED											/**< Comment this line out to disable the SCPI parser */
 #define SCPI_INPUT_BUFFER_LENGTH		64						/**< Length of the SCPI input buffer. If this buffer overflows, there will be an error message. */
 #define SCPI_ERROR_QUEUE_SIZE			4						/**< Maximum number of errors in the error queue. If this queue overflows, the last error message will be replaced by an overflow error message. */
 #define SCPI_IDN_MANUFACTURER			"Markus Scheich"		/**< Manufacturer info used in *IDN? query */

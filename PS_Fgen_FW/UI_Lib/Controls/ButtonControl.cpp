@@ -12,7 +12,8 @@ ButtonControl<StringLength>::ButtonControl(unsigned char locX, unsigned char loc
 {
 	Width = width;
 	Height = height;
-	strcpy(_buttonText, buttonText);
+	strncpy(_buttonText, buttonText, StringLength);		// Copy a maximum number of StringLength characters to the _buttonText buffer. If text is shorter, the array is zero padded.
+	_buttonText[StringLength - 1] = '\0';				// The _buttonText buffer must contain at least one termination character ('\0') at the end to protect from overflow.
 	_controlContext = controlContext;
 	_onClick = onClick;
 }

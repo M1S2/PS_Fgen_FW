@@ -293,7 +293,7 @@ scpi_result_t scpi_cmd_sourceFunctionShapeQ(scpi_t * context)
 
 scpi_result_t scpi_cmd_sourceFunctionModeQ(scpi_t * context)
 {
-	char buffer[20];
+	char buffer[8];
 	strcpy(buffer, "VOLTage");
 	SCPI_ResultCharacters(context, buffer, strlen(buffer));
 	return SCPI_RES_OK;

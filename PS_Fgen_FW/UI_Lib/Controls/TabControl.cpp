@@ -67,7 +67,8 @@ void TabControl::AddTab(const char* header, UIElement* tabContent)
 
 	tabContent->Parent = this;
 	_tabContents[_numTabs] = tabContent;
-	strcpy(_headers[_numTabs], header);
+	strncpy(_headers[_numTabs], header, MAX_HEADER_LENGTH);		// Copy a maximum number of StringLength characters to the _header buffer. If text is shorter, the array is zero padded.
+	_headers[_numTabs][MAX_HEADER_LENGTH - 1] = '\0';			// The _header buffer must contain at least one termination character ('\0') at the end to protect from overflow.
 	_numTabs++;
 
 	if (ActiveChild == NULL) { ActiveChild = tabContent; }

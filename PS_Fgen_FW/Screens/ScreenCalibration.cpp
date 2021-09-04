@@ -18,6 +18,8 @@ typedef enum CalibrationStates
 	#endif
 	#if defined MEASURE_SUBSYSTEM_ENABLED && defined PS_SUBSYSTEM_ENABLED 
 		CAL_PS_VOLT,				/**< Calibrate the PS_VOLT voltage */
+		CAL_PS_CURR,				/**< Calibrate the PS_CURR current */
+		CAL_PS_CURR_OFFSET,			/**< Calibrate the PS_CURR offset current */
 	#endif
 	#if defined MEASURE_SUBSYSTEM_ENABLED && defined DDS_SUBSYSTEM_ENABLED
 		CAL_DDS_FREQ,				/**< Calibrate the DDS frequency */
@@ -28,12 +30,14 @@ typedef enum CalibrationStates
 CalibrationStates_t CalState;
 uint8_t CalStateNumber;			// 1 .. Number calibration steps
 
-float CalTmpVoltage;				// Variable holding the entered voltage value for each calibration step. This is converted to the corresponding factor in the OnButtonCalNext() function
-float CalTmpFrequency;				// Variable holding the entered frequency value for the DDS frequency calibration step. This is converted to the corresponding factor in the OnButtonCalNext() function
+float CalTmpVoltage;				/**< Variable holding the entered voltage value for each calibration step. This is converted to the corresponding factor in the OnButtonCalNext() function */
+float CalTmpCurrent;				/**< Variable holding the entered current value for the PS_CURR calibration step. This is converted to the corresponding factor in the OnButtonCalNext() function */
+float CalTmpFrequency;				/**< Variable holding the entered frequency value for the DDS frequency calibration step. This is converted to the corresponding factor in the OnButtonCalNext() function */
 
 
-#define CAL_CAPTION_POSX	25
-#define CAL_BUTTONS_POSY	50
+#define CAL_CAPTION_POSX	25				/**< X position of the calibration caption */
+#define CAL_BUTTONS_POSY	50				/**< Y position of the calibration buttons (Exit, Next) */
+#define CAL_PS_CURR_OFFSET_CYCLES	1000	/**< Number of cycles that are used during the PS_CURR_OFFSET calibration step. The measured open circuit current is averaged over this number of cycles. */
 
 void OnButtonCalExit(void* context);
 void OnButtonCalNext(void* context);
@@ -42,8 +46,9 @@ void OnCalFinishedOK(void* context);
 ContainerPage page_Cal;
 Icon ico_Cal(5, 3, icon_calibration_width, icon_calibration_height, icon_calibration_bits);
 Label<15> lbl_Cal_caption(CAL_CAPTION_POSX, 5, "Calibration");
-Label<40> lbl_Cal_instruction(CAL_CAPTION_POSX, 20, "...");
+Label<45> lbl_Cal_instruction(CAL_CAPTION_POSX, 20, "...");
 NumericControl<float> numCtrl_Cal_tmpVoltage(CAL_CAPTION_POSX, 35, &CalTmpVoltage, "V", -15, 15, 3);
+NumericControl<float> numCtrl_Cal_tmpCurrent(CAL_CAPTION_POSX, 35, &CalTmpCurrent, "A", 0, 5, 3);
 NumericControl<float> numCtrl_Cal_tmpFrequency(CAL_CAPTION_POSX, 35, &CalTmpFrequency, "Hz", 1, 20000, 1);
 
 ButtonControl<5> button_Cal_Exit(160, CAL_BUTTONS_POSY, 30, DEFAULT_UI_ELEMENT_HEIGHT, "Exit", NULL, &OnButtonCalExit);
@@ -64,6 +69,7 @@ void PrepareCalStep(CalibrationStates_t calState)
 		{
 			CalTmpVoltage = Device.CalibrationFactors.Cal_RefVoltage;
 			numCtrl_Cal_tmpVoltage.Visible = true;
+			numCtrl_Cal_tmpCurrent.Visible = false;
 			numCtrl_Cal_tmpFrequency.Visible = false;
 			lbl_Cal_instruction.SetText("Measure voltage at the +5V output:");
 			break;
@@ -105,6 +111,22 @@ void PrepareCalStep(CalibrationStates_t calState)
 			Device.PsChannel.SetVoltage(10);		// Set output to 10V and enable it
 			Device.PsChannel.SetEnabled(true);
 			lbl_Cal_instruction.SetText("Connect PS+ output to DMM1 input.");
+			break;
+		}
+		case CAL_PS_CURR:
+		{
+			// Power supply channel is already enabled in CAL_PS_VOLT step
+			numCtrl_Cal_tmpCurrent.Visible = true;
+			CalTmpCurrent = 2;
+			Device.CalibrationFactors.Cal_PS_CURR_OFFSET = 0;
+			lbl_Cal_instruction.SetText("Measure shortcut current of PS output:");
+			break;
+		}
+		case CAL_PS_CURR_OFFSET:
+		{
+			numCtrl_Cal_tmpCurrent.Visible = false;
+			// Power supply channel is already enabled in CAL_PS_VOLT step
+			lbl_Cal_instruction.SetText("Disconnect everything (for current offset).");
 			break;
 		}
 	#endif
@@ -156,7 +178,7 @@ void OnButtonCalNext(void* context)
 			// Do reference voltage calibration
 			Device.CalibrationFactors.Cal_RefVoltage = CalTmpVoltage;
 			// Do 5V calibration
-			Device.CalibrationFactors.Cal_ATX_5V *= (CalTmpVoltage / Device.DeviceVoltages.ATX_5V); 
+			Device.CalibrationFactors.Cal_ATX_5V *= (Device.DeviceVoltages.ATX_5V == 0 ? 1 : (CalTmpVoltage / Device.DeviceVoltages.ATX_5V)); 
 			
 			PrepareCalStep(CAL_ATX_3V3);
 			break;
@@ -164,7 +186,7 @@ void OnButtonCalNext(void* context)
 		case CAL_ATX_3V3: 
 		{
 			// Do 3V3 calibration
-			Device.CalibrationFactors.Cal_ATX_3V3 *= (CalTmpVoltage / Device.DeviceVoltages.ATX_3V3);
+			Device.CalibrationFactors.Cal_ATX_3V3 *= (Device.DeviceVoltages.ATX_3V3 == 0 ? 1 : (CalTmpVoltage / Device.DeviceVoltages.ATX_3V3));
 						
 			PrepareCalStep(CAL_ATX_12V);
 			break;
@@ -172,7 +194,7 @@ void OnButtonCalNext(void* context)
 		case CAL_ATX_12V:
 		{
 			// Do 12V calibration
-			Device.CalibrationFactors.Cal_ATX_12V *= (CalTmpVoltage / Device.DeviceVoltages.ATX_12V);
+			Device.CalibrationFactors.Cal_ATX_12V *= (Device.DeviceVoltages.ATX_12V == 0 ? 1 : (CalTmpVoltage / Device.DeviceVoltages.ATX_12V));
 			
 			PrepareCalStep(CAL_ATX_12V_NEG);
 			break;
@@ -180,7 +202,7 @@ void OnButtonCalNext(void* context)
 		case CAL_ATX_12V_NEG:
 		{
 			// Do 12V NEG calibration
-			Device.CalibrationFactors.Cal_ATX_12V_NEG *= (CalTmpVoltage / Device.DeviceVoltages.ATX_12V_NEG);
+			Device.CalibrationFactors.Cal_ATX_12V_NEG *= (Device.DeviceVoltages.ATX_12V_NEG == 0 ? 1 : (CalTmpVoltage / Device.DeviceVoltages.ATX_12V_NEG));
 			
 			#ifdef MEASURE_SUBSYSTEM_ENABLED
 				PrepareCalStep(CAL_DMM1);
@@ -193,7 +215,7 @@ void OnButtonCalNext(void* context)
 		case CAL_DMM1:
 		{
 			// Do DMM1 calibration
-			Device.CalibrationFactors.Cal_DMM1 *= (Device.DeviceVoltages.ATX_12V / Device.DmmChannel1.MeasuredVoltage);
+			Device.CalibrationFactors.Cal_DMM1 *= (Device.DmmChannel1.MeasuredVoltage == 0 ? 1 : (Device.DeviceVoltages.ATX_12V / Device.DmmChannel1.MeasuredVoltage));
 			
 			PrepareCalStep(CAL_DMM2);
 			break;			
@@ -201,7 +223,7 @@ void OnButtonCalNext(void* context)
 		case CAL_DMM2:
 		{
 			// Do DMM2 calibration
-			Device.CalibrationFactors.Cal_DMM2 *= (Device.DeviceVoltages.ATX_12V / Device.DmmChannel2.MeasuredVoltage);			
+			Device.CalibrationFactors.Cal_DMM2 *= (Device.DmmChannel2.MeasuredVoltage == 0 ? 1 : (Device.DeviceVoltages.ATX_12V / Device.DmmChannel2.MeasuredVoltage));			
 			
 			#ifdef PS_SUBSYSTEM_ENABLED 
 				PrepareCalStep(CAL_PS_VOLT);
@@ -217,11 +239,34 @@ void OnButtonCalNext(void* context)
 		case CAL_PS_VOLT:
 		{
 			// Do PS_VOLT calibration
-			Device.CalibrationFactors.Cal_PS_VOLT *= (Device.DmmChannel1.MeasuredVoltage / Device.PsChannel.MeasuredVoltage);
+			Device.CalibrationFactors.Cal_PS_VOLT *= (Device.PsChannel.MeasuredVoltage == 0 ? 1 : (Device.DmmChannel1.MeasuredVoltage / Device.PsChannel.MeasuredVoltage));
+			
+			PrepareCalStep(CAL_PS_CURR);
+			break;
+		}
+		case CAL_PS_CURR:
+		{
+			// Do PS_CURR calibration			
+			Device.CalibrationFactors.Cal_PS_CURR *= (Device.PsChannel.MeasuredCurrent == 0 ? 1 : (CalTmpCurrent / Device.PsChannel.MeasuredCurrent));
+			
+			PrepareCalStep(CAL_PS_CURR_OFFSET);
+			break;
+		}
+		case CAL_PS_CURR_OFFSET:
+		{				
+			// Do PS_CURR_OFFSET calibration
+			float maxCurrent = 0;
+			Device.CalibrationFactors.Cal_PS_CURR_OFFSET = 0;
+			for(int i = 0; i < CAL_PS_CURR_OFFSET_CYCLES; i++)
+			{				
+				float measCurrent = Device.PsChannel.MeasuredCurrent;
+				if(measCurrent > maxCurrent) { maxCurrent = measCurrent; }
+			}
+			Device.CalibrationFactors.Cal_PS_CURR_OFFSET = maxCurrent;
 			
 			Device.PsChannel.SetEnabled(false);
 			
-			#ifdef DDS_SUBSYSTEM_ENABLED 
+			#ifdef DDS_SUBSYSTEM_ENABLED
 				PrepareCalStep(CAL_DDS_FREQ);
 			#else
 				CalibrationFinished();
@@ -233,7 +278,7 @@ void OnButtonCalNext(void* context)
 		case CAL_DDS_FREQ:
 		{
 			// Do DDS frequency calibration
-			Device.CalibrationFactors.Cal_DDS_FREQ = (1000.0f / CalTmpFrequency);		// 1000 = 1000 kHz desired frequency
+			Device.CalibrationFactors.Cal_DDS_FREQ = (CalTmpFrequency == 0 ? 1 : (1000.0f / CalTmpFrequency));		// 1000 = 1000 kHz desired frequency
 			
 			Device.DdsChannel1.UpdateIncrement();
 			Device.DdsChannel2.UpdateIncrement();
@@ -266,6 +311,7 @@ UIElement* uiBuildScreenCalibration()
 	page_Cal.AddItem(&ico_Cal);
 	page_Cal.AddItem(&lbl_Cal_instruction);
 	page_Cal.AddItem(&numCtrl_Cal_tmpVoltage);
+	page_Cal.AddItem(&numCtrl_Cal_tmpCurrent);
 	page_Cal.AddItem(&numCtrl_Cal_tmpFrequency);
 	page_Cal.AddItem(&progress_Cal);
 	page_Cal.AddItem(&button_Cal_Exit);

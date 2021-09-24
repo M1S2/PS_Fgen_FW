@@ -17,6 +17,28 @@
 #include "Icons.h"
 #include <string.h>
 
+
+/**
+ * Available screen types.
+ * Enumeration with all different screens of the device, dependent on the enabled subsystems.
+ * The enumeration value is used to determine the index of the screen in the tab control.
+ */
+typedef enum ScreenTypes
+{
+#ifdef PS_SUBSYSTEM_ENABLED
+	SCREEN_PS,					/**< Power supply screen. */
+#endif
+#ifdef DDS_SUBSYSTEM_ENABLED
+	SCREEN_DDS,					/**< DDS screen. */
+#endif
+#ifdef MEASURE_SUBSYSTEM_ENABLED
+	SCREEN_MEAS,				/**< Measurement screen. */
+#endif
+	SCREEN_CONF,				/**< Configuration screen. */
+	NUM_SCREEN_ELEMENTS			/**< The last element is used to determine the number of elements in the enumeration */
+}ScreenTypes_t; 
+
+
 #ifdef SPLASHSCREEN_ENABLED 
 	/**
 	 * Build the SplashScreen by linking all necessary components together.
@@ -89,12 +111,16 @@ class ScreenManagerClass
 		bool DisplayEnabled;					/**< Variable used to keep track if the display is enabled or not. */
 		bool DisplayInverted;					/**< Variable used to keep track if the display is inverted or not. */
 	
+		bool RedrawScreenRequest;				/**< Flag that indicates that the screen should be redrawn. A redraw should occur periodically (if the screen needs to be redrawn periodically) or on user inputs. */
+		bool CurrentScreenNeedsPeriodicRedraw;	/**< Flag that indicates if the current displayed screen needs to be periodically redrawn. This is neccessary if the screen contains measured values that change periodically. This isn't neccessary if the screen only contains static data. The screen is always redrawn on user inputs (keys or USART). */
+	
 		bool IsSplashScreenShown;				/**< Variable used to keep track if the SplashScreen is shown. */
 		uint16_t TimeCounter_SplashScreen_ms;	/**< Timer conter value that is used to measure the time, the SplashScreen is shown. */
+		uint16_t TimeCounter_ScreenRedraw_ms;	/**< Variable used for measuring the time to the next screen redraw */
 		
-		ScreenManagerClass();					/**< Constructor of the ScreenManagerClass. */
 		void Init();							/**< Initialize the ScreenManager. This method initializes the u8g_lib and UI_Manager handles and builds the VisualTree. */
 		
+		void DoDraw();							/**< Evaluate, if the screen should be redrawn. If yes, the DrawAll method is called. */
 		void DrawAll();							/**< Call this method to redraw the screen. This contains the picture loop of the u8g_lib. */
 		
 		void ShowUiMainPage();					/**< This method can be used to show the main page (no MessageDialog or calibration page). This is a short version for using the ChangeVisualTreeRoot() method of the UI_Manager. */

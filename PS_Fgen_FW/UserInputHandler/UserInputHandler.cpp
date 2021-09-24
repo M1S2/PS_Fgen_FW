@@ -61,5 +61,7 @@ void UserInputHandlerClass::ProcessInputs()
 		{
 			Device.UpdateControlStateOnUserInput();
 		}
+		
+		Device.ScreenManager.RedrawScreenRequest = true;		// Generate a redraw request, whenever a user input occurs (no matter if key or USART)
 	}
 }

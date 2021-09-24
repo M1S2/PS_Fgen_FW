@@ -10,28 +10,61 @@
 
 #include "../UI_Lib/UI_Lib_Test.h"
 
+/**
+  * Callback method called when the selected tab of the TabControl changed.
+  * @param controlContext Not used
+  */
 void TabControlTabChanged(void* context);
 
 ContainerPage page_Main;
 EnumIndicator<DeviceControlStates_t> enumInd_deviceState(240 - 37, 2, &Device.DeviceControlState, DeviceControlStateNames, NUM_DEV_CTRL_ELEMENTS);
 Label<5> lbl_devSettingsNeedSaving(240 - 15, 0, "*", u8g_font_7x14r);
 
-TabControl tabControlMain(0, 0, 240, 64, SCREEN_TAB_WIDTH);
+TabControl tabControlMain(0, 0, 240, 64, SCREEN_TAB_WIDTH, NULL, &TabControlTabChanged);
 
 MessageDialog<50> msg_DeviceRWLState(0, 0, 240, 64, "Device locked by SYST:RWL.\nUnlock with SYST:LOC.", MSG_WARNING, MSG_BTN_NONE);
 
-ScreenManagerClass::ScreenManagerClass()
-{	
+
+void TabControlTabChanged(void* controlContext)
+{
+	int tabIndex = tabControlMain.GetSelectedTabIndex();
+	ScreenTypes_t screenType = (ScreenTypes_t)tabIndex;
+	switch(screenType)
+	{
+	#ifdef PS_SUBSYSTEM_ENABLED
+		case SCREEN_PS:
+			Device.ScreenManager.CurrentScreenNeedsPeriodicRedraw = true;
+			break;
+	#endif
+	#ifdef DDS_SUBSYSTEM_ENABLED
+		case SCREEN_DDS:
+			Device.ScreenManager.CurrentScreenNeedsPeriodicRedraw = false;
+			break;
+	#endif
+	#ifdef MEASURE_SUBSYSTEM_ENABLED
+		case SCREEN_MEAS:
+			Device.ScreenManager.CurrentScreenNeedsPeriodicRedraw = true;
+			break;
+	#endif
+		case SCREEN_CONF:
+			Device.ScreenManager.CurrentScreenNeedsPeriodicRedraw = false;
+			break;
+		default: break;		
+	}
 }
+
 
 void ScreenManagerClass::Init()
 {
 	u8g_InitSPI(&_u8g, &u8g_dev_s1d15721_hw_spi, PN(1, 7), PN(1, 5), PN(1, 1), PN(1, 0), U8G_PIN_NONE);
 	IsSplashScreenShown = true;
 	TimeCounter_SplashScreen_ms = 0;
+	TimeCounter_ScreenRedraw_ms = 0;
 	
 	UiManager.Init(&_u8g);
 	uiBuildTree();
+	
+	RedrawScreenRequest = true;			// Always draw the screen once when the device is powered on
 }
 
 void ScreenManagerClass::uiBuildTree()
@@ -46,6 +79,7 @@ void ScreenManagerClass::uiBuildTree()
 		tabControlMain.AddTab("Meas", uiBuildScreenMeasure());		// Containing DMM and ATX measurements
 	#endif
 	tabControlMain.AddTab("Conf", uiBuildScreenSettings());
+	TabControlTabChanged(NULL);				// Trigger a tab changed event to recalculate the CurrentScreenNeedsPeriodicRedraw variable
 	
 	page_Main.AddItem(&tabControlMain);
 	page_Main.AddItem(&enumInd_deviceState);
@@ -74,6 +108,22 @@ void ScreenManagerClass::ShowUiCalibrationMenu()
 void ScreenManagerClass::UpdateSettingsChangedIndicator(bool settingsChanged)
 {
 	lbl_devSettingsNeedSaving.Visible = settingsChanged;
+	RedrawScreenRequest = true;							// Generate a screen redraw request to update the settings saved indicator
+}
+
+void ScreenManagerClass::DoDraw()
+{
+	if(TimeCounter_ScreenRedraw_ms >= SCREEN_REDRAW_DELAY_MS)		// Create a redraw request if the redraw delay is expired
+	{
+		RedrawScreenRequest = true;
+	}
+	
+	if(RedrawScreenRequest)
+	{
+		RedrawScreenRequest = false;			// Reset redraw request to only draw once (until the request is set to true again)
+		DrawAll();
+		TimeCounter_ScreenRedraw_ms = 0;
+	}
 }
 
 void ScreenManagerClass::DrawAll()
@@ -109,8 +159,14 @@ void ScreenManagerClass::DeviceTimerTickISR(uint16_t currentPeriod_ms)
 		{
 			IsSplashScreenShown = false;
 			UiManager.ChangeVisualTreeRoot(&page_Main);
+			RedrawScreenRequest = true;							// Generate a screen redraw request to update the screen
 		}
 	#endif
+	
+	if(CurrentScreenNeedsPeriodicRedraw)		// Only increment the redraw counter, if the current screen needs periodic redraws. Otherwise the redraw is triggered by the RedrawScreenRequest variable
+	{
+		TimeCounter_ScreenRedraw_ms += currentPeriod_ms;	// Screen redraw is handled in DoDraw()
+	}
 }
 
 void ScreenManagerClass::KeyInput(Keys_t key)

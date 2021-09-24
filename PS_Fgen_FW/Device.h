@@ -159,15 +159,15 @@ class DeviceClass
 		
 	public:	
 		#ifdef PS_SUBSYSTEM_ENABLED
-			PS_Channel PsChannel;										/**< Power supply channel object */
+			PS_Channel PsChannel;									/**< Power supply channel object */
 		#endif
 		#ifdef DDS_SUBSYSTEM_ENABLED
-			DDS_Channel DdsChannel1;									/**< DDS channel object 1 */
-			DDS_Channel DdsChannel2;									/**< DDS channel object 2 */
+			DDS_Channel DdsChannel1;								/**< DDS channel object 1 */
+			DDS_Channel DdsChannel2;								/**< DDS channel object 2 */
 		#endif
 		#ifdef MEASURE_SUBSYSTEM_ENABLED
-			DMM_Channel DmmChannel1;									/**< DMM channel object 1 */
-			DMM_Channel DmmChannel2;									/**< DMM channel object 2 */
+			DMM_Channel DmmChannel1;								/**< DMM channel object 1 */
+			DMM_Channel DmmChannel2;								/**< DMM channel object 2 */
 		#endif
 		Channel* Channels[NUM_CHANNELS];							/**< Array with pointers to all channel objects above */
 		
@@ -187,7 +187,6 @@ class DeviceClass
 		bool SerialEchoEnabled;										/**< Configured communication echo */	
 	
 		uint16_t TimeCounter_KeyPolling_ms;							/**< Variable used for measuring the time to the next key polling */
-		uint16_t TimeCounter_ScreenRedraw_ms;						/**< Variable used for measuring the time to the next screen redraw */
 		uint16_t TimeCounter_AutoSave_ms;							/**< Variable used for measuring the time to the next auto save */
 	
 		DeviceClass();												/**< Constructor of the DeviceClass */

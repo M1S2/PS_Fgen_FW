@@ -53,6 +53,7 @@ void DisableDDSTimer()
 //https://www.avrfreaks.net/forum/dds-function-generator-using-atmega328p
 ISR(TIMER2_COMPA_vect)
 {	
+	cli();
 	bool is_mcp4921_selected = IS_MCP4921_SELECTED;
 	DESELECT_MCP4921
 	
@@ -101,6 +102,7 @@ ISR(TIMER2_COMPA_vect)
 	
 	if(is_mcp4921_selected) { SELECT_MCP4921 }
 	if(is_lcd_selected) { CLEAR_BIT(PORTB, LCD_CS); }
+	sei();
 }
 
 #endif /* DDS_SUBSYSTEM_ENABLED */

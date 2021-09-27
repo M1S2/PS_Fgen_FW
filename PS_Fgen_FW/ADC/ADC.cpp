@@ -25,6 +25,7 @@ void ADC_startConversion()
 
 ISR(ADC_vect)
 {
+	cli();
 	uint16_t adcResult = ADCW;				// ADC conversion result with 10-bit resolution
 	float adcVoltage = (float)(Device.CalibrationFactors.Cal_RefVoltage * (adcResult / 1024.0f));		// Vin = ADC * Vref / 1024 ; Vref=5.27V
 	char adcChannel = (ADMUX & 0x07);		// Lower 3 bits represent the current ADC channel
@@ -72,4 +73,5 @@ ISR(ADC_vect)
 	if(adcChannel > 7) { adcChannel = 0; }
 	ADMUX = (ADMUX & 0xF8) + adcChannel;	// Set lower 3 bits of ADMUX to select ADC channel
 	ADCSRA |= 1<<ADSC;						// Start new ADC conversion
+	sei();
 }

@@ -9,8 +9,10 @@
 
 ISR (USART0_RX_vect)
 {
+	cli();
 	uint8_t data = UDR0;
 	Device.UserInputHandler.EnqueueUsartInput(data);
+	sei();
 }
 
 void Usart0Init(uint32_t baud)

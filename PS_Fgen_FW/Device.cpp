@@ -103,7 +103,9 @@ void DeviceClass::DeviceMainLoop()
 
 ISR(TIMER1_COMPA_vect)
 {
+	cli();
 	Device.DeviceTimerTickISR(DEVICE_TIMER_TICK_INTERVAL_MS);
+	sei();
 }
 
 /* Initialize 16-bit Timer/Counter1 */

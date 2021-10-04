@@ -12,6 +12,20 @@
 #include "../Configuration.h"
 #include "Channel.h"
 
+/**
+ * Available power supply regulation modes.
+ * Enumeration with all power supply regulation modes.
+ */
+typedef enum PsRegulationModes
+{
+	PS_REG_MODE_FIX,			/**< Power supply channel is not regulated (neither constant voltage nor constant current). The requested voltage is set by the ADC without regarding the measured voltage. */
+	PS_REG_MODE_CV,				/**< Power supply channel is only constant voltage regulated (not constant current). The voltage at the output is regulated to the requested one by comparison to the measured voltage. */
+	PS_REG_MODE_CV_CC,			/**< Power supply channel is constant voltage or constant current regulated depending on the currently best option (the one with the lower output value). */
+	NUM_PS_REG_MODE_ELEMENTS	/**< The last element is used to determine the number of elements in the enumeration */
+} PsRegulationModes_t;
+extern const char* PsRegulationModesNames[];
+
+
 #ifdef PS_SUBSYSTEM_ENABLED
 
 /**
@@ -20,15 +34,15 @@
  */
 typedef enum PsStates
 {
-	PS_STATE_CV,			/**< Power supply state constant voltage */
-	PS_STATE_CC,			/**< Power supply state constant current */
-	PS_STATE_OVL,			/**< Power supply state overload. The channel isn't able to regulate the voltage (or current) to the desired value, because it is at it's limits and running in open-loop. */
-	PS_STATE_OVP,			/**< Power supply state over voltage protection */
-	PS_STATE_OCP,			/**< Power supply state over current protection */
-	PS_STATE_OPP,			/**< Power supply state over power protection */
-	NUM_PS_STATE_ELEMENTS	/**< The last element is used to determine the number of elements in the enumeration */
+	PS_STATE_CV,				/**< Power supply state constant voltage */
+	PS_STATE_CC,				/**< Power supply state constant current */
+	PS_STATE_OVL,				/**< Power supply state overload. The channel isn't able to regulate the voltage (or current) to the desired value, because it is at it's limits and running in open-loop. */
+	PS_STATE_OVP,				/**< Power supply state over voltage protection */
+	PS_STATE_OCP,				/**< Power supply state over current protection */
+	PS_STATE_OPP,				/**< Power supply state over power protection */
+	NUM_PS_STATE_ELEMENTS		/**< The last element is used to determine the number of elements in the enumeration */
 } PsStates_t;
-extern const char* PSStatesNames[];
+extern const char* PsStatesNames[];
 
 /**
  * Power supply channel Class.
@@ -50,9 +64,10 @@ class PS_Channel : public Channel
 		float _PIDVoltErrorSum;				/**< PID voltage regulator error sum */
 		float _PIDVoltErrorLast;			/**< PID voltage regulator last error */
 		float _setVoltage;					/**< Voltage to which the output should be set. This value is calculated by the PID voltage regulator. */
-	
+
 	public:
 		PsStates_t PsState;					/**< Current state of the power supply channel. */
+		PsRegulationModes_t RegulationMode;	/**< Current regulation mode of the power supply channel. For more details about the options see the enumeration values. */
 	
 		Parameter<bool> Enabled;			/**< Is the channel enabled or not. If enabled, the voltage is available at the output. */
 		Parameter<float> Voltage;			/**< Voltage of the power supply channel. This is the voltage that the PID regulator tries to produce on the output in CV state. */
@@ -118,6 +133,18 @@ class PS_Channel : public Channel
 		 * @return Current power supply channel state.
 		 */
 		PsStates_t GetPsState();
+		
+		/**
+		 * Set the RegulationMode property of the PS channel.
+		 * @param regulationMode New value for the RegulationMode property
+		 * @return true->set successful; false->value not set
+		 */
+		bool SetRegulationMode(PsRegulationModes_t regulationMode);
+		/**
+		 * Get the RegulationMode property of the PS channel.
+		 * @return Value of the RegulationMode property
+		 */
+		PsRegulationModes_t GetRegulationMode();
 	
 		/**
 		 * Set the Enabled property of the PS channel.
@@ -269,6 +296,12 @@ class PS_Channel : public Channel
 		 */
 		void ClearProtections();
 	
+	
+		/**
+		 * Callback function that can be used for user interface controls modifying the RegulationMode property.
+		 * @param channel Pointer to a PS_Channel
+		 */
+		static void PSRegulationModeChanged(void* channel);
 	
 		/**
 		 * Callback function that can be used for user interface controls modifying the Enabled property.

@@ -7,9 +7,12 @@
 #include "PS_Channel.h"
 #include "../Device.h"
 
+const char* PsRegulationModesNames[] = { "FIX", "CV", "CV&CC" };
+
+
 #ifdef PS_SUBSYSTEM_ENABLED
 
-const char* PSStatesNames[] = { "CV", "CC", "OVL", "OVP", "OCP", "OPP" };
+const char* PsStatesNames[] = { "CV", "CC", "OVL", "OVP", "OCP", "OPP" };
 
 PS_Channel::PS_Channel(float minVolt, float maxVolt, float minCurrent, float maxCurrent, uint8_t minOvpLevel, uint8_t maxOvpLevel, float minOvpDelay, float maxOvpDelay, uint8_t minOcpLevel, uint8_t maxOcpLevel, float minOcpDelay, float maxOcpDelay, float minOppLevel, float maxOppLevel, float minOppDelay, float maxOppDelay) : Channel(POWER_SUPPLY_CHANNEL_TYPE)
 {
@@ -33,6 +36,7 @@ PS_Channel::PS_Channel(float minVolt, float maxVolt, float minCurrent, float max
 	TimeCounter_OcpDelay_ms = 0;
 	TimeCounter_OppDelay_ms = 0;
 	PsState = PS_STATE_CV;
+	RegulationMode = PS_REG_MODE_CV_CC;
 	_PIDVoltErrorSum = 0;
 	_setVoltage = 0;
 	_PIDVoltErrorLast = 0;	
@@ -58,41 +62,51 @@ void PS_Channel::UpdateOutput()
 void PS_Channel::DeviceTimerTickISR(uint16_t currentPeriod_ms)
 {
 	if(GetEnabled() && (PsState == PS_STATE_CV || PsState == PS_STATE_CC || PsState == PS_STATE_OVL))
-	{
-		/********************************************************
-		 * Voltage PID regulator 
-		 * see: https://rn-wissen.de/wiki/index.php/Regelungstechnik 
-		 ********************************************************/
-		float PIDVoltError = GetVoltage() - MeasuredVoltage;			// U_target - U_measured
-		float tmpPIDVoltErrorSum = _PIDVoltErrorSum + PIDVoltError;
-		_setVoltage = PS_VOLT_PID_P * PIDVoltError + PS_VOLT_PID_I * (currentPeriod_ms / 1000.0f) * tmpPIDVoltErrorSum + (PS_VOLT_PID_D / (currentPeriod_ms / 1000.0f)) * (PIDVoltError - _PIDVoltErrorLast);
-		_PIDVoltErrorLast = PIDVoltError;
+	{		
+		if(RegulationMode == PS_REG_MODE_FIX)
+		{
+			_setVoltage = GetVoltage();
+			_setVoltage /= (Device.CalibrationFactors.Cal_PS_VOLT == 0) ? 1 : Device.CalibrationFactors.Cal_PS_VOLT;
+		}
+		else
+		{
+			/********************************************************
+			 * Voltage PID regulator 
+			 * see: https://rn-wissen.de/wiki/index.php/Regelungstechnik 
+			 ********************************************************/
+			float PIDVoltError = GetVoltage() - MeasuredVoltage;			// U_target - U_measured
+			float tmpPIDVoltErrorSum = _PIDVoltErrorSum + PIDVoltError;
+			_setVoltage = PS_VOLT_PID_P * PIDVoltError + PS_VOLT_PID_I * (currentPeriod_ms / 1000.0f) * tmpPIDVoltErrorSum + (PS_VOLT_PID_D / (currentPeriod_ms / 1000.0f)) * (PIDVoltError - _PIDVoltErrorLast);
+			_PIDVoltErrorLast = PIDVoltError;
 		
-		/* Voltage PID Integrator anti-windup
-		   see: https://www.embeddedrelated.com/showcode/346.php */
-		if (_setVoltage > PS_MAX_VOLTAGE)				// Positive saturation? Output is not regulated (Open-loop).
-		{
-			_setVoltage = PS_MAX_VOLTAGE;				// Clamp the output
-			PsState = PS_STATE_OVL;						// Set the power supply state to overload (because the output is saturated).
-			if (PIDVoltError < 0)						// Error is the opposite sign? Update integration error.
+			/* Voltage PID Integrator anti-windup
+			   see: https://www.embeddedrelated.com/showcode/346.php */
+			if (_setVoltage > PS_MAX_VOLTAGE)				// Positive saturation? Output is not regulated (Open-loop).
 			{
+				_setVoltage = PS_MAX_VOLTAGE;				// Clamp the output
+				PsState = PS_STATE_OVL;						// Set the power supply state to overload (because the output is saturated).
+				if (PIDVoltError < 0)						// Error is the opposite sign? Update integration error.
+				{
+					_PIDVoltErrorSum = tmpPIDVoltErrorSum;
+				}
+			}
+			else if (_setVoltage < 0)						// Negative saturation? Output is not regulated (Open-loop).
+			{
+				_setVoltage = 0;							// Clamp the output
+				PsState = PS_STATE_OVL;						// Set the power supply state to overload (because the output is saturated).
+				if (PIDVoltError > 0)						// Error is the opposite sign? Update integration error.
+				{
+					_PIDVoltErrorSum = tmpPIDVoltErrorSum;
+				}
+			}
+			else											// Output is regulated (Closed-loop).
+			{
+				PsState = PS_STATE_CV;
 				_PIDVoltErrorSum = tmpPIDVoltErrorSum;
 			}
 		}
-		else if (_setVoltage < 0)						// Negative saturation? Output is not regulated (Open-loop).
-		{
-			_setVoltage = 0;							// Clamp the output
-			PsState = PS_STATE_OVL;						// Set the power supply state to overload (because the output is saturated).
-			if (PIDVoltError > 0)						// Error is the opposite sign? Update integration error.
-			{
-				_PIDVoltErrorSum = tmpPIDVoltErrorSum;
-			}
-		}
-		else											// Output is regulated (Closed-loop).
-		{
-			PsState = PS_STATE_CV;
-			_PIDVoltErrorSum = tmpPIDVoltErrorSum;
-		}
+		
+		#warning PowerSupply CC: Use RegulationMode PS_REG_MODE_CV_CC to check if CC regulation is enabled
 	
 		/********************************************************
 		 * Output Protections 
@@ -160,6 +174,23 @@ void PS_Channel::ClearProtections()
 PsStates_t PS_Channel::GetPsState()
 {
 	return PsState;
+}
+
+//----------------------------------------------------------------------------------------------------------
+
+bool PS_Channel::SetRegulationMode(PsRegulationModes_t regulationMode)
+{
+	if (RegulationMode != regulationMode)
+	{
+		RegulationMode = regulationMode;
+		PSRegulationModeChanged(this);
+	}
+	return true;
+}
+
+PsRegulationModes_t PS_Channel::GetRegulationMode()
+{
+	return RegulationMode;
 }
 
 //----------------------------------------------------------------------------------------------------------
@@ -389,6 +420,14 @@ float PS_Channel::GetOppDelay()
 }
 
 //----------------------------------------------------------------------------------------------------------
+
+void PS_Channel::PSRegulationModeChanged(void* channel)
+{
+	if (((Channel*)channel)->GetChannelType() != POWER_SUPPLY_CHANNEL_TYPE) { return; }
+	PS_Channel* psChannel = (PS_Channel*)channel;
+	psChannel->UpdateOutput();
+	Device.SetSettingsChanged(true);		
+}
 
 void PS_Channel::PSEnabledChanged(void* channel)
 {

@@ -11,8 +11,8 @@
 ContainerList list_PS(SCREEN_TAB_WIDTH, 0, 240 - SCREEN_TAB_WIDTH, 64);
 
 #define PS_COLUMN1_POSX		SCREEN_TAB_WIDTH + 5
-#define PS_COLUMN2_POSX		PS_COLUMN1_POSX + 90
-#define PS_COLUMN3_POSX		PS_COLUMN2_POSX + 50
+#define PS_COLUMN2_POSX		PS_COLUMN1_POSX + 83
+#define PS_COLUMN3_POSX		PS_COLUMN2_POSX + 57
 #define PS_ROW1_POSY		25
 #define PS_ROW2_POSY		PS_ROW1_POSY + 20
 
@@ -30,11 +30,13 @@ Icon ico_PSOverviewEnabled(PS_COLUMN2_POSX, PS_ROW1_POSY - 2, icon_OnOff_width, 
 BoolControl boolCtrl_PSOverviewEnabled(PS_COLUMN2_POSX + icon_OnOff_width + 3, PS_ROW1_POSY, &Device.PsChannel.Enabled.Val, &Device.PsChannel, &PS_Channel::PSEnabledChanged);
 Icon ico_PSOverviewCurrent(PS_COLUMN1_POSX, PS_ROW2_POSY - 2, icon_current_width, icon_current_height, icon_current_bits);
 NumericControl<float> numCtrl_PSOverviewCurrent(PS_COLUMN1_POSX + icon_current_width + 3, PS_ROW2_POSY, &Device.PsChannel.Current.Val, "A", PS_MIN_CURRENT, PS_MAX_CURRENT, 3, &Device.PsChannel, &PS_Channel::PSCurrentChanged);
+Icon ico_PSOverviewRegMode(PS_COLUMN2_POSX, PS_ROW2_POSY - 2, icon_pin_width, icon_pin_height, icon_pin_bits);
+EnumControl<PsRegulationModes_t> enumCtrl_PSOverviewRegMode(PS_COLUMN2_POSX + icon_pin_width + 3, PS_ROW2_POSY, &Device.PsChannel.RegulationMode, PsRegulationModesNames, NUM_PS_REG_MODE_ELEMENTS, &Device.PsChannel, &PS_Channel::PSRegulationModeChanged);
 
 NumericIndicator<float, 10> numInd_PsOverviewVoltage(PS_COLUMN3_POSX, 18, &Device.PsChannel.MeasuredVoltage, "V", PS_MAX_VOLTAGE, 3);
 NumericIndicator<float, 10> numInd_PsOverviewCurrent(PS_COLUMN3_POSX, 28, &Device.PsChannel.MeasuredCurrent, "A", PS_MAX_CURRENT, 3);
 NumericIndicator<float, 10> numInd_PsOverviewPower(PS_COLUMN3_POSX, 38, &Device.PsChannel.MeasuredPower, "W", PS_MAX_VOLTAGE * PS_MAX_CURRENT, 3);
-EnumIndicator<PsStates_t> enumInd_PsOverviewState(PS_COLUMN3_POSX + 4, 48, &Device.PsChannel.PsState, PSStatesNames, NUM_PS_STATE_ELEMENTS);
+EnumIndicator<PsStates_t> enumInd_PsOverviewState(PS_COLUMN3_POSX + 4, 48, &Device.PsChannel.PsState, PsStatesNames, NUM_PS_STATE_ELEMENTS);
 
 // ***** Power Supply Protection OVP page *****
 ContainerPage page_PSProtectionOVP;
@@ -86,6 +88,8 @@ void PSProtectionsClearedOK(void* controlContext)
 
 UIElement* uiBuildScreenPS()
 {
+	enumCtrl_PSOverviewRegMode.Width = 39;
+	
 	page_PSOverview.AddItem(&ico_PSOverview);
 	page_PSOverview.AddItem(&lbl_PSOverview_caption);
 	page_PSOverview.AddItem(&ico_PSOverviewVoltage);
@@ -94,6 +98,8 @@ UIElement* uiBuildScreenPS()
 	page_PSOverview.AddItem(&boolCtrl_PSOverviewEnabled);
 	page_PSOverview.AddItem(&ico_PSOverviewCurrent);
 	page_PSOverview.AddItem(&numCtrl_PSOverviewCurrent);
+	page_PSOverview.AddItem(&ico_PSOverviewRegMode);
+	page_PSOverview.AddItem(&enumCtrl_PSOverviewRegMode);
 	page_PSOverview.AddItem(&numInd_PsOverviewVoltage);
 	page_PSOverview.AddItem(&numInd_PsOverviewCurrent);
 	page_PSOverview.AddItem(&numInd_PsOverviewPower);

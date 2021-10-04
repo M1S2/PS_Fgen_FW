@@ -36,7 +36,7 @@ Welcome screen that shows the project name, the developer, the serial number of 
 @subsection ui_overview_ps_sec PS
 User interface part for the power supply channel of the device.
 	@subsubsection ui_overview_powersupply_sec PowerSupply
-	This screen can be used to change the power supply voltage and current settings. Also the output can be enabled or disabled. Also the actual measurements (voltage, current, power) are shown.
+	This screen can be used to change the power supply voltage and current settings. Also the output can be enabled or disabled and there is a control for the regulation mode. Also the actual measurements (voltage, current, power) are shown.
 	@image html Screen_PS.jpg "Screen PS" width=400
 	
 	@subsubsection ui_overview_ovp_sec OVP

@@ -303,6 +303,7 @@ void DeviceClass::SaveSettings()
 		settings.PS_OppLevel = PsChannel.GetOppLevel();
 		settings.PS_OppState = PsChannel.GetOppState();
 		settings.PS_OppDelay = PsChannel.GetOppDelay();
+		settings.PS_RegulationMode = PsChannel.GetRegulationMode();
 	#endif
 	
 	#ifdef DDS_SUBSYSTEM_ENABLED
@@ -373,6 +374,7 @@ void DeviceClass::LoadSettings()
 		PsChannel.SetOppLevel(isnan(settings.PS_OppLevel) ? PsChannel.OppLevel.Def : settings.PS_OppLevel);
 		PsChannel.SetOppState(isnan(settings.PS_OppState) ? false : settings.PS_OppState);
 		PsChannel.SetOppDelay(isnan(settings.PS_OppDelay) ? PsChannel.OppDelay.Def : settings.PS_OppDelay);
+		PsChannel.SetRegulationMode(isnan(settings.PS_RegulationMode) ? PS_REG_MODE_CV_CC : settings.PS_RegulationMode);
 		PsChannel.SetEnabled(PowerOnOutputsState == DEV_POWERUP_OUTPUTS_OFF ? false : (PowerOnOutputsState == DEV_POWERUP_OUTPUTS_ON ? true : settings.PS_Enabled));
 	#endif
 	
@@ -439,6 +441,7 @@ void DeviceClass::ResetDevice()
 		PsChannel.SetOppLevel(PsChannel.OppLevel.Def);
 		PsChannel.SetOppState(PsChannel.OppState.Def);
 		PsChannel.SetOppDelay(PsChannel.OppDelay.Def);
+		PsChannel.SetRegulationMode(PS_REG_MODE_CV_CC);
 	#endif
 	
 	#ifdef DDS_SUBSYSTEM_ENABLED

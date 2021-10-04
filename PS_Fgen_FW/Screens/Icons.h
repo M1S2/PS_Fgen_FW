@@ -115,4 +115,9 @@ extern unsigned char icon_boot_bits[] U8G_PROGMEM;
 #define icon_calibration_height 16
 extern unsigned char icon_calibration_bits[] U8G_PROGMEM;
 
+/**** Icon Pin *****/
+#define icon_pin_width 16
+#define icon_pin_height 16
+extern unsigned char icon_pin_bits[] U8G_PROGMEM;
+
 #endif /* ICONS_H_ */

@@ -115,6 +115,7 @@ typedef struct DevSettingsEEPROMLayout
 	float PS_OppLevel;											/**< Power supply channel over power protection level */
 	bool PS_OppState;											/**< Power supply channel over power protection state */
 	float PS_OppDelay;											/**< Power supply channel over power protection delay */
+	PsRegulationModes_t PS_RegulationMode;						/**< Power supply channel regulation mode */
 
 	uint8_t Screens_Inverted;									/**< Is the screen inverted or not */
 	

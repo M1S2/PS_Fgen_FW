@@ -30,4 +30,10 @@ ISR(INT0_vect)
 	{
 		Device.UserInputHandler.EnqueueKeyInput(KEYDOWN);
 	}
+	
+	// Clear the INT0 occured flag by writing a logical one to it.
+	// Normally the flag is cleared when the interrupt routine is executed.
+	// But this doesn't seem to work if at least one DDS channel is enabled (when TIMER2_COMPA_vect ISR is enabled).
+	// With this line the flag is cleared correct.
+	EIFR |= (1<<INTF0);
 }

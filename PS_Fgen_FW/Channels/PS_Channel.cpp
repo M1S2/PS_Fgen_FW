@@ -59,7 +59,7 @@ void PS_Channel::UpdateOutput()
 	}
 }
 
-void PS_Channel::DeviceTimerTickISR(uint16_t currentPeriod_ms)
+void PS_Channel::DoRegulationISR(uint16_t regulationPeriod_ms)
 {
 	if(GetEnabled() && (PsState == PS_STATE_CV || PsState == PS_STATE_CC || PsState == PS_STATE_OVL))
 	{		
@@ -76,7 +76,7 @@ void PS_Channel::DeviceTimerTickISR(uint16_t currentPeriod_ms)
 			 ********************************************************/
 			float PIDVoltError = GetVoltage() - MeasuredVoltage;			// U_target - U_measured
 			float tmpPIDVoltErrorSum = _PIDVoltErrorSum + PIDVoltError;
-			_setVoltage = PS_VOLT_PID_P * PIDVoltError + PS_VOLT_PID_I * (currentPeriod_ms / 1000.0f) * tmpPIDVoltErrorSum + (PS_VOLT_PID_D / (currentPeriod_ms / 1000.0f)) * (PIDVoltError - _PIDVoltErrorLast);
+			_setVoltage = PS_VOLT_PID_P * PIDVoltError + PS_VOLT_PID_I * (regulationPeriod_ms / 1000.0f) * tmpPIDVoltErrorSum + (PS_VOLT_PID_D / (regulationPeriod_ms / 1000.0f)) * (PIDVoltError - _PIDVoltErrorLast);
 			_PIDVoltErrorLast = PIDVoltError;
 		
 			/* Voltage PID Integrator anti-windup
@@ -113,19 +113,19 @@ void PS_Channel::DeviceTimerTickISR(uint16_t currentPeriod_ms)
 		 ********************************************************/
 		if(GetOvpState() && MeasuredVoltage > (GetVoltage() * (GetOvpLevel() / 100.0f)))
 		{
-			TimeCounter_OvpDelay_ms += currentPeriod_ms;
+			TimeCounter_OvpDelay_ms += regulationPeriod_ms;
 		}
 		else { TimeCounter_OvpDelay_ms = 0; }
 	
 		if(GetOcpState() && MeasuredCurrent > (GetCurrent() * (GetOcpLevel() / 100.0f)))
 		{
-			TimeCounter_OcpDelay_ms += currentPeriod_ms;
+			TimeCounter_OcpDelay_ms += regulationPeriod_ms;
 		}
 		else { TimeCounter_OcpDelay_ms = 0; }
 
 		if(GetOppState() && MeasuredPower > GetOppLevel())
 		{
-			TimeCounter_OppDelay_ms += currentPeriod_ms;
+			TimeCounter_OppDelay_ms += regulationPeriod_ms;
 		}
 		else { TimeCounter_OppDelay_ms = 0; }
 

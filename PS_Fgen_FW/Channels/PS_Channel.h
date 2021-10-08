@@ -122,11 +122,11 @@ class PS_Channel : public Channel
 		void UpdateOutput();
 	
 		/**
-		 * This method is called periodically by the device timer ISR and runs in the ISR context.
+		 * This method is called periodically based on the device timer ISR (multiples of the device timer period) and runs in the ISR context.
 		 * It is used to increment the protection timers if neccessary, to change the channel state if an protection kicks in and to calculate a new PID value.
-		 * @param currentPeriod_ms Tick period of the device timer at which this method is called.
+		 * @param regulationPeriod_ms Tick period at which this method is called (multiples of the device timer period).
 		 */
-		void DeviceTimerTickISR(uint16_t currentPeriod_ms);
+		void DoRegulationISR(uint16_t regulationPeriod_ms);
 	
 		/**
 		 * Return the current state of this channel.

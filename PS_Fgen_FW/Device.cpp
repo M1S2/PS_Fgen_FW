@@ -137,9 +137,16 @@ void DeviceClass::DeviceTimerTickISR(uint16_t currentPeriod_ms)
 	}
 	
 	TimeCounter_AutoSave_ms += currentPeriod_ms;			// AutoSave is handled in DeviceMainLoop()
+	
 	ScreenManager.DeviceTimerTickISR(currentPeriod_ms);
+	
 	#ifdef PS_SUBSYSTEM_ENABLED
-		PsChannel.DeviceTimerTickISR(currentPeriod_ms);
+		TimeCounter_PowerSupplyChannelRegulation_ms += currentPeriod_ms;
+		if(TimeCounter_PowerSupplyChannelRegulation_ms >= POWER_SUPPLY_REG_INTERVAL_MS)
+		{	
+			TimeCounter_PowerSupplyChannelRegulation_ms = 0;
+			PsChannel.DoRegulationISR(POWER_SUPPLY_REG_INTERVAL_MS);
+		}
 	#endif
 }
 

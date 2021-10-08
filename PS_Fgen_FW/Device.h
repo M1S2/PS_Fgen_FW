@@ -189,6 +189,7 @@ class DeviceClass
 	
 		uint16_t TimeCounter_KeyPolling_ms;							/**< Variable used for measuring the time to the next key polling */
 		uint16_t TimeCounter_AutoSave_ms;							/**< Variable used for measuring the time to the next auto save */
+		uint16_t TimeCounter_PowerSupplyChannelRegulation_ms;		/**< Variable used for measuring the time to the next power supply regulation loop */
 	
 		DeviceClass();												/**< Constructor of the DeviceClass */
 		void Init();												/**< Initialize all sub systems of the device */

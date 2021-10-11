@@ -85,6 +85,12 @@ void DeviceClass::Init()
 
 void DeviceClass::DeviceMainLoop()
 {	
+	Keys_t encoder_direction = Encoder_GetDirection();
+	if(encoder_direction != KEYNONE)
+	{
+		UserInputHandler.EnqueueKeyInput(encoder_direction);
+	}
+	
 	UserInputHandler.ProcessInputs();
 	
 	if(TimeCounter_AutoSave_ms >= SETTINGS_AUTOSAVE_DELAY_MS)

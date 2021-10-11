@@ -8,10 +8,12 @@
 #include "../UserInputHandler/UserInputHandler.h"
 #include "../Device.h"
 
+uint8_t encoderLastEncAState_g;		/**< Variable used to hold the last state of the ENC_A input */
+
 void Encoder_Init()
 {
-	EIMSK |= (1 << INT0);		// enable INT0
-	EICRA |= (1 << ISC01);		// INT0 - falling edge
+	// Reads the initial state of ENC_A
+	encoderLastEncAState_g = BIT_IS_SET(PIND, ENC_A);
 }
 
 bool Encoder_IsButtonPressed()
@@ -19,21 +21,26 @@ bool Encoder_IsButtonPressed()
 	return BIT_IS_CLEARED(PIND, ENC_PB);
 }
 
-//INT0 interrupt
-ISR(INT0_vect)
+Keys_t Encoder_GetDirection()
 {
-	if(!BIT_IS_CLEARED(PIND, ENC_B))
+	// Reads the "current" state of the ENC_A
+	uint8_t encA_state = BIT_IS_SET(PIND, ENC_A);
+
+	// If the previous and the current state of ENC_A are different, that means a Pulse has occured
+	if(encA_state != encoderLastEncAState_g)
 	{
-		Device.UserInputHandler.EnqueueKeyInput(KEYUP);
+		// If the ENC_B state is different to the ENC_A state, that means the encoder is rotating clockwise
+		if ((BIT_IS_SET(PIND, ENC_B)) != encA_state)
+		{
+			return KEYUP; 
+		}
+		else
+		{
+			return KEYDOWN;
+		}
+
+		// Updates the previous state of ENC_A with the current state
+		encoderLastEncAState_g = encA_state;
 	}
-	else
-	{
-		Device.UserInputHandler.EnqueueKeyInput(KEYDOWN);
-	}
-	
-	// Clear the INT0 occured flag by writing a logical one to it.
-	// Normally the flag is cleared when the interrupt routine is executed.
-	// But this doesn't seem to work if at least one DDS channel is enabled (when TIMER2_COMPA_vect ISR is enabled).
-	// With this line the flag is cleared correct.
-	EIFR |= (1<<INTF0);
+	return KEYNONE;
 }

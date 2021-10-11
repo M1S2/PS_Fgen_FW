@@ -51,12 +51,14 @@
 #define KEY_C2		PORTC1			/**< Bit position of the KeyPad column 2 line */
 #define KEY_C1		PORTC0			/**< Bit position of the KeyPad column 1 line */
 
-// PORT5, PORTD6 and PORTD7 not used
+// PORTD6 and PORTD7 not used (PORTD5 used as test pin)
 #define ENC_PB		PORTD4			/**< Bit position of the Encoder push button line */
 #define ENC_B		PORTD3			/**< Bit position of the Encoder B line */
 #define ENC_A		PORTD2			/**< Bit position of the Encoder A line */
 #define USB_TX		PORTD1			/**< Bit position of the UART TX line */
 #define USB_RX		PORTD0			/**< Bit position of the UART RX line */
+
+#define TEST_PIN	PORTD5			/**< Bit position of the pin used as test pin for different debugging purposes */
 
 /**
  * Initialize all pins (directions and states).

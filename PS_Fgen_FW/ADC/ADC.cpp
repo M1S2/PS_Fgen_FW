@@ -37,13 +37,9 @@ ISR(ADC_vect)
 			// Ucurr = R24 * (R22 / R23) * IL	=> IL = Ucurr / (R24 * (R22 / R23))
 			Device.PsChannel.MeasuredCurrent = ((adcVoltage / 2.4f) * Device.CalibrationFactors.Cal_PS_CURR) - Device.CalibrationFactors.Cal_PS_CURR_OFFSET;
 			if(Device.PsChannel.MeasuredCurrent < 0) { Device.PsChannel.MeasuredCurrent = 0; }
-			Device.PsChannel.MeasuredPower = Device.PsChannel.MeasuredVoltage * Device.PsChannel.MeasuredCurrent;
-			Device.PsChannel.MeasuredLoadResistance = (Device.PsChannel.MeasuredCurrent == 0 ? 10000000 : (Device.PsChannel.MeasuredVoltage / Device.PsChannel.MeasuredCurrent));
 			break;
 		case 1:
 			Device.PsChannel.MeasuredVoltage = adcVoltage * 2 * Device.CalibrationFactors.Cal_PS_VOLT;
-			Device.PsChannel.MeasuredPower = Device.PsChannel.MeasuredVoltage * Device.PsChannel.MeasuredCurrent;
-			Device.PsChannel.MeasuredLoadResistance = (Device.PsChannel.MeasuredCurrent == 0 ? 10000000 : (Device.PsChannel.MeasuredVoltage / Device.PsChannel.MeasuredCurrent));
 			break;
 	#endif
 	#ifdef MEASURE_SUBSYSTEM_ENABLED

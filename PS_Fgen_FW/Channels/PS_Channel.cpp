@@ -63,6 +63,9 @@ void PS_Channel::DoRegulationISR(uint16_t regulationPeriod_ms)
 {
 	if(GetEnabled() && (PsState == PS_STATE_CV || PsState == PS_STATE_CC || PsState == PS_STATE_OVL))
 	{		
+		MeasuredPower = MeasuredVoltage * MeasuredCurrent;
+		MeasuredLoadResistance = (MeasuredCurrent == 0 ? 10000000 : (MeasuredVoltage / MeasuredCurrent));
+
 		if(RegulationMode == PS_REG_MODE_FIX)
 		{
 			_setVoltage = GetVoltage();

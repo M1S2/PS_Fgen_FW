@@ -67,4 +67,7 @@ void Pins_Init()
 	SET_BIT(PORTD, ENC_A);
 	SET_BIT(PORTD, ENC_B);
 	SET_BIT(PORTD, ENC_PB);
+	
+	// make the TEST_PIN outputs
+	SET_BIT(DDRD, TEST_PIN);
 }

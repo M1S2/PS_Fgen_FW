@@ -23,12 +23,22 @@ void SPI_Init();
  * @param data Data byte to transfer via SPI.
  * @return Byte received from the slave.
  */
-uint8_t SPI_SendByte(uint8_t data);
+inline uint8_t SPI_SendByte(uint8_t data)
+{
+	SPDR = data;		// Start transmission
+	spi_wait();			// Wait for the transmission to complete
+	return SPDR;		// return the byte received from the slave
+}
 
 /**
  * Read a byte of data from the slave by sending a dummy byte.
  * @return Byte received form the slave.
  */
-uint8_t SPI_ReadByte();
+inline uint8_t SPI_ReadByte()
+{
+	SPDR = 0xFF;		// Start transmission
+	spi_wait();			// Wait for the transmission to complete
+	return SPDR;		// return the byte received from the slave
+}
 
 #endif /* SPI_H_ */

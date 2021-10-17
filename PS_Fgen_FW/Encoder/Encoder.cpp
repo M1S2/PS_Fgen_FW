@@ -14,11 +14,6 @@ void Encoder_Init()
 	EICRA |= (1 << ISC01);		// INT0 - falling edge
 }
 
-bool Encoder_IsButtonPressed()
-{
-	return BIT_IS_CLEARED(PIND, ENC_PB);
-}
-
 //INT0 interrupt
 ISR(INT0_vect)
 {

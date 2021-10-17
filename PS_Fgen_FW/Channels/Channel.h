@@ -45,13 +45,16 @@ class Channel
 		 * Constructor of the Channel class
 		 * @param channelType Type of the channel.
 		 */
-		Channel(ChannelTypes_t channelType);
+		Channel(ChannelTypes_t channelType)
+		{
+			_channelType = channelType;
+		}
 
 		/**
 		 * Function that can be used to return the _channelType property.
 		 * @return Type of the channel
 		 */
-		ChannelTypes_t GetChannelType();
+		inline ChannelTypes_t GetChannelType() { return _channelType; }
 };
 
 #endif /* CHANNEL_H_ */

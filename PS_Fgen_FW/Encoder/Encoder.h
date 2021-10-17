@@ -22,6 +22,9 @@ void Encoder_Init();
  * This checks if the ENC_PB pin is pulled low.
  * @return true if the button is pressed; otherwise false
  */
-bool Encoder_IsButtonPressed();
+inline bool Encoder_IsButtonPressed()
+{
+	return BIT_IS_CLEARED(PIND, ENC_PB);	
+}
 
 #endif /* ENCODER_H_ */

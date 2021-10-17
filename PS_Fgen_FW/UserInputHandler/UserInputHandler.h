@@ -73,14 +73,28 @@ class UserInputHandlerClass
 		 * The key is only enqueued and no further actions are taken.
 		 * @param userKeyInput Key that should be enqueued.
 		 */
-		void EnqueueKeyInput(Keys_t userKeyInput);
+		inline void EnqueueKeyInput(Keys_t userKeyInput)
+		{
+			if(!_userInputRingBuffer.full())
+			{
+				UserInputData keyInput(userKeyInput);
+				_userInputRingBuffer.enqueue(&keyInput);
+			}
+		}
 		
 		/**
 		 * Enqueue the given Usart character into the circular buffer for later processing.
 		 * The character is only enqueued and no further actions are taken.
 		 * @param userDataInput Usart character that should be enqueued.
 		 */
-		void EnqueueUsartInput(uint8_t userDataInput);
+		inline void EnqueueUsartInput(uint8_t userDataInput)
+		{
+			if(!_userInputRingBuffer.full())
+			{
+				UserInputData dataInput(userDataInput);
+				_userInputRingBuffer.enqueue(&dataInput);
+			}
+		}
 		
 		/**
 		 * Process all user inputs in the circular buffer until it is empty.

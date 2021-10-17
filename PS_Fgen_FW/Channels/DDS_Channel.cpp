@@ -106,11 +106,6 @@ bool DDS_Channel::SetEnabled(bool enabled)
 	return true;
 }
 
-bool DDS_Channel::GetEnabled()
-{
-	return Enabled.Val;
-}
-
 //----------------------------------------------------------------------------------------------------------
 
 bool DDS_Channel::SetFrequency(float frequency)
@@ -123,11 +118,6 @@ bool DDS_Channel::SetFrequency(float frequency)
 		DDSFrequencyChanged(this);
 	}
 	return true;
-}
-
-float DDS_Channel::GetFrequency()
-{
-	return Frequency.Val;
 }
 
 //----------------------------------------------------------------------------------------------------------
@@ -144,11 +134,6 @@ bool DDS_Channel::SetAmplitude(float amplitude)
 	return true;
 }
 
-float DDS_Channel::GetAmplitude()
-{
-	return Amplitude.Val;
-}
-
 //----------------------------------------------------------------------------------------------------------
 
 bool DDS_Channel::SetOffset(float offset)
@@ -163,11 +148,6 @@ bool DDS_Channel::SetOffset(float offset)
 	return true;
 }
 
-float DDS_Channel::GetOffset()
-{
-	return Offset.Val;
-}
-
 //----------------------------------------------------------------------------------------------------------
 
 bool DDS_Channel::SetSignalForm(SignalForms_t signalForm)
@@ -180,11 +160,6 @@ bool DDS_Channel::SetSignalForm(SignalForms_t signalForm)
 		DDSSignalFormChanged(this);
 	}
 	return true;
-}
-
-SignalForms_t DDS_Channel::GetSignalForm()
-{
-	return SignalForm.Val;
 }
 
 //----------------------------------------------------------------------------------------------------------

@@ -22,8 +22,8 @@ class CircularBuffer
 {
 	private:
 		T queue[MaxElements];				/**< Array holding the circular buffer data */
-		uint16_t head;						/**< Head index of the circular buffer */
-		uint16_t tail;						/**< Tail index of the circular buffer */
+		volatile uint16_t head;				/**< Head index of the circular buffer */
+		volatile uint16_t tail;				/**< Tail index of the circular buffer */
 		
 	public:
 		
@@ -31,7 +31,7 @@ class CircularBuffer
 		 * Check if the circular buffer is empty.
 		 * @return Returns 1 if the queue is empty, 0 otherwise
 		 */
-		uint8_t empty()
+		inline uint8_t empty()
 		{
 			return (head == tail);	
 		}
@@ -40,7 +40,7 @@ class CircularBuffer
 		 * Check if the circular buffer is full.
 		 * @return Returns 1 if the queue is full, 0 otherwise
 		 */
-		uint8_t full()
+		inline uint8_t full()
 		{
 			return (head == (tail + 1) % MaxElements);
 		}
@@ -50,7 +50,7 @@ class CircularBuffer
 		 * enqueue() should never be called on a full queue.
 		 * @param data Pointer to the data that is enqueued.
 		 */
-		void enqueue(T* data)
+		inline void enqueue(T* data)
 		{			
 			queue[tail] = *data;
 			tail = (tail + 1) % MaxElements;
@@ -61,7 +61,7 @@ class CircularBuffer
 		 * dequeue() should never be called on an empty queue.
 		 * @return Pointer to the data element in the queue.
 		 */
-		T* dequeue()
+		inline T* dequeue()
 		{			
 			T* data = &queue[head];
 			head = (head + 1) % MaxElements;

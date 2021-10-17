@@ -132,7 +132,7 @@ class PS_Channel : public Channel
 		 * Return the current state of this channel.
 		 * @return Current power supply channel state.
 		 */
-		PsStates_t GetPsState();
+		inline PsStates_t GetPsState() { return PsState; }
 		
 		/**
 		 * Set the RegulationMode property of the PS channel.
@@ -144,7 +144,7 @@ class PS_Channel : public Channel
 		 * Get the RegulationMode property of the PS channel.
 		 * @return Value of the RegulationMode property
 		 */
-		PsRegulationModes_t GetRegulationMode();
+		inline PsRegulationModes_t GetRegulationMode() { return RegulationMode; }
 	
 		/**
 		 * Set the Enabled property of the PS channel.
@@ -156,7 +156,7 @@ class PS_Channel : public Channel
 		 * Get the Enabled property of the PS channel.
 		 * @return Value of the Enabled property
 		 */
-		bool GetEnabled();
+		inline bool GetEnabled() { return Enabled.Val; }
 
 		/**
 		 * Set the Voltage property of the PS channel.
@@ -168,7 +168,7 @@ class PS_Channel : public Channel
 		 * Get the Voltage property of the PS channel.
 		 * @return Value of the Voltage property
 		 */
-		float GetVoltage();
+		inline float GetVoltage() { return Voltage.Val; }
 
 		/**
 		 * Set the Current property of the PS channel.
@@ -180,7 +180,7 @@ class PS_Channel : public Channel
 		 * Get the Current property of the PS channel.
 		 * @return Value of the Current property
 		 */
-		float GetCurrent();
+		inline float GetCurrent() { return Current.Val; }
 		
 		/**
 		 * Set the OvpLevel property of the PS channel.
@@ -192,7 +192,7 @@ class PS_Channel : public Channel
 		 * Get the OvpLevel property of the PS channel.
 		 * @return Value of the OvpLevel property
 		 */
-		uint8_t GetOvpLevel();
+		inline uint8_t GetOvpLevel() { return OvpLevel.Val; }
 
 		/**
 		 * Set the OvpState property of the PS channel.
@@ -204,7 +204,7 @@ class PS_Channel : public Channel
 		 * Get the OvpState property of the PS channel.
 		 * @return Value of the OvpState property
 		 */
-		bool GetOvpState();
+		inline bool GetOvpState() { return OvpState.Val; }
 		
 		/**
 		 * Set the OvpDelay property of the PS channel.
@@ -216,7 +216,7 @@ class PS_Channel : public Channel
 		 * Get the OvpDelay property of the PS channel.
 		 * @return Value of the OvpDelay property
 		 */
-		float GetOvpDelay();
+		inline float GetOvpDelay() { return OvpDelay.Val; }
 
 		/**
 		 * Set the OcpLevel property of the PS channel.
@@ -228,7 +228,7 @@ class PS_Channel : public Channel
 		 * Get the OcpLevel property of the PS channel.
 		 * @return Value of the OcpLevel property
 		 */
-		uint8_t GetOcpLevel();
+		inline uint8_t GetOcpLevel() { return OcpLevel.Val; }
 
 		/**
 		 * Set the OcpState property of the PS channel.
@@ -240,7 +240,7 @@ class PS_Channel : public Channel
 		 * Get the OcpState property of the PS channel.
 		 * @return Value of the OcpState property
 		 */
-		bool GetOcpState();
+		inline bool GetOcpState() { return OcpState.Val; }
 
 		/**
 		 * Set the OcpDelay property of the PS channel.
@@ -252,7 +252,7 @@ class PS_Channel : public Channel
 		 * Get the OcpDelay property of the PS channel.
 		 * @return Value of the OcpDelay property
 		 */
-		float GetOcpDelay();
+		inline float GetOcpDelay() { return OcpDelay.Val; }
 
 		/**
 		 * Set the OppLevel property of the PS channel.
@@ -264,7 +264,7 @@ class PS_Channel : public Channel
 		 * Get the OppLevel property of the PS channel.
 		 * @return Value of the OppLevel property
 		 */
-		float GetOppLevel();
+		inline float GetOppLevel() { return OppLevel.Val; }
 
 		/**
 		 * Set the OppState property of the PS channel.
@@ -276,7 +276,7 @@ class PS_Channel : public Channel
 		 * Get the OppState property of the PS channel.
 		 * @return Value of the OppState property
 		 */
-		bool GetOppState();
+		inline bool GetOppState() { return OppState.Val; }
 		
 		/**
 		 * Set the OppDelay property of the PS channel.
@@ -288,7 +288,7 @@ class PS_Channel : public Channel
 		 * Get the OppDelay property of the PS channel.
 		 * @return Value of the OppDelay property
 		 */
-		float GetOppDelay();
+		inline float GetOppDelay() { return OppDelay.Val; }
 	
 	
 		/**

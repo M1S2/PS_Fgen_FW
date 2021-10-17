@@ -272,9 +272,6 @@
     <Compile Include="libraries\scpi-parser\src\utils_private.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="Channels\Channel.cpp">
-      <SubType>compile</SubType>
-    </Compile>
     <Compile Include="Channels\Channel.h">
       <SubType>compile</SubType>
     </Compile>
@@ -288,9 +285,6 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="Encoder\Encoder.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="KeyPad\KeyPad.cpp">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="KeyPad\KeyPad.h">

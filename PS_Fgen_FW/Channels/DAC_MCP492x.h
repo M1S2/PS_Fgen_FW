@@ -28,12 +28,19 @@
 /**
  * Disable the latching of the MCP4922 device (two channels).
  */
-void MCP4922_DisableLatching();
+inline void MCP4922_DisableLatching()
+{
+	CLEAR_LDAC_MCP4922
+}
 
 /**
  * Latch the outputs of the MCP4922 device (two channels).
  */
-void MCP4922_LatchOutput();
+inline void MCP4922_LatchOutput()
+{
+	CLEAR_LDAC_MCP4922
+	SET_LDAC_MCP4922
+}
 
 /**
  * Set the DAC data value of the MCP4921 device.

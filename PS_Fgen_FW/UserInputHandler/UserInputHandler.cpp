@@ -11,24 +11,6 @@
 #include "../SCPI/SCPI_Device.h"
 #include "../Device.h"
 
-void UserInputHandlerClass::EnqueueKeyInput(Keys_t userKeyInput)
-{
-	if(!_userInputRingBuffer.full())
-	{
-		UserInputData keyInput(userKeyInput);
-		_userInputRingBuffer.enqueue(&keyInput);
-	}
-}
-
-void UserInputHandlerClass::EnqueueUsartInput(uint8_t userDataInput)
-{
-	if(!_userInputRingBuffer.full())
-	{
-		UserInputData dataInput(userDataInput);
-		_userInputRingBuffer.enqueue(&dataInput);
-	}
-}
-
 void UserInputHandlerClass::ProcessInputs()
 {
 	while(!_userInputRingBuffer.empty())

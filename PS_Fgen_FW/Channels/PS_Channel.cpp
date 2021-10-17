@@ -174,11 +174,6 @@ void PS_Channel::ClearProtections()
 	}
 }
 
-PsStates_t PS_Channel::GetPsState()
-{
-	return PsState;
-}
-
 //----------------------------------------------------------------------------------------------------------
 
 bool PS_Channel::SetRegulationMode(PsRegulationModes_t regulationMode)
@@ -191,11 +186,6 @@ bool PS_Channel::SetRegulationMode(PsRegulationModes_t regulationMode)
 	return true;
 }
 
-PsRegulationModes_t PS_Channel::GetRegulationMode()
-{
-	return RegulationMode;
-}
-
 //----------------------------------------------------------------------------------------------------------
 
 bool PS_Channel::SetEnabled(bool enabled)
@@ -206,11 +196,6 @@ bool PS_Channel::SetEnabled(bool enabled)
 		PSEnabledChanged(this);
 	}
 	return true;
-}
-
-bool PS_Channel::GetEnabled()
-{
-	return Enabled.Val;
 }
 
 //----------------------------------------------------------------------------------------------------------
@@ -227,11 +212,6 @@ bool PS_Channel::SetVoltage(float voltage)
 	return true;
 }
 
-float PS_Channel::GetVoltage()
-{
-	return Voltage.Val;
-}
-
 //----------------------------------------------------------------------------------------------------------
 
 bool PS_Channel::SetCurrent(float current)
@@ -244,11 +224,6 @@ bool PS_Channel::SetCurrent(float current)
 		PSCurrentChanged(this);
 	}
 	return true;
-}
-
-float PS_Channel::GetCurrent()
-{
-	return Current.Val;
 }
 
 //----------------------------------------------------------------------------------------------------------
@@ -265,11 +240,6 @@ bool PS_Channel::SetOvpLevel(uint8_t ovpLevel)
 	return true;
 }
 
-uint8_t PS_Channel::GetOvpLevel()
-{
-	return OvpLevel.Val;
-}
-
 //----------------------------------------------------------------------------------------------------------
 
 bool PS_Channel::SetOvpState(bool ovpState)
@@ -282,11 +252,6 @@ bool PS_Channel::SetOvpState(bool ovpState)
 		PSOvpStateChanged(this);
 	}
 	return true;
-}
-
-bool PS_Channel::GetOvpState()
-{
-	return OvpState.Val;
 }
 
 //----------------------------------------------------------------------------------------------------------
@@ -303,11 +268,6 @@ bool PS_Channel::SetOvpDelay(float ovpDelay)
 	return true;
 }
 
-float PS_Channel::GetOvpDelay()
-{
-	return OvpDelay.Val;
-}
-
 //----------------------------------------------------------------------------------------------------------
 
 bool PS_Channel::SetOcpLevel(uint8_t ocpLevel)
@@ -320,11 +280,6 @@ bool PS_Channel::SetOcpLevel(uint8_t ocpLevel)
 		PSOcpLevelChanged(this);
 	}
 	return true;
-}
-
-uint8_t PS_Channel::GetOcpLevel()
-{
-	return OcpLevel.Val;
 }
 
 //----------------------------------------------------------------------------------------------------------
@@ -341,11 +296,6 @@ bool PS_Channel::SetOcpState(bool ocpState)
 	return true;
 }
 
-bool PS_Channel::GetOcpState()
-{
-	return OcpState.Val;
-}
-
 //----------------------------------------------------------------------------------------------------------
 
 bool PS_Channel::SetOcpDelay(float ocpDelay)
@@ -358,11 +308,6 @@ bool PS_Channel::SetOcpDelay(float ocpDelay)
 		PSOcpDelayChanged(this);
 	}
 	return true;
-}
-
-float PS_Channel::GetOcpDelay()
-{
-	return OcpDelay.Val;
 }
 
 //----------------------------------------------------------------------------------------------------------
@@ -379,11 +324,6 @@ bool PS_Channel::SetOppLevel(float oppLevel)
 	return true;
 }
 
-float PS_Channel::GetOppLevel()
-{
-	return OppLevel.Val;
-}
-
 //----------------------------------------------------------------------------------------------------------
 
 bool PS_Channel::SetOppState(bool oppState)
@@ -398,11 +338,6 @@ bool PS_Channel::SetOppState(bool oppState)
 	return true;
 }
 
-bool PS_Channel::GetOppState()
-{
-	return OppState.Val;
-}
-
 //----------------------------------------------------------------------------------------------------------
 
 bool PS_Channel::SetOppDelay(float oppDelay)
@@ -415,11 +350,6 @@ bool PS_Channel::SetOppDelay(float oppDelay)
 		PSOppDelayChanged(this);
 	}
 	return true;
-}
-
-float PS_Channel::GetOppDelay()
-{
-	return OppDelay.Val;
 }
 
 //----------------------------------------------------------------------------------------------------------

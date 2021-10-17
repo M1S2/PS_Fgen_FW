@@ -89,7 +89,7 @@ class DDS_Channel : public Channel
 		 * Get the Enabled property of the DDS channel.
 		 * @return Value of the Enabled property
 		 */
-		bool GetEnabled();
+		inline bool GetEnabled() { return Enabled.Val; }
 
 		/**
 		 * Set the Frequency property of the DDS channel.
@@ -101,7 +101,7 @@ class DDS_Channel : public Channel
 		 * Get the Frequency property of the DDS channel.
 		 * @return Value of the Frequency property
 		 */
-		float GetFrequency();
+		inline float GetFrequency() { return Frequency.Val; }
 
 		/**
 		 * Set the Amplitude property of the DDS channel.
@@ -113,7 +113,7 @@ class DDS_Channel : public Channel
 		 * Get the Amplitude property of the DDS channel.
 		 * @return Value of the Amplitude property
 		 */
-		float GetAmplitude();
+		inline float GetAmplitude() { return Amplitude.Val; }
 
 		/**
 		 * Set the Offset property of the DDS channel.
@@ -125,7 +125,7 @@ class DDS_Channel : public Channel
 		 * Get the Offset property of the DDS channel.
 		 * @return Value of the Offset property
 		 */
-		float GetOffset();
+		inline float GetOffset() { return Offset.Val; }
 
 		/**
 		 * Set the SignalForm property of the DDS channel.
@@ -137,7 +137,7 @@ class DDS_Channel : public Channel
 		 * Get the SignalForm property of the DDS channel.
 		 * @return Value of the SignalForm property
 		 */
-		SignalForms_t GetSignalForm();
+		inline SignalForms_t GetSignalForm() { return SignalForm.Val; }
 
 		/**
 		 * Callback function that can be used for user interface controls modifying the Frequency property.

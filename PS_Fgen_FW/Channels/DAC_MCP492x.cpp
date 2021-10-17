@@ -17,7 +17,7 @@ void MCP4921_DAC_Set(uint16_t dac_data)
 	high_byte |= (1 << MCP492X_GAIN_SELECT_SINGLE);		/*Select single gain*/
 
 	high_byte |= ((dac_data >> 8) & 0x0F);
-	low_byte |= dac_data;
+	low_byte = (dac_data & 0xFF);
 
 	bool is_lcd_selected = BIT_IS_CLEARED(PORTB, LCD_CS);
 	SET_BIT(PORTB, LCD_CS);		//Deselect LCD
@@ -60,7 +60,7 @@ void MCP4922_DAC_Set(uint16_t dac_data, char channel_A_B)
 	high_byte |= (1 << MCP492X_GAIN_SELECT_SINGLE);		/*Select single gain*/
 
 	high_byte |= ((dac_data >> 8) & 0x0F);
-	low_byte |= dac_data;
+	low_byte = (dac_data & 0xFF);
 
 	bool is_lcd_selected = BIT_IS_CLEARED(PORTB, LCD_CS);
 	SET_BIT(PORTB, LCD_CS);		//Deselect LCD
@@ -81,15 +81,4 @@ void MCP4922_Voltage_Set(float voltage, char channel_A_B)
 	//VOUT = (GAIN * VREF * D/4096)
 	voltage = (voltage + 10) / 4;
 	MCP4922_DAC_Set((uint16_t)(voltage * (4095.0f / Device.CalibrationFactors.Cal_RefVoltage)), channel_A_B);
-}
-
-void MCP4922_DisableLatching()
-{
-	CLEAR_LDAC_MCP4922
-}
-
-void MCP4922_LatchOutput()
-{
-	CLEAR_LDAC_MCP4922
-	SET_LDAC_MCP4922
 }

@@ -54,6 +54,7 @@ void DisableDDSTimer()
 ISR(TIMER2_COMPA_vect)
 {	
 	cli();
+	#warning Maybe this lines can be removed too (is_..._selected). Interrupts lock each other. LCD locks itself.
 	bool is_mcp4921_selected = IS_MCP4921_SELECTED;
 	DESELECT_MCP4921
 	

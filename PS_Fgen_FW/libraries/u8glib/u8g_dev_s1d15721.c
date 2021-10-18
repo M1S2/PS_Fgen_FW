@@ -11,6 +11,7 @@
 */
 
 #include "u8g.h"
+#include <avr/interrupt.h>
 
 #define WIDTH 240
 #define HEIGHT 64
@@ -35,143 +36,151 @@
 #define LCD_CMD_EL_VOLUME           0x81    // Electronic Volume Set (2 byte)
 #define LCD_CMD_RESET               0xE2    // Software Reset
 
-static const uint8_t u8g_dev_s1d15721_init_seq[] PROGMEM = {
-  U8G_ESC_CS(0),			/* disable chip */
-  U8G_ESC_ADR(0),			/* instruction mode */
-  U8G_ESC_CS(1),			/* enable chip */	
+static const uint8_t u8g_dev_s1d15721_init_seq[] PROGMEM = 
+{
+	U8G_ESC_CS(0),				/* disable chip */
+	U8G_ESC_ADR(0),				/* instruction mode */
+	U8G_ESC_CS(1),				/* enable chip */	
 
-  U8G_ESC_ADR(0),           /* instruction mode */
-  LCD_CMD_RESET | 1,
+	U8G_ESC_ADR(0),				/* instruction mode */
+	LCD_CMD_RESET | 1,
   
-  U8G_ESC_DLY(10),			/* delay 10 ms */
+	U8G_ESC_DLY(10),			/* delay 10 ms */
   
-  U8G_ESC_ADR(0),           /* instruction mode */
-  LCD_CMD_BUILTIN_OSC_FREQ,
-  U8G_ESC_ADR(1),           /* data mode */
-  0x000,
+	U8G_ESC_ADR(0),				/* instruction mode */
+	LCD_CMD_BUILTIN_OSC_FREQ,
+	U8G_ESC_ADR(1),				/* data mode */
+	0x000,
 
-  U8G_ESC_ADR(0),           /* instruction mode */
-  LCD_CMD_BUILTIN_OSC | 1,
+	U8G_ESC_ADR(0),				/* instruction mode */
+	LCD_CMD_BUILTIN_OSC | 1,
   
-  U8G_ESC_ADR(0),           /* instruction mode */
-  LCD_CMD_LC_DRIVE_VOLTAGE,
-  U8G_ESC_ADR(1),           /* data mode */
-  0x007,
+	U8G_ESC_ADR(0),				/* instruction mode */
+	LCD_CMD_LC_DRIVE_VOLTAGE,
+	U8G_ESC_ADR(1),				/* data mode */
+	0x007,
   
-  U8G_ESC_ADR(0),           /* instruction mode */
-  LCD_CMD_EL_VOLUME,
-  U8G_ESC_ADR(1),           /* data mode */
-  0x010,
+	U8G_ESC_ADR(0),				/* instruction mode */
+	LCD_CMD_EL_VOLUME,
+	U8G_ESC_ADR(1),				/* data mode */
+	0x010,
   
-  U8G_ESC_ADR(0),           /* instruction mode */
-  LCD_CMD_PWR_CONTROL,
-  U8G_ESC_ADR(1),           /* data mode */
-  0b11111,
+	U8G_ESC_ADR(0),				/* instruction mode */
+	LCD_CMD_PWR_CONTROL,
+	U8G_ESC_ADR(1),				/* data mode */
+	0b11111,
   
-  U8G_ESC_ADR(0),           /* instruction mode */
-  LCD_CMD_DUTY_SET,
-  U8G_ESC_ADR(1),           /* data mode */
-  0x011,
-  0x000,
+	U8G_ESC_ADR(0),				/* instruction mode */
+	LCD_CMD_DUTY_SET,
+	U8G_ESC_ADR(1),				/* data mode */
+	0x011,
+	0x000,
   
-  U8G_ESC_ADR(0),           /* instruction mode */
-  LCD_CMD_DISPLAY_REVERSE | 0,
+	U8G_ESC_ADR(0),				/* instruction mode */
+	LCD_CMD_DISPLAY_REVERSE | 0,
   
-  U8G_ESC_ADR(0),           /* instruction mode */
-  LCD_CMD_DISPLAY_ALL_LIGHT | 0,
+	U8G_ESC_ADR(0),				/* instruction mode */
+	LCD_CMD_DISPLAY_ALL_LIGHT | 0,
   
-  U8G_ESC_ADR(0),           /* instruction mode */
-  LCD_CMD_DISPLAY_MODE,
-  U8G_ESC_ADR(1),           /* data mode */
-  0b00,
+	U8G_ESC_ADR(0),				/* instruction mode */
+	LCD_CMD_DISPLAY_MODE,
+	U8G_ESC_ADR(1),				/* data mode */
+	0b00,
 
-  U8G_ESC_ADR(0),           /* instruction mode */
-  LCD_CMD_GRAY_SCALE_PATTERN,
-  U8G_ESC_ADR(1),           /* data mode */
-  0x036,
+	U8G_ESC_ADR(0),				/* instruction mode */
+	LCD_CMD_GRAY_SCALE_PATTERN,
+	U8G_ESC_ADR(1),				/* data mode */
+	0x036,
   
-  U8G_ESC_ADR(0),           /* instruction mode */
-  LCD_CMD_COM_OUT_STATUS | 1,
+	U8G_ESC_ADR(0),				/* instruction mode */
+	LCD_CMD_COM_OUT_STATUS | 1,
   
-  U8G_ESC_ADR(0),           /* instruction mode */
-  LCD_CMD_DISPLAY_START_LINE,
-  U8G_ESC_ADR(1),           /* data mode */
-  0x000,
+	U8G_ESC_ADR(0),				/* instruction mode */
+	LCD_CMD_DISPLAY_START_LINE,
+	U8G_ESC_ADR(1),				/* data mode */
+	0x000,
  
-  U8G_ESC_ADR(0),           /* instruction mode */
-  LCD_CMD_DISPLAY_OFFON | 1,
+	U8G_ESC_ADR(0),				/* instruction mode */
+	LCD_CMD_DISPLAY_OFFON | 1,
   
-  U8G_ESC_DLY(100),			/* delay 100 ms */
-  U8G_ESC_CS(0),			/* disable chip */
-  U8G_ESC_END				/* end of sequence */
+	U8G_ESC_DLY(100),			/* delay 100 ms */
+	U8G_ESC_CS(0),				/* disable chip */
+	U8G_ESC_END					/* end of sequence */
 };
 
 static const uint8_t u8g_dev_s1d15721_data_start[] PROGMEM = {
-  U8G_ESC_ADR(0),           /* instruction mode */
-  U8G_ESC_CS(1),             /* enable chip */
+	U8G_ESC_ADR(0),				/* instruction mode */
+	U8G_ESC_CS(1),				/* enable chip */
   
-  U8G_ESC_ADR(0),           /* instruction mode */
-  LCD_CMD_COL_ADDR,
-  U8G_ESC_ADR(1),           /* data mode */
-  0x008,					/* 0 */
+	U8G_ESC_ADR(0),				/* instruction mode */
+	LCD_CMD_COL_ADDR,
+	U8G_ESC_ADR(1),				/* data mode */
+	0x008,						/* 0 */
   
-  U8G_ESC_ADR(0),           /* instruction mode */
-  LCD_CMD_PAGE_ADDR,
-  U8G_ESC_ADR(1),           /* data mode */
+	U8G_ESC_ADR(0),				/* instruction mode */
+	LCD_CMD_PAGE_ADDR,
+	U8G_ESC_ADR(1),				/* data mode */
   
-  U8G_ESC_END                /* end of sequence */
+	U8G_ESC_END					/* end of sequence */
 };
 
 uint8_t u8g_dev_s1d15721_fn(u8g_t *u8g, u8g_dev_t *dev, uint8_t msg, void *arg)
 {
-  switch(msg)
-  {
+	switch(msg)
+	{
     case U8G_DEV_MSG_INIT:
-      u8g_InitCom(u8g, dev, U8G_SPI_CLK_CYCLE_400NS);
-      u8g_WriteEscSeqP(u8g, dev, u8g_dev_s1d15721_init_seq);
-      break;
+		{
+			u8g_InitCom(u8g, dev, U8G_SPI_CLK_CYCLE_400NS);
+			u8g_WriteEscSeqP(u8g, dev, u8g_dev_s1d15721_init_seq);
+			break;
+		}
     case U8G_DEV_MSG_STOP:
-      break;
+		break;
     case U8G_DEV_MSG_PAGE_NEXT:
-      {
-         u8g_pb_t *pb = (u8g_pb_t *)(dev->dev_mem);
-         u8g_WriteEscSeqP(u8g, dev, u8g_dev_s1d15721_data_start); 
-		 u8g_WriteByte(u8g, dev, pb->p.page + 2);		/* page number */
+		{
+			U8G_ATOMIC_START();
+			u8g_pb_t *pb = (u8g_pb_t *)(dev->dev_mem);
+			u8g_WriteEscSeqP(u8g, dev, u8g_dev_s1d15721_data_start); 
+			u8g_WriteByte(u8g, dev, pb->p.page + 2);			/* page number */
 		 
-         u8g_SetAddress(u8g, dev, 0);				/* instruction mode */
-         u8g_WriteByte(u8g, dev, LCD_CMD_DATA_WRITE);
-         u8g_SetAddress(u8g, dev, 1);				/* data mode */
-         if ( u8g_pb_WriteBuffer(pb, u8g, dev) == 0 )
-		 {
-			return 0;
-		 }
-         u8g_SetChipSelect(u8g, dev, 0);
-		 break;
-      }
+			u8g_SetAddress(u8g, dev, 0);						/* instruction mode */
+			u8g_WriteByte(u8g, dev, LCD_CMD_DATA_WRITE);
+			u8g_SetAddress(u8g, dev, 1);						/* data mode */
+			u8g_pb_WriteBuffer(pb, u8g, dev);
+			u8g_SetChipSelect(u8g, dev, 0);
+			U8G_ATOMIC_END();
+			break;
+		}
 	 case U8G_DEV_MSG_SLEEP_ON:
-	 {
-		 u8g_SetAddress(u8g, dev, 0);		/* instruction mode */
-		 u8g_SetChipSelect(u8g, dev, 1);	/* enable chip */      
-		 u8g_WriteByte(u8g, dev, LCD_CMD_DISPLAY_OFFON | 0);	/* Display off */
-		 u8g_SetChipSelect(u8g, dev, 0);	/* disable chip */		 
-		 break;
-	 }
+		{
+			U8G_ATOMIC_START(); 
+			u8g_SetAddress(u8g, dev, 0);						/* instruction mode */
+			u8g_SetChipSelect(u8g, dev, 1);						/* enable chip */      
+			u8g_WriteByte(u8g, dev, LCD_CMD_DISPLAY_OFFON | 0);	/* Display off */
+			u8g_SetChipSelect(u8g, dev, 0);						/* disable chip */		 
+			U8G_ATOMIC_END();
+			break;
+		}
 	 case U8G_DEV_MSG_SLEEP_OFF:
-	 {
-		 u8g_SetAddress(u8g, dev, 0);		/* instruction mode */
-		 u8g_SetChipSelect(u8g, dev, 1);	/* enable chip */
-		 u8g_WriteByte(u8g, dev, LCD_CMD_DISPLAY_OFFON | 1);	/* Display on */
-		 u8g_SetChipSelect(u8g, dev, 0);	/* disable chip */
-		 break;
-	 }
+		{
+			U8G_ATOMIC_START();
+			u8g_SetAddress(u8g, dev, 0);						/* instruction mode */
+			u8g_SetChipSelect(u8g, dev, 1);						/* enable chip */
+			u8g_WriteByte(u8g, dev, LCD_CMD_DISPLAY_OFFON | 1);	/* Display on */
+			u8g_SetChipSelect(u8g, dev, 0);						/* disable chip */
+			U8G_ATOMIC_END(); 
+			break;
+		}
 	 case U8G_DEV_MSG_INVERT:
-	 {
-		 u8g_SetAddress(u8g, dev, 0);		/* instruction mode */
-		 u8g_SetChipSelect(u8g, dev, 1);	/* enable chip */
-		 u8g_WriteByte(u8g, dev, LCD_CMD_DISPLAY_REVERSE | *((uint8_t*)arg));	/* Display mode normal (0) or reverse (1) */
-		 u8g_SetChipSelect(u8g, dev, 0);	/* disable chip */
-		 break;
-	 }
+		{
+			U8G_ATOMIC_START();
+			u8g_SetAddress(u8g, dev, 0);						/* instruction mode */
+			u8g_SetChipSelect(u8g, dev, 1);						/* enable chip */
+			u8g_WriteByte(u8g, dev, LCD_CMD_DISPLAY_REVERSE | *((uint8_t*)arg));	/* Display mode normal (0) or reverse (1) */
+			u8g_SetChipSelect(u8g, dev, 0);						/* disable chip */
+			U8G_ATOMIC_END();
+			break;
+		}
   }
   return u8g_dev_pb8v2_base_fn(u8g, dev, msg, arg);
 }

@@ -200,9 +200,8 @@ class DeviceClass
 		/**
 		 * This method is called periodically by the device timer ISR and runs in the ISR context.
 		 * It is used for key polling and forwarding the timer tick to other sub systems.
-		 * @param currentPeriod_ms Tick period of the device timer at which this method is called.
 		 */
-		void DeviceTimerTickISR(uint16_t currentPeriod_ms);
+		void DeviceTimerTickISR();
 		
 		/**
 		 * Change the value of the _settingsChanged variable and update the settings changed indicator (star in the upper right corner)

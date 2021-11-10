@@ -42,8 +42,8 @@
 
 /***** Subsystems *********************************************/
 #define PS_SUBSYSTEM_ENABLED									/**< Comment this line out to disable the power supply subsystem */
-#define DDS_SUBSYSTEM_ENABLED									/**< Comment this line out to disable the direct digital synthesis subsystem */
-#define MEASURE_SUBSYSTEM_ENABLED								/**< Comment this line out to disable the measurement (ATX voltages and digital multimeters) subsystem */
+//#define DDS_SUBSYSTEM_ENABLED									/**< Comment this line out to disable the direct digital synthesis subsystem */
+//#define MEASURE_SUBSYSTEM_ENABLED								/**< Comment this line out to disable the measurement (ATX voltages and digital multimeters) subsystem */
 
 /***** Channels ***********************************************/
 #ifdef PS_SUBSYSTEM_ENABLED
@@ -87,6 +87,9 @@
 #define PS_VOLT_PID_P					0.2f					/**< Proportional part of the voltage PID regulator */
 #define PS_VOLT_PID_I					3.0f					/**< Integral part of the voltage PID regulator */
 #define PS_VOLT_PID_D					0						/**< Differential part of the voltage PID regulator */
+#define PS_CURRENT_PID_P				0.5f					/**< Proportional part of the current PID regulator */
+#define PS_CURRENT_PID_I				3.0f					/**< Integral part of the current PID regulator */
+#define PS_CURRENT_PID_D				0						/**< Differential part of the current PID regulator */
 
 #define DDS_MIN_FREQ					0.001f					/**< Minimum allowed DDS frequency setting */
 #define DDS_MAX_FREQ					20000  					/**< Maximum allowed DDS frequency setting */

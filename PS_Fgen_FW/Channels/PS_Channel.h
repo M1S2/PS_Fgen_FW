@@ -63,6 +63,8 @@ class PS_Channel : public Channel
 	private:
 		float _PIDVoltErrorSum;				/**< PID voltage regulator error sum */
 		float _PIDVoltErrorLast;			/**< PID voltage regulator last error */
+		float _PIDCurrentErrorSum;			/**< PID current regulator error sum */
+		float _PIDCurrentErrorLast;			/**< PID current regulator last error */
 		float _setVoltage;					/**< Voltage to which the output should be set. This value is calculated by the PID voltage regulator. */
 
 	public:
@@ -124,9 +126,19 @@ class PS_Channel : public Channel
 		/**
 		 * This method is called periodically based on the device timer ISR (multiples of the device timer period) and runs in the ISR context.
 		 * It is used to increment the protection timers if neccessary, to change the channel state if an protection kicks in and to calculate a new PID value.
-		 * @param regulationPeriod_ms Tick period at which this method is called (multiples of the device timer period).
 		 */
-		void DoRegulationISR(uint16_t regulationPeriod_ms);
+		void DoRegulationISR();
+	
+		/**
+		 * Check if one of the protections for the power supply channel is tripped and update the PsState accordingly.
+		 */
+		inline void CheckProtections();
+	
+		/**
+		 * Clear the protections for the power supply channel and return to the CV state.
+		 */
+		void ClearProtections();
+	
 	
 		/**
 		 * Return the current state of this channel.
@@ -289,12 +301,6 @@ class PS_Channel : public Channel
 		 * @return Value of the OppDelay property
 		 */
 		inline float GetOppDelay() { return OppDelay.Val; }
-	
-	
-		/**
-		 * Clear the protections for the power supply channel and return to the CV state.
-		 */
-		void ClearProtections();
 	
 	
 		/**

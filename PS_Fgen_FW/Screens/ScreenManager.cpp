@@ -149,10 +149,10 @@ void ScreenManagerClass::ShowHideDeviceRWLMessage(bool showMessage)
 	}
 }
 
-void ScreenManagerClass::DeviceTimerTickISR(uint16_t currentPeriod_ms)
+void ScreenManagerClass::DeviceTimerTickISR()
 {
 	#ifdef SPLASHSCREEN_ENABLED
-		if(IsSplashScreenShown) { TimeCounter_SplashScreen_ms += currentPeriod_ms; }
+		if(IsSplashScreenShown) { TimeCounter_SplashScreen_ms += DEVICE_TIMER_TICK_INTERVAL_MS; }
 			
 		/* Hide splash screen after some time */
 		if(IsSplashScreenShown && (TimeCounter_SplashScreen_ms >= SPLASHSCREEN_DELAY_MS))
@@ -165,7 +165,7 @@ void ScreenManagerClass::DeviceTimerTickISR(uint16_t currentPeriod_ms)
 	
 	if(CurrentScreenNeedsPeriodicRedraw)		// Only increment the redraw counter, if the current screen needs periodic redraws. Otherwise the redraw is triggered by the RedrawScreenRequest variable
 	{
-		TimeCounter_ScreenRedraw_ms += currentPeriod_ms;	// Screen redraw is handled in DoDraw()
+		TimeCounter_ScreenRedraw_ms += DEVICE_TIMER_TICK_INTERVAL_MS;	// Screen redraw is handled in DoDraw()
 	}
 }
 

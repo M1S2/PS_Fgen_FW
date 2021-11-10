@@ -37,9 +37,11 @@ PS_Channel::PS_Channel(float minVolt, float maxVolt, float minCurrent, float max
 	TimeCounter_OppDelay_ms = 0;
 	PsState = PS_STATE_CV;
 	RegulationMode = PS_REG_MODE_CV_CC;
-	_PIDVoltErrorSum = 0;
 	_setVoltage = 0;
+	_PIDVoltErrorSum = 0;
 	_PIDVoltErrorLast = 0;	
+	_PIDCurrentErrorSum = 0;
+	_PIDCurrentErrorLast = 0;
 }
 
 void PS_Channel::SwitchOffOutput()
@@ -59,12 +61,12 @@ void PS_Channel::UpdateOutput()
 	}
 }
 
-void PS_Channel::DoRegulationISR(uint16_t regulationPeriod_ms)
+void PS_Channel::DoRegulationISR()
 {
 	if(GetEnabled() && (PsState == PS_STATE_CV || PsState == PS_STATE_CC || PsState == PS_STATE_OVL))
 	{		
 		MeasuredPower = MeasuredVoltage * MeasuredCurrent;
-		MeasuredLoadResistance = (MeasuredCurrent == 0 ? 10000000 : (MeasuredVoltage / MeasuredCurrent));
+		MeasuredLoadResistance = 5;			// !!!!!!! Hardcoded. Currently not working if calculated !!!!!!!!       //(MeasuredCurrent == 0 ? 10000000 : (MeasuredVoltage / MeasuredCurrent));
 
 		if(RegulationMode == PS_REG_MODE_FIX)
 		{
@@ -79,76 +81,114 @@ void PS_Channel::DoRegulationISR(uint16_t regulationPeriod_ms)
 			 ********************************************************/
 			float PIDVoltError = GetVoltage() - MeasuredVoltage;			// U_target - U_measured
 			float tmpPIDVoltErrorSum = _PIDVoltErrorSum + PIDVoltError;
-			_setVoltage = PS_VOLT_PID_P * PIDVoltError + PS_VOLT_PID_I * (regulationPeriod_ms / 1000.0f) * tmpPIDVoltErrorSum + (PS_VOLT_PID_D / (regulationPeriod_ms / 1000.0f)) * (PIDVoltError - _PIDVoltErrorLast);
-			_PIDVoltErrorLast = PIDVoltError;
-		
-			/* Voltage PID Integrator anti-windup
-			   see: https://www.embeddedrelated.com/showcode/346.php */
-			if (_setVoltage > PS_MAX_VOLTAGE)				// Positive saturation? Output is not regulated (Open-loop).
+			_setVoltage = PS_VOLT_PID_P * PIDVoltError + PS_VOLT_PID_I * (POWER_SUPPLY_REG_INTERVAL_MS / 1000.0f) * tmpPIDVoltErrorSum + (PS_VOLT_PID_D / (POWER_SUPPLY_REG_INTERVAL_MS / 1000.0f)) * (PIDVoltError - _PIDVoltErrorLast);
+			
+			/********************************************************
+			 * Current PID regulator 
+			 ********************************************************/
+			float PIDCurrentError = GetCurrent() - MeasuredCurrent;			// I_target - I_measured
+			float tmpPIDCurrentErrorSum = _PIDCurrentErrorSum + PIDCurrentError;
+			float setCurrent = PS_CURRENT_PID_P * PIDCurrentError + PS_CURRENT_PID_I * (POWER_SUPPLY_REG_INTERVAL_MS / 1000.0f) * tmpPIDCurrentErrorSum + (PS_CURRENT_PID_D / (POWER_SUPPLY_REG_INTERVAL_MS / 1000.0f)) * (PIDCurrentError - _PIDCurrentErrorLast);
+			float setVoltageForCurrent = setCurrent * MeasuredLoadResistance;
+			
+			/********************************************************
+			 * Decide between ConstantCurrent (CC) or ConstantVoltage (CV) mode
+			 * This is only supported if the Regulation Mode is set to CV&CC
+			 ********************************************************/
+			if(setVoltageForCurrent < _setVoltage && RegulationMode == PS_REG_MODE_CV_CC)
 			{
-				_setVoltage = PS_MAX_VOLTAGE;				// Clamp the output
-				PsState = PS_STATE_OVL;						// Set the power supply state to overload (because the output is saturated).
-				if (PIDVoltError < 0)						// Error is the opposite sign? Update integration error.
-				{
-					_PIDVoltErrorSum = tmpPIDVoltErrorSum;
-				}
+				PsState = PS_STATE_CC;
+				_setVoltage = setVoltageForCurrent;
+				_PIDCurrentErrorLast = PIDCurrentError;
 			}
-			else if (_setVoltage < 0)						// Negative saturation? Output is not regulated (Open-loop).
-			{
-				_setVoltage = 0;							// Clamp the output
-				PsState = PS_STATE_OVL;						// Set the power supply state to overload (because the output is saturated).
-				if (PIDVoltError > 0)						// Error is the opposite sign? Update integration error.
-				{
-					_PIDVoltErrorSum = tmpPIDVoltErrorSum;
-				}
-			}
-			else											// Output is regulated (Closed-loop).
+			else
 			{
 				PsState = PS_STATE_CV;
-				_PIDVoltErrorSum = tmpPIDVoltErrorSum;
+				_PIDVoltErrorLast = PIDVoltError;
+			}
+		
+			/********************************************************
+			 * PID Integrator anti-windup
+			 * see: https://www.embeddedrelated.com/showcode/346.php
+			 ********************************************************/
+			if (_setVoltage > PS_MAX_VOLTAGE)							// Positive saturation? Output is not regulated (Open-loop).
+			{
+				_setVoltage = PS_MAX_VOLTAGE;							// Clamp the output
+				if (PsState == PS_STATE_CV && PIDVoltError < 0)			// Error is the opposite sign? Update integration error.
+				{
+					_PIDVoltErrorSum = tmpPIDVoltErrorSum;
+				}
+				else if (PsState == PS_STATE_CC && PIDCurrentError < 0)	// Error is the opposite sign? Update integration error.
+				{
+					_PIDCurrentErrorSum = tmpPIDCurrentErrorSum;
+				}
+				PsState = PS_STATE_OVL;									// Set the power supply state to overload (because the output is saturated).
+			}
+			else if (_setVoltage < 0)									// Negative saturation? Output is not regulated (Open-loop).
+			{
+				_setVoltage = 0;										// Clamp the output
+				if (PsState == PS_STATE_CV && PIDVoltError > 0)			// Error is the opposite sign? Update integration error.
+				{
+					_PIDVoltErrorSum = tmpPIDVoltErrorSum;
+				}
+				else if (PsState == PS_STATE_CC && PIDCurrentError > 0)	// Error is the opposite sign? Update integration error.
+				{
+					_PIDCurrentErrorSum = tmpPIDCurrentErrorSum;
+				}
+				PsState = PS_STATE_OVL;									// Set the power supply state to overload (because the output is saturated).
+			}
+			else														// Output is regulated (Closed-loop).
+			{
+				if (PsState == PS_STATE_CV)
+				{
+					_PIDVoltErrorSum = tmpPIDVoltErrorSum;
+				}
+				else if (PsState == PS_STATE_CC)
+				{
+					_PIDCurrentErrorSum = tmpPIDCurrentErrorSum;
+				}
 			}
 		}
-		
-		#warning PowerSupply CC: Use RegulationMode PS_REG_MODE_CV_CC to check if CC regulation is enabled
 	
-		/********************************************************
-		 * Output Protections 
-		 ********************************************************/
-		if(GetOvpState() && MeasuredVoltage > (GetVoltage() * (GetOvpLevel() / 100.0f)))
-		{
-			TimeCounter_OvpDelay_ms += regulationPeriod_ms;
-		}
-		else { TimeCounter_OvpDelay_ms = 0; }
-	
-		if(GetOcpState() && MeasuredCurrent > (GetCurrent() * (GetOcpLevel() / 100.0f)))
-		{
-			TimeCounter_OcpDelay_ms += regulationPeriod_ms;
-		}
-		else { TimeCounter_OcpDelay_ms = 0; }
-
-		if(GetOppState() && MeasuredPower > GetOppLevel())
-		{
-			TimeCounter_OppDelay_ms += regulationPeriod_ms;
-		}
-		else { TimeCounter_OppDelay_ms = 0; }
-
-		if(TimeCounter_OvpDelay_ms >= (1000 * GetOvpDelay()))
-		{
-			PsState = PS_STATE_OVP;
-			TimeCounter_OvpDelay_ms = 0;
-		}
-		else if(TimeCounter_OcpDelay_ms >= (1000 * GetOcpDelay()))
-		{
-			PsState = PS_STATE_OCP;
-			TimeCounter_OcpDelay_ms = 0;
-		}
-		else if(TimeCounter_OppDelay_ms >= (1000 * GetOppDelay()))
-		{
-			PsState = PS_STATE_OPP;
-			TimeCounter_OppDelay_ms = 0;
-		}
-	
+		CheckProtections();
 		UpdateOutput();
+	}
+}
+
+void PS_Channel::CheckProtections()
+{
+	if(GetOvpState() && MeasuredVoltage > (GetVoltage() * (GetOvpLevel() / 100.0f)))
+	{
+		TimeCounter_OvpDelay_ms += POWER_SUPPLY_REG_INTERVAL_MS;
+	}
+	else { TimeCounter_OvpDelay_ms = 0; }
+	
+	if(GetOcpState() && MeasuredCurrent > (GetCurrent() * (GetOcpLevel() / 100.0f)))
+	{
+		TimeCounter_OcpDelay_ms += POWER_SUPPLY_REG_INTERVAL_MS;
+	}
+	else { TimeCounter_OcpDelay_ms = 0; }
+
+	if(GetOppState() && MeasuredPower > GetOppLevel())
+	{
+		TimeCounter_OppDelay_ms += POWER_SUPPLY_REG_INTERVAL_MS;
+	}
+	else { TimeCounter_OppDelay_ms = 0; }
+
+	if(TimeCounter_OvpDelay_ms >= (1000 * GetOvpDelay()))
+	{
+		PsState = PS_STATE_OVP;
+		TimeCounter_OvpDelay_ms = 0;
+	}
+	else if(TimeCounter_OcpDelay_ms >= (1000 * GetOcpDelay()))
+	{
+		PsState = PS_STATE_OCP;
+		TimeCounter_OcpDelay_ms = 0;
+	}
+	else if(TimeCounter_OppDelay_ms >= (1000 * GetOppDelay()))
+	{
+		PsState = PS_STATE_OPP;
+		TimeCounter_OppDelay_ms = 0;
 	}
 }
 

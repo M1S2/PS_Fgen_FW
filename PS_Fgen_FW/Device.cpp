@@ -104,7 +104,7 @@ void DeviceClass::DeviceMainLoop()
 ISR(TIMER1_COMPA_vect)
 {
 	cli();
-	Device.DeviceTimerTickISR(DEVICE_TIMER_TICK_INTERVAL_MS);
+	Device.DeviceTimerTickISR();
 	sei();
 }
 
@@ -119,9 +119,9 @@ void DeviceClass::InitDeviceTimer()
 	OCR1A = (F_CPU / 64 / (1000 / DEVICE_TIMER_TICK_INTERVAL_MS));	// Set compare register A (USER_TIMER_TICK_FREQ Hz)
 }
 
-void DeviceClass::DeviceTimerTickISR(uint16_t currentPeriod_ms)
+void DeviceClass::DeviceTimerTickISR()
 {	
-	TimeCounter_KeyPolling_ms += currentPeriod_ms;	
+	TimeCounter_KeyPolling_ms += DEVICE_TIMER_TICK_INTERVAL_MS;	
 	if(TimeCounter_KeyPolling_ms >= KEY_POLLING_DELAY_MS)
 	{
 		TimeCounter_KeyPolling_ms = 0;
@@ -136,16 +136,16 @@ void DeviceClass::DeviceTimerTickISR(uint16_t currentPeriod_ms)
 		}
 	}
 	
-	TimeCounter_AutoSave_ms += currentPeriod_ms;			// AutoSave is handled in DeviceMainLoop()
+	TimeCounter_AutoSave_ms += DEVICE_TIMER_TICK_INTERVAL_MS;			// AutoSave is handled in DeviceMainLoop()
 	
-	ScreenManager.DeviceTimerTickISR(currentPeriod_ms);
+	ScreenManager.DeviceTimerTickISR();
 	
 	#ifdef PS_SUBSYSTEM_ENABLED
-		TimeCounter_PowerSupplyChannelRegulation_ms += currentPeriod_ms;
+		TimeCounter_PowerSupplyChannelRegulation_ms += DEVICE_TIMER_TICK_INTERVAL_MS;
 		if(TimeCounter_PowerSupplyChannelRegulation_ms >= POWER_SUPPLY_REG_INTERVAL_MS)
 		{	
 			TimeCounter_PowerSupplyChannelRegulation_ms = 0;
-			PsChannel.DoRegulationISR(POWER_SUPPLY_REG_INTERVAL_MS);
+			PsChannel.DoRegulationISR();
 		}
 	#endif
 }

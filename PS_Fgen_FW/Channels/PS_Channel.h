@@ -61,40 +61,40 @@ extern const char* PsStatesNames[];
 class PS_Channel : public Channel
 {	
 	private:
-		float _PIDVoltErrorSum;				/**< PID voltage regulator error sum */
-		float _PIDVoltErrorLast;			/**< PID voltage regulator last error */
-		float _PIDCurrentErrorSum;			/**< PID current regulator error sum */
-		float _PIDCurrentErrorLast;			/**< PID current regulator last error */
-		float _setVoltage;					/**< Voltage to which the output should be set. This value is calculated by the PID voltage regulator. */
+		float _PIDVoltErrorSum;						/**< PID voltage regulator error sum */
+		float _PIDVoltErrorLast;					/**< PID voltage regulator last error */
+		float _PIDCurrentErrorSum;					/**< PID current regulator error sum */
+		float _PIDCurrentErrorLast;					/**< PID current regulator last error */
+		float _setVoltage;							/**< Voltage to which the output should be set. This value is calculated by the PID voltage regulator. */
 
 	public:
-		PsStates_t PsState;					/**< Current state of the power supply channel. */
-		PsRegulationModes_t RegulationMode;	/**< Current regulation mode of the power supply channel. For more details about the options see the enumeration values. */
+		volatile PsStates_t PsState;				/**< Current state of the power supply channel. */
+		volatile PsRegulationModes_t RegulationMode;/**< Current regulation mode of the power supply channel. For more details about the options see the enumeration values. */
 	
-		Parameter<bool> Enabled;			/**< Is the channel enabled or not. If enabled, the voltage is available at the output. */
-		Parameter<float> Voltage;			/**< Voltage of the power supply channel. This is the voltage that the PID regulator tries to produce on the output in CV state. */
-		Parameter<float> Current;			/**< Current of the power supply channel. This is the current that the PID regulator tries to produce on the output in CC state. */
+		Parameter<bool> Enabled;					/**< Is the channel enabled or not. If enabled, the voltage is available at the output. */
+		Parameter<float> Voltage;					/**< Voltage of the power supply channel. This is the voltage that the PID regulator tries to produce on the output in CV state. */
+		Parameter<float> Current;					/**< Current of the power supply channel. This is the current that the PID regulator tries to produce on the output in CC state. */
 		
-		Parameter<bool> OvpState;			/**< Is the over voltage protection for the channel enabled or not. If disabled, the OvpLevel and OvpDelay parameters have not effect. */
-		Parameter<uint8_t> OvpLevel;		/**< OVP trip level in percentage of the Voltage. */
-		Parameter<float> OvpDelay;			/**< Time after which the over voltage protection kicks in. */
+		Parameter<bool> OvpState;					/**< Is the over voltage protection for the channel enabled or not. If disabled, the OvpLevel and OvpDelay parameters have not effect. */
+		Parameter<uint8_t> OvpLevel;				/**< OVP trip level in percentage of the Voltage. */
+		Parameter<float> OvpDelay;					/**< Time after which the over voltage protection kicks in. */
 			
-		Parameter<bool> OcpState;			/**< Is the over current protection for the channel enabled or not. If disabled, the OcpLevel and OcpDelay parameters have not effect. */
-		Parameter<uint8_t> OcpLevel;		/**< OCP trip level in percentage of the Current. */
-		Parameter<float> OcpDelay;			/**< Time after which the over current protection kicks in. */
+		Parameter<bool> OcpState;					/**< Is the over current protection for the channel enabled or not. If disabled, the OcpLevel and OcpDelay parameters have not effect. */
+		Parameter<uint8_t> OcpLevel;				/**< OCP trip level in percentage of the Current. */
+		Parameter<float> OcpDelay;					/**< Time after which the over current protection kicks in. */
 		
-		Parameter<bool> OppState;			/**< Is the over power protection for the channel enabled or not. If disabled, the OppLevel and OppDelay parameters have not effect. */
-		Parameter<float> OppLevel;			/**< OPP trip level in Watt. */
-		Parameter<float> OppDelay;			/**< Time after which the over power protection kicks in. */
+		Parameter<bool> OppState;					/**< Is the over power protection for the channel enabled or not. If disabled, the OppLevel and OppDelay parameters have not effect. */
+		Parameter<float> OppLevel;					/**< OPP trip level in Watt. */
+		Parameter<float> OppDelay;					/**< Time after which the over power protection kicks in. */
 		
-		float MeasuredVoltage;				/**< Measured Voltage for this channel. This value is used for PID regulation of the output voltage in CV state. */
-		float MeasuredCurrent;				/**< Measured Current for this channel. This value is used for PID regulation of the output current in CC state. */
-		float MeasuredPower;				/**< Measured Power for this channel. This value is calculated from the MeasuredVoltage and MeasuredCurrent. */
-		float MeasuredLoadResistance;		/**< Measured Load Resistance for this channel. This value is calculated from the MeasuredVoltage and MeasuredCurrent. */
+		volatile float MeasuredVoltage;				/**< Measured Voltage for this channel. This value is used for PID regulation of the output voltage in CV state. */
+		volatile float MeasuredCurrent;				/**< Measured Current for this channel. This value is used for PID regulation of the output current in CC state. */
+		volatile float MeasuredPower;				/**< Measured Power for this channel. This value is calculated from the MeasuredVoltage and MeasuredCurrent. */
+		volatile float MeasuredLoadResistance;		/**< Measured Load Resistance for this channel. This value is calculated from the MeasuredVoltage and MeasuredCurrent. */
 		
-		uint16_t TimeCounter_OvpDelay_ms;	/**< Time counter used to measure how long the channel has an over voltage. If this value exceeds the OvpDelay, the over voltage protection kicks in. */
-		uint16_t TimeCounter_OcpDelay_ms;	/**< Time counter used to measure how long the channel has an over current. If this value exceeds the OcpDelay, the over current protection kicks in. */
-		uint16_t TimeCounter_OppDelay_ms;	/**< Time counter used to measure how long the channel has an over power. If this value exceeds the OppDelay, the over power protection kicks in. */
+		volatile uint16_t TimeCounter_OvpDelay_ms;	/**< Time counter used to measure how long the channel has an over voltage. If this value exceeds the OvpDelay, the over voltage protection kicks in. */
+		volatile uint16_t TimeCounter_OcpDelay_ms;	/**< Time counter used to measure how long the channel has an over current. If this value exceeds the OcpDelay, the over current protection kicks in. */
+		volatile uint16_t TimeCounter_OppDelay_ms;	/**< Time counter used to measure how long the channel has an over power. If this value exceeds the OppDelay, the over power protection kicks in. */
 		
 		/**
 		 * Constructor of the PS_Channel.

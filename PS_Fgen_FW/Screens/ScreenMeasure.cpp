@@ -21,11 +21,11 @@ ContainerPage page_DMM;
 Icon ico_dmm(SCREEN_TAB_WIDTH + 5, 3, icon_dmm_width, icon_dmm_height, icon_dmm_bits);
 Label<5> lbl_DMM_caption(SCREEN_TAB_WIDTH + 25, 5, "DMM");
 Label<5> lbl_DMM_No1(DMM_COLUMN1_POSX, DMM_ROW1_POSY, "#1:");
-NumericIndicator<float> numInd_DMM1(DMM_COLUMN2_POSX, DMM_ROW1_POSY, &Device.DmmChannel1.MeasuredVoltage, "V", 20, 3);
-ProgressBar<float> progress_DMM1(DMM_COLUMN3_POSX, DMM_ROW1_POSY, 90, 10, &Device.DmmChannel1.MeasuredVoltage, 0, 20, PROGRESSBAR_ORIGIN_ZERO, 5);
+NumericIndicator<volatile float> numInd_DMM1(DMM_COLUMN2_POSX, DMM_ROW1_POSY, &Device.DmmChannel1.MeasuredVoltage, "V", 20, 3);
+ProgressBar<volatile float> progress_DMM1(DMM_COLUMN3_POSX, DMM_ROW1_POSY, 90, 10, &Device.DmmChannel1.MeasuredVoltage, 0, 20, PROGRESSBAR_ORIGIN_ZERO, 5);
 Label<5> lbl_DMM_No2(DMM_COLUMN1_POSX, DMM_ROW2_POSY, "#2:");
-NumericIndicator<float> numInd_DMM2(DMM_COLUMN2_POSX, DMM_ROW2_POSY, &Device.DmmChannel2.MeasuredVoltage, "V", 20, 3);
-ProgressBar<float> progress_DMM2(DMM_COLUMN3_POSX, DMM_ROW2_POSY, 90, 10, &Device.DmmChannel2.MeasuredVoltage, 0, 20, PROGRESSBAR_ORIGIN_ZERO, 5);
+NumericIndicator<volatile float> numInd_DMM2(DMM_COLUMN2_POSX, DMM_ROW2_POSY, &Device.DmmChannel2.MeasuredVoltage, "V", 20, 3);
+ProgressBar<volatile float> progress_DMM2(DMM_COLUMN3_POSX, DMM_ROW2_POSY, 90, 10, &Device.DmmChannel2.MeasuredVoltage, 0, 20, PROGRESSBAR_ORIGIN_ZERO, 5);
 
 // ***** Measure ATX page *****
 #define ATX_COLUMN1_POSX		SCREEN_TAB_WIDTH + 5

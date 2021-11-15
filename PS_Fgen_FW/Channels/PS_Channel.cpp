@@ -66,8 +66,12 @@ void PS_Channel::DoRegulationISR()
 	if(GetEnabled() && (PsState == PS_STATE_CV || PsState == PS_STATE_CC || PsState == PS_STATE_OVL))
 	{		
 		MeasuredPower = MeasuredVoltage * MeasuredCurrent;
-		MeasuredLoadResistance = 5;			// !!!!!!! Hardcoded. Currently not working if calculated !!!!!!!!       //(MeasuredCurrent == 0 ? 10000000 : (MeasuredVoltage / MeasuredCurrent));
 
+		MeasuredLoadResistance = (MeasuredCurrent < 0.001f ? 1000000.0f : (MeasuredVoltage / MeasuredCurrent));
+		// !!!!!!! Hardcoded. Currently not working if calculated !!!!!!!!
+		// !!!!!!! If the LoadResistance is set to a large value (>= 1000) the whole device crashes !!!!!!!!!
+		MeasuredLoadResistance = 5;
+		
 		if(RegulationMode == PS_REG_MODE_FIX)
 		{
 			_setVoltage = GetVoltage();

@@ -20,7 +20,7 @@
 class DMM_Channel : public Channel
 {
 	public:
-		float MeasuredVoltage;				/**< Voltage measured for this DMM channel. */
+		volatile float MeasuredVoltage;				/**< Voltage measured for this DMM channel. */
 	
 		/**
 		 * Constructor of the DMM_Channel.

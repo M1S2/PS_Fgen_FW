@@ -42,6 +42,7 @@ PS_Channel::PS_Channel(float minVolt, float maxVolt, float minCurrent, float max
 	_PIDVoltErrorLast = 0;	
 	_PIDCurrentErrorSum = 0;
 	_PIDCurrentErrorLast = 0;
+	MeasuredLoadResistance = 1;
 }
 
 void PS_Channel::SwitchOffOutput()
@@ -67,10 +68,7 @@ void PS_Channel::DoRegulationISR()
 	{		
 		MeasuredPower = MeasuredVoltage * MeasuredCurrent;
 
-		MeasuredLoadResistance = (MeasuredCurrent < 0.001f ? 1000000.0f : (MeasuredVoltage / MeasuredCurrent));
-		// !!!!!!! Hardcoded. Currently not working if calculated !!!!!!!!
-		// !!!!!!! If the LoadResistance is set to a large value (>= 1000) the whole device crashes !!!!!!!!!
-		MeasuredLoadResistance = 5;
+		MeasuredLoadResistance = (MeasuredCurrent < 0.001f ? MeasuredLoadResistance : (MeasuredVoltage / MeasuredCurrent));
 		
 		if(RegulationMode == PS_REG_MODE_FIX)
 		{
@@ -93,13 +91,14 @@ void PS_Channel::DoRegulationISR()
 			float PIDCurrentError = GetCurrent() - MeasuredCurrent;			// I_target - I_measured
 			float tmpPIDCurrentErrorSum = _PIDCurrentErrorSum + PIDCurrentError;
 			float setCurrent = PS_CURRENT_PID_P * PIDCurrentError + PS_CURRENT_PID_I * (POWER_SUPPLY_REG_INTERVAL_MS / 1000.0f) * tmpPIDCurrentErrorSum + (PS_CURRENT_PID_D / (POWER_SUPPLY_REG_INTERVAL_MS / 1000.0f)) * (PIDCurrentError - _PIDCurrentErrorLast);
+			if(setCurrent < 0) { setCurrent = 0; }
 			float setVoltageForCurrent = setCurrent * MeasuredLoadResistance;
 			
 			/********************************************************
 			 * Decide between ConstantCurrent (CC) or ConstantVoltage (CV) mode
 			 * This is only supported if the Regulation Mode is set to CV&CC
 			 ********************************************************/
-			if(setVoltageForCurrent < _setVoltage && RegulationMode == PS_REG_MODE_CV_CC)
+			if(fabs(setVoltageForCurrent) < fabs(_setVoltage) && RegulationMode == PS_REG_MODE_CV_CC)
 			{
 				PsState = PS_STATE_CC;
 				_setVoltage = setVoltageForCurrent;
@@ -156,6 +155,14 @@ void PS_Channel::DoRegulationISR()
 	
 		CheckProtections();
 		UpdateOutput();
+	}
+	else
+	{
+		// Reset the PID error counters if the output is disabled or a protection is active
+		_PIDVoltErrorSum = 0;
+		_PIDVoltErrorLast = 0;
+		_PIDCurrentErrorSum = 0;
+		_PIDCurrentErrorLast = 0;
 	}
 }
 

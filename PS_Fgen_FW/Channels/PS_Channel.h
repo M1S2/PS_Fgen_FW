@@ -56,6 +56,7 @@ extern const char* PsStatesNames[];
  * - Otherwise, the integrator is saved for the next call.
  *
  * @see https://rn-wissen.de/wiki/index.php/Regelungstechnik (for general PID regulator code)
+ * @see https://tlk-energy.de/blog/pid-regler-einstellen (for PID parameter setup)
  * @see https://www.embeddedrelated.com/showcode/346.php (for PID anti-windup scheme)
  */
 class PS_Channel : public Channel

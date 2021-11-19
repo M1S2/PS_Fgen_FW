@@ -87,8 +87,8 @@
 #define PS_VOLT_PID_P					0.2f					/**< Proportional part of the voltage PID regulator */
 #define PS_VOLT_PID_I					3.0f					/**< Integral part of the voltage PID regulator */
 #define PS_VOLT_PID_D					0						/**< Differential part of the voltage PID regulator */
-#define PS_CURRENT_PID_P				0.5f					/**< Proportional part of the current PID regulator */
-#define PS_CURRENT_PID_I				3.0f					/**< Integral part of the current PID regulator */
+#define PS_CURRENT_PID_P				0.3f					/**< Proportional part of the current PID regulator */
+#define PS_CURRENT_PID_I				1.0f					/**< Integral part of the current PID regulator */
 #define PS_CURRENT_PID_D				0						/**< Differential part of the current PID regulator */
 
 #define DDS_MIN_FREQ					0.001f					/**< Minimum allowed DDS frequency setting */

@@ -33,9 +33,6 @@ NumericControl<float> numCtrl_PSOverviewCurrent(PS_COLUMN1_POSX + icon_current_w
 Icon ico_PSOverviewRegMode(PS_COLUMN2_POSX, PS_ROW2_POSY - 2, icon_pin_width, icon_pin_height, icon_pin_bits);
 EnumControl<volatile PsRegulationModes_t> enumCtrl_PSOverviewRegMode(PS_COLUMN2_POSX + icon_pin_width + 3, PS_ROW2_POSY, &Device.PsChannel.RegulationMode, PsRegulationModesNames, NUM_PS_REG_MODE_ELEMENTS, &Device.PsChannel, &PS_Channel::PSRegulationModeChanged);
 
-#warning Only for testing!!!
-NumericIndicator<volatile float, 10> __numInd_PsOverviewResistance(PS_COLUMN2_POSX, 5, &Device.PsChannel.MeasuredLoadResistance, "x", 10000000, 1);
-
 NumericIndicator<volatile float, 10> numInd_PsOverviewVoltage(PS_COLUMN3_POSX, 18, &Device.PsChannel.MeasuredVoltage, "V", PS_MAX_VOLTAGE, 3);
 NumericIndicator<volatile float, 10> numInd_PsOverviewCurrent(PS_COLUMN3_POSX, 28, &Device.PsChannel.MeasuredCurrent, "A", PS_MAX_CURRENT, 3);
 NumericIndicator<volatile float, 10> numInd_PsOverviewPower(PS_COLUMN3_POSX, 38, &Device.PsChannel.MeasuredPower, "W", PS_MAX_VOLTAGE * PS_MAX_CURRENT, 3);
@@ -106,11 +103,7 @@ UIElement* uiBuildScreenPS()
 	page_PSOverview.AddItem(&numInd_PsOverviewVoltage);
 	page_PSOverview.AddItem(&numInd_PsOverviewCurrent);
 	page_PSOverview.AddItem(&numInd_PsOverviewPower);
-	page_PSOverview.AddItem(&enumInd_PsOverviewState);
-
-#warning Only for testing!!!
-	page_PSOverview.AddItem(&__numInd_PsOverviewResistance);
-	
+	page_PSOverview.AddItem(&enumInd_PsOverviewState);	
 	page_PSOverview.InitItems();
 
 	page_PSProtectionOVP.AddItem(&ico_PSProtection);

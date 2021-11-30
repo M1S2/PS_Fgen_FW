@@ -19,7 +19,6 @@ template <class T, int stringBufferLength = 9>
 class NumericControl : public NumericIndicator<T, stringBufferLength>
 {
 	private:
-		signed char _currentDigitPosition;				/**< Position of the currently controlled digit. Range from (-_numFractionalDigits) to (_numDigits - _numFractionalDigits - 1) */
 		T _minValue;									/**< Minimum value that can be handled by this numeric control. */
 
 		/**
@@ -43,7 +42,8 @@ class NumericControl : public NumericIndicator<T, stringBufferLength>
 		
 	public:
 		bool IsEditMode;								/**< Is the control in edit mode? All keys are only supported in edit mode. */
-	
+		signed char CurrentDigitPosition;				/**< Position of the currently controlled digit. Range from (-_numFractionalDigits) to (_numDigits - _numFractionalDigits - 1) */
+
 		/**
 		 * Constructor of the NumericControl.
 		 * @param locX X Location of the upper left corner of the NumericControl 

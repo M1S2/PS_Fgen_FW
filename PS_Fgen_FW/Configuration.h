@@ -42,8 +42,8 @@
 
 /***** Subsystems *********************************************/
 #define PS_SUBSYSTEM_ENABLED									/**< Comment this line out to disable the power supply subsystem */
-//#define DDS_SUBSYSTEM_ENABLED									/**< Comment this line out to disable the direct digital synthesis subsystem */
-//#define MEASURE_SUBSYSTEM_ENABLED								/**< Comment this line out to disable the measurement (ATX voltages and digital multimeters) subsystem */
+#define DDS_SUBSYSTEM_ENABLED									/**< Comment this line out to disable the direct digital synthesis subsystem */
+#define MEASURE_SUBSYSTEM_ENABLED								/**< Comment this line out to disable the measurement (ATX voltages and digital multimeters) subsystem */
 
 /***** Channels ***********************************************/
 #ifdef PS_SUBSYSTEM_ENABLED

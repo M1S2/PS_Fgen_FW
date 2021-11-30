@@ -12,7 +12,7 @@ NumericControl<T, stringBufferLength>::NumericControl(unsigned char locX, unsign
 {
 	this->Type = UI_CONTROL;
 	IsEditMode = false;
-	_currentDigitPosition = 0;
+	CurrentDigitPosition = 0;
 	_minValue = minValue;
 	_controlContext = controlContext;
 	_onValueChanged = onValueChanged;
@@ -34,8 +34,8 @@ void NumericControl<T, stringBufferLength>::Draw(u8g_t *u8g, bool isFirstPage)
 		
 		if(IsEditMode)
 		{																								 
-			uint8_t cursorDigitIndex = (-_currentDigitPosition + (this->_numDigits - this->_numFractionalDigits)) + (((this->_numFractionalDigits + this->_unitPrefixPower) == 0 && this->_numFractionalDigits != 0) ? 1 : 0);	// if (this->_numFractionalDigits + this->_unitPrefixPower) == 0,  no comma is available
-			uint8_t cursorXpos = this->LocX + cursorDigitIndex * 6 + (_currentDigitPosition < this->_unitPrefixPower ? 3 : 0) - 1;																								// if (_currentDigitPosition < _unitPrefixPower) cursor is right of comma
+			uint8_t cursorDigitIndex = (-CurrentDigitPosition + (this->_numDigits - this->_numFractionalDigits)) + (((this->_numFractionalDigits + this->_unitPrefixPower) == 0 && this->_numFractionalDigits != 0) ? 1 : 0);	// if (this->_numFractionalDigits + this->_unitPrefixPower) == 0,  no comma is available
+			uint8_t cursorXpos = this->LocX + cursorDigitIndex * 6 + (CurrentDigitPosition < this->_unitPrefixPower ? 3 : 0) - 1;																								// if (CurrentDigitPosition < _unitPrefixPower) cursor is right of comma
 			u8g_DrawHLine(u8g, cursorXpos, this->LocY + this->Height, 5);		// Draw cursor
 
 			u8g_SetDefaultForegroundColor(u8g); 
@@ -165,10 +165,10 @@ bool NumericControl<T, stringBufferLength>::KeyNumeric(Keys_t key)
 		unsigned char keyNum = Keys_GetKeyNumInt(key);
 		if(keyNum < 0 || keyNum > 9) { return false; }		// if the keyNum isn't in the range 0..9, the given key is no numeric key
 			
-		unsigned char digit = extractDigit(oldValue, _currentDigitPosition);
-		float multiplicator = pow(10, _currentDigitPosition);
+		unsigned char digit = extractDigit(oldValue, CurrentDigitPosition);
+		float multiplicator = pow(10, CurrentDigitPosition);
 		(*this->_valuePointer) = coerceValue(oldValue - (digit * multiplicator) + (keyNum * multiplicator));
-		if (_currentDigitPosition > -this->_numFractionalDigits) { _currentDigitPosition--; }	// Move cursor right
+		if (CurrentDigitPosition > -this->_numFractionalDigits) { CurrentDigitPosition--; }	// Move cursor right
 
 		if (_onValueChanged != NULL && oldValue != (*this->_valuePointer)) { _onValueChanged(_controlContext); }
 		return true;
@@ -181,7 +181,7 @@ bool NumericControl<T, stringBufferLength>::ValueUp()
 {
 	if (IsEditMode)
 	{
-		float deltaValue = pow(10, _currentDigitPosition);
+		float deltaValue = pow(10, CurrentDigitPosition);
 		(*this->_valuePointer) = coerceValue((*this->_valuePointer) + deltaValue);
 		
 		if (_onValueChanged != NULL && deltaValue != 0) { _onValueChanged(_controlContext); }
@@ -195,7 +195,7 @@ bool NumericControl<T, stringBufferLength>::ValueDown()
 {
 	if (IsEditMode)
 	{
-		float deltaValue = pow(10, _currentDigitPosition);
+		float deltaValue = pow(10, CurrentDigitPosition);
 		(*this->_valuePointer) = coerceValue((*this->_valuePointer) - deltaValue);
 		
 		if (_onValueChanged != NULL && deltaValue != 0) { _onValueChanged(_controlContext); }
@@ -209,9 +209,9 @@ bool NumericControl<T, stringBufferLength>::CursorLeft()
 {
 	if (IsEditMode)
 	{
-		if (_currentDigitPosition < (this->_numDigits - this->_numFractionalDigits - 1))
+		if (CurrentDigitPosition < (this->_numDigits - this->_numFractionalDigits - 1))
 		{
-			_currentDigitPosition++;
+			CurrentDigitPosition++;
 		}
 		return true;
 	}
@@ -223,9 +223,9 @@ bool NumericControl<T, stringBufferLength>::CursorRight()
 {
 	if (IsEditMode)
 	{
-		if (_currentDigitPosition > -this->_numFractionalDigits)
+		if (CurrentDigitPosition > -this->_numFractionalDigits)
 		{
-			_currentDigitPosition--;
+			CurrentDigitPosition--;
 		}
 		return true;
 	}

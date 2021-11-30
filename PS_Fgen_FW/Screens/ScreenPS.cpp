@@ -89,6 +89,8 @@ void PSProtectionsClearedOK(void* controlContext)
 UIElement* uiBuildScreenPS()
 {
 	enumCtrl_PSOverviewRegMode.Width = 39;
+	numCtrl_PSOverviewVoltage.CurrentDigitPosition = -1;	// select the 0.1 V digit.
+	numCtrl_PSOverviewCurrent.CurrentDigitPosition = -1;	// select the 0.1 A digit.
 	
 	page_PSOverview.AddItem(&ico_PSOverview);
 	page_PSOverview.AddItem(&lbl_PSOverview_caption);
@@ -106,6 +108,8 @@ UIElement* uiBuildScreenPS()
 	page_PSOverview.AddItem(&enumInd_PsOverviewState);	
 	page_PSOverview.InitItems();
 
+	numCtrl_PSProtectionOVPDelay.CurrentDigitPosition = -1;	// select the 0.1 s digit.
+
 	page_PSProtectionOVP.AddItem(&ico_PSProtection);
 	page_PSProtectionOVP.AddItem(&lbl_PSProtectionOVP_caption);
 	page_PSProtectionOVP.AddItem(&ico_PSProtectionOVPLevel);
@@ -117,6 +121,8 @@ UIElement* uiBuildScreenPS()
 	page_PSProtectionOVP.AddItem(&button_PSProtectionOVPClear);
 	page_PSProtectionOVP.InitItems();
 
+	numCtrl_PSProtectionOCPDelay.CurrentDigitPosition = -1;	// select the 0.1 s digit.
+
 	page_PSProtectionOCP.AddItem(&ico_PSProtection);
 	page_PSProtectionOCP.AddItem(&lbl_PSProtectionOCP_caption);
 	page_PSProtectionOCP.AddItem(&ico_PSProtectionOCPLevel);
@@ -127,6 +133,9 @@ UIElement* uiBuildScreenPS()
 	page_PSProtectionOCP.AddItem(&numCtrl_PSProtectionOCPDelay);
 	page_PSProtectionOCP.AddItem(&button_PSProtectionOCPClear);
 	page_PSProtectionOCP.InitItems();
+
+	numCtrl_PSProtectionOPPLevel.CurrentDigitPosition = -1;	// select the 0.1 s digit.
+	numCtrl_PSProtectionOPPDelay.CurrentDigitPosition = -1;	// select the 0.1 s digit.
 	
 	page_PSProtectionOPP.AddItem(&ico_PSProtection);
 	page_PSProtectionOPP.AddItem(&lbl_PSProtectionOPP_caption);

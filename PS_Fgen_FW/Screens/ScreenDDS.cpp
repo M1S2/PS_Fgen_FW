@@ -56,6 +56,8 @@ UIElement* uiBuildScreenDDS()
 	numCtrl_DDS1_Frequency.Width = 85;
 	numCtrl_DDS1_Amplitude.Width = 53;
 	numCtrl_DDS1_Offset.Width = 42;
+	numCtrl_DDS1_Amplitude.CurrentDigitPosition = -1;	// select the 0.1 V digit.
+	numCtrl_DDS1_Offset.CurrentDigitPosition = -1;		// select the 0.1 V digit.
 	
 	page_DDS1.AddItem(&ico_dds);
 	page_DDS1.AddItem(&lbl_DDS1_caption);
@@ -74,6 +76,8 @@ UIElement* uiBuildScreenDDS()
 	numCtrl_DDS2_Frequency.Width = 85;
 	numCtrl_DDS2_Amplitude.Width = 53;
 	numCtrl_DDS2_Offset.Width = 42;
+	numCtrl_DDS2_Amplitude.CurrentDigitPosition = -1;	// select the 0.1 V digit.
+	numCtrl_DDS2_Offset.CurrentDigitPosition = -1;		// select the 0.1 V digit.
 	
 	page_DDS2.AddItem(&ico_dds);
 	page_DDS2.AddItem(&lbl_DDS2_caption);

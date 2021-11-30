@@ -163,6 +163,9 @@ void PS_Channel::DoRegulationISR()
 		_PIDVoltErrorLast = 0;
 		_PIDCurrentErrorSum = 0;
 		_PIDCurrentErrorLast = 0;
+		
+		// Set the MeasuredPower to 0 if the output is disabled or a protection is active
+		MeasuredPower = 0;
 	}
 }
 

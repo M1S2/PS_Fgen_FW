@@ -11,10 +11,6 @@
 /***** Version ************************************************/
 #define VERSION							"v0.0.0"				/**< Software version. This should be incremented with every release. */
 
-/***** CPU Info ***********************************************/
-#define CPU_TYPE						"ATMEGA1284P"			/**< Type of the controller */
-#define CPU_BOARD_VERSION				"v1.2"					/**< Version of the controller board */
-
 /***** Timers *************************************************/
 #define DEVICE_TIMER_TICK_INTERVAL_MS	100						/**< Tick interval of the DeviceTimer in ms. The DeviceTimer is used to e.g. periodically read the keys and the encoder. */
 #define POWER_SUPPLY_REG_INTERVAL_MS	100						/**< Time period for power supply regulation. This must be higher than the DeviceTimer tick interval because it's derived from this device timer. */

@@ -130,10 +130,8 @@ SYSTem:COMMunicate:SERial:BAUD \<baudRate\>	| OK		| Set the serial baud rate (al
 SYSTem:COMMunicate:SERial:BAUD?			| OK		| Query the serial baud rate
 SYSTem:COMMunicate:SERial:ECHO \<bool\>		| OK		| Enable/disalbe the serial echo
 SYSTem:COMMunicate:SERial:ECHO?			| OK		| Query the state of the serial echo
-SYSTem:CPU:FIRMware?				| OK		| Returns device firmware version
-SYSTem:CPU:INFOrmation:TYPE?			| OK		| Returns the type of CPU
-SYSTem:CPU:SNO?					| OK		| Returns the device serial number
-SYSTem:CPU:VERSion?				| OK		| Returns the CPU board version number
+SYSTem:FIRMware?				| OK		| Returns device firmware version
+SYSTem:SNO?					| OK		| Returns the device serial number
 SYSTem:ERRor[:NEXT]?				| OK		| Queries and clears errors from the error queue
 SYSTem:ERRor:COUNt?				| OK		| Queries the error/event queue for the number of unread items
 SYSTem:LOCal					| OK		| Places the device in the local mode

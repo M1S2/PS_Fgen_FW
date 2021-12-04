@@ -83,27 +83,15 @@ scpi_result_t scpi_cmd_systemPonOutputDisableQ(scpi_t * context)
 
 /***** CPU ******************************************************************************************************************************/
 
-scpi_result_t scpi_cmd_systemCPUFirmwareQ(scpi_t * context)
+scpi_result_t scpi_cmd_systemFirmwareQ(scpi_t * context)
 {
 	SCPI_ResultCharacters(context, SCPI_IDN_SOFTWARE_REVISION, strlen(SCPI_IDN_SOFTWARE_REVISION));
 	return SCPI_RES_OK;
 }
 
-scpi_result_t scpi_cmd_systemCPUInformationTypeQ(scpi_t * context)
-{
-	SCPI_ResultCharacters(context, CPU_TYPE, strlen(CPU_TYPE));
-	return SCPI_RES_OK;
-}
-
-scpi_result_t scpi_cmd_systemCPUSnoQ(scpi_t * context)
+scpi_result_t scpi_cmd_systemSnoQ(scpi_t * context)
 {
 	SCPI_ResultCharacters(context, SCPI_IDN_SERIAL_NUMBER, strlen(SCPI_IDN_SERIAL_NUMBER));
-	return SCPI_RES_OK;
-}
-
-scpi_result_t scpi_cmd_systemCPUVersionQ(scpi_t * context)
-{
-	SCPI_ResultCharacters(context, CPU_BOARD_VERSION, strlen(CPU_BOARD_VERSION));
 	return SCPI_RES_OK;
 }
 

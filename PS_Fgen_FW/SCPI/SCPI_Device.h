@@ -196,10 +196,8 @@ scpi_result_t scpi_cmd_systemLocal(scpi_t * context);								/**< Function execu
 scpi_result_t scpi_cmd_systemRemote(scpi_t * context);								/**< Function executed when the SYSTem:REMote command was received. */
 scpi_result_t scpi_cmd_systemRWLock(scpi_t * context);								/**< Function executed when the SYSTem:RWLock command was received. */
 scpi_result_t scpi_cmd_systemChannelCountQ(scpi_t * context);						/**< Function executed when the SYSTem:CHANnel:COUNt? command was received. */
-scpi_result_t scpi_cmd_systemCPUFirmwareQ(scpi_t * context);						/**< Function executed when the SYSTem:CPU:FIRMware? command was received. */
-scpi_result_t scpi_cmd_systemCPUInformationTypeQ(scpi_t * context);					/**< Function executed when the SYSTem:CPU:INFOrmation:TYPE? command was received. */
-scpi_result_t scpi_cmd_systemCPUSnoQ(scpi_t * context);								/**< Function executed when the SYSTem:CPU:SNO? command was received. */
-scpi_result_t scpi_cmd_systemCPUVersionQ(scpi_t * context);							/**< Function executed when the SYSTem:CPU:VERSion? command was received. */
+scpi_result_t scpi_cmd_systemFirmwareQ(scpi_t * context);							/**< Function executed when the SYSTem:FIRMware? command was received. */
+scpi_result_t scpi_cmd_systemSnoQ(scpi_t * context);								/**< Function executed when the SYSTem:SNO? command was received. */
 scpi_result_t scpi_cmd_systemCommunicateSerialBaud(scpi_t * context);				/**< Function executed when the SYSTem:COMMunicate:SERial:BAUD command was received. */
 scpi_result_t scpi_cmd_systemCommunicateSerialBaudQ(scpi_t * context);				/**< Function executed when the SYSTem:COMMunicate:SERial:BAUD? command was received. */
 scpi_result_t scpi_cmd_systemCommunicateSerialEcho(scpi_t * context);				/**< Function executed when the SYSTem:COMMunicate:SERial:ECHO command was received. */

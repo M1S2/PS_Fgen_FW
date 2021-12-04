@@ -293,7 +293,6 @@ void DeviceClass::SaveSettings()
 {
 	DevSettingsEEPROMLayout_t settings;
 	/* Collect setting from appropriate classes */
-	settings.Screens_Inverted = ScreenManager.DisplayInverted;
 	settings.Device_SerialBaudRate = SerialBaudRate;
 	settings.Device_SerialEchoEnabled = SerialEchoEnabled;
 	
@@ -359,8 +358,6 @@ void DeviceClass::LoadSettings()
 	eeprom_read_block((void*)&settings, (const void*)&NonVolatileSettings, sizeof(DevSettingsEEPROMLayout_t));
 	
 	/* Assign Settings to appropriate classes */
-
-	ScreenManager.SetDisplayInverted(settings.Screens_Inverted);
 	
 	SetSerialBaudRate(settings.Device_SerialBaudRate);
 	SetSerialEchoEnabled(settings.Device_SerialEchoEnabled);
@@ -431,10 +428,7 @@ void DeviceClass::LoadSettingsDDSUserWaveforms()
 // -----------------------------------------------------------------------------------------------------------------------------------
 
 void DeviceClass::ResetDevice()
-{
-	ScreenManager.SetDisplayEnabled(true);
-	ScreenManager.SetDisplayInverted(false);
-	
+{	
 	#ifdef PS_SUBSYSTEM_ENABLED
 		PsChannel.SetVoltage(PsChannel.Voltage.Def);
 		PsChannel.SetCurrent(PsChannel.Current.Def);

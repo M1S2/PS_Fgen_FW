@@ -213,12 +213,6 @@ scpi_result_t scpi_cmd_memoryRcl(scpi_t * context);									/**< Function execut
 scpi_result_t scpi_cmd_memorySav(scpi_t * context);									/**< Function executed when the *SAV command was received. */
 scpi_result_t scpi_cmd_memoryNStatesQ(scpi_t * context);							/**< Function executed when the MEMory:NSTates? command was received. */
 
-/******* SCPI_Cmds_Display.cpp ****************************/
-scpi_result_t scpi_cmd_displayWindowState(scpi_t * context);						/**< Function executed when the DISPlay[:WINdow][:STATe] command was received. */
-scpi_result_t scpi_cmd_displayWindowStateQ(scpi_t * context);						/**< Function executed when the DISPlay[:WINdow][:STATe]? command was received. */
-scpi_result_t scpi_cmd_displayWindowInverse(scpi_t * context);						/**< Function executed when the DISPlay[:WINdow]:INVerse command was received. */
-scpi_result_t scpi_cmd_displayWindowInverseQ(scpi_t * context);						/**< Function executed when the DISPlay[:WINdow]:INVerse? command was received. */
-
 /******* SCPI_Cmds_Instrument.cpp *************************/
 scpi_result_t scpi_cmd_instrumentSelect(scpi_t * context);							/**< Function executed when the INSTrument[:SELect] command was received. */
 scpi_result_t scpi_cmd_instrumentSelectQ(scpi_t * context);							/**< Function executed when the INSTrument[:SELect]? command was received. */

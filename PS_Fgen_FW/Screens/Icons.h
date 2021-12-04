@@ -100,11 +100,6 @@ extern unsigned char icon_speed_bits[] U8G_PROGMEM;
 #define icon_settings_height 16
 extern unsigned char icon_settings_bits[] U8G_PROGMEM;
 
-/**** Icon Color Invert *****/
-#define icon_colorInvert_width 16
-#define icon_colorInvert_height 16
-extern unsigned char icon_colorInvert_bits[] U8G_PROGMEM;
-
 /**** Icon Boot *****/
 #define icon_boot_width 16
 #define icon_boot_height 16

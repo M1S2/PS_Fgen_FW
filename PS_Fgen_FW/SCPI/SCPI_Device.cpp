@@ -130,12 +130,6 @@ const scpi_command_t scpi_commands[] =
 				
 	/****** Memory Subsystem ***************************/
 	{"MEMory:NSTates?", scpi_cmd_memoryNStatesQ, 0},		
-
-	/****** Display Subsystem ***************************/
-	{"DISPlay[:WINdow][:STATe]", scpi_cmd_displayWindowState, 0},
-	{"DISPlay[:WINdow][:STATe]?", scpi_cmd_displayWindowStateQ, 0},
-	{"DISPlay[:WINdow]:INVerse", scpi_cmd_displayWindowInverse, 0},	
-	{"DISPlay[:WINdow]:INVerse?", scpi_cmd_displayWindowInverseQ, 0},	
 		
 	/****** Instrument Subsystem ***********************/
 	{"INSTrument[:SELect]", scpi_cmd_instrumentSelect, 0},

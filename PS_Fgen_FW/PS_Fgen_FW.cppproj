@@ -416,9 +416,6 @@
     <Compile Include="Pins\Pins.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="SCPI\SCPI_Cmds_Display.cpp">
-      <SubType>compile</SubType>
-    </Compile>
     <Compile Include="SCPI\SCPI_Cmds_Instrument.cpp">
       <SubType>compile</SubType>
     </Compile>

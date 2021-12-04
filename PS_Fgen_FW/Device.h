@@ -116,8 +116,6 @@ typedef struct DevSettingsEEPROMLayout
 	bool PS_OppState;											/**< Power supply channel over power protection state */
 	float PS_OppDelay;											/**< Power supply channel over power protection delay */
 	PsRegulationModes_t PS_RegulationMode;						/**< Power supply channel regulation mode */
-
-	uint8_t Screens_Inverted;									/**< Is the screen inverted or not */
 	
 	DeviceBaudRates_t Device_SerialBaudRate;					/**< Communication baud rate */
 	bool Device_SerialEchoEnabled;								/**< Communication echo setting (if enabled all received characters are echoed back) */

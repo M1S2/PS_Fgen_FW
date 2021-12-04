@@ -107,9 +107,6 @@ class ScreenManagerClass
 		
 	public:
 		UI_Manager UiManager;					/**< Handle for the UI_Manager of the UI_Lib. The UI_Manager is used as entry point into the UI_Lib. */
-		
-		bool DisplayEnabled;					/**< Variable used to keep track if the display is enabled or not. */
-		bool DisplayInverted;					/**< Variable used to keep track if the display is inverted or not. */
 	
 		bool RedrawScreenRequest;				/**< Flag that indicates that the screen should be redrawn. A redraw should occur periodically (if the screen needs to be redrawn periodically) or on user inputs. */
 		bool CurrentScreenNeedsPeriodicRedraw;	/**< Flag that indicates if the current displayed screen needs to be periodically redrawn. This is neccessary if the screen contains measured values that change periodically. This isn't neccessary if the screen only contains static data. The screen is always redrawn on user inputs (keys or USART). */
@@ -149,18 +146,6 @@ class ScreenManagerClass
 		 * @param key Key that is forwarded to the UI_Lib.
 		 */
 		void KeyInput(Keys_t key);
-		
-		/**
-		 * Enable or Disable the display depending on the input parameter.
-		 * @param displayEnabled If true, the display is enabled; If false, the display is disabled.
-		 */
-		void SetDisplayEnabled(bool displayEnabled);
-
-		/**
-		 * Invert the display depending on the input parameter.
-		 * @param displayInverted If true, the display is inverted; If false, the display is non-inverted (normal).
-		 */
-		void SetDisplayInverted(bool displayInverted);
 };
 
 #endif /* SCREENMANAGER_H_ */

@@ -31,15 +31,6 @@ ButtonControl<15> button_Settings_Calibration(SETTINGS_COLUMN2_POSX, SETTINGS_RO
 ButtonControl<13> button_Settings_Reset(SETTINGS_COLUMN1_POSX, SETTINGS_ROW2_POSY, 70, DEFAULT_UI_ELEMENT_HEIGHT, "Reset Device", &Device, &OnButtonDeviceReset);
 MessageDialog<50> msg_Settings_ResetConfirmation(0, 0, 240, 64, "Really reset the device?\nThis can't be undone!", MSG_WARNING, MSG_BTN_OK_CANCEL, &Device, &OnResetConfirmation, &OnResetCancel);
 
-// ***** Settings Display page *****
-void SettingsDisplayInvertedChanged(void* context);
-
-ContainerPage page_Settings_Display;
-Label<20> lbl_Settings_Display_caption(SCREEN_TAB_WIDTH + 25, 5, "Settings Display");
-Icon ico_Settings_Display_Inverse(SETTINGS_COLUMN1_POSX, SETTINGS_ROW1_POSY - 2, icon_colorInvert_width, icon_colorInvert_height, icon_colorInvert_bits);
-BoolControl boolCtrl_Settings_Display_Inverse(SETTINGS_COLUMN1_POSX + icon_colorInvert_width + 3, SETTINGS_ROW1_POSY, &Device.ScreenManager.DisplayInverted, &Device.ScreenManager, &SettingsDisplayInvertedChanged);
-Label<20> lbl_Settings_Display_Inverse(SETTINGS_COLUMN2_POSX, SETTINGS_ROW1_POSY, "Display Inverted");
-
 // ***** Settings Communication page *****
 void SettingsCommunicationBaudRateChanged(void* context);
 
@@ -102,12 +93,6 @@ void OnResetCancel(void* context)
 	Device.ScreenManager.ShowUiMainPage();
 }
 
-void SettingsDisplayInvertedChanged(void* context)
-{
-	Device.ScreenManager.SetDisplayInverted(Device.ScreenManager.DisplayInverted);
-	Device.SetSettingsChanged(true);
-}
-
 void SettingsCommunicationBaudRateChanged(void* context)
 {
 	DeviceBaudRates_t baudRate = Device.SerialBaudRate;
@@ -123,13 +108,6 @@ UIElement* uiBuildScreenSettings()
 	page_Settings_Device.AddItem(&button_Settings_Calibration);
 	page_Settings_Device.AddItem(&button_Settings_Reset);
 	page_Settings_Device.InitItems();
-	
-	page_Settings_Display.AddItem(&ico_settings);
-	page_Settings_Display.AddItem(&lbl_Settings_Display_caption);
-	page_Settings_Display.AddItem(&ico_Settings_Display_Inverse);
-	page_Settings_Display.AddItem(&boolCtrl_Settings_Display_Inverse);
-	page_Settings_Display.AddItem(&lbl_Settings_Display_Inverse);
-	page_Settings_Display.InitItems();
 
 	page_Settings_Communication.AddItem(&ico_Settings_Communication);
 	page_Settings_Communication.AddItem(&lbl_Settings_Communication_caption);
@@ -156,7 +134,6 @@ UIElement* uiBuildScreenSettings()
 	page_Settings_VersionInfo.InitItems();
 	
 	list_Settings.AddItem(&page_Settings_Device);
-	list_Settings.AddItem(&page_Settings_Display);
 	list_Settings.AddItem(&page_Settings_Communication);
 	list_Settings.AddItem(&page_Settings_PowerUp);
 	list_Settings.AddItem(&page_Settings_VersionInfo);

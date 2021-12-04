@@ -173,17 +173,3 @@ void ScreenManagerClass::KeyInput(Keys_t key)
 {
 	UiManager.KeyInput(key);
 }
-
-void ScreenManagerClass::SetDisplayEnabled(bool displayEnabled)
-{
-	DisplayEnabled = displayEnabled;
-	if(displayEnabled) { u8g_SleepOff(&_u8g); }
-	else { u8g_SleepOn(&_u8g); }
-}
-
-void ScreenManagerClass::SetDisplayInverted(bool displayInverse)
-{
-	Device.SetSettingsChanged(DisplayInverted != displayInverse);
-	DisplayInverted = displayInverse;
-	u8g_Invert(&_u8g, (uint8_t)displayInverse);
-}

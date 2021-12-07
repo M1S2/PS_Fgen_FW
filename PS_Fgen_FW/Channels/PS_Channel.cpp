@@ -98,7 +98,7 @@ void PS_Channel::DoRegulationISR()
 			 * Decide between ConstantCurrent (CC) or ConstantVoltage (CV) mode
 			 * This is only supported if the Regulation Mode is set to CV&CC
 			 ********************************************************/
-			if(fabs(setVoltageForCurrent) < fabs(_setVoltage) && RegulationMode == PS_REG_MODE_CV_CC)
+			if(fabs(setVoltageForCurrent) < fabs(_setVoltage) && fabs(setVoltageForCurrent) > 0 && RegulationMode == PS_REG_MODE_CV_CC)
 			{
 				PsState = PS_STATE_CC;
 				_setVoltage = setVoltageForCurrent;

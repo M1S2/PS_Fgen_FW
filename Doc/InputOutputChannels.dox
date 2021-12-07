@@ -4,10 +4,18 @@ All input and output capabilites are derived from a base class Channel. At the m
 	The power supply channel has settings for the output voltage, current, enabled state. 
 	Also the over voltage protection (OVP), over current protection (OCP) and over power protection (OPP) can be configured. 
 	The actual voltage and current is also stored here.
-	The voltage is regulated to the required value using a software PID regulator. 
+	The voltage and current are regulated to the required values using two software PID regulators (one for current, one for voltage). 
 	An anti-windup scheme is also implemented with the PID integrator part to prevent integrator windup when the output is saturated.
 
-	<mark>PID regulator...</mark>
+	The power supply channel supports three different regulation modes:
+	- Fix: Power supply channel is not regulated (neither constant voltage nor constant current). The requested voltage is set by the ADC without regarding the measured voltage.
+	- CV: Power supply channel is only constant voltage regulated (not constant current). The voltage at the output is regulated to the requested one by comparison to the measured voltage.
+	- CV & CC: Power supply channel is constant voltage or constant current regulated depending on the currently best option (the one with the lower output value).
+
+	If the regulation mode is set to CV & CC, the output voltage and output state is determined by the PID regulator with the lower output voltage. 
+	If the current PID regulator requests a lower voltage than the voltage PID regulator, the power supply channel is in CC state. Otherwise it is in CV state.
+
+	<mark>PID regulators block diagrams</mark>
 
 - ``DDS_CHANNEL_TYPE``
 	The DDS channel has settings for the output amplitude, offset, frequency, enabled state and signal form. 

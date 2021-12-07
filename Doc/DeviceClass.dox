@@ -1,4 +1,4 @@
-/*! @page pagedevice Device
+/*! @page pagedeviceclass DeviceClass
 
 The Device class bundles all class objects (like ScreenManagerClass or UserInputHandlerClass), all channels and other device related settings together. 
 It is also responsible for loading and saving all settings from/to the EEPROM. 

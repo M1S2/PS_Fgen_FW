@@ -20,7 +20,7 @@ typedef enum PsRegulationModes
 {
 	PS_REG_MODE_FIX,			/**< Power supply channel is not regulated (neither constant voltage nor constant current). The requested voltage is set by the ADC without regarding the measured voltage. */
 	PS_REG_MODE_CV,				/**< Power supply channel is only constant voltage regulated (not constant current). The voltage at the output is regulated to the requested one by comparison to the measured voltage. */
-	PS_REG_MODE_CV_CC,			/**< Power supply channel is constant voltage or constant current regulated depending on the currently best option (the one with the lower output value). */
+	PS_REG_MODE_CV_CC,			/**< Power supply channel is constant voltage or constant current regulated depending on the currently best option (the one with the lower output voltage value). */
 	NUM_PS_REG_MODE_ELEMENTS	/**< The last element is used to determine the number of elements in the enumeration */
 } PsRegulationModes_t;
 extern const char* PsRegulationModesNames[];

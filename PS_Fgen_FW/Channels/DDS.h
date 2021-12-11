@@ -3,6 +3,8 @@
  * @date	23.12.2020 18:23:27
  * @author	Markus Scheich
  * @brief	Containing everything needed for the direct digital synthesis.
+ * @see		https://www.avrfreaks.net/forum/dds-function-generator-using-atmega328p
+ * @see		https://www.digikey.de/de/articles/the-basics-of-direct-digital-synthesizers-ddss
  */ 
 
 #include "../Configuration.h"
@@ -11,13 +13,6 @@
 
 #ifndef DDS_H_
 #define DDS_H_
-
-#define DDS_TICK_FREQ			62500							/**< Frequency at which the phase accumulator is updated. Choose a value here that delivers an integer value for the OCR2A register (  ((F_CPU / 128) / DDS_TICK_FREQ) should be an integer value ) !!! */
-#define DDS_PHASE_ACCU_BITS		32								/**< Number of bits used by the phase accumulator of the direct digital synthesis */
-#define DDS_QUANTIZER_BITS		8								/**< Number of bits that are used to index into the look up tables */
-#define DDS_DAC_BITS			12								/**< Number of bits used by the DAC */
-#define DDS_SAMPLE_MAX			((1 << DDS_DAC_BITS) - 1)		/**< Maximum value that can be reached with the number of bits in DDS_DAC_BITS */
-#define DDS_AMPLITUDE_MAX		20.0f							/**< Maximum supported amplitude at the DDS outputs */
 
 #include "../Pins/Pins.h"
 #include <avr/interrupt.h>

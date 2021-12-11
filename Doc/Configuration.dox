@@ -7,6 +7,7 @@ The Configuration.h file contains some parameters that can be used to costumize 
 - **Screen:** Screen settings including a option to disable the splash screen.
 - **UserInputHandler:** The length of the user input queue can be defined here.
 - **Subsystems:** The subsystems of the device (PS, DDS and Measure) can be disabled here. This feature is useful to speed up the flashing time while development when only one subsystem is neccessary.
+- **Direct Digital Synthesis (DDS):** Use this section to configure different parameters of the DDS algorithm.
 - **Channels:** The minimum and maximum values for the channel parameters are defined here. Also other parameters (e.g. PID values) are defined here.
 
  */

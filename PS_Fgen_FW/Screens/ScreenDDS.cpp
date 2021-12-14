@@ -53,7 +53,7 @@ BoolControl boolCtrl_DDS2_Enabled(DDS2_COLUMN4_POSX + icon_OnOff_width + 3, DDS2
 
 UIElement* uiBuildScreenDDS()
 {
-	numCtrl_DDS1_Frequency.Width = 85;
+	numCtrl_DDS1_Frequency.Width = 89;
 	numCtrl_DDS1_Amplitude.Width = 53;
 	numCtrl_DDS1_Offset.Width = 42;
 	numCtrl_DDS1_Amplitude.CurrentDigitPosition = -1;	// select the 0.1 V digit.
@@ -73,7 +73,7 @@ UIElement* uiBuildScreenDDS()
 	page_DDS1.AddItem(&boolCtrl_DDS1_Enabled);
 	page_DDS1.InitItems();
 	
-	numCtrl_DDS2_Frequency.Width = 85;
+	numCtrl_DDS2_Frequency.Width = 89;
 	numCtrl_DDS2_Amplitude.Width = 53;
 	numCtrl_DDS2_Offset.Width = 42;
 	numCtrl_DDS2_Amplitude.CurrentDigitPosition = -1;	// select the 0.1 V digit.

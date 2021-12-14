@@ -77,10 +77,6 @@ User interface part for different settings of the device.
 	This screen can be used to save all settings immediatelly (beside the automatic periodical saving), reset all settings and to start the calibration (guided calibration for all output and input channels).
 	@image html Screen_Conf_Device.jpg "Screen Config Device" width=400
 	
-	@subsubsection ui_overview_settings_display_sec Display
-	Display settings can be used to invert the display color (background white, text non-white)
-	@image html Screen_Conf_Display.jpg "Screen Config Display" width=400
-	
 	@subsubsection ui_overview_settings_communication_sec Communication
 	Settings for the serial communication interface (baud rate, Echo enabled/disabled)
 	@image html Screen_Conf_Communication.jpg "Screen Config Communication" width=400

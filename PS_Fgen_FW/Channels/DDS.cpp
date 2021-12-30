@@ -54,13 +54,8 @@ void DisableDDSTimer()
 ISR(TIMER2_COMPA_vect)
 {	
 	cli();
-	#warning Maybe this lines can be removed too (is_..._selected). Interrupts lock each other. LCD locks itself.
-	bool is_mcp4921_selected = IS_MCP4921_SELECTED;
-	DESELECT_MCP4921
 	
-	bool is_lcd_selected = BIT_IS_CLEARED(PORTB, LCD_CS);
-	SET_BIT(PORTB, LCD_CS);		//Deselect LCD
-	
+	// No need to deselect other devices. Interrupts lock each other. LCD locks itself.
 	SELECT_MCP4922
 	
 	if(dds_channel1_enabled)
@@ -101,8 +96,6 @@ ISR(TIMER2_COMPA_vect)
 	
 	DESELECT_MCP4922
 	
-	if(is_mcp4921_selected) { SELECT_MCP4921 }
-	if(is_lcd_selected) { CLEAR_BIT(PORTB, LCD_CS); }
 	sei();
 }
 

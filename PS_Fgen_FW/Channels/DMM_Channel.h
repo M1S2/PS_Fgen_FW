@@ -21,6 +21,7 @@ class DMM_Channel : public Channel
 {
 	public:
 		volatile float MeasuredVoltage;				/**< Voltage measured for this DMM channel. */
+		volatile bool IsNegative;					/**< Is the measured voltage negative? */
 	
 		/**
 		 * Constructor of the DMM_Channel.

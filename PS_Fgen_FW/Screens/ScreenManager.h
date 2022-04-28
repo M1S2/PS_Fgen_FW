@@ -89,6 +89,10 @@ UIElement* uiBuildScreenCalibration();
  */
 UIElement* StartCalibration();
 
+/** 
+ * Update the visibility of the DMM channel negative warning icons.
+ */
+void updateDmmNegativeWarningVisibility();
 
 /**
  * Class that is used to control the screen.

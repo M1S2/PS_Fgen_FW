@@ -68,6 +68,7 @@ void Pins_Init()
 	SET_BIT(PORTD, ENC_B);
 	SET_BIT(PORTD, ENC_PB);
 	
-	// make the TEST_PIN outputs
-	SET_BIT(DDRD, TEST_PIN);
+	// make the DMM1_NEG and DMM2_NEG pins inputs
+	CLEAR_BIT(DDRD, DMM1_NEG);
+	CLEAR_BIT(DDRD, DMM2_NEG);
 }

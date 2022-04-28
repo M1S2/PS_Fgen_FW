@@ -8,8 +8,6 @@
 #include "ScreenManager.h"
 #include "../Device.h"
 
-#include "../UI_Lib/UI_Lib_Test.h"
-
 /**
   * Callback method called when the selected tab of the TabControl changed.
   * @param controlContext Not used
@@ -116,6 +114,7 @@ void ScreenManagerClass::DoDraw()
 	if(TimeCounter_ScreenRedraw_ms >= SCREEN_REDRAW_DELAY_MS)		// Create a redraw request if the redraw delay is expired
 	{
 		RedrawScreenRequest = true;
+		updateDmmNegativeWarningVisibility();
 	}
 	
 	if(RedrawScreenRequest)

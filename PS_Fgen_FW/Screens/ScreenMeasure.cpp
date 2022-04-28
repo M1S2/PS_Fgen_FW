@@ -13,7 +13,8 @@ ContainerList list_Measure(40, 0, 240 - 40, 64);
 // ***** Measure DMM page *****
 #define DMM_COLUMN1_POSX		SCREEN_TAB_WIDTH + 5
 #define DMM_COLUMN2_POSX		DMM_COLUMN1_POSX + 15
-#define DMM_COLUMN3_POSX		DMM_COLUMN2_POSX + 75
+#define DMM_COLUMN3_POSX		DMM_COLUMN2_POSX + 45
+#define DMM_COLUMN4_POSX		DMM_COLUMN3_POSX + 30
 #define DMM_ROW1_POSY			25
 #define DMM_ROW2_POSY			DMM_ROW1_POSY + 25
 
@@ -22,10 +23,12 @@ Icon ico_dmm(SCREEN_TAB_WIDTH + 5, 3, icon_dmm_width, icon_dmm_height, icon_dmm_
 Label<5> lbl_DMM_caption(SCREEN_TAB_WIDTH + 25, 5, "DMM");
 Label<5> lbl_DMM_No1(DMM_COLUMN1_POSX, DMM_ROW1_POSY, "#1:");
 NumericIndicator<volatile float> numInd_DMM1(DMM_COLUMN2_POSX, DMM_ROW1_POSY, &Device.DmmChannel1.MeasuredVoltage, "V", 20, 3);
-ProgressBar<volatile float> progress_DMM1(DMM_COLUMN3_POSX, DMM_ROW1_POSY, 90, 10, &Device.DmmChannel1.MeasuredVoltage, 0, 20, PROGRESSBAR_ORIGIN_ZERO, 5);
+Icon ico_dmm1_neg_warning(DMM_COLUMN3_POSX, DMM_ROW1_POSY - 4, icon_warning_width, icon_warning_height, icon_warning_bits);
+ProgressBar<volatile float> progress_DMM1(DMM_COLUMN4_POSX, DMM_ROW1_POSY, 90, 10, &Device.DmmChannel1.MeasuredVoltage, 0, 20, PROGRESSBAR_ORIGIN_ZERO, 5);
 Label<5> lbl_DMM_No2(DMM_COLUMN1_POSX, DMM_ROW2_POSY, "#2:");
 NumericIndicator<volatile float> numInd_DMM2(DMM_COLUMN2_POSX, DMM_ROW2_POSY, &Device.DmmChannel2.MeasuredVoltage, "V", 20, 3);
-ProgressBar<volatile float> progress_DMM2(DMM_COLUMN3_POSX, DMM_ROW2_POSY, 90, 10, &Device.DmmChannel2.MeasuredVoltage, 0, 20, PROGRESSBAR_ORIGIN_ZERO, 5);
+Icon ico_dmm2_neg_warning(DMM_COLUMN3_POSX, DMM_ROW2_POSY - 4, icon_warning_width, icon_warning_height, icon_warning_bits);
+ProgressBar<volatile float> progress_DMM2(DMM_COLUMN4_POSX, DMM_ROW2_POSY, 90, 10, &Device.DmmChannel2.MeasuredVoltage, 0, 20, PROGRESSBAR_ORIGIN_ZERO, 5);
 
 // ***** Measure ATX page *****
 #define ATX_COLUMN1_POSX		SCREEN_TAB_WIDTH + 5
@@ -53,15 +56,29 @@ NumericIndicator<float> numInd_ATX_12V_NEG(ATX_COLUMN2_POSX, ATX_ROW4_POSY, &Dev
 ProgressBar<float> progress_ATX_12V_NEG(ATX_COLUMN3_POSX, ATX_ROW4_POSY, 80, 5, &Device.DeviceVoltages.ATX_12V_NEG, -15, 0, PROGRESSBAR_ORIGIN_ZERO, 1);
 
 
+/** 
+ * Update the visibility of the DMM channel negative warning icons.
+ */
+void updateDmmNegativeWarningVisibility()
+{
+	ico_dmm1_neg_warning.Visible = Device.DmmChannel1.IsNegative;
+	ico_dmm2_neg_warning.Visible = Device.DmmChannel2.IsNegative;
+}
+
 UIElement* uiBuildScreenMeasure()
 {
+	ico_dmm1_neg_warning.Visible = false;
+	ico_dmm2_neg_warning.Visible = false;
+	
 	page_DMM.AddItem(&ico_dmm);
 	page_DMM.AddItem(&lbl_DMM_caption);
 	page_DMM.AddItem(&lbl_DMM_No1);
 	page_DMM.AddItem(&numInd_DMM1);
+	page_DMM.AddItem(&ico_dmm1_neg_warning);
 	page_DMM.AddItem(&progress_DMM1);
 	page_DMM.AddItem(&lbl_DMM_No2);
 	page_DMM.AddItem(&numInd_DMM2);
+	page_DMM.AddItem(&ico_dmm2_neg_warning);
 	page_DMM.AddItem(&progress_DMM2);
 	page_DMM.InitItems();
 	

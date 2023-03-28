@@ -89,10 +89,19 @@ UIElement* uiBuildScreenCalibration();
  */
 UIElement* StartCalibration();
 
-/** 
- * Update the visibility of the DMM channel negative warning icons.
- */
-void updateDmmNegativeWarningVisibility();
+#ifdef MEASURE_SUBSYSTEM_ENABLED
+	/** 
+	 * Update the visibility of the DMM channel negative warning icons.
+	 */
+	void updateDmmNegativeWarningVisibility();
+#endif
+
+#ifdef DDS_SUBSYSTEM_ENABLED
+	/**
+	 * Initialize the visibility of all controls on the DDS screen. Do this after loading all settings. 
+	 */
+	void ScreenDDSInitVisibility();
+#endif
 
 /**
  * Class that is used to control the screen.

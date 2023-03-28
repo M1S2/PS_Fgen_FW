@@ -10,7 +10,7 @@
 
 #ifdef DDS_SUBSYSTEM_ENABLED
 
-const char* SignalFormsNames[] = { "SINE", "RECT", "TRIANGLE", "SAWTOOTH", "DC" 
+const char* SignalFormsNames[] = { "SINE", "RECT", "TRIANGLE", "SAWTOOTH", "DC", "PWM" 
 	#ifdef DDS_USER_DEFINED_WAVEFORMS_ENABLED
 		, "USER"
 	#endif
@@ -25,6 +25,7 @@ DDS_Channel::DDS_Channel(uint8_t ddsChannelNumber, float minFreq, float maxFreq,
 	Frequency = Parameter<float>(0, minFreq, maxFreq, 1000, 1);
 	Amplitude = Parameter<float>(0, minAmpl, maxAmpl, 10, 1);
 	Offset = Parameter<float>(0, minOffset, maxOffset, 0, 1);
+	PWM_Value = Parameter<float>(50, 0, 100, 50, 1);
 
 	if(DdsChannelNumber == 1)
 	{
@@ -47,13 +48,19 @@ void DDS_Channel::UpdateIncrement()
 void DDS_Channel::UpdateWaveTable()
 {
 	#ifdef DDS_USER_DEFINED_WAVEFORMS_ENABLED
-		if(OriginalWaveTable == NULL && SignalForm.Val != USER_SIGNAL) { return; }
+		if(OriginalWaveTable == NULL && SignalForm.Val != USER_SIGNAL && SignalForm.Val != PWM) { return; }
 	#else
-		if(OriginalWaveTable == NULL) { return; }
+		if(OriginalWaveTable == NULL && SignalForm.Val != PWM) { return; }
 	#endif
 
 	int16_t offset_value = (int16_t)((GetOffset() / (float)DDS_AMPLITUDE_MAX) * DDS_SAMPLE_MAX);
 	int16_t sample_max_half = DDS_SAMPLE_MAX / 2;
+	
+	uint16_t pwm_stateChangeIndex = 0;								// Index in the wave table where the PWM signal changes it's state (between 0 and 2^DDS_QUANTIZER_BITS). This is only used for SignalForm == PWM
+	if(SignalForm.Val == PWM)
+	{
+		pwm_stateChangeIndex = (PWM_Value.Val * (1 << DDS_QUANTIZER_BITS)) / 100;
+	}
 	
 	for(uint16_t i = 0; i < (1 << DDS_QUANTIZER_BITS); i++)			// Left shift to replace pow(2, DDS_QUANTIZER_BITS)
 	{
@@ -65,8 +72,15 @@ void DDS_Channel::UpdateWaveTable()
 			}
 			else
 			{
-		#endif 
-				originalSample = pgm_read_word(&OriginalWaveTable[i]);
+		#endif
+				if(SignalForm.Val == PWM)
+				{
+					originalSample = (i < pwm_stateChangeIndex) ? 0xFFF : 0x000;
+				}
+				else
+				{
+					originalSample = pgm_read_word(&OriginalWaveTable[i]);
+				}
 		#ifdef DDS_USER_DEFINED_WAVEFORMS_ENABLED
 			}
 		#endif
@@ -90,6 +104,7 @@ void DDS_Channel::UpdateOriginalWaveTable()
 		case TRIANGLE: OriginalWaveTable = TRIANGLE_WAVE_TABLE_12BIT; break;
 		case SAWTOOTH: OriginalWaveTable = SAWTOOTH_WAVE_TABLE_12BIT; break;
 		case DC: OriginalWaveTable = DC_WAVE_TABLE_12BIT; break;
+		case PWM: OriginalWaveTable = NULL; break;		// The PWM SignalForm doesn't use an OriginalWaveTable. The waveform is directly calculated in the UpdateWaveTable function
 		#ifdef DDS_USER_DEFINED_WAVEFORMS_ENABLED
 			case USER_SIGNAL: OriginalWaveTable = NULL; break;
 		#endif
@@ -164,6 +179,20 @@ bool DDS_Channel::SetSignalForm(SignalForms_t signalForm)
 
 //----------------------------------------------------------------------------------------------------------
 
+bool DDS_Channel::SetPWMValue(float pwmValue)
+{
+	if (pwmValue > PWM_Value.Max || pwmValue < PWM_Value.Min) { return false; }
+
+	if (PWM_Value.Val != pwmValue)
+	{
+		PWM_Value.Val = pwmValue;
+		DDSPWMValueChanged(this);
+	}
+	return true;
+}
+
+//----------------------------------------------------------------------------------------------------------
+
 void DDS_Channel::DDSFrequencyChanged(void* channel)
 {
 	if (((Channel*)channel)->GetChannelType() != DDS_CHANNEL_TYPE) { return;  }
@@ -190,6 +219,15 @@ void DDS_Channel::DDSOffsetChanged(void* channel)
 
 void DDS_Channel::DDSSignalFormChanged(void* channel)
 {	
+	if (((Channel*)channel)->GetChannelType() != DDS_CHANNEL_TYPE) { return; }
+	DDS_Channel* ddsChannel = (DDS_Channel*)channel;
+	ddsChannel->UpdateOriginalWaveTable();
+	ddsChannel->UpdateWaveTable();
+	Device.SetSettingsChanged(true);
+}
+
+void DDS_Channel::DDSPWMValueChanged(void* channel)
+{
 	if (((Channel*)channel)->GetChannelType() != DDS_CHANNEL_TYPE) { return; }
 	DDS_Channel* ddsChannel = (DDS_Channel*)channel;
 	ddsChannel->UpdateOriginalWaveTable();

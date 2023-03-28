@@ -114,7 +114,10 @@ void ScreenManagerClass::DoDraw()
 	if(TimeCounter_ScreenRedraw_ms >= SCREEN_REDRAW_DELAY_MS)		// Create a redraw request if the redraw delay is expired
 	{
 		RedrawScreenRequest = true;
-		updateDmmNegativeWarningVisibility();
+		
+		#ifdef MEASURE_SUBSYSTEM_ENABLED
+			updateDmmNegativeWarningVisibility();
+		#endif
 	}
 	
 	if(RedrawScreenRequest)

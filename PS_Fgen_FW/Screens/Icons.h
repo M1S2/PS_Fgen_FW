@@ -115,4 +115,9 @@ extern unsigned char icon_calibration_bits[] U8G_PROGMEM;
 #define icon_pin_height 16
 extern unsigned char icon_pin_bits[] U8G_PROGMEM;
 
+/**** Icon PWM *****/
+#define icon_pwm_width 16
+#define icon_pwm_height 16
+extern unsigned char icon_pwm_bits[] U8G_PROGMEM;
+
 #endif /* ICONS_H_ */

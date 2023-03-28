@@ -23,6 +23,7 @@ typedef enum SignalForms
 	TRIANGLE,					/**< Triangle wave type */
 	SAWTOOTH,					/**< Sawtooth wave type */
 	DC,							/**< Direct current wave type */
+	PWM,						/**< PWM wave type */
 	#ifdef DDS_USER_DEFINED_WAVEFORMS_ENABLED
 		USER_SIGNAL,			/**< User defined wave type (signal is held in the UserWaveTable of the DDS_Channel) */
 	#endif
@@ -48,6 +49,8 @@ class DDS_Channel : public Channel
 		Parameter<float> Amplitude;						/**< Amplitude of the DDS channel */
 		Parameter<float> Offset;						/**< Offset of the DDS channel */
 		Parameter<SignalForms_t> SignalForm;			/**< Signalform of the DDS channel */
+	
+		Parameter<float> PWM_Value;						/**< PWM value of the DDS channel. This is only used if the SignalForm is set to PWM */
 	
 		volatile const uint16_t* OriginalWaveTable;		/**< Pointer to the constant wave table holding the unmodified points of the signal determined by the SignalForm parameter */
 		volatile uint16_t* p_WaveTable;					/**< Pointer to the wave table array holding the modified waveform points (adapted to waveform and offset) */
@@ -140,6 +143,18 @@ class DDS_Channel : public Channel
 		inline SignalForms_t GetSignalForm() { return SignalForm.Val; }
 
 		/**
+		 * Set the PWM_Value property of the DDS channel.
+		 * @param pmwValue New value for the PWM_Value property
+		 * @return true->set successful; false->value not set
+		 */
+		bool SetPWMValue(float pwmValue);
+		/**
+		 * Get the PWM_Value property of the DDS channel.
+		 * @return Value of the PWM_Value property
+		 */
+		inline float GetPWMValue() { return PWM_Value.Val; }
+
+		/**
 		 * Callback function that can be used for user interface controls modifying the Frequency property.
 		 * @param channel Pointer to a DDS_Channel
 		 */
@@ -162,6 +177,12 @@ class DDS_Channel : public Channel
 		 * @param channel Pointer to a DDS_Channel
 		 */
 		static void DDSSignalFormChanged(void* channel);
+
+		/**
+		 * Callback function that can be used for user interface controls modifying the PWM_Value property.
+		 * @param channel Pointer to a DDS_Channel
+		 */
+		static void DDSPWMValueChanged(void* channel);
 		
 		/**
 		 * Callback function that can be used for user interface controls modifying the Enabled property.

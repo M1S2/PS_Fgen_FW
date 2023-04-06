@@ -319,12 +319,14 @@ void DeviceClass::SaveSettings()
 		settings.DDS1_Amplitude = DdsChannel1.GetAmplitude();
 		settings.DDS1_Offset = DdsChannel1.GetOffset();
 		settings.DDS1_Enabled = DdsChannel1.GetEnabled();
+		settings.DDS1_PWM_Value = DdsChannel1.GetPWMValue();
 
 		settings.DDS2_Frequency = DdsChannel2.GetFrequency();
 		settings.DDS2_SignalForm = DdsChannel2.GetSignalForm();
 		settings.DDS2_Amplitude = DdsChannel2.GetAmplitude();
 		settings.DDS2_Offset = DdsChannel2.GetOffset();
 		settings.DDS2_Enabled = DdsChannel2.GetEnabled();
+		settings.DDS2_PWM_Value = DdsChannel2.GetPWMValue();
 	#endif
 	
 	settings.PowerOnOutputsState = PowerOnOutputsState;
@@ -388,6 +390,7 @@ void DeviceClass::LoadSettings()
 		DdsChannel1.SetSignalForm(isnan(settings.DDS1_SignalForm) ? DdsChannel1.SignalForm.Def : settings.DDS1_SignalForm);
 		DdsChannel1.SetAmplitude(isnan(settings.DDS1_Amplitude) ? DdsChannel1.Amplitude.Def : settings.DDS1_Amplitude);
 		DdsChannel1.SetOffset(isnan(settings.DDS1_Offset) ? DdsChannel1.Offset.Def : settings.DDS1_Offset);
+		DdsChannel1.SetPWMValue(isnan(settings.DDS1_PWM_Value) ? DdsChannel1.PWM_Value.Def : settings.DDS1_PWM_Value);
 		DdsChannel1.UpdateOriginalWaveTable();
 		DdsChannel1.UpdateWaveTable();
 		DdsChannel1.SetEnabled(PowerOnOutputsState == DEV_POWERUP_OUTPUTS_OFF ? false : (PowerOnOutputsState == DEV_POWERUP_OUTPUTS_ON ? true : settings.DDS1_Enabled));
@@ -396,6 +399,7 @@ void DeviceClass::LoadSettings()
 		DdsChannel2.SetSignalForm(isnan(settings.DDS2_SignalForm) ? DdsChannel2.SignalForm.Def : settings.DDS2_SignalForm);
 		DdsChannel2.SetAmplitude(isnan(settings.DDS2_Amplitude) ? DdsChannel2.Amplitude.Def : settings.DDS2_Amplitude);
 		DdsChannel2.SetOffset(isnan(settings.DDS2_Offset) ? DdsChannel2.Offset.Def : settings.DDS2_Offset);
+		DdsChannel2.SetPWMValue(isnan(settings.DDS2_PWM_Value) ? DdsChannel2.PWM_Value.Def : settings.DDS2_PWM_Value);
 		DdsChannel2.UpdateOriginalWaveTable();
 		DdsChannel2.UpdateWaveTable();
 		DdsChannel2.SetEnabled(PowerOnOutputsState == DEV_POWERUP_OUTPUTS_OFF ? false : (PowerOnOutputsState == DEV_POWERUP_OUTPUTS_ON ? true : settings.DDS2_Enabled));

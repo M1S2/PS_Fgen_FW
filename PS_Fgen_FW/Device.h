@@ -125,12 +125,14 @@ typedef struct DevSettingsEEPROMLayout
 	float DDS1_Amplitude;										/**< DDS channel 1 amplitude */
 	float DDS1_Offset;											/**< DDS channel 1 offset */
 	bool DDS1_Enabled;											/**< DDS channel 1 output enabled */
+	float DDS1_PWM_Value;										/**< DDS channel 1 PWM value (only used for PWM SignalForm)*/
 	
 	float DDS2_Frequency;										/**< DDS channel 2 frequency */
 	SignalForms_t DDS2_SignalForm;								/**< DDS channel 2 signal form */
 	float DDS2_Amplitude;										/**< DDS channel 2 amplitude */
 	float DDS2_Offset;											/**< DDS channel 2 offset */
 	bool DDS2_Enabled;											/**< DDS channel 2 output enabled */
+	float DDS2_PWM_Value;										/**< DDS channel 2 PWM value (only used for PWM SignalForm)*/
 	
 	DevicePowerUpOutputEnabledStates_t PowerOnOutputsState;		/**< Power up output state (state of all outputs on power up) */
 		

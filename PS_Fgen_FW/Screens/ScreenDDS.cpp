@@ -60,7 +60,6 @@ BoolControl boolCtrl_DDS2_Enabled(DDS2_COLUMN4_POSX + icon_OnOff_width + 3, DDS2
 
 ContainerPage page_DDS2_2;
 // #warning Draw % sign as Unit
-// #warning Save PWM_Value to EEPROM
 // #warning Add button to set amplitude and offset to generate PWM signal with Low=0V and High=5V
 NumericControl<float> numCtrl_DDS2_PWMValue(DDS2_COLUMN1_POSX + icon_frequency_width + 3, DDS2_ROW1_POSY, &Device.DdsChannel2.PWM_Value.Val, "", 0, 100, 2, &Device.DdsChannel2, &DDS_Channel::DDSPWMValueChanged);
 

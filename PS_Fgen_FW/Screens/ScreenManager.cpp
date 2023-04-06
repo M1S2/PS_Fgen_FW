@@ -65,6 +65,11 @@ void ScreenManagerClass::Init()
 	RedrawScreenRequest = true;			// Always draw the screen once when the device is powered on
 }
 
+void ScreenManagerClass::UpdateVisibilities()
+{
+	ScreenDDSUpdateVisibility();
+}
+
 void ScreenManagerClass::uiBuildTree()
 {
 	#ifdef PS_SUBSYSTEM_ENABLED

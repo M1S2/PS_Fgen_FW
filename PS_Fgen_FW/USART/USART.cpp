@@ -45,7 +45,7 @@ uint8_t Usart0Receive()
 
 void Usart0Flush()
 {
-	unsigned char dummy;
+	__attribute__((unused)) unsigned char dummy;	// The __attribute__((unused)) is used to mark the dummy variable as unused (to suppress a compiler warning)
 	while ( UCSR0A & (1<<RXC0) ) dummy = UDR0;
 }
 

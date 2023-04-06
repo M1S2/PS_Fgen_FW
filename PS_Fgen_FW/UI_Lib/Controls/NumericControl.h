@@ -49,7 +49,7 @@ class NumericControl : public NumericIndicator<T, stringBufferLength>
 		 * @param locX X Location of the upper left corner of the NumericControl 
 		 * @param locY Y Location of the upper left corner of the NumericControl
 		 * @param valuePointer Pointer to the numeric variable that is shown and manipulated by this control.
-		 * @param baseUnit Base unit that is appended to the calculated prefix. E.g. "V" for voltage values.
+		 * @param baseUnit Base unit that is appended to the calculated prefix. E.g. "V" for voltage values. To use the "%" sign as unit, you have to use "%%" as string.
 		 * @param minValue Minimum value that can be handled by this numeric control.
 		 * @param maxValue Maximum value that can be shown by this numeric control. It is used to determine the number of non-fractional digits.
 		 * @param numFractionalDigits Number of fractional digits that are shown by this control. E.g. 1.234 V has 3 fractional digits.

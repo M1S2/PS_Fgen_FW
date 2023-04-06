@@ -77,7 +77,7 @@ void DeviceClass::Init()
 	ScreenManager.Init();
 	
 	LoadSettings();
-	ScreenDDSInitVisibility();
+	ScreenManager.UpdateVisibilities();
 	
 	#ifdef SCPI_ENABLED
 		SCPI_Init_Device();

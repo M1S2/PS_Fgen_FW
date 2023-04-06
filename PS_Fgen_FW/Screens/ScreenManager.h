@@ -98,9 +98,9 @@ UIElement* StartCalibration();
 
 #ifdef DDS_SUBSYSTEM_ENABLED
 	/**
-	 * Initialize the visibility of all controls on the DDS screen. Do this after loading all settings. 
+	 * Update the visibility of all controls on the DDS screen. Do this e.g. after loading all settings. 
 	 */
-	void ScreenDDSInitVisibility();
+	void ScreenDDSUpdateVisibility();
 #endif
 
 /**
@@ -129,6 +129,7 @@ class ScreenManagerClass
 		uint16_t TimeCounter_ScreenRedraw_ms;	/**< Variable used for measuring the time to the next screen redraw */
 		
 		void Init();							/**< Initialize the ScreenManager. This method initializes the u8g_lib and UI_Manager handles and builds the VisualTree. */
+		void UpdateVisibilities();				/**< Update the visibility of all screens. */
 		
 		void DoDraw();							/**< Evaluate, if the screen should be redrawn. If yes, the DrawAll method is called. */
 		void DrawAll();							/**< Call this method to redraw the screen. This contains the picture loop of the u8g_lib. */

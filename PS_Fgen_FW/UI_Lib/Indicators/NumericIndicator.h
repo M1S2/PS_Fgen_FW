@@ -34,7 +34,7 @@ class NumericIndicator : public UIElement
 		char _stringDrawBuffer[stringBufferLength];		/**< Buffer holding the string that is drawn to the screen. This is only recalculated on the firstPage and if the value has changed. `char stringBufferLen = _numDigits + 1 + strlen(_unitPrefix) + strlen(_baseUnit) + 1;` */
 		
 	protected:
-		const char* _baseUnit;							/**< Base unit that is appended to the calculated prefix. E.g. "V" for voltage values. */
+		const char* _baseUnit;							/**< Base unit that is appended to the calculated prefix. E.g. "V" for voltage values. To use the "%" sign as unit, you have to use "%%" as string. */
 		T* _valuePointer;								/**< Pointer to the numeric variable that is shown by this indicator. */
 		T _valueDraw;									/**< This variable is updated from the _valuePointer on each draw of the first page. */
 		T _maxValue;									/**< Maximum value that can be shown by this numeric indicator. It is used to determine the number of non-fractional digits. */
@@ -51,7 +51,7 @@ class NumericIndicator : public UIElement
 		 * @param locX X Location of the upper left corner of the NumericIndicator 
 		 * @param locY Y Location of the upper left corner of the NumericIndicator
 		 * @param valuePointer Pointer to the numeric variable that is shown by this indicator.
-		 * @param baseUnit Base unit that is appended to the calculated prefix. E.g. "V" for voltage values.
+		 * @param baseUnit Base unit that is appended to the calculated prefix. E.g. "V" for voltage values. To use the "%" sign as unit, you have to use "%%" as string.
 		 * @param maxValue Maximum value that can be shown by this numeric indicator. It is used to determine the number of non-fractional digits.
 		 * @param numFractionalDigits Number of fractional digits that are shown by this indicator. E.g. 1.234 V has 3 fractional digits.
 		 */

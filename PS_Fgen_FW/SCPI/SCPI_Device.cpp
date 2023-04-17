@@ -83,8 +83,6 @@ const scpi_command_t scpi_commands[] =
 	{"SOURce#:VOLTage:PROTection:DELay?", scpi_cmd_sourceVoltageProtectionDelayQ, 0},
 	{"SOURce#:VOLTage:PROTection:TRIPped?", scpi_cmd_sourceVoltageProtectionTrippedQ, 0},
 	{"SOURce#:VOLTage:PROTection:CLEar", scpi_cmd_sourceVoltageProtectionClear, 0},
-	{"SOURce#:CURRent[:LEVel][:IMMediate][:AMPLitude]", scpi_cmd_sourceCurrentLevelImmediateAmplitude, 0},
-	{"SOURce#:CURRent[:LEVel][:IMMediate][:AMPLitude]?", scpi_cmd_sourceCurrentLevelImmediateAmplitudeQ, 0},
 	{"SOURce#:CURRent:PROTection[:LEVel]", scpi_cmd_sourceCurrentProtectionLevel, 0},
 	{"SOURce#:CURRent:PROTection[:LEVel]?", scpi_cmd_sourceCurrentProtectionLevelQ, 0},
 	{"SOURce#:CURRent:PROTection:STATe", scpi_cmd_sourceCurrentProtectionState, 0},
@@ -243,14 +241,13 @@ scpi_result_t SCPI_QueryChannelParameter(scpi_t * context, SCPIChannelParameters
 			{
 				case SCPI_CHPARAM_OUTPUTSTATE: SCPI_ResultBool(context, psChannel->GetEnabled()); break;
 				case SCPI_CHPARAM_AMPLITUDE: SCPI_ResultFloat(context, psChannel->GetVoltage()); break;
-				case SCPI_CHPARAM_CURRENT: SCPI_ResultFloat(context, psChannel->GetCurrent()); break;
 				case SCPI_CHPARAM_MEASURED_AMPLITUDE: SCPI_ResultFloat(context, psChannel->MeasuredVoltage); break;
 				case SCPI_CHPARAM_MEASURED_CURRENT: SCPI_ResultFloat(context, psChannel->MeasuredCurrent); break;
 				case SCPI_CHPARAM_MEASURED_POWER: SCPI_ResultFloat(context, psChannel->MeasuredPower); break;
 				case SCPI_CHPARAM_OVP_LEVEL: SCPI_ResultUInt8(context, psChannel->GetOvpLevel()); break;
 				case SCPI_CHPARAM_OVP_STATE: SCPI_ResultBool(context, psChannel->GetOvpState()); break;
 				case SCPI_CHPARAM_OVP_DELAY: SCPI_ResultFloat(context, psChannel->GetOvpDelay()); break;
-				case SCPI_CHPARAM_OCP_LEVEL: SCPI_ResultUInt8(context, psChannel->GetOcpLevel()); break;
+				case SCPI_CHPARAM_OCP_LEVEL: SCPI_ResultFloat(context, psChannel->GetOcpLevel()); break;
 				case SCPI_CHPARAM_OCP_STATE: SCPI_ResultBool(context, psChannel->GetOcpState()); break;
 				case SCPI_CHPARAM_OCP_DELAY: SCPI_ResultFloat(context, psChannel->GetOcpDelay()); break;
 				case SCPI_CHPARAM_OPP_LEVEL: SCPI_ResultFloat(context, psChannel->GetOppLevel()); break;
@@ -341,19 +338,6 @@ scpi_result_t SCPI_SetChannelParameter(scpi_t * context, SCPIChannelParameters_t
 					psChannel->SetVoltage(amplitude);
 					break;
 				}
-				case SCPI_CHPARAM_CURRENT:
-				{
-					scpi_number_t param;
-					if(!SCPI_ParamNumber(context, scpi_special_numbers_def, &param, TRUE)) { return SCPI_RES_ERR; }
-				
-					float current = psChannel->GetCurrent();
-					if (!SCPI_GetNumericFromParam(context, param, current, SCPI_UNIT_AMPER, psChannel->Current.Min, psChannel->Current.Max, psChannel->Current.Def, psChannel->Current.Step))
-					{
-						return SCPI_RES_ERR;
-					}
-					psChannel->SetCurrent(current);
-					break;
-				}
 				case SCPI_CHPARAM_OVP_LEVEL:
 				{
 					scpi_number_t param;
@@ -398,7 +382,7 @@ scpi_result_t SCPI_SetChannelParameter(scpi_t * context, SCPIChannelParameters_t
 					{
 						return SCPI_RES_ERR;
 					}
-					psChannel->SetOcpLevel((uint8_t)ocpLevel);
+					psChannel->SetOcpLevel(ocpLevel);
 					break;
 				}
 				case SCPI_CHPARAM_OCP_STATE:

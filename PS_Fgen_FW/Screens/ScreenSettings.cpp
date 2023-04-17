@@ -59,7 +59,7 @@ Icon ico_versionInfo(SCREEN_TAB_WIDTH + 5, 3, icon_info_width, icon_info_height,
 Label<15> lbl_Settings_VersionInfo_caption(SCREEN_TAB_WIDTH + 25, 5, "Version Info");
 Label<20> lbl_Settings_VersionInfo_manufacturer(SETTINGS_COLUMN1_POSX, SETTINGS_ROW1_POSY - 2, "by " SCPI_IDN_MANUFACTURER);
 Label<10> lbl_Settings_VersionInfo_serialNo(SETTINGS_COLUMN1_POSX, SETTINGS_ROW1_POSY + 10, "SNo.: " SCPI_IDN_SERIAL_NUMBER);
-Label<12> lbl_Settings_VersionInfo_swVersion(SETTINGS_COLUMN1_POSX, SETTINGS_ROW1_POSY + 22, "SW: " SCPI_IDN_SOFTWARE_REVISION);
+Label<15> lbl_Settings_VersionInfo_swVersion(SETTINGS_COLUMN1_POSX, SETTINGS_ROW1_POSY + 22, "SW: " SCPI_IDN_SOFTWARE_REVISION);
 
 
 void SettingsChanged(void* context)

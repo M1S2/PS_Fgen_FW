@@ -117,18 +117,6 @@ scpi_result_t scpi_cmd_sourceVoltageProtectionClear(scpi_t * context)
 
 //----------------------------------------------------------------------------------------------------------
 
-scpi_result_t scpi_cmd_sourceCurrentLevelImmediateAmplitude(scpi_t * context)
-{
-	return SCPI_SetChannelParameter(context, SCPI_CHPARAM_CURRENT);
-}
-
-scpi_result_t scpi_cmd_sourceCurrentLevelImmediateAmplitudeQ(scpi_t * context)
-{
-	return SCPI_QueryChannelParameter(context, SCPI_CHPARAM_CURRENT);
-}
-
-//----------------------------------------------------------------------------------------------------------
-
 scpi_result_t scpi_cmd_sourceCurrentProtectionLevel(scpi_t * context)
 {
 	return SCPI_SetChannelParameter(context, SCPI_CHPARAM_OCP_LEVEL);

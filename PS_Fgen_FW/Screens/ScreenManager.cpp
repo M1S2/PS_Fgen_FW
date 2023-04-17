@@ -67,7 +67,9 @@ void ScreenManagerClass::Init()
 
 void ScreenManagerClass::UpdateVisibilities()
 {
-	ScreenDDSUpdateVisibility();
+	#ifdef DDS_SUBSYSTEM_ENABLED
+		ScreenDDSUpdateVisibility();
+	#endif
 }
 
 void ScreenManagerClass::uiBuildTree()

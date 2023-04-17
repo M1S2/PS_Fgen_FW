@@ -104,12 +104,11 @@ typedef struct DeviceCalibrationFactors
 typedef struct DevSettingsEEPROMLayout
 {
 	float PS_Voltage;											/**< Power supply channel voltage */
-	float PS_Current;											/**< Power supply channel current */
 	bool PS_Enabled;											/**< Power supply channel output enabled */
 	uint8_t PS_OvpLevel;										/**< Power supply channel over voltage protection level */
 	bool PS_OvpState;											/**< Power supply channel over voltage protection state */
 	float PS_OvpDelay;											/**< Power supply channel over voltage protection delay */
-	uint8_t PS_OcpLevel;										/**< Power supply channel over current protection level */
+	float PS_OcpLevel;											/**< Power supply channel over current protection level */
 	bool PS_OcpState;											/**< Power supply channel over current protection state */
 	float PS_OcpDelay;											/**< Power supply channel over current protection delay */
 	float PS_OppLevel;											/**< Power supply channel over power protection level */

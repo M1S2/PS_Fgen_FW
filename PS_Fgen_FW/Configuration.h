@@ -9,7 +9,7 @@
 #define CONFIGURATION_H_
 
 /***** Version ************************************************/
-#define VERSION							"v1.0.0"				/**< Software version. This should be incremented with every release. */
+#define VERSION							"v1.0.0-dev"			/**< Software version. This should be incremented with every release. */
 
 /***** Timers *************************************************/
 #define DEVICE_TIMER_TICK_INTERVAL_MS	100						/**< Tick interval of the DeviceTimer in ms. The DeviceTimer is used to e.g. periodically read the keys and the encoder. */
@@ -73,27 +73,23 @@
 #define PS_INTERNAL_IMPEDANCE			5.7						/**< Internal impedance in Ohm of the PowerSupply output */
 #define PS_MIN_VOLTAGE					0						/**< Minimum allowed power supply voltage setting */
 #define PS_MAX_VOLTAGE					10						/**< Maximum allowed power supply voltage setting */
-#define PS_MIN_CURRENT					0						/**< Minimum allowed power supply current setting */
 #define PS_MAX_CURRENT					2						/**< Maximum allowed power supply current setting */
-#define PS_MIN_OVP_LEVEL_PERCENTAGE		90						/**< Minimum allowed power supply OVP level setting */
-#define PS_MAX_OVP_LEVEL_PERCENTAGE		200						/**< Maximum allowed power supply OVP level setting */
+#define PS_MIN_OVP_LEVEL_PERCENTAGE		90						/**< Minimum allowed power supply OVP level setting (in percent of the configured voltage) */
+#define PS_MAX_OVP_LEVEL_PERCENTAGE		200						/**< Maximum allowed power supply OVP level setting (in percent of the configured voltage) */
 #define PS_MIN_OVP_DELAY				0						/**< Minimum allowed power supply OVP delay setting */
 #define PS_MAX_OVP_DELAY				20						/**< Maximum allowed power supply OVP delay setting */
-#define PS_MIN_OCP_LEVEL_PERCENTAGE		PS_MIN_OVP_LEVEL_PERCENTAGE		/**< Minimum allowed power supply OCP level setting */
-#define PS_MAX_OCP_LEVEL_PERCENTAGE		PS_MAX_OVP_LEVEL_PERCENTAGE		/**< Maximum allowed power supply OCP level setting */
+#define PS_MIN_OCP_LEVEL				0						/**< Minimum allowed power supply OCP level setting */
+#define PS_MAX_OCP_LEVEL				3						/**< Maximum allowed power supply OCP level setting */
 #define PS_MIN_OCP_DELAY				PS_MIN_OVP_DELAY		/**< Minimum allowed power supply OCP delay setting */
 #define PS_MAX_OCP_DELAY				PS_MAX_OVP_DELAY		/**< Maximum allowed power supply OCP delay setting */
 #define PS_MIN_OPP_LEVEL				0						/**< Minimum allowed power supply OCP level setting */
-#define PS_MAX_OPP_LEVEL				(PS_MAX_VOLTAGE * PS_MAX_CURRENT)		/**< Maximum allowed power supply OCP level setting */
+#define PS_MAX_OPP_LEVEL				(PS_MAX_VOLTAGE * PS_MAX_OCP_LEVEL)		/**< Maximum allowed power supply OCP level setting */
 #define PS_MIN_OPP_DELAY				0						/**< Minimum allowed power supply OPP delay setting */
 #define PS_MAX_OPP_DELAY				65						/**< Maximum allowed power supply OPP delay setting */
 
 #define PS_VOLT_PID_P					0.2f					/**< Proportional part of the voltage PID regulator */
 #define PS_VOLT_PID_I					3.0f					/**< Integral part of the voltage PID regulator */
 #define PS_VOLT_PID_D					0						/**< Differential part of the voltage PID regulator */
-#define PS_CURRENT_PID_P				0.3f					/**< Proportional part of the current PID regulator */
-#define PS_CURRENT_PID_I				1.0f					/**< Integral part of the current PID regulator */
-#define PS_CURRENT_PID_D				0						/**< Differential part of the current PID regulator */
 
 #define DDS_MIN_FREQ					0.001f					/**< Minimum allowed DDS frequency setting */
 #define DDS_MAX_FREQ					20000  					/**< Maximum allowed DDS frequency setting */

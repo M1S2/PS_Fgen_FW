@@ -28,7 +28,6 @@ typedef enum SCPIChannelParameters
 	SCPI_CHPARAM_OUTPUTSTATE,				/**< Output state (Enabled/Disabled) channel parameter. */ 
 	SCPI_CHPARAM_AMPLITUDE,					/**< Amplitude channel parameter. */
 	SCPI_CHPARAM_OFFSET,					/**< Offset channel parameter. */
-	SCPI_CHPARAM_CURRENT,					/**< Current channel parameter. */
 	SCPI_CHPARAM_FREQUENCY,					/**< Frequency channel parameter. */
 	SCPI_CHPARAM_SIGNALFORM,				/**< Signal form channel parameter. */
 	#ifdef DDS_USER_DEFINED_WAVEFORMS_ENABLED
@@ -163,8 +162,6 @@ scpi_result_t scpi_cmd_sourceVoltageProtectionDelay(scpi_t * context);				/**< F
 scpi_result_t scpi_cmd_sourceVoltageProtectionDelayQ(scpi_t * context);				/**< Function executed when the SOURce#:VOLTage:PROTection:DELay? command was received. */
 scpi_result_t scpi_cmd_sourceVoltageProtectionTrippedQ(scpi_t * context);			/**< Function executed when the SOURce#:VOLTage:PROTection:TRIPped? command was received. */
 scpi_result_t scpi_cmd_sourceVoltageProtectionClear(scpi_t * context);				/**< Function executed when the SOURce#:VOLTage:PROTection:CLEar command was received. */
-scpi_result_t scpi_cmd_sourceCurrentLevelImmediateAmplitude(scpi_t * context);		/**< Function executed when the SOURce#:CURRent[:LEVel][:IMMediate][:AMPLitude] command was received. */
-scpi_result_t scpi_cmd_sourceCurrentLevelImmediateAmplitudeQ(scpi_t * context);		/**< Function executed when the SOURce#:CURRent[:LEVel][:IMMediate][:AMPLitude]? command was received. */
 scpi_result_t scpi_cmd_sourceCurrentProtectionLevel(scpi_t * context);				/**< Function executed when the SOURce#:CURRent:PROTection[:LEVel] command was received. */
 scpi_result_t scpi_cmd_sourceCurrentProtectionLevelQ(scpi_t * context);				/**< Function executed when the SOURce#:CURRent:PROTection[:LEVel]? command was received. */
 scpi_result_t scpi_cmd_sourceCurrentProtectionState(scpi_t * context);				/**< Function executed when the SOURce#:CURRent:PROTection:STATe command was received. */

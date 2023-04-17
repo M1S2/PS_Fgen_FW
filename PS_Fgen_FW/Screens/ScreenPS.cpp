@@ -28,8 +28,6 @@ Icon ico_PSOverviewVoltage(PS_COLUMN1_POSX, PS_ROW1_POSY - 2, icon_voltage_width
 NumericControl<float> numCtrl_PSOverviewVoltage(PS_COLUMN1_POSX + icon_voltage_width + 3, PS_ROW1_POSY, &Device.PsChannel.Voltage.Val, "V", PS_MIN_VOLTAGE, PS_MAX_VOLTAGE, 3, &Device.PsChannel, &PS_Channel::PSVoltageChanged);
 Icon ico_PSOverviewEnabled(PS_COLUMN2_POSX, PS_ROW1_POSY - 2, icon_OnOff_width, icon_OnOff_height, icon_OnOff_bits);
 BoolControl boolCtrl_PSOverviewEnabled(PS_COLUMN2_POSX + icon_OnOff_width + 3, PS_ROW1_POSY, &Device.PsChannel.Enabled.Val, &Device.PsChannel, &PS_Channel::PSEnabledChanged);
-Icon ico_PSOverviewCurrent(PS_COLUMN1_POSX, PS_ROW2_POSY - 2, icon_current_width, icon_current_height, icon_current_bits);
-NumericControl<float> numCtrl_PSOverviewCurrent(PS_COLUMN1_POSX + icon_current_width + 3, PS_ROW2_POSY, &Device.PsChannel.Current.Val, "A", PS_MIN_CURRENT, PS_MAX_CURRENT, 3, &Device.PsChannel, &PS_Channel::PSCurrentChanged);
 Icon ico_PSOverviewRegMode(PS_COLUMN2_POSX, PS_ROW2_POSY - 2, icon_pin_width, icon_pin_height, icon_pin_bits);
 EnumControl<volatile PsRegulationModes_t> enumCtrl_PSOverviewRegMode(PS_COLUMN2_POSX + icon_pin_width + 3, PS_ROW2_POSY, &Device.PsChannel.RegulationMode, PsRegulationModesNames, NUM_PS_REG_MODE_ELEMENTS, &Device.PsChannel, &PS_Channel::PSRegulationModeChanged);
 
@@ -54,7 +52,7 @@ ButtonControl<6> button_PSProtectionOVPClear(PS_COLUMN2_POSX, PS_ROW2_POSY, DEFA
 ContainerPage page_PSProtectionOCP;
 Label<5> lbl_PSProtectionOCP_caption(60, 5, "OCP");
 Icon ico_PSProtectionOCPLevel(PS_COLUMN1_POSX, PS_ROW1_POSY - 2, icon_level_width, icon_level_height, icon_level_bits);
-NumericControl<uint8_t> numCtrl_PSProtectionOCPLevel(PS_COLUMN1_POSX + icon_level_width + 3, PS_ROW1_POSY, &Device.PsChannel.OcpLevel.Val, "%%", PS_MIN_OCP_LEVEL_PERCENTAGE, PS_MAX_OCP_LEVEL_PERCENTAGE, 0, &Device.PsChannel, &PS_Channel::PSOcpLevelChanged);
+NumericControl<float> numCtrl_PSProtectionOCPLevel(PS_COLUMN1_POSX + icon_level_width + 3, PS_ROW1_POSY, &Device.PsChannel.OcpLevel.Val, "A", PS_MIN_OCP_LEVEL, PS_MAX_OCP_LEVEL, 3, &Device.PsChannel, &PS_Channel::PSOcpLevelChanged);
 Icon ico_PSProtectionOCPState(PS_COLUMN2_POSX, PS_ROW1_POSY - 2, icon_OnOff_width, icon_OnOff_height, icon_OnOff_bits);
 BoolControl boolCtrl_PSProtectionOCPState(PS_COLUMN2_POSX + icon_OnOff_width + 3, PS_ROW1_POSY, &Device.PsChannel.OcpState.Val, &Device.PsChannel, &PS_Channel::PSOcpStateChanged);
 Icon ico_PSProtectionOCPDelay(PS_COLUMN1_POSX, PS_ROW2_POSY - 2, icon_delay_width, icon_delay_height, icon_delay_bits);
@@ -90,7 +88,6 @@ UIElement* uiBuildScreenPS()
 {
 	enumCtrl_PSOverviewRegMode.Width = 39;
 	numCtrl_PSOverviewVoltage.CurrentDigitPosition = -1;	// select the 0.1 V digit.
-	numCtrl_PSOverviewCurrent.CurrentDigitPosition = -1;	// select the 0.1 A digit.
 	
 	page_PSOverview.AddItem(&ico_PSOverview);
 	page_PSOverview.AddItem(&lbl_PSOverview_caption);
@@ -98,8 +95,6 @@ UIElement* uiBuildScreenPS()
 	page_PSOverview.AddItem(&numCtrl_PSOverviewVoltage);
 	page_PSOverview.AddItem(&ico_PSOverviewEnabled);
 	page_PSOverview.AddItem(&boolCtrl_PSOverviewEnabled);
-	page_PSOverview.AddItem(&ico_PSOverviewCurrent);
-	page_PSOverview.AddItem(&numCtrl_PSOverviewCurrent);
 	page_PSOverview.AddItem(&ico_PSOverviewRegMode);
 	page_PSOverview.AddItem(&enumCtrl_PSOverviewRegMode);
 	page_PSOverview.AddItem(&numInd_PsOverviewVoltage);

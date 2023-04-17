@@ -26,7 +26,7 @@ const char* DeviceBaudRateNames[] = { "110", "150", "300", "1200", "2400", "4800
 	
 DeviceClass::DeviceClass() :
 #ifdef PS_SUBSYSTEM_ENABLED
-	PsChannel(PS_MIN_VOLTAGE, PS_MAX_VOLTAGE, PS_MIN_CURRENT, PS_MAX_CURRENT, PS_MIN_OVP_LEVEL_PERCENTAGE, PS_MAX_OVP_LEVEL_PERCENTAGE, PS_MIN_OVP_DELAY, PS_MAX_OVP_DELAY, PS_MIN_OCP_LEVEL_PERCENTAGE, PS_MAX_OCP_LEVEL_PERCENTAGE, PS_MIN_OCP_DELAY, PS_MAX_OCP_DELAY, PS_MIN_OPP_LEVEL, PS_MAX_OPP_LEVEL, PS_MIN_OPP_DELAY, PS_MAX_OPP_DELAY),
+	PsChannel(PS_MIN_VOLTAGE, PS_MAX_VOLTAGE, PS_MIN_OVP_LEVEL_PERCENTAGE, PS_MAX_OVP_LEVEL_PERCENTAGE, PS_MIN_OVP_DELAY, PS_MAX_OVP_DELAY, PS_MIN_OCP_LEVEL, PS_MAX_OCP_LEVEL, PS_MIN_OCP_DELAY, PS_MAX_OCP_DELAY, PS_MIN_OPP_LEVEL, PS_MAX_OPP_LEVEL, PS_MIN_OPP_DELAY, PS_MAX_OPP_DELAY),
 #endif
 #ifdef DDS_SUBSYSTEM_ENABLED
 	DdsChannel1(1, DDS_MIN_FREQ, DDS_MAX_FREQ, DDS_MIN_AMPLITUDE, DDS_MAX_AMPLITUDE, DDS_MIN_OFFSET, DDS_MAX_OFFSET),
@@ -299,7 +299,6 @@ void DeviceClass::SaveSettings()
 	
 	#ifdef PS_SUBSYSTEM_ENABLED
 		settings.PS_Voltage = PsChannel.GetVoltage();
-		settings.PS_Current = PsChannel.GetCurrent();
 		settings.PS_Enabled = PsChannel.GetEnabled();
 		settings.PS_OvpLevel = PsChannel.GetOvpLevel();
 		settings.PS_OvpState = PsChannel.GetOvpState();
@@ -371,7 +370,6 @@ void DeviceClass::LoadSettings()
 	
 	#ifdef PS_SUBSYSTEM_ENABLED
 		PsChannel.SetVoltage(isnan(settings.PS_Voltage) ? PsChannel.Voltage.Def : settings.PS_Voltage);
-		PsChannel.SetCurrent(isnan(settings.PS_Current) ? PsChannel.Current.Def : settings.PS_Current);
 		PsChannel.SetOvpLevel(isnan(settings.PS_OvpLevel) ? PsChannel.OvpLevel.Def : settings.PS_OvpLevel);
 		PsChannel.SetOvpState(isnan(settings.PS_OvpState) ? false : settings.PS_OvpState);
 		PsChannel.SetOvpDelay(isnan(settings.PS_OvpDelay) ? PsChannel.OvpDelay.Def : settings.PS_OvpDelay);
@@ -381,7 +379,7 @@ void DeviceClass::LoadSettings()
 		PsChannel.SetOppLevel(isnan(settings.PS_OppLevel) ? PsChannel.OppLevel.Def : settings.PS_OppLevel);
 		PsChannel.SetOppState(isnan(settings.PS_OppState) ? false : settings.PS_OppState);
 		PsChannel.SetOppDelay(isnan(settings.PS_OppDelay) ? PsChannel.OppDelay.Def : settings.PS_OppDelay);
-		PsChannel.SetRegulationMode(isnan(settings.PS_RegulationMode) ? PS_REG_MODE_CV_CC : settings.PS_RegulationMode);
+		PsChannel.SetRegulationMode(isnan(settings.PS_RegulationMode) ? PS_REG_MODE_CV : settings.PS_RegulationMode);
 		PsChannel.SetEnabled(PowerOnOutputsState == DEV_POWERUP_OUTPUTS_OFF ? false : (PowerOnOutputsState == DEV_POWERUP_OUTPUTS_ON ? true : settings.PS_Enabled));
 	#endif
 	
@@ -436,7 +434,6 @@ void DeviceClass::ResetDevice()
 {	
 	#ifdef PS_SUBSYSTEM_ENABLED
 		PsChannel.SetVoltage(PsChannel.Voltage.Def);
-		PsChannel.SetCurrent(PsChannel.Current.Def);
 		PsChannel.SetEnabled(false);
 		PsChannel.SetOvpLevel(PsChannel.OvpLevel.Def);
 		PsChannel.SetOvpState(PsChannel.OvpState.Def);
@@ -447,7 +444,7 @@ void DeviceClass::ResetDevice()
 		PsChannel.SetOppLevel(PsChannel.OppLevel.Def);
 		PsChannel.SetOppState(PsChannel.OppState.Def);
 		PsChannel.SetOppDelay(PsChannel.OppDelay.Def);
-		PsChannel.SetRegulationMode(PS_REG_MODE_CV_CC);
+		PsChannel.SetRegulationMode(PS_REG_MODE_CV);
 	#endif
 	
 	#ifdef DDS_SUBSYSTEM_ENABLED

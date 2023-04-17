@@ -60,11 +60,6 @@ extern unsigned char icon_supplyAC_bits[] U8G_PROGMEM;
 #define icon_supplyDC_height 16
 extern unsigned char icon_supplyDC_bits[] U8G_PROGMEM;
 
-/**** Icon Current *****/
-#define icon_current_width 16
-#define icon_current_height 16
-extern unsigned char icon_current_bits[] U8G_PROGMEM;
-
 /**** Icon Delay *****/
 #define icon_delay_width 16
 #define icon_delay_height 16

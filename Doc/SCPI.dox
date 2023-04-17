@@ -61,10 +61,8 @@ OUTPut[\<channel\>]:GENeral?			| OK		| Get a string with all output states
 @section ui_scpi_source_sec Source
 Command										| Status	| Description
 -------------------------------------------------------------------------------	| -------------	| ---------------
-SOURce[\<channel\>]:CURRent[:LEVel][:IMMediate][:AMPLitude] {\<current\>}	| OK		| Sets the output current (MINimum\|MAXimum\|UP\|DOWN\|\<Current\>)
-SOURce[\<channel\>]:CURRent[:LEVel][:IMMediate][:AMPLitude]?			| OK		| Query the output current
-SOURce[\<channel\>]:CURRent:PROTection[:LEVel]					| OK		| Sets the over-current protection (OCP) level
-SOURce[\<channel\>]:CURRent:PROTection[:LEVel]?					| OK		| Query the over-current protection (OCP) level
+SOURce[\<channel\>]:CURRent:PROTection[:LEVel]					| OK		| Sets the over-current protection (OCP) level in Ampere
+SOURce[\<channel\>]:CURRent:PROTection[:LEVel]?					| OK		| Query the over-current protection (OCP) level in Ampere
 SOURce[\<channel\>]:CURRent:PROTection:STATe {\<bool\>}				| OK 		| Enables/disables over-current protection on the selected channel
 SOURce[\<channel\>]:CURRent:PROTection:STATe?					| OK		| Query the state of the over-current protection on the selected channel
 SOURce[\<channel\>]:CURRent:PROTection:DELay {\<time\>}				| OK		| Protection function will not be triggered during the delay time. After the delay time has expired, the protection function will be active.
@@ -77,20 +75,20 @@ SOURce[\<channel\>]:FUNCtion:MODE?						| OK		| Determines which signal characte
 SOURce[\<channel\>]:FUNCtion:DATa #\<NumBytesDigits\>\<NumBytes\>\<Bytes\>	| OK		| Set the user defined waveform data of the channel. Only used if SHAPe is set to USER 
 SOURce[\<channel\>]:FREQuency[:CW] {\<frequency\>}				| OK		| Set the frequency of a non-swept signal
 SOURce[\<channel\>]:FREQuency[:CW]?						| OK		| Query the frequency of a non-swept signal
-SOURce[\<channel\>]:POWer:PROTection[:LEVel]					| OK		| Sets the over-power protection (OPP) level
-SOURce[\<channel\>]:POWer:PROTection[:LEVel]?					| OK		| Query the over-power protection (OPP) level
+SOURce[\<channel\>]:POWer:PROTection[:LEVel]					| OK		| Sets the over-power protection (OPP) level in Watt
+SOURce[\<channel\>]:POWer:PROTection[:LEVel]?					| OK		| Query the over-power protection (OPP) level in Watt
 SOURce[\<channel\>]:POWer:PROTection:STATe {\<bool\>}				| OK		| Enables/disables over-power protection on the selected channel
 SOURce[\<channel\>]:POWer:PROTection:STATe?					| OK		| Query the state of the over-power protection on the selected channel
 SOURce[\<channel\>]:POWer:PROTection:DELay {\<time\>}				| OK		| Protection function will not be triggered during the delay time. After the delay time has expired, the protection function will be active.
 SOURce[\<channel\>]:POWer:PROTection:DELay?					| OK		| Query the protection delay
 SOURce[\<channel\>]:POWer:PROTection:TRIPped?					| OK		| Returns status of over-power protection activation
 SOURce[\<channel\>]:POWer:PROTection:CLEar					| OK		| Clear the over-power protection
-SOURce[\<channel\>]:VOLTage[:LEVel][:IMMediate][:AMPLitude] {\<voltage\>}	| OK		| Sets the output amplitude (MINimum\|MAXimum\|UP\|DOWN\|\<Voltage\>)
-SOURce[\<channel\>]:VOLTage[:LEVel][:IMMediate][:AMPLitude]?			| OK		| Query the output amplitude
+SOURce[\<channel\>]:VOLTage[:LEVel][:IMMediate][:AMPLitude] {\<voltage\>}	| OK		| Sets the output amplitude (MINimum\|MAXimum\|UP\|DOWN\|\<Voltage\>) in Volt
+SOURce[\<channel\>]:VOLTage[:LEVel][:IMMediate][:AMPLitude]?			| OK		| Query the output amplitude in Volt
 SOURce[\<channel\>]:VOLTage[:LEVel][:IMMediate]:OFFSet {\<voltage\>}		| OK		| Sets the output offset (non-time varying component of the signal) (MINimum\|MAXimum\|UP\|DOWN\|\<Voltage\>)
 SOURce[\<channel\>]:VOLTage[:LEVel][:IMMediate]:OFFSet?				| OK		| Query the output offset
-SOURce[\<channel\>]:VOLTage:PROTection[:LEVel]					| OK		| Sets the over-voltage protection (OVP) level
-SOURce[\<channel\>]:VOLTage:PROTection[:LEVel]?					| OK		| Query the over-voltage protection (OVP) level
+SOURce[\<channel\>]:VOLTage:PROTection[:LEVel]					| OK		| Sets the over-voltage protection (OVP) level in percent of the configured voltage
+SOURce[\<channel\>]:VOLTage:PROTection[:LEVel]?					| OK		| Query the over-voltage protection (OVP) level in percent of the configured voltage
 SOURce[\<channel\>]:VOLTage:PROTection:STATe {\<bool\>}				| OK		| Enables/disables over-voltage protection on the selected channel
 SOURce[\<channel\>]:VOLTage:PROTection:STATe?					| OK		| Query the state of the over-voltage protection on the selected channel
 SOURce[\<channel\>]:VOLTage:PROTection:DELay {\<time\>}				| OK		| Protection function will not be triggered during the delay time. After the delay time has expired, the protection function will be active.

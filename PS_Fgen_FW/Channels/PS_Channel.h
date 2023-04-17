@@ -20,7 +20,6 @@ typedef enum PsRegulationModes
 {
 	PS_REG_MODE_FIX,			/**< Power supply channel is not regulated (neither constant voltage nor constant current). The requested voltage is set by the ADC without regarding the measured voltage. */
 	PS_REG_MODE_CV,				/**< Power supply channel is only constant voltage regulated (not constant current). The voltage at the output is regulated to the requested one by comparison to the measured voltage. */
-	PS_REG_MODE_CV_CC,			/**< Power supply channel is constant voltage or constant current regulated depending on the currently best option (the one with the lower output voltage value). */
 	NUM_PS_REG_MODE_ELEMENTS	/**< The last element is used to determine the number of elements in the enumeration */
 } PsRegulationModes_t;
 extern const char* PsRegulationModesNames[];
@@ -35,7 +34,6 @@ extern const char* PsRegulationModesNames[];
 typedef enum PsStates
 {
 	PS_STATE_CV,				/**< Power supply state constant voltage */
-	PS_STATE_CC,				/**< Power supply state constant current */
 	PS_STATE_OVL,				/**< Power supply state overload. The channel isn't able to regulate the voltage (or current) to the desired value, because it is at it's limits and running in open-loop. */
 	PS_STATE_OVP,				/**< Power supply state over voltage protection */
 	PS_STATE_OCP,				/**< Power supply state over current protection */
@@ -64,8 +62,6 @@ class PS_Channel : public Channel
 	private:
 		float _PIDVoltErrorSum;						/**< PID voltage regulator error sum */
 		float _PIDVoltErrorLast;					/**< PID voltage regulator last error */
-		float _PIDCurrentErrorSum;					/**< PID current regulator error sum */
-		float _PIDCurrentErrorLast;					/**< PID current regulator last error */
 		float _setVoltage;							/**< Voltage to which the output should be set. This value is calculated by the PID voltage regulator. */
 
 	public:
@@ -74,14 +70,13 @@ class PS_Channel : public Channel
 	
 		Parameter<bool> Enabled;					/**< Is the channel enabled or not. If enabled, the voltage is available at the output. */
 		Parameter<float> Voltage;					/**< Voltage of the power supply channel. This is the voltage that the PID regulator tries to produce on the output in CV state. */
-		Parameter<float> Current;					/**< Current of the power supply channel. This is the current that the PID regulator tries to produce on the output in CC state. */
 		
 		Parameter<bool> OvpState;					/**< Is the over voltage protection for the channel enabled or not. If disabled, the OvpLevel and OvpDelay parameters have not effect. */
 		Parameter<uint8_t> OvpLevel;				/**< OVP trip level in percentage of the Voltage. */
 		Parameter<float> OvpDelay;					/**< Time after which the over voltage protection kicks in. */
 			
 		Parameter<bool> OcpState;					/**< Is the over current protection for the channel enabled or not. If disabled, the OcpLevel and OcpDelay parameters have not effect. */
-		Parameter<uint8_t> OcpLevel;				/**< OCP trip level in percentage of the Current. */
+		Parameter<float> OcpLevel;					/**< OCP trip level in Ampere. */
 		Parameter<float> OcpDelay;					/**< Time after which the over current protection kicks in. */
 		
 		Parameter<bool> OppState;					/**< Is the over power protection for the channel enabled or not. If disabled, the OppLevel and OppDelay parameters have not effect. */
@@ -91,7 +86,6 @@ class PS_Channel : public Channel
 		volatile float MeasuredVoltage;				/**< Measured Voltage for this channel. This value is used for PID regulation of the output voltage in CV state. */
 		volatile float MeasuredCurrent;				/**< Measured Current for this channel. This value is used for PID regulation of the output current in CC state. */
 		volatile float MeasuredPower;				/**< Measured Power for this channel. This value is calculated from the MeasuredVoltage and MeasuredCurrent. */
-		volatile float MeasuredLoadResistance;		/**< Measured Load Resistance for this channel. This value is calculated from the MeasuredVoltage and MeasuredCurrent. */
 		
 		volatile uint16_t TimeCounter_OvpDelay_ms;	/**< Time counter used to measure how long the channel has an over voltage. If this value exceeds the OvpDelay, the over voltage protection kicks in. */
 		volatile uint16_t TimeCounter_OcpDelay_ms;	/**< Time counter used to measure how long the channel has an over current. If this value exceeds the OcpDelay, the over current protection kicks in. */
@@ -101,8 +95,6 @@ class PS_Channel : public Channel
 		 * Constructor of the PS_Channel.
 		 * @param minVolt Minimum allowed voltage for the PS channel
 		 * @param maxVolt Maximum allowed voltage for the PS channel
-		 * @param minCurrent Minimum allowed current for the PS channel
-		 * @param maxCurrent Maximum allowed current for the PS channel
  		 * @param minOvpLevel Minimum allowed Ovp level for the PS channel
  		 * @param maxOvpLevel Maximum allowed Ovp level for the PS channel
 		 * @param minOvpDelay Minimum allowed Ovp delay for the PS channel
@@ -116,7 +108,7 @@ class PS_Channel : public Channel
 		 * @param minOppDelay Minimum allowed Opp delay for the PS channel
 		 * @param maxOppDelay Maximum allowed Opp delay for the PS channel
 		 */
-		PS_Channel(float minVolt, float maxVolt, float minCurrent, float maxCurrent, uint8_t minOvpLevel, uint8_t maxOvpLevel, float minOvpDelay, float maxOvpDelay, uint8_t minOcpLevel, uint8_t maxOcpLevel, float minOcpDelay, float maxOcpDelay, float minOppLevel, float maxOppLevel, float minOppDelay, float maxOppDelay);
+		PS_Channel(float minVolt, float maxVolt, uint8_t minOvpLevel, uint8_t maxOvpLevel, float minOvpDelay, float maxOvpDelay, float minOcpLevel, float maxOcpLevel, float minOcpDelay, float maxOcpDelay, float minOppLevel, float maxOppLevel, float minOppDelay, float maxOppDelay);
 		
 		/** Set the voltage at the output of this channel to zero. */
 		void SwitchOffOutput();
@@ -182,18 +174,6 @@ class PS_Channel : public Channel
 		 * @return Value of the Voltage property
 		 */
 		inline float GetVoltage() { return Voltage.Val; }
-
-		/**
-		 * Set the Current property of the PS channel.
-		 * @param current New value for the Current property
-		 * @return true->set successful; false->value not set
-		 */
-		bool SetCurrent(float current);
-		/**
-		 * Get the Current property of the PS channel.
-		 * @return Value of the Current property
-		 */
-		inline float GetCurrent() { return Current.Val; }
 		
 		/**
 		 * Set the OvpLevel property of the PS channel.
@@ -236,12 +216,12 @@ class PS_Channel : public Channel
 		 * @param ocpLevel New value for the OcpLevel property
 		 * @return true->set successful; false->value not set
 		 */
-		bool SetOcpLevel(uint8_t ocpLevel);
+		bool SetOcpLevel(float ocpLevel);
 		/**
 		 * Get the OcpLevel property of the PS channel.
 		 * @return Value of the OcpLevel property
 		 */
-		inline uint8_t GetOcpLevel() { return OcpLevel.Val; }
+		inline float GetOcpLevel() { return OcpLevel.Val; }
 
 		/**
 		 * Set the OcpState property of the PS channel.
@@ -321,12 +301,6 @@ class PS_Channel : public Channel
 		 * @param channel Pointer to a PS_Channel
 		 */
 		static void PSVoltageChanged(void* channel);
-		
-		/**
-		 * Callback function that can be used for user interface controls modifying the Current property.
-		 * @param channel Pointer to a PS_Channel
-		 */
-		static void PSCurrentChanged(void* channel);
 		
 		/**
 		 * Callback function that can be used for user interface controls modifying the OvpLevel property.

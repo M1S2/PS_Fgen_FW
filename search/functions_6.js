@@ -1,0 +1,24 @@
+var searchData=
+[
+  ['getamplitude_0',['GetAmplitude',['../class_d_d_s___channel.html#abb914602f33423df75dd6a32e7d46767',1,'DDS_Channel']]],
+  ['getchanneltype_1',['GetChannelType',['../class_channel.html#aa105406fb395c50ec86d19dddf9d9026',1,'Channel']]],
+  ['getenabled_2',['GetEnabled',['../class_d_d_s___channel.html#acbed72bf3a450f8e09a93abe37689798',1,'DDS_Channel::GetEnabled()'],['../class_p_s___channel.html#a4fe39b4ddada8e7d9d5ea7e940a6643f',1,'PS_Channel::GetEnabled()']]],
+  ['getfrequency_3',['GetFrequency',['../class_d_d_s___channel.html#a480d6653d91af878f9d1ff4173eeede9',1,'DDS_Channel']]],
+  ['getocpdelay_4',['GetOcpDelay',['../class_p_s___channel.html#a569b793e4487cee44a0acda22cb2e450',1,'PS_Channel']]],
+  ['getocplevel_5',['GetOcpLevel',['../class_p_s___channel.html#af1f32b69f3732ea4ec5a7caae8918b30',1,'PS_Channel']]],
+  ['getocpstate_6',['GetOcpState',['../class_p_s___channel.html#aa03ea7e63b479a0cc52bda25f4e65d38',1,'PS_Channel']]],
+  ['getoffset_7',['GetOffset',['../class_d_d_s___channel.html#af037365d6743b372ffa7cffe0f73ef42',1,'DDS_Channel']]],
+  ['getoppdelay_8',['GetOppDelay',['../class_p_s___channel.html#ac3cfa956e91cdee3633a13569d538079',1,'PS_Channel']]],
+  ['getopplevel_9',['GetOppLevel',['../class_p_s___channel.html#aa892cf1b012fc7d33be6397e42433dc4',1,'PS_Channel']]],
+  ['getoppstate_10',['GetOppState',['../class_p_s___channel.html#a3403ca32fe0efb6709ec109a1cfc0e54',1,'PS_Channel']]],
+  ['getovpdelay_11',['GetOvpDelay',['../class_p_s___channel.html#af3bcafa8674a443d59f3bf620722d9c2',1,'PS_Channel']]],
+  ['getovplevel_12',['GetOvpLevel',['../class_p_s___channel.html#aba8f2266b32f8bcf0f11300f50870ae1',1,'PS_Channel']]],
+  ['getovpstate_13',['GetOvpState',['../class_p_s___channel.html#ae9ef81eec2af427ed17af77b14725589',1,'PS_Channel']]],
+  ['getpsstate_14',['GetPsState',['../class_p_s___channel.html#a849f1ae9d7ac67640a73ad6805b2e334',1,'PS_Channel']]],
+  ['getpwmvalue_15',['GetPWMValue',['../class_d_d_s___channel.html#a611103e8863ecb959463904f1276c4ac',1,'DDS_Channel']]],
+  ['getregulationmode_16',['GetRegulationMode',['../class_p_s___channel.html#a735470b652fb7aaacf495bb91367354d',1,'PS_Channel']]],
+  ['getselecteditem_17',['GetSelectedItem',['../class_container.html#ac891a4b65a02ea4add546ca2086b31d5',1,'Container']]],
+  ['getselectedtabindex_18',['GetSelectedTabIndex',['../class_tab_control.html#a99b31d37b1b49472af70508cbcc10e43',1,'TabControl']]],
+  ['getsignalform_19',['GetSignalForm',['../class_d_d_s___channel.html#a7150d4df21d0cccae617b2fcbadcfa65',1,'DDS_Channel']]],
+  ['getvoltage_20',['GetVoltage',['../class_p_s___channel.html#a6380f6cd8d046a7ed7904a81a5f5fbbc',1,'PS_Channel']]]
+];

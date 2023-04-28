@@ -1,0 +1,26 @@
+var searchData=
+[
+  ['scpi_5ferror_5fqueue_5fsize_0',['SCPI_ERROR_QUEUE_SIZE',['../_configuration_8h.html#ae75d934bc66feba83b6ba36afd102038',1,'Configuration.h']]],
+  ['scpi_5fidn_5fmanufacturer_1',['SCPI_IDN_MANUFACTURER',['../_configuration_8h.html#af7b23f8743240d010d6e0bc1d780032e',1,'Configuration.h']]],
+  ['scpi_5fidn_5fmodel_2',['SCPI_IDN_MODEL',['../_configuration_8h.html#a42556c0ea1cdb7224626399dd6b25b6c',1,'Configuration.h']]],
+  ['scpi_5fidn_5fserial_5fnumber_3',['SCPI_IDN_SERIAL_NUMBER',['../_configuration_8h.html#a1f75fe9de4d86b3c760b09e2af9036a7',1,'Configuration.h']]],
+  ['scpi_5fidn_5fsoftware_5frevision_4',['SCPI_IDN_SOFTWARE_REVISION',['../_configuration_8h.html#a433e4c4a0fc5fc132c954e676c2a3c37',1,'Configuration.h']]],
+  ['scpi_5finput_5fbuffer_5flength_5',['SCPI_INPUT_BUFFER_LENGTH',['../_configuration_8h.html#a0105f3589ffb7f946ab8190849c21c6b',1,'Configuration.h']]],
+  ['scpi_5fsystem_5fcapabilities_6',['SCPI_SYSTEM_CAPABILITIES',['../_configuration_8h.html#a3a0e755965e2498881ed42a8ef095d97',1,'Configuration.h']]],
+  ['screen_5fredraw_5fdelay_5fms_7',['SCREEN_REDRAW_DELAY_MS',['../_configuration_8h.html#a1a4aefaf0a791d488b8b4ba0ce7eeae4',1,'Configuration.h']]],
+  ['screen_5ftab_5fwidth_8',['SCREEN_TAB_WIDTH',['../_configuration_8h.html#a0d357bd4dba170682cef54fd3287d42b',1,'Configuration.h']]],
+  ['scrollbar_5fmargin_9',['SCROLLBAR_MARGIN',['../_container_list_8h.html#ac855544c34bbf3f10b122dc836bd9f85',1,'ContainerList.h']]],
+  ['scrollbar_5fwidth_10',['SCROLLBAR_WIDTH',['../_container_list_8h.html#a87c1c8b120bc45fc5890eb540c71cf94',1,'ContainerList.h']]],
+  ['select_5fmcp4921_11',['SELECT_MCP4921',['../_d_a_c___m_c_p492x_8h.html#a8381fd4d558dad09145c5e046fd221b8',1,'DAC_MCP492x.h']]],
+  ['select_5fmcp4922_12',['SELECT_MCP4922',['../_d_a_c___m_c_p492x_8h.html#ac7689cf5601ffbc972fdceaa0b14cd43',1,'DAC_MCP492x.h']]],
+  ['set_5fbit_13',['SET_BIT',['../_pins_8h.html#a66c98398a1f3899825bb0f75e8f5fbda',1,'Pins.h']]],
+  ['set_5fldac_5fmcp4922_14',['SET_LDAC_MCP4922',['../_d_a_c___m_c_p492x_8h.html#aaf403d27f1227d28c85ce73240d38fd0',1,'DAC_MCP492x.h']]],
+  ['settings_5fautosave_5fdelay_5fms_15',['SETTINGS_AUTOSAVE_DELAY_MS',['../_configuration_8h.html#a3a02dc468527e63f1704df04e36618f6',1,'Configuration.h']]],
+  ['spi_5fmiso_16',['SPI_MISO',['../_pins_8h.html#ab142cc77dfa97010c9d2b616d0992b64',1,'Pins.h']]],
+  ['spi_5fmosi_17',['SPI_MOSI',['../_pins_8h.html#a7dbebab5f7dd57885adccf6711b13592',1,'Pins.h']]],
+  ['spi_5fsck_18',['SPI_SCK',['../_pins_8h.html#a750ca7c9b92cfc9e57272ff3a49db48b',1,'Pins.h']]],
+  ['spi_5fwait_19',['spi_wait',['../spi_8h.html#aaed9ecb1472b1893d1fa83e1caeb34d4',1,'spi.h']]],
+  ['splashscreen_5fdelay_5fms_20',['SPLASHSCREEN_DELAY_MS',['../_configuration_8h.html#af73c912aba6667d90b3411c5135962fd',1,'Configuration.h']]],
+  ['splashscreen_5fenabled_21',['SPLASHSCREEN_ENABLED',['../_configuration_8h.html#aea99915224e712a34f1e6983293d44c2',1,'Configuration.h']]],
+  ['system_5fbare_5fmetal_22',['SYSTEM_BARE_METAL',['../config_8h.html#ac991cc6e083eabdc10932778c95074cf',1,'config.h']]]
+];

@@ -148,16 +148,19 @@ void PS_Channel::CheckProtections()
 	{
 		PsState = PS_STATE_OVP;
 		TimeCounter_OvpDelay_ms = 0;
+		OnOffControls_UpdatePSLeds();
 	}
 	else if(TimeCounter_OcpDelay_ms >= (1000 * GetOcpDelay()))
 	{
 		PsState = PS_STATE_OCP;
 		TimeCounter_OcpDelay_ms = 0;
+		OnOffControls_UpdatePSLeds();
 	}
 	else if(TimeCounter_OppDelay_ms >= (1000 * GetOppDelay()))
 	{
 		PsState = PS_STATE_OPP;
 		TimeCounter_OppDelay_ms = 0;
+		OnOffControls_UpdatePSLeds();
 	}
 }
 
@@ -168,18 +171,21 @@ void PS_Channel::ClearProtections()
 		PsState = PS_STATE_CV;
 		TimeCounter_OvpDelay_ms = 0;
 		UpdateOutput();
+		OnOffControls_UpdatePSLeds();
 	}
 	else if(PsState == PS_STATE_OCP)
 	{
 		PsState = PS_STATE_CV;
 		TimeCounter_OcpDelay_ms = 0;
 		UpdateOutput();
+		OnOffControls_UpdatePSLeds();
 	}
 	else if(PsState == PS_STATE_OPP)
 	{
 		PsState = PS_STATE_CV;
 		TimeCounter_OppDelay_ms = 0;
 		UpdateOutput();
+		OnOffControls_UpdatePSLeds();
 	}
 }
 
@@ -363,6 +369,8 @@ void PS_Channel::PSEnabledChanged(void* channel)
 	PS_Channel* psChannel = (PS_Channel*)channel;
 	psChannel->UpdateOutput();
 	Device.SetSettingsChanged(true);
+	
+	OnOffControls_UpdatePSLeds();
 }
 
 void PS_Channel::PSVoltageChanged(void* channel)

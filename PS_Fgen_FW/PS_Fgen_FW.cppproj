@@ -28,15 +28,15 @@
     <eraseonlaunchrule>0</eraseonlaunchrule>
     <AsfFrameworkConfig>
       <framework-data>
-  <options />
-  <configurations />
-  <files />
-  <documentation help="" />
-  <offline-documentation help="" />
-  <dependencies>
-    <content-extension eid="atmel.asf" uuidref="Atmel.ASF" version="3.44.1" />
-  </dependencies>
-</framework-data>
+        <options />
+        <configurations />
+        <files />
+        <documentation help="" />
+        <offline-documentation help="" />
+        <dependencies>
+          <content-extension eid="atmel.asf" uuidref="Atmel.ASF" version="3.44.1" />
+        </dependencies>
+      </framework-data>
     </AsfFrameworkConfig>
     <avrtool>com.atmel.avrdbg.tool.simulator</avrtool>
     <avrtoolserialnumber />
@@ -412,6 +412,18 @@
     <Compile Include="Channels\PS_Channel.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="OnOffControls\MCP23S08.cpp">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="OnOffControls\MCP23S08.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="OnOffControls\OnOffControls.cpp">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="OnOffControls\OnOffControls.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="Pins\Pins.cpp">
       <SubType>compile</SubType>
     </Compile>
@@ -624,6 +636,7 @@
     <Folder Include="libraries\scpi-parser\inc\" />
     <Folder Include="libraries\scpi-parser\inc\scpi\" />
     <Folder Include="libraries\scpi-parser\src\" />
+    <Folder Include="OnOffControls" />
     <Folder Include="UI_Lib" />
     <Folder Include="SCPI" />
     <Folder Include="UI_Lib\Indicators" />

@@ -60,6 +60,7 @@ void DeviceClass::Init()
 	Pins_Init();
 	SPI_Init();
 	Encoder_Init();
+	OnOffControls_Init();
 	ADC_init();
 	Usart0Init(9600);			// Always init with 9600 baud to output the power on message.
 	InitDeviceTimer();
@@ -72,7 +73,6 @@ void DeviceClass::Init()
 	Usart0TransmitStr("Power On\r\n");
 	
 	ADC_startConversion();
-	MCP4922_DisableLatching();
 	
 	ScreenManager.Init();
 	
@@ -147,6 +147,13 @@ void DeviceClass::DeviceTimerTickISR()
 		{	
 			TimeCounter_PowerSupplyChannelRegulation_ms = 0;
 			PsChannel.DoRegulationISR();
+		}
+		
+		// Get on/off button state
+		if(OnOffControls_IsButtonChanged())
+		{
+			OnOffButtons_t button = OnOffControls_GetButton();
+			UserInputHandler.EnqueueOnOffButtonInput(button);
 		}
 	#endif
 }

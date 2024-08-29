@@ -10,6 +10,7 @@
 
 #include "CircularBuffer.h"
 #include "../KeyPad/KeyPad.h"
+#include "../OnOffControls/OnOffControls.h"
 #include <stdbool.h>
 
 #include "../Configuration.h"
@@ -20,7 +21,8 @@
 typedef enum UserInputDataTypes
 {
 	USERDATA_KEY,				/**< User data type for Keys */
-	USERDATA_USART				/**< User data type for USART input */
+	USERDATA_USART,				/**< User data type for USART input */
+	USERDATA_ON_OFF_BUTTONS		/**< User data type for on/off buttons */
 } UserInputDataTypes_t;
 
 /**
@@ -32,6 +34,7 @@ class UserInputData
 		UserInputDataTypes_t DataType;		/**< Type of the user input data */
 		Keys_t Key;							/**< Key pressed by the user if the DataType is USERDATA_KEY */
 		uint8_t UsartChr;					/**< Character received via Usart if the DataType is USERDATA_USART */
+		OnOffButtons_t OnOffButton;			/**< on/off button pressed by the user if the DataType is USERDATA_ON_OFF_BUTTONS */
 
 		/** Empty Constructor. */	
 		UserInputData() 
@@ -55,6 +58,16 @@ class UserInputData
 		UserInputData(uint8_t usartChr) : UsartChr(usartChr)
 		{
 			DataType = USERDATA_USART;
+		}
+		
+		/**
+		 * Constructor for the UserInputData class.
+		 * Use this constructor to initialize for a physical on/off button.
+		 * @param button on/off button that should be stored with this class.
+		 */	
+		UserInputData(OnOffButtons_t button) : OnOffButton(button)
+		{
+			DataType = USERDATA_ON_OFF_BUTTONS;
 		}
 };
 
@@ -93,6 +106,20 @@ class UserInputHandlerClass
 			{
 				UserInputData dataInput(userDataInput);
 				_userInputRingBuffer.enqueue(&dataInput);
+			}
+		}
+		
+		/**
+		 * Enqueue the given on/off button into the circular buffer for later processing.
+		 * The button is only enqueued and no further actions are taken.
+		 * @param userButtonInput Button that should be enqueued.
+		 */
+		inline void EnqueueOnOffButtonInput(OnOffButtons_t userButtonInput)
+		{
+			if(!_userInputRingBuffer.full())
+			{
+				UserInputData buttonInput(userButtonInput);
+				_userInputRingBuffer.enqueue(&buttonInput);
 			}
 		}
 		

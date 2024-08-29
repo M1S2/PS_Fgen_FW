@@ -22,25 +22,6 @@
 #define SELECT_MCP4921		CLEAR_BIT(PORTB, PS_CS);				/**< Select the MCP4921 DAC by pulling the PS_CS pin low */
 #define DESELECT_MCP4921	SET_BIT(PORTB, PS_CS);					/**< Deselect the MCP4921 DAC by pulling the PS_CS pin high */
 #define IS_MCP4921_SELECTED	BIT_IS_CLEARED(PORTB, PS_CS);			/**< Check if the MCP4921 DAC is selected by reading the PS_CS pin */
-#define CLEAR_LDAC_MCP4922	CLEAR_BIT(PORTB, DDS_LDAC);				/**< Clear the latch pin of the MCP4922 DAC */
-#define SET_LDAC_MCP4922	SET_BIT(PORTB, DDS_LDAC);				/**< Set the latch pin of the MCP4922 DAC */
-
-/**
- * Disable the latching of the MCP4922 device (two channels).
- */
-inline void MCP4922_DisableLatching()
-{
-	CLEAR_LDAC_MCP4922
-}
-
-/**
- * Latch the outputs of the MCP4922 device (two channels).
- */
-inline void MCP4922_LatchOutput()
-{
-	CLEAR_LDAC_MCP4922
-	SET_LDAC_MCP4922
-}
 
 /**
  * Set the DAC data value of the MCP4921 device.

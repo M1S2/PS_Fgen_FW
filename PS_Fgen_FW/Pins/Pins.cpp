@@ -30,13 +30,12 @@ void Pins_Init()
 	SET_BIT(PORTB, PS_CS);
 	SET_BIT(PORTB, DDS_CS);
 	SET_BIT(PORTB, LCD_CS);
-	
-	CLEAR_BIT(PORTB, DDS_LDAC);
+	SET_BIT(PORTB, IO_EXP_CS);
 		
 	// make Chip select lines outputs
 	SET_BIT(DDRB, PS_CS);				// Is SPI_SS line and must be output for master mode
 	SET_BIT(DDRB, DDS_CS);
-	SET_BIT(DDRB, DDS_LDAC);
+	SET_BIT(DDRB, IO_EXP_CS);
 	SET_BIT(DDRB, LCD_CS);
 	SET_BIT(DDRB, LCD_A0);
 	
@@ -71,4 +70,10 @@ void Pins_Init()
 	// make the DMM1_NEG and DMM2_NEG pins inputs
 	CLEAR_BIT(DDRD, DMM1_NEG);
 	CLEAR_BIT(DDRD, DMM2_NEG);
+	
+	// make the IO expander INT pin input
+	CLEAR_BIT(DDRD, IO_EXP_INT);
+	
+	// enable pull-up for IO expander INT pin
+	SET_BIT(PORTD, IO_EXP_INT);
 }

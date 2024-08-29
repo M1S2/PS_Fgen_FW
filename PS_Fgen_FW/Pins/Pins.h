@@ -37,7 +37,7 @@
 #define SPI_MOSI	PORTB5			/**< Bit position of the SPI MOSI line */
 #define PS_CS		PORTB4			/**< Bit position of the power supply chip select line (Is SPI_SS line and must be output for master mode) */
 #define DDS_CS		PORTB3			/**< Bit position of the direct digital synthesis chip select line */
-#define DDS_LDAC	PORTB2			/**< Bit position of the direct digital synthesis latch line */
+#define IO_EXP_CS	PORTB2			/**< Bit position of the on/off controls IO expander chip select line */
 #define LCD_CS		PORTB1			/**< Bit position of the LCD chip select line */
 #define LCD_A0		PORTB0			/**< Bit position of the LCD address line */
 
@@ -51,7 +51,7 @@
 #define KEY_C2		PORTC1			/**< Bit position of the KeyPad column 2 line */
 #define KEY_C1		PORTC0			/**< Bit position of the KeyPad column 1 line */
 
-// PORTD7 not used
+#define IO_EXP_INT	PORTD7			/**< Bit position of the on/off controls IO expander interrupt pin */
 #define DMM2_NEG	PORTD6			/**< Bit position of the DMM2 negative voltage signal pin */
 #define DMM1_NEG	PORTD5			/**< Bit position of the DMM1 negative voltage signal pin */
 #define ENC_PB		PORTD4			/**< Bit position of the Encoder push button line */

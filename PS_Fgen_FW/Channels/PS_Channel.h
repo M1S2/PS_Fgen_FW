@@ -132,6 +132,11 @@ class PS_Channel : public Channel
 		 */
 		void ClearProtections();
 	
+		/**
+		 * Check if at least one protection is active (OVP, OCP, OPP)
+		 * @return true, if any of the OVP, OCP or OPP protections is active; otherwise false
+		 */
+		inline bool IsProtectionActive() { return PsState == PS_STATE_OVP || PsState == PS_STATE_OCP || PsState == PS_STATE_OPP; }
 	
 		/**
 		 * Return the current state of this channel.

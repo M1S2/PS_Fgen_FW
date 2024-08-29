@@ -240,18 +240,22 @@ void DDS_Channel::DDSEnabledChanged(void* channel)
 	if(((DDS_Channel*)channel)->DdsChannelNumber == 1) 
 	{
 		DisableDDS1(); 
-		dds_channel1_enabled = ((DDS_Channel*)channel)->Enabled.Val;
+		dds_channel1_enabled = ((DDS_Channel*)channel)->GetEnabled();
+		
+		OnOffControls_SetLEDState(ONOFFLED_DDS1, dds_channel1_enabled);
 	}
 	else if(((DDS_Channel*)channel)->DdsChannelNumber == 2) 
 	{ 
 		DisableDDS2(); 
-		dds_channel2_enabled = ((DDS_Channel*)channel)->Enabled.Val;
+		dds_channel2_enabled = ((DDS_Channel*)channel)->GetEnabled();
+		
+		OnOffControls_SetLEDState(ONOFFLED_DDS2, dds_channel2_enabled);
 	}
 	
 	bool areDDSChannelsEnabled = false;
 	for (int i = 0; i < NUM_CHANNELS; i++)
 	{
-		if (Device.Channels[i]->GetChannelType() == DDS_CHANNEL_TYPE && ((DDS_Channel*)Device.Channels[i])->Enabled.Val)
+		if (Device.Channels[i]->GetChannelType() == DDS_CHANNEL_TYPE && ((DDS_Channel*)Device.Channels[i])->GetEnabled())
 		{
 			areDDSChannelsEnabled = true;
 		}

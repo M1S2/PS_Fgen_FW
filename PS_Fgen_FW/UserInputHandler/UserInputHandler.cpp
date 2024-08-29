@@ -17,7 +17,7 @@ void UserInputHandlerClass::ProcessInputs()
 	{
 		UserInputData* data = _userInputRingBuffer.dequeue();
 
-		if(!Device.IsUserInputLocked() || data->DataType == USERDATA_USART)
+		if(!Device.IsUserInputLocked() || data->DataType == USERDATA_USART || data->DataType == USERDATA_ON_OFF_BUTTONS)
 		{		
 			switch(data->DataType)
 			{
@@ -34,6 +34,11 @@ void UserInputHandlerClass::ProcessInputs()
 						SCPI_Input(&scpi_context, (char*)&data->UsartChr, 1);
 					#endif
 					
+					break;
+				}
+				case USERDATA_ON_OFF_BUTTONS:
+				{
+					OnOffControls_DoButtonAction(data->OnOffButton);										
 					break;
 				}
 				default: break;

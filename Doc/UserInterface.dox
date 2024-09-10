@@ -5,6 +5,7 @@ The user interface is made up of the following components:
 - Graphical display: A 240x64 pixel graphical LCD is used to display the device status and current settings.
 - Encoder: A rotary encoder can be used for value editing and menu navigation.
 - KeyPad: A 16 button keypad can be used for value editing and menu navigation.
+- OnOffControls: A PCB with buttons and LEDs for faster enabling of the channels and status display.
 
 @section ui_glcd_sec GLCD Handling
 The u8glib library is used for GLCD handling:
@@ -18,6 +19,7 @@ The following user inputs are detected:
 - Keys: All pressed keys are enqueued as USERDATA_KEY types.
 - Encoder: All encoder rotations (clockwise, counterclockwise) and the encoder button are also enqueued as USERDATA_KEY types. This is done to simplify the later processing by minimizing different data types.
 - UART: Characters that are received via the serial communication interface are enqueued as USERDATA_USART types.
+- OnOffButtons: All buttons on the OnOffControls PCB are enqueued as USERDATA_ON_OFF_BUTTONS types.
 
 @section ui_library_sec UI Library
 The user interface is based on a self developed UI library.

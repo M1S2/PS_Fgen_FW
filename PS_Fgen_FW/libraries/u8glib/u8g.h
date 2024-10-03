@@ -944,7 +944,7 @@ const char *u8g_u16toa(uint16_t v, uint8_t d);
 /*===============================================================*/
 /* u8g_delay.c */
 
-#define F_CPU 16000000
+//#define F_CPU 16000000
 
 /* delay by the specified number of milliseconds */
 void u8g_Delay(uint16_t val);

@@ -8,8 +8,6 @@
 #ifndef PINS_H_
 #define PINS_H_
 
-#define F_CPU 16000000									/**< CPU clock frequency */
-
 #include <util/delay.h>
 #include <avr/io.h>
 

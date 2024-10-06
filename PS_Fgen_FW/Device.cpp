@@ -12,6 +12,8 @@
 #include "Channels/DAC_MCP492x.h"
 
 #include <stdio.h>
+#include <avr/interrupt.h>
+#include <TimerOne.h>
 
 DeviceClass Device;
 DevSettingsEEPROMLayout_t EEMEM NonVolatileSettings;
@@ -60,7 +62,7 @@ void DeviceClass::Init()
 	Pins_Init();
 	SPI_Init();
 	Encoder_Init();
-	OnOffControls_Init();
+	//OnOffControls_Init();
 	ADC_init();
 	Usart0Init(9600);			// Always init with 9600 baud to output the power on message.
 	InitDeviceTimer();
@@ -102,7 +104,7 @@ void DeviceClass::DeviceMainLoop()
 
 // ##### Timer #######################################################################################################################
 
-ISR(TIMER1_COMPA_vect)
+void timer1_tick_isr()
 {
 	cli();
 	Device.DeviceTimerTickISR();
@@ -114,13 +116,12 @@ void DeviceClass::InitDeviceTimer()
 {
 	TimeCounter_KeyPolling_ms = 0;
 	TimeCounter_AutoSave_ms = 0;
-	TCCR1B = (1 << WGM12);											// Configure for CTC mode
-	TCCR1B |= ((1 << CS10) | (1 << CS11));							// Prescaler 64
-	TIMSK1 = (1 << OCIE1A);											// Enable Output Compare A Match Interrupt
-	OCR1A = (F_CPU / 64 / (1000 / DEVICE_TIMER_TICK_INTERVAL_MS));	// Set compare register A (USER_TIMER_TICK_FREQ Hz)
+	
+	Timer1.initialize(DEVICE_TIMER_TICK_INTERVAL_MS * 1000UL);
+	Timer1.attachInterrupt(timer1_tick_isr);
 }
 
-void DeviceClass::DeviceTimerTickISR()
+void DeviceClass::DeviceTimerTickISR(void)
 {	
 	TimeCounter_KeyPolling_ms += DEVICE_TIMER_TICK_INTERVAL_MS;	
 	if(TimeCounter_KeyPolling_ms >= KEY_POLLING_DELAY_MS)
@@ -146,16 +147,19 @@ void DeviceClass::DeviceTimerTickISR()
 		if(TimeCounter_PowerSupplyChannelRegulation_ms >= POWER_SUPPLY_REG_INTERVAL_MS)
 		{	
 			TimeCounter_PowerSupplyChannelRegulation_ms = 0;
+			DESELECT_LCD
 			PsChannel.DoRegulationISR();
-		}
-		
-		// Get on/off button state
-		if(OnOffControls_IsButtonChanged())
-		{
-			OnOffButtons_t button = OnOffControls_GetButton();
-			UserInputHandler.EnqueueOnOffButtonInput(button);
+			SELECT_LCD
 		}
 	#endif
+	
+	/*
+	// Get on/off button state
+	if(OnOffControls_IsButtonChanged())
+	{
+		OnOffButtons_t button = OnOffControls_GetButton();
+		UserInputHandler.EnqueueOnOffButtonInput(button);
+	}*/
 }
 
 // ##### Device Control State ########################################################################################################

@@ -120,6 +120,7 @@ void OnOffControls_SetLEDState(OnOffLEDs_t led, bool state)
 
 void OnOffControls_UpdatePSLeds()
 {
+#ifdef PS_SUBSYSTEM_ENABLED
 	if(!Device.PsChannel.GetEnabled() && !Device.PsChannel.IsProtectionActive())
 	{
 		OnOffControls_SetLEDState(ONOFFLED_PS, false);
@@ -140,4 +141,5 @@ void OnOffControls_UpdatePSLeds()
 		OnOffControls_SetLEDState(ONOFFLED_PS, false);
 		OnOffControls_SetLEDState(ONOFFLED_PS_ERROR, true);
 	}
+#endif
 }

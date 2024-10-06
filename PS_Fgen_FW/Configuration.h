@@ -30,7 +30,7 @@
 #define SCPI_SYSTEM_CAPABILITIES		"(DCPSUPPLY WITH MEASURE|FUNCGEN|FUNCGEN)"		/**< All capabilites of the system */			
 
 /***** Screens ************************************************/
-#define SCREEN_TAB_WIDTH				32						/**< Width in pixels of the Screen Tab control on the left side */
+#define SCREEN_TAB_WIDTH				70						/**< Width in pixels of the Screen Tab control on the left side */
 #define SPLASHSCREEN_ENABLED									/**< Comment this line out to disable the Splashscreen */
 
 /***** UserInputHandler ***************************************/
@@ -38,8 +38,8 @@
 
 /***** Subsystems *********************************************/
 #define PS_SUBSYSTEM_ENABLED									/**< Comment this line out to disable the power supply subsystem */
-#define DDS_SUBSYSTEM_ENABLED									/**< Comment this line out to disable the direct digital synthesis subsystem */
-#define MEASURE_SUBSYSTEM_ENABLED								/**< Comment this line out to disable the measurement (ATX voltages and digital multimeters) subsystem */
+//#define DDS_SUBSYSTEM_ENABLED									/**< Comment this line out to disable the direct digital synthesis subsystem */
+//#define MEASURE_SUBSYSTEM_ENABLED								/**< Comment this line out to disable the measurement (ATX voltages and digital multimeters) subsystem */
 
 /***** Direct Digital Synthesis (DDS) *************************/
 #define DDS_TICK_FREQ			62500							/**< Frequency at which the phase accumulator is updated. Choose a value here that delivers an integer value for the OCR2A register (  ((F_CPU / 128) / DDS_TICK_FREQ) should be an integer value ) !!! */

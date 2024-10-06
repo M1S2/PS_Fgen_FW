@@ -8,7 +8,7 @@
 
 #ifdef MEASURE_SUBSYSTEM_ENABLED
 
-ContainerList list_Measure(40, 0, 240 - 40, 64);
+ContainerListDefault list_Measure(40, 0, 240 - 40, 64);
 
 // ***** Measure DMM page *****
 #define DMM_COLUMN1_POSX		SCREEN_TAB_WIDTH + 5
@@ -18,7 +18,7 @@ ContainerList list_Measure(40, 0, 240 - 40, 64);
 #define DMM_ROW1_POSY			25
 #define DMM_ROW2_POSY			DMM_ROW1_POSY + 25
 
-ContainerPage page_DMM;
+ContainerPageDefault page_DMM;
 Icon ico_dmm(SCREEN_TAB_WIDTH + 5, 3, icon_dmm_width, icon_dmm_height, icon_dmm_bits);
 Label<5> lbl_DMM_caption(SCREEN_TAB_WIDTH + 25, 5, "DMM");
 Label<5> lbl_DMM_No1(DMM_COLUMN1_POSX, DMM_ROW1_POSY, "#1:");
@@ -39,7 +39,7 @@ ProgressBar<volatile float> progress_DMM2(DMM_COLUMN4_POSX, DMM_ROW2_POSY, 90, 1
 #define ATX_ROW3_POSY			ATX_ROW2_POSY + 10
 #define ATX_ROW4_POSY			ATX_ROW3_POSY + 10
 
-ContainerPage page_ATX;
+ContainerPageDefault page_ATX;
 Icon ico_atx(SCREEN_TAB_WIDTH + 5, 3, icon_voltage_width, icon_voltage_height, icon_voltage_bits);
 Label<5> lbl_ATX_caption(SCREEN_TAB_WIDTH + 25, 5, "ATX");
 Label<6> lbl_ATX_3V3(ATX_COLUMN1_POSX, ATX_ROW1_POSY, "3.3V:");

@@ -8,6 +8,9 @@
 #ifndef DEVICE_H_
 #define DEVICE_H_
 
+#include <Arduino.h>
+#include <SPI.h>
+
 //"Use the Save EEPROM fusebit so it wont get deleted every time you program the mcu."
 //https://www.avrfreaks.net/forum/tut-c-using-eeprom-memory-avr-gcc
 #include <avr/eeprom.h>

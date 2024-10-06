@@ -6,14 +6,7 @@
 
 #include "../Device.h"
 
-#define SETTINGS_COLUMN1_POSX		SCREEN_TAB_WIDTH + 5
-#define SETTINGS_COLUMN2_POSX		SETTINGS_COLUMN1_POSX + 90
-#define SETTINGS_ROW1_POSY			25
-#define SETTINGS_ROW2_POSY			SETTINGS_ROW1_POSY + 20
-
-ContainerList list_Settings(SCREEN_TAB_WIDTH, 0, 240 - SCREEN_TAB_WIDTH, 64);
-
-Icon ico_settings(SCREEN_TAB_WIDTH + 5, 3, icon_settings_width, icon_settings_height, icon_settings_bits);
+ContainerListDefault list_Settings;
 
 void SettingsChanged(void* context);
 
@@ -24,42 +17,44 @@ void OnButtonDeviceReset(void* context);
 void OnResetConfirmation(void* context);
 void OnResetCancel(void* context);
 
-ContainerPage page_Settings_Device;
-Label<20> lbl_Settings_Device_caption(SCREEN_TAB_WIDTH + 25, 5, "Settings Device");
-ButtonControl<14> button_Settings_Save(SETTINGS_COLUMN1_POSX, SETTINGS_ROW1_POSY, 70, DEFAULT_UI_ELEMENT_HEIGHT, "Save Settings", &Device, &OnButtonSettingsSave);
-ButtonControl<15> button_Settings_Calibration(SETTINGS_COLUMN2_POSX, SETTINGS_ROW1_POSY, 70, DEFAULT_UI_ELEMENT_HEIGHT, "Calibration...", &Device, &OnButtonDeviceCalibration);
-ButtonControl<13> button_Settings_Reset(SETTINGS_COLUMN1_POSX, SETTINGS_ROW2_POSY, 70, DEFAULT_UI_ELEMENT_HEIGHT, "Reset Device", &Device, &OnButtonDeviceReset);
-MessageDialog<50> msg_Settings_ResetConfirmation(0, 0, 240, 64, "Really reset the device?\nThis can't be undone!", MSG_WARNING, MSG_BTN_OK_CANCEL, &Device, &OnResetConfirmation, &OnResetCancel);
+ContainerGridDefault grid_Settings_Device;
+Icon ico_settings_Device(icon_settings_width, icon_settings_height, icon_settings_bits);
+Label<20> lbl_Settings_Device_caption("Settings Device");
+ButtonControl<14> button_Settings_Save(0, 0, "Save Settings", &Device, &OnButtonSettingsSave);
+ButtonControl<15> button_Settings_Calibration(0, 0, "Calibration...", &Device, &OnButtonDeviceCalibration);
+ButtonControl<13> button_Settings_Reset(0, 0, "Reset Device", &Device, &OnButtonDeviceReset);
+MessageDialog<50> msg_Settings_ResetConfirmation(0, 0, DISPLAY_WIDTH, DISPLAY_HEIGHT, "Really reset the device?\nThis can't be undone!", MSG_WARNING, MSG_BTN_OK_CANCEL, &Device, &OnResetConfirmation, &OnResetCancel);
 
 // ***** Settings Communication page *****
 void SettingsCommunicationBaudRateChanged(void* context);
 
-ContainerPage page_Settings_Communication;
-Icon ico_Settings_Communication(SCREEN_TAB_WIDTH + 5, 3, icon_serial_width, icon_serial_height, icon_serial_bits);
-Label<25> lbl_Settings_Communication_caption(SCREEN_TAB_WIDTH + 25, 5, "Settings Communication");
+ContainerGridDefault grid_Settings_Communication;
+Icon ico_Settings_Communication(icon_serial_width, icon_serial_height, icon_serial_bits);
+Label<25> lbl_Settings_Communication_caption("Settings Communication");
 
-Icon ico_Settings_Comm_BaudRate(SETTINGS_COLUMN1_POSX, SETTINGS_ROW1_POSY - 2, icon_speed_width, icon_speed_height, icon_speed_bits);
-EnumControl<DeviceBaudRates_t> enumCtrl_Settings_Comm_BaudRate(SETTINGS_COLUMN1_POSX + icon_speed_width + 3, SETTINGS_ROW1_POSY, &Device.SerialBaudRate, DeviceBaudRateNames, NUM_DEV_BAUD_ELEMENTS, &Device, &SettingsCommunicationBaudRateChanged);
-Label<20> lbl_Settings_Comm_BaudRate(SETTINGS_COLUMN2_POSX, SETTINGS_ROW1_POSY, "Serial Baud Rate");
+Icon ico_Settings_Comm_BaudRate(icon_speed_width, icon_speed_height, icon_speed_bits);
+EnumControl<DeviceBaudRates_t> enumCtrl_Settings_Comm_BaudRate(&Device.SerialBaudRate, DeviceBaudRateNames, NUM_DEV_BAUD_ELEMENTS, &Device, &SettingsCommunicationBaudRateChanged);
+Label<20> lbl_Settings_Comm_BaudRate("Serial Baud Rate");
 
-Icon ico_Settings_Comm_Echo(SETTINGS_COLUMN1_POSX, SETTINGS_ROW2_POSY - 2, icon_echo_width, icon_echo_height, icon_echo_bits);
-BoolControl boolCtrl_Settings_Comm_Echo(SETTINGS_COLUMN1_POSX + icon_echo_width + 3, SETTINGS_ROW2_POSY, &Device.SerialEchoEnabled, NULL, &SettingsChanged);
-Label<15> lbl_Settings_Comm_Echo(SETTINGS_COLUMN2_POSX, SETTINGS_ROW2_POSY, "Serial Echo");
+Icon ico_Settings_Comm_Echo(icon_echo_width, icon_echo_height, icon_echo_bits);
+BoolControl boolCtrl_Settings_Comm_Echo(&Device.SerialEchoEnabled, NULL, &SettingsChanged);
+Label<15> lbl_Settings_Comm_Echo("Serial Echo");
 
 // ***** Settings PowerUp page *****
-ContainerPage page_Settings_PowerUp;
-Label<20> lbl_Settings_PowerUp_caption(SCREEN_TAB_WIDTH + 25, 5, "Settings Power Up");
-Icon ico_Settings_PowerUp_OutputStates(SETTINGS_COLUMN1_POSX, SETTINGS_ROW1_POSY - 2, icon_boot_width, icon_boot_height, icon_boot_bits);
-EnumControl<DevicePowerUpOutputEnabledStates_t> enumCtrl_Settings_PowerUp_OutputStates(SETTINGS_COLUMN1_POSX + icon_boot_width + 3, SETTINGS_ROW1_POSY, &Device.PowerOnOutputsState, DevicePowerUpOutputEnabledStateNames, NUM_DEV_POWERUP_ELEMENTS, NULL, &SettingsChanged);
-Label<15> lbl_Settings_PowerUp_OutputStates(SETTINGS_COLUMN2_POSX, SETTINGS_ROW1_POSY, "Output States");
+ContainerGridDefault grid_Settings_PowerUp;
+Icon ico_settings_PowerUp(icon_settings_width, icon_settings_height, icon_settings_bits);
+Label<20> lbl_Settings_PowerUp_caption("Settings Power Up");
+Icon ico_Settings_PowerUp_OutputStates(icon_boot_width, icon_boot_height, icon_boot_bits);
+EnumControl<DevicePowerUpOutputEnabledStates_t> enumCtrl_Settings_PowerUp_OutputStates(&Device.PowerOnOutputsState, DevicePowerUpOutputEnabledStateNames, NUM_DEV_POWERUP_ELEMENTS, NULL, &SettingsChanged);
+Label<15> lbl_Settings_PowerUp_OutputStates("Output States");
 
 // ***** Settings Version Info page *****
-ContainerPage page_Settings_VersionInfo;
-Icon ico_versionInfo(SCREEN_TAB_WIDTH + 5, 3, icon_info_width, icon_info_height, icon_info_bits);
-Label<15> lbl_Settings_VersionInfo_caption(SCREEN_TAB_WIDTH + 25, 5, "Version Info");
-Label<20> lbl_Settings_VersionInfo_manufacturer(SETTINGS_COLUMN1_POSX, SETTINGS_ROW1_POSY - 2, "by " SCPI_IDN_MANUFACTURER);
-Label<10> lbl_Settings_VersionInfo_serialNo(SETTINGS_COLUMN1_POSX, SETTINGS_ROW1_POSY + 10, "SNo.: " SCPI_IDN_SERIAL_NUMBER);
-Label<15> lbl_Settings_VersionInfo_swVersion(SETTINGS_COLUMN1_POSX, SETTINGS_ROW1_POSY + 22, "SW: " SCPI_IDN_SOFTWARE_REVISION);
+ContainerGridDefault grid_Settings_VersionInfo;
+Icon ico_versionInfo(icon_info_width, icon_info_height, icon_info_bits);
+Label<15> lbl_Settings_VersionInfo_caption("Version Info");
+Label<20> lbl_Settings_VersionInfo_manufacturer("by " SCPI_IDN_MANUFACTURER);
+Label<10> lbl_Settings_VersionInfo_serialNo("SNo.: " SCPI_IDN_SERIAL_NUMBER);
+Label<15> lbl_Settings_VersionInfo_swVersion("SW: " SCPI_IDN_SOFTWARE_REVISION);
 
 
 void SettingsChanged(void* context)
@@ -79,7 +74,7 @@ void OnButtonDeviceCalibration(void* context)
 
 void OnButtonDeviceReset(void* context)
 {
-	Device.ScreenManager.UiManager.ChangeVisualTreeRoot(&msg_Settings_ResetConfirmation);
+	UiManager.ChangeVisualTreeRoot(&msg_Settings_ResetConfirmation);
 }
 
 void OnResetConfirmation(void* context)
@@ -100,43 +95,68 @@ void SettingsCommunicationBaudRateChanged(void* context)
 	Device.SetSerialBaudRate(baudRate);
 }
 
-UIElement* uiBuildScreenSettings()
+UIElement* uiBuildScreenSettings(ContainerPageDefault* parentPage)
 {
-	page_Settings_Device.AddItem(&ico_settings);
-	page_Settings_Device.AddItem(&lbl_Settings_Device_caption);
-	page_Settings_Device.AddItem(&button_Settings_Save);
-	page_Settings_Device.AddItem(&button_Settings_Calibration);
-	page_Settings_Device.AddItem(&button_Settings_Reset);
-	page_Settings_Device.InitItems();
+	parentPage->AddItem(&list_Settings);
 
-	page_Settings_Communication.AddItem(&ico_Settings_Communication);
-	page_Settings_Communication.AddItem(&lbl_Settings_Communication_caption);
-	page_Settings_Communication.AddItem(&ico_Settings_Comm_BaudRate);
-	page_Settings_Communication.AddItem(&enumCtrl_Settings_Comm_BaudRate);
-	page_Settings_Communication.AddItem(&lbl_Settings_Comm_BaudRate);
-	page_Settings_Communication.AddItem(&ico_Settings_Comm_Echo);
-	page_Settings_Communication.AddItem(&boolCtrl_Settings_Comm_Echo);
-	page_Settings_Communication.AddItem(&lbl_Settings_Comm_Echo);
-	page_Settings_Communication.InitItems();
+	list_Settings.AddItem(&grid_Settings_Device);
+	list_Settings.AddItem(&grid_Settings_Communication);
+	list_Settings.AddItem(&grid_Settings_PowerUp);
+	list_Settings.AddItem(&grid_Settings_VersionInfo);
 
-	page_Settings_PowerUp.AddItem(&ico_settings);
-	page_Settings_PowerUp.AddItem(&lbl_Settings_PowerUp_caption);
-	page_Settings_PowerUp.AddItem(&ico_Settings_PowerUp_OutputStates);
-	page_Settings_PowerUp.AddItem(&enumCtrl_Settings_PowerUp_OutputStates);
-	page_Settings_PowerUp.AddItem(&lbl_Settings_PowerUp_OutputStates);
-	page_Settings_PowerUp.InitItems();
+	grid_Settings_Device.SetColumnWidth(0, 25);
+	grid_Settings_Device.SetColumnWidth(1, 100);
+	grid_Settings_Device.SetRowHeight(0, 30);
+	grid_Settings_Device.SetRowHeight(1, 30);
+	grid_Settings_Device.SetRowHeight(2, 30);
+	grid_Settings_Device.SetRowHeight(3, 30);
+	grid_Settings_Device.AddItem(&ico_settings_Device, 0, 0, GRID_CELL_ALIGNMENT_LEFT);
+	grid_Settings_Device.AddItem(&lbl_Settings_Device_caption, 1, 0, GRID_CELL_ALIGNMENT_LEFT);
+	grid_Settings_Device.AddItem(&button_Settings_Save, 0, 1, GRID_CELL_ALIGNMENT_LEFT);
+	grid_Settings_Device.AddItem(&button_Settings_Calibration, 0, 2, GRID_CELL_ALIGNMENT_LEFT);
+	grid_Settings_Device.AddItem(&button_Settings_Reset, 0, 3, GRID_CELL_ALIGNMENT_LEFT);
+	grid_Settings_Device.InitItems();
+
+	grid_Settings_Communication.SetColumnWidth(0, 25);
+	grid_Settings_Communication.SetColumnWidth(1, 75);
+	grid_Settings_Communication.SetColumnWidth(2, 100);
+	grid_Settings_Communication.SetRowHeight(0, 30);
+	grid_Settings_Communication.SetRowHeight(1, 30);
+	grid_Settings_Communication.SetRowHeight(2, 30);
+	grid_Settings_Communication.AddItem(&ico_Settings_Communication, 0, 0, GRID_CELL_ALIGNMENT_LEFT);
+	grid_Settings_Communication.AddItem(&lbl_Settings_Communication_caption, 1, 0, GRID_CELL_ALIGNMENT_LEFT);
+	grid_Settings_Communication.AddItem(&ico_Settings_Comm_BaudRate, 0, 1, GRID_CELL_ALIGNMENT_LEFT);
+	grid_Settings_Communication.AddItem(&enumCtrl_Settings_Comm_BaudRate, 1, 1, GRID_CELL_ALIGNMENT_LEFT);
+	grid_Settings_Communication.AddItem(&lbl_Settings_Comm_BaudRate, 2, 1, GRID_CELL_ALIGNMENT_LEFT);
+	grid_Settings_Communication.AddItem(&ico_Settings_Comm_Echo, 0, 2, GRID_CELL_ALIGNMENT_LEFT);
+	grid_Settings_Communication.AddItem(&boolCtrl_Settings_Comm_Echo, 1, 2, GRID_CELL_ALIGNMENT_LEFT);
+	grid_Settings_Communication.AddItem(&lbl_Settings_Comm_Echo, 2, 2, GRID_CELL_ALIGNMENT_LEFT);
+	grid_Settings_Communication.InitItems();
+
+	grid_Settings_PowerUp.SetColumnWidth(0, 25);
+	grid_Settings_PowerUp.SetColumnWidth(1, 75);
+	grid_Settings_PowerUp.SetColumnWidth(2, 100);
+	grid_Settings_PowerUp.SetRowHeight(0, 30);
+	grid_Settings_PowerUp.SetRowHeight(1, 30);
+	grid_Settings_PowerUp.AddItem(&ico_settings_PowerUp, 0, 0, GRID_CELL_ALIGNMENT_LEFT);
+	grid_Settings_PowerUp.AddItem(&lbl_Settings_PowerUp_caption, 1, 0, GRID_CELL_ALIGNMENT_LEFT);
+	grid_Settings_PowerUp.AddItem(&ico_Settings_PowerUp_OutputStates, 0, 1, GRID_CELL_ALIGNMENT_LEFT);
+	grid_Settings_PowerUp.AddItem(&enumCtrl_Settings_PowerUp_OutputStates, 1, 1, GRID_CELL_ALIGNMENT_LEFT);
+	grid_Settings_PowerUp.AddItem(&lbl_Settings_PowerUp_OutputStates, 2, 1, GRID_CELL_ALIGNMENT_LEFT);
+	grid_Settings_PowerUp.InitItems();
 	
-	page_Settings_VersionInfo.AddItem(&ico_versionInfo);
-	page_Settings_VersionInfo.AddItem(&lbl_Settings_VersionInfo_caption);
-	page_Settings_VersionInfo.AddItem(&lbl_Settings_VersionInfo_manufacturer);
-	page_Settings_VersionInfo.AddItem(&lbl_Settings_VersionInfo_serialNo);
-	page_Settings_VersionInfo.AddItem(&lbl_Settings_VersionInfo_swVersion);
-	page_Settings_VersionInfo.InitItems();
-	
-	list_Settings.AddItem(&page_Settings_Device);
-	list_Settings.AddItem(&page_Settings_Communication);
-	list_Settings.AddItem(&page_Settings_PowerUp);
-	list_Settings.AddItem(&page_Settings_VersionInfo);
+	grid_Settings_VersionInfo.SetColumnWidth(0, 25);
+	grid_Settings_VersionInfo.SetColumnWidth(1, 100);
+	grid_Settings_VersionInfo.SetRowHeight(0, 30);
+	grid_Settings_VersionInfo.SetRowHeight(1, 30);
+	grid_Settings_VersionInfo.SetRowHeight(2, 30);
+	grid_Settings_VersionInfo.SetRowHeight(3, 30);
+	grid_Settings_VersionInfo.AddItem(&ico_versionInfo, 0, 0, GRID_CELL_ALIGNMENT_LEFT);
+	grid_Settings_VersionInfo.AddItem(&lbl_Settings_VersionInfo_caption, 1, 0, GRID_CELL_ALIGNMENT_LEFT);
+	grid_Settings_VersionInfo.AddItem(&lbl_Settings_VersionInfo_manufacturer, 0, 1, GRID_CELL_ALIGNMENT_LEFT);
+	grid_Settings_VersionInfo.AddItem(&lbl_Settings_VersionInfo_serialNo, 0, 2, GRID_CELL_ALIGNMENT_LEFT);
+	grid_Settings_VersionInfo.AddItem(&lbl_Settings_VersionInfo_swVersion, 0, 3, GRID_CELL_ALIGNMENT_LEFT);
+	grid_Settings_VersionInfo.InitItems();
 		
 	return &list_Settings;
 }

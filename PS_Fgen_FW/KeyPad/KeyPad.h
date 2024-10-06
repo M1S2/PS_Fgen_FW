@@ -10,7 +10,7 @@
 #define KEYPAD_H_
 
 #include "../Pins/Pins.h"
-#include "../UI_Lib/Core/Keys.h"
+#include "Core/Keys.h"
 
 /**
  * Check which key of the KeyPad is pressed.

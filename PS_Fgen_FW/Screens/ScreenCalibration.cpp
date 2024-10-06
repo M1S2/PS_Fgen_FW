@@ -43,7 +43,7 @@ void OnButtonCalExit(void* context);
 void OnButtonCalNext(void* context);
 void OnCalFinishedOK(void* context);
 
-ContainerPage page_Cal;
+ContainerPageDefault page_Cal;
 Icon ico_Cal(5, 3, icon_calibration_width, icon_calibration_height, icon_calibration_bits);
 Label<15> lbl_Cal_caption(CAL_CAPTION_POSX, 5, "Calibration");
 Label<45> lbl_Cal_instruction(CAL_CAPTION_POSX, 20, "...");
@@ -154,7 +154,7 @@ void CalibrationFinished()
 {
 	Device.SaveSettingsCalibrationFactors();
 	Device.ReportCalibrationFactors();
-	Device.ScreenManager.UiManager.ChangeVisualTreeRoot(&msg_Cal_Finished);
+	UiManager.ChangeVisualTreeRoot(&msg_Cal_Finished);
 }
 
 /** 

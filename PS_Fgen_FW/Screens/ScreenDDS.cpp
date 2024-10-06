@@ -8,7 +8,7 @@
 
 #ifdef DDS_SUBSYSTEM_ENABLED
 
-ContainerList list_DDS(40, 0, 240 - 40, 64);
+ContainerListDefault list_DDS(40, 0, 240 - 40, 64);
 
 void ScreenDDS1SignalFormChanged(void* channel);
 void ScreenDDS2SignalFormChanged(void* channel);
@@ -22,7 +22,7 @@ void OnButtonConfigTTLPWM(void* context);
 #define DDS1_ROW1_POSY			25
 #define DDS1_ROW2_POSY			DDS1_ROW1_POSY + 20
 
-ContainerPage page_DDS1_1;
+ContainerPageDefault page_DDS1_1;
 Icon ico_dds(SCREEN_TAB_WIDTH + 5, 3, icon_supplyAC_width, icon_supplyAC_height, icon_supplyAC_bits);
 Label<5> lbl_DDS1_caption(SCREEN_TAB_WIDTH + 25, 5, "DDS1");
 
@@ -37,7 +37,7 @@ NumericControl<float> numCtrl_DDS1_Offset(DDS1_COLUMN2_POSX + icon_signalOffset_
 Icon ico_DDS_Enabled(DDS1_COLUMN4_POSX, DDS1_ROW2_POSY, icon_OnOff_width, icon_OnOff_height, icon_OnOff_bits);
 BoolControl boolCtrl_DDS1_Enabled(DDS1_COLUMN4_POSX + icon_OnOff_width + 3, DDS1_ROW2_POSY, &Device.DdsChannel1.Enabled.Val, &Device.DdsChannel1, &DDS_Channel::DDSEnabledChanged);
 
-ContainerPage page_DDS1_2;
+ContainerPageDefault page_DDS1_2;
 Icon ico_DDS_PWM(DDS1_COLUMN1_POSX, DDS1_ROW1_POSY - 2, icon_pwm_width, icon_pwm_height, icon_pwm_bits);
 NumericControl<float> numCtrl_DDS1_PWMValue(DDS1_COLUMN1_POSX + icon_frequency_width + 3, DDS1_ROW1_POSY, &Device.DdsChannel1.PWM_Value.Val, "%%", 0, 100, 2, &Device.DdsChannel1, &DDS_Channel::DDSPWMValueChanged);	// Use two % signs because the sprintf function used in the NumericIndicator part is using one % sign as part of the format placeholders
 ButtonControl<15> button_DDS1_Config5VPWM(DDS1_COLUMN3_POSX, DDS1_ROW1_POSY, 80, DEFAULT_UI_ELEMENT_HEIGHT, "Config TTL PWM", &Device.DdsChannel1, &OnButtonConfigTTLPWM);
@@ -50,7 +50,7 @@ ButtonControl<15> button_DDS1_Config5VPWM(DDS1_COLUMN3_POSX, DDS1_ROW1_POSY, 80,
 #define DDS2_ROW1_POSY			DDS1_ROW1_POSY
 #define DDS2_ROW2_POSY			DDS1_ROW2_POSY
 
-ContainerPage page_DDS2_1;
+ContainerPageDefault page_DDS2_1;
 Label<5> lbl_DDS2_caption(SCREEN_TAB_WIDTH + 25, 5, "DDS2");
 
 NumericControl<float, 15> numCtrl_DDS2_Frequency(DDS2_COLUMN1_POSX + icon_frequency_width + 3, DDS2_ROW1_POSY, &Device.DdsChannel2.Frequency.Val, "Hz", DDS_MIN_FREQ, DDS_MAX_FREQ, 3, &Device.DdsChannel2, &DDS_Channel::DDSFrequencyChanged);
@@ -59,7 +59,7 @@ NumericControl<float> numCtrl_DDS2_Amplitude(DDS2_COLUMN1_POSX + icon_signalAmpl
 NumericControl<float> numCtrl_DDS2_Offset(DDS2_COLUMN2_POSX + icon_signalOffset_width + 3, DDS2_ROW2_POSY, &Device.DdsChannel2.Offset.Val, "V", DDS_MIN_OFFSET, DDS_MAX_OFFSET, 2, &Device.DdsChannel2, &DDS_Channel::DDSOffsetChanged);
 BoolControl boolCtrl_DDS2_Enabled(DDS2_COLUMN4_POSX + icon_OnOff_width + 3, DDS2_ROW2_POSY, &Device.DdsChannel2.Enabled.Val, &Device.DdsChannel2, &DDS_Channel::DDSEnabledChanged);
 
-ContainerPage page_DDS2_2;
+ContainerPageDefault page_DDS2_2;
 NumericControl<float> numCtrl_DDS2_PWMValue(DDS2_COLUMN1_POSX + icon_frequency_width + 3, DDS2_ROW1_POSY, &Device.DdsChannel2.PWM_Value.Val, "%%", 0, 100, 2, &Device.DdsChannel2, &DDS_Channel::DDSPWMValueChanged);	// Use two % signs because the sprintf function used in the NumericIndicator part is using one % sign as part of the format placeholders
 ButtonControl<15> button_DDS2_Config5VPWM(DDS2_COLUMN3_POSX, DDS2_ROW1_POSY, 80, DEFAULT_UI_ELEMENT_HEIGHT, "Config TTL PWM", &Device.DdsChannel2, &OnButtonConfigTTLPWM);
 

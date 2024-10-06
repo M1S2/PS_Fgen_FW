@@ -12,15 +12,15 @@
 * -U efuse:w:0xFC:m (Brown-out detection level at VCC=4.3 V)
 ********************************************************/
 
-#include <avr/interrupt.h>
+#include <Arduino.h>
 #include "Device.h"
 
-int main(void)
+void setup()
 {
 	Device.Init();
-	
-	while(true)
-	{		
-		Device.DeviceMainLoop();
-	}
+}
+
+void loop()
+{
+	Device.DeviceMainLoop();
 }

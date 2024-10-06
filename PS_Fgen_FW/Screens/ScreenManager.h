@@ -8,15 +8,25 @@
 #ifndef SCREENMANAGER_H_
 #define SCREENMANAGER_H_
 
-#include "../libraries/u8glib/u8g.h"
+#include <Arduino.h>
+#include <SPI.h>
+#include "Adafruit_GFX.h"
+//#include "Adafruit_ILI9341.h"
+#include "ILI9341_Fast.h"
+
 #include "../Encoder/Encoder.h"
 #include "../KeyPad/KeyPad.h"
 #include "../Configuration.h"
-#include "../UI_Lib/Core/UI_Manager.h"
-#include "../UI_Lib/Core/UI_Elements.h"
+#include "Core/UI_Manager.h"
+#include "Core/UI_Elements.h"
 #include "Icons.h"
 #include <string.h>
 
+#define SELECT_LCD		CLEAR_BIT(PORTB, LCD_CS);				/**< Select the LCD by pulling the LCD_CS pin low */
+#define DESELECT_LCD	SET_BIT(PORTB, LCD_CS);					/**< Deselect the LCD by pulling the LCD_CS pin high */
+
+#define DISPLAY_WIDTH	320
+#define DISPLAY_HEIGHT	240
 
 /**
  * Available screen types.
@@ -50,9 +60,10 @@ typedef enum ScreenTypes
 #ifdef PS_SUBSYSTEM_ENABLED
 	/**
 	 * Build the PowerSupply screen by linking all necessary components together.
+	 * @param parentPage Parent page in which the screen is embedded.
 	 * @return UIElement representing the top level element of the PowerSupply screen.
 	 */
-	UIElement* uiBuildScreenPS();
+	UIElement* uiBuildScreenPS(ContainerPageDefault* parentPage);
 #endif
 
 #ifdef DDS_SUBSYSTEM_ENABLED
@@ -73,9 +84,10 @@ typedef enum ScreenTypes
 
 /**
  * Build the Settings screen by linking all necessary components together.
+ * @param parentPage Parent page in which the screen is embedded.
  * @return UIElement representing the top level element of the Settings screen.
  */
-UIElement* uiBuildScreenSettings();
+UIElement* uiBuildScreenSettings(ContainerPageDefault* parentPage);
 
 /**
  * Build the Calibration screen by linking all necessary components together.
@@ -103,6 +115,9 @@ UIElement* StartCalibration();
 	void ScreenDDSUpdateVisibility();
 #endif
 
+#define LCD_CS_PIN_NUMBER	1		// Corresponding digital pin number for PORTB1
+#define LCD_A0_PIN_NUMBER	0		// Corresponding digital pin number for PORTB0
+
 /**
  * Class that is used to control the screen.
  * This class can be used for screen handling. It contains all necessary handles and methods.
@@ -110,7 +125,8 @@ UIElement* StartCalibration();
 class ScreenManagerClass
 {
 	private:
-		u8g_t _u8g;						/**< u8g_lib graphics handle that is used with all drawing related methods. */
+		//Adafruit_ILI9341 _tft;					/**< ILI9341 graphics handle that is used with all drawing related methods. */
+		ILI9341 _tft;								/**< ILI9341 graphics handle that is used with all drawing related methods. */
 		
 		/**
 		 * Build the VisualTree for all screens used for drawing.
@@ -119,8 +135,6 @@ class ScreenManagerClass
 		void uiBuildTree();
 		
 	public:
-		UI_Manager UiManager;					/**< Handle for the UI_Manager of the UI_Lib. The UI_Manager is used as entry point into the UI_Lib. */
-	
 		bool RedrawScreenRequest;				/**< Flag that indicates that the screen should be redrawn. A redraw should occur periodically (if the screen needs to be redrawn periodically) or on user inputs. */
 		bool CurrentScreenNeedsPeriodicRedraw;	/**< Flag that indicates if the current displayed screen needs to be periodically redrawn. This is neccessary if the screen contains measured values that change periodically. This isn't neccessary if the screen only contains static data. The screen is always redrawn on user inputs (keys or USART). */
 	
@@ -128,11 +142,11 @@ class ScreenManagerClass
 		uint16_t TimeCounter_SplashScreen_ms;	/**< Timer conter value that is used to measure the time, the SplashScreen is shown. */
 		uint16_t TimeCounter_ScreenRedraw_ms;	/**< Variable used for measuring the time to the next screen redraw */
 		
+		ScreenManagerClass();					/**< Constructor of the ScreenManagerClass */
 		void Init();							/**< Initialize the ScreenManager. This method initializes the u8g_lib and UI_Manager handles and builds the VisualTree. */
 		void UpdateVisibilities();				/**< Update the visibility of all screens. */
 		
-		void DoDraw();							/**< Evaluate, if the screen should be redrawn. If yes, the DrawAll method is called. */
-		void DrawAll();							/**< Call this method to redraw the screen. This contains the picture loop of the u8g_lib. */
+		void DoDraw();							/**< Evaluate, if the screen should be redrawn. If yes, the Draw method is called. */
 		
 		void ShowUiMainPage();					/**< This method can be used to show the main page (no MessageDialog or calibration page). This is a short version for using the ChangeVisualTreeRoot() method of the UI_Manager. */
 		void ShowUiCalibrationMenu();			/**< This method can be used to start the calibration and show the calibration page. This is a short version for using the ChangeVisualTreeRoot() method of the UI_Manager. */

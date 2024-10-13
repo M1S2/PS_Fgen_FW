@@ -20,12 +20,27 @@ ContainerPageDefault page_Main(0, 0, DISPLAY_WIDTH, DISPLAY_HEIGHT);
 EnumIndicator<DeviceControlStates_t> enumInd_deviceState(DISPLAY_WIDTH - 70, 2, &Device.DeviceControlState, DeviceControlStateNames, NUM_DEV_CTRL_ELEMENTS);
 Label<5> lbl_devSettingsNeedSaving(DISPLAY_WIDTH - 15, 0, "*"); //, u8g_font_7x14r);
 
-TabControlDefault tabControlMain(DISPLAY_WIDTH, DISPLAY_HEIGHT, SCREEN_TAB_WIDTH, TAB_POSITION_LEFT, NULL, &TabControlTabChanged);
+#ifdef PS_SUBSYSTEM_ENABLED
+	Label<5> labelTabPS("PS");
+	Icon iconTabPS(icon_supplyDC_width, icon_supplyDC_height, icon_supplyDC_bits);
+	ContainerStack<2> stack_TabPSHeader(STACK_LAYOUT_HORIZONTAL_CENTER, 5);
+#endif
+#ifdef DDS_SUBSYSTEM_ENABLED
+	Label<5> labelTabDDS("DDS");
+	Icon iconTabDDS(icon_supplyAC_width, icon_supplyAC_height, icon_supplyAC_bits);
+	ContainerStack<2> stack_TabDDSHeader(STACK_LAYOUT_HORIZONTAL_CENTER, 5);
+#endif
+#ifdef MEASURE_SUBSYSTEM_ENABLED
+	Label<5> labelTabMeas("Meas");
+	Icon iconTabMeas(icon_dmm_width, icon_dmm_height, icon_dmm_bits);
+	ContainerStack<2> stack_TabMeasHeader(STACK_LAYOUT_HORIZONTAL_CENTER, 5);
+#endif
+Label<5> labelTabConfig("Conf");
+Icon iconTabConfig(icon_settings_width, icon_settings_height, icon_settings_bits);
+ContainerStack<2> stack_TabConfigHeader(STACK_LAYOUT_HORIZONTAL_CENTER, 5);
+TabControlDefault tabControlMain(DISPLAY_WIDTH, DISPLAY_HEIGHT, TAB_POSITION_TOP, NULL, &TabControlTabChanged);
 
 MessageDialog<50> msg_DeviceRWLState(0, 0, DISPLAY_WIDTH, DISPLAY_HEIGHT, "Device locked by SYST:RWL.\nUnlock with SYST:LOC.", MSG_WARNING, MSG_BTN_NONE);
-
-ContainerPageDefault page_ScreenPS;
-ContainerPageDefault page_ScreenSettings;
 
 void TabControlTabChanged(void* controlContext)
 {
@@ -87,23 +102,30 @@ void ScreenManagerClass::UpdateVisibilities()
 void ScreenManagerClass::uiBuildTree()
 {
 	#ifdef PS_SUBSYSTEM_ENABLED
-		tabControlMain.AddTab("PS", &page_ScreenPS);
-		uiBuildScreenPS(&page_ScreenPS);
+		stack_TabPSHeader.AddItem(&iconTabPS);
+		stack_TabPSHeader.AddItem(&labelTabPS);
+		tabControlMain.AddItem(&stack_TabPSHeader, uiBuildScreenPS());
 	#endif
 	#ifdef DDS_SUBSYSTEM_ENABLED
-		tabControlMain.AddTab("DDS", uiBuildScreenDDS());			// Containing DDS1 and DDS2
+		stack_TabDDSHeader.AddItem(&iconTabDDS);
+		stack_TabDDSHeader.AddItem(&labelTabDDS);
+		tabControlMain.AddItem(&stack_TabDDSHeader, uiBuildScreenDDS());			// Containing DDS1 and DDS2
 	#endif
 	#ifdef MEASURE_SUBSYSTEM_ENABLED
-		tabControlMain.AddTab("Meas", uiBuildScreenMeasure());		// Containing DMM and ATX measurements
+		stack_TabMeasHeader.AddItem(&iconTabMeas);
+		stack_TabMeasHeader.AddItem(&labelTabMeas);
+		tabControlMain.AddItem(&stack_TabMeasHeader, uiBuildScreenMeasure());		// Containing DMM and ATX measurements
 	#endif
-	tabControlMain.AddTab("Conf", &page_ScreenSettings);
-	uiBuildScreenSettings(&page_ScreenSettings);
+	stack_TabConfigHeader.AddItem(&iconTabConfig);
+	stack_TabConfigHeader.AddItem(&labelTabConfig);
+	tabControlMain.AddItem(&stack_TabConfigHeader, uiBuildScreenSettings());
 	TabControlTabChanged(NULL);				// Trigger a tab changed event to recalculate the CurrentScreenNeedsPeriodicRedraw variable
 	
 	page_Main.AddItem(&tabControlMain);
 	page_Main.AddItem(&enumInd_deviceState);
 	page_Main.AddItem(&lbl_devSettingsNeedSaving);
 	page_Main.InitItems();
+	page_Main.RecalculateLayout();
 	
 	uiBuildScreenCalibration();
 	

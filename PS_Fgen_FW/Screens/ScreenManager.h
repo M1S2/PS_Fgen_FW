@@ -60,10 +60,9 @@ typedef enum ScreenTypes
 #ifdef PS_SUBSYSTEM_ENABLED
 	/**
 	 * Build the PowerSupply screen by linking all necessary components together.
-	 * @param parentPage Parent page in which the screen is embedded.
 	 * @return UIElement representing the top level element of the PowerSupply screen.
 	 */
-	UIElement* uiBuildScreenPS(ContainerPageDefault* parentPage);
+	UIElement* uiBuildScreenPS();
 #endif
 
 #ifdef DDS_SUBSYSTEM_ENABLED
@@ -84,10 +83,9 @@ typedef enum ScreenTypes
 
 /**
  * Build the Settings screen by linking all necessary components together.
- * @param parentPage Parent page in which the screen is embedded.
  * @return UIElement representing the top level element of the Settings screen.
  */
-UIElement* uiBuildScreenSettings(ContainerPageDefault* parentPage);
+UIElement* uiBuildScreenSettings();
 
 /**
  * Build the Calibration screen by linking all necessary components together.

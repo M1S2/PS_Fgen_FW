@@ -78,10 +78,8 @@ void PSProtectionsClearedOK(void* controlContext)
 	Device.ScreenManager.ShowUiMainPage();
 }
 
-UIElement* uiBuildScreenPS(ContainerPageDefault* parentPage)
+UIElement* uiBuildScreenPS()
 {
-	parentPage->AddItem(&list_PS);
-
 	list_PS.AddItem(&grid_PSOverview);
 	list_PS.AddItem(&grid_PSProtectionOVP);
 	list_PS.AddItem(&grid_PSProtectionOCP);

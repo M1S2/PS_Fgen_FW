@@ -95,10 +95,8 @@ void SettingsCommunicationBaudRateChanged(void* context)
 	Device.SetSerialBaudRate(baudRate);
 }
 
-UIElement* uiBuildScreenSettings(ContainerPageDefault* parentPage)
+UIElement* uiBuildScreenSettings()
 {
-	parentPage->AddItem(&list_Settings);
-
 	list_Settings.AddItem(&grid_Settings_Device);
 	list_Settings.AddItem(&grid_Settings_Communication);
 	list_Settings.AddItem(&grid_Settings_PowerUp);

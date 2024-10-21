@@ -40,7 +40,7 @@ Icon ico_PSProtectionOVPState(icon_OnOff_width, icon_OnOff_height, icon_OnOff_bi
 BoolControl boolCtrl_PSProtectionOVPState(&Device.PsChannel.OvpState.Val, &Device.PsChannel, &PS_Channel::PSOvpStateChanged);
 Icon ico_PSProtectionOVPDelay(icon_delay_width, icon_delay_height, icon_delay_bits);
 NumericControl<float> numCtrl_PSProtectionOVPDelay(&Device.PsChannel.OvpDelay.Val, "s", PS_MIN_OVP_DELAY, PS_MAX_OVP_DELAY, 3, &Device.PsChannel, &PS_Channel::PSOvpDelayChanged);
-ButtonControl<6> button_PSProtectionOVPClear(0, 0, "Clear", &Device.PsChannel, &PSProtectionsClear);
+ButtonControl<6> button_PSProtectionOVPClear("Clear", &Device.PsChannel, &PSProtectionsClear);
 
 // ***** Power Supply Protection OCP page *****
 ContainerGridDefault grid_PSProtectionOCP;
@@ -51,7 +51,7 @@ Icon ico_PSProtectionOCPState(icon_OnOff_width, icon_OnOff_height, icon_OnOff_bi
 BoolControl boolCtrl_PSProtectionOCPState(&Device.PsChannel.OcpState.Val, &Device.PsChannel, &PS_Channel::PSOcpStateChanged);
 Icon ico_PSProtectionOCPDelay(icon_delay_width, icon_delay_height, icon_delay_bits);
 NumericControl<float> numCtrl_PSProtectionOCPDelay(&Device.PsChannel.OcpDelay.Val, "s", PS_MIN_OCP_DELAY, PS_MAX_OCP_DELAY, 3, &Device.PsChannel, &PS_Channel::PSOcpDelayChanged);
-ButtonControl<6> button_PSProtectionOCPClear(0, 0, "Clear", &Device.PsChannel, &PSProtectionsClear);
+ButtonControl<6> button_PSProtectionOCPClear("Clear", &Device.PsChannel, &PSProtectionsClear);
 
 // ***** Power Supply Protection OPP page *****
 ContainerGridDefault grid_PSProtectionOPP;
@@ -62,7 +62,7 @@ Icon ico_PSProtectionOPPState(icon_OnOff_width, icon_OnOff_height, icon_OnOff_bi
 BoolControl boolCtrl_PSProtectionOPPState(&Device.PsChannel.OppState.Val, &Device.PsChannel, &PS_Channel::PSOppStateChanged);
 Icon ico_PSProtectionOPPDelay(icon_delay_width, icon_delay_height, icon_delay_bits);
 NumericControl<float> numCtrl_PSProtectionOPPDelay(&Device.PsChannel.OppDelay.Val, "s", PS_MIN_OPP_DELAY, PS_MAX_OPP_DELAY, 3, &Device.PsChannel, &PS_Channel::PSOppDelayChanged);
-ButtonControl<6> button_PSProtectionOPPClear(0, 0, "Clear", &Device.PsChannel, &PSProtectionsClear);
+ButtonControl<6> button_PSProtectionOPPClear("Clear", &Device.PsChannel, &PSProtectionsClear);
 
 
 MessageDialog<25> msg_protectionsCleared(0, 0, DISPLAY_WIDTH, DISPLAY_HEIGHT, "Protections Cleared.", MSG_INFO, MSG_BTN_OK, NULL, &PSProtectionsClearedOK);
@@ -89,16 +89,6 @@ UIElement* uiBuildScreenPS()
 	numCtrl_PSOverviewVoltage.CurrentDigitPosition = -1;	// select the 0.1 V digit.
 	
 	grid_PSOverview.SetColumnWidth(0, 25);
-	grid_PSOverview.SetColumnWidth(1, 100);
-	grid_PSOverview.SetColumnWidth(2, 25);
-	grid_PSOverview.SetColumnWidth(3, 100);
-	grid_PSOverview.SetRowHeight(0, 30);
-	grid_PSOverview.SetRowHeight(1, 30);
-	grid_PSOverview.SetRowHeight(2, 30);
-	grid_PSOverview.SetRowHeight(3, 30);
-	grid_PSOverview.SetRowHeight(4, 30);
-	grid_PSOverview.SetRowHeight(5, 30);
-	grid_PSOverview.SetRowHeight(6, 30);
 	grid_PSOverview.AddItem(&ico_PSOverview, 0, 0, GRID_CELL_ALIGNMENT_LEFT);
 	grid_PSOverview.AddItem(&lbl_PSOverview_caption, 1, 0, GRID_CELL_ALIGNMENT_LEFT);
 	grid_PSOverview.AddItem(&ico_PSOverviewVoltage, 0, 1, GRID_CELL_ALIGNMENT_LEFT);
@@ -116,12 +106,6 @@ UIElement* uiBuildScreenPS()
 	numCtrl_PSProtectionOVPDelay.CurrentDigitPosition = -1;	// select the 0.1 s digit.
 
 	grid_PSProtectionOVP.SetColumnWidth(0, 25);
-	grid_PSProtectionOVP.SetColumnWidth(1, 120);
-	grid_PSProtectionOVP.SetColumnWidth(2, 25);
-	grid_PSProtectionOVP.SetColumnWidth(3, 100);
-	grid_PSProtectionOVP.SetRowHeight(0, 30);
-	grid_PSProtectionOVP.SetRowHeight(1, 30);
-	grid_PSProtectionOVP.SetRowHeight(2, 30);
 	grid_PSProtectionOVP.AddItem(&ico_PSProtection, 0, 0, GRID_CELL_ALIGNMENT_LEFT);
 	grid_PSProtectionOVP.AddItem(&lbl_PSProtectionOVP_caption, 1, 0, GRID_CELL_ALIGNMENT_LEFT);
 	grid_PSProtectionOVP.AddItem(&ico_PSProtectionOVPLevel, 0, 1, GRID_CELL_ALIGNMENT_LEFT);
@@ -130,18 +114,12 @@ UIElement* uiBuildScreenPS()
 	grid_PSProtectionOVP.AddItem(&boolCtrl_PSProtectionOVPState, 3, 1, GRID_CELL_ALIGNMENT_LEFT);
 	grid_PSProtectionOVP.AddItem(&ico_PSProtectionOVPDelay, 0, 2, GRID_CELL_ALIGNMENT_LEFT);
 	grid_PSProtectionOVP.AddItem(&numCtrl_PSProtectionOVPDelay, 1, 2, GRID_CELL_ALIGNMENT_LEFT);
-	grid_PSProtectionOVP.AddItem(&button_PSProtectionOVPClear, 2, 2, GRID_CELL_ALIGNMENT_LEFT);
+	grid_PSProtectionOVP.AddItem(&button_PSProtectionOVPClear, 3, 2, GRID_CELL_ALIGNMENT_LEFT);
 	grid_PSProtectionOVP.InitItems();
 
 	numCtrl_PSProtectionOCPDelay.CurrentDigitPosition = -1;	// select the 0.1 s digit.
 
 	grid_PSProtectionOCP.SetColumnWidth(0, 25);
-	grid_PSProtectionOCP.SetColumnWidth(1, 120);
-	grid_PSProtectionOCP.SetColumnWidth(2, 25);
-	grid_PSProtectionOCP.SetColumnWidth(3, 100);
-	grid_PSProtectionOCP.SetRowHeight(0, 30);
-	grid_PSProtectionOCP.SetRowHeight(1, 30);
-	grid_PSProtectionOCP.SetRowHeight(2, 30);
 	grid_PSProtectionOCP.AddItem(&ico_PSProtection, 0, 0, GRID_CELL_ALIGNMENT_LEFT);
 	grid_PSProtectionOCP.AddItem(&lbl_PSProtectionOCP_caption, 1, 0, GRID_CELL_ALIGNMENT_LEFT);
 	grid_PSProtectionOCP.AddItem(&ico_PSProtectionOCPLevel, 0, 1, GRID_CELL_ALIGNMENT_LEFT);
@@ -150,19 +128,13 @@ UIElement* uiBuildScreenPS()
 	grid_PSProtectionOCP.AddItem(&boolCtrl_PSProtectionOCPState, 3, 1, GRID_CELL_ALIGNMENT_LEFT);
 	grid_PSProtectionOCP.AddItem(&ico_PSProtectionOCPDelay, 0, 2, GRID_CELL_ALIGNMENT_LEFT);
 	grid_PSProtectionOCP.AddItem(&numCtrl_PSProtectionOCPDelay, 1, 2, GRID_CELL_ALIGNMENT_LEFT);
-	grid_PSProtectionOCP.AddItem(&button_PSProtectionOCPClear, 2, 2, GRID_CELL_ALIGNMENT_LEFT);
+	grid_PSProtectionOCP.AddItem(&button_PSProtectionOCPClear, 3, 2, GRID_CELL_ALIGNMENT_LEFT);
 	grid_PSProtectionOCP.InitItems();
 
 	numCtrl_PSProtectionOPPLevel.CurrentDigitPosition = -1;	// select the 0.1 s digit.
 	numCtrl_PSProtectionOPPDelay.CurrentDigitPosition = -1;	// select the 0.1 s digit.
 	
 	grid_PSProtectionOPP.SetColumnWidth(0, 25);
-	grid_PSProtectionOPP.SetColumnWidth(1, 120);
-	grid_PSProtectionOPP.SetColumnWidth(2, 25);
-	grid_PSProtectionOPP.SetColumnWidth(3, 100);
-	grid_PSProtectionOPP.SetRowHeight(0, 30);
-	grid_PSProtectionOPP.SetRowHeight(1, 30);
-	grid_PSProtectionOPP.SetRowHeight(2, 30);
 	grid_PSProtectionOPP.AddItem(&ico_PSProtection, 0, 0, GRID_CELL_ALIGNMENT_LEFT);
 	grid_PSProtectionOPP.AddItem(&lbl_PSProtectionOPP_caption, 1, 0, GRID_CELL_ALIGNMENT_LEFT);
 	grid_PSProtectionOPP.AddItem(&ico_PSProtectionOPPLevel, 0, 1, GRID_CELL_ALIGNMENT_LEFT);
@@ -171,7 +143,7 @@ UIElement* uiBuildScreenPS()
 	grid_PSProtectionOPP.AddItem(&boolCtrl_PSProtectionOPPState, 3, 1, GRID_CELL_ALIGNMENT_LEFT);
 	grid_PSProtectionOPP.AddItem(&ico_PSProtectionOPPDelay, 0, 2, GRID_CELL_ALIGNMENT_LEFT);
 	grid_PSProtectionOPP.AddItem(&numCtrl_PSProtectionOPPDelay, 1, 2, GRID_CELL_ALIGNMENT_LEFT);
-	grid_PSProtectionOPP.AddItem(&button_PSProtectionOPPClear, 2, 2, GRID_CELL_ALIGNMENT_LEFT);
+	grid_PSProtectionOPP.AddItem(&button_PSProtectionOPPClear, 3, 2, GRID_CELL_ALIGNMENT_LEFT);
 	grid_PSProtectionOPP.InitItems();
 						
 	return &list_PS;

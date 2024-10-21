@@ -11,7 +11,6 @@
 #include <Arduino.h>
 #include <SPI.h>
 #include "Adafruit_GFX.h"
-//#include "Adafruit_ILI9341.h"
 #include "ILI9341_Fast.h"
 
 #include "../Encoder/Encoder.h"
@@ -21,9 +20,6 @@
 #include "Core/UI_Elements.h"
 #include "Icons.h"
 #include <string.h>
-
-#define SELECT_LCD		CLEAR_BIT(PORTB, LCD_CS);				/**< Select the LCD by pulling the LCD_CS pin low */
-#define DESELECT_LCD	SET_BIT(PORTB, LCD_CS);					/**< Deselect the LCD by pulling the LCD_CS pin high */
 
 #define DISPLAY_WIDTH	320
 #define DISPLAY_HEIGHT	240
@@ -123,8 +119,7 @@ UIElement* StartCalibration();
 class ScreenManagerClass
 {
 	private:
-		//Adafruit_ILI9341 _tft;					/**< ILI9341 graphics handle that is used with all drawing related methods. */
-		ILI9341 _tft;								/**< ILI9341 graphics handle that is used with all drawing related methods. */
+		ILI9341 _tft;							/**< ILI9341 graphics handle that is used with all drawing related methods. */
 		
 		/**
 		 * Build the VisualTree for all screens used for drawing.

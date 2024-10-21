@@ -63,4 +63,7 @@
  */
 void Pins_Init();
 
+#define SELECT_LCD		CLEAR_BIT(PORTB, LCD_CS);				/**< Select the LCD by pulling the LCD_CS pin low */
+#define DESELECT_LCD	SET_BIT(PORTB, LCD_CS);					/**< Deselect the LCD by pulling the LCD_CS pin high */
+
 #endif /* PINS_H_ */

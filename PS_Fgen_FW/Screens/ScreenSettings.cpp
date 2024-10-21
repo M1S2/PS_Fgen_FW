@@ -20,9 +20,9 @@ void OnResetCancel(void* context);
 ContainerGridDefault grid_Settings_Device;
 Icon ico_settings_Device(icon_settings_width, icon_settings_height, icon_settings_bits);
 Label<20> lbl_Settings_Device_caption("Settings Device");
-ButtonControl<14> button_Settings_Save(0, 0, "Save Settings", &Device, &OnButtonSettingsSave);
-ButtonControl<15> button_Settings_Calibration(0, 0, "Calibration...", &Device, &OnButtonDeviceCalibration);
-ButtonControl<13> button_Settings_Reset(0, 0, "Reset Device", &Device, &OnButtonDeviceReset);
+ButtonControl<14> button_Settings_Save("Save Settings", &Device, &OnButtonSettingsSave);
+ButtonControl<15> button_Settings_Calibration("Calibration...", &Device, &OnButtonDeviceCalibration);
+ButtonControl<13> button_Settings_Reset("Reset Device", &Device, &OnButtonDeviceReset);
 MessageDialog<50> msg_Settings_ResetConfirmation(0, 0, DISPLAY_WIDTH, DISPLAY_HEIGHT, "Really reset the device?\nThis can't be undone!", MSG_WARNING, MSG_BTN_OK_CANCEL, &Device, &OnResetConfirmation, &OnResetCancel);
 
 // ***** Settings Communication page *****
@@ -103,11 +103,6 @@ UIElement* uiBuildScreenSettings()
 	list_Settings.AddItem(&grid_Settings_VersionInfo);
 
 	grid_Settings_Device.SetColumnWidth(0, 25);
-	grid_Settings_Device.SetColumnWidth(1, 100);
-	grid_Settings_Device.SetRowHeight(0, 30);
-	grid_Settings_Device.SetRowHeight(1, 30);
-	grid_Settings_Device.SetRowHeight(2, 30);
-	grid_Settings_Device.SetRowHeight(3, 30);
 	grid_Settings_Device.AddItem(&ico_settings_Device, 0, 0, GRID_CELL_ALIGNMENT_LEFT);
 	grid_Settings_Device.AddItem(&lbl_Settings_Device_caption, 1, 0, GRID_CELL_ALIGNMENT_LEFT);
 	grid_Settings_Device.AddItem(&button_Settings_Save, 0, 1, GRID_CELL_ALIGNMENT_LEFT);
@@ -116,11 +111,6 @@ UIElement* uiBuildScreenSettings()
 	grid_Settings_Device.InitItems();
 
 	grid_Settings_Communication.SetColumnWidth(0, 25);
-	grid_Settings_Communication.SetColumnWidth(1, 75);
-	grid_Settings_Communication.SetColumnWidth(2, 100);
-	grid_Settings_Communication.SetRowHeight(0, 30);
-	grid_Settings_Communication.SetRowHeight(1, 30);
-	grid_Settings_Communication.SetRowHeight(2, 30);
 	grid_Settings_Communication.AddItem(&ico_Settings_Communication, 0, 0, GRID_CELL_ALIGNMENT_LEFT);
 	grid_Settings_Communication.AddItem(&lbl_Settings_Communication_caption, 1, 0, GRID_CELL_ALIGNMENT_LEFT);
 	grid_Settings_Communication.AddItem(&ico_Settings_Comm_BaudRate, 0, 1, GRID_CELL_ALIGNMENT_LEFT);
@@ -132,10 +122,6 @@ UIElement* uiBuildScreenSettings()
 	grid_Settings_Communication.InitItems();
 
 	grid_Settings_PowerUp.SetColumnWidth(0, 25);
-	grid_Settings_PowerUp.SetColumnWidth(1, 75);
-	grid_Settings_PowerUp.SetColumnWidth(2, 100);
-	grid_Settings_PowerUp.SetRowHeight(0, 30);
-	grid_Settings_PowerUp.SetRowHeight(1, 30);
 	grid_Settings_PowerUp.AddItem(&ico_settings_PowerUp, 0, 0, GRID_CELL_ALIGNMENT_LEFT);
 	grid_Settings_PowerUp.AddItem(&lbl_Settings_PowerUp_caption, 1, 0, GRID_CELL_ALIGNMENT_LEFT);
 	grid_Settings_PowerUp.AddItem(&ico_Settings_PowerUp_OutputStates, 0, 1, GRID_CELL_ALIGNMENT_LEFT);
@@ -144,11 +130,6 @@ UIElement* uiBuildScreenSettings()
 	grid_Settings_PowerUp.InitItems();
 	
 	grid_Settings_VersionInfo.SetColumnWidth(0, 25);
-	grid_Settings_VersionInfo.SetColumnWidth(1, 100);
-	grid_Settings_VersionInfo.SetRowHeight(0, 30);
-	grid_Settings_VersionInfo.SetRowHeight(1, 30);
-	grid_Settings_VersionInfo.SetRowHeight(2, 30);
-	grid_Settings_VersionInfo.SetRowHeight(3, 30);
 	grid_Settings_VersionInfo.AddItem(&ico_versionInfo, 0, 0, GRID_CELL_ALIGNMENT_LEFT);
 	grid_Settings_VersionInfo.AddItem(&lbl_Settings_VersionInfo_caption, 1, 0, GRID_CELL_ALIGNMENT_LEFT);
 	grid_Settings_VersionInfo.AddItem(&lbl_Settings_VersionInfo_manufacturer, 0, 1, GRID_CELL_ALIGNMENT_LEFT);

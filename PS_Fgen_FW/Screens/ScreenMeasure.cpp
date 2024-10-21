@@ -8,7 +8,7 @@
 
 #ifdef MEASURE_SUBSYSTEM_ENABLED
 
-ContainerListDefault list_Measure(40, 0, 240 - 40, 64);
+ContainerListDefault list_Measure;
 
 // ***** Measure DMM page *****
 ContainerGridDefault grid_DMM;
@@ -17,11 +17,11 @@ Label<5> lbl_DMM_caption("DMM");
 Label<5> lbl_DMM_No1("#1:");
 NumericIndicator<volatile float> numInd_DMM1(&Device.DmmChannel1.MeasuredVoltage, "V", 20, 3);
 Icon ico_dmm1_neg_warning(icon_warning_width, icon_warning_height, icon_warning_bits);
-ProgressBar<volatile float> progress_DMM1(90, 10, &Device.DmmChannel1.MeasuredVoltage, 0, 20, PROGRESSBAR_ORIGIN_ZERO, 5);
+ProgressBar<volatile float> progress_DMM1(&Device.DmmChannel1.MeasuredVoltage, 0, 20, PROGRESSBAR_ORIGIN_ZERO, 5, 70, 10);
 Label<5> lbl_DMM_No2("#2:");
 NumericIndicator<volatile float> numInd_DMM2(&Device.DmmChannel2.MeasuredVoltage, "V", 20, 3);
 Icon ico_dmm2_neg_warning(icon_warning_width, icon_warning_height, icon_warning_bits);
-ProgressBar<volatile float> progress_DMM2(90, 10, &Device.DmmChannel2.MeasuredVoltage, 0, 20, PROGRESSBAR_ORIGIN_ZERO, 5);
+ProgressBar<volatile float> progress_DMM2(&Device.DmmChannel2.MeasuredVoltage, 0, 20, PROGRESSBAR_ORIGIN_ZERO, 5, 70, 10);
 
 // ***** Measure ATX page *****
 ContainerGridDefault grid_ATX;
@@ -32,13 +32,13 @@ Label<5> lbl_ATX_5V("5V:");
 Label<5> lbl_ATX_12V("12V:");
 Label<6> lbl_ATX_12V_NEG("-12V:");
 NumericIndicator<float> numInd_ATX_3V3(&Device.DeviceVoltages.ATX_3V3, "V", 4, 2);
-ProgressBar<float> progress_ATX_3V3(80, 5, &Device.DeviceVoltages.ATX_3V3, 0, 4, PROGRESSBAR_ORIGIN_ZERO, 1);
+ProgressBar<float> progress_ATX_3V3(&Device.DeviceVoltages.ATX_3V3, 0, 4, PROGRESSBAR_ORIGIN_ZERO, 1, 65, 5);
 NumericIndicator<float> numInd_ATX_5V(&Device.DeviceVoltages.ATX_5V, "V", 6, 2);
-ProgressBar<float> progress_ATX_5V(80, 5, &Device.DeviceVoltages.ATX_5V, 0, 6, PROGRESSBAR_ORIGIN_ZERO, 1);
+ProgressBar<float> progress_ATX_5V(&Device.DeviceVoltages.ATX_5V, 0, 6, PROGRESSBAR_ORIGIN_ZERO, 1, 65, 5);
 NumericIndicator<float> numInd_ATX_12V(&Device.DeviceVoltages.ATX_12V, "V", 15, 2);
-ProgressBar<float> progress_ATX_12V(80, 5, &Device.DeviceVoltages.ATX_12V, 0, 15, PROGRESSBAR_ORIGIN_ZERO, 1);
+ProgressBar<float> progress_ATX_12V(&Device.DeviceVoltages.ATX_12V, 0, 15, PROGRESSBAR_ORIGIN_ZERO, 1, 65, 5);
 NumericIndicator<float> numInd_ATX_12V_NEG(&Device.DeviceVoltages.ATX_12V_NEG, "V", -15, 2);
-ProgressBar<float> progress_ATX_12V_NEG(80, 5, &Device.DeviceVoltages.ATX_12V_NEG, -15, 0, PROGRESSBAR_ORIGIN_ZERO, 1);
+ProgressBar<float> progress_ATX_12V_NEG(&Device.DeviceVoltages.ATX_12V_NEG, -15, 0, PROGRESSBAR_ORIGIN_ZERO, 1, 65, 5);
 
 /** 
  * Update the visibility of the DMM channel negative warning icons.
@@ -54,13 +54,10 @@ UIElement* uiBuildScreenMeasure()
 	ico_dmm1_neg_warning.Visible = false;
 	ico_dmm2_neg_warning.Visible = false;
 	
+	list_Measure.AddItem(&grid_DMM);
+	list_Measure.AddItem(&grid_ATX);
+
 	grid_DMM.SetColumnWidth(0, 25);
-	grid_DMM.SetColumnWidth(1, 100);
-	grid_DMM.SetColumnWidth(2, 25);
-	grid_DMM.SetColumnWidth(3, 150);
-	grid_DMM.SetRowHeight(0, 30);
-	grid_DMM.SetRowHeight(1, 30);
-	grid_DMM.SetRowHeight(2, 30);
 	grid_DMM.AddItem(&ico_dmm, 0, 0, GRID_CELL_ALIGNMENT_LEFT);
 	grid_DMM.AddItem(&lbl_DMM_caption, 1, 0, GRID_CELL_ALIGNMENT_LEFT);
 	grid_DMM.AddItem(&lbl_DMM_No1, 0, 1, GRID_CELL_ALIGNMENT_LEFT);
@@ -74,14 +71,6 @@ UIElement* uiBuildScreenMeasure()
 	grid_DMM.InitItems();
 	
 	grid_ATX.SetColumnWidth(0, 25);
-	grid_ATX.SetColumnWidth(1, 30);
-	grid_ATX.SetColumnWidth(2, 80);
-	grid_ATX.SetColumnWidth(3, 150);
-	grid_ATX.SetRowHeight(0, 30);
-	grid_ATX.SetRowHeight(1, 30);
-	grid_ATX.SetRowHeight(2, 30);
-	grid_ATX.SetRowHeight(3, 30);
-	grid_ATX.SetRowHeight(4, 30);
 	grid_ATX.AddItem(&ico_atx, 0, 0, GRID_CELL_ALIGNMENT_LEFT);
 	grid_ATX.AddItem(&lbl_ATX_caption, 1, 0, GRID_CELL_ALIGNMENT_LEFT);
 	grid_ATX.AddItem(&lbl_ATX_3V3, 0, 1, GRID_CELL_ALIGNMENT_LEFT);
@@ -97,9 +86,6 @@ UIElement* uiBuildScreenMeasure()
 	grid_ATX.AddItem(&numInd_ATX_12V_NEG, 2, 4, GRID_CELL_ALIGNMENT_LEFT);
 	grid_ATX.AddItem(&progress_ATX_12V_NEG, 3, 4, GRID_CELL_ALIGNMENT_MIDDLE);
 	grid_ATX.InitItems();
-	
-	list_Measure.AddItem(&grid_DMM);
-	list_Measure.AddItem(&grid_ATX);
 	
 	return &list_Measure;
 }

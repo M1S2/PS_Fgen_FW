@@ -22,13 +22,13 @@ volatile bool dds_channel2_enabled;
 
 /* Initialize 8-bit Timer/Counter2 */
 void InitDDSTimer()
-{	
+{
 	TCNT2 = 0x00;										// Reset counter
 	OCR2A = ((F_CPU / 128) / DDS_TICK_FREQ);			// Set compare register A (DDS_TICK_FREQ Hz)
 	TCCR2A = (1 << WGM21);								// Configure for CTC mode
 	TCCR2B = (1 << CS22) | (1 << CS20);					// Prescaler 128
 	TIMSK2 = (1 << OCIE2A);								// Enable Output Compare A Match Interrupt
-	
+
 	dds_channel1_accumulator = 0;
 	dds_channel2_accumulator = 0;
 }
@@ -55,7 +55,8 @@ ISR(TIMER2_COMPA_vect)
 {	
 	cli();
 	
-	// No need to deselect other devices. Interrupts lock each other. LCD locks itself.
+	// No need to deselect other devices except the LCD. Interrupts lock each other.
+	DESELECT_LCD
 	SELECT_MCP4922
 	
 	if(dds_channel1_enabled)
@@ -73,7 +74,7 @@ ISR(TIMER2_COMPA_vect)
 		dds_channel1_accumulator += dds_channel1_increment;
 		while (!(SPSR & (1 << SPIF)));	// Wait until transmission is complete
 	}
-	if(dds_channel1_enabled && dds_channel2_enabled)					// After each write command, the data needs to be shifted into the DAC's input registers by raising the CS pin (The CS pin is then raised, causing the data to be latched into the selected DAC’s input registers.)
+	if(dds_channel1_enabled && dds_channel2_enabled)					// After each write command, the data needs to be shifted into the DAC's input registers by raising the CS pin (The CS pin is then raised, causing the data to be latched into the selected DAC's input registers.)
 	{
 		DESELECT_MCP4922
 		SELECT_MCP4922
@@ -93,9 +94,9 @@ ISR(TIMER2_COMPA_vect)
 		dds_channel2_accumulator += dds_channel2_increment;
 		while (!(SPSR & (1 << SPIF)));	// Wait until transmission is complete
 	}
-	
+
 	DESELECT_MCP4922
-	
+	SELECT_LCD
 	sei();
 }
 

@@ -8,8 +8,6 @@
 #include "ScreenManager.h"
 #include "../Device.h"
 
-#include "USART/USART.h"
-
 /**
   * Callback method called when the selected tab of the TabControl changed.
   * @param controlContext Not used
@@ -23,21 +21,21 @@ Label<5> lbl_devSettingsNeedSaving(DISPLAY_WIDTH - 15, 0, "*"); //, u8g_font_7x1
 #ifdef PS_SUBSYSTEM_ENABLED
 	Label<5> labelTabPS("PS");
 	Icon iconTabPS(icon_supplyDC_width, icon_supplyDC_height, icon_supplyDC_bits);
-	ContainerStack<2> stack_TabPSHeader(STACK_LAYOUT_HORIZONTAL_CENTER, 5);
+	ContainerStack<2> stack_TabPSHeader(STACK_LAYOUT_HORIZONTAL_CENTER);
 #endif
 #ifdef DDS_SUBSYSTEM_ENABLED
 	Label<5> labelTabDDS("DDS");
 	Icon iconTabDDS(icon_supplyAC_width, icon_supplyAC_height, icon_supplyAC_bits);
-	ContainerStack<2> stack_TabDDSHeader(STACK_LAYOUT_HORIZONTAL_CENTER, 5);
+	ContainerStack<2> stack_TabDDSHeader(STACK_LAYOUT_HORIZONTAL_CENTER);
 #endif
 #ifdef MEASURE_SUBSYSTEM_ENABLED
 	Label<5> labelTabMeas("Meas");
 	Icon iconTabMeas(icon_dmm_width, icon_dmm_height, icon_dmm_bits);
-	ContainerStack<2> stack_TabMeasHeader(STACK_LAYOUT_HORIZONTAL_CENTER, 5);
+	ContainerStack<2> stack_TabMeasHeader(STACK_LAYOUT_HORIZONTAL_CENTER);
 #endif
 Label<5> labelTabConfig("Conf");
 Icon iconTabConfig(icon_settings_width, icon_settings_height, icon_settings_bits);
-ContainerStack<2> stack_TabConfigHeader(STACK_LAYOUT_HORIZONTAL_CENTER, 5);
+ContainerStack<2> stack_TabConfigHeader(STACK_LAYOUT_HORIZONTAL_CENTER);
 TabControlDefault tabControlMain(DISPLAY_WIDTH, DISPLAY_HEIGHT, TAB_POSITION_TOP, NULL, &TabControlTabChanged);
 
 MessageDialog<50> msg_DeviceRWLState(0, 0, DISPLAY_WIDTH, DISPLAY_HEIGHT, "Device locked by SYST:RWL.\nUnlock with SYST:LOC.", MSG_WARNING, MSG_BTN_NONE);
@@ -70,7 +68,7 @@ void TabControlTabChanged(void* controlContext)
 	}
 }
 
-ScreenManagerClass::ScreenManagerClass() : _tft(LCD_A0_PIN_NUMBER, -1, LCD_CS_PIN_NUMBER) //_tft(LCD_CS_PIN_NUMBER, LCD_A0_PIN_NUMBER)
+ScreenManagerClass::ScreenManagerClass() : _tft(LCD_A0_PIN_NUMBER, -1, LCD_CS_PIN_NUMBER)
 {
 }
 

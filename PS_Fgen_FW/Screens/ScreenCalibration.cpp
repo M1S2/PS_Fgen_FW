@@ -51,8 +51,8 @@ NumericControl<float> numCtrl_Cal_tmpVoltage(CAL_CAPTION_POSX, 35, &CalTmpVoltag
 NumericControl<float> numCtrl_Cal_tmpCurrent(CAL_CAPTION_POSX, 35, &CalTmpCurrent, "A", 0, 5, 3);
 NumericControl<float> numCtrl_Cal_tmpFrequency(CAL_CAPTION_POSX, 35, &CalTmpFrequency, "Hz", 1, 20000, 1);
 
-ButtonControl<5> button_Cal_Exit(160, CAL_BUTTONS_POSY, 30, DEFAULT_UI_ELEMENT_HEIGHT, "Exit", NULL, &OnButtonCalExit);
-ButtonControl<5> button_Cal_Next(200, CAL_BUTTONS_POSY, 30, DEFAULT_UI_ELEMENT_HEIGHT, "Next", NULL, &OnButtonCalNext);
+ButtonControl<5> button_Cal_Exit(160, CAL_BUTTONS_POSY, 30, 30, "Exit", NULL, &OnButtonCalExit);
+ButtonControl<5> button_Cal_Next(200, CAL_BUTTONS_POSY, 30, 30, "Next", NULL, &OnButtonCalNext);
 ProgressBar<uint8_t> progress_Cal(5, CAL_BUTTONS_POSY + 5, &CalStateNumber, 0, NUM_CAL_STEPS, PROGRESSBAR_ORIGIN_ZERO, 0, 130, 5);
 MessageDialog<25> msg_Cal_Finished(0, 0, 240, 64, "Calibration finished.", MSG_INFO, MSG_BTN_OK, NULL, &OnCalFinishedOK);
 

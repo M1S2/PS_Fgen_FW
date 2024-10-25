@@ -24,9 +24,9 @@ volatile bool dds_channel2_enabled;
 void InitDDSTimer()
 {
 	TCNT2 = 0x00;										// Reset counter
-	OCR2A = ((F_CPU / 128) / DDS_TICK_FREQ);			// Set compare register A (DDS_TICK_FREQ Hz)
+	OCR2A = ((F_CPU / 1024) / DDS_TICK_FREQ);			// Set compare register A (DDS_TICK_FREQ Hz)		//OCR2A = ((F_CPU / 128) / DDS_TICK_FREQ);
 	TCCR2A = (1 << WGM21);								// Configure for CTC mode
-	TCCR2B = (1 << CS22) | (1 << CS20);					// Prescaler 128
+	TCCR2B = (1 << CS22) | (1 << CS21) | (1 << CS20);	// Prescaler 1024									//TCCR2B = (1 << CS22) | (1 << CS20);					// Prescaler 128
 	TIMSK2 = (1 << OCIE2A);								// Enable Output Compare A Match Interrupt
 
 	dds_channel1_accumulator = 0;

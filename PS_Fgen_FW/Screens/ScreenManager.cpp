@@ -19,22 +19,22 @@ EnumIndicator<DeviceControlStates_t> enumInd_deviceState(DISPLAY_WIDTH - 70, 2, 
 Label<5> lbl_devSettingsNeedSaving(DISPLAY_WIDTH - 15, 0, "*"); //, u8g_font_7x14r);
 
 #ifdef PS_SUBSYSTEM_ENABLED
-	Label<5> labelTabPS("PS");
-	Icon iconTabPS(icon_supplyDC_width, icon_supplyDC_height, icon_supplyDC_bits);
+	Label<5> labelTabPS("PS", COLOR_FOREGROUND_HEADERS);
+	Icon iconTabPS(icon_supplyDC_width, icon_supplyDC_height, icon_supplyDC_bits, COLOR_FOREGROUND_HEADERS);
 	ContainerStack<2> stack_TabPSHeader(STACK_LAYOUT_HORIZONTAL_CENTER);
 #endif
 #ifdef DDS_SUBSYSTEM_ENABLED
-	Label<5> labelTabDDS("DDS");
-	Icon iconTabDDS(icon_supplyAC_width, icon_supplyAC_height, icon_supplyAC_bits);
+	Label<5> labelTabDDS("DDS", COLOR_FOREGROUND_HEADERS);
+	Icon iconTabDDS(icon_supplyAC_width, icon_supplyAC_height, icon_supplyAC_bits, COLOR_FOREGROUND_HEADERS);
 	ContainerStack<2> stack_TabDDSHeader(STACK_LAYOUT_HORIZONTAL_CENTER);
 #endif
 #ifdef MEASURE_SUBSYSTEM_ENABLED
-	Label<5> labelTabMeas("Meas");
-	Icon iconTabMeas(icon_dmm_width, icon_dmm_height, icon_dmm_bits);
+	Label<5> labelTabMeas("Meas", COLOR_FOREGROUND_HEADERS);
+	Icon iconTabMeas(icon_dmm_width, icon_dmm_height, icon_dmm_bits, COLOR_FOREGROUND_HEADERS);
 	ContainerStack<2> stack_TabMeasHeader(STACK_LAYOUT_HORIZONTAL_CENTER);
 #endif
-Label<5> labelTabConfig("Conf");
-Icon iconTabConfig(icon_settings_width, icon_settings_height, icon_settings_bits);
+Label<5> labelTabConfig("Conf", COLOR_FOREGROUND_HEADERS);
+Icon iconTabConfig(icon_settings_width, icon_settings_height, icon_settings_bits, COLOR_FOREGROUND_HEADERS);
 ContainerStack<2> stack_TabConfigHeader(STACK_LAYOUT_HORIZONTAL_CENTER);
 TabControlDefault tabControlMain(DISPLAY_WIDTH, DISPLAY_HEIGHT, TAB_POSITION_TOP, NULL, &TabControlTabChanged);
 
@@ -84,6 +84,7 @@ void ScreenManagerClass::Init()
 	TimeCounter_SplashScreen_ms = 0;
 	TimeCounter_ScreenRedraw_ms = 0;
 	
+	UiManager.SetColors(COLOR_BACKGROUND, COLOR_FOREGROUND, COLOR_BACKGROUND);
 	UiManager.Init(&_tft);
 	uiBuildTree();
 	

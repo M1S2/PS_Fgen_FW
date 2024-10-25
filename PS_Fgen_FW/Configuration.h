@@ -42,7 +42,7 @@
 #define MEASURE_SUBSYSTEM_ENABLED								/**< Comment this line out to disable the measurement (ATX voltages and digital multimeters) subsystem */
 
 /***** Direct Digital Synthesis (DDS) *************************/
-#define DDS_TICK_FREQ			62500							/**< Frequency at which the phase accumulator is updated. Choose a value here that delivers an integer value for the OCR2A register (  ((F_CPU / 128) / DDS_TICK_FREQ) should be an integer value ) !!! */
+#define DDS_TICK_FREQ			15625							/**< Frequency at which the phase accumulator is updated. Choose a value here that delivers an integer value for the OCR2A register (  ((F_CPU / 1024) / DDS_TICK_FREQ) should be an integer value ) !!! */
 #define DDS_PHASE_ACCU_BITS		32								/**< Number of bits used by the phase accumulator of the direct digital synthesis */
 #define DDS_QUANTIZER_BITS		8								/**< Number of bits that are used to index into the look up tables */
 #define DDS_DAC_BITS			12								/**< Number of bits used by the DAC */

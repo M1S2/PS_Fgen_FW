@@ -24,6 +24,10 @@
 #define DISPLAY_WIDTH	320
 #define DISPLAY_HEIGHT	240
 
+#define COLOR_BACKGROUND			RGB565(0x00, 0x00, 0x00)
+#define COLOR_FOREGROUND			RGB565(0x00, 0xF7, 0x00)
+#define COLOR_FOREGROUND_HEADERS	RGB565(0xFF, 0xFF, 0xFF)
+
 /**
  * Available screen types.
  * Enumeration with all different screens of the device, dependent on the enabled subsystems.

@@ -15,9 +15,9 @@ void ScreenDDS2SignalFormChanged(void* channel);
 void OnButtonConfigTTLPWM(void* context);
 
 // ***** DDS1 pages *****
-ContainerGridDefault grid_DDS1;
-Icon ico_DDS1(icon_supplyAC_width, icon_supplyAC_height, icon_supplyAC_bits);
-Label<5> lbl_DDS1_caption("DDS1");
+ContainerGrid<15, 6, 4, false, true> grid_DDS1;
+Icon ico_DDS1(icon_supplyAC_width, icon_supplyAC_height, icon_supplyAC_bits, COLOR_FOREGROUND_HEADERS);
+Label<5> lbl_DDS1_caption("DDS1", COLOR_FOREGROUND_HEADERS);
 
 Icon ico_DDS1_Frequency(icon_frequency_width, icon_frequency_height, icon_frequency_bits);
 NumericControl<float, 15> numCtrl_DDS1_Frequency(&Device.DdsChannel1.Frequency.Val, "Hz", DDS_MIN_FREQ, DDS_MAX_FREQ, 3, &Device.DdsChannel1, &DDS_Channel::DDSFrequencyChanged);
@@ -35,9 +35,9 @@ NumericControl<float> numCtrl_DDS1_PWMValue(&Device.DdsChannel1.PWM_Value.Val, "
 ButtonControl<15> button_DDS1_Config5VPWM("Config TTL PWM", &Device.DdsChannel1, &OnButtonConfigTTLPWM);
 
 // ***** DDS2 pages *****
-ContainerGridDefault grid_DDS2;
-Icon ico_DDS2(icon_supplyAC_width, icon_supplyAC_height, icon_supplyAC_bits);
-Label<5> lbl_DDS2_caption(SCREEN_TAB_WIDTH + 25, 5, "DDS2");
+ContainerGrid<15, 6, 4, false, true> grid_DDS2;
+Icon ico_DDS2(icon_supplyAC_width, icon_supplyAC_height, icon_supplyAC_bits, COLOR_FOREGROUND_HEADERS);
+Label<5> lbl_DDS2_caption("DDS2", COLOR_FOREGROUND_HEADERS);
 
 Icon ico_DDS2_Frequency(icon_frequency_width, icon_frequency_height, icon_frequency_bits);
 NumericControl<float, 15> numCtrl_DDS2_Frequency(&Device.DdsChannel2.Frequency.Val, "Hz", DDS_MIN_FREQ, DDS_MAX_FREQ, 3, &Device.DdsChannel2, &DDS_Channel::DDSFrequencyChanged);

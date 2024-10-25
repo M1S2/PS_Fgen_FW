@@ -6,25 +6,30 @@
 
 #include "ScreenManager.h"
 
-#ifdef SPLASHSCREEN_ENABLED   
+#ifdef SPLASHSCREEN_ENABLED
 
-Icon ico_logo(0, 0, icon_powerCord_width, icon_powerCord_height, icon_powerCord_bits);
-Label<20> lbl_projectName(icon_powerCord_width + 5, 8, "PowerSupply Fgen"); //, u8g_font_profont22r);
-Label<20> lbl_manufacturer(10, 64 - 26, "by " SCPI_IDN_MANUFACTURER);
-Label<10> lbl_serialNo(10, 100 - 11, "SNo.: " SCPI_IDN_SERIAL_NUMBER);
-Label<15> lbl_swVersion(240 - 80, 100 - 11, "SW: " SCPI_IDN_SOFTWARE_REVISION);
-ContainerPageDefault page_SplashScreen;
+#include <Fonts/FreeSansBold18pt7b.h>
+
+Icon ico_logo(icon_powerCord_width, icon_powerCord_height, icon_powerCord_bits);
+Label<20> lbl_projectName("PowerSupply Fgen", &FreeSansBold18pt7b);
+Label<10> lbl_serialNo("SNo.: " SCPI_IDN_SERIAL_NUMBER);
+Label<15> lbl_swVersion("SW: " SCPI_IDN_SOFTWARE_REVISION);
+ContainerStack<4> stack_SplashScreen(STACK_LAYOUT_VERTICAL_CENTER);
+ContainerGrid<1, 1, 1, false, true> grid_SplashScreenMain;
 
 UIElement* uiBuildSplashScreen()
 {
-	page_SplashScreen.AddItem(&ico_logo);
-	page_SplashScreen.AddItem(&lbl_projectName);
-	page_SplashScreen.AddItem(&lbl_manufacturer);
-	page_SplashScreen.AddItem(&lbl_serialNo);
-	page_SplashScreen.AddItem(&lbl_swVersion);
-	page_SplashScreen.InitItems();
-	
-	return &page_SplashScreen;
+	stack_SplashScreen.AddItem(&ico_logo);
+	stack_SplashScreen.AddItem(&lbl_projectName);
+	stack_SplashScreen.AddItem(&lbl_serialNo);
+	stack_SplashScreen.AddItem(&lbl_swVersion);
+
+	// This grid is used to center the splash screen vertically
+	grid_SplashScreenMain.SetColumnWidth(0, DISPLAY_WIDTH);
+	grid_SplashScreenMain.SetRowHeight(0, DISPLAY_HEIGHT);
+	grid_SplashScreenMain.AddItem(&stack_SplashScreen, 0, 0, GRID_CELL_ALIGNMENT_MIDDLE);
+
+	return &grid_SplashScreenMain;
 }
 
 #endif

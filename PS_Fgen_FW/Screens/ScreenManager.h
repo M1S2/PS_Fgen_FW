@@ -21,8 +21,9 @@
 #include "Icons.h"
 #include <string.h>
 
-#define DISPLAY_WIDTH	320
-#define DISPLAY_HEIGHT	240
+#define DISPLAY_WIDTH		320
+#define DISPLAY_HEIGHT		240
+#define STATUS_BAR_HEIGHT	30
 
 #define COLOR_BACKGROUND			RGB565(0x00, 0x00, 0x00)
 #define COLOR_FOREGROUND			RGB565(0x00, 0xF7, 0x00)

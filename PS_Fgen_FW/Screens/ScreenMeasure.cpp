@@ -32,13 +32,13 @@ Label<5> lbl_ATX_5V("5V:");
 Label<5> lbl_ATX_12V("12V:");
 Label<6> lbl_ATX_12V_NEG("-12V:");
 NumericIndicator<float> numInd_ATX_3V3(&Device.DeviceVoltages.ATX_3V3, "V", 4, 2);
-ProgressBar<float> progress_ATX_3V3(&Device.DeviceVoltages.ATX_3V3, 0, 4, PROGRESSBAR_ORIGIN_ZERO, 1, 65, 10);
+ProgressBar<float> progress_ATX_3V3(&Device.DeviceVoltages.ATX_3V3, 0, 4, PROGRESSBAR_ORIGIN_ZERO, 1, 60, 10);
 NumericIndicator<float> numInd_ATX_5V(&Device.DeviceVoltages.ATX_5V, "V", 6, 2);
-ProgressBar<float> progress_ATX_5V(&Device.DeviceVoltages.ATX_5V, 0, 6, PROGRESSBAR_ORIGIN_ZERO, 1, 65, 10);
+ProgressBar<float> progress_ATX_5V(&Device.DeviceVoltages.ATX_5V, 0, 6, PROGRESSBAR_ORIGIN_ZERO, 1, 60, 10);
 NumericIndicator<float> numInd_ATX_12V(&Device.DeviceVoltages.ATX_12V, "V", 15, 2);
-ProgressBar<float> progress_ATX_12V(&Device.DeviceVoltages.ATX_12V, 0, 15, PROGRESSBAR_ORIGIN_ZERO, 1, 65, 10);
+ProgressBar<float> progress_ATX_12V(&Device.DeviceVoltages.ATX_12V, 0, 15, PROGRESSBAR_ORIGIN_ZERO, 1, 60, 10);
 NumericIndicator<float> numInd_ATX_12V_NEG(&Device.DeviceVoltages.ATX_12V_NEG, "V", -15, 2);
-ProgressBar<float> progress_ATX_12V_NEG(&Device.DeviceVoltages.ATX_12V_NEG, -15, 0, PROGRESSBAR_ORIGIN_ZERO, 1, 65, 10);
+ProgressBar<float> progress_ATX_12V_NEG(&Device.DeviceVoltages.ATX_12V_NEG, -15, 0, PROGRESSBAR_ORIGIN_ZERO, 1, 60, 10);
 
 /** 
  * Update the visibility of the DMM channel negative warning icons.

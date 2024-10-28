@@ -17,7 +17,7 @@
 #define KEY_POLLING_DELAY_MS			250						/**< Time period for key polling (keys and encoder button). This must be higher than the DeviceTimer tick interval because it's derived from this device timer. */
 #define SCREEN_REDRAW_DELAY_MS			500						/**< Time period for screen redraw. This must be higher than the DeviceTimer tick interval because it's derived from this device timer. */
 #define SETTINGS_AUTOSAVE_DELAY_MS		60000					/**< Milliseconds between automatic saves of the device settings */
-#define SPLASHSCREEN_DELAY_MS			3000					/**< Time that the splash screen is shown in milliseconds */
+#define SPLASHSCREEN_DELAY_MS			2000					/**< Time that the splash screen is shown in milliseconds */
 
 /***** SCPI ***************************************************/
 //#define SCPI_ENABLED											/**< Comment this line out to disable the SCPI parser */

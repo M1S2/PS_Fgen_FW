@@ -62,7 +62,7 @@ void DeviceClass::Init()
 	Pins_Init();
 	SPI_Init();
 	Encoder_Init();
-	//OnOffControls_Init();
+	OnOffControls_Init();
 	ADC_init();
 	Usart0Init(9600);			// Always init with 9600 baud to output the power on message.
 	InitDeviceTimer();
@@ -153,13 +153,12 @@ void DeviceClass::DeviceTimerTickISR(void)
 		}
 	#endif
 	
-	/*
 	// Get on/off button state
 	if(OnOffControls_IsButtonChanged())
 	{
 		OnOffButtons_t button = OnOffControls_GetButton();
 		UserInputHandler.EnqueueOnOffButtonInput(button);
-	}*/
+	}
 }
 
 // ##### Device Control State ########################################################################################################

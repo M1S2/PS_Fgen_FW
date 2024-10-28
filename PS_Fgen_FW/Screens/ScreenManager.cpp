@@ -15,8 +15,8 @@
 void TabControlTabChanged(void* context);
 
 ContainerPageDefault page_Main(0, 0, DISPLAY_WIDTH, DISPLAY_HEIGHT);
-EnumIndicator<DeviceControlStates_t> enumInd_deviceState(DISPLAY_WIDTH - 70, 2, &Device.DeviceControlState, DeviceControlStateNames, NUM_DEV_CTRL_ELEMENTS);
-Label<5> lbl_devSettingsNeedSaving(DISPLAY_WIDTH - 15, 0, "*"); //, u8g_font_7x14r);
+EnumIndicator<DeviceControlStates_t> enumInd_deviceState(DISPLAY_WIDTH - 70, DISPLAY_HEIGHT - STATUS_BAR_HEIGHT + 3, &Device.DeviceControlState, DeviceControlStateNames, NUM_DEV_CTRL_ELEMENTS);
+Label<5> lbl_devSettingsNeedSaving(DISPLAY_WIDTH - 15, DISPLAY_HEIGHT - STATUS_BAR_HEIGHT + 3, "*");
 
 #ifdef PS_SUBSYSTEM_ENABLED
 	Label<5> labelTabPS("PS", COLOR_FOREGROUND_HEADERS);
@@ -36,7 +36,7 @@ Label<5> lbl_devSettingsNeedSaving(DISPLAY_WIDTH - 15, 0, "*"); //, u8g_font_7x1
 Label<5> labelTabConfig("Conf", COLOR_FOREGROUND_HEADERS);
 Icon iconTabConfig(icon_settings_width, icon_settings_height, icon_settings_bits, COLOR_FOREGROUND_HEADERS);
 ContainerStack<2> stack_TabConfigHeader(STACK_LAYOUT_HORIZONTAL_CENTER);
-TabControlDefault tabControlMain(DISPLAY_WIDTH, DISPLAY_HEIGHT, TAB_POSITION_TOP, NULL, &TabControlTabChanged);
+TabControlDefault tabControlMain(DISPLAY_WIDTH, DISPLAY_HEIGHT - STATUS_BAR_HEIGHT, TAB_POSITION_TOP, NULL, &TabControlTabChanged);
 
 MessageDialog<50> msg_DeviceRWLState(0, 0, DISPLAY_WIDTH, DISPLAY_HEIGHT, "Device locked by SYST:RWL.\nUnlock with SYST:LOC.", MSG_WARNING, MSG_BTN_NONE);
 

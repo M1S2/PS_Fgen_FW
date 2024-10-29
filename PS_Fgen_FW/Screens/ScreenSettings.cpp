@@ -23,7 +23,7 @@ Label<20> lbl_Settings_Device_caption("Settings Device", COLOR_FOREGROUND_HEADER
 ButtonControl<14> button_Settings_Save("Save Settings", &Device, &OnButtonSettingsSave);
 ButtonControl<15> button_Settings_Calibration("Calibration...", &Device, &OnButtonDeviceCalibration);
 ButtonControl<13> button_Settings_Reset("Reset Device", &Device, &OnButtonDeviceReset);
-MessageDialog<50> msg_Settings_ResetConfirmation(0, 0, DISPLAY_WIDTH, DISPLAY_HEIGHT, "Really reset the device?\nThis can't be undone!", MSG_WARNING, MSG_BTN_OK_CANCEL, &Device, &OnResetConfirmation, &OnResetCancel);
+MessageDialog<50> msg_Settings_ResetConfirmation(MSG_DIALOG_MARGIN, MSG_DIALOG_MARGIN, DISPLAY_WIDTH - 2 * MSG_DIALOG_MARGIN, DISPLAY_HEIGHT - 2 * MSG_DIALOG_MARGIN, "Really reset the device?\nThis can't be undone!", MSG_WARNING, MSG_BTN_OK_CANCEL, &Device, &OnResetConfirmation, &OnResetCancel);
 
 // ***** Settings Communication page *****
 void SettingsCommunicationBaudRateChanged(void* context);

@@ -68,7 +68,7 @@ NumericControl<float> numCtrl_PSProtectionOPPDelay(&Device.PsChannel.OppDelay.Va
 ButtonControl<6> button_PSProtectionOPPClear("Clear", &Device.PsChannel, &PSProtectionsClear);
 
 
-MessageDialog<25> msg_protectionsCleared(0, 0, DISPLAY_WIDTH, DISPLAY_HEIGHT, "Protections Cleared.", MSG_INFO, MSG_BTN_OK, NULL, &PSProtectionsClearedOK);
+MessageDialog<25> msg_protectionsCleared(MSG_DIALOG_MARGIN, MSG_DIALOG_MARGIN, DISPLAY_WIDTH - 2 * MSG_DIALOG_MARGIN, DISPLAY_HEIGHT - 2 * MSG_DIALOG_MARGIN, "Protections Cleared.", MSG_INFO, MSG_BTN_OK, NULL, &PSProtectionsClearedOK);
 
 void PSProtectionsClear(void* controlContext)
 {

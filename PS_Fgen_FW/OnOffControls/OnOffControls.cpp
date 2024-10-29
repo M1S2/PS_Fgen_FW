@@ -41,13 +41,14 @@ OnOffButtons_t OnOffControls_GetButton()
 	uint8_t inputStates = 0;
 	if(OnOffControls_IsButtonChanged())
 	{
+		uint8_t flags = expander.getInterruptFlags();		// Reading the flags here seems to be necessary (otherwise the state of the PS button behaves not correct)
 		inputStates = expander.getInterruptCaptures();
 	}
 	else
 	{
 		inputStates = expander.getInputStates();
 	}
-	
+
 	#ifdef PS_SUBSYSTEM_ENABLED
 		if((inputStates & (1 << ONOFFBUTTON_MCP23S08_PIN_PS)) == 0x0)		// button pins are low active
 		{

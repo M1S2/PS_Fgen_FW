@@ -156,7 +156,9 @@ void DeviceClass::DeviceTimerTickISR(void)
 	// Get on/off button state
 	if(OnOffControls_IsButtonChanged())
 	{
+		DESELECT_LCD
 		OnOffButtons_t button = OnOffControls_GetButton();
+		SELECT_LCD
 		UserInputHandler.EnqueueOnOffButtonInput(button);
 	}
 }

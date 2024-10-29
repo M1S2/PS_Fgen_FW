@@ -38,7 +38,7 @@ Icon iconTabConfig(icon_settings_width, icon_settings_height, icon_settings_bits
 ContainerStack<2> stack_TabConfigHeader(STACK_LAYOUT_HORIZONTAL_CENTER);
 TabControlDefault tabControlMain(DISPLAY_WIDTH, DISPLAY_HEIGHT - STATUS_BAR_HEIGHT, TAB_POSITION_TOP, NULL, &TabControlTabChanged);
 
-MessageDialog<50> msg_DeviceRWLState(0, 0, DISPLAY_WIDTH, DISPLAY_HEIGHT, "Device locked by SYST:RWL.\nUnlock with SYST:LOC.", MSG_WARNING, MSG_BTN_NONE);
+MessageDialog<50> msg_DeviceRWLState(MSG_DIALOG_MARGIN, MSG_DIALOG_MARGIN, DISPLAY_WIDTH - 2 * MSG_DIALOG_MARGIN, DISPLAY_HEIGHT - 2 * MSG_DIALOG_MARGIN, "Device locked by SYST:RWL.\nUnlock with SYST:LOC.", MSG_WARNING, MSG_BTN_NONE);
 
 void TabControlTabChanged(void* controlContext)
 {

@@ -32,7 +32,7 @@ BoolControl boolCtrl_DDS1_Enabled(&Device.DdsChannel1.Enabled.Val, &Device.DdsCh
 
 Icon ico_DDS1_PWM(icon_pwm_width, icon_pwm_height, icon_pwm_bits);
 NumericControl<float> numCtrl_DDS1_PWMValue(&Device.DdsChannel1.PWM_Value.Val, "%%", 0, 100, 2, &Device.DdsChannel1, &DDS_Channel::DDSPWMValueChanged);	// Use two % signs because the sprintf function used in the NumericIndicator part is using one % sign as part of the format placeholders
-ButtonControl<15> button_DDS1_Config5VPWM("Config TTL PWM", &Device.DdsChannel1, &OnButtonConfigTTLPWM);
+ButtonControl<15> button_DDS1_Config5VPWM("Set TTL PWM", &Device.DdsChannel1, &OnButtonConfigTTLPWM);
 
 // ***** DDS2 pages *****
 ContainerGrid<15, 6, 4, false, true> grid_DDS2;
@@ -52,7 +52,7 @@ BoolControl boolCtrl_DDS2_Enabled(&Device.DdsChannel2.Enabled.Val, &Device.DdsCh
 
 Icon ico_DDS2_PWM(icon_pwm_width, icon_pwm_height, icon_pwm_bits);
 NumericControl<float> numCtrl_DDS2_PWMValue(&Device.DdsChannel2.PWM_Value.Val, "%%", 0, 100, 2, &Device.DdsChannel2, &DDS_Channel::DDSPWMValueChanged);	// Use two % signs because the sprintf function used in the NumericIndicator part is using one % sign as part of the format placeholders
-ButtonControl<15> button_DDS2_Config5VPWM("Config TTL PWM", &Device.DdsChannel2, &OnButtonConfigTTLPWM);
+ButtonControl<15> button_DDS2_Config5VPWM("Set TTL PWM", &Device.DdsChannel2, &OnButtonConfigTTLPWM);
 
 void ScreenDDS1SignalFormChanged(void* channel)
 {	
@@ -116,18 +116,18 @@ UIElement* uiBuildScreenDDS()
 	grid_DDS1.AddItem(&ico_DDS1, 0, 0, GRID_CELL_ALIGNMENT_LEFT);
 	grid_DDS1.AddItem(&lbl_DDS1_caption, 1, 0, GRID_CELL_ALIGNMENT_LEFT);
 	grid_DDS1.AddItem(&ico_DDS1_Frequency, 0, 1, GRID_CELL_ALIGNMENT_LEFT);
-	grid_DDS1.AddItem(&numCtrl_DDS1_Frequency, 1, 1, GRID_CELL_ALIGNMENT_LEFT);
+	grid_DDS1.AddItem(&numCtrl_DDS1_Frequency, 1, 1, GRID_CELL_ALIGNMENT_LEFT, 3);
 	grid_DDS1.AddItem(&ico_DDS1_SignalForm, 0, 2, GRID_CELL_ALIGNMENT_LEFT);
-	grid_DDS1.AddItem(&enumCtrl_DDS1_SignalForm, 1, 2, GRID_CELL_ALIGNMENT_LEFT);
+	grid_DDS1.AddItem(&enumCtrl_DDS1_SignalForm, 1, 2, GRID_CELL_ALIGNMENT_LEFT, 3);
 	grid_DDS1.AddItem(&ico_DDS1_Amplitude, 0, 3, GRID_CELL_ALIGNMENT_LEFT);
-	grid_DDS1.AddItem(&numCtrl_DDS1_Amplitude, 1, 3, GRID_CELL_ALIGNMENT_LEFT);
+	grid_DDS1.AddItem(&numCtrl_DDS1_Amplitude, 1, 3, GRID_CELL_ALIGNMENT_LEFT, 3);
 	grid_DDS1.AddItem(&ico_DDS1_Offset, 0, 4, GRID_CELL_ALIGNMENT_LEFT);
 	grid_DDS1.AddItem(&numCtrl_DDS1_Offset, 1, 4, GRID_CELL_ALIGNMENT_LEFT);
 	grid_DDS1.AddItem(&ico_DDS1_Enabled, 0, 5, GRID_CELL_ALIGNMENT_LEFT);
 	grid_DDS1.AddItem(&boolCtrl_DDS1_Enabled, 1, 5, GRID_CELL_ALIGNMENT_LEFT);
-	grid_DDS1.AddItem(&ico_DDS1_PWM, 2, 1, GRID_CELL_ALIGNMENT_LEFT);
-	grid_DDS1.AddItem(&numCtrl_DDS1_PWMValue, 3, 1, GRID_CELL_ALIGNMENT_LEFT);
-	grid_DDS1.AddItem(&button_DDS1_Config5VPWM, 3, 2, GRID_CELL_ALIGNMENT_LEFT);
+	grid_DDS1.AddItem(&ico_DDS1_PWM, 2, 4, GRID_CELL_ALIGNMENT_LEFT);
+	grid_DDS1.AddItem(&numCtrl_DDS1_PWMValue, 3, 4, GRID_CELL_ALIGNMENT_LEFT);
+	grid_DDS1.AddItem(&button_DDS1_Config5VPWM, 2, 5, GRID_CELL_ALIGNMENT_LEFT, 2);
 	grid_DDS1.InitItems();
 
 	numCtrl_DDS2_Amplitude.CurrentDigitPosition = -1;	// select the 0.1 V digit.
@@ -136,18 +136,18 @@ UIElement* uiBuildScreenDDS()
 	grid_DDS2.AddItem(&ico_DDS2, 0, 0, GRID_CELL_ALIGNMENT_LEFT);
 	grid_DDS2.AddItem(&lbl_DDS2_caption, 1, 0, GRID_CELL_ALIGNMENT_LEFT);
 	grid_DDS2.AddItem(&ico_DDS2_Frequency, 0, 1, GRID_CELL_ALIGNMENT_LEFT);
-	grid_DDS2.AddItem(&numCtrl_DDS2_Frequency, 1, 1, GRID_CELL_ALIGNMENT_LEFT);
+	grid_DDS2.AddItem(&numCtrl_DDS2_Frequency, 1, 1, GRID_CELL_ALIGNMENT_LEFT, 3);
 	grid_DDS2.AddItem(&ico_DDS2_SignalForm, 0, 2, GRID_CELL_ALIGNMENT_LEFT);
-	grid_DDS2.AddItem(&enumCtrl_DDS2_SignalForm, 1, 2, GRID_CELL_ALIGNMENT_LEFT);
+	grid_DDS2.AddItem(&enumCtrl_DDS2_SignalForm, 1, 2, GRID_CELL_ALIGNMENT_LEFT, 3);
 	grid_DDS2.AddItem(&ico_DDS2_Amplitude, 0, 3, GRID_CELL_ALIGNMENT_LEFT);
-	grid_DDS2.AddItem(&numCtrl_DDS2_Amplitude, 1, 3, GRID_CELL_ALIGNMENT_LEFT);
+	grid_DDS2.AddItem(&numCtrl_DDS2_Amplitude, 1, 3, GRID_CELL_ALIGNMENT_LEFT, 3);
 	grid_DDS2.AddItem(&ico_DDS2_Offset, 0, 4, GRID_CELL_ALIGNMENT_LEFT);
 	grid_DDS2.AddItem(&numCtrl_DDS2_Offset, 1, 4, GRID_CELL_ALIGNMENT_LEFT);
 	grid_DDS2.AddItem(&ico_DDS2_Enabled, 0, 5, GRID_CELL_ALIGNMENT_LEFT);
 	grid_DDS2.AddItem(&boolCtrl_DDS2_Enabled, 1, 5, GRID_CELL_ALIGNMENT_LEFT);
-	grid_DDS2.AddItem(&ico_DDS2_PWM, 2, 1, GRID_CELL_ALIGNMENT_LEFT);
-	grid_DDS2.AddItem(&numCtrl_DDS2_PWMValue, 3, 1, GRID_CELL_ALIGNMENT_LEFT);
-	grid_DDS2.AddItem(&button_DDS2_Config5VPWM, 3, 2, GRID_CELL_ALIGNMENT_LEFT);
+	grid_DDS2.AddItem(&ico_DDS2_PWM, 2, 4, GRID_CELL_ALIGNMENT_LEFT);
+	grid_DDS2.AddItem(&numCtrl_DDS2_PWMValue, 3, 4, GRID_CELL_ALIGNMENT_LEFT);
+	grid_DDS2.AddItem(&button_DDS2_Config5VPWM, 2, 5, GRID_CELL_ALIGNMENT_LEFT, 2);
 	grid_DDS2.InitItems();
 	
 	return &list_DDS;

@@ -8,29 +8,29 @@
 
 #ifdef MEASURE_SUBSYSTEM_ENABLED
 
-ContainerListDefault list_Measure;
+ContainerList list_Measure;
 
 // ***** Measure DMM page *****
-ContainerGrid<10, 3, 4, false, true> grid_DMM;
+ContainerGrid grid_DMM(10, 3, 4, false, true);
 Icon ico_dmm(icon_dmm_width, icon_dmm_height, icon_dmm_bits, COLOR_FOREGROUND_HEADERS);
-Label<5> lbl_DMM_caption("DMM", COLOR_FOREGROUND_HEADERS);
-Label<5> lbl_DMM_No1("#1:");
+Label lbl_DMM_caption("DMM", COLOR_FOREGROUND_HEADERS, NULL, 0, 0, 5);
+Label lbl_DMM_No1("#1:", LABEL_COLOR_NOTSET, NULL, 0, 0, 5);
 NumericIndicator<volatile float> numInd_DMM1(&Device.DmmChannel1.MeasuredVoltage, "V", 20, 3);
 Icon ico_dmm1_neg_warning(icon_warning_width, icon_warning_height, icon_warning_bits);
 ProgressBar<volatile float> progress_DMM1(&Device.DmmChannel1.MeasuredVoltage, 0, 20, PROGRESSBAR_ORIGIN_ZERO, 5, 70, 20);
-Label<5> lbl_DMM_No2("#2:");
+Label lbl_DMM_No2("#2:", LABEL_COLOR_NOTSET, NULL, 0, 0, 5);
 NumericIndicator<volatile float> numInd_DMM2(&Device.DmmChannel2.MeasuredVoltage, "V", 20, 3);
 Icon ico_dmm2_neg_warning(icon_warning_width, icon_warning_height, icon_warning_bits);
 ProgressBar<volatile float> progress_DMM2(&Device.DmmChannel2.MeasuredVoltage, 0, 20, PROGRESSBAR_ORIGIN_ZERO, 5, 70, 20);
 
 // ***** Measure ATX page *****
-ContainerGrid<14, 5, 4, false, true> grid_ATX;
+ContainerGrid grid_ATX(14, 5, 4, false, true);
 Icon ico_atx(icon_voltage_width, icon_voltage_height, icon_voltage_bits, COLOR_FOREGROUND_HEADERS);
-Label<5> lbl_ATX_caption("ATX", COLOR_FOREGROUND_HEADERS);
-Label<6> lbl_ATX_3V3("3.3V:");
-Label<5> lbl_ATX_5V("5V:");
-Label<5> lbl_ATX_12V("12V:");
-Label<6> lbl_ATX_12V_NEG("-12V:");
+Label lbl_ATX_caption("ATX", COLOR_FOREGROUND_HEADERS, NULL, 0, 0, 5);
+Label lbl_ATX_3V3("3.3V:", LABEL_COLOR_NOTSET, NULL, 0, 0, 6);
+Label lbl_ATX_5V("5V:", LABEL_COLOR_NOTSET, NULL, 0, 0, 5);
+Label lbl_ATX_12V("12V:", LABEL_COLOR_NOTSET, NULL, 0, 0, 5);
+Label lbl_ATX_12V_NEG("-12V:", LABEL_COLOR_NOTSET, NULL, 0, 0, 6);
 NumericIndicator<float> numInd_ATX_3V3(&Device.DeviceVoltages.ATX_3V3, "V", 4, 2);
 ProgressBar<float> progress_ATX_3V3(&Device.DeviceVoltages.ATX_3V3, 0, 4, PROGRESSBAR_ORIGIN_ZERO, 1, 60, 10);
 NumericIndicator<float> numInd_ATX_5V(&Device.DeviceVoltages.ATX_5V, "V", 6, 2);

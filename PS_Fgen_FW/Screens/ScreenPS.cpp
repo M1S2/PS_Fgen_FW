@@ -8,15 +8,15 @@
 
 #ifdef PS_SUBSYSTEM_ENABLED
 
-ContainerListDefault list_PS;
+ContainerList list_PS;
 
 void PSProtectionsClear(void* controlContext);
 void PSProtectionsClearedOK(void* controlContext);
 
 // ***** Power Supply Overview page *****
-ContainerGrid<13, 6, 3, false, true> grid_PSOverview;
+ContainerGrid grid_PSOverview(13, 6, 3, false, true);
 Icon ico_PSOverview(icon_supplyDC_width, icon_supplyDC_height, icon_supplyDC_bits, COLOR_FOREGROUND_HEADERS);
-Label<15> lbl_PSOverview_caption("PowerSupply", COLOR_FOREGROUND_HEADERS);
+Label lbl_PSOverview_caption("PowerSupply", COLOR_FOREGROUND_HEADERS, NULL, 0, 0, 15);
 
 Icon ico_PSOverviewVoltage(icon_voltage_width, icon_voltage_height, icon_voltage_bits);
 NumericControl<float> numCtrl_PSOverviewVoltage(&Device.PsChannel.Voltage.Val, "V", PS_MIN_VOLTAGE, PS_MAX_VOLTAGE, 3, &Device.PsChannel, &PS_Channel::PSVoltageChanged);
@@ -26,49 +26,49 @@ Icon ico_PSOverviewRegMode(icon_pin_width, icon_pin_height, icon_pin_bits);
 EnumControl<volatile PsRegulationModes_t> enumCtrl_PSOverviewRegMode(&Device.PsChannel.RegulationMode, PsRegulationModesNames, NUM_PS_REG_MODE_ELEMENTS, &Device.PsChannel, &PS_Channel::PSRegulationModeChanged);
 
 Icon ico_PSOverviewDmm(icon_dmm_width, icon_dmm_height, icon_dmm_bits);
-NumericIndicator<volatile float, 10> numInd_PsOverviewVoltage(&Device.PsChannel.MeasuredVoltage, "V", PS_MAX_VOLTAGE, 3);
-NumericIndicator<volatile float, 10> numInd_PsOverviewCurrent(&Device.PsChannel.MeasuredCurrent, "A", PS_MAX_CURRENT, 3);
-NumericIndicator<volatile float, 10> numInd_PsOverviewPower(&Device.PsChannel.MeasuredPower, "W", PS_MAX_VOLTAGE * PS_MAX_CURRENT, 3);
+NumericIndicator<volatile float> numInd_PsOverviewVoltage(&Device.PsChannel.MeasuredVoltage, "V", PS_MAX_VOLTAGE, 3, 10);
+NumericIndicator<volatile float> numInd_PsOverviewCurrent(&Device.PsChannel.MeasuredCurrent, "A", PS_MAX_CURRENT, 3, 10);
+NumericIndicator<volatile float> numInd_PsOverviewPower(&Device.PsChannel.MeasuredPower, "W", PS_MAX_VOLTAGE * PS_MAX_CURRENT, 3, 10);
 EnumIndicator<volatile PsStates_t> enumInd_PsOverviewState(&Device.PsChannel.PsState, PsStatesNames, NUM_PS_STATE_ELEMENTS);
 
 // ***** Power Supply Protection OVP page *****
-ContainerGrid<9, 3, 4, false, true> grid_PSProtectionOVP;
+ContainerGrid grid_PSProtectionOVP(9, 3, 4, false, true);
 Icon ico_PSProtectionOVP(icon_protection_width, icon_protection_height, icon_protection_bits, COLOR_FOREGROUND_HEADERS);
-Label<5> lbl_PSProtectionOVP_caption("OVP", COLOR_FOREGROUND_HEADERS);
+Label lbl_PSProtectionOVP_caption("OVP", COLOR_FOREGROUND_HEADERS, NULL, 0, 0, 5);
 Icon ico_PSProtectionOVPLevel(icon_level_width, icon_level_height, icon_level_bits);
 NumericControl<uint8_t> numCtrl_PSProtectionOVPLevel(&Device.PsChannel.OvpLevel.Val, "%%", PS_MIN_OVP_LEVEL_PERCENTAGE, PS_MAX_OVP_LEVEL_PERCENTAGE, 0, &Device.PsChannel, &PS_Channel::PSOvpLevelChanged);
 Icon ico_PSProtectionOVPState(icon_OnOff_width, icon_OnOff_height, icon_OnOff_bits);
 BoolControl boolCtrl_PSProtectionOVPState(&Device.PsChannel.OvpState.Val, &Device.PsChannel, &PS_Channel::PSOvpStateChanged);
 Icon ico_PSProtectionOVPDelay(icon_delay_width, icon_delay_height, icon_delay_bits);
 NumericControl<float> numCtrl_PSProtectionOVPDelay(&Device.PsChannel.OvpDelay.Val, "s", PS_MIN_OVP_DELAY, PS_MAX_OVP_DELAY, 3, &Device.PsChannel, &PS_Channel::PSOvpDelayChanged);
-ButtonControl<6> button_PSProtectionOVPClear("Clear", &Device.PsChannel, &PSProtectionsClear);
+ButtonControl button_PSProtectionOVPClear("Clear", &Device.PsChannel, &PSProtectionsClear, 6);
 
 // ***** Power Supply Protection OCP page *****
-ContainerGrid<9, 3, 4, false, true> grid_PSProtectionOCP;
+ContainerGrid grid_PSProtectionOCP(9, 3, 4, false, true);
 Icon ico_PSProtectionOCP(icon_protection_width, icon_protection_height, icon_protection_bits, COLOR_FOREGROUND_HEADERS);
-Label<5> lbl_PSProtectionOCP_caption("OCP", COLOR_FOREGROUND_HEADERS);
+Label lbl_PSProtectionOCP_caption("OCP", COLOR_FOREGROUND_HEADERS, NULL, 0, 0, 5);
 Icon ico_PSProtectionOCPLevel(icon_level_width, icon_level_height, icon_level_bits);
 NumericControl<float> numCtrl_PSProtectionOCPLevel(&Device.PsChannel.OcpLevel.Val, "A", PS_MIN_OCP_LEVEL, PS_MAX_OCP_LEVEL, 3, &Device.PsChannel, &PS_Channel::PSOcpLevelChanged);
 Icon ico_PSProtectionOCPState(icon_OnOff_width, icon_OnOff_height, icon_OnOff_bits);
 BoolControl boolCtrl_PSProtectionOCPState(&Device.PsChannel.OcpState.Val, &Device.PsChannel, &PS_Channel::PSOcpStateChanged);
 Icon ico_PSProtectionOCPDelay(icon_delay_width, icon_delay_height, icon_delay_bits);
 NumericControl<float> numCtrl_PSProtectionOCPDelay(&Device.PsChannel.OcpDelay.Val, "s", PS_MIN_OCP_DELAY, PS_MAX_OCP_DELAY, 3, &Device.PsChannel, &PS_Channel::PSOcpDelayChanged);
-ButtonControl<6> button_PSProtectionOCPClear("Clear", &Device.PsChannel, &PSProtectionsClear);
+ButtonControl button_PSProtectionOCPClear("Clear", &Device.PsChannel, &PSProtectionsClear, 6);
 
 // ***** Power Supply Protection OPP page *****
-ContainerGrid<9, 3, 4, false, true> grid_PSProtectionOPP;
+ContainerGrid grid_PSProtectionOPP(9, 3, 4, false, true);
 Icon ico_PSProtectionOPP(icon_protection_width, icon_protection_height, icon_protection_bits, COLOR_FOREGROUND_HEADERS);
-Label<5> lbl_PSProtectionOPP_caption("OPP", COLOR_FOREGROUND_HEADERS);
+Label lbl_PSProtectionOPP_caption("OPP", COLOR_FOREGROUND_HEADERS, NULL, 0, 0, 5);
 Icon ico_PSProtectionOPPLevel(icon_level_width, icon_level_height, icon_level_bits);
 NumericControl<float> numCtrl_PSProtectionOPPLevel(&Device.PsChannel.OppLevel.Val, "W", PS_MIN_OPP_LEVEL, PS_MAX_OPP_LEVEL, 3, &Device.PsChannel, &PS_Channel::PSOppLevelChanged);
 Icon ico_PSProtectionOPPState(icon_OnOff_width, icon_OnOff_height, icon_OnOff_bits);
 BoolControl boolCtrl_PSProtectionOPPState(&Device.PsChannel.OppState.Val, &Device.PsChannel, &PS_Channel::PSOppStateChanged);
 Icon ico_PSProtectionOPPDelay(icon_delay_width, icon_delay_height, icon_delay_bits);
 NumericControl<float> numCtrl_PSProtectionOPPDelay(&Device.PsChannel.OppDelay.Val, "s", PS_MIN_OPP_DELAY, PS_MAX_OPP_DELAY, 3, &Device.PsChannel, &PS_Channel::PSOppDelayChanged);
-ButtonControl<6> button_PSProtectionOPPClear("Clear", &Device.PsChannel, &PSProtectionsClear);
+ButtonControl button_PSProtectionOPPClear("Clear", &Device.PsChannel, &PSProtectionsClear, 6);
 
 
-MessageDialog<25> msg_protectionsCleared(MSG_DIALOG_MARGIN, MSG_DIALOG_MARGIN, DISPLAY_WIDTH - 2 * MSG_DIALOG_MARGIN, DISPLAY_HEIGHT - 2 * MSG_DIALOG_MARGIN, "Protections Cleared.", MSG_INFO, MSG_BTN_OK, NULL, &PSProtectionsClearedOK);
+MessageDialog msg_protectionsCleared(MSG_DIALOG_MARGIN, MSG_DIALOG_MARGIN, DISPLAY_WIDTH - 2 * MSG_DIALOG_MARGIN, DISPLAY_HEIGHT - 2 * MSG_DIALOG_MARGIN, "Protections Cleared.", MSG_INFO, MSG_BTN_OK, NULL, &PSProtectionsClearedOK, NULL, 25);
 
 void PSProtectionsClear(void* controlContext)
 {

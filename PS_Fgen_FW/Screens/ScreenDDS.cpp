@@ -8,19 +8,19 @@
 
 #ifdef DDS_SUBSYSTEM_ENABLED
 
-ContainerListDefault list_DDS;
+ContainerList list_DDS;
 
 void ScreenDDS1SignalFormChanged(void* channel);
 void ScreenDDS2SignalFormChanged(void* channel);
 void OnButtonConfigTTLPWM(void* context);
 
 // ***** DDS1 pages *****
-ContainerGrid<15, 6, 4, false, true> grid_DDS1;
+ContainerGrid grid_DDS1(15, 6, 4, false, true);
 Icon ico_DDS1(icon_supplyAC_width, icon_supplyAC_height, icon_supplyAC_bits, COLOR_FOREGROUND_HEADERS);
-Label<5> lbl_DDS1_caption("DDS1", COLOR_FOREGROUND_HEADERS);
+Label lbl_DDS1_caption("DDS1", COLOR_FOREGROUND_HEADERS, NULL, 0, 0, 5);
 
 Icon ico_DDS1_Frequency(icon_frequency_width, icon_frequency_height, icon_frequency_bits);
-NumericControl<float, 15> numCtrl_DDS1_Frequency(&Device.DdsChannel1.Frequency.Val, "Hz", DDS_MIN_FREQ, DDS_MAX_FREQ, 3, &Device.DdsChannel1, &DDS_Channel::DDSFrequencyChanged);
+NumericControl<float> numCtrl_DDS1_Frequency(&Device.DdsChannel1.Frequency.Val, "Hz", DDS_MIN_FREQ, DDS_MAX_FREQ, 3, &Device.DdsChannel1, &DDS_Channel::DDSFrequencyChanged);
 Icon ico_DDS1_SignalForm(icon_signalForm_width, icon_signalForm_height, icon_signalForm_bits);
 EnumControl<SignalForms_t> enumCtrl_DDS1_SignalForm(&Device.DdsChannel1.SignalForm.Val, SignalFormsNames, NUM_SIGNALFORM_ELEMENTS, &Device.DdsChannel1, &ScreenDDS1SignalFormChanged);
 Icon ico_DDS1_Amplitude(icon_signalAmplitude_width, icon_signalAmplitude_height, icon_signalAmplitude_bits);
@@ -32,15 +32,15 @@ BoolControl boolCtrl_DDS1_Enabled(&Device.DdsChannel1.Enabled.Val, &Device.DdsCh
 
 Icon ico_DDS1_PWM(icon_pwm_width, icon_pwm_height, icon_pwm_bits);
 NumericControl<float> numCtrl_DDS1_PWMValue(&Device.DdsChannel1.PWM_Value.Val, "%%", 0, 100, 2, &Device.DdsChannel1, &DDS_Channel::DDSPWMValueChanged);	// Use two % signs because the sprintf function used in the NumericIndicator part is using one % sign as part of the format placeholders
-ButtonControl<15> button_DDS1_Config5VPWM("Set TTL PWM", &Device.DdsChannel1, &OnButtonConfigTTLPWM);
+ButtonControl button_DDS1_Config5VPWM("Set TTL PWM", &Device.DdsChannel1, &OnButtonConfigTTLPWM, 15);
 
 // ***** DDS2 pages *****
-ContainerGrid<15, 6, 4, false, true> grid_DDS2;
+ContainerGrid grid_DDS2(15, 6, 4, false, true);
 Icon ico_DDS2(icon_supplyAC_width, icon_supplyAC_height, icon_supplyAC_bits, COLOR_FOREGROUND_HEADERS);
-Label<5> lbl_DDS2_caption("DDS2", COLOR_FOREGROUND_HEADERS);
+Label lbl_DDS2_caption("DDS2", COLOR_FOREGROUND_HEADERS, NULL, 0, 0, 5);
 
 Icon ico_DDS2_Frequency(icon_frequency_width, icon_frequency_height, icon_frequency_bits);
-NumericControl<float, 15> numCtrl_DDS2_Frequency(&Device.DdsChannel2.Frequency.Val, "Hz", DDS_MIN_FREQ, DDS_MAX_FREQ, 3, &Device.DdsChannel2, &DDS_Channel::DDSFrequencyChanged);
+NumericControl<float> numCtrl_DDS2_Frequency(&Device.DdsChannel2.Frequency.Val, "Hz", DDS_MIN_FREQ, DDS_MAX_FREQ, 3, &Device.DdsChannel2, &DDS_Channel::DDSFrequencyChanged);
 Icon ico_DDS2_SignalForm(icon_signalForm_width, icon_signalForm_height, icon_signalForm_bits);
 EnumControl<SignalForms_t> enumCtrl_DDS2_SignalForm(&Device.DdsChannel2.SignalForm.Val, SignalFormsNames, NUM_SIGNALFORM_ELEMENTS, &Device.DdsChannel2, &ScreenDDS2SignalFormChanged);
 Icon ico_DDS2_Amplitude(icon_signalAmplitude_width, icon_signalAmplitude_height, icon_signalAmplitude_bits);
@@ -52,7 +52,7 @@ BoolControl boolCtrl_DDS2_Enabled(&Device.DdsChannel2.Enabled.Val, &Device.DdsCh
 
 Icon ico_DDS2_PWM(icon_pwm_width, icon_pwm_height, icon_pwm_bits);
 NumericControl<float> numCtrl_DDS2_PWMValue(&Device.DdsChannel2.PWM_Value.Val, "%%", 0, 100, 2, &Device.DdsChannel2, &DDS_Channel::DDSPWMValueChanged);	// Use two % signs because the sprintf function used in the NumericIndicator part is using one % sign as part of the format placeholders
-ButtonControl<15> button_DDS2_Config5VPWM("Set TTL PWM", &Device.DdsChannel2, &OnButtonConfigTTLPWM);
+ButtonControl button_DDS2_Config5VPWM("Set TTL PWM", &Device.DdsChannel2, &OnButtonConfigTTLPWM, 15);
 
 void ScreenDDS1SignalFormChanged(void* channel)
 {	

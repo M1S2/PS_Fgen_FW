@@ -11,11 +11,11 @@
 #include <Fonts/FreeSansBold18pt7b.h>
 
 Icon ico_logo(icon_powerCord_width, icon_powerCord_height, icon_powerCord_bits);
-Label<20> lbl_projectName("PowerSupply Fgen", &FreeSansBold18pt7b);
-Label<10> lbl_serialNo("SNo.: " SCPI_IDN_SERIAL_NUMBER);
-Label<15> lbl_swVersion("SW: " SCPI_IDN_SOFTWARE_REVISION);
-ContainerStack<4> stack_SplashScreen(STACK_LAYOUT_VERTICAL_CENTER);
-ContainerGrid<1, 1, 1, false, true> grid_SplashScreenMain;
+Label lbl_projectName("PowerSupply Fgen", LABEL_COLOR_NOTSET, &FreeSansBold18pt7b, 0, 0, 20);
+Label lbl_serialNo("SNo.: " SCPI_IDN_SERIAL_NUMBER, LABEL_COLOR_NOTSET, NULL, 0, 0, 10);
+Label lbl_swVersion("SW: " SCPI_IDN_SOFTWARE_REVISION, LABEL_COLOR_NOTSET, NULL, 0, 0, 15);
+ContainerStack stack_SplashScreen(STACK_LAYOUT_VERTICAL_CENTER, 4);
+ContainerGrid grid_SplashScreenMain(1, 1, 1, false, true);
 
 UIElement* uiBuildSplashScreen()
 {

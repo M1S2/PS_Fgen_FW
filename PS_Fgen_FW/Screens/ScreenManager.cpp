@@ -14,31 +14,31 @@
   */
 void TabControlTabChanged(void* context);
 
-ContainerPageDefault page_Main(0, 0, DISPLAY_WIDTH, DISPLAY_HEIGHT);
+ContainerPage page_Main(0, 0, DISPLAY_WIDTH, DISPLAY_HEIGHT);
 EnumIndicator<DeviceControlStates_t> enumInd_deviceState(DISPLAY_WIDTH - 70, DISPLAY_HEIGHT - STATUS_BAR_HEIGHT + 3, &Device.DeviceControlState, DeviceControlStateNames, NUM_DEV_CTRL_ELEMENTS);
-Label<5> lbl_devSettingsNeedSaving(DISPLAY_WIDTH - 15, DISPLAY_HEIGHT - STATUS_BAR_HEIGHT + 3, "*");
+Label lbl_devSettingsNeedSaving("*", LABEL_COLOR_NOTSET, NULL, DISPLAY_WIDTH - 15, DISPLAY_HEIGHT - STATUS_BAR_HEIGHT + 3, 5);
 
 #ifdef PS_SUBSYSTEM_ENABLED
-	Label<5> labelTabPS("PS", COLOR_FOREGROUND_HEADERS);
+	Label labelTabPS("PS", COLOR_FOREGROUND_HEADERS, NULL, 0, 0, 5);
 	Icon iconTabPS(icon_supplyDC_width, icon_supplyDC_height, icon_supplyDC_bits, COLOR_FOREGROUND_HEADERS);
-	ContainerStack<2> stack_TabPSHeader(STACK_LAYOUT_HORIZONTAL_CENTER);
+	ContainerStack stack_TabPSHeader(STACK_LAYOUT_HORIZONTAL_CENTER, 2);
 #endif
 #ifdef DDS_SUBSYSTEM_ENABLED
-	Label<5> labelTabDDS("DDS", COLOR_FOREGROUND_HEADERS);
+	Label labelTabDDS("DDS", COLOR_FOREGROUND_HEADERS, NULL, 0, 0, 5);
 	Icon iconTabDDS(icon_supplyAC_width, icon_supplyAC_height, icon_supplyAC_bits, COLOR_FOREGROUND_HEADERS);
-	ContainerStack<2> stack_TabDDSHeader(STACK_LAYOUT_HORIZONTAL_CENTER);
+	ContainerStack stack_TabDDSHeader(STACK_LAYOUT_HORIZONTAL_CENTER, 2);
 #endif
 #ifdef MEASURE_SUBSYSTEM_ENABLED
-	Label<5> labelTabMeas("Meas", COLOR_FOREGROUND_HEADERS);
+	Label labelTabMeas("Meas", COLOR_FOREGROUND_HEADERS, NULL, 0, 0, 5);
 	Icon iconTabMeas(icon_dmm_width, icon_dmm_height, icon_dmm_bits, COLOR_FOREGROUND_HEADERS);
-	ContainerStack<2> stack_TabMeasHeader(STACK_LAYOUT_HORIZONTAL_CENTER);
+	ContainerStack stack_TabMeasHeader(STACK_LAYOUT_HORIZONTAL_CENTER, 2);
 #endif
-Label<5> labelTabConfig("Conf", COLOR_FOREGROUND_HEADERS);
+Label labelTabConfig("Conf", COLOR_FOREGROUND_HEADERS, NULL, 0, 0, 5);
 Icon iconTabConfig(icon_settings_width, icon_settings_height, icon_settings_bits, COLOR_FOREGROUND_HEADERS);
-ContainerStack<2> stack_TabConfigHeader(STACK_LAYOUT_HORIZONTAL_CENTER);
-TabControlDefault tabControlMain(DISPLAY_WIDTH, DISPLAY_HEIGHT - STATUS_BAR_HEIGHT, TAB_POSITION_TOP, NULL, &TabControlTabChanged);
+ContainerStack stack_TabConfigHeader(STACK_LAYOUT_HORIZONTAL_CENTER, 2);
+TabControl tabControlMain(DISPLAY_WIDTH, DISPLAY_HEIGHT - STATUS_BAR_HEIGHT, TAB_POSITION_TOP, NULL, &TabControlTabChanged);
 
-MessageDialog<50> msg_DeviceRWLState(MSG_DIALOG_MARGIN, MSG_DIALOG_MARGIN, DISPLAY_WIDTH - 2 * MSG_DIALOG_MARGIN, DISPLAY_HEIGHT - 2 * MSG_DIALOG_MARGIN, "Device locked by SYST:RWL.\nUnlock with SYST:LOC.", MSG_WARNING, MSG_BTN_NONE);
+MessageDialog msg_DeviceRWLState(MSG_DIALOG_MARGIN, MSG_DIALOG_MARGIN, DISPLAY_WIDTH - 2 * MSG_DIALOG_MARGIN, DISPLAY_HEIGHT - 2 * MSG_DIALOG_MARGIN, "Device locked by SYST:RWL.\nUnlock with SYST:LOC.", MSG_WARNING, MSG_BTN_NONE);
 
 void TabControlTabChanged(void* controlContext)
 {

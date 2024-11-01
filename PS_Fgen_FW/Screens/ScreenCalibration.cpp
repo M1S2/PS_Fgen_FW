@@ -43,18 +43,18 @@ void OnButtonCalExit(void* context);
 void OnButtonCalNext(void* context);
 void OnCalFinishedOK(void* context);
 
-ContainerPageDefault page_Cal;
-Icon ico_Cal(5, 3, icon_calibration_width, icon_calibration_height, icon_calibration_bits);
-Label<15> lbl_Cal_caption(CAL_CAPTION_POSX, 5, "Calibration");
-Label<45> lbl_Cal_instruction(CAL_CAPTION_POSX, 20, "...");
+ContainerPage page_Cal;
+Icon ico_Cal(icon_calibration_width, icon_calibration_height, icon_calibration_bits, ICON_COLOR_NOTSET, 5, 3);
+Label lbl_Cal_caption("Calibration", LABEL_COLOR_NOTSET, NULL, CAL_CAPTION_POSX, 5, 15);
+Label lbl_Cal_instruction("...", LABEL_COLOR_NOTSET, NULL, CAL_CAPTION_POSX, 20, 45);
 NumericControl<float> numCtrl_Cal_tmpVoltage(CAL_CAPTION_POSX, 35, &CalTmpVoltage, "V", -15, 15, 3);
 NumericControl<float> numCtrl_Cal_tmpCurrent(CAL_CAPTION_POSX, 35, &CalTmpCurrent, "A", 0, 5, 3);
 NumericControl<float> numCtrl_Cal_tmpFrequency(CAL_CAPTION_POSX, 35, &CalTmpFrequency, "Hz", 1, 20000, 1);
 
-ButtonControl<5> button_Cal_Exit(160, CAL_BUTTONS_POSY, 30, 30, "Exit", NULL, &OnButtonCalExit);
-ButtonControl<5> button_Cal_Next(200, CAL_BUTTONS_POSY, 30, 30, "Next", NULL, &OnButtonCalNext);
+ButtonControl button_Cal_Exit(160, CAL_BUTTONS_POSY, 30, 30, "Exit", NULL, &OnButtonCalExit, 5);
+ButtonControl button_Cal_Next(200, CAL_BUTTONS_POSY, 30, 30, "Next", NULL, &OnButtonCalNext, 5);
 ProgressBar<uint8_t> progress_Cal(5, CAL_BUTTONS_POSY + 5, &CalStateNumber, 0, NUM_CAL_STEPS, PROGRESSBAR_ORIGIN_ZERO, 0, 130, 5);
-MessageDialog<25> msg_Cal_Finished(0, 0, 240, 64, "Calibration finished.", MSG_INFO, MSG_BTN_OK, NULL, &OnCalFinishedOK);
+MessageDialog msg_Cal_Finished(0, 0, 240, 64, "Calibration finished.", MSG_INFO, MSG_BTN_OK, NULL, &OnCalFinishedOK, NULL, 25);
 
 /**
  * Prepare everything for the given calibration state.

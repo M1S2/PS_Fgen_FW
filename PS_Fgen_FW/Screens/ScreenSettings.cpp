@@ -30,11 +30,11 @@ void SettingsCommunicationBaudRateChanged(void* context);
 
 ContainerGrid grid_Settings_Communication(8, 3, 4, false, true);
 Icon ico_Settings_Communication(icon_serial_width, icon_serial_height, icon_serial_bits, COLOR_FOREGROUND_HEADERS);
-Label lbl_Settings_Communication_caption("Settings Communication", COLOR_FOREGROUND_HEADERS, NULL, 0, 0, 25);
+Label lbl_Settings_Communication_caption("Communication", COLOR_FOREGROUND_HEADERS, NULL, 0, 0, 15);
 
 Icon ico_Settings_Comm_BaudRate(icon_speed_width, icon_speed_height, icon_speed_bits);
 EnumControl<DeviceBaudRates_t> enumCtrl_Settings_Comm_BaudRate(&Device.SerialBaudRate, DeviceBaudRateNames, NUM_DEV_BAUD_ELEMENTS, &Device, &SettingsCommunicationBaudRateChanged);
-Label lbl_Settings_Comm_BaudRate("Serial Baud Rate", LABEL_COLOR_NOTSET, NULL, 0, 0, 20);
+Label lbl_Settings_Comm_BaudRate("Baud Rate", LABEL_COLOR_NOTSET, NULL, 0, 0, 10);
 
 Icon ico_Settings_Comm_Echo(icon_echo_width, icon_echo_height, icon_echo_bits);
 BoolControl boolCtrl_Settings_Comm_Echo(&Device.SerialEchoEnabled, NULL, &SettingsChanged);

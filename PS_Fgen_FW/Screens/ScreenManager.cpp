@@ -19,24 +19,16 @@ EnumIndicator<DeviceControlStates_t> enumInd_deviceState(DISPLAY_WIDTH - 70, DIS
 Label lbl_devSettingsNeedSaving("*", LABEL_COLOR_NOTSET, NULL, DISPLAY_WIDTH - 15, DISPLAY_HEIGHT - STATUS_BAR_HEIGHT + 3, 5);
 
 #ifdef PS_SUBSYSTEM_ENABLED
-	Label labelTabPS("PS", COLOR_FOREGROUND_HEADERS, NULL, 0, 0, 5);
-	Icon iconTabPS(icon_supplyDC_width, icon_supplyDC_height, icon_supplyDC_bits, COLOR_FOREGROUND_HEADERS);
-	ContainerStack stack_TabPSHeader(STACK_LAYOUT_HORIZONTAL_CENTER, 2);
+	Icon iconTabPS(icon_supplyDC_32x32_width, icon_supplyDC_32x32_height, icon_supplyDC_32x32_bits, COLOR_FOREGROUND_HEADERS);
 #endif
 #ifdef DDS_SUBSYSTEM_ENABLED
-	Label labelTabDDS("DDS", COLOR_FOREGROUND_HEADERS, NULL, 0, 0, 5);
-	Icon iconTabDDS(icon_supplyAC_width, icon_supplyAC_height, icon_supplyAC_bits, COLOR_FOREGROUND_HEADERS);
-	ContainerStack stack_TabDDSHeader(STACK_LAYOUT_HORIZONTAL_CENTER, 2);
+	Icon iconTabDDS(icon_supplyAC_32x32_width, icon_supplyAC_32x32_height, icon_supplyAC_32x32_bits, COLOR_FOREGROUND_HEADERS);
 #endif
 #ifdef MEASURE_SUBSYSTEM_ENABLED
-	Label labelTabMeas("Meas", COLOR_FOREGROUND_HEADERS, NULL, 0, 0, 5);
-	Icon iconTabMeas(icon_dmm_width, icon_dmm_height, icon_dmm_bits, COLOR_FOREGROUND_HEADERS);
-	ContainerStack stack_TabMeasHeader(STACK_LAYOUT_HORIZONTAL_CENTER, 2);
+	Icon iconTabMeas(icon_dmm_32x32_width, icon_dmm_32x32_height, icon_dmm_32x32_bits, COLOR_FOREGROUND_HEADERS);
 #endif
-Label labelTabConfig("Conf", COLOR_FOREGROUND_HEADERS, NULL, 0, 0, 5);
-Icon iconTabConfig(icon_settings_width, icon_settings_height, icon_settings_bits, COLOR_FOREGROUND_HEADERS);
-ContainerStack stack_TabConfigHeader(STACK_LAYOUT_HORIZONTAL_CENTER, 2);
-TabControl tabControlMain(DISPLAY_WIDTH, DISPLAY_HEIGHT - STATUS_BAR_HEIGHT, TAB_POSITION_TOP, NULL, &TabControlTabChanged);
+Icon iconTabConfig(icon_settings_32x32_width, icon_settings_32x32_height, icon_settings_32x32_bits, COLOR_FOREGROUND_HEADERS);
+TabControl tabControlMain(DISPLAY_WIDTH, DISPLAY_HEIGHT - STATUS_BAR_HEIGHT, TAB_POSITION_LEFT, NULL, &TabControlTabChanged);
 
 MessageDialog msg_DeviceRWLState(MSG_DIALOG_MARGIN, MSG_DIALOG_MARGIN, DISPLAY_WIDTH - 2 * MSG_DIALOG_MARGIN, DISPLAY_HEIGHT - 2 * MSG_DIALOG_MARGIN, "Device locked by SYST:RWL.\nUnlock with SYST:LOC.", MSG_WARNING, MSG_BTN_NONE);
 
@@ -101,23 +93,15 @@ void ScreenManagerClass::UpdateVisibilities()
 void ScreenManagerClass::uiBuildTree()
 {
 	#ifdef PS_SUBSYSTEM_ENABLED
-		stack_TabPSHeader.AddItem(&iconTabPS);
-		stack_TabPSHeader.AddItem(&labelTabPS);
-		tabControlMain.AddItem(&stack_TabPSHeader, uiBuildScreenPS());
+		tabControlMain.AddItem(&iconTabPS, uiBuildScreenPS());
 	#endif
 	#ifdef DDS_SUBSYSTEM_ENABLED
-		stack_TabDDSHeader.AddItem(&iconTabDDS);
-		stack_TabDDSHeader.AddItem(&labelTabDDS);
-		tabControlMain.AddItem(&stack_TabDDSHeader, uiBuildScreenDDS());			// Containing DDS1 and DDS2
+		tabControlMain.AddItem(&iconTabDDS, uiBuildScreenDDS());			// Containing DDS1 and DDS2
 	#endif
 	#ifdef MEASURE_SUBSYSTEM_ENABLED
-		stack_TabMeasHeader.AddItem(&iconTabMeas);
-		stack_TabMeasHeader.AddItem(&labelTabMeas);
-		tabControlMain.AddItem(&stack_TabMeasHeader, uiBuildScreenMeasure());		// Containing DMM and ATX measurements
+		tabControlMain.AddItem(&iconTabMeas, uiBuildScreenMeasure());		// Containing DMM and ATX measurements
 	#endif
-	stack_TabConfigHeader.AddItem(&iconTabConfig);
-	stack_TabConfigHeader.AddItem(&labelTabConfig);
-	tabControlMain.AddItem(&stack_TabConfigHeader, uiBuildScreenSettings());
+	tabControlMain.AddItem(&iconTabConfig, uiBuildScreenSettings());
 	TabControlTabChanged(NULL);				// Trigger a tab changed event to recalculate the CurrentScreenNeedsPeriodicRedraw variable
 	
 	page_Main.AddItem(&tabControlMain);
@@ -137,11 +121,13 @@ void ScreenManagerClass::uiBuildTree()
 
 void ScreenManagerClass::ShowUiMainPage()
 {
+	UiManager.Gfx->setTextWrap(false);
 	UiManager.ChangeVisualTreeRoot(&page_Main);
 }
 
 void ScreenManagerClass::ShowUiCalibrationMenu()
 {
+	UiManager.Gfx->setTextWrap(true);
 	UiManager.ChangeVisualTreeRoot(StartCalibration());
 }
 

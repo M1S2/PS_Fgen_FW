@@ -14,7 +14,7 @@ void PSProtectionsClear(void* controlContext);
 void PSProtectionsClearedOK(void* controlContext);
 
 // ***** Power Supply Overview page *****
-ContainerGrid grid_PSOverview(13, 6, 3, false, true);
+ContainerGrid grid_PSOverview(13, 7, 4, false, true);
 Icon ico_PSOverview(icon_supplyDC_width, icon_supplyDC_height, icon_supplyDC_bits, COLOR_FOREGROUND_HEADERS);
 Label lbl_PSOverview_caption("PowerSupply", COLOR_FOREGROUND_HEADERS, NULL, 0, 0, 15);
 
@@ -91,19 +91,20 @@ UIElement* uiBuildScreenPS()
 	enumCtrl_PSOverviewRegMode.Width = 39;
 	numCtrl_PSOverviewVoltage.CurrentDigitPosition = -1;	// select the 0.1 V digit.
 	
+	grid_PSOverview.SetColumnWidth(2, 30);
 	grid_PSOverview.AddItem(&ico_PSOverview, 0, 0, GRID_CELL_ALIGNMENT_LEFT);
-	grid_PSOverview.AddItem(&lbl_PSOverview_caption, 1, 0, GRID_CELL_ALIGNMENT_LEFT);
+	grid_PSOverview.AddItem(&lbl_PSOverview_caption, 1, 0, GRID_CELL_ALIGNMENT_LEFT, 3);
 	grid_PSOverview.AddItem(&ico_PSOverviewVoltage, 0, 1, GRID_CELL_ALIGNMENT_LEFT);
-	grid_PSOverview.AddItem(&numCtrl_PSOverviewVoltage, 1, 1, GRID_CELL_ALIGNMENT_LEFT);
+	grid_PSOverview.AddItem(&numCtrl_PSOverviewVoltage, 1, 1, GRID_CELL_ALIGNMENT_LEFT, 3);
 	grid_PSOverview.AddItem(&ico_PSOverviewRegMode, 0, 2, GRID_CELL_ALIGNMENT_LEFT);
 	grid_PSOverview.AddItem(&enumCtrl_PSOverviewRegMode, 1, 2, GRID_CELL_ALIGNMENT_LEFT);
 	grid_PSOverview.AddItem(&ico_PSOverviewEnabled, 0, 3, GRID_CELL_ALIGNMENT_LEFT);
 	grid_PSOverview.AddItem(&boolCtrl_PSOverviewEnabled, 1, 3, GRID_CELL_ALIGNMENT_LEFT);
-	grid_PSOverview.AddItem(&ico_PSOverviewDmm, 2, 1, GRID_CELL_ALIGNMENT_MIDDLE);
-	grid_PSOverview.AddItem(&numInd_PsOverviewVoltage, 2, 2, GRID_CELL_ALIGNMENT_MIDDLE);
-	grid_PSOverview.AddItem(&numInd_PsOverviewCurrent, 2, 3, GRID_CELL_ALIGNMENT_MIDDLE);
-	grid_PSOverview.AddItem(&numInd_PsOverviewPower, 2, 4, GRID_CELL_ALIGNMENT_MIDDLE);
-	grid_PSOverview.AddItem(&enumInd_PsOverviewState, 2, 5, GRID_CELL_ALIGNMENT_MIDDLE);
+	grid_PSOverview.AddItem(&ico_PSOverviewDmm, 3, 2, GRID_CELL_ALIGNMENT_MIDDLE);
+	grid_PSOverview.AddItem(&numInd_PsOverviewVoltage, 3, 3, GRID_CELL_ALIGNMENT_MIDDLE);
+	grid_PSOverview.AddItem(&numInd_PsOverviewCurrent, 3, 4, GRID_CELL_ALIGNMENT_MIDDLE);
+	grid_PSOverview.AddItem(&numInd_PsOverviewPower, 3, 5, GRID_CELL_ALIGNMENT_MIDDLE);
+	grid_PSOverview.AddItem(&enumInd_PsOverviewState, 3, 6, GRID_CELL_ALIGNMENT_MIDDLE);
 	grid_PSOverview.InitItems();
 
 	numCtrl_PSProtectionOVPDelay.CurrentDigitPosition = -1;	// select the 0.1 s digit.

@@ -50,15 +50,27 @@ extern const unsigned char icon_signalOffset_bits[] PROGMEM;
 #define icon_dmm_height 16
 extern const unsigned char icon_dmm_bits[] PROGMEM;
 
+#define icon_dmm_32x32_width 32
+#define icon_dmm_32x32_height 32
+extern const unsigned char icon_dmm_32x32_bits[] PROGMEM;
+
 /**** Icon Supply AC *****/
 #define icon_supplyAC_width 16
 #define icon_supplyAC_height 16
 extern const unsigned char icon_supplyAC_bits[] PROGMEM;
 
+#define icon_supplyAC_32x32_width 32
+#define icon_supplyAC_32x32_height 32
+extern const unsigned char icon_supplyAC_32x32_bits[] PROGMEM;
+
 /**** Icon Supply DC *****/
 #define icon_supplyDC_width 16
 #define icon_supplyDC_height 16
 extern const unsigned char icon_supplyDC_bits[] PROGMEM;
+
+#define icon_supplyDC_32x32_width 32
+#define icon_supplyDC_32x32_height 32
+extern const unsigned char icon_supplyDC_32x32_bits[] PROGMEM;
 
 /**** Icon Delay *****/
 #define icon_delay_width 16
@@ -94,6 +106,10 @@ extern const unsigned char icon_speed_bits[] PROGMEM;
 #define icon_settings_width 16
 #define icon_settings_height 16
 extern const unsigned char icon_settings_bits[] PROGMEM;
+
+#define icon_settings_32x32_width 32
+#define icon_settings_32x32_height 32
+extern const unsigned char icon_settings_32x32_bits[] PROGMEM;
 
 /**** Icon Boot *****/
 #define icon_boot_width 16

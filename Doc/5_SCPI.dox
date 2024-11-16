@@ -1,4 +1,4 @@
-/*! @page pagescpiinterface SCPI Interface
+/*! @page page_5_scpiinterface 5 - SCPI Interface
 The device supports SCPI (Standard Commands for Programmable Instruments) commands that can be used for remote control. All commands are received via the USB input (serial port).
 
 The following parser is used to decode all incoming SCPI commands: 

@@ -33,7 +33,7 @@ typedef enum SignalForms
 
 #ifdef DDS_SUBSYSTEM_ENABLED
 
-extern const char* SignalFormsNames[NUM_SIGNALFORM_ELEMENTS];
+extern const char* SignalFormsNames[NUM_SIGNALFORM_ELEMENTS];		/**< Array holding the names for all available DDS channel signal forms. */
 
 /**
  * Direct digital synthesis channel.
@@ -144,7 +144,7 @@ class DDS_Channel : public Channel
 
 		/**
 		 * Set the PWM_Value property of the DDS channel.
-		 * @param pmwValue New value for the PWM_Value property
+		 * @param pwmValue New value for the PWM_Value property
 		 * @return true->set successful; false->value not set
 		 */
 		bool SetPWMValue(float pwmValue);

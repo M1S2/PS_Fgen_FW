@@ -8,9 +8,9 @@ This is the detailed documentation for the PS_Fgen_FW project. For the source co
 @section content_sec Content
 
 See the following pages for more informations.
-- @ref pageconfiguration
-- @ref pageuserinterface
-- @ref pagedeviceclass
-- @ref pageinputoutputchannels
-- @ref pagescpiinterface
+- @ref page_1_configuration
+- @ref page_2_userinterface
+- @ref page_3_deviceclass
+- @ref page_4_inputoutputchannels
+- @ref page_5_scpiinterface
 */

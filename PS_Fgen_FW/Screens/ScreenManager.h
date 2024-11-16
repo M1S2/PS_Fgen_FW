@@ -16,8 +16,7 @@
 #include "../Encoder/Encoder.h"
 #include "../KeyPad/KeyPad.h"
 #include "../Configuration.h"
-#include "Core/UI_Manager.h"
-#include "Core/UI_Elements.h"
+#include "UI_Lib.h"
 #include "Icons.h"
 #include <string.h>
 

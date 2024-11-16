@@ -22,7 +22,7 @@ typedef enum PsRegulationModes
 	PS_REG_MODE_CV,				/**< Power supply channel is only constant voltage regulated (not constant current). The voltage at the output is regulated to the requested one by comparison to the measured voltage. */
 	NUM_PS_REG_MODE_ELEMENTS	/**< The last element is used to determine the number of elements in the enumeration */
 } PsRegulationModes_t;
-extern const char* PsRegulationModesNames[];
+extern const char* PsRegulationModesNames[];		/**< Array holding the names for all available PS channel regulation modes. */
 
 
 #ifdef PS_SUBSYSTEM_ENABLED
@@ -40,7 +40,7 @@ typedef enum PsStates
 	PS_STATE_OPP,				/**< Power supply state over power protection */
 	NUM_PS_STATE_ELEMENTS		/**< The last element is used to determine the number of elements in the enumeration */
 } PsStates_t;
-extern const char* PsStatesNames[];
+extern const char* PsStatesNames[];					/**< Array holding the names for all available PS channel states. */
 
 /**
  * Power supply channel Class.

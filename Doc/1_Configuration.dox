@@ -1,4 +1,4 @@
-/*! @page pageconfiguration Configuration
+/*! @page page_1_configuration 1 - Configuration
 
 The Configuration.h file contains some parameters that can be used to customize the firmware. It has the following sections:
 - **Version:** Version of the firmware. This should be adapted during release creation.

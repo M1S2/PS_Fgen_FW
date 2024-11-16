@@ -36,7 +36,7 @@ typedef enum DeviceControlStates
 	DEV_CTRL_RWLOCK,			/**< Device is in RW lock state. All keys are ignored. The user must actively change back to local state via SCPI commands to reactivate the keys. */
 	NUM_DEV_CTRL_ELEMENTS		/**< The last element is used to determine the number of elements in the enumeration */
 }DeviceControlStates_t; 
-extern const char* DeviceControlStateNames[NUM_DEV_CTRL_ELEMENTS];
+extern const char* DeviceControlStateNames[NUM_DEV_CTRL_ELEMENTS];		/**< Array holding the names for all available device control states. */
 
 /**
  * Available device power up output states.
@@ -49,7 +49,7 @@ typedef enum DevicePowerUpOutputEnabledStates
 	DEV_POWERUP_OUTPUTS_ON,			/**< Switch on all outputs on power up. */
 	NUM_DEV_POWERUP_ELEMENTS		/**< The last element is used to determine the number of elements in the enumeration */
 }DevicePowerUpOutputEnabledStates_t;
-extern const char* DevicePowerUpOutputEnabledStateNames[NUM_DEV_POWERUP_ELEMENTS];
+extern const char* DevicePowerUpOutputEnabledStateNames[NUM_DEV_POWERUP_ELEMENTS];	/**< Array holding the names for all available output power up states. */
 
 /**
  * Available device baud rates.
@@ -69,7 +69,12 @@ typedef enum DeviceBaudRates
 	DEV_BAUD_57600,			/**< Baud rate 57600 */
 	NUM_DEV_BAUD_ELEMENTS	/**< The last element is used to determine the number of elements in the enumeration */
 }DeviceBaudRates_t;
-extern const char* DeviceBaudRateNames[NUM_DEV_BAUD_ELEMENTS];
+extern const char* DeviceBaudRateNames[NUM_DEV_BAUD_ELEMENTS];			/**< Array holding the names for all available device baud rates. */
+/**
+ * Convert the DeviceBaudRates_t enum to the corresponding number. E.g. DEV_BAUD_9600 -> 9600.
+ * @param baudRateEnum Enum value to convert
+ * @return Converted baud rate
+ */
 uint32_t DeviceBaudRateEnumToNumber(DeviceBaudRates_t baudRateEnum);
 
 /**
@@ -268,6 +273,6 @@ class DeviceClass
 		void SetSerialEchoEnabled(bool echoEnabled);
 };
 
-extern DeviceClass Device;
+extern DeviceClass Device;			/**< Global DeviceClass instance used to access all device related methods and properties. */
 
 #endif /* DEVICE_H_ */

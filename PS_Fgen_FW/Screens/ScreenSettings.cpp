@@ -6,7 +6,7 @@
 
 #include "../Device.h"
 
-ContainerList list_Settings;
+ContainerList list_Settings(4, 20);
 
 void SettingsChanged(void* context);
 

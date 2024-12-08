@@ -8,7 +8,7 @@
 
 #ifdef MEASURE_SUBSYSTEM_ENABLED
 
-ContainerList list_Measure;
+ContainerList list_Measure(2, 20);
 
 // ***** Measure DMM page *****
 ContainerGrid grid_DMM(10, 5, 3, false, true);

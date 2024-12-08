@@ -8,7 +8,7 @@
 
 #ifdef DDS_SUBSYSTEM_ENABLED
 
-ContainerList list_DDS;
+ContainerList list_DDS(2, 20);
 
 void ScreenDDS1SignalFormChanged(void* channel);
 void ScreenDDS2SignalFormChanged(void* channel);

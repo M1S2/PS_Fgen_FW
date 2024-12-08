@@ -41,6 +41,11 @@ void UserInputHandlerClass::ProcessInputs()
 					OnOffControls_DoButtonAction(data->OnOffButton);										
 					break;
 				}
+				case USERDATA_TOUCH:
+				{
+					Device.ScreenManager.TouchInput(data->TouchX, data->TouchY, data->TouchType);
+					break;
+				}
 				default: break;
 			}
 		}

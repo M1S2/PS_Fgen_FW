@@ -11,7 +11,9 @@
 #include <Arduino.h>
 #include <SPI.h>
 #include "Adafruit_GFX.h"
-#include "ILI9341_Fast.h"
+//#include "ILI9341_Fast.h"
+#include "Adafruit_ILI9341.h"
+#include <TS_Display.h>
 
 #include "../Encoder/Encoder.h"
 #include "../KeyPad/KeyPad.h"
@@ -29,6 +31,15 @@
 #define COLOR_FOREGROUND			RGB565(0x00, 0xF7, 0x00)
 #define COLOR_FOREGROUND_HEADERS	RGB565(0xFF, 0xFF, 0xFF)
 #define COLOR_FOCUS_FRAME			RGB565(0xFF, 0xFF, 0xFF)
+
+#define LONG_TOUCH_DELAY_MS     750
+
+enum TouchEventStates
+{
+  TOUCH_EVENTS_WAIT_FOR_TOUCH,
+  TOUCH_EVENTS_WAIT_LONG_TOUCH_DELAY,
+  TOUCH_EVENTS_LONG_TOUCH_DETECTED
+};
 
 /**
  * Available screen types.
@@ -115,8 +126,10 @@ UIElement* StartCalibration();
 	void ScreenDDSUpdateVisibility();
 #endif
 
+// https://camo.githubusercontent.com/331d26748c79ccaf42bb0837711b14728c82e47e6fd21b2997a1b9c5155cf672/68747470733a2f2f692e696d6775722e636f6d2f7a424e506335622e706e67
 #define LCD_CS_PIN_NUMBER	1		/**< Corresponding digital pin number for PORTB1 */
 #define LCD_A0_PIN_NUMBER	0		/**< Corresponding digital pin number for PORTB0 */
+#define TOUCH_CS_PIN_NUMBER	27		/**< Pin number for the touch screen CS pin */
 
 /**
  * Class that is used to control the screen.
@@ -125,7 +138,13 @@ UIElement* StartCalibration();
 class ScreenManagerClass
 {
 	private:
-		ILI9341 _tft;							/**< ILI9341 graphics handle that is used with all drawing related methods. */
+		Adafruit_ILI9341 _tft;
+		//ILI9341 _tft;							/**< ILI9341 graphics handle that is used with all drawing related methods. */
+		XPT2046_Touchscreen _ts;				/**< XPT2046 touchscreen handle. */
+		TS_Display _ts_display;					/**< Object to improve touchscreen and display handling. */
+
+		unsigned long _touchStartTime = 0;
+		TouchEventStates _touchEventState = TOUCH_EVENTS_WAIT_FOR_TOUCH;
 
 		/**
 		 * Build the VisualTree for all screens used for drawing.
@@ -173,6 +192,20 @@ class ScreenManagerClass
 		 * @param key Key that is forwarded to the UI_Lib.
 		 */
 		void KeyInput(Keys_t key);
+
+		/**
+		 * Process a touch input at the given point (x, y)
+		 * @param x X-Coordinate of the touched point
+		 * @param y Y-Coordinate of the touched point
+		 * @param touchType Type of the touch
+		 * @return true if the touch was processed; false if not.
+		 */
+		bool TouchInput(uint16_t x, uint16_t y, TouchTypes touchType);
+		
+		/**
+		 * Call this method cyclic for touch handling.
+		 */
+		void Touch_handling();
 };
 
 #endif /* SCREENMANAGER_H_ */

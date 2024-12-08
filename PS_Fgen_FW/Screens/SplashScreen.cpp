@@ -13,7 +13,7 @@
 Icon ico_logo(icon_powerCord_width, icon_powerCord_height, icon_powerCord_bits);
 Label lbl_projectName("PowerSupply Fgen", LABEL_COLOR_NOTSET, &FreeSansBold18pt7b, 0, 0, 20);
 Label lbl_serialNo("SNo.: " SCPI_IDN_SERIAL_NUMBER, LABEL_COLOR_NOTSET, NULL, 0, 0, 10);
-Label lbl_swVersion("SW: " SCPI_IDN_SOFTWARE_REVISION, LABEL_COLOR_NOTSET, NULL, 0, 0, 15);
+Label lbl_swVersion("SW: " SCPI_IDN_SOFTWARE_REVISION, LABEL_COLOR_NOTSET, NULL, 0, 0, 20);
 ContainerStack stack_SplashScreen(STACK_LAYOUT_VERTICAL_CENTER, 4);
 ContainerGrid grid_SplashScreenMain(1, 1, 1, false, true);
 

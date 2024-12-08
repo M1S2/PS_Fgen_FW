@@ -8,6 +8,8 @@
 #include "ScreenManager.h"
 #include "../Device.h"
 
+#include "../USART/USART.h"
+
 /**
   * Callback method called when the selected tab of the TabControl changed.
   * @param controlContext Not used
@@ -60,7 +62,7 @@ void TabControlTabChanged(void* controlContext)
 	}
 }
 
-ScreenManagerClass::ScreenManagerClass() : _tft(LCD_A0_PIN_NUMBER, -1, LCD_CS_PIN_NUMBER)
+ScreenManagerClass::ScreenManagerClass() : _tft(LCD_CS_PIN_NUMBER, LCD_A0_PIN_NUMBER), _ts(TOUCH_CS_PIN_NUMBER)
 {
 }
 
@@ -69,6 +71,17 @@ void ScreenManagerClass::Init()
 	_tft.begin();
 	_tft.setRotation(1);
 	_tft.fillScreen(0x0);
+
+	_ts.begin();
+    _ts.setRotation(_tft.getRotation());
+
+    _ts_display.begin(&_ts, &_tft);
+    /*
+    TS_LR_X: 440  TS_LR_Y: 380  TS_UL_X: 3904  TS_UL_Y: 3792
+    UL corner (0, 0) maps to touchscreen (3904, 3792)
+    LR corner (319, 239) maps to touchscreen (451, 395)
+    */
+    _ts_display.setTS_calibration(440, 380, 3904, 3792);
 
 	#ifdef SPLASHSCREEN_ENABLED 
 		IsSplashScreenShown = true;
@@ -188,9 +201,72 @@ void ScreenManagerClass::DeviceTimerTickISR()
 	{
 		TimeCounter_ScreenRedraw_ms += DEVICE_TIMER_TICK_INTERVAL_MS;	// Screen redraw is handled in DoDraw()
 	}
+
+	DESELECT_LCD
+	Touch_handling();
+	SELECT_LCD
 }
 
 void ScreenManagerClass::KeyInput(Keys_t key)
 {
 	UiManager.KeyInput(key);
+}
+
+bool ScreenManagerClass::TouchInput(uint16_t x, uint16_t y, TouchTypes touchType)
+{
+	if(touchType == TOUCH_NORMAL)
+	{
+		Usart0TransmitStr("TouchInput NORMAL: ");
+	}
+	else if(touchType == TOUCH_LONG)
+	{
+		Usart0TransmitStr("TouchInput LONG: ");
+	}
+
+	char buffer[50];
+	sprintf(buffer, "x=%d y=%d\r\n", x, y);
+	Usart0TransmitStr(buffer);
+
+	return UiManager.TouchInput(x, y, touchType);
+}
+
+void ScreenManagerClass::Touch_handling()
+{
+	if(BIT_IS_CLEARED(PINA, TS_IRQ) || _touchEventState != TOUCH_EVENTS_WAIT_FOR_TOUCH)
+	{
+		int16_t x, y, pres, px, py;
+		eTouchEvent touchEvent = _ts_display.getTouchEvent(x, y, pres, &px, &py);
+
+		switch (_touchEventState)
+		{
+			case TOUCH_EVENTS_WAIT_FOR_TOUCH:
+				if(touchEvent == TS_TOUCH_EVENT || touchEvent == TS_TOUCH_PRESENT)
+				{
+					_touchStartTime = millis();
+					_touchEventState = TOUCH_EVENTS_WAIT_LONG_TOUCH_DELAY;
+				}
+				break;
+			case TOUCH_EVENTS_WAIT_LONG_TOUCH_DELAY:
+				if(touchEvent == TS_RELEASE_EVENT || touchEvent == TS_NO_TOUCH)
+				{
+					// Normal touch
+					Device.UserInputHandler.EnqueueTouchInput(x, y, TOUCH_NORMAL);
+					_touchEventState = TOUCH_EVENTS_WAIT_FOR_TOUCH;
+				}
+				else if(millis() - _touchStartTime >= LONG_TOUCH_DELAY_MS)
+				{
+					// Long touch
+					Device.UserInputHandler.EnqueueTouchInput(x, y, TOUCH_LONG);
+					_touchEventState = TOUCH_EVENTS_LONG_TOUCH_DETECTED;
+				}
+				break;
+			case TOUCH_EVENTS_LONG_TOUCH_DETECTED:
+				if(touchEvent == TS_RELEASE_EVENT || touchEvent == TS_NO_TOUCH)
+				{
+					_touchEventState = TOUCH_EVENTS_WAIT_FOR_TOUCH;
+				}
+				break;
+			default: break;
+		}
+	}
 }

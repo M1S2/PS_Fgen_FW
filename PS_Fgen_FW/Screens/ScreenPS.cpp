@@ -8,7 +8,7 @@
 
 #ifdef PS_SUBSYSTEM_ENABLED
 
-ContainerList list_PS;
+ContainerList list_PS(4, 20);
 
 void PSProtectionsClear(void* controlContext);
 void PSProtectionsClearedOK(void* controlContext);

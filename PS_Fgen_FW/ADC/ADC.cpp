@@ -37,38 +37,42 @@ ISR(ADC_vect)
 			// Ucurr = R24 * (R22 / R23) * IL	=> IL = Ucurr / (R24 * (R22 / R23))
 			Device.PsChannel.MeasuredCurrent = ((adcVoltage / 2.4f) * Device.CalibrationFactors.Cal_PS_CURR) - Device.CalibrationFactors.Cal_PS_CURR_OFFSET;
 			if(Device.PsChannel.MeasuredCurrent < 0) { Device.PsChannel.MeasuredCurrent = 0; }
+			adcChannel = 1;
 			break;
 		case 1:
 			Device.PsChannel.MeasuredVoltage = adcVoltage * 2 * Device.CalibrationFactors.Cal_PS_VOLT;
+			adcChannel = 4;
 			break;
 	#endif
 	#ifdef MEASURE_SUBSYSTEM_ENABLED
-		case 2:
-			Device.DeviceVoltages.ATX_12V_NEG = -adcVoltage * 2.4f * Device.CalibrationFactors.Cal_ATX_12V_NEG;
-			break;
-		case 3:
-			Device.DeviceVoltages.ATX_12V = adcVoltage * 2.5f * Device.CalibrationFactors.Cal_ATX_12V;
-			break;
+		//case 2:
+		//	Device.DeviceVoltages.ATX_12V_NEG = -adcVoltage * 2.4f * Device.CalibrationFactors.Cal_ATX_12V_NEG;
+		//	break;
+		//case 3:
+		//	Device.DeviceVoltages.ATX_12V = adcVoltage * 2.5f * Device.CalibrationFactors.Cal_ATX_12V;
+		//	break;
 		case 4:
 			Device.DeviceVoltages.ATX_5V = adcVoltage * Device.CalibrationFactors.Cal_ATX_5V;
+			adcChannel = 5;
 			break;
 		case 5:
 			Device.DeviceVoltages.ATX_3V3 = adcVoltage * Device.CalibrationFactors.Cal_ATX_3V3;
+			adcChannel = 6;
 			break;
 		case 6:
 			Device.DmmChannel1.MeasuredVoltage = adcVoltage * 5.17f * Device.CalibrationFactors.Cal_DMM1;
 			Device.DmmChannel1.IsNegative = BIT_IS_SET(PIND, DMM1_NEG);
+			adcChannel = 7;
 			break;
 		case 7:
 			Device.DmmChannel2.MeasuredVoltage = adcVoltage * 5.17f * Device.CalibrationFactors.Cal_DMM2;
 			Device.DmmChannel2.IsNegative = BIT_IS_SET(PIND, DMM2_NEG);
+			adcChannel = 0;
 			break;
 	#endif
 		default: break;
 	}
 
-	adcChannel++;
-	if(adcChannel > 7) { adcChannel = 0; }
 	ADMUX = (ADMUX & 0xF8) + adcChannel;	// Set lower 3 bits of ADMUX to select ADC channel
 	ADCSRA |= 1<<ADSC;						// Start new ADC conversion
 	sei();

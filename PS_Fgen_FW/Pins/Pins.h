@@ -24,10 +24,14 @@
 #define ADC_DVM1	PORTA6			/**< Bit position of the digital multimeter channel 2 ADC input */
 #define ADC_3V3		PORTA5			/**< Bit position of the 3.3V ADC input */
 #define ADC_5V		PORTA4			/**< Bit position of the 5V ADC input */
-#define ADC_12V		PORTA3			/**< Bit position of the 12V ADC input */
-#define ADC_12V_NEG	PORTA2			/**< Bit position of the -12V ADC input */
+//#define ADC_12V		PORTA3			/**< Bit position of the 12V ADC input */
+//#define ADC_12V_NEG	PORTA2			/**< Bit position of the -12V ADC input */
 #define ADC_PS_VOLT	PORTA1			/**< Bit position of the power supply voltage ADC input */
 #define ADC_PS_CUR	PORTA0			/**< Bit position of the power supply current ADC input */
+
+// Touch screen pins
+#define TS_CS		PORTA3			/**< Bit position of the touch screen chip select */
+#define TS_IRQ	    PORTA2			/**< Bit position of the touch screen interrupt */
 
 // Chip select pins
 #define SPI_SCK		PORTB7			/**< Bit position of the SPI clock */

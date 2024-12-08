@@ -54,7 +54,7 @@ Icon ico_versionInfo(icon_info_width, icon_info_height, icon_info_bits, COLOR_FO
 Label lbl_Settings_VersionInfo_caption("Version Info", COLOR_FOREGROUND_HEADERS, NULL, 0, 0, 15);
 Label lbl_Settings_VersionInfo_manufacturer("by " SCPI_IDN_MANUFACTURER, LABEL_COLOR_NOTSET, NULL, 0, 0, 20);
 Label lbl_Settings_VersionInfo_serialNo("SNo.: " SCPI_IDN_SERIAL_NUMBER, LABEL_COLOR_NOTSET, NULL, 0, 0, 10);
-Label lbl_Settings_VersionInfo_swVersion("SW: " SCPI_IDN_SOFTWARE_REVISION, LABEL_COLOR_NOTSET, NULL, 0, 0, 15);
+Label lbl_Settings_VersionInfo_swVersion("SW: " SCPI_IDN_SOFTWARE_REVISION, LABEL_COLOR_NOTSET, NULL, 0, 0, 20);
 
 
 void SettingsChanged(void* context)

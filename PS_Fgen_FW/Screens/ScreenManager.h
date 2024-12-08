@@ -28,6 +28,7 @@
 #define COLOR_BACKGROUND			RGB565(0x00, 0x00, 0x00)
 #define COLOR_FOREGROUND			RGB565(0x00, 0xF7, 0x00)
 #define COLOR_FOREGROUND_HEADERS	RGB565(0xFF, 0xFF, 0xFF)
+#define COLOR_FOCUS_FRAME			RGB565(0xFF, 0xFF, 0xFF)
 
 /**
  * Available screen types.
@@ -114,8 +115,8 @@ UIElement* StartCalibration();
 	void ScreenDDSUpdateVisibility();
 #endif
 
-#define LCD_CS_PIN_NUMBER	1		// Corresponding digital pin number for PORTB1
-#define LCD_A0_PIN_NUMBER	0		// Corresponding digital pin number for PORTB0
+#define LCD_CS_PIN_NUMBER	1		/**< Corresponding digital pin number for PORTB1 */
+#define LCD_A0_PIN_NUMBER	0		/**< Corresponding digital pin number for PORTB0 */
 
 /**
  * Class that is used to control the screen.
@@ -125,7 +126,7 @@ class ScreenManagerClass
 {
 	private:
 		ILI9341 _tft;							/**< ILI9341 graphics handle that is used with all drawing related methods. */
-		
+
 		/**
 		 * Build the VisualTree for all screens used for drawing.
 		 * This function is internally called by the Init() function of this class.

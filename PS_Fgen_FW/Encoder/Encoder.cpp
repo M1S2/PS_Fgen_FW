@@ -8,14 +8,8 @@
 #include "../UserInputHandler/UserInputHandler.h"
 #include "../Device.h"
 
-void Encoder_Init()
-{
-	EIMSK |= (1 << INT0);		// enable INT0
-	EICRA |= (1 << ISC01);		// INT0 - falling edge
-}
-
 //INT0 interrupt
-ISR(INT0_vect)
+void isrEncoder( void )
 {
 	if(!BIT_IS_CLEARED(PIND, ENC_B))
 	{
@@ -25,4 +19,10 @@ ISR(INT0_vect)
 	{
 		Device.UserInputHandler.EnqueueKeyInput(KEYDOWN);
 	}
+}
+
+void Encoder_Init()
+{
+	// enable and attach INT0
+	attachInterrupt(0, isrEncoder, FALLING);
 }

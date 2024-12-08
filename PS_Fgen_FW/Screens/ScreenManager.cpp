@@ -14,8 +14,8 @@
   */
 void TabControlTabChanged(void* context);
 
-ContainerPage page_Main(0, 0, DISPLAY_WIDTH, DISPLAY_HEIGHT);
-EnumIndicator<DeviceControlStates_t> enumInd_deviceState(DISPLAY_WIDTH - 70, DISPLAY_HEIGHT - STATUS_BAR_HEIGHT + 3, &Device.DeviceControlState, DeviceControlStateNames, NUM_DEV_CTRL_ELEMENTS);
+ContainerPage page_Main(3, 0, 0, DISPLAY_WIDTH, DISPLAY_HEIGHT);
+EnumIndicator<DeviceControlStates_t> enumInd_deviceState(&Device.DeviceControlState, DeviceControlStateNames, NUM_DEV_CTRL_ELEMENTS, DISPLAY_WIDTH - 70, DISPLAY_HEIGHT - STATUS_BAR_HEIGHT + 3);
 Label lbl_devSettingsNeedSaving("*", LABEL_COLOR_NOTSET, NULL, DISPLAY_WIDTH - 15, DISPLAY_HEIGHT - STATUS_BAR_HEIGHT + 3, 5);
 
 #ifdef PS_SUBSYSTEM_ENABLED
@@ -28,13 +28,13 @@ Label lbl_devSettingsNeedSaving("*", LABEL_COLOR_NOTSET, NULL, DISPLAY_WIDTH - 1
 	Icon iconTabMeas(icon_dmm_32x32_width, icon_dmm_32x32_height, icon_dmm_32x32_bits, COLOR_FOREGROUND_HEADERS);
 #endif
 Icon iconTabConfig(icon_settings_32x32_width, icon_settings_32x32_height, icon_settings_32x32_bits, COLOR_FOREGROUND_HEADERS);
-TabControl tabControlMain(DISPLAY_WIDTH, DISPLAY_HEIGHT - STATUS_BAR_HEIGHT, TAB_POSITION_LEFT, NULL, &TabControlTabChanged);
+ContainerTabs containerTabsMain(DISPLAY_WIDTH, DISPLAY_HEIGHT - STATUS_BAR_HEIGHT, TAB_POSITION_LEFT, NULL, &TabControlTabChanged);
 
 MessageDialog msg_DeviceRWLState(MSG_DIALOG_MARGIN, MSG_DIALOG_MARGIN, DISPLAY_WIDTH - 2 * MSG_DIALOG_MARGIN, DISPLAY_HEIGHT - 2 * MSG_DIALOG_MARGIN, "Device locked by SYST:RWL.\nUnlock with SYST:LOC.", MSG_WARNING, MSG_BTN_NONE);
 
 void TabControlTabChanged(void* controlContext)
 {
-	int tabIndex = tabControlMain.GetSelectedTabIndex();
+	int tabIndex = containerTabsMain.GetSelectedTabIndex();
 	ScreenTypes_t screenType = (ScreenTypes_t)tabIndex;
 	switch(screenType)
 	{
@@ -76,8 +76,10 @@ void ScreenManagerClass::Init()
 	TimeCounter_SplashScreen_ms = 0;
 	TimeCounter_ScreenRedraw_ms = 0;
 	
-	UiManager.SetColors(COLOR_BACKGROUND, COLOR_FOREGROUND, COLOR_BACKGROUND);
+	UiManager.SetColors(COLOR_BACKGROUND, COLOR_FOREGROUND, COLOR_BACKGROUND, COLOR_FOCUS_FRAME);
 	UiManager.Init(&_tft);
+	UiManager.ElementMargin = 2;
+	UiManager.ElementPadding = 1;
 	uiBuildTree();
 	
 	RedrawScreenRequest = true;			// Always draw the screen once when the device is powered on
@@ -93,18 +95,18 @@ void ScreenManagerClass::UpdateVisibilities()
 void ScreenManagerClass::uiBuildTree()
 {
 	#ifdef PS_SUBSYSTEM_ENABLED
-		tabControlMain.AddItem(&iconTabPS, uiBuildScreenPS());
+		containerTabsMain.AddItem(&iconTabPS, uiBuildScreenPS());
 	#endif
 	#ifdef DDS_SUBSYSTEM_ENABLED
-		tabControlMain.AddItem(&iconTabDDS, uiBuildScreenDDS());			// Containing DDS1 and DDS2
+		containerTabsMain.AddItem(&iconTabDDS, uiBuildScreenDDS());			// Containing DDS1 and DDS2
 	#endif
 	#ifdef MEASURE_SUBSYSTEM_ENABLED
-		tabControlMain.AddItem(&iconTabMeas, uiBuildScreenMeasure());		// Containing DMM and ATX measurements
+		containerTabsMain.AddItem(&iconTabMeas, uiBuildScreenMeasure());		// Containing DMM and ATX measurements
 	#endif
-	tabControlMain.AddItem(&iconTabConfig, uiBuildScreenSettings());
+	containerTabsMain.AddItem(&iconTabConfig, uiBuildScreenSettings());
 	TabControlTabChanged(NULL);				// Trigger a tab changed event to recalculate the CurrentScreenNeedsPeriodicRedraw variable
 	
-	page_Main.AddItem(&tabControlMain);
+	page_Main.AddItem(&containerTabsMain);
 	page_Main.AddItem(&enumInd_deviceState);
 	page_Main.AddItem(&lbl_devSettingsNeedSaving);
 	page_Main.InitItems();

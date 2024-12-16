@@ -7,6 +7,7 @@
 #include <stdio.h>
 #include "ScreenManager.h"
 #include "../Device.h"
+#include "../Spi/spi.h"
 
 #include "../USART/USART.h"
 
@@ -88,6 +89,7 @@ void ScreenManagerClass::Init()
 	#endif
 	TimeCounter_SplashScreen_ms = 0;
 	TimeCounter_ScreenRedraw_ms = 0;
+	TimeCounter_TouchHandling_ms = 0;
 	
 	UiManager.SetColors(COLOR_BACKGROUND, COLOR_FOREGROUND, COLOR_BACKGROUND, COLOR_FOCUS_FRAME);
 	UiManager.Init(&_tft);
@@ -166,6 +168,7 @@ void ScreenManagerClass::DoDraw()
 	if(RedrawScreenRequest)
 	{
 		RedrawScreenRequest = false;			// Reset redraw request to only draw once (until the request is set to true again)
+		SPI_SelectDevice(SPI_DEV_TFT);
 		UiManager.Draw();
 		TimeCounter_ScreenRedraw_ms = 0;
 	}
@@ -202,9 +205,11 @@ void ScreenManagerClass::DeviceTimerTickISR()
 		TimeCounter_ScreenRedraw_ms += DEVICE_TIMER_TICK_INTERVAL_MS;	// Screen redraw is handled in DoDraw()
 	}
 
-	DESELECT_LCD
-	Touch_handling();
-	SELECT_LCD
+	TimeCounter_TouchHandling_ms += DEVICE_TIMER_TICK_INTERVAL_MS;
+	if(TimeCounter_TouchHandling_ms >= TOUCH_HANDLING_DELAY_MS)
+	{
+		TouchHandlingISR();
+	}
 }
 
 void ScreenManagerClass::KeyInput(Keys_t key)
@@ -214,28 +219,17 @@ void ScreenManagerClass::KeyInput(Keys_t key)
 
 bool ScreenManagerClass::TouchInput(uint16_t x, uint16_t y, TouchTypes touchType)
 {
-	if(touchType == TOUCH_NORMAL)
-	{
-		Usart0TransmitStr("TouchInput NORMAL: ");
-	}
-	else if(touchType == TOUCH_LONG)
-	{
-		Usart0TransmitStr("TouchInput LONG: ");
-	}
-
-	char buffer[50];
-	sprintf(buffer, "x=%d y=%d\r\n", x, y);
-	Usart0TransmitStr(buffer);
-
 	return UiManager.TouchInput(x, y, touchType);
 }
 
-void ScreenManagerClass::Touch_handling()
+void ScreenManagerClass::TouchHandlingISR()
 {
 	if(BIT_IS_CLEARED(PINA, TS_IRQ) || _touchEventState != TOUCH_EVENTS_WAIT_FOR_TOUCH)
 	{
 		int16_t x, y, pres, px, py;
+		SPI_SelectDevice(SPI_DEV_TOUCH);
 		eTouchEvent touchEvent = _ts_display.getTouchEvent(x, y, pres, &px, &py);
+		SPI_SelectDevice(SPI_DEV_TFT);
 
 		switch (_touchEventState)
 		{

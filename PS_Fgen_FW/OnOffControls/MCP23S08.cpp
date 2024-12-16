@@ -22,7 +22,7 @@ MCP23S08::MCP23S08(uint8_t deviceAddr)
 
 void MCP23S08::begin()
 {
-	SELECT_MCP23S08
+	SPI_SelectDevice(SPI_DEV_IO_EXP);
 	// reset all registers to default:
 	SPI_SendByte(deviceOpcode);
 	SPI_SendByte(MCP23S08_IODIR);	//set address pointer to first register
@@ -31,7 +31,7 @@ void MCP23S08::begin()
 	{
 		SPI_SendByte(0x00);			// reset other 10 registers
 	}
-	DESELECT_MCP23S08
+	SPI_SelectDevice(SPI_DEV_TFT);
 }
 
 
@@ -183,22 +183,22 @@ uint8_t MCP23S08::getInterruptCaptures()
 
 void MCP23S08::writeRegister(uint8_t address, uint8_t data) 
 {
-	SELECT_MCP23S08
+	SPI_SelectDevice(SPI_DEV_IO_EXP);
 	SPI_SendByte(deviceOpcode);		// initialize transfer with opcode and R/W-flag cleared
 	SPI_SendByte(address);
 	SPI_SendByte(data);	
-	DESELECT_MCP23S08
+	SPI_SelectDevice(SPI_DEV_TFT);
 }
 
 
 uint8_t MCP23S08::readRegister(uint8_t address) 
 {
 	uint8_t data;
-	SELECT_MCP23S08
+	SPI_SelectDevice(SPI_DEV_IO_EXP);
 	SPI_SendByte(deviceOpcode | 1);		// initialize transfer with opcode and R/W-flag set
 	SPI_SendByte(address);
 	
 	data = SPI_SendByte(0);			// Read byte by shifting out dummy byte
-	DESELECT_MCP23S08
+	SPI_SelectDevice(SPI_DEV_TFT);
 	return data;
 }

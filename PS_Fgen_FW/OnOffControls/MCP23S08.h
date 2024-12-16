@@ -11,8 +11,8 @@
 
 #include <stdint.h>
 
-#define SELECT_MCP23S08		CLEAR_BIT(PORTB, IO_EXP_CS);				/**< Select the MCP23S08 IO expander by pulling the IO_EXP_CS pin low */
-#define DESELECT_MCP23S08	SET_BIT(PORTB, IO_EXP_CS);					/**< Deselect the MCP23S08 IO expander by pulling the IO_EXP_CS pin high */
+#define SELECT_MCP23S08		SPI_SELECT_IO_EXP				/**< Select the MCP23S08 IO expander by pulling the IO_EXP_CS pin low */
+#define DESELECT_MCP23S08	SPI_DESELECT_IO_EXP				/**< Deselect the MCP23S08 IO expander by pulling the IO_EXP_CS pin high */
 
 // register addresses
 #define MCP23S08_IODIR		0x00
@@ -84,12 +84,12 @@ class MCP23S08
 		uint8_t getInterruptControl();
 		/**
 		 * The INTF register reflects the interrupt condition on the port pins of any pin that is enabled for interrupts via the GPINTEN register.
-		 * A ‘set’ bit indicates that the associated pin caused the interrupt
+		 * A ï¿½setï¿½ bit indicates that the associated pin caused the interrupt
 		 */
 		uint8_t getInterruptFlags();
 		/**
 		 * The INTCAP register captures the GPIO port value at the time the interrupt occurred.
-		 * The register is ‘readonly’ and is updated only when an interrupt occurs.
+		 * The register is ï¿½readonlyï¿½ and is updated only when an interrupt occurs.
 		 * The register will remain unchanged until the interrupt is cleared via a read of INTCAP or GPIO.
 		 */	
 		uint8_t getInterruptCaptures();

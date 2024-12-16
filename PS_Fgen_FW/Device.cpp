@@ -147,18 +147,14 @@ void DeviceClass::DeviceTimerTickISR(void)
 		if(TimeCounter_PowerSupplyChannelRegulation_ms >= POWER_SUPPLY_REG_INTERVAL_MS)
 		{	
 			TimeCounter_PowerSupplyChannelRegulation_ms = 0;
-			DESELECT_LCD
 			PsChannel.DoRegulationISR();
-			SELECT_LCD
 		}
 	#endif
 	
 	// Get on/off button state
 	if(OnOffControls_IsButtonChanged())
 	{
-		DESELECT_LCD
 		OnOffButtons_t button = OnOffControls_GetButton();
-		SELECT_LCD
 		UserInputHandler.EnqueueOnOffButtonInput(button);
 	}
 }

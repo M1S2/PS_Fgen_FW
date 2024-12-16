@@ -67,7 +67,24 @@
  */
 void Pins_Init();
 
-#define SELECT_LCD		CLEAR_BIT(PORTB, LCD_CS);				/**< Select the LCD by pulling the LCD_CS pin low */
-#define DESELECT_LCD	SET_BIT(PORTB, LCD_CS);					/**< Deselect the LCD by pulling the LCD_CS pin high */
+#define BITMASK_CS_PORTA        (1 << TS_CS)                                                        /**< Bitmask for the PortA SPI chip selects (1s mark chip select positions) */
+#define BITMASK_CS_PORTB        (1 << PS_CS) | (1 << DDS_CS) | (1 << IO_EXP_CS) | (1 << LCD_CS)     /**< Bitmask for the PortA SPI chip selects (1s mark chip select positions) */
+
+#define SPI_SELECT_TOUCH	    CLEAR_BIT(PORTA, TS_CS);				/**< Select the touch screen by pulling the TS_CS pin low */
+#define SPI_DESELECT_TOUCH	    SET_BIT(PORTA, TS_CS);					/**< Deselect the touch screen by pulling the TS_CS pin high */
+
+#define SPI_SELECT_LCD		    CLEAR_BIT(PORTB, LCD_CS);				/**< Select the LCD by pulling the LCD_CS pin low */
+#define SPI_DESELECT_LCD	    SET_BIT(PORTB, LCD_CS);					/**< Deselect the LCD by pulling the LCD_CS pin high */
+
+#define SPI_SELECT_DDS		    CLEAR_BIT(PORTB, DDS_CS);				/**< Select the DDS DAC by pulling the DDS_CS pin low */
+#define SPI_DESELECT_DDS	    SET_BIT(PORTB, DDS_CS);					/**< Deselect the DDS DAC by pulling the DDS_CS pin high */
+#define SPI_IS_DDS_SELECTED	    BIT_IS_CLEARED(PORTB, DDS_CS);			/**< Check if the DDS DAC is selected by reading the DDS_CS pin */
+
+#define SPI_SELECT_PS		    CLEAR_BIT(PORTB, PS_CS);				/**< Select the PS DAC by pulling the PS_CS pin low */
+#define SPI_DESELECT_PS	        SET_BIT(PORTB, PS_CS);					/**< Deselect the PS DAC by pulling the PS_CS pin high */
+#define SPI_IS_PS_SELECTED	    BIT_IS_CLEARED(PORTB, PS_CS);			/**< Check if the PS DAC is selected by reading the PS_CS pin */
+
+#define SPI_SELECT_IO_EXP		CLEAR_BIT(PORTB, IO_EXP_CS);			/**< Select the IO expander by pulling the IO_EXP_CS pin low */
+#define SPI_DESELECT_IO_EXP	    SET_BIT(PORTB, IO_EXP_CS);				/**< Deselect the IO expander by pulling the IO_EXP_CS pin high */
 
 #endif /* PINS_H_ */

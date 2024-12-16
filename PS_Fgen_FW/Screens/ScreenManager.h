@@ -61,7 +61,6 @@ typedef enum ScreenTypes
 	NUM_SCREEN_ELEMENTS			/**< The last element is used to determine the number of elements in the enumeration */
 }ScreenTypes_t; 
 
-
 #ifdef SPLASHSCREEN_ENABLED 
 	/**
 	 * Build the SplashScreen by linking all necessary components together.
@@ -159,6 +158,7 @@ class ScreenManagerClass
 		bool IsSplashScreenShown;				/**< Variable used to keep track if the SplashScreen is shown. */
 		uint16_t TimeCounter_SplashScreen_ms;	/**< Timer conter value that is used to measure the time, the SplashScreen is shown. */
 		uint16_t TimeCounter_ScreenRedraw_ms;	/**< Variable used for measuring the time to the next screen redraw */
+		uint16_t TimeCounter_TouchHandling_ms;	/**< Variable used for measuring the time to the next touch handling */
 		
 		ScreenManagerClass();					/**< Constructor of the ScreenManagerClass */
 		void Init();							/**< Initialize the ScreenManager. This method initializes the u8g_lib and UI_Manager handles and builds the VisualTree. */
@@ -205,7 +205,7 @@ class ScreenManagerClass
 		/**
 		 * Call this method cyclic for touch handling.
 		 */
-		void Touch_handling();
+		void TouchHandlingISR();
 };
 
 #endif /* SCREENMANAGER_H_ */

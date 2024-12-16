@@ -19,13 +19,13 @@ void MCP4921_DAC_Set(uint16_t dac_data)
 	high_byte |= ((dac_data >> 8) & 0x0F);
 	low_byte = (dac_data & 0xFF);
 
-	SELECT_MCP4921
+	SPI_SelectDevice(SPI_DEV_PS);
 
 	/*send the word*/
 	SPI_SendByte(high_byte);
 	SPI_SendByte(low_byte);
 
-	DESELECT_MCP4921
+	SPI_SelectDevice(SPI_DEV_TFT);
 }
 
 void MCP4921_Voltage_Set(float voltage)
@@ -57,13 +57,13 @@ void MCP4922_DAC_Set(uint16_t dac_data, char channel_A_B)
 	high_byte |= ((dac_data >> 8) & 0x0F);
 	low_byte = (dac_data & 0xFF);
 
-	SELECT_MCP4922
+	SPI_SelectDevice(SPI_DEV_DDS);
 
 	/*send the word*/
 	SPI_SendByte(high_byte);
 	SPI_SendByte(low_byte);
 
-	DESELECT_MCP4922
+	SPI_SelectDevice(SPI_DEV_TFT);
 }
 
 void MCP4922_Voltage_Set(float voltage, char channel_A_B)

@@ -15,6 +15,7 @@
 #define DEVICE_TIMER_TICK_INTERVAL_MS	100						/**< Tick interval of the DeviceTimer in ms. The DeviceTimer is used to e.g. periodically read the keys and the encoder. */
 #define POWER_SUPPLY_REG_INTERVAL_MS	100						/**< Time period for power supply regulation. This must be higher than the DeviceTimer tick interval because it's derived from this device timer. */
 #define KEY_POLLING_DELAY_MS			250						/**< Time period for key polling (keys and encoder button). This must be higher than the DeviceTimer tick interval because it's derived from this device timer. */
+#define TOUCH_HANDLING_DELAY_MS			300						/**< Time period for touch screen polling. This must be higher than the DeviceTimer tick interval because it's derived from this device timer. */
 #define SCREEN_REDRAW_DELAY_MS			500						/**< Time period for screen redraw. This must be higher than the DeviceTimer tick interval because it's derived from this device timer. */
 #define SETTINGS_AUTOSAVE_DELAY_MS		60000					/**< Milliseconds between automatic saves of the device settings */
 #define SPLASHSCREEN_DELAY_MS			2000					/**< Time that the splash screen is shown in milliseconds */

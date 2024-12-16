@@ -55,9 +55,7 @@ ISR(TIMER2_COMPA_vect)
 {	
 	cli();
 	
-	// No need to deselect other devices except the LCD. Interrupts lock each other.
-	DESELECT_LCD
-	SELECT_MCP4922
+	SPI_SelectDevice(SPI_DEV_DDS);
 	
 	if(dds_channel1_enabled)
 	{
@@ -95,8 +93,7 @@ ISR(TIMER2_COMPA_vect)
 		while (!(SPSR & (1 << SPIF)));	// Wait until transmission is complete
 	}
 
-	DESELECT_MCP4922
-	SELECT_LCD
+	SPI_SelectDevice(SPI_DEV_TFT);
 	sei();
 }
 

@@ -9,7 +9,14 @@
 #include "../Device.h"
 #include "../Spi/spi.h"
 
-#include "../USART/USART.h"
+/*
+A: 0.0917605
+B: 0.0002037
+C: -20.2002980
+D: -0.0003954
+E: 0.0693526
+F: -23.8954410 */
+XPT2046::Calibration TS_CALIBRATION = {0.0917605,0.0002037,-20.2002980,-0.0003954,0.0693526,-23.8954410,320,240};
 
 /**
   * Callback method called when the selected tab of the TabControl changed.
@@ -63,7 +70,7 @@ void TabControlTabChanged(void* controlContext)
 	}
 }
 
-ScreenManagerClass::ScreenManagerClass() : _tft(LCD_CS_PIN_NUMBER, LCD_A0_PIN_NUMBER), _ts(TOUCH_CS_PIN_NUMBER)
+ScreenManagerClass::ScreenManagerClass() : _tft(LCD_CS_PIN_NUMBER, LCD_A0_PIN_NUMBER), _ts(TOUCH_CS_PIN_NUMBER, TOUCH_IRQ_PIN_NUMBER)
 {
 }
 
@@ -74,15 +81,10 @@ void ScreenManagerClass::Init()
 	_tft.fillScreen(0x0);
 
 	_ts.begin();
+    _ts.setSampleCount(1);
+    _ts.setDebounceTimeout(0);       // !!! It is important to set this to 0 to make the state machine in the TouchHandlingISR() work !!!
+    _ts.setCalibration(TS_CALIBRATION);
     _ts.setRotation(_tft.getRotation());
-
-    _ts_display.begin(&_ts, &_tft);
-    /*
-    TS_LR_X: 440  TS_LR_Y: 380  TS_UL_X: 3904  TS_UL_Y: 3792
-    UL corner (0, 0) maps to touchscreen (3904, 3792)
-    LR corner (319, 239) maps to touchscreen (451, 395)
-    */
-    _ts_display.setTS_calibration(440, 380, 3904, 3792);
 
 	#ifdef SPLASHSCREEN_ENABLED 
 		IsSplashScreenShown = true;
@@ -224,43 +226,42 @@ bool ScreenManagerClass::TouchInput(uint16_t x, uint16_t y, TouchTypes touchType
 
 void ScreenManagerClass::TouchHandlingISR()
 {
-	if(BIT_IS_CLEARED(PINA, TS_IRQ) || _touchEventState != TOUCH_EVENTS_WAIT_FOR_TOUCH)
-	{
-		int16_t x, y, pres, px, py;
-		SPI_SelectDevice(SPI_DEV_TOUCH);
-		eTouchEvent touchEvent = _ts_display.getTouchEvent(x, y, pres, &px, &py);
-		SPI_SelectDevice(SPI_DEV_TFT);
+	static XPT2046::Point touchedPoint;
 
-		switch (_touchEventState)
-		{
-			case TOUCH_EVENTS_WAIT_FOR_TOUCH:
-				if(touchEvent == TS_TOUCH_EVENT || touchEvent == TS_TOUCH_PRESENT)
-				{
-					_touchStartTime = millis();
-					_touchEventState = TOUCH_EVENTS_WAIT_LONG_TOUCH_DELAY;
-				}
-				break;
-			case TOUCH_EVENTS_WAIT_LONG_TOUCH_DELAY:
-				if(touchEvent == TS_RELEASE_EVENT || touchEvent == TS_NO_TOUCH)
-				{
-					// Normal touch
-					Device.UserInputHandler.EnqueueTouchInput(x, y, TOUCH_NORMAL);
-					_touchEventState = TOUCH_EVENTS_WAIT_FOR_TOUCH;
-				}
-				else if(millis() - _touchStartTime >= LONG_TOUCH_DELAY_MS)
-				{
-					// Long touch
-					Device.UserInputHandler.EnqueueTouchInput(x, y, TOUCH_LONG);
-					_touchEventState = TOUCH_EVENTS_LONG_TOUCH_DETECTED;
-				}
-				break;
-			case TOUCH_EVENTS_LONG_TOUCH_DETECTED:
-				if(touchEvent == TS_RELEASE_EVENT || touchEvent == TS_NO_TOUCH)
-				{
-					_touchEventState = TOUCH_EVENTS_WAIT_FOR_TOUCH;
-				}
-				break;
-			default: break;
-		}
-	}
+    bool isTouched = _ts.touched();
+    if(isTouched || _touchEventState != TOUCH_EVENTS_WAIT_FOR_TOUCH)
+	{
+        switch (_touchEventState)
+        {
+            case TOUCH_EVENTS_WAIT_FOR_TOUCH:
+                if(isTouched)
+                {
+                    _touchStartTime = millis();
+                    touchedPoint = _ts.getTouchPosition();
+                    _touchEventState = TOUCH_EVENTS_WAIT_LONG_TOUCH_DELAY;
+                }
+                break;
+            case TOUCH_EVENTS_WAIT_LONG_TOUCH_DELAY:
+                if(!isTouched)
+                {
+                    // Normal touch
+                    Device.UserInputHandler.EnqueueTouchInput(touchedPoint.x, touchedPoint.y, TOUCH_NORMAL);
+                    _touchEventState = TOUCH_EVENTS_WAIT_FOR_TOUCH;
+                }
+                else if(millis() - _touchStartTime >= LONG_TOUCH_DELAY_MS)
+                {
+                    // Long touch
+                    Device.UserInputHandler.EnqueueTouchInput(touchedPoint.x, touchedPoint.y, TOUCH_LONG);
+                    _touchEventState = TOUCH_EVENTS_LONG_TOUCH_DETECTED;
+                }
+                break;
+            case TOUCH_EVENTS_LONG_TOUCH_DETECTED:
+                if(!isTouched)
+                {
+                    _touchEventState = TOUCH_EVENTS_WAIT_FOR_TOUCH;
+                }
+                break;
+            default: break;
+        }
+    }
 }

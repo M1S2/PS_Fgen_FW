@@ -13,7 +13,7 @@
 #include "Adafruit_GFX.h"
 //#include "ILI9341_Fast.h"
 #include "Adafruit_ILI9341.h"
-#include <TS_Display.h>
+#include "XPT2046.h"
 
 #include "../Encoder/Encoder.h"
 #include "../KeyPad/KeyPad.h"
@@ -129,6 +129,7 @@ UIElement* StartCalibration();
 #define LCD_CS_PIN_NUMBER	1		/**< Corresponding digital pin number for PORTB1 */
 #define LCD_A0_PIN_NUMBER	0		/**< Corresponding digital pin number for PORTB0 */
 #define TOUCH_CS_PIN_NUMBER	27		/**< Pin number for the touch screen CS pin */
+#define TOUCH_IRQ_PIN_NUMBER 26		/**< Pin number for the touch screen IRQ pin */
 
 /**
  * Class that is used to control the screen.
@@ -139,8 +140,7 @@ class ScreenManagerClass
 	private:
 		Adafruit_ILI9341 _tft;
 		//ILI9341 _tft;							/**< ILI9341 graphics handle that is used with all drawing related methods. */
-		XPT2046_Touchscreen _ts;				/**< XPT2046 touchscreen handle. */
-		TS_Display _ts_display;					/**< Object to improve touchscreen and display handling. */
+		XPT2046 _ts;							/**< XPT2046 touchscreen handle. */
 
 		unsigned long _touchStartTime = 0;
 		TouchEventStates _touchEventState = TOUCH_EVENTS_WAIT_FOR_TOUCH;

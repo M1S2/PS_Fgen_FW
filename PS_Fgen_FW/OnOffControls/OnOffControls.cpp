@@ -33,7 +33,7 @@ void OnOffControls_Init()
 bool OnOffControls_IsButtonChanged()
 {
 	// The IO_EXP_INT pin is low if one of the on/off buttons changed it's state and is reset if the input state is read
-	return BIT_IS_CLEARED(PIND, IO_EXP_INT);
+	return digitalRead(PIN_NUMBER_IO_EXP_INT) == LOW;
 }
 
 OnOffButtons_t OnOffControls_GetButton()

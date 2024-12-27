@@ -61,12 +61,12 @@ ISR(ADC_vect)
 			break;
 		case 6:
 			Device.DmmChannel1.MeasuredVoltage = adcVoltage * 5.17f * Device.CalibrationFactors.Cal_DMM1;
-			Device.DmmChannel1.IsNegative = BIT_IS_SET(PIND, DMM1_NEG);
+			Device.DmmChannel1.IsNegative = (digitalRead(PIN_NUMBER_DMM1_NEG) == HIGH);
 			adcChannel = 7;
 			break;
 		case 7:
 			Device.DmmChannel2.MeasuredVoltage = adcVoltage * 5.17f * Device.CalibrationFactors.Cal_DMM2;
-			Device.DmmChannel2.IsNegative = BIT_IS_SET(PIND, DMM2_NEG);
+			Device.DmmChannel2.IsNegative = (digitalRead(PIN_NUMBER_DMM2_NEG) == HIGH);
 			adcChannel = 0;
 			break;
 	#endif

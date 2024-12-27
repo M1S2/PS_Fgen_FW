@@ -24,7 +24,7 @@ void Encoder_Init();
  */
 inline bool Encoder_IsButtonPressed()
 {
-	return BIT_IS_CLEARED(PIND, ENC_PB);	
+	return digitalRead(PIN_NUMBER_ENC_PB) == LOW;	
 }
 
 #endif /* ENCODER_H_ */

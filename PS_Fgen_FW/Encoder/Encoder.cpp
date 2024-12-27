@@ -11,7 +11,7 @@
 //INT0 interrupt
 void isrEncoder( void )
 {
-	if(!BIT_IS_CLEARED(PIND, ENC_B))
+	if(digitalRead(PIN_NUMBER_ENC_B) == HIGH)
 	{
 		Device.UserInputHandler.EnqueueKeyInput(KEYUP);
 	}

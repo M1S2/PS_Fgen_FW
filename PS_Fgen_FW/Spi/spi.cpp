@@ -7,9 +7,7 @@
 
 void SPI_SelectDevice(SpiDevices_t spiDevice)
 {
-	// Set the bits in the bitmask on PortA and PortB to high (chip select disabled)
-	PORTA |= BITMASK_CS_PORTA;
-	PORTB |= BITMASK_CS_PORTB;
+	SPI_DESELECT_ALL
 
 	switch (spiDevice)
 	{

@@ -8,6 +8,7 @@
 #include "ScreenManager.h"
 #include "../Device.h"
 #include "../Spi/spi.h"
+#include "../Pins/Pins.h"
 
 /*
 A: 0.0917605
@@ -70,7 +71,7 @@ void TabControlTabChanged(void* controlContext)
 	}
 }
 
-ScreenManagerClass::ScreenManagerClass() : _tft(LCD_CS_PIN_NUMBER, LCD_A0_PIN_NUMBER), _ts(TOUCH_CS_PIN_NUMBER, TOUCH_IRQ_PIN_NUMBER)
+ScreenManagerClass::ScreenManagerClass() : _tft(PIN_NUMBER_LCD_CS, PIN_NUMBER_LCD_A0), _ts(PIN_NUMBER_TOUCH_CS, PIN_NUMBER_TOUCH_IRQ)
 {
 }
 

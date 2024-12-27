@@ -26,14 +26,6 @@ typedef enum SpiDevices
 #define SPI_DEFAULT_SETTINGS	SPISettings(8000000, MSBFIRST, SPI_MODE0)
 
 /**
- * Initialize the SPI subsystem as master.
- */
-inline void SPI_Init()
-{
-	SPI.begin();
-}
-
-/**
  * Deselect all SPI devices (pull the CS lines high) and select the given one (pull the CS line low).
  * @param spiDevice Requested SPI device which CS line is pulled low.
  */
@@ -43,6 +35,15 @@ void SPI_SelectDevice(SpiDevices_t spiDevice);
  * Deselect all SPI devices (pull the CS lines high).
  */
 void SPI_DeselectAll();
+
+/**
+ * Initialize the SPI subsystem as master.
+ */
+inline void SPI_Init()
+{
+	SPI.begin();
+	SPI_DeselectAll();
+}
 
 /**
  * Transfer a byte of data to the slave.

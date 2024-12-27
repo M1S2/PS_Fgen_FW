@@ -8,83 +8,67 @@
 #ifndef PINS_H_
 #define PINS_H_
 
+#include <Arduino.h>
 #include <util/delay.h>
 #include <avr/io.h>
 
-#define SET_BIT(x, y) x |= (1 << y);					/**< Set the bit at position y in register x */
-#define CLEAR_BIT(x, y) x &= ~(1 << y);					/**< Clear the bit at position y in register x */
-#define TOGGLE_BIT(x, y) x ^= (1 << y);					/**< Toggle the bit at position y in register x */
+// https://camo.githubusercontent.com/331d26748c79ccaf42bb0837711b14728c82e47e6fd21b2997a1b9c5155cf672/68747470733a2f2f692e696d6775722e636f6d2f7a424e506335622e706e67
+#define PIN_NUMBER_LCD_A0	    0		/**< Arduino pin number for the LCD A0 pin (PORTB0) */
+#define PIN_NUMBER_LCD_CS	    1		/**< Arduino pin number for the LCD chip select (PORTB1) */
+#define PIN_NUMBER_IO_EXP_CS	2		/**< Arduino pin number for the on/off controls IO expander chip select line (PORTB2) */
+#define PIN_NUMBER_DDS_CS	    3		/**< Arduino pin number for the direct digital synthesis chip select line (PORTB3) */
+#define PIN_NUMBER_PS_CS	    4		/**< Arduino pin number for the power supply chip select line (Is SPI_SS line and must be output for master mode) (PORTB4) */
 
-#define BIT_IS_SET(x, y) (x & (1 << y)) == (1 << y)		/**< Check if the bit at position y in register x is set */
-#define BIT_IS_CLEARED(x, y) (x & (1 << y)) == 0		/**< Check if the bit at position y in register x is cleared */
+#define PIN_NUMBER_USB_RX       8		/**< Arduino pin number UART RX line (PORTD0) */
+#define PIN_NUMBER_USB_TX       9		/**< Arduino pin number UART TX line (PORTD1) */
+#define PIN_NUMBER_ENC_A        10		/**< Arduino pin number for the Encoder A line (PORTD2) */
+#define PIN_NUMBER_ENC_B        11		/**< Arduino pin number for the Encoder B line (PORTD3) */
+#define PIN_NUMBER_ENC_PB       12		/**< Arduino pin number for the Encoder push button line (PORTD4) */
+#define PIN_NUMBER_DMM1_NEG     13		/**< Arduino pin number for the DMM1 negative voltage signal pin (PORTD5) */
+#define PIN_NUMBER_DMM2_NEG     14		/**< Arduino pin number for the DMM2 negative voltage signal pin (PORTD6) */
+#define PIN_NUMBER_IO_EXP_INT   15		/**< Arduino pin number for the on/off controls IO expander interrupt pin (PORTD7) */
 
+// Caution: The key pin numbers are not used. In the KeyPad.h file the complete port C is used directly.
+#define PIN_NUMBER_KEY_C1	    16		/**< Arduino pin number for the KeyPad column 1 line (PORTC0) */
+#define PIN_NUMBER_KEY_C2	    17		/**< Arduino pin number for the KeyPad column 2 line (PORTC1) */
+#define PIN_NUMBER_KEY_C3	    18		/**< Arduino pin number for the KeyPad column 3 line (PORTC2) */
+#define PIN_NUMBER_KEY_C4	    19		/**< Arduino pin number for the KeyPad column 4 line (PORTC3) */
+#define PIN_NUMBER_KEY_R1	    20		/**< Arduino pin number for the KeyPad row 1 line (PORTC4) */
+#define PIN_NUMBER_KEY_R2	    21		/**< Arduino pin number for the KeyPad row 2 line (PORTC5) */
+#define PIN_NUMBER_KEY_R3	    22		/**< Arduino pin number for the KeyPad row 3 line (PORTC6) */
+#define PIN_NUMBER_KEY_R4	    23		/**< Arduino pin number for the KeyPad row 4 line (PORTC7) */
 
-// ADC Definitions
-#define ADC_DVM2	PORTA7			/**< Bit position of the digital multimeter channel 1 ADC input */
-#define ADC_DVM1	PORTA6			/**< Bit position of the digital multimeter channel 2 ADC input */
-#define ADC_3V3		PORTA5			/**< Bit position of the 3.3V ADC input */
-#define ADC_5V		PORTA4			/**< Bit position of the 5V ADC input */
-//#define ADC_12V		PORTA3			/**< Bit position of the 12V ADC input */
-//#define ADC_12V_NEG	PORTA2			/**< Bit position of the -12V ADC input */
-#define ADC_PS_VOLT	PORTA1			/**< Bit position of the power supply voltage ADC input */
-#define ADC_PS_CUR	PORTA0			/**< Bit position of the power supply current ADC input */
-
-// Touch screen pins
-#define TS_CS		PORTA3			/**< Bit position of the touch screen chip select */
-#define TS_IRQ	    PORTA2			/**< Bit position of the touch screen interrupt */
-
-// Chip select pins
-#define SPI_SCK		PORTB7			/**< Bit position of the SPI clock */
-#define SPI_MISO	PORTB6			/**< Bit position of the SPI MISO line */
-#define SPI_MOSI	PORTB5			/**< Bit position of the SPI MOSI line */
-#define PS_CS		PORTB4			/**< Bit position of the power supply chip select line (Is SPI_SS line and must be output for master mode) */
-#define DDS_CS		PORTB3			/**< Bit position of the direct digital synthesis chip select line */
-#define IO_EXP_CS	PORTB2			/**< Bit position of the on/off controls IO expander chip select line */
-#define LCD_CS		PORTB1			/**< Bit position of the LCD chip select line */
-#define LCD_A0		PORTB0			/**< Bit position of the LCD address line */
-
-// Keys Definitions
-#define KEY_R4		PORTC7			/**< Bit position of the KeyPad row 4 line */
-#define KEY_R3		PORTC6			/**< Bit position of the KeyPad row 3 line */
-#define KEY_R2		PORTC5			/**< Bit position of the KeyPad row 4 line */
-#define KEY_R1		PORTC4			/**< Bit position of the KeyPad row 1 line */
-#define KEY_C4		PORTC3			/**< Bit position of the KeyPad column 4 line */
-#define KEY_C3		PORTC2			/**< Bit position of the KeyPad column 3 line */
-#define KEY_C2		PORTC1			/**< Bit position of the KeyPad column 2 line */
-#define KEY_C1		PORTC0			/**< Bit position of the KeyPad column 1 line */
-
-#define IO_EXP_INT	PORTD7			/**< Bit position of the on/off controls IO expander interrupt pin */
-#define DMM2_NEG	PORTD6			/**< Bit position of the DMM2 negative voltage signal pin */
-#define DMM1_NEG	PORTD5			/**< Bit position of the DMM1 negative voltage signal pin */
-#define ENC_PB		PORTD4			/**< Bit position of the Encoder push button line */
-#define ENC_B		PORTD3			/**< Bit position of the Encoder B line */
-#define ENC_A		PORTD2			/**< Bit position of the Encoder A line */
-#define USB_TX		PORTD1			/**< Bit position of the UART TX line */
-#define USB_RX		PORTD0			/**< Bit position of the UART RX line */
+#define PIN_NUMBER_ADC_PS_CUR   24		/**< Arduino pin number for the power supply current ADC input (PORTA0) */
+#define PIN_NUMBER_ADC_PS_VOLT  25		/**< Arduino pin number for the power supply voltage ADC input (PORTA1) */
+#define PIN_NUMBER_TOUCH_IRQ    26		/**< Arduino pin number for the touch screen IRQ pin (PORTA2) */
+#define PIN_NUMBER_TOUCH_CS	    27		/**< Arduino pin number for the touch screen CS pin (PORTA3) */
+#define PIN_NUMBER_ADC_5V	    28		/**< Arduino pin number for the 5V ADC input (PORTA4) */
+#define PIN_NUMBER_ADC_3V3	    29		/**< Arduino pin number for the 3.3V ADC input (PORTA5) */
+#define PIN_NUMBER_ADC_DVM1	    30		/**< Arduino pin number for the digital multimeter channel 1 ADC input (PORTA6) */
+#define PIN_NUMBER_ADC_DVM2	    31		/**< Arduino pin number for the digital multimeter channel 2 ADC input (PORTA7) */
 
 /**
  * Initialize all pins (directions and states).
  */
 void Pins_Init();
 
-#define BITMASK_CS_PORTA        (1 << TS_CS)                                                        /**< Bitmask for the PortA SPI chip selects (1s mark chip select positions) */
-#define BITMASK_CS_PORTB        (1 << PS_CS) | (1 << DDS_CS) | (1 << IO_EXP_CS) | (1 << LCD_CS)     /**< Bitmask for the PortA SPI chip selects (1s mark chip select positions) */
+#define SPI_SELECT_TOUCH	    digitalWrite(PIN_NUMBER_TOUCH_CS, LOW);		/**< Select the touch screen by pulling the CS pin low */
+#define SPI_DESELECT_TOUCH	    digitalWrite(PIN_NUMBER_TOUCH_CS, HIGH);	/**< Deselect the touch screen by pulling the CS pin high */
 
-#define SPI_SELECT_TOUCH	    CLEAR_BIT(PORTA, TS_CS);				/**< Select the touch screen by pulling the TS_CS pin low */
-#define SPI_DESELECT_TOUCH	    SET_BIT(PORTA, TS_CS);					/**< Deselect the touch screen by pulling the TS_CS pin high */
+#define SPI_SELECT_LCD		    digitalWrite(PIN_NUMBER_LCD_CS, LOW);	    /**< Select the LCD by pulling the LCD_CS pin low */
+#define SPI_DESELECT_LCD	    digitalWrite(PIN_NUMBER_LCD_CS, HIGH);	    /**< Deselect the LCD by pulling the LCD_CS pin high */
 
-#define SPI_SELECT_LCD		    CLEAR_BIT(PORTB, LCD_CS);				/**< Select the LCD by pulling the LCD_CS pin low */
-#define SPI_DESELECT_LCD	    SET_BIT(PORTB, LCD_CS);					/**< Deselect the LCD by pulling the LCD_CS pin high */
+#define SPI_SELECT_DDS		    digitalWrite(PIN_NUMBER_DDS_CS, LOW);		/**< Select the DDS DAC by pulling the DDS_CS pin low */
+#define SPI_DESELECT_DDS	    digitalWrite(PIN_NUMBER_DDS_CS, HIGH);		/**< Deselect the DDS DAC by pulling the DDS_CS pin high */
+#define SPI_IS_DDS_SELECTED	    digitalRead(PIN_NUMBER_DDS_CS) == LOW		/**< Check if the DDS DAC is selected by reading the DDS_CS pin */
 
-#define SPI_SELECT_DDS		    CLEAR_BIT(PORTB, DDS_CS);				/**< Select the DDS DAC by pulling the DDS_CS pin low */
-#define SPI_DESELECT_DDS	    SET_BIT(PORTB, DDS_CS);					/**< Deselect the DDS DAC by pulling the DDS_CS pin high */
-#define SPI_IS_DDS_SELECTED	    BIT_IS_CLEARED(PORTB, DDS_CS);			/**< Check if the DDS DAC is selected by reading the DDS_CS pin */
+#define SPI_SELECT_PS		    digitalWrite(PIN_NUMBER_PS_CS, LOW);	    /**< Select the PS DAC by pulling the PS_CS pin low */
+#define SPI_DESELECT_PS	        digitalWrite(PIN_NUMBER_PS_CS, HIGH);       /**< Deselect the PS DAC by pulling the PS_CS pin high */
+#define SPI_IS_PS_SELECTED	    digitalRead(PIN_NUMBER_PS_CS) == LOW	    /**< Check if the PS DAC is selected by reading the PS_CS pin */
 
-#define SPI_SELECT_PS		    CLEAR_BIT(PORTB, PS_CS);				/**< Select the PS DAC by pulling the PS_CS pin low */
-#define SPI_DESELECT_PS	        SET_BIT(PORTB, PS_CS);					/**< Deselect the PS DAC by pulling the PS_CS pin high */
-#define SPI_IS_PS_SELECTED	    BIT_IS_CLEARED(PORTB, PS_CS);			/**< Check if the PS DAC is selected by reading the PS_CS pin */
+#define SPI_SELECT_IO_EXP		digitalWrite(PIN_NUMBER_IO_EXP_CS, LOW);	/**< Select the IO expander by pulling the IO_EXP_CS pin low */
+#define SPI_DESELECT_IO_EXP	    digitalWrite(PIN_NUMBER_IO_EXP_CS, HIGH);	/**< Deselect the IO expander by pulling the IO_EXP_CS pin high */
 
-#define SPI_SELECT_IO_EXP		CLEAR_BIT(PORTB, IO_EXP_CS);			/**< Select the IO expander by pulling the IO_EXP_CS pin low */
-#define SPI_DESELECT_IO_EXP	    SET_BIT(PORTB, IO_EXP_CS);				/**< Deselect the IO expander by pulling the IO_EXP_CS pin high */
+#define SPI_DESELECT_ALL        SPI_DESELECT_TOUCH   SPI_DESELECT_PS   SPI_DESELECT_DDS   SPI_DESELECT_IO_EXP   SPI_DESELECT_LCD    /**< Disable all SPI chip selects */
 
 #endif /* PINS_H_ */

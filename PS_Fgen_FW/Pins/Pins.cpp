@@ -9,74 +9,38 @@
 // Initialize the Pins
 void Pins_Init()
 {
-	// make all ADC pins inputs
-	CLEAR_BIT(DDRA, ADC_DVM2);
-	CLEAR_BIT(DDRA, ADC_DVM1);
-	CLEAR_BIT(DDRA, ADC_3V3);
-	CLEAR_BIT(DDRA, ADC_5V);
-	CLEAR_BIT(DDRA, ADC_PS_VOLT);
-	CLEAR_BIT(DDRA, ADC_PS_CUR);
+	// The direction of the SPI pins is set by the SPI.begin();
 	
-	// make the TS_IRQ input
-	CLEAR_BIT(DDRA, TS_IRQ);
-	// make the TS_CS output
-	SET_BIT(DDRA, TS_CS);
+	// The key pins are not initialized here. In the KeyPad.h file the complete port C is used directly.
 
-	// make the MOSI and SCK outputs
-	SET_BIT(DDRB, SPI_MOSI);
-	SET_BIT(DDRB, SPI_SCK);
-		
-	// make sure the MISO pin is input
-	CLEAR_BIT(DDRB, SPI_MISO);
+	// ADC pins
+	pinMode(PIN_NUMBER_ADC_DVM1, INPUT);
+	pinMode(PIN_NUMBER_ADC_DVM2, INPUT);
+	pinMode(PIN_NUMBER_ADC_5V, INPUT);
+	pinMode(PIN_NUMBER_ADC_3V3, INPUT);
+	pinMode(PIN_NUMBER_ADC_PS_VOLT, INPUT);
+	pinMode(PIN_NUMBER_ADC_PS_CUR, INPUT);
 	
-	// set all CS lines high (unselected)
-	SET_BIT(PORTB, PS_CS);
-	SET_BIT(PORTB, DDS_CS);
-	SET_BIT(PORTB, LCD_CS);
-	SET_BIT(PORTB, IO_EXP_CS);
-		
-	// make Chip select lines outputs
-	SET_BIT(DDRB, PS_CS);				// Is SPI_SS line and must be output for master mode
-	SET_BIT(DDRB, DDS_CS);
-	SET_BIT(DDRB, IO_EXP_CS);
-	SET_BIT(DDRB, LCD_CS);
-	SET_BIT(DDRB, LCD_A0);
-	
-	// make Key Rows outputs
-	SET_BIT(DDRC, KEY_R4);
-	SET_BIT(DDRC, KEY_R3);
-	SET_BIT(DDRC, KEY_R2);
-	SET_BIT(DDRC, KEY_R1);
-	
-	// power the row pins
-	SET_BIT(PORTC, KEY_R4);
-	SET_BIT(PORTC, KEY_R3);
-	SET_BIT(PORTC, KEY_R2);
-	SET_BIT(PORTC, KEY_R1);
-	
-	// make Key Columns inputs
-	CLEAR_BIT(DDRC, KEY_C4);
-	CLEAR_BIT(DDRC, KEY_C3);
-	CLEAR_BIT(DDRC, KEY_C2);
-	CLEAR_BIT(DDRC, KEY_C1);
-	
-	// make encoder pins inputs
-	CLEAR_BIT(DDRD, ENC_PB);
-	CLEAR_BIT(DDRD, ENC_B);
-	CLEAR_BIT(DDRD, ENC_A);
-	
-	// enable pull-ups for encoder input pins
-	SET_BIT(PORTD, ENC_A);
-	SET_BIT(PORTD, ENC_B);
-	SET_BIT(PORTD, ENC_PB);
-	
-	// make the DMM1_NEG and DMM2_NEG pins inputs
-	CLEAR_BIT(DDRD, DMM1_NEG);
-	CLEAR_BIT(DDRD, DMM2_NEG);
-	
-	// make the IO expander INT pin input
-	CLEAR_BIT(DDRD, IO_EXP_INT);
-	
-	// enable pull-up for IO expander INT pin
-	SET_BIT(PORTD, IO_EXP_INT);
+	// Chip selects
+	pinMode(PIN_NUMBER_TOUCH_CS, OUTPUT);
+	pinMode(PIN_NUMBER_PS_CS, OUTPUT);			// Is SPI_SS line and must be output for master mode
+	pinMode(PIN_NUMBER_DDS_CS, OUTPUT);
+	pinMode(PIN_NUMBER_IO_EXP_CS, OUTPUT);
+	pinMode(PIN_NUMBER_LCD_CS, OUTPUT);
+
+	// Other display and touch pins
+	pinMode(PIN_NUMBER_LCD_A0, OUTPUT);
+	pinMode(PIN_NUMBER_TOUCH_IRQ, INPUT);
+
+	// Encoder pins	
+	pinMode(PIN_NUMBER_ENC_A, INPUT_PULLUP);
+	pinMode(PIN_NUMBER_ENC_B, INPUT_PULLUP);
+	pinMode(PIN_NUMBER_ENC_PB, INPUT_PULLUP);
+
+	// DMM pins
+	pinMode(PIN_NUMBER_DMM1_NEG, INPUT);
+	pinMode(PIN_NUMBER_DMM2_NEG, INPUT);
+
+	// IO expander pins
+	pinMode(PIN_NUMBER_IO_EXP_INT, INPUT_PULLUP);
 }

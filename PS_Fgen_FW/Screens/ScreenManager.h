@@ -125,12 +125,6 @@ UIElement* StartCalibration();
 	void ScreenDDSUpdateVisibility();
 #endif
 
-// https://camo.githubusercontent.com/331d26748c79ccaf42bb0837711b14728c82e47e6fd21b2997a1b9c5155cf672/68747470733a2f2f692e696d6775722e636f6d2f7a424e506335622e706e67
-#define LCD_CS_PIN_NUMBER	1		/**< Corresponding digital pin number for PORTB1 */
-#define LCD_A0_PIN_NUMBER	0		/**< Corresponding digital pin number for PORTB0 */
-#define TOUCH_CS_PIN_NUMBER	27		/**< Pin number for the touch screen CS pin */
-#define TOUCH_IRQ_PIN_NUMBER 26		/**< Pin number for the touch screen IRQ pin */
-
 /**
  * Class that is used to control the screen.
  * This class can be used for screen handling. It contains all necessary handles and methods.

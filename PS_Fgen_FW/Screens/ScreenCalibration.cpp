@@ -10,8 +10,6 @@ typedef enum CalibrationStates
 {
 	CAL_REF_VOLTAGE_ATX_5V,			/**< Calibrate the reference voltage and the ATX 5V voltage */
 	CAL_ATX_3V3,					/**< Calibrate the ATX 3V3 voltage */
-	CAL_ATX_12V,					/**< Calibrate the ATX 12V voltage */
-	CAL_ATX_12V_NEG,				/**< Calibrate the ATX 12V NEG voltage */
 	#ifdef MEASURE_SUBSYSTEM_ENABLED
 		CAL_DMM1,					/**< Calibrate the DMM1 voltage */
 		CAL_DMM2,					/**< Calibrate the DMM2 voltage */
@@ -78,28 +76,16 @@ void PrepareCalStep(CalibrationStates_t calState)
 			lbl_Cal_instruction.SetText("Measure voltage at the\n+3V3 output:");
 			break;
 		}
-		case CAL_ATX_12V:
-		{
-			CalTmpVoltage = Device.DeviceVoltages.ATX_12V;
-			lbl_Cal_instruction.SetText("Measure voltage at the\n+12V output:");
-			break;
-		}
-		case CAL_ATX_12V_NEG:
-		{
-			CalTmpVoltage = Device.DeviceVoltages.ATX_12V_NEG;
-			lbl_Cal_instruction.SetText("Measure voltage at the\n-12V output:");
-			break;
-		}
 	#ifdef MEASURE_SUBSYSTEM_ENABLED
 		case CAL_DMM1:
 		{
 			numCtrl_Cal_tmpVoltage.Visible = false;
-			lbl_Cal_instruction.SetText("Connect +12V output to\nDMM1 input.");
+			lbl_Cal_instruction.SetText("Connect +5V output to\nDMM1 input.");
 			break;
 		}
 		case CAL_DMM2:
 		{
-			lbl_Cal_instruction.SetText("Connect +12V output to\nDMM2 input.");
+			lbl_Cal_instruction.SetText("Connect +5V output to\nDMM2 input.");
 			break;
 		}
 	#endif
@@ -186,22 +172,6 @@ void OnButtonCalNext(void* context)
 			// Do 3V3 calibration
 			Device.CalibrationFactors.Cal_ATX_3V3 *= (Device.DeviceVoltages.ATX_3V3 == 0 ? 1 : (CalTmpVoltage / Device.DeviceVoltages.ATX_3V3));
 						
-			PrepareCalStep(CAL_ATX_12V);
-			break;
-		}
-		case CAL_ATX_12V:
-		{
-			// Do 12V calibration
-			Device.CalibrationFactors.Cal_ATX_12V *= (Device.DeviceVoltages.ATX_12V == 0 ? 1 : (CalTmpVoltage / Device.DeviceVoltages.ATX_12V));
-			
-			PrepareCalStep(CAL_ATX_12V_NEG);
-			break;
-		}
-		case CAL_ATX_12V_NEG:
-		{
-			// Do 12V NEG calibration
-			Device.CalibrationFactors.Cal_ATX_12V_NEG *= (Device.DeviceVoltages.ATX_12V_NEG == 0 ? 1 : (CalTmpVoltage / Device.DeviceVoltages.ATX_12V_NEG));
-			
 			#ifdef MEASURE_SUBSYSTEM_ENABLED
 				PrepareCalStep(CAL_DMM1);
 			#else
@@ -213,7 +183,7 @@ void OnButtonCalNext(void* context)
 		case CAL_DMM1:
 		{
 			// Do DMM1 calibration
-			Device.CalibrationFactors.Cal_DMM1 *= (Device.DmmChannel1.MeasuredVoltage == 0 ? 1 : (Device.DeviceVoltages.ATX_12V / Device.DmmChannel1.MeasuredVoltage));
+			Device.CalibrationFactors.Cal_DMM1 *= (Device.DmmChannel1.MeasuredVoltage == 0 ? 1 : (Device.DeviceVoltages.ATX_5V / Device.DmmChannel1.MeasuredVoltage));
 			
 			PrepareCalStep(CAL_DMM2);
 			break;			
@@ -221,7 +191,7 @@ void OnButtonCalNext(void* context)
 		case CAL_DMM2:
 		{
 			// Do DMM2 calibration
-			Device.CalibrationFactors.Cal_DMM2 *= (Device.DmmChannel2.MeasuredVoltage == 0 ? 1 : (Device.DeviceVoltages.ATX_12V / Device.DmmChannel2.MeasuredVoltage));			
+			Device.CalibrationFactors.Cal_DMM2 *= (Device.DmmChannel2.MeasuredVoltage == 0 ? 1 : (Device.DeviceVoltages.ATX_5V / Device.DmmChannel2.MeasuredVoltage));			
 			
 			#ifdef PS_SUBSYSTEM_ENABLED 
 				PrepareCalStep(CAL_PS_VOLT);

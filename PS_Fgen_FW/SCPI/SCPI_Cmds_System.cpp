@@ -159,7 +159,7 @@ scpi_result_t scpi_cmd_systemCommunicateSerialEchoQ(scpi_t * context)
 
 scpi_result_t scpi_cmd_systemMeasureScalarVoltageDCQ(scpi_t * context)
 {
-	float voltages[4] = { Device.DeviceVoltages.ATX_3V3, Device.DeviceVoltages.ATX_5V, Device.DeviceVoltages.ATX_12V, Device.DeviceVoltages.ATX_12V_NEG };
-	SCPI_ResultArrayFloat(context, voltages, 4, SCPI_FORMAT_ASCII);
+	float voltages[2] = { Device.DeviceVoltages.ATX_3V3, Device.DeviceVoltages.ATX_5V };
+	SCPI_ResultArrayFloat(context, voltages, 2, SCPI_FORMAT_ASCII);
 	return SCPI_RES_OK;
 }

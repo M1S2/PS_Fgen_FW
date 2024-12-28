@@ -45,12 +45,6 @@ ISR(ADC_vect)
 			break;
 	#endif
 	#ifdef MEASURE_SUBSYSTEM_ENABLED
-		//case 2:
-		//	Device.DeviceVoltages.ATX_12V_NEG = -adcVoltage * 2.4f * Device.CalibrationFactors.Cal_ATX_12V_NEG;
-		//	break;
-		//case 3:
-		//	Device.DeviceVoltages.ATX_12V = adcVoltage * 2.5f * Device.CalibrationFactors.Cal_ATX_12V;
-		//	break;
 		case 4:
 			Device.DeviceVoltages.ATX_5V = adcVoltage * Device.CalibrationFactors.Cal_ATX_5V;
 			adcChannel = 5;

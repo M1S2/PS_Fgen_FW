@@ -24,17 +24,13 @@ Icon ico_dmm2_neg_warning(icon_warning_width, icon_warning_height, icon_warning_
 ProgressBar<volatile float> progress_DMM2(&Device.DmmChannel2.MeasuredVoltage, 0, 20, PROGRESSBAR_ORIGIN_ZERO, 5, 150, 20);
 
 // ***** Measure ATX page *****
-ContainerGrid grid_ATX(10, 5, 4, false, true);
+ContainerGrid grid_ATX(6, 5, 4, false, true);
 Icon ico_atx(icon_voltage_width, icon_voltage_height, icon_voltage_bits, COLOR_FOREGROUND_HEADERS);
 Label lbl_ATX_caption("ATX", COLOR_FOREGROUND_HEADERS, NULL, 0, 0, 5);
 NumericIndicator<float> numInd_ATX_3V3(&Device.DeviceVoltages.ATX_3V3, "V", 4, 2);
 ProgressBar<float> progress_ATX_3V3(&Device.DeviceVoltages.ATX_3V3, 0, 4, PROGRESSBAR_ORIGIN_ZERO, 1, 75, 20);
 NumericIndicator<float> numInd_ATX_5V(&Device.DeviceVoltages.ATX_5V, "V", 6, 2);
 ProgressBar<float> progress_ATX_5V(&Device.DeviceVoltages.ATX_5V, 0, 6, PROGRESSBAR_ORIGIN_ZERO, 1, 75, 20);
-NumericIndicator<float> numInd_ATX_12V(&Device.DeviceVoltages.ATX_12V, "V", 15, 2);
-ProgressBar<float> progress_ATX_12V(&Device.DeviceVoltages.ATX_12V, 0, 15, PROGRESSBAR_ORIGIN_ZERO, 1, 75, 20);
-NumericIndicator<float> numInd_ATX_12V_NEG(&Device.DeviceVoltages.ATX_12V_NEG, "V", -15, 2);
-ProgressBar<float> progress_ATX_12V_NEG(&Device.DeviceVoltages.ATX_12V_NEG, -15, 0, PROGRESSBAR_ORIGIN_ZERO, 1, 75, 20);
 
 /** 
  * Update the visibility of the DMM channel negative warning icons.
@@ -72,10 +68,6 @@ UIElement* uiBuildScreenMeasure()
 	grid_ATX.AddItem(&progress_ATX_3V3, 2, 1, GRID_CELL_ALIGNMENT_MIDDLE);
 	grid_ATX.AddItem(&numInd_ATX_5V, 0, 2, GRID_CELL_ALIGNMENT_LEFT, 2);
 	grid_ATX.AddItem(&progress_ATX_5V, 2, 2, GRID_CELL_ALIGNMENT_MIDDLE);
-	grid_ATX.AddItem(&numInd_ATX_12V, 0, 3, GRID_CELL_ALIGNMENT_LEFT, 2);
-	grid_ATX.AddItem(&progress_ATX_12V, 2, 3, GRID_CELL_ALIGNMENT_MIDDLE);
-	grid_ATX.AddItem(&numInd_ATX_12V_NEG, 0, 4, GRID_CELL_ALIGNMENT_LEFT, 2);
-	grid_ATX.AddItem(&progress_ATX_12V_NEG, 2, 4, GRID_CELL_ALIGNMENT_MIDDLE);
 	grid_ATX.InitItems();
 	
 	return &list_Measure;

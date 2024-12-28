@@ -6,7 +6,6 @@
 
 #include "UserInputHandler.h"
 
-#include "../USART/USART.h"
 #include "../Device.h"
 #include "../SCPI/SCPI_Device.h"
 #include "../Device.h"
@@ -28,7 +27,7 @@ void UserInputHandlerClass::ProcessInputs()
 				}
 				case USERDATA_USART: 
 				{
-					if(Device.SerialEchoEnabled) { Usart0Transmit(data->UsartChr); }	// Echo character if enabled
+					if(Device.SerialEchoEnabled) { Serial.write(data->UsartChr); }	// Echo character if enabled
 					
 					#ifdef SCPI_ENABLED
 						SCPI_Input(&scpi_context, (char*)&data->UsartChr, 1);

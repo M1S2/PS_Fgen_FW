@@ -5,7 +5,6 @@
  */ 
 
 #include "Device.h"
-#include "USART/USART.h"
 #include "ADC/ADC.h"
 #include "Spi/spi.h"
 #include "SCPI/SCPI_Device.h"
@@ -64,7 +63,7 @@ void DeviceClass::Init()
 	Encoder_Init();
 	OnOffControls_Init();
 	ADC_init();
-	Usart0Init(9600);			// Always init with 9600 baud to output the power on message.
+	Serial.begin(9600);			// Always init with 9600 baud to output the power on message.
 	InitDeviceTimer();
 	sei();
 	
@@ -72,7 +71,7 @@ void DeviceClass::Init()
 		DisableDDSTimer();
 	#endif
 	
-	Usart0TransmitStr("Power On\r\n");
+	Serial.println("Power On");
 	
 	ADC_startConversion();
 	
@@ -88,6 +87,13 @@ void DeviceClass::Init()
 
 void DeviceClass::DeviceMainLoop()
 {	
+	int numCharacters = Serial.available();
+    for(int i = 0; i < numCharacters; i++)
+    {
+        char data = Serial.read();
+		Device.UserInputHandler.EnqueueUsartInput(data);
+    }
+
 	UserInputHandler.ProcessInputs();
 	
 	if(TimeCounter_AutoSave_ms >= SETTINGS_AUTOSAVE_DELAY_MS)
@@ -210,11 +216,10 @@ void DeviceClass::SetSerialBaudRate(DeviceBaudRates_t baud)
 		uint32_t baudNum = DeviceBaudRateEnumToNumber(baud);
 		
 		SetSettingsChanged(true);
-		char buffer[60];
-		sprintf(buffer, "Changing Baud rate to %lu\r\n", baudNum);
-		Usart0TransmitStr(buffer);
+		Serial.printf("Changing Baud rate to %lu\r\n", baudNum);
 		SerialBaudRate = baud;
-		Usart0ChangeBaudRate(baudNum);	
+		Serial.end();
+		Serial.begin(baudNum);
 	}
 }
 
@@ -234,43 +239,15 @@ void DeviceClass::SetSettingsChanged(bool settingsChanged)
 
 void DeviceClass::ReportCalibrationFactors()
 {
-	char buffer[50];
-	
-	Usart0TransmitStr("RefVoltage=");
-	dtostrf(CalibrationFactors.Cal_RefVoltage, 10, 3, buffer);
-	Usart0TransmitStr(buffer);
-	
-	Usart0TransmitStr("\r\n5V=");
-	dtostrf(CalibrationFactors.Cal_ATX_5V, 10, 3, buffer);
-	Usart0TransmitStr(buffer);
-	
-	Usart0TransmitStr("\r\n3V3=");
-	dtostrf(CalibrationFactors.Cal_ATX_3V3, 10, 3, buffer);
-	Usart0TransmitStr(buffer);
-	
-	Usart0TransmitStr("\r\nDMM1=");
-	dtostrf(CalibrationFactors.Cal_DMM1, 10, 3, buffer);
-	Usart0TransmitStr(buffer);
-	
-	Usart0TransmitStr("\r\nDMM2=");
-	dtostrf(CalibrationFactors.Cal_DMM2, 10, 3, buffer);
-	Usart0TransmitStr(buffer);
-	
-	Usart0TransmitStr("\r\nPS_VOLT=");
-	dtostrf(CalibrationFactors.Cal_PS_VOLT, 10, 3, buffer);
-	Usart0TransmitStr(buffer);
-	
-	Usart0TransmitStr("\r\nPS_CURR=");
-	dtostrf(CalibrationFactors.Cal_PS_CURR, 10, 3, buffer);
-	Usart0TransmitStr(buffer);
-	
-	Usart0TransmitStr("\r\nPS_CURR_OFFSET=");
-	dtostrf(CalibrationFactors.Cal_PS_CURR_OFFSET, 10, 5, buffer);
-	Usart0TransmitStr(buffer);
-		
-	Usart0TransmitStr("\r\nDDS FREQ=");
-	dtostrf(CalibrationFactors.Cal_DDS_FREQ, 10, 3, buffer);
-	Usart0TransmitStr(buffer);
+	Serial.printf("RefVoltage=%.3fV\r\n", CalibrationFactors.Cal_RefVoltage);
+	Serial.printf("5V=%.3f\r\n", CalibrationFactors.Cal_ATX_5V);
+	Serial.printf("3V3=%.3f\r\n", CalibrationFactors.Cal_ATX_3V3);
+	Serial.printf("DMM1=%.3f\r\n", CalibrationFactors.Cal_DMM1);
+	Serial.printf("DMM2=%.3f\r\n", CalibrationFactors.Cal_DMM2);
+	Serial.printf("PS_VOLT=%.3f\r\n", CalibrationFactors.Cal_PS_VOLT);
+	Serial.printf("PS_CURR=%.3f\r\n", CalibrationFactors.Cal_PS_CURR);
+	Serial.printf("PS_CURR_OFFSET=%.5f\r\n", CalibrationFactors.Cal_PS_CURR_OFFSET);
+	Serial.printf("DDS_FREQ=%.3f\r\n", CalibrationFactors.Cal_DDS_FREQ);
 }
 
 void DeviceClass::CoerceCalibrationFactors()

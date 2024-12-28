@@ -5,7 +5,6 @@
  */ 
 
 #include "SCPI_Device.h"
-#include "../USART/USART.h"
 #include "../Device.h"
 #include <stdio.h>
 
@@ -150,7 +149,7 @@ scpi_interface_t scpi_interface =
 size_t SCPI_Write(scpi_t * context, const char * data, size_t len) 
 {
 	(void) context;
-	Usart0TransmitStr(data);
+	Serial.write(data);
 	return len;				/* OK */
 	//return fwrite(data, 1, len, stdout);
 }
@@ -166,7 +165,7 @@ int SCPI_Error(scpi_t * context, int_fast16_t err)
 	(void) context;
 	
 	sprintf(resultBuffer, "**ERROR: %d, \"%s\"\r\n", (int16_t) err, SCPI_ErrorTranslate(err));
-	Usart0TransmitStr(resultBuffer);
+	Serial.write(resultBuffer);
 	return 0;
 }
 
@@ -182,7 +181,7 @@ scpi_result_t SCPI_Control(scpi_t * context, scpi_ctrl_name_t ctrl, scpi_reg_val
 	{
 		sprintf(resultBuffer, "**CTRL %02x: 0x%X (%d)\r\n", ctrl, val, val);
 	}
-	Usart0TransmitStr(resultBuffer);
+	Serial.write(resultBuffer);
 	return SCPI_RES_OK;
 }
 
@@ -553,7 +552,7 @@ scpi_result_t SCPI_SetChannelParameter(scpi_t * context, SCPIChannelParameters_t
 						ddsChannel->UserWaveTableReceiveIndex = 0;
 						ddsChannel->UpdateWaveTable();
 						Device.SaveSettingsDDSUserWaveforms();
-						Usart0TransmitStr("User Waveform updated\r\n");
+						Serial.println("User Waveform updated");
 					}
 					
 					break;

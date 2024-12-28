@@ -10,6 +10,7 @@
 #include "../Spi/spi.h"
 #include "../Pins/Pins.h"
 
+#ifdef TOUCH_ENABLED
 /*
 A: 0.0917605
 B: 0.0002037
@@ -18,6 +19,7 @@ D: -0.0003954
 E: 0.0693526
 F: -23.8954410 */
 XPT2046::Calibration TS_CALIBRATION = {0.0917605,0.0002037,-20.2002980,-0.0003954,0.0693526,-23.8954410,320,240};
+#endif
 
 /**
   * Callback method called when the selected tab of the TabControl changed.
@@ -67,11 +69,14 @@ void TabControlTabChanged(void* controlContext)
 		case SCREEN_CONF:
 			Device.ScreenManager.CurrentScreenNeedsPeriodicRedraw = false;
 			break;
-		default: break;		
+		default: break;
 	}
 }
 
-ScreenManagerClass::ScreenManagerClass() : _tft(PIN_NUMBER_LCD_CS, PIN_NUMBER_LCD_A0), _ts(PIN_NUMBER_TOUCH_CS, PIN_NUMBER_TOUCH_IRQ)
+ScreenManagerClass::ScreenManagerClass() : _tft(PIN_NUMBER_LCD_CS, PIN_NUMBER_LCD_A0)
+#ifdef TOUCH_ENABLED
+, _ts(PIN_NUMBER_TOUCH_CS, PIN_NUMBER_TOUCH_IRQ)
+#endif
 {
 }
 
@@ -81,18 +86,20 @@ void ScreenManagerClass::Init()
 	_tft.setRotation(1);
 	_tft.fillScreen(0x0);
 
+#ifdef TOUCH_ENABLED
 	_ts.begin();
     _ts.setSampleCount(1);
     _ts.setDebounceTimeout(0);       // !!! It is important to set this to 0 to make the state machine in the TouchHandlingISR() work !!!
     _ts.setCalibration(TS_CALIBRATION);
     _ts.setRotation(_tft.getRotation());
+	TimeCounter_TouchHandling_ms = 0;
+#endif
 
 	#ifdef SPLASHSCREEN_ENABLED 
 		IsSplashScreenShown = true;
 	#endif
 	TimeCounter_SplashScreen_ms = 0;
 	TimeCounter_ScreenRedraw_ms = 0;
-	TimeCounter_TouchHandling_ms = 0;
 	
 	UiManager.SetColors(COLOR_BACKGROUND, COLOR_FOREGROUND, COLOR_BACKGROUND, COLOR_FOCUS_FRAME);
 	UiManager.Init(&_tft);
@@ -208,11 +215,13 @@ void ScreenManagerClass::DeviceTimerTickISR()
 		TimeCounter_ScreenRedraw_ms += DEVICE_TIMER_TICK_INTERVAL_MS;	// Screen redraw is handled in DoDraw()
 	}
 
+#ifdef TOUCH_ENABLED
 	TimeCounter_TouchHandling_ms += DEVICE_TIMER_TICK_INTERVAL_MS;
 	if(TimeCounter_TouchHandling_ms >= TOUCH_HANDLING_DELAY_MS)
 	{
 		TouchHandlingISR();
 	}
+#endif
 }
 
 void ScreenManagerClass::KeyInput(Keys_t key)
@@ -220,6 +229,7 @@ void ScreenManagerClass::KeyInput(Keys_t key)
 	UiManager.KeyInput(key);
 }
 
+#ifdef TOUCH_ENABLED
 bool ScreenManagerClass::TouchInput(uint16_t x, uint16_t y, TouchTypes touchType)
 {
 	return UiManager.TouchInput(x, y, touchType);
@@ -249,7 +259,7 @@ void ScreenManagerClass::TouchHandlingISR()
                     Device.UserInputHandler.EnqueueTouchInput(touchedPoint.x, touchedPoint.y, TOUCH_NORMAL);
                     _touchEventState = TOUCH_EVENTS_WAIT_FOR_TOUCH;
                 }
-                else if(millis() - _touchStartTime >= LONG_TOUCH_DELAY_MS)
+                else if(millis() - _touchStartTime >= TOUCH_LONG_DELAY_MS)
                 {
                     // Long touch
                     Device.UserInputHandler.EnqueueTouchInput(touchedPoint.x, touchedPoint.y, TOUCH_LONG);
@@ -266,3 +276,4 @@ void ScreenManagerClass::TouchHandlingISR()
         }
     }
 }
+#endif

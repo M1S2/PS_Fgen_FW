@@ -13,7 +13,6 @@
 #include "Adafruit_GFX.h"
 //#include "ILI9341_Fast.h"
 #include "Adafruit_ILI9341.h"
-#include "XPT2046.h"
 
 #include "../Encoder/Encoder.h"
 #include "../KeyPad/KeyPad.h"
@@ -22,24 +21,26 @@
 #include "Icons.h"
 #include <string.h>
 
-#define DISPLAY_WIDTH		320
-#define DISPLAY_HEIGHT		240
-#define STATUS_BAR_HEIGHT	30
-#define MSG_DIALOG_MARGIN	20
+#ifdef TOUCH_ENABLED
+	#include "XPT2046.h"
+#endif
 
-#define COLOR_BACKGROUND			RGB565(0x00, 0x00, 0x00)
-#define COLOR_FOREGROUND			RGB565(0x00, 0xF7, 0x00)
-#define COLOR_FOREGROUND_HEADERS	RGB565(0xFF, 0xFF, 0xFF)
-#define COLOR_FOCUS_FRAME			RGB565(0xFF, 0xFF, 0xFF)
+#define DISPLAY_WIDTH		320		/**< Width of the display. */
+#define DISPLAY_HEIGHT		240		/**< Height of the display. */
+#define STATUS_BAR_HEIGHT	30		/**< Height of the status bar in the lower region of the screen. */
+#define MSG_DIALOG_MARGIN	20		/**< Margin around the message dialogs. */
 
-#define LONG_TOUCH_DELAY_MS     750
-
+#ifdef TOUCH_ENABLED
+/**
+ * Available states for the touch handling state machine.
+ */
 enum TouchEventStates
 {
-  TOUCH_EVENTS_WAIT_FOR_TOUCH,
-  TOUCH_EVENTS_WAIT_LONG_TOUCH_DELAY,
-  TOUCH_EVENTS_LONG_TOUCH_DETECTED
+	TOUCH_EVENTS_WAIT_FOR_TOUCH,			/**< No touch has occured yet. */
+	TOUCH_EVENTS_WAIT_LONG_TOUCH_DELAY,	/**< A touch has occured. Wait until the long touch delay is over or the display isn't touched anymore. */
+	TOUCH_EVENTS_LONG_TOUCH_DETECTED		/**< A long touch was detected. Wait in this state until the display isn't touched anymore. */
 };
+#endif
 
 /**
  * Available screen types.
@@ -134,10 +135,12 @@ class ScreenManagerClass
 	private:
 		Adafruit_ILI9341 _tft;
 		//ILI9341 _tft;							/**< ILI9341 graphics handle that is used with all drawing related methods. */
+		
+	#ifdef TOUCH_ENABLED
 		XPT2046 _ts;							/**< XPT2046 touchscreen handle. */
-
 		unsigned long _touchStartTime = 0;
 		TouchEventStates _touchEventState = TOUCH_EVENTS_WAIT_FOR_TOUCH;
+	#endif
 
 		/**
 		 * Build the VisualTree for all screens used for drawing.
@@ -152,8 +155,10 @@ class ScreenManagerClass
 		bool IsSplashScreenShown;				/**< Variable used to keep track if the SplashScreen is shown. */
 		uint16_t TimeCounter_SplashScreen_ms;	/**< Timer conter value that is used to measure the time, the SplashScreen is shown. */
 		uint16_t TimeCounter_ScreenRedraw_ms;	/**< Variable used for measuring the time to the next screen redraw */
+	#ifdef TOUCH_ENABLED
 		uint16_t TimeCounter_TouchHandling_ms;	/**< Variable used for measuring the time to the next touch handling */
-		
+	#endif
+
 		ScreenManagerClass();					/**< Constructor of the ScreenManagerClass */
 		void Init();							/**< Initialize the ScreenManager. This method initializes the u8g_lib and UI_Manager handles and builds the VisualTree. */
 		void UpdateVisibilities();				/**< Update the visibility of all screens. */
@@ -187,6 +192,7 @@ class ScreenManagerClass
 		 */
 		void KeyInput(Keys_t key);
 
+	#ifdef TOUCH_ENABLED
 		/**
 		 * Process a touch input at the given point (x, y)
 		 * @param x X-Coordinate of the touched point
@@ -195,11 +201,12 @@ class ScreenManagerClass
 		 * @return true if the touch was processed; false if not.
 		 */
 		bool TouchInput(uint16_t x, uint16_t y, TouchTypes touchType);
-		
+
 		/**
 		 * Call this method cyclic for touch handling.
 		 */
 		void TouchHandlingISR();
+	#endif
 };
 
 #endif /* SCREENMANAGER_H_ */

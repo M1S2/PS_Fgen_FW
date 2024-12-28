@@ -31,8 +31,15 @@
 #define SCPI_SYSTEM_CAPABILITIES		"(DCPSUPPLY WITH MEASURE|FUNCGEN|FUNCGEN)"		/**< All capabilites of the system */			
 
 /***** Screens ************************************************/
-#define SCREEN_TAB_WIDTH				70						/**< Width in pixels of the Screen Tab control on the left side */
 #define SPLASHSCREEN_ENABLED									/**< Comment this line out to disable the Splashscreen */
+#define COLOR_BACKGROUND				RGB565(0x00, 0x00, 0x00)/**< Background color for the screen UIElements */
+#define COLOR_FOREGROUND				RGB565(0x00, 0xF7, 0x00)/**< Foreground color for the screen UIElements */
+#define COLOR_FOREGROUND_HEADERS		RGB565(0xFF, 0xFF, 0xFF)/**< Foreground color for the screen headers */
+#define COLOR_FOCUS_FRAME				RGB565(0xFF, 0xFF, 0xFF)/**< Color for the screen UIElement selection frame */
+
+/***** Touch **************************************************/
+#define TOUCH_ENABLED											/**< Comment this line out to disable the touch functionality */
+#define TOUCH_LONG_DELAY_MS     		750						/**< Time period in ms that is interpreted as long touch */
 
 /***** UserInputHandler ***************************************/
 #define USERINPUT_QUEUE_LENGTH			64						/**< Length of the queue used to buffer the user inputs (keys, encoder, Usart) */

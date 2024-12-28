@@ -5,6 +5,7 @@ The Configuration.h file contains some parameters that can be used to customize 
 - **Timers:** Time delays used for key polling, screen drawing and some other device functions.
 - **SCPI:** Use this section to configure buffers used by the SCPI parser or to set the IDN response elements. The SCPI subsystem can be completely removed from the build process (disabled), too.
 - **Screen:** Screen settings including a option to disable the splash screen.
+- **Touch:** Setting for the touch screen including a option to disable the touch feature.
 - **UserInputHandler:** The length of the user input queue can be defined here.
 - **Subsystems:** The subsystems of the device (PS, DDS and Measure) can be disabled here. This feature is useful to speed up the flashing time while development when only one subsystem is neccessary.
 - **Direct Digital Synthesis (DDS):** Use this section to configure different parameters of the DDS algorithm.

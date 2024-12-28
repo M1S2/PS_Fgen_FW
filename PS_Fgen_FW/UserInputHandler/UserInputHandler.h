@@ -24,7 +24,9 @@ typedef enum UserInputDataTypes
 	USERDATA_KEY,				/**< User data type for Keys */
 	USERDATA_USART,				/**< User data type for USART input */
 	USERDATA_ON_OFF_BUTTONS,	/**< User data type for on/off buttons */
+#ifdef TOUCH_ENABLED
 	USERDATA_TOUCH				/**< User data type for touch input */
+#endif
 } UserInputDataTypes_t;
 
 /**
@@ -37,10 +39,12 @@ class UserInputData
 		Keys_t Key;							/**< Key pressed by the user if the DataType is USERDATA_KEY */
 		uint8_t UsartChr;					/**< Character received via Usart if the DataType is USERDATA_USART */
 		OnOffButtons_t OnOffButton;			/**< on/off button pressed by the user if the DataType is USERDATA_ON_OFF_BUTTONS */
+	#ifdef TOUCH_ENABLED
 		uint16_t TouchX;					/**< X touch position if the DataType is USERDATA_TOUCH */
 		uint16_t TouchY;					/**< Y touch position if the DataType is USERDATA_TOUCH */
 		TouchTypes TouchType;				/**< Touch type if the DataType is USERDATA_TOUCH */
-
+	#endif
+	
 		/** Empty Constructor. */	
 		UserInputData() 
 		{}
@@ -75,6 +79,7 @@ class UserInputData
 			DataType = USERDATA_ON_OFF_BUTTONS;
 		}
 
+	#ifdef TOUCH_ENABLED
 		/**
 		 * Constructor for the UserInputData class.
 		 * Use this constructor to initialize for a touch input.
@@ -86,6 +91,7 @@ class UserInputData
 		{
 			DataType = USERDATA_TOUCH;
 		}
+	#endif
 };
 
 
@@ -139,7 +145,8 @@ class UserInputHandlerClass
 				_userInputRingBuffer.enqueue(&buttonInput);
 			}
 		}
-
+		
+	#ifdef TOUCH_ENABLED
 		/**
 		 * Enqueue the given touch input into the circular buffer for later processing.
 		 * The touch input is only enqueued and no further actions are taken.
@@ -155,6 +162,7 @@ class UserInputHandlerClass
 				_userInputRingBuffer.enqueue(&touchInput);
 			}
 		}
+	#endif
 		
 		/**
 		 * Process all user inputs in the circular buffer until it is empty.

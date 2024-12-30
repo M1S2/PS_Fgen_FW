@@ -16,8 +16,11 @@ void OnButtonDeviceCalibration(void* context);
 void OnButtonDeviceReset(void* context);
 void OnResetConfirmation(void* context);
 void OnResetCancel(void* context);
+void OnButtonResetCal(void* context);
+void OnResetCalConfirmation(void* context);
+void OnResetCalCancel(void* context);
 
-ContainerGrid grid_Settings_Device(8, 4, 2, false, true);
+ContainerGrid grid_Settings_Device(10, 5, 2, false, true);
 Icon ico_settings_Device(icon_settings_width, icon_settings_height, icon_settings_bits, COLOR_FOREGROUND_HEADERS);
 Label lbl_Settings_Device_caption("Settings Device", COLOR_FOREGROUND_HEADERS, NULL, 0, 0, 20);
 Icon ico_Settings_Save(icon_save_width, icon_save_height, icon_save_bits);
@@ -27,6 +30,9 @@ ButtonControl button_Settings_Calibration("Calibration...", &Device, &OnButtonDe
 Icon ico_Settings_Reset(icon_reset_width, icon_reset_height, icon_reset_bits);
 ButtonControl button_Settings_Reset("Reset Device", &Device, &OnButtonDeviceReset, 13);
 MessageDialog msg_Settings_ResetConfirmation(MSG_DIALOG_MARGIN, MSG_DIALOG_MARGIN, DISPLAY_WIDTH - 2 * MSG_DIALOG_MARGIN, DISPLAY_HEIGHT - 2 * MSG_DIALOG_MARGIN, "Really reset the device?\nThis can't be undone!", MSG_WARNING, MSG_BTN_OK_CANCEL, &Device, &OnResetConfirmation, &OnResetCancel, 50);
+Icon ico_Settings_ResetCal(icon_reset_width, icon_reset_height, icon_reset_bits);
+ButtonControl button_Settings_ResetCal("Reset Cal.", &Device, &OnButtonResetCal, 11);
+MessageDialog msg_Settings_ResetCalConfirmation(MSG_DIALOG_MARGIN, MSG_DIALOG_MARGIN, DISPLAY_WIDTH - 2 * MSG_DIALOG_MARGIN, DISPLAY_HEIGHT - 2 * MSG_DIALOG_MARGIN, "Really reset the cal.?\nA new calibration must be done!", MSG_WARNING, MSG_BTN_OK_CANCEL, &Device, &OnResetCalConfirmation, &OnResetCalCancel, 60);
 
 // ***** Settings Communication page *****
 void SettingsCommunicationBaudRateChanged(void* context);
@@ -91,6 +97,22 @@ void OnResetCancel(void* context)
 	Device.ScreenManager.ShowUiMainPage();
 }
 
+void OnButtonResetCal(void* context)
+{
+	UiManager.ChangeVisualTreeRoot(&msg_Settings_ResetCalConfirmation);
+}
+
+void OnResetCalConfirmation(void* context)
+{
+	Device.ResetDeviceCalibration();
+	Device.ScreenManager.ShowUiMainPage();
+}
+
+void OnResetCalCancel(void* context)
+{
+	Device.ScreenManager.ShowUiMainPage();
+}
+
 void SettingsCommunicationBaudRateChanged(void* context)
 {
 	DeviceBaudRates_t baudRate = Device.SerialBaudRate;
@@ -113,6 +135,8 @@ UIElement* uiBuildScreenSettings()
 	grid_Settings_Device.AddItem(&button_Settings_Calibration, 1, 2, GRID_CELL_ALIGNMENT_LEFT);
 	grid_Settings_Device.AddItem(&ico_Settings_Reset, 0, 3, GRID_CELL_ALIGNMENT_LEFT);
 	grid_Settings_Device.AddItem(&button_Settings_Reset, 1, 3, GRID_CELL_ALIGNMENT_LEFT);
+	grid_Settings_Device.AddItem(&ico_Settings_ResetCal, 0, 4, GRID_CELL_ALIGNMENT_LEFT);
+	grid_Settings_Device.AddItem(&button_Settings_ResetCal, 1, 4, GRID_CELL_ALIGNMENT_LEFT);
 	grid_Settings_Device.InitItems();
 
 	grid_Settings_Communication.SetColumnWidth(2, 10);	// Use this column with a fixed width to add some space between the controls and the text

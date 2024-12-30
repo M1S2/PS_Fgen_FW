@@ -27,9 +27,10 @@ XPT2046::Calibration TS_CALIBRATION = {0.0917605,0.0002037,-20.2002980,-0.000395
   */
 void TabControlTabChanged(void* context);
 
-ContainerPage page_Main(3, 0, 0, DISPLAY_WIDTH, DISPLAY_HEIGHT);
+ContainerPage page_Main(4, 0, 0, DISPLAY_WIDTH, DISPLAY_HEIGHT);
 EnumIndicator<DeviceControlStates_t> enumInd_deviceState(&Device.DeviceControlState, DeviceControlStateNames, NUM_DEV_CTRL_ELEMENTS, DISPLAY_WIDTH - 70, DISPLAY_HEIGHT - STATUS_BAR_HEIGHT + 3);
 Label lbl_devSettingsNeedSaving("*", LABEL_COLOR_NOTSET, NULL, DISPLAY_WIDTH - 15, DISPLAY_HEIGHT - STATUS_BAR_HEIGHT + 3, 5);
+Icon ico_devCalValid(icon_calibration_width, icon_calibration_height, icon_calibration_bits, ICON_COLOR_NOTSET, DISPLAY_WIDTH - 80 - icon_calibration_width, DISPLAY_HEIGHT - STATUS_BAR_HEIGHT + ((STATUS_BAR_HEIGHT - icon_calibration_height) / 2));
 
 #ifdef PS_SUBSYSTEM_ENABLED
 	Icon iconTabPS(icon_supplyDC_32x32_width, icon_supplyDC_32x32_height, icon_supplyDC_32x32_bits, COLOR_FOREGROUND_HEADERS);
@@ -134,6 +135,7 @@ void ScreenManagerClass::uiBuildTree()
 	page_Main.AddItem(&containerTabsMain);
 	page_Main.AddItem(&enumInd_deviceState);
 	page_Main.AddItem(&lbl_devSettingsNeedSaving);
+	page_Main.AddItem(&ico_devCalValid);
 	page_Main.InitItems();
 	page_Main.RecalculateLayout();
 	
@@ -162,6 +164,12 @@ void ScreenManagerClass::UpdateSettingsChangedIndicator(bool settingsChanged)
 {
 	lbl_devSettingsNeedSaving.Visible = settingsChanged;
 	RedrawScreenRequest = true;							// Generate a screen redraw request to update the settings saved indicator
+}
+
+void ScreenManagerClass::UpdateCalibrationValidIndicator(bool calibrationValid)
+{
+	ico_devCalValid.Visible = calibrationValid;
+	RedrawScreenRequest = true;							// Generate a screen redraw request to update the calibration valid indicator
 }
 
 void ScreenManagerClass::DoDraw()

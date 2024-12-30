@@ -100,6 +100,8 @@ typedef struct DeviceCalibrationFactors
 	float Cal_PS_CURR;			/**< Correction factor for the PS_CURR measurement */
 	float Cal_PS_CURR_OFFSET;	/**< Correction factor for the PS_CURR offset measurement */
 	float Cal_DDS_FREQ;			/**< Correction factor for the DDS frequency setting */
+
+	bool Cal_Valid;				/**< If true, the calibration factors above are valid. Otherwise they were not measure before. */
 }DeviceCalibrationFactors_t;
 
 /**
@@ -221,6 +223,9 @@ class DeviceClass
 		/** Reset all settings (except user waveforms and calibration factors) and save them to the EEPROM */								
 		void ResetDevice();					
 		
+		/** Reset all calibration settings and save them to the EEPROM */								
+		void ResetDeviceCalibration();		
+
 		/** Write all calibration factor values to the serial output. */
 		void ReportCalibrationFactors();
 		

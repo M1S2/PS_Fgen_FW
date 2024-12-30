@@ -239,6 +239,7 @@ void DeviceClass::SetSettingsChanged(bool settingsChanged)
 
 void DeviceClass::ReportCalibrationFactors()
 {
+	Serial.println("The following calibration factors are " + CalibrationFactors.Cal_Valid ? "VALID" : "INVALID");
 	Serial.printf("RefVoltage=%.3fV\r\n", CalibrationFactors.Cal_RefVoltage);
 	Serial.printf("5V=%.3f\r\n", CalibrationFactors.Cal_ATX_5V);
 	Serial.printf("3V3=%.3f\r\n", CalibrationFactors.Cal_ATX_3V3);
@@ -313,6 +314,7 @@ void DeviceClass::SaveSettings()
 void DeviceClass::SaveSettingsCalibrationFactors()
 {
 	CoerceCalibrationFactors();
+	ScreenManager.UpdateCalibrationValidIndicator(CalibrationFactors.Cal_Valid);
 	eeprom_write_block((const void*)&CalibrationFactors, (void*)&NonVolatileSettings_CalibrationFactors, sizeof(DeviceCalibrationFactors_t));
 }
 
@@ -390,6 +392,7 @@ void DeviceClass::LoadSettingsCalibrationFactors()
 	eeprom_read_block((void*)&CalibrationFactors, (const void*)&NonVolatileSettings_CalibrationFactors, sizeof(DeviceCalibrationFactors_t));
 	CoerceCalibrationFactors();
 	ReportCalibrationFactors();
+	ScreenManager.UpdateCalibrationValidIndicator(CalibrationFactors.Cal_Valid);
 }
 
 #if defined DDS_USER_DEFINED_WAVEFORMS_ENABLED && defined DDS_SUBSYSTEM_ENABLED
@@ -440,4 +443,20 @@ void DeviceClass::ResetDevice()
 	//Calibration factors are not resetted. A new calibration must be done to change the factors.
 	
 	SaveSettings();
+}
+
+void DeviceClass::ResetDeviceCalibration()
+{
+	CalibrationFactors.Cal_RefVoltage = 5;
+	CalibrationFactors.Cal_ATX_3V3 = 1;
+	CalibrationFactors.Cal_ATX_5V = 1;
+	CalibrationFactors.Cal_DMM1 = 1;
+	CalibrationFactors.Cal_DMM2 = 1;
+	CalibrationFactors.Cal_PS_VOLT = 1;
+	CalibrationFactors.Cal_PS_CURR = 1;
+	CalibrationFactors.Cal_PS_CURR_OFFSET = 0;
+	CalibrationFactors.Cal_DDS_FREQ = 1;
+	CalibrationFactors.Cal_Valid = false;
+
+	SaveSettingsCalibrationFactors();
 }

@@ -92,7 +92,7 @@ void PrepareCalStep(CalibrationStates_t calState)
 	#if defined MEASURE_SUBSYSTEM_ENABLED && defined PS_SUBSYSTEM_ENABLED
 		case CAL_PS_VOLT:
 		{
-			Device.PsChannel.SetVoltage(10);		// Set output to 10V and enable it
+			Device.PsChannel.SetVoltage(5);		// Set output to 5V and enable it
 			Device.PsChannel.SetEnabled(true);
 			lbl_Cal_instruction.SetText("Connect PS+ output to\nDMM1 input.");
 			break;
@@ -136,6 +136,7 @@ void PrepareCalStep(CalibrationStates_t calState)
  */
 void CalibrationFinished()
 {
+	Device.CalibrationFactors.Cal_Valid = true;
 	Device.SaveSettingsCalibrationFactors();
 	Device.ReportCalibrationFactors();
 	UiManager.ChangeVisualTreeRoot(&msg_Cal_Finished);

@@ -187,6 +187,12 @@ class ScreenManagerClass
 		void UpdateSettingsChangedIndicator(bool settingsChanged);
 		
 		/**
+		 * Update the calibration valid indicator (calibration icon indicating that the calibration factors are valid).
+		 * @param calibrationValid If true, the calibration icon is shown; If false, the calibration icon is hidden.
+		 */
+		void UpdateCalibrationValidIndicator(bool calibrationValid);
+
+		/**
 		 * Method that is used to input keys (and encoder inputs) into the screen subsystem (and the UI_Lib).
 		 * @param key Key that is forwarded to the UI_Lib.
 		 */

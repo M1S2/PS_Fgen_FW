@@ -73,7 +73,7 @@ void TabControlTabChanged(void* controlContext)
 	}
 }
 
-ScreenManagerClass::ScreenManagerClass() : _tft(PIN_NUMBER_LCD_CS, PIN_NUMBER_LCD_A0)
+ScreenManagerClass::ScreenManagerClass() : _tft(PIN_NUMBER_TFT_CS, PIN_NUMBER_TFT_A0)
 #ifdef TOUCH_ENABLED
 , _ts(PIN_NUMBER_TOUCH_CS, PIN_NUMBER_TOUCH_IRQ)
 #endif

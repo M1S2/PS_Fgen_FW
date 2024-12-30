@@ -26,10 +26,10 @@ void Pins_Init()
 	pinMode(PIN_NUMBER_PS_CS, OUTPUT);			// Is SPI_SS line and must be output for master mode
 	pinMode(PIN_NUMBER_DDS_CS, OUTPUT);
 	pinMode(PIN_NUMBER_IO_EXP_CS, OUTPUT);
-	pinMode(PIN_NUMBER_LCD_CS, OUTPUT);
+	pinMode(PIN_NUMBER_TFT_CS, OUTPUT);
 
 	// Other display and touch pins
-	pinMode(PIN_NUMBER_LCD_A0, OUTPUT);
+	pinMode(PIN_NUMBER_TFT_A0, OUTPUT);
 	pinMode(PIN_NUMBER_TOUCH_IRQ, INPUT);
 
 	// Encoder pins	

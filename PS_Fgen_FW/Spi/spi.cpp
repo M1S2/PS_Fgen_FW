@@ -12,7 +12,7 @@ void SPI_SelectDevice(SpiDevices_t spiDevice)
 	switch (spiDevice)
 	{
 		case SPI_DEV_TOUCH: SPI_SELECT_TOUCH break;
-		case SPI_DEV_TFT: SPI_SELECT_LCD break;
+		case SPI_DEV_TFT: SPI_SELECT_TFT break;
 		case SPI_DEV_PS: SPI_SELECT_PS break;
 		case SPI_DEV_DDS: SPI_SELECT_DDS break;
 		case SPI_DEV_IO_EXP: SPI_SELECT_IO_EXP break;
@@ -23,5 +23,5 @@ void SPI_SelectDevice(SpiDevices_t spiDevice)
 
 void SPI_DeselectAll()
 {
-	SPI_SelectDevice(SPI_DEV_NONE);
+	SPI_DESELECT_ALL
 }

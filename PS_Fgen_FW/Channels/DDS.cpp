@@ -52,10 +52,11 @@ void DisableDDSTimer()
 
 //https://www.avrfreaks.net/forum/dds-function-generator-using-atmega328p
 ISR(TIMER2_COMPA_vect)
-{	
+{
 	cli();
 	
-	SPI_SelectDevice(SPI_DEV_DDS);
+	SPI_DESELECT_ALL
+	SPI_SELECT_DDS
 	
 	if(dds_channel1_enabled)
 	{
@@ -74,8 +75,8 @@ ISR(TIMER2_COMPA_vect)
 	}
 	if(dds_channel1_enabled && dds_channel2_enabled)					// After each write command, the data needs to be shifted into the DAC's input registers by raising the CS pin (The CS pin is then raised, causing the data to be latched into the selected DAC's input registers.)
 	{
-		DESELECT_MCP4922
-		SELECT_MCP4922
+		SPI_DESELECT_DDS
+		SPI_SELECT_DDS
 	}
 	if(dds_channel2_enabled)
 	{
@@ -93,7 +94,9 @@ ISR(TIMER2_COMPA_vect)
 		while (!(SPSR & (1 << SPIF)));	// Wait until transmission is complete
 	}
 
-	SPI_SelectDevice(SPI_DEV_TFT);
+	SPI_DESELECT_DDS
+	SPI_SELECT_TFT
+
 	sei();
 }
 

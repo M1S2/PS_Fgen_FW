@@ -12,9 +12,19 @@
 #include <util/delay.h>
 #include <avr/io.h>
 
+#define SET_REG_BIT(x, y) x |= (1 << y);					/**< Set the bit at position y in register x */
+#define CLEAR_REG_BIT(x, y) x &= ~(1 << y);					/**< Clear the bit at position y in register x */
+
+// Chip select pin bit positions (They are used for faster access than the arduino digital write methods)
+#define BIT_POS_TS_CS		PORTA3		/**< Bit position of the touch screen chip select */
+#define BIT_POS_TFT_CS		PORTB1		/**< Bit position of the TFT chip select line */
+#define BIT_POS_IO_EXP_CS	PORTB2		/**< Bit position of the on/off controls IO expander chip select line */
+#define BIT_POS_DDS_CS		PORTB3		/**< Bit position of the direct digital synthesis chip select line */
+#define BIT_POS_PS_CS		PORTB4		/**< Bit position of the power supply chip select line (Is SPI_SS line and must be output for master mode) */
+
 // https://camo.githubusercontent.com/331d26748c79ccaf42bb0837711b14728c82e47e6fd21b2997a1b9c5155cf672/68747470733a2f2f692e696d6775722e636f6d2f7a424e506335622e706e67
-#define PIN_NUMBER_LCD_A0	    0		/**< Arduino pin number for the LCD A0 pin (PORTB0) */
-#define PIN_NUMBER_LCD_CS	    1		/**< Arduino pin number for the LCD chip select (PORTB1) */
+#define PIN_NUMBER_TFT_A0	    0		/**< Arduino pin number for the TFT A0 pin (PORTB0) */
+#define PIN_NUMBER_TFT_CS	    1		/**< Arduino pin number for the TFT chip select (PORTB1) */
 #define PIN_NUMBER_IO_EXP_CS	2		/**< Arduino pin number for the on/off controls IO expander chip select line (PORTB2) */
 #define PIN_NUMBER_DDS_CS	    3		/**< Arduino pin number for the direct digital synthesis chip select line (PORTB3) */
 #define PIN_NUMBER_PS_CS	    4		/**< Arduino pin number for the power supply chip select line (Is SPI_SS line and must be output for master mode) (PORTB4) */
@@ -52,23 +62,26 @@
  */
 void Pins_Init();
 
-#define SPI_SELECT_TOUCH	    digitalWrite(PIN_NUMBER_TOUCH_CS, LOW);		/**< Select the touch screen by pulling the CS pin low */
-#define SPI_DESELECT_TOUCH	    digitalWrite(PIN_NUMBER_TOUCH_CS, HIGH);	/**< Deselect the touch screen by pulling the CS pin high */
+/*********************************
+ * SPI Chip selects
+ *********************************/
+#define SPI_SELECT_TOUCH	    CLEAR_REG_BIT(PORTA, BIT_POS_TS_CS)		        /**< Select the touch screen by pulling the CS pin low */
+#define SPI_DESELECT_TOUCH	    SET_REG_BIT(PORTA, BIT_POS_TS_CS)	            /**< Deselect the touch screen by pulling the CS pin high */
 
-#define SPI_SELECT_LCD		    digitalWrite(PIN_NUMBER_LCD_CS, LOW);	    /**< Select the LCD by pulling the LCD_CS pin low */
-#define SPI_DESELECT_LCD	    digitalWrite(PIN_NUMBER_LCD_CS, HIGH);	    /**< Deselect the LCD by pulling the LCD_CS pin high */
+#define SPI_SELECT_TFT		    CLEAR_REG_BIT(PORTB, BIT_POS_TFT_CS)	        /**< Select the TFT by pulling the TFT_CS pin low */
+#define SPI_DESELECT_TFT	    SET_REG_BIT(PORTB, BIT_POS_TFT_CS)	            /**< Deselect the TFT by pulling the TFT_CS pin high */
 
-#define SPI_SELECT_DDS		    digitalWrite(PIN_NUMBER_DDS_CS, LOW);		/**< Select the DDS DAC by pulling the DDS_CS pin low */
-#define SPI_DESELECT_DDS	    digitalWrite(PIN_NUMBER_DDS_CS, HIGH);		/**< Deselect the DDS DAC by pulling the DDS_CS pin high */
-#define SPI_IS_DDS_SELECTED	    digitalRead(PIN_NUMBER_DDS_CS) == LOW		/**< Check if the DDS DAC is selected by reading the DDS_CS pin */
+#define SPI_SELECT_DDS		    CLEAR_REG_BIT(PORTB, BIT_POS_DDS_CS)		    /**< Select the DDS DAC by pulling the DDS_CS pin low */
+#define SPI_DESELECT_DDS	    SET_REG_BIT(PORTB, BIT_POS_DDS_CS)		        /**< Deselect the DDS DAC by pulling the DDS_CS pin high */
 
-#define SPI_SELECT_PS		    digitalWrite(PIN_NUMBER_PS_CS, LOW);	    /**< Select the PS DAC by pulling the PS_CS pin low */
-#define SPI_DESELECT_PS	        digitalWrite(PIN_NUMBER_PS_CS, HIGH);       /**< Deselect the PS DAC by pulling the PS_CS pin high */
-#define SPI_IS_PS_SELECTED	    digitalRead(PIN_NUMBER_PS_CS) == LOW	    /**< Check if the PS DAC is selected by reading the PS_CS pin */
+#define SPI_SELECT_PS		    CLEAR_REG_BIT(PORTB, BIT_POS_PS_CS)	            /**< Select the PS DAC by pulling the PS_CS pin low */
+#define SPI_DESELECT_PS	        SET_REG_BIT(PORTB, BIT_POS_PS_CS)               /**< Deselect the PS DAC by pulling the PS_CS pin high */
 
-#define SPI_SELECT_IO_EXP		digitalWrite(PIN_NUMBER_IO_EXP_CS, LOW);	/**< Select the IO expander by pulling the IO_EXP_CS pin low */
-#define SPI_DESELECT_IO_EXP	    digitalWrite(PIN_NUMBER_IO_EXP_CS, HIGH);	/**< Deselect the IO expander by pulling the IO_EXP_CS pin high */
+#define SPI_SELECT_IO_EXP		CLEAR_REG_BIT(PORTB, BIT_POS_IO_EXP_CS)	        /**< Select the IO expander by pulling the IO_EXP_CS pin low */
+#define SPI_DESELECT_IO_EXP	    SET_REG_BIT(PORTB, BIT_POS_IO_EXP_CS)	        /**< Deselect the IO expander by pulling the IO_EXP_CS pin high */
 
-#define SPI_DESELECT_ALL        SPI_DESELECT_TOUCH   SPI_DESELECT_PS   SPI_DESELECT_DDS   SPI_DESELECT_IO_EXP   SPI_DESELECT_LCD    /**< Disable all SPI chip selects */
+#define BITMASK_CS_PORTA        (1 << BIT_POS_TS_CS)                                                                                /**< Bitmask for the PortA SPI chip selects (1s mark chip select positions) */
+#define BITMASK_CS_PORTB        (1 << BIT_POS_PS_CS) | (1 << BIT_POS_DDS_CS) | (1 << BIT_POS_IO_EXP_CS) | (1 << BIT_POS_TFT_CS)     /**< Bitmask for the PortB SPI chip selects (1s mark chip select positions) */
+#define SPI_DESELECT_ALL  	    PORTA |= BITMASK_CS_PORTA; PORTB |= BITMASK_CS_PORTB;                                               /**< Disable all SPI chip selects (using direct port accesses) */
 
 #endif /* PINS_H_ */

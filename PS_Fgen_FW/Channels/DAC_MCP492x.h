@@ -18,10 +18,8 @@
 
 #define SELECT_MCP4922		SPI_SELECT_DDS			/**< Select the MCP4922 DAC by pulling the DDS_CS pin low */
 #define DESELECT_MCP4922	SPI_DESELECT_DDS		/**< Deselect the MCP4922 DAC by pulling the DDS_CS pin high */
-#define IS_MCP4922_SELECTED SPI_IS_DDS_SELECTED		/**< Check if the MCP4922 DAC is selected by reading the DDS_CS pin */
 #define SELECT_MCP4921		SPI_SELECT_PS			/**< Select the MCP4921 DAC by pulling the PS_CS pin low */
 #define DESELECT_MCP4921	SPI_DESELECT_PS			/**< Deselect the MCP4921 DAC by pulling the PS_CS pin high */
-#define IS_MCP4921_SELECTED	SPI_IS_PS_SELECTED		/**< Check if the MCP4921 DAC is selected by reading the PS_CS pin */
 
 /**
  * Set the DAC data value of the MCP4921 device.

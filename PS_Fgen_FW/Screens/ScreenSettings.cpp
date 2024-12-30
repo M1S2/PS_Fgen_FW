@@ -17,11 +17,14 @@ void OnButtonDeviceReset(void* context);
 void OnResetConfirmation(void* context);
 void OnResetCancel(void* context);
 
-ContainerGrid grid_Settings_Device;
+ContainerGrid grid_Settings_Device(8, 4, 2, false, true);
 Icon ico_settings_Device(icon_settings_width, icon_settings_height, icon_settings_bits, COLOR_FOREGROUND_HEADERS);
 Label lbl_Settings_Device_caption("Settings Device", COLOR_FOREGROUND_HEADERS, NULL, 0, 0, 20);
+Icon ico_Settings_Save(icon_save_width, icon_save_height, icon_save_bits);
 ButtonControl button_Settings_Save("Save Settings", &Device, &OnButtonSettingsSave, 14);
+Icon ico_Settings_Cal(icon_calibration_width, icon_calibration_height, icon_calibration_bits);
 ButtonControl button_Settings_Calibration("Calibration...", &Device, &OnButtonDeviceCalibration, 15);
+Icon ico_Settings_Reset(icon_reset_width, icon_reset_height, icon_reset_bits);
 ButtonControl button_Settings_Reset("Reset Device", &Device, &OnButtonDeviceReset, 13);
 MessageDialog msg_Settings_ResetConfirmation(MSG_DIALOG_MARGIN, MSG_DIALOG_MARGIN, DISPLAY_WIDTH - 2 * MSG_DIALOG_MARGIN, DISPLAY_HEIGHT - 2 * MSG_DIALOG_MARGIN, "Really reset the device?\nThis can't be undone!", MSG_WARNING, MSG_BTN_OK_CANCEL, &Device, &OnResetConfirmation, &OnResetCancel, 50);
 
@@ -104,9 +107,12 @@ UIElement* uiBuildScreenSettings()
 
 	grid_Settings_Device.AddItem(&ico_settings_Device, 0, 0, GRID_CELL_ALIGNMENT_LEFT);
 	grid_Settings_Device.AddItem(&lbl_Settings_Device_caption, 1, 0, GRID_CELL_ALIGNMENT_LEFT);
-	grid_Settings_Device.AddItem(&button_Settings_Save, 0, 1, GRID_CELL_ALIGNMENT_LEFT, 2);
-	grid_Settings_Device.AddItem(&button_Settings_Calibration, 0, 2, GRID_CELL_ALIGNMENT_LEFT, 2);
-	grid_Settings_Device.AddItem(&button_Settings_Reset, 0, 3, GRID_CELL_ALIGNMENT_LEFT, 2);
+	grid_Settings_Device.AddItem(&ico_Settings_Save, 0, 1, GRID_CELL_ALIGNMENT_LEFT);
+	grid_Settings_Device.AddItem(&button_Settings_Save, 1, 1, GRID_CELL_ALIGNMENT_LEFT);
+	grid_Settings_Device.AddItem(&ico_Settings_Cal, 0, 2, GRID_CELL_ALIGNMENT_LEFT);
+	grid_Settings_Device.AddItem(&button_Settings_Calibration, 1, 2, GRID_CELL_ALIGNMENT_LEFT);
+	grid_Settings_Device.AddItem(&ico_Settings_Reset, 0, 3, GRID_CELL_ALIGNMENT_LEFT);
+	grid_Settings_Device.AddItem(&button_Settings_Reset, 1, 3, GRID_CELL_ALIGNMENT_LEFT);
 	grid_Settings_Device.InitItems();
 
 	grid_Settings_Communication.SetColumnWidth(2, 10);	// Use this column with a fixed width to add some space between the controls and the text

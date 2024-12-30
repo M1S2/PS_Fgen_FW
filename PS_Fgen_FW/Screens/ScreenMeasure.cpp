@@ -28,9 +28,9 @@ ContainerGrid grid_ATX(6, 5, 4, false, true);
 Icon ico_atx(icon_voltage_width, icon_voltage_height, icon_voltage_bits, COLOR_FOREGROUND_HEADERS);
 Label lbl_ATX_caption("ATX", COLOR_FOREGROUND_HEADERS, NULL, 0, 0, 5);
 NumericIndicator<float> numInd_ATX_3V3(&Device.DeviceVoltages.ATX_3V3, "V", 4, 2);
-ProgressBar<float> progress_ATX_3V3(&Device.DeviceVoltages.ATX_3V3, 0, 4, PROGRESSBAR_ORIGIN_ZERO, 1, 75, 20);
+ProgressBar<float> progress_ATX_3V3(&Device.DeviceVoltages.ATX_3V3, 0, 4, PROGRESSBAR_ORIGIN_ZERO, 1, 170, 20);
 NumericIndicator<float> numInd_ATX_5V(&Device.DeviceVoltages.ATX_5V, "V", 6, 2);
-ProgressBar<float> progress_ATX_5V(&Device.DeviceVoltages.ATX_5V, 0, 6, PROGRESSBAR_ORIGIN_ZERO, 1, 75, 20);
+ProgressBar<float> progress_ATX_5V(&Device.DeviceVoltages.ATX_5V, 0, 6, PROGRESSBAR_ORIGIN_ZERO, 1, 170, 20);
 
 /** 
  * Update the visibility of the DMM channel negative warning icons.
@@ -49,7 +49,7 @@ UIElement* uiBuildScreenMeasure()
 	list_Measure.AddItem(&grid_DMM);
 	list_Measure.AddItem(&grid_ATX);
 
-	grid_DMM.SetRowHeight(2, 40);		// Add some space between both DMM indicators
+	grid_DMM.SetRowHeight(2, 60);		// Add some space between both DMM indicators
 	grid_DMM.AddItem(&ico_dmm, 0, 0, GRID_CELL_ALIGNMENT_LEFT);
 	grid_DMM.AddItem(&lbl_DMM_caption, 1, 0, GRID_CELL_ALIGNMENT_LEFT);
 	grid_DMM.AddItem(&lbl_DMM_No1, 0, 1, GRID_CELL_ALIGNMENT_LEFT);
@@ -62,12 +62,13 @@ UIElement* uiBuildScreenMeasure()
 	grid_DMM.AddItem(&progress_DMM2, 1, 4, GRID_CELL_ALIGNMENT_TOP_LEFT, 2);
 	grid_DMM.InitItems();
 	
+	grid_ATX.SetRowHeight(2, 50);		// Add some space between both ATX indicators
 	grid_ATX.AddItem(&ico_atx, 0, 0, GRID_CELL_ALIGNMENT_LEFT);
 	grid_ATX.AddItem(&lbl_ATX_caption, 1, 0, GRID_CELL_ALIGNMENT_LEFT, 2);
-	grid_ATX.AddItem(&numInd_ATX_3V3, 0, 1, GRID_CELL_ALIGNMENT_LEFT, 2);
-	grid_ATX.AddItem(&progress_ATX_3V3, 2, 1, GRID_CELL_ALIGNMENT_MIDDLE);
-	grid_ATX.AddItem(&numInd_ATX_5V, 0, 2, GRID_CELL_ALIGNMENT_LEFT, 2);
-	grid_ATX.AddItem(&progress_ATX_5V, 2, 2, GRID_CELL_ALIGNMENT_MIDDLE);
+	grid_ATX.AddItem(&numInd_ATX_3V3, 1, 1, GRID_CELL_ALIGNMENT_LEFT);
+	grid_ATX.AddItem(&progress_ATX_3V3, 1, 2, GRID_CELL_ALIGNMENT_TOP_LEFT);
+	grid_ATX.AddItem(&numInd_ATX_5V, 1, 3, GRID_CELL_ALIGNMENT_LEFT);
+	grid_ATX.AddItem(&progress_ATX_5V, 1, 4, GRID_CELL_ALIGNMENT_TOP_LEFT);
 	grid_ATX.InitItems();
 	
 	return &list_Measure;

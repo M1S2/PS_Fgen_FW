@@ -131,4 +131,14 @@ extern const unsigned char icon_pin_bits[] PROGMEM;
 #define icon_pwm_height 16
 extern const unsigned char icon_pwm_bits[] PROGMEM;
 
+/**** Icon Save *****/
+#define icon_save_width 16
+#define icon_save_height 16
+extern const unsigned char icon_save_bits[] PROGMEM;
+
+/**** Icon Reset *****/
+#define icon_reset_width 16
+#define icon_reset_height 16
+extern const unsigned char icon_reset_bits[] PROGMEM;
+
 #endif /* ICONS_H_ */

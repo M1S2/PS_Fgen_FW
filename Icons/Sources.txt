@@ -21,3 +21,5 @@ icon_warning:		selbst gezeichnet
 icon_settings:		https://findicons.com/icon/70239/wrench
 icon_boot:		https://icons-for-free.com/apps+reboot-131996350970633026/
 icon_calibration:	selbst gezeichnet
+icon_save:		https://img.icons8.com/?size=100&id=59875&format=png&color=000000
+icon_reset:		https://img.icons8.com/?size=100&id=37308&format=png&color=000000

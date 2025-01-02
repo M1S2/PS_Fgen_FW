@@ -11,7 +11,6 @@
 ContainerList list_PS(4, 20);
 
 void PSProtectionsClear(void* controlContext);
-void PSProtectionsClearedOK(void* controlContext);
 
 // ***** Power Supply Overview page *****
 ContainerGrid grid_PSOverview(13, 7, 4, false, true);
@@ -67,18 +66,9 @@ Icon ico_PSProtectionOPPDelay(icon_delay_width, icon_delay_height, icon_delay_bi
 NumericControl<float> numCtrl_PSProtectionOPPDelay(&Device.PsChannel.OppDelay.Val, "s", PS_MIN_OPP_DELAY, PS_MAX_OPP_DELAY, 3, &Device.PsChannel, &PS_Channel::PSOppDelayChanged);
 ButtonControl button_PSProtectionOPPClear("Clear", &Device.PsChannel, &PSProtectionsClear, 6);
 
-
-MessageDialog msg_protectionsCleared(MSG_DIALOG_MARGIN, MSG_DIALOG_MARGIN, DISPLAY_WIDTH - 2 * MSG_DIALOG_MARGIN, DISPLAY_HEIGHT - 2 * MSG_DIALOG_MARGIN, "Protections Cleared.", MSG_INFO, MSG_BTN_OK, NULL, &PSProtectionsClearedOK, NULL, 25);
-
 void PSProtectionsClear(void* controlContext)
 {
 	Device.PsChannel.ClearProtections();
-	UiManager.ChangeVisualTreeRoot(&msg_protectionsCleared);
-}
-
-void PSProtectionsClearedOK(void* controlContext)
-{
-	Device.ScreenManager.ShowUiMainPage();
 }
 
 UIElement* uiBuildScreenPS()

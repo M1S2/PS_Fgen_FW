@@ -27,8 +27,8 @@ void UserInputHandlerClass::ProcessInputs()
 				}
 				case USERDATA_USART: 
 				{
-					if(Device.SerialEchoEnabled) { Serial.write(data->UsartChr); }	// Echo character if enabled
-					
+					Serial.write(data->UsartChr);
+
 					#ifdef SCPI_ENABLED
 						SCPI_Input(&scpi_context, (char*)&data->UsartChr, 1);
 					#endif

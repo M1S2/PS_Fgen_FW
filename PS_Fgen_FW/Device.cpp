@@ -23,8 +23,7 @@ DeviceCalibrationFactors_t EEMEM NonVolatileSettings_CalibrationFactors;
 
 const char* DeviceControlStateNames[] = { "LOC", "REM", "RWL" };
 const char* DevicePowerUpOutputEnabledStateNames[] = { "OFF", "LAST", "ON" };
-const char* DeviceBaudRateNames[] = { "110", "150", "300", "1200", "2400", "4800", "9600", "19200", "38400", "57600" };
-	
+
 DeviceClass::DeviceClass() :
 #ifdef PS_SUBSYSTEM_ENABLED
 	PsChannel(PS_MIN_VOLTAGE, PS_MAX_VOLTAGE, PS_MIN_OVP_LEVEL_PERCENTAGE, PS_MAX_OVP_LEVEL_PERCENTAGE, PS_MIN_OVP_DELAY, PS_MAX_OVP_DELAY, PS_MIN_OCP_LEVEL, PS_MAX_OCP_LEVEL, PS_MIN_OCP_DELAY, PS_MAX_OCP_DELAY, PS_MIN_OPP_LEVEL, PS_MAX_OPP_LEVEL, PS_MIN_OPP_DELAY, PS_MAX_OPP_DELAY),
@@ -78,6 +77,7 @@ void DeviceClass::Init()
 	ScreenManager.Init();
 	
 	LoadSettings();
+
 	ScreenManager.UpdateVisibilities();
 	
 	#ifdef SCPI_ENABLED
@@ -189,46 +189,6 @@ void DeviceClass::UpdateControlStateOnUserInput()
 	}
 }
 
-// ##### Communication ###############################################################################################################
-
-uint32_t DeviceBaudRateEnumToNumber(DeviceBaudRates_t baudRateEnum)
-{
-	switch(baudRateEnum)
-	{
-		case DEV_BAUD_110: return 110;
-		case DEV_BAUD_150: return 150;
-		case DEV_BAUD_300: return 300;
-		case DEV_BAUD_1200: return 1200;
-		case DEV_BAUD_2400: return 2400;
-		case DEV_BAUD_4800: return 4800;
-		case DEV_BAUD_9600: return 9600;
-		case DEV_BAUD_19200: return 19200;
-		case DEV_BAUD_38400: return 38400;
-		case DEV_BAUD_57600: return 57600;
-		default: return 9600;
-	}
-}
-
-void DeviceClass::SetSerialBaudRate(DeviceBaudRates_t baud)
-{
-	if(SerialBaudRate != baud)
-	{		
-		uint32_t baudNum = DeviceBaudRateEnumToNumber(baud);
-		
-		SetSettingsChanged(true);
-		Serial.printf("Changing Baud rate to %lu\r\n", baudNum);
-		SerialBaudRate = baud;
-		Serial.end();
-		Serial.begin(baudNum);
-	}
-}
-
-void DeviceClass::SetSerialEchoEnabled(bool echoEnabled)
-{
-	SetSettingsChanged(SerialEchoEnabled != echoEnabled);
-	SerialEchoEnabled = echoEnabled;
-}
-
 // ##### Settings ####################################################################################################################
 
 void DeviceClass::SetSettingsChanged(bool settingsChanged)
@@ -270,9 +230,7 @@ void DeviceClass::SaveSettings()
 {
 	DevSettingsEEPROMLayout_t settings;
 	/* Collect setting from appropriate classes */
-	settings.Device_SerialBaudRate = SerialBaudRate;
-	settings.Device_SerialEchoEnabled = SerialEchoEnabled;
-	
+
 	#ifdef PS_SUBSYSTEM_ENABLED
 		settings.PS_Voltage = PsChannel.GetVoltage();
 		settings.PS_Enabled = PsChannel.GetEnabled();
@@ -337,10 +295,7 @@ void DeviceClass::LoadSettings()
 	eeprom_read_block((void*)&settings, (const void*)&NonVolatileSettings, sizeof(DevSettingsEEPROMLayout_t));
 	
 	/* Assign Settings to appropriate classes */
-	
-	SetSerialBaudRate(settings.Device_SerialBaudRate);
-	SetSerialEchoEnabled(settings.Device_SerialEchoEnabled);
-	
+
 	LoadSettingsCalibrationFactors();
 	
 	PowerOnOutputsState = settings.PowerOnOutputsState;

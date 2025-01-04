@@ -6,7 +6,7 @@
 
 #include "../Device.h"
 
-ContainerList list_Settings(4, 20);
+ContainerList list_Settings(3, 20);
 
 void SettingsChanged(void* context);
 
@@ -33,21 +33,6 @@ MessageDialog msg_Settings_ResetConfirmation(MSG_DIALOG_MARGIN, MSG_DIALOG_MARGI
 Icon ico_Settings_ResetCal(icon_reset_width, icon_reset_height, icon_reset_bits);
 ButtonControl button_Settings_ResetCal("Reset Cal.", &Device, &OnButtonResetCal, 11);
 MessageDialog msg_Settings_ResetCalConfirmation(MSG_DIALOG_MARGIN, MSG_DIALOG_MARGIN, DISPLAY_WIDTH - 2 * MSG_DIALOG_MARGIN, DISPLAY_HEIGHT - 2 * MSG_DIALOG_MARGIN, "Really reset the cal.?\nA new calibration must be done!", MSG_WARNING, MSG_BTN_OK_CANCEL, &Device, &OnResetCalConfirmation, &OnResetCalCancel, 60);
-
-// ***** Settings Communication page *****
-void SettingsCommunicationBaudRateChanged(void* context);
-
-ContainerGrid grid_Settings_Communication(8, 3, 4, false, true);
-Icon ico_Settings_Communication(icon_serial_width, icon_serial_height, icon_serial_bits, COLOR_FOREGROUND_HEADERS);
-Label lbl_Settings_Communication_caption("Communication", COLOR_FOREGROUND_HEADERS, NULL, 0, 0, 15);
-
-Icon ico_Settings_Comm_BaudRate(icon_speed_width, icon_speed_height, icon_speed_bits);
-EnumControl<DeviceBaudRates_t> enumCtrl_Settings_Comm_BaudRate(&Device.SerialBaudRate, DeviceBaudRateNames, NUM_DEV_BAUD_ELEMENTS, &Device, &SettingsCommunicationBaudRateChanged);
-Label lbl_Settings_Comm_BaudRate("Baud Rate", LABEL_COLOR_NOTSET, NULL, 0, 0, 10);
-
-Icon ico_Settings_Comm_Echo(icon_echo_width, icon_echo_height, icon_echo_bits);
-BoolControl boolCtrl_Settings_Comm_Echo(&Device.SerialEchoEnabled, NULL, &SettingsChanged);
-Label lbl_Settings_Comm_Echo("Serial Echo", LABEL_COLOR_NOTSET, NULL, 0, 0, 15);
 
 // ***** Settings PowerUp page *****
 ContainerGrid grid_Settings_PowerUp(5, 2, 4, false, true);
@@ -113,17 +98,10 @@ void OnResetCalCancel(void* context)
 	Device.ScreenManager.ShowUiMainPage();
 }
 
-void SettingsCommunicationBaudRateChanged(void* context)
-{
-	DeviceBaudRates_t baudRate = Device.SerialBaudRate;
-	Device.SerialBaudRate = (baudRate == DEV_BAUD_110 ? DEV_BAUD_150 : DEV_BAUD_110);		//Set the SerialBaudRate to a value that is different from the set baud rate (to trigger the baud rate switch in SetSerialBaudRate())
-	Device.SetSerialBaudRate(baudRate);
-}
 
 UIElement* uiBuildScreenSettings()
 {
 	list_Settings.AddItem(&grid_Settings_Device);
-	list_Settings.AddItem(&grid_Settings_Communication);
 	list_Settings.AddItem(&grid_Settings_PowerUp);
 	list_Settings.AddItem(&grid_Settings_VersionInfo);
 
@@ -138,17 +116,6 @@ UIElement* uiBuildScreenSettings()
 	grid_Settings_Device.AddItem(&ico_Settings_ResetCal, 0, 4, GRID_CELL_ALIGNMENT_LEFT);
 	grid_Settings_Device.AddItem(&button_Settings_ResetCal, 1, 4, GRID_CELL_ALIGNMENT_LEFT);
 	grid_Settings_Device.InitItems();
-
-	grid_Settings_Communication.SetColumnWidth(2, 10);	// Use this column with a fixed width to add some space between the controls and the text
-	grid_Settings_Communication.AddItem(&ico_Settings_Communication, 0, 0, GRID_CELL_ALIGNMENT_LEFT);
-	grid_Settings_Communication.AddItem(&lbl_Settings_Communication_caption, 1, 0, GRID_CELL_ALIGNMENT_LEFT, 3);
-	grid_Settings_Communication.AddItem(&ico_Settings_Comm_BaudRate, 0, 1, GRID_CELL_ALIGNMENT_LEFT);
-	grid_Settings_Communication.AddItem(&enumCtrl_Settings_Comm_BaudRate, 1, 1, GRID_CELL_ALIGNMENT_LEFT);
-	grid_Settings_Communication.AddItem(&lbl_Settings_Comm_BaudRate, 3, 1, GRID_CELL_ALIGNMENT_LEFT);
-	grid_Settings_Communication.AddItem(&ico_Settings_Comm_Echo, 0, 2, GRID_CELL_ALIGNMENT_LEFT);
-	grid_Settings_Communication.AddItem(&boolCtrl_Settings_Comm_Echo, 1, 2, GRID_CELL_ALIGNMENT_LEFT);
-	grid_Settings_Communication.AddItem(&lbl_Settings_Comm_Echo, 3, 2, GRID_CELL_ALIGNMENT_LEFT);
-	grid_Settings_Communication.InitItems();
 
 	grid_Settings_PowerUp.SetColumnWidth(2, 10);	// Use this column with a fixed width to add some space between the controls and the text
 	grid_Settings_PowerUp.AddItem(&ico_settings_PowerUp, 0, 0, GRID_CELL_ALIGNMENT_LEFT);

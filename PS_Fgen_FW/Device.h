@@ -52,32 +52,6 @@ typedef enum DevicePowerUpOutputEnabledStates
 extern const char* DevicePowerUpOutputEnabledStateNames[NUM_DEV_POWERUP_ELEMENTS];	/**< Array holding the names for all available output power up states. */
 
 /**
- * Available device baud rates.
- * Enumeration with all available device communication baud rates.
- */
-typedef enum DeviceBaudRates
-{
-	DEV_BAUD_110,			/**< Baud rate 110 */
-	DEV_BAUD_150,			/**< Baud rate 150 */
-	DEV_BAUD_300,			/**< Baud rate 300 */
-	DEV_BAUD_1200,			/**< Baud rate 1200 */
-	DEV_BAUD_2400,			/**< Baud rate 2400 */
-	DEV_BAUD_4800,			/**< Baud rate 4800 */
-	DEV_BAUD_9600,			/**< Baud rate 9600 */
-	DEV_BAUD_19200,			/**< Baud rate 19200 */
-	DEV_BAUD_38400,			/**< Baud rate 38400 */
-	DEV_BAUD_57600,			/**< Baud rate 57600 */
-	NUM_DEV_BAUD_ELEMENTS	/**< The last element is used to determine the number of elements in the enumeration */
-}DeviceBaudRates_t;
-extern const char* DeviceBaudRateNames[NUM_DEV_BAUD_ELEMENTS];			/**< Array holding the names for all available device baud rates. */
-/**
- * Convert the DeviceBaudRates_t enum to the corresponding number. E.g. DEV_BAUD_9600 -> 9600.
- * @param baudRateEnum Enum value to convert
- * @return Converted baud rate
- */
-uint32_t DeviceBaudRateEnumToNumber(DeviceBaudRates_t baudRateEnum);
-
-/**
  * Structure containing all device ATX voltages.
  */
 typedef struct DeviceVoltagesStruct
@@ -121,10 +95,7 @@ typedef struct DevSettingsEEPROMLayout
 	bool PS_OppState;											/**< Power supply channel over power protection state */
 	float PS_OppDelay;											/**< Power supply channel over power protection delay */
 	PsRegulationModes_t PS_RegulationMode;						/**< Power supply channel regulation mode */
-	
-	DeviceBaudRates_t Device_SerialBaudRate;					/**< Communication baud rate */
-	bool Device_SerialEchoEnabled;								/**< Communication echo setting (if enabled all received characters are echoed back) */
-	
+
 	float DDS1_Frequency;										/**< DDS channel 1 frequency */
 	SignalForms_t DDS1_SignalForm;								/**< DDS channel 1 signal form */
 	float DDS1_Amplitude;										/**< DDS channel 1 amplitude */
@@ -189,9 +160,6 @@ class DeviceClass
 		UserInputHandlerClass UserInputHandler;						/**< UserInputHandler object used for key and Usart enqueueing and dequeueing */
 		ScreenManagerClass ScreenManager;							/**< Object for all screen drawing related stuff */
 
-		DeviceBaudRates_t SerialBaudRate;							/**< Configured communication baud rate */
-		bool SerialEchoEnabled;										/**< Configured communication echo */	
-	
 		uint16_t TimeCounter_KeyPolling_ms;							/**< Variable used for measuring the time to the next key polling */
 		uint16_t TimeCounter_AutoSave_ms;							/**< Variable used for measuring the time to the next auto save */
 		uint16_t TimeCounter_PowerSupplyChannelRegulation_ms;		/**< Variable used for measuring the time to the next power supply regulation loop */
@@ -260,18 +228,6 @@ class DeviceClass
 		
 		/** Update the device control state after an user input occurs (only changes to LOC if it was REM) */
 		void UpdateControlStateOnUserInput();
-		
-		/**
-		 * Set the communication baud rate.
-		 * @param baud New communication baud rate.
-		 */
-		void SetSerialBaudRate(DeviceBaudRates_t baud);
-		
-		/**
-		 * Enable/Disable the communication echo.
-		 * @param echoEnabled If enabled all received characters are echoed back.
-		 */
-		void SetSerialEchoEnabled(bool echoEnabled);
 };
 
 extern DeviceClass Device;			/**< Global DeviceClass instance used to access all device related methods and properties. */

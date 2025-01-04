@@ -22,8 +22,8 @@
 
 /***** SCPI ***************************************************/
 //#define SCPI_ENABLED											/**< Comment this line out to disable the SCPI parser */
-#define SCPI_INPUT_BUFFER_LENGTH		64						/**< Length of the SCPI input buffer. If this buffer overflows, there will be an error message. */
-#define SCPI_ERROR_QUEUE_SIZE			10						/**< Maximum number of errors in the error queue. If this queue overflows, the last error message will be replaced by an overflow error message. */
+#define SCPI_INPUT_BUFFER_LENGTH		16						/**< Length of the SCPI input buffer. If this buffer overflows, there will be an error message. */
+#define SCPI_ERROR_QUEUE_SIZE			3						/**< Maximum number of errors in the error queue. If this queue overflows, the last error message will be replaced by an overflow error message. */
 #define SCPI_IDN_MANUFACTURER			"Markus Scheich"		/**< Manufacturer info used in *IDN? query */
 #define SCPI_IDN_MODEL					"PS_Fgen"				/**< Model info used in *IDN? query */
 #define SCPI_IDN_SERIAL_NUMBER			"01"					/**< Serial number used in *IDN? query */
@@ -42,7 +42,7 @@
 #define TOUCH_LONG_DELAY_MS     		750						/**< Time period in ms that is interpreted as long touch */
 
 /***** UserInputHandler ***************************************/
-#define USERINPUT_QUEUE_LENGTH			64						/**< Length of the queue used to buffer the user inputs (keys, encoder, Usart) */
+#define USERINPUT_QUEUE_LENGTH			16						/**< Length of the queue used to buffer the user inputs (keys, encoder, Usart) */
 
 /***** Subsystems *********************************************/
 #define PS_SUBSYSTEM_ENABLED									/**< Comment this line out to disable the power supply subsystem */

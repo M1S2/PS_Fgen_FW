@@ -44,7 +44,7 @@ Icon ico_devCalValid(icon_calibration_width, icon_calibration_height, icon_calib
 Icon iconTabConfig(icon_settings_32x32_width, icon_settings_32x32_height, icon_settings_32x32_bits, COLOR_FOREGROUND_HEADERS);
 ContainerTabs containerTabsMain(DISPLAY_WIDTH, DISPLAY_HEIGHT - STATUS_BAR_HEIGHT, TAB_POSITION_LEFT, NULL, &TabControlTabChanged);
 
-MessageDialog msg_DeviceRWLState(MSG_DIALOG_MARGIN, MSG_DIALOG_MARGIN, DISPLAY_WIDTH - 2 * MSG_DIALOG_MARGIN, DISPLAY_HEIGHT - 2 * MSG_DIALOG_MARGIN, "Device locked by SYST:RWL.\nUnlock with SYST:LOC.", MSG_WARNING, MSG_BTN_NONE);
+MessageDialog msg_DeviceRWLState(MSG_DIALOG_MARGIN, MSG_DIALOG_MARGIN, DISPLAY_WIDTH - 2 * MSG_DIALOG_MARGIN, DISPLAY_HEIGHT - 2 * MSG_DIALOG_MARGIN, "Device locked by\nSYST:RWL.\nUnlock with SYST:LOC.", MSG_WARNING, MSG_BTN_NONE);
 
 void TabControlTabChanged(void* controlContext)
 {

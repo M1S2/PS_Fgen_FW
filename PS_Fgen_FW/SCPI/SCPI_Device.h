@@ -188,32 +188,22 @@ scpi_result_t scpi_cmd_sourceFunctionModeQ(scpi_t * context);						/**< Function
 #endif
 
 /******* SCPI_Cmds_System.cpp ****************************/
-scpi_result_t scpi_cmd_systemCapabilityQ(scpi_t * context);							/**< Function executed when the SYSTem:CAPability? command was received. */
 scpi_result_t scpi_cmd_systemLocal(scpi_t * context);								/**< Function executed when the SYSTem:LOCal command was received. */
 scpi_result_t scpi_cmd_systemRemote(scpi_t * context);								/**< Function executed when the SYSTem:REMote command was received. */
 scpi_result_t scpi_cmd_systemRWLock(scpi_t * context);								/**< Function executed when the SYSTem:RWLock command was received. */
 scpi_result_t scpi_cmd_systemChannelCountQ(scpi_t * context);						/**< Function executed when the SYSTem:CHANnel:COUNt? command was received. */
 scpi_result_t scpi_cmd_systemFirmwareQ(scpi_t * context);							/**< Function executed when the SYSTem:FIRMware? command was received. */
 scpi_result_t scpi_cmd_systemSnoQ(scpi_t * context);								/**< Function executed when the SYSTem:SNO? command was received. */
-scpi_result_t scpi_cmd_systemCommunicateSerialBaud(scpi_t * context);				/**< Function executed when the SYSTem:COMMunicate:SERial:BAUD command was received. */
-scpi_result_t scpi_cmd_systemCommunicateSerialBaudQ(scpi_t * context);				/**< Function executed when the SYSTem:COMMunicate:SERial:BAUD? command was received. */
-scpi_result_t scpi_cmd_systemCommunicateSerialEcho(scpi_t * context);				/**< Function executed when the SYSTem:COMMunicate:SERial:ECHO command was received. */
-scpi_result_t scpi_cmd_systemCommunicateSerialEchoQ(scpi_t * context);				/**< Function executed when the SYSTem:COMMunicate:SERial:ECHO? command was received. */
 scpi_result_t scpi_cmd_systemMeasureScalarVoltageDCQ(scpi_t * context);				/**< Function executed when the SYSTem:MEASure[:SCALar][:VOLTage][:DC]? command was received. */
-scpi_result_t scpi_cmd_systemPonOutputDisable(scpi_t * context);					/**< Function executed when the SYSTem:PON:OUTPut:DISable command was received. */
-scpi_result_t scpi_cmd_systemPonOutputDisableQ(scpi_t * context);					/**< Function executed when the SYSTem:PON:OUTPut:DISable? command was received. */
 
 /******* SCPI_Cmds_Memory.cpp ****************************/
 scpi_result_t scpi_cmd_memoryRcl(scpi_t * context);									/**< Function executed when the *RCL command was received. */
 scpi_result_t scpi_cmd_memorySav(scpi_t * context);									/**< Function executed when the *SAV command was received. */
-scpi_result_t scpi_cmd_memoryNStatesQ(scpi_t * context);							/**< Function executed when the MEMory:NSTates? command was received. */
 
 /******* SCPI_Cmds_Instrument.cpp *************************/
 scpi_result_t scpi_cmd_instrumentSelect(scpi_t * context);							/**< Function executed when the INSTrument[:SELect] command was received. */
 scpi_result_t scpi_cmd_instrumentSelectQ(scpi_t * context);							/**< Function executed when the INSTrument[:SELect]? command was received. */
 scpi_result_t scpi_cmd_instrumentNSelect(scpi_t * context);							/**< Function executed when the INSTrument:NSELect command was received. */
 scpi_result_t scpi_cmd_instrumentNSelectQ(scpi_t * context);						/**< Function executed when the INSTrument:NSELect? command was received. */
-scpi_result_t scpi_cmd_instrumentCatalogQ(scpi_t * context);						/**< Function executed when the INSTrument:CATalog? command was received. */
-scpi_result_t scpi_cmd_instrumentCatalogFullQ(scpi_t * context);					/**< Function executed when the INSTrument:CATalog:FULL? command was received. */
 
 #endif /* SCPI_DEVICE_H_ */

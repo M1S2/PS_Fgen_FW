@@ -72,35 +72,3 @@ scpi_result_t scpi_cmd_instrumentNSelectQ(scpi_t * context)
 	SCPI_ResultInt32(context, (Device.SelectedScpiChannelIndex + 1));
 	return SCPI_RES_OK;
 }
-
-//Returns a quoted string of the list of valid choices for the instrument channels (e.g. "CH1","CH2","CH3")
-scpi_result_t scpi_cmd_instrumentCatalogQ(scpi_t * context)
-{
-	char buffer[256] = { 0 };
-	int i=0;
-	while(channel_choice[i].name != NULL && i < NUM_CHANNELS)
-	{
-		sprintf(buffer + strlen(buffer), "\"%s\",", channel_choice[i].name);	//strlen() used to append to the buffer
-		i++;
-	}
-
-	if(strlen(buffer) > 0) { buffer[strlen(buffer) - 1] = '\0'; }			// remove the last character (',') from the result string
-	SCPI_ResultCharacters(context, buffer, strlen(buffer));
-	return SCPI_RES_OK;
-}
-
-//Returns a list of string - number pairs (e.g. "CH1",1,"CH2",2,"CH3",3)
-scpi_result_t scpi_cmd_instrumentCatalogFullQ(scpi_t * context)
-{
-	char buffer[256] = { 0 };
-	int i=0;
-	while(channel_choice[i].name != NULL && i < NUM_CHANNELS)
-	{
-		sprintf(buffer + strlen(buffer), "\"%s\",%ld,", channel_choice[i].name, channel_choice[i].tag);	//strlen() used to append to the buffer
-		i++;
-	}
-
-	if(strlen(buffer) > 0) { buffer[strlen(buffer) - 1] = '\0'; }			// remove the last character (',') from the result string
-	SCPI_ResultCharacters(context, buffer, strlen(buffer));
-	return SCPI_RES_OK;
-}

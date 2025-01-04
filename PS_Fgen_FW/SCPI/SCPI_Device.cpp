@@ -51,13 +51,7 @@ const scpi_command_t scpi_commands[] =
 	{"SYSTem:ERRor[:NEXT]?", SCPI_SystemErrorNextQ, 0},
 	{"SYSTem:ERRor:COUNt?", SCPI_SystemErrorCountQ, 0},
 	{"SYSTem:VERSion?", SCPI_SystemVersionQ, 0},
-	
-	{"STATus:QUEStionable[:EVENt]?", SCPI_StatusQuestionableEventQ, 0},
-	{"STATus:QUEStionable:ENABle", SCPI_StatusQuestionableEnable, 0},
-	{"STATus:QUEStionable:ENABle?", SCPI_StatusQuestionableEnableQ, 0},
 
-	{"STATus:PRESet", SCPI_StatusPreset, 0},
-		
 	/****** Output Subsystem ***************************/
 	{"OUTPut#[:STATe]", scpi_cmd_outputState, 0},
 	{"OUTPut#[:STATe]?", scpi_cmd_outputStateQ, 0},
@@ -108,31 +102,19 @@ const scpi_command_t scpi_commands[] =
 	#endif
 	
 	/****** System Subsystem ***************************/
-	{"SYSTem:CAPability?", scpi_cmd_systemCapabilityQ, 0},
 	{"SYSTem:LOCal", scpi_cmd_systemLocal, 0},
 	{"SYSTem:REMote", scpi_cmd_systemRemote, 0},
 	{"SYSTem:RWLock", scpi_cmd_systemRWLock, 0},
 	{"SYSTem:CHANnel:COUNt?", scpi_cmd_systemChannelCountQ, 0},
 	{"SYSTem:FIRMware?", scpi_cmd_systemFirmwareQ, 0},
 	{"SYSTem:SNO?", scpi_cmd_systemSnoQ, 0},
-	{"SYSTem:COMMunicate:SERial:BAUD", scpi_cmd_systemCommunicateSerialBaud, 0},
-	{"SYSTem:COMMunicate:SERial:BAUD?", scpi_cmd_systemCommunicateSerialBaudQ, 0},
-	{"SYSTem:COMMunicate:SERial:ECHO", scpi_cmd_systemCommunicateSerialEcho, 0},
-	{"SYSTem:COMMunicate:SERial:ECHO?", scpi_cmd_systemCommunicateSerialEchoQ, 0},
 	{"SYSTem:MEASure[:SCALar][:VOLTage][:DC]?", scpi_cmd_systemMeasureScalarVoltageDCQ, 0},
-	{"SYSTem:PON:OUTPut:DISable", scpi_cmd_systemPonOutputDisable, 0},
-	{"SYSTem:PON:OUTPut:DISable?", scpi_cmd_systemPonOutputDisableQ, 0},
-				
-	/****** Memory Subsystem ***************************/
-	{"MEMory:NSTates?", scpi_cmd_memoryNStatesQ, 0},		
-		
+
 	/****** Instrument Subsystem ***********************/
 	{"INSTrument[:SELect]", scpi_cmd_instrumentSelect, 0},
 	{"INSTrument[:SELect]?", scpi_cmd_instrumentSelectQ, 0},
 	{"INSTrument:NSELect", scpi_cmd_instrumentNSelect, 0},
 	{"INSTrument:NSELect?", scpi_cmd_instrumentNSelectQ, 0},
-	{"INSTrument:CATalog?", scpi_cmd_instrumentCatalogQ, 0},
-	{"INSTrument:CATalog:FULL?", scpi_cmd_instrumentCatalogFullQ, 0},
 									
 	SCPI_CMD_LIST_END
 };

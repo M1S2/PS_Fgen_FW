@@ -21,14 +21,13 @@
 #define SPLASHSCREEN_DELAY_MS			2000					/**< Time that the splash screen is shown in milliseconds */
 
 /***** SCPI ***************************************************/
-//#define SCPI_ENABLED											/**< Comment this line out to disable the SCPI parser */
+#define SCPI_ENABLED											/**< Comment this line out to disable the SCPI parser */
 #define SCPI_INPUT_BUFFER_LENGTH		16						/**< Length of the SCPI input buffer. If this buffer overflows, there will be an error message. */
 #define SCPI_ERROR_QUEUE_SIZE			3						/**< Maximum number of errors in the error queue. If this queue overflows, the last error message will be replaced by an overflow error message. */
 #define SCPI_IDN_MANUFACTURER			"Markus Scheich"		/**< Manufacturer info used in *IDN? query */
 #define SCPI_IDN_MODEL					"PS_Fgen"				/**< Model info used in *IDN? query */
 #define SCPI_IDN_SERIAL_NUMBER			"01"					/**< Serial number used in *IDN? query */
 #define SCPI_IDN_SOFTWARE_REVISION		VERSION					/**< Software version used in *IDN? query */
-#define SCPI_SYSTEM_CAPABILITIES		"(DCPSUPPLY WITH MEASURE|FUNCGEN|FUNCGEN)"		/**< All capabilites of the system */			
 
 /***** Screens ************************************************/
 #define SPLASHSCREEN_ENABLED									/**< Comment this line out to disable the Splashscreen */
@@ -84,7 +83,7 @@
 #define PS_MAX_CURRENT					2						/**< Maximum allowed power supply current setting */
 #define PS_MIN_OVP_LEVEL_PERCENTAGE		90						/**< Minimum allowed power supply OVP level setting (in percent of the configured voltage) */
 #define PS_MAX_OVP_LEVEL_PERCENTAGE		200						/**< Maximum allowed power supply OVP level setting (in percent of the configured voltage) */
-#define PS_MIN_OVP_DELAY				0						/**< Minimum allowed power supply OVP delay setting */
+#define PS_MIN_OVP_DELAY				(POWER_SUPPLY_REG_INTERVAL_MS / 1000.0f)	/**< Minimum allowed power supply OVP delay setting */
 #define PS_MAX_OVP_DELAY				20						/**< Maximum allowed power supply OVP delay setting */
 #define PS_MIN_OCP_LEVEL				0						/**< Minimum allowed power supply OCP level setting */
 #define PS_MAX_OCP_LEVEL				3						/**< Maximum allowed power supply OCP level setting */
@@ -92,7 +91,7 @@
 #define PS_MAX_OCP_DELAY				PS_MAX_OVP_DELAY		/**< Maximum allowed power supply OCP delay setting */
 #define PS_MIN_OPP_LEVEL				0						/**< Minimum allowed power supply OCP level setting */
 #define PS_MAX_OPP_LEVEL				(PS_MAX_VOLTAGE * PS_MAX_OCP_LEVEL)		/**< Maximum allowed power supply OCP level setting */
-#define PS_MIN_OPP_DELAY				0						/**< Minimum allowed power supply OPP delay setting */
+#define PS_MIN_OPP_DELAY				PS_MIN_OVP_DELAY		/**< Minimum allowed power supply OPP delay setting */
 #define PS_MAX_OPP_DELAY				65						/**< Maximum allowed power supply OPP delay setting */
 
 #define PS_VOLT_PID_P					0.2f					/**< Proportional part of the voltage PID regulator */
@@ -105,6 +104,6 @@
 #define DDS_MAX_AMPLITUDE				20						/**< Maximum allowed DDS amplitude setting */
 #define DDS_MIN_OFFSET					-10						/**< Minimum allowed DDS offset setting */
 #define DDS_MAX_OFFSET					10						/**< Maximum allowed DDS offset setting */
-#define DDS_USER_DEFINED_WAVEFORMS_ENABLED						/**< Comment this out to disable support for user defined waveforms for both DDS channels */
+//#define DDS_USER_DEFINED_WAVEFORMS_ENABLED						/**< Comment this out to disable support for user defined waveforms for both DDS channels */
 
 #endif /* CONFIGURATION_H_ */

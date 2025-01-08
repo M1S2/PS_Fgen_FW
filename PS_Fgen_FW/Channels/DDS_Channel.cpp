@@ -21,7 +21,7 @@ DDS_Channel::DDS_Channel(uint8_t ddsChannelNumber, float minFreq, float maxFreq,
 	DdsChannelNumber = ddsChannelNumber;
 	
 	Enabled = Parameter<bool>(false, false, true, false, true);
-	SignalForm = Parameter<SignalForms_t>(SINE, SINE, (SignalForms_t)(((int)NUM_SIGNALFORM_ELEMENTS) - 1), SINE, SINE);
+	SignalForm = Parameter<SignalForms_t>(SIGNALFORM_SINE, SIGNALFORM_SINE, (SignalForms_t)(((int)NUM_SIGNALFORM_ELEMENTS) - 1), SIGNALFORM_SINE, SIGNALFORM_SINE);
 	Frequency = Parameter<float>(0, minFreq, maxFreq, 1000, 1);
 	Amplitude = Parameter<float>(0, minAmpl, maxAmpl, 10, 1);
 	Offset = Parameter<float>(0, minOffset, maxOffset, 0, 1);
@@ -48,18 +48,22 @@ void DDS_Channel::UpdateIncrement()
 void DDS_Channel::UpdateWaveTable()
 {
 	#ifdef DDS_USER_DEFINED_WAVEFORMS_ENABLED
-		if(OriginalWaveTable == NULL && SignalForm.Val != USER_SIGNAL && SignalForm.Val != PWM) { return; }
+		if(OriginalWaveTable == NULL && SignalForm.Val != SIGNALFORM_USER_SIGNAL && SignalForm.Val != SIGNALFORM_PWM && SignalForm.Val != SIGNALFORM_RECTANGLE && SignalForm.Val != SIGNALFORM_DC) { return; }
 	#else
-		if(OriginalWaveTable == NULL && SignalForm.Val != PWM) { return; }
+		if(OriginalWaveTable == NULL && SignalForm.Val != SIGNALFORM_PWM && SignalForm.Val != SIGNALFORM_RECTANGLE && SignalForm.Val != SIGNALFORM_DC) { return; }
 	#endif
 
 	int16_t offset_value = (int16_t)((GetOffset() / (float)DDS_AMPLITUDE_MAX) * DDS_SAMPLE_MAX);
 	int16_t sample_max_half = DDS_SAMPLE_MAX / 2;
 	
-	uint16_t pwm_stateChangeIndex = 0;								// Index in the wave table where the PWM signal changes it's state (between 0 and 2^DDS_QUANTIZER_BITS). This is only used for SignalForm == PWM
-	if(SignalForm.Val == PWM)
+	uint16_t pwm_stateChangeIndex = 0;								// Index in the wave table where the PWM signal changes it's state (between 0 and 2^DDS_QUANTIZER_BITS). This is only used for SignalForm == PWM and SignalForm == RECTANGLE (PWM with 50%)
+	if(SignalForm.Val == SIGNALFORM_PWM)
 	{
 		pwm_stateChangeIndex = (PWM_Value.Val * (1 << DDS_QUANTIZER_BITS)) / 100;
+	}
+	else if(SignalForm.Val == SIGNALFORM_RECTANGLE)
+	{
+		pwm_stateChangeIndex = (50 * (1 << DDS_QUANTIZER_BITS)) / 100;
 	}
 	
 	for(uint16_t i = 0; i < (1 << DDS_QUANTIZER_BITS); i++)			// Left shift to replace pow(2, DDS_QUANTIZER_BITS)
@@ -73,9 +77,13 @@ void DDS_Channel::UpdateWaveTable()
 			else
 			{
 		#endif
-				if(SignalForm.Val == PWM)
+				if(SignalForm.Val == SIGNALFORM_PWM || SignalForm.Val == SIGNALFORM_RECTANGLE)		// Rectangle is a special case of the PWM signal form (PWM with 50% duty cycle)
 				{
 					originalSample = (i < pwm_stateChangeIndex) ? 0xFFF : 0x000;
+				}
+				else if(SignalForm.Val == SIGNALFORM_DC)
+				{
+					originalSample = 0xFFF;
 				}
 				else
 				{
@@ -99,14 +107,14 @@ void DDS_Channel::UpdateOriginalWaveTable()
 {	
 	switch (SignalForm.Val)
 	{
-		case SINE: OriginalWaveTable = SINE_WAVE_TABLE_12BIT; break;
-		case RECTANGLE: OriginalWaveTable = RECT_WAVE_TABLE_12BIT; break;
-		case TRIANGLE: OriginalWaveTable = TRIANGLE_WAVE_TABLE_12BIT; break;
-		case SAWTOOTH: OriginalWaveTable = SAWTOOTH_WAVE_TABLE_12BIT; break;
-		case DC: OriginalWaveTable = DC_WAVE_TABLE_12BIT; break;
-		case PWM: OriginalWaveTable = NULL; break;		// The PWM SignalForm doesn't use an OriginalWaveTable. The waveform is directly calculated in the UpdateWaveTable function
+		case SIGNALFORM_SINE: OriginalWaveTable = SINE_WAVE_TABLE_12BIT; break;
+		case SIGNALFORM_RECTANGLE: OriginalWaveTable = NULL; break;	// The RECTANGLE SignalForm doesn't use an OriginalWaveTable. The waveform is directly calculated in the UpdateWaveTable function
+		case SIGNALFORM_TRIANGLE: OriginalWaveTable = TRIANGLE_WAVE_TABLE_12BIT; break;
+		case SIGNALFORM_SAWTOOTH: OriginalWaveTable = SAWTOOTH_WAVE_TABLE_12BIT; break;
+		case SIGNALFORM_DC: OriginalWaveTable = NULL; break;			// The DC SignalForm doesn't use an OriginalWaveTable. The waveform is directly calculated in the UpdateWaveTable function
+		case SIGNALFORM_PWM: OriginalWaveTable = NULL; break;			// The PWM SignalForm doesn't use an OriginalWaveTable. The waveform is directly calculated in the UpdateWaveTable function
 		#ifdef DDS_USER_DEFINED_WAVEFORMS_ENABLED
-			case USER_SIGNAL: OriginalWaveTable = NULL; break;
+			case SIGNALFORM_USER_SIGNAL: OriginalWaveTable = NULL; break;
 		#endif
 		default: OriginalWaveTable = SINE_WAVE_TABLE_12BIT; break;
 	}
@@ -263,11 +271,13 @@ void DDS_Channel::DDSEnabledChanged(void* channel)
 
 	if (areDDSChannelsEnabled)
 	{
-		InitDDSTimer();
+		StartDDSTimer();
 	}
 	else
 	{
 		DisableDDSTimer();
+		DisableDDS1();
+		DisableDDS2();
 	}
 
 	Device.SetSettingsChanged(true);

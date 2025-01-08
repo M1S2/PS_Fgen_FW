@@ -16,13 +16,13 @@ char resultBuffer[50];
 #ifdef DDS_SUBSYSTEM_ENABLED
 	static scpi_choice_def_t signalform_choice[] =
 	{
-		{ "SINusoid", SINE },
-		{ "SQUare", RECTANGLE },
-		{ "TRIangle", TRIANGLE },
-		{ "SAWtooth", SAWTOOTH },
-		{ "DC", DC },
+		{ "SINusoid", SIGNALFORM_SINE },
+		{ "SQUare", SIGNALFORM_RECTANGLE },
+		{ "TRIangle", SIGNALFORM_TRIANGLE },
+		{ "SAWtooth", SIGNALFORM_SAWTOOTH },
+		{ "DC", SIGNALFORM_DC },
 		#ifdef DDS_USER_DEFINED_WAVEFORMS_ENABLED
-			{ "USER", USER_SIGNAL },
+			{ "USER", SIGNALFORM_USER_SIGNAL },
 		#endif
 		SCPI_CHOICE_LIST_END /* termination of option list */
 	};

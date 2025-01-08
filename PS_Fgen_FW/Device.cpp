@@ -67,7 +67,7 @@ void DeviceClass::Init()
 	sei();
 	
 	#ifdef DDS_SUBSYSTEM_ENABLED
-		DisableDDSTimer();
+		InitDDSTimer();
 	#endif
 	
 	Serial.println("Power On");

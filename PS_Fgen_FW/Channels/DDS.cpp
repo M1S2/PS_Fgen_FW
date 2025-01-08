@@ -24,13 +24,24 @@ volatile bool dds_channel2_enabled;
 void InitDDSTimer()
 {
 	TCNT2 = 0x00;										// Reset counter
-	OCR2A = ((F_CPU / 1024) / DDS_TICK_FREQ);			// Set compare register A (DDS_TICK_FREQ Hz)		//OCR2A = ((F_CPU / 128) / DDS_TICK_FREQ);
+	OCR2A = ((F_CPU / 1024) / DDS_TICK_FREQ);			// Set compare register A (DDS_TICK_FREQ Hz)
 	TCCR2A = (1 << WGM21);								// Configure for CTC mode
-	TCCR2B = (1 << CS22) | (1 << CS21) | (1 << CS20);	// Prescaler 1024									//TCCR2B = (1 << CS22) | (1 << CS20);					// Prescaler 128
-	TIMSK2 = (1 << OCIE2A);								// Enable Output Compare A Match Interrupt
+	TCCR2B = 0;											// No clock source (Timer/Counter stopped).
+}
 
+void StartDDSTimer()
+{
 	dds_channel1_accumulator = 0;
 	dds_channel2_accumulator = 0;
+
+	TCNT2 = 0x00;										// Reset counter
+	TCCR2B = (1 << CS22) | (1 << CS21) | (1 << CS20);	// Prescaler 1024
+	TIMSK2 = (1 << OCIE2A);								// Enable Output Compare A Match Interrupt
+}
+
+void DisableDDSTimer()
+{
+	TCCR2B = 0;											// No clock source (Timer/Counter stopped).
 }
 
 void DisableDDS1()
@@ -41,13 +52,6 @@ void DisableDDS1()
 void DisableDDS2()
 {
 	MCP4922_Voltage_Set(0, 'B');
-}
-
-void DisableDDSTimer()
-{
-	TCCR2B = 0;											// No clock source (Timer/Counter stopped).
-	DisableDDS1();
-	DisableDDS2();
 }
 
 //https://www.avrfreaks.net/forum/dds-function-generator-using-atmega328p

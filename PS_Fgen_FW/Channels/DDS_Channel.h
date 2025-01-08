@@ -18,16 +18,16 @@
  */
 typedef enum SignalForms
 {
-	SINE,						/**< Sine wave type */
-	RECTANGLE,					/**< Rectange wave type */
-	TRIANGLE,					/**< Triangle wave type */
-	SAWTOOTH,					/**< Sawtooth wave type */
-	DC,							/**< Direct current wave type */
-	PWM,						/**< PWM wave type */
+	SIGNALFORM_SINE,						/**< Sine wave type */
+	SIGNALFORM_RECTANGLE,					/**< Rectange wave type */
+	SIGNALFORM_TRIANGLE,					/**< Triangle wave type */
+	SIGNALFORM_SAWTOOTH,					/**< Sawtooth wave type */
+	SIGNALFORM_DC,							/**< Direct current wave type */
+	SIGNALFORM_PWM,							/**< PWM wave type */
 	#ifdef DDS_USER_DEFINED_WAVEFORMS_ENABLED
-		USER_SIGNAL,			/**< User defined wave type (signal is held in the UserWaveTable of the DDS_Channel) */
+		SIGNALFORM_USER_SIGNAL,				/**< User defined wave type (signal is held in the UserWaveTable of the DDS_Channel) */
 	#endif
-	NUM_SIGNALFORM_ELEMENTS		/**< The last element is used to determine the number of elements in the enumeration */
+	NUM_SIGNALFORM_ELEMENTS					/**< The last element is used to determine the number of elements in the enumeration */
 } SignalForms_t;
 
 

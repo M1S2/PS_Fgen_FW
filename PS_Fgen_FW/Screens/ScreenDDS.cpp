@@ -57,7 +57,7 @@ ButtonControl button_DDS2_Config5VPWM("Set TTL PWM", &Device.DdsChannel2, &OnBut
 void ScreenDDS1SignalFormChanged(void* channel)
 {	
 	// Show the second DDS page if the channel is a PWM channel
-	if (((DDS_Channel*)channel)->GetSignalForm() == PWM)
+	if (((DDS_Channel*)channel)->GetSignalForm() == SIGNALFORM_PWM)
 	{
 		ico_DDS1_PWM.Visible = true;
 		numCtrl_DDS1_PWMValue.Visible = true;
@@ -75,7 +75,7 @@ void ScreenDDS1SignalFormChanged(void* channel)
 void ScreenDDS2SignalFormChanged(void* channel)
 {
 	// Show the second DDS page if the channel is a PWM channel
-	if (((DDS_Channel*)channel)->GetSignalForm() == PWM)
+	if (((DDS_Channel*)channel)->GetSignalForm() == SIGNALFORM_PWM)
 	{
 		ico_DDS2_PWM.Visible = true;
 		numCtrl_DDS2_PWMValue.Visible = true;

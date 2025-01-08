@@ -82,7 +82,7 @@
 #define PS_MIN_VOLTAGE					0						/**< Minimum allowed power supply voltage setting */
 #define PS_MAX_VOLTAGE					10						/**< Maximum allowed power supply voltage setting */
 #define PS_MAX_CURRENT					2						/**< Maximum allowed power supply current setting */
-#define PS_MIN_OVP_LEVEL_PERCENTAGE		90						/**< Minimum allowed power supply OVP level setting (in percent of the configured voltage) */
+#define PS_MIN_OVP_LEVEL_PERCENTAGE		50						/**< Minimum allowed power supply OVP level setting (in percent of the configured voltage) */
 #define PS_MAX_OVP_LEVEL_PERCENTAGE		200						/**< Maximum allowed power supply OVP level setting (in percent of the configured voltage) */
 #define PS_MIN_OVP_DELAY				(POWER_SUPPLY_REG_INTERVAL_MS / 1000.0f)	/**< Minimum allowed power supply OVP delay setting */
 #define PS_MAX_OVP_DELAY				20						/**< Maximum allowed power supply OVP delay setting */

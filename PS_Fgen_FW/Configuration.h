@@ -21,6 +21,7 @@
 #define SPLASHSCREEN_DELAY_MS			2000					/**< Time that the splash screen is shown in milliseconds */
 
 /***** SCPI ***************************************************/
+#define SERIAL_BAUDRATE					9600					/**< Serial baud rate used for the serial input (SCPI, debug output). This could be e.g. one of the following values: 4800, 9600, 19200, 38400, 57600 */
 #define SCPI_ENABLED											/**< Comment this line out to disable the SCPI parser */
 #define SCPI_INPUT_BUFFER_LENGTH		16						/**< Length of the SCPI input buffer. If this buffer overflows, there will be an error message. */
 #define SCPI_ERROR_QUEUE_SIZE			3						/**< Maximum number of errors in the error queue. If this queue overflows, the last error message will be replaced by an overflow error message. */

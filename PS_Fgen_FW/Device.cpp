@@ -62,7 +62,7 @@ void DeviceClass::Init()
 	Encoder_Init();
 	OnOffControls_Init();
 	ADC_init();
-	Serial.begin(9600);			// Always init with 9600 baud to output the power on message.
+	Serial.begin(SERIAL_BAUDRATE);
 	InitDeviceTimer();
 	sei();
 	

@@ -22,13 +22,13 @@ The user interface is based on a self developed UI library (https://github.com/M
 @section ui_overview_sec UI Overview
 
 @subsection ui_overview_splashscreen_sec SplashScreen
-Welcome screen that shows the project name, the developer, the serial number of the device and the software version number.
+Welcome screen that shows the project name, the serial number of the device and the software version number.
 @image html SplashScreen.jpg "Splash Screen" width=400
 
 @subsection ui_overview_ps_sec PS
 User interface part for the power supply channel of the device.
 	@subsubsection ui_overview_powersupply_sec PowerSupply
-	This screen can be used to change the power supply voltage and current settings. Also the output can be enabled or disabled and there is a control for the regulation mode. Also the actual measurements (voltage, current, power) are shown.
+	This screen can be used to change the power supply voltage settings. Also the output can be enabled or disabled and there is a control for the regulation mode. Also the actual measurements (voltage, current, power) are shown.
 	@image html Images/Screen_PS.jpg "Screen PS" width=400
 	
 	@subsubsection ui_overview_ovp_sec OVP
@@ -36,7 +36,7 @@ User interface part for the power supply channel of the device.
 	@image html Images/Screen_PS_OVP.jpg "Screen PS OVP" width=400
 	
 	@subsubsection ui_overview_ocp_sec OCP
-	Settings for the over current protection of the power supply channel (protection level in % of the configured output current, Enabled/Disabled state, protection delay after which the protection kicks in, button to clear an active protection)
+	Settings for the over current protection of the power supply channel (protection level in A, Enabled/Disabled state, protection delay after which the protection kicks in, button to clear an active protection)
 	@image html Images/Screen_PS_OCP.jpg "Screen PS OCP" width=400
 	
 	@subsubsection ui_overview_opp_sec OPP
@@ -60,25 +60,21 @@ User interface part for the measurement channels of the device.
 	@image html Images/Screen_Meas_DMM.jpg "Screen Meas DMM" width=400
 	
 	@subsubsection ui_overview_atx_sec ATX
-	Show the measurements of all ATX voltages as values and as bar graphs.
+	Show the measurements of the +5V and +3.3V ATX voltages as values and as bar graphs.
 	@image html Images/Screen_Meas_ATX.jpg "Screen Meas ATX" width=400
 	
 @subsection ui_overview_conf_sec Conf
 User interface part for different settings of the device.
 	@subsubsection ui_overview_settings_device_sec Device
-	This screen can be used to save all settings immediatelly (beside the automatic periodical saving), reset all settings and to start the calibration (guided calibration for all output and input channels).
+	This screen can be used to save all settings immediatelly (beside the automatic periodical saving), reset all settings, reset the calibration and to start the calibration (guided calibration for all output and input channels).
 	@image html Images/Screen_Conf_Device.jpg "Screen Config Device" width=400
-	
-	@subsubsection ui_overview_settings_communication_sec Communication
-	Settings for the serial communication interface (baud rate, Echo enabled/disabled)
-	@image html Images/Screen_Conf_Communication.jpg "Screen Config Communication" width=400
 	
 	@subsubsection ui_overview_settings_powerup_sec Settings PowerUp
 	Settings for the output states on power up. The ouputs can always be switched off or on on power up. Also the last output states can be restored on power up.
 	@image html Images/Screen_Conf_PowerUp.jpg "Screen Config PowerUp" width=400
 	
 	@subsubsection ui_overview_settings_version_sec Settings Version
-	Screen that shows the same version informations as the welcome screen (project name, developer, serial number of the device, software version number).
+	Screen that shows the same version informations as the welcome screen (developer, serial number of the device, software version number).
 	@image html Images/Screen_Conf_Version.jpg "Screen Config Version" width=400
 
  */

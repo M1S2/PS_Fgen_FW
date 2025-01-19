@@ -3,7 +3,7 @@
 The Configuration.h file contains some parameters that can be used to customize the firmware. It has the following sections:
 - **Version:** Version of the firmware. This should be adapted during release creation.
 - **Timers:** Time delays used for key polling, screen drawing and some other device functions.
-- **SCPI:** Use this section to configure buffers used by the SCPI parser or to set the IDN response elements. The SCPI subsystem can be completely removed from the build process (disabled), too.
+- **SCPI:** Use this section to configure the serial baud rate, the buffers used by the SCPI parser or to set the IDN response elements. The SCPI subsystem can be completely removed from the build process (disabled), too.
 - **Screen:** Screen settings including a option to disable the splash screen.
 - **Touch:** Setting for the touch screen including a option to disable the touch feature.
 - **UserInputHandler:** The length of the user input queue can be defined here.

@@ -1,0 +1,1905 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.13.2"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<!-- BEGIN opengraph metadata -->
+<meta property="og:title" content="Doxygen Awesome" />
+<meta property="og:image" content="https://repository-images.githubusercontent.com/348492097/4f16df80-88fb-11eb-9d31-4015ff22c452" />
+<meta property="og:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
+<meta property="og:url" content="https://jothepro.github.io/doxygen-awesome-css/" />
+<!-- END opengraph metadata -->
+<!-- BEGIN twitter metadata -->
+<meta name="twitter:image:src" content="https://repository-images.githubusercontent.com/348492097/4f16df80-88fb-11eb-9d31-4015ff22c452" />
+<meta name="twitter:title" content="Doxygen Awesome" />
+<meta name="twitter:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
+<!-- END twitter metadata -->
+<title>PS_Fgen_FW: PS_Channel Class Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<link rel="icon" type="image/svg+xml" href="logo.drawio.svg"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="doxygen-awesome-darkmode-toggle.js"></script>
+<script type="text/javascript" src="doxygen-awesome-fragment-copy-button.js"></script>
+<script type="text/javascript" src="doxygen-awesome-paragraph-link.js"></script>
+<script type="text/javascript" src="doxygen-awesome-interactive-toc.js"></script>
+<script type="text/javascript" src="doxygen-awesome-tabs.js"></script>
+<script type="text/javascript" src="toggle-alternative-theme.js"></script>
+<script type="text/javascript">
+    DoxygenAwesomeFragmentCopyButton.init()
+    DoxygenAwesomeDarkModeToggle.init()
+    DoxygenAwesomeParagraphLink.init()
+    DoxygenAwesomeInteractiveToc.init()
+    DoxygenAwesomeTabs.init()
+</script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="custom.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<!-- https://tholman.com/github-corners/ -->
+<a href="https://github.com/M1S2/PS_Fgen_FW" class="github-corner" title="View source on GitHub" target="_blank" rel="noopener noreferrer">
+    <svg viewBox="0 0 250 250" width="40" height="40" style="position: absolute; top: 0; border: 0; right: 0; z-index: 99;" aria-hidden="true">
+    <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="logo.png"/></td>
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">PS_Fgen_FW
+   &#160;<span id="projectnumber">4da88f4073c1cc65ea45c3a652a2751e495e50db</span>
+   </div>
+   <div id="projectbrief">Firmware for an Power Supply and Function Generator build from an ATX power supply</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.13.2 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() { codefold.init(0); });
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Search',true);
+  $(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function(){initNavTree('class_p_s___channel.html',''); initResizable(true); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
+<a href="#pub-attribs">Public Attributes</a> &#124;
+<a href="#pri-attribs">Private Attributes</a> &#124;
+<a href="class_p_s___channel-members.html">List of all members</a>  </div>
+  <div class="headertitle"><div class="title">PS_Channel Class Reference</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>Power supply channel Class.  
+ <a href="#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="_p_s___channel_8h_source.html">PS_Channel.h</a>&gt;</code></p>
+<div class="dynheader">
+Inheritance diagram for PS_Channel:</div>
+<div class="dyncontent">
+ <div class="center">
+  <img src="class_p_s___channel.png" usemap="#PS_5FChannel_map" alt=""/>
+  <map id="PS_5FChannel_map" name="PS_5FChannel_map">
+<area href="class_channel.html" title="Channel base class." alt="Channel" shape="rect" coords="0,0,82,24"/>
+  </map>
+</div></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a8f5eb6852544e1fa59c9ebe32306ab38" id="r_a8f5eb6852544e1fa59c9ebe32306ab38"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8f5eb6852544e1fa59c9ebe32306ab38">PS_Channel</a> (float minVolt, float maxVolt, uint8_t minOvpLevel, uint8_t maxOvpLevel, float minOvpDelay, float maxOvpDelay, float minOcpLevel, float maxOcpLevel, float minOcpDelay, float maxOcpDelay, float minOppLevel, float maxOppLevel, float minOppDelay, float maxOppDelay)</td></tr>
+<tr class="memdesc:a8f5eb6852544e1fa59c9ebe32306ab38"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor of the <a class="el" href="class_p_s___channel.html" title="Power supply channel Class.">PS_Channel</a>.  <br /></td></tr>
+<tr class="separator:a8f5eb6852544e1fa59c9ebe32306ab38"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac03448163ef6c9a5f5869c7944f0df73" id="r_ac03448163ef6c9a5f5869c7944f0df73"><td class="memItemLeft" align="right" valign="top"><a id="ac03448163ef6c9a5f5869c7944f0df73" name="ac03448163ef6c9a5f5869c7944f0df73"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>SwitchOffOutput</b> ()</td></tr>
+<tr class="memdesc:ac03448163ef6c9a5f5869c7944f0df73"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the voltage at the output of this channel to zero. <br /></td></tr>
+<tr class="separator:ac03448163ef6c9a5f5869c7944f0df73"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa3ef18bc6f5ec5d2e294772ed3fdb450" id="r_aa3ef18bc6f5ec5d2e294772ed3fdb450"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa3ef18bc6f5ec5d2e294772ed3fdb450">UpdateOutput</a> ()</td></tr>
+<tr class="memdesc:aa3ef18bc6f5ec5d2e294772ed3fdb450"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the voltage at the output of this channel to the value calculated by the PID regulator if the output is enabled and in CV state.  <br /></td></tr>
+<tr class="separator:aa3ef18bc6f5ec5d2e294772ed3fdb450"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a73ecff883913d4374c004bd1fe3f0a24" id="r_a73ecff883913d4374c004bd1fe3f0a24"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a73ecff883913d4374c004bd1fe3f0a24">DoRegulationISR</a> ()</td></tr>
+<tr class="memdesc:a73ecff883913d4374c004bd1fe3f0a24"><td class="mdescLeft">&#160;</td><td class="mdescRight">This method is called periodically based on the device timer ISR (multiples of the device timer period) and runs in the ISR context.  <br /></td></tr>
+<tr class="separator:a73ecff883913d4374c004bd1fe3f0a24"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afc67ed88da999f6dd809e6e61f8afe3e" id="r_afc67ed88da999f6dd809e6e61f8afe3e"><td class="memItemLeft" align="right" valign="top"><a id="afc67ed88da999f6dd809e6e61f8afe3e" name="afc67ed88da999f6dd809e6e61f8afe3e"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>CheckProtections</b> ()</td></tr>
+<tr class="memdesc:afc67ed88da999f6dd809e6e61f8afe3e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if one of the protections for the power supply channel is tripped and update the PsState accordingly. <br /></td></tr>
+<tr class="separator:afc67ed88da999f6dd809e6e61f8afe3e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1b80bb3ae7a566259cf4ecfee8ecd542" id="r_a1b80bb3ae7a566259cf4ecfee8ecd542"><td class="memItemLeft" align="right" valign="top"><a id="a1b80bb3ae7a566259cf4ecfee8ecd542" name="a1b80bb3ae7a566259cf4ecfee8ecd542"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>ClearProtections</b> ()</td></tr>
+<tr class="memdesc:a1b80bb3ae7a566259cf4ecfee8ecd542"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clear the protections for the power supply channel and return to the CV state. <br /></td></tr>
+<tr class="separator:a1b80bb3ae7a566259cf4ecfee8ecd542"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a72503c6615a85065eca7f648ef72f976" id="r_a72503c6615a85065eca7f648ef72f976"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a72503c6615a85065eca7f648ef72f976">IsProtectionActive</a> ()</td></tr>
+<tr class="memdesc:a72503c6615a85065eca7f648ef72f976"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if at least one protection is active (OVP, OCP, OPP)  <br /></td></tr>
+<tr class="separator:a72503c6615a85065eca7f648ef72f976"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a849f1ae9d7ac67640a73ad6805b2e334" id="r_a849f1ae9d7ac67640a73ad6805b2e334"><td class="memItemLeft" align="right" valign="top"><a class="el" href="_p_s___channel_8h.html#a3a47c819c88e9e08fa3a9416230490b1">PsStates_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a849f1ae9d7ac67640a73ad6805b2e334">GetPsState</a> ()</td></tr>
+<tr class="memdesc:a849f1ae9d7ac67640a73ad6805b2e334"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the current state of this channel.  <br /></td></tr>
+<tr class="separator:a849f1ae9d7ac67640a73ad6805b2e334"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a049981d4c8ee309ebd34062742286a14" id="r_a049981d4c8ee309ebd34062742286a14"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a049981d4c8ee309ebd34062742286a14">SetRegulationMode</a> (<a class="el" href="_p_s___channel_8h.html#a423145f58931a19c5ba260b9a49e6bed">PsRegulationModes_t</a> regulationMode)</td></tr>
+<tr class="memdesc:a049981d4c8ee309ebd34062742286a14"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the RegulationMode property of the PS channel.  <br /></td></tr>
+<tr class="separator:a049981d4c8ee309ebd34062742286a14"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a735470b652fb7aaacf495bb91367354d" id="r_a735470b652fb7aaacf495bb91367354d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="_p_s___channel_8h.html#a423145f58931a19c5ba260b9a49e6bed">PsRegulationModes_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a735470b652fb7aaacf495bb91367354d">GetRegulationMode</a> ()</td></tr>
+<tr class="memdesc:a735470b652fb7aaacf495bb91367354d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the RegulationMode property of the PS channel.  <br /></td></tr>
+<tr class="separator:a735470b652fb7aaacf495bb91367354d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa04bb34bc1c9918a8d83fca145bd4e07" id="r_aa04bb34bc1c9918a8d83fca145bd4e07"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa04bb34bc1c9918a8d83fca145bd4e07">SetEnabled</a> (bool enabled)</td></tr>
+<tr class="memdesc:aa04bb34bc1c9918a8d83fca145bd4e07"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the Enabled property of the PS channel.  <br /></td></tr>
+<tr class="separator:aa04bb34bc1c9918a8d83fca145bd4e07"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4fe39b4ddada8e7d9d5ea7e940a6643f" id="r_a4fe39b4ddada8e7d9d5ea7e940a6643f"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4fe39b4ddada8e7d9d5ea7e940a6643f">GetEnabled</a> ()</td></tr>
+<tr class="memdesc:a4fe39b4ddada8e7d9d5ea7e940a6643f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the Enabled property of the PS channel.  <br /></td></tr>
+<tr class="separator:a4fe39b4ddada8e7d9d5ea7e940a6643f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a73dc40a2181ed3e74baad424dad467f6" id="r_a73dc40a2181ed3e74baad424dad467f6"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a73dc40a2181ed3e74baad424dad467f6">SetVoltage</a> (float voltage)</td></tr>
+<tr class="memdesc:a73dc40a2181ed3e74baad424dad467f6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the Voltage property of the PS channel.  <br /></td></tr>
+<tr class="separator:a73dc40a2181ed3e74baad424dad467f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6380f6cd8d046a7ed7904a81a5f5fbbc" id="r_a6380f6cd8d046a7ed7904a81a5f5fbbc"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6380f6cd8d046a7ed7904a81a5f5fbbc">GetVoltage</a> ()</td></tr>
+<tr class="memdesc:a6380f6cd8d046a7ed7904a81a5f5fbbc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the Voltage property of the PS channel.  <br /></td></tr>
+<tr class="separator:a6380f6cd8d046a7ed7904a81a5f5fbbc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a10d400ee6d95e6c23d9e9ea631ac2b10" id="r_a10d400ee6d95e6c23d9e9ea631ac2b10"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a10d400ee6d95e6c23d9e9ea631ac2b10">SetOvpLevel</a> (uint8_t ovpLevel)</td></tr>
+<tr class="memdesc:a10d400ee6d95e6c23d9e9ea631ac2b10"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the OvpLevel property of the PS channel.  <br /></td></tr>
+<tr class="separator:a10d400ee6d95e6c23d9e9ea631ac2b10"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aba8f2266b32f8bcf0f11300f50870ae1" id="r_aba8f2266b32f8bcf0f11300f50870ae1"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aba8f2266b32f8bcf0f11300f50870ae1">GetOvpLevel</a> ()</td></tr>
+<tr class="memdesc:aba8f2266b32f8bcf0f11300f50870ae1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the OvpLevel property of the PS channel.  <br /></td></tr>
+<tr class="separator:aba8f2266b32f8bcf0f11300f50870ae1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad8270862b004b00d7d425f6a372399b5" id="r_ad8270862b004b00d7d425f6a372399b5"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad8270862b004b00d7d425f6a372399b5">SetOvpState</a> (bool ovpState)</td></tr>
+<tr class="memdesc:ad8270862b004b00d7d425f6a372399b5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the OvpState property of the PS channel.  <br /></td></tr>
+<tr class="separator:ad8270862b004b00d7d425f6a372399b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae9ef81eec2af427ed17af77b14725589" id="r_ae9ef81eec2af427ed17af77b14725589"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae9ef81eec2af427ed17af77b14725589">GetOvpState</a> ()</td></tr>
+<tr class="memdesc:ae9ef81eec2af427ed17af77b14725589"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the OvpState property of the PS channel.  <br /></td></tr>
+<tr class="separator:ae9ef81eec2af427ed17af77b14725589"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac5adf66dd48dcdf1812016bb0ee245f3" id="r_ac5adf66dd48dcdf1812016bb0ee245f3"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac5adf66dd48dcdf1812016bb0ee245f3">SetOvpDelay</a> (float ovpDelay)</td></tr>
+<tr class="memdesc:ac5adf66dd48dcdf1812016bb0ee245f3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the OvpDelay property of the PS channel.  <br /></td></tr>
+<tr class="separator:ac5adf66dd48dcdf1812016bb0ee245f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af3bcafa8674a443d59f3bf620722d9c2" id="r_af3bcafa8674a443d59f3bf620722d9c2"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af3bcafa8674a443d59f3bf620722d9c2">GetOvpDelay</a> ()</td></tr>
+<tr class="memdesc:af3bcafa8674a443d59f3bf620722d9c2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the OvpDelay property of the PS channel.  <br /></td></tr>
+<tr class="separator:af3bcafa8674a443d59f3bf620722d9c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a57dfdd16eafc3598483716827a70f0d8" id="r_a57dfdd16eafc3598483716827a70f0d8"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a57dfdd16eafc3598483716827a70f0d8">SetOcpLevel</a> (float ocpLevel)</td></tr>
+<tr class="memdesc:a57dfdd16eafc3598483716827a70f0d8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the OcpLevel property of the PS channel.  <br /></td></tr>
+<tr class="separator:a57dfdd16eafc3598483716827a70f0d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af1f32b69f3732ea4ec5a7caae8918b30" id="r_af1f32b69f3732ea4ec5a7caae8918b30"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af1f32b69f3732ea4ec5a7caae8918b30">GetOcpLevel</a> ()</td></tr>
+<tr class="memdesc:af1f32b69f3732ea4ec5a7caae8918b30"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the OcpLevel property of the PS channel.  <br /></td></tr>
+<tr class="separator:af1f32b69f3732ea4ec5a7caae8918b30"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a48af8d60697ce82e24448462e3106812" id="r_a48af8d60697ce82e24448462e3106812"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a48af8d60697ce82e24448462e3106812">SetOcpState</a> (bool ocpState)</td></tr>
+<tr class="memdesc:a48af8d60697ce82e24448462e3106812"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the OcpState property of the PS channel.  <br /></td></tr>
+<tr class="separator:a48af8d60697ce82e24448462e3106812"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa03ea7e63b479a0cc52bda25f4e65d38" id="r_aa03ea7e63b479a0cc52bda25f4e65d38"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa03ea7e63b479a0cc52bda25f4e65d38">GetOcpState</a> ()</td></tr>
+<tr class="memdesc:aa03ea7e63b479a0cc52bda25f4e65d38"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the OcpState property of the PS channel.  <br /></td></tr>
+<tr class="separator:aa03ea7e63b479a0cc52bda25f4e65d38"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7de4a94138f334369260cf3146d2b6d6" id="r_a7de4a94138f334369260cf3146d2b6d6"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7de4a94138f334369260cf3146d2b6d6">SetOcpDelay</a> (float ocpDelay)</td></tr>
+<tr class="memdesc:a7de4a94138f334369260cf3146d2b6d6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the OcpDelay property of the PS channel.  <br /></td></tr>
+<tr class="separator:a7de4a94138f334369260cf3146d2b6d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a569b793e4487cee44a0acda22cb2e450" id="r_a569b793e4487cee44a0acda22cb2e450"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a569b793e4487cee44a0acda22cb2e450">GetOcpDelay</a> ()</td></tr>
+<tr class="memdesc:a569b793e4487cee44a0acda22cb2e450"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the OcpDelay property of the PS channel.  <br /></td></tr>
+<tr class="separator:a569b793e4487cee44a0acda22cb2e450"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac2fc5cb118f7941503278ae0c9109cae" id="r_ac2fc5cb118f7941503278ae0c9109cae"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac2fc5cb118f7941503278ae0c9109cae">SetOppLevel</a> (float oppLevel)</td></tr>
+<tr class="memdesc:ac2fc5cb118f7941503278ae0c9109cae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the OppLevel property of the PS channel.  <br /></td></tr>
+<tr class="separator:ac2fc5cb118f7941503278ae0c9109cae"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa892cf1b012fc7d33be6397e42433dc4" id="r_aa892cf1b012fc7d33be6397e42433dc4"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa892cf1b012fc7d33be6397e42433dc4">GetOppLevel</a> ()</td></tr>
+<tr class="memdesc:aa892cf1b012fc7d33be6397e42433dc4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the OppLevel property of the PS channel.  <br /></td></tr>
+<tr class="separator:aa892cf1b012fc7d33be6397e42433dc4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a37a38f8f239dd8f0f766b3a468583b16" id="r_a37a38f8f239dd8f0f766b3a468583b16"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a37a38f8f239dd8f0f766b3a468583b16">SetOppState</a> (bool oppState)</td></tr>
+<tr class="memdesc:a37a38f8f239dd8f0f766b3a468583b16"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the OppState property of the PS channel.  <br /></td></tr>
+<tr class="separator:a37a38f8f239dd8f0f766b3a468583b16"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3403ca32fe0efb6709ec109a1cfc0e54" id="r_a3403ca32fe0efb6709ec109a1cfc0e54"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3403ca32fe0efb6709ec109a1cfc0e54">GetOppState</a> ()</td></tr>
+<tr class="memdesc:a3403ca32fe0efb6709ec109a1cfc0e54"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the OppState property of the PS channel.  <br /></td></tr>
+<tr class="separator:a3403ca32fe0efb6709ec109a1cfc0e54"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeebbc49a95538c711f388b859fe41616" id="r_aeebbc49a95538c711f388b859fe41616"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aeebbc49a95538c711f388b859fe41616">SetOppDelay</a> (float oppDelay)</td></tr>
+<tr class="memdesc:aeebbc49a95538c711f388b859fe41616"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the OppDelay property of the PS channel.  <br /></td></tr>
+<tr class="separator:aeebbc49a95538c711f388b859fe41616"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac3cfa956e91cdee3633a13569d538079" id="r_ac3cfa956e91cdee3633a13569d538079"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac3cfa956e91cdee3633a13569d538079">GetOppDelay</a> ()</td></tr>
+<tr class="memdesc:ac3cfa956e91cdee3633a13569d538079"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the OppDelay property of the PS channel.  <br /></td></tr>
+<tr class="separator:ac3cfa956e91cdee3633a13569d538079"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_methods_class_channel"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pub_methods_class_channel')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="class_channel.html">Channel</a></td></tr>
+<tr class="memitem:a987c7329f633df5b6f0750ac35549c1e inherit pub_methods_class_channel" id="r_a987c7329f633df5b6f0750ac35549c1e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_channel.html#a987c7329f633df5b6f0750ac35549c1e">Channel</a> (<a class="el" href="_channel_8h.html#a724c1fb2cb44a48b26550955cede49be">ChannelTypes_t</a> channelType)</td></tr>
+<tr class="memdesc:a987c7329f633df5b6f0750ac35549c1e inherit pub_methods_class_channel"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor of the <a class="el" href="class_channel.html" title="Channel base class.">Channel</a> class.  <br /></td></tr>
+<tr class="separator:a987c7329f633df5b6f0750ac35549c1e inherit pub_methods_class_channel"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa105406fb395c50ec86d19dddf9d9026 inherit pub_methods_class_channel" id="r_aa105406fb395c50ec86d19dddf9d9026"><td class="memItemLeft" align="right" valign="top"><a class="el" href="_channel_8h.html#a724c1fb2cb44a48b26550955cede49be">ChannelTypes_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_channel.html#aa105406fb395c50ec86d19dddf9d9026">GetChannelType</a> ()</td></tr>
+<tr class="memdesc:aa105406fb395c50ec86d19dddf9d9026 inherit pub_methods_class_channel"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function that can be used to return the _channelType property.  <br /></td></tr>
+<tr class="separator:aa105406fb395c50ec86d19dddf9d9026 inherit pub_methods_class_channel"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:a0a2e2316a05956e1b7a9e8b3cc108eb5" id="r_a0a2e2316a05956e1b7a9e8b3cc108eb5"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0a2e2316a05956e1b7a9e8b3cc108eb5">PSRegulationModeChanged</a> (void *channel)</td></tr>
+<tr class="memdesc:a0a2e2316a05956e1b7a9e8b3cc108eb5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback function that can be used for user interface controls modifying the RegulationMode property.  <br /></td></tr>
+<tr class="separator:a0a2e2316a05956e1b7a9e8b3cc108eb5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5ba544f1784e9b0808ded7105ffdb45b" id="r_a5ba544f1784e9b0808ded7105ffdb45b"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5ba544f1784e9b0808ded7105ffdb45b">PSEnabledChanged</a> (void *channel)</td></tr>
+<tr class="memdesc:a5ba544f1784e9b0808ded7105ffdb45b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback function that can be used for user interface controls modifying the Enabled property.  <br /></td></tr>
+<tr class="separator:a5ba544f1784e9b0808ded7105ffdb45b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a46d28e00a9e225b97b096754b7e3d64a" id="r_a46d28e00a9e225b97b096754b7e3d64a"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a46d28e00a9e225b97b096754b7e3d64a">PSVoltageChanged</a> (void *channel)</td></tr>
+<tr class="memdesc:a46d28e00a9e225b97b096754b7e3d64a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback function that can be used for user interface controls modifying the Voltage property.  <br /></td></tr>
+<tr class="separator:a46d28e00a9e225b97b096754b7e3d64a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afc322d742e7f78f8b0daea882301597b" id="r_afc322d742e7f78f8b0daea882301597b"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afc322d742e7f78f8b0daea882301597b">PSOvpLevelChanged</a> (void *channel)</td></tr>
+<tr class="memdesc:afc322d742e7f78f8b0daea882301597b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback function that can be used for user interface controls modifying the OvpLevel property.  <br /></td></tr>
+<tr class="separator:afc322d742e7f78f8b0daea882301597b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a083e0f401de4847fade6c59752375c50" id="r_a083e0f401de4847fade6c59752375c50"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a083e0f401de4847fade6c59752375c50">PSOvpStateChanged</a> (void *channel)</td></tr>
+<tr class="memdesc:a083e0f401de4847fade6c59752375c50"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback function that can be used for user interface controls modifying the OvpState property.  <br /></td></tr>
+<tr class="separator:a083e0f401de4847fade6c59752375c50"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acda27fc1240cdf0fa94ba0cd001e8365" id="r_acda27fc1240cdf0fa94ba0cd001e8365"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#acda27fc1240cdf0fa94ba0cd001e8365">PSOvpDelayChanged</a> (void *channel)</td></tr>
+<tr class="memdesc:acda27fc1240cdf0fa94ba0cd001e8365"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback function that can be used for user interface controls modifying the OvpDelay property.  <br /></td></tr>
+<tr class="separator:acda27fc1240cdf0fa94ba0cd001e8365"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2927b94932c9b3799f0381d21e562072" id="r_a2927b94932c9b3799f0381d21e562072"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2927b94932c9b3799f0381d21e562072">PSOcpLevelChanged</a> (void *channel)</td></tr>
+<tr class="memdesc:a2927b94932c9b3799f0381d21e562072"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback function that can be used for user interface controls modifying the OcpLevel property.  <br /></td></tr>
+<tr class="separator:a2927b94932c9b3799f0381d21e562072"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a92edc2fd438e26335e8bb8c529fa66ed" id="r_a92edc2fd438e26335e8bb8c529fa66ed"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a92edc2fd438e26335e8bb8c529fa66ed">PSOcpStateChanged</a> (void *channel)</td></tr>
+<tr class="memdesc:a92edc2fd438e26335e8bb8c529fa66ed"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback function that can be used for user interface controls modifying the OcpState property.  <br /></td></tr>
+<tr class="separator:a92edc2fd438e26335e8bb8c529fa66ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3694143d4e45f39feea06df54f2113b1" id="r_a3694143d4e45f39feea06df54f2113b1"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3694143d4e45f39feea06df54f2113b1">PSOcpDelayChanged</a> (void *channel)</td></tr>
+<tr class="memdesc:a3694143d4e45f39feea06df54f2113b1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback function that can be used for user interface controls modifying the OcpDelay property.  <br /></td></tr>
+<tr class="separator:a3694143d4e45f39feea06df54f2113b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0552d74aa09fe814912127c7db28af94" id="r_a0552d74aa09fe814912127c7db28af94"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0552d74aa09fe814912127c7db28af94">PSOppLevelChanged</a> (void *channel)</td></tr>
+<tr class="memdesc:a0552d74aa09fe814912127c7db28af94"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback function that can be used for user interface controls modifying the OppLevel property.  <br /></td></tr>
+<tr class="separator:a0552d74aa09fe814912127c7db28af94"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af3afebfdd146a906cc4e6dd69218f7da" id="r_af3afebfdd146a906cc4e6dd69218f7da"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af3afebfdd146a906cc4e6dd69218f7da">PSOppStateChanged</a> (void *channel)</td></tr>
+<tr class="memdesc:af3afebfdd146a906cc4e6dd69218f7da"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback function that can be used for user interface controls modifying the OppState property.  <br /></td></tr>
+<tr class="separator:af3afebfdd146a906cc4e6dd69218f7da"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7e07daf81d9f37616a2911a0a50066b1" id="r_a7e07daf81d9f37616a2911a0a50066b1"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7e07daf81d9f37616a2911a0a50066b1">PSOppDelayChanged</a> (void *channel)</td></tr>
+<tr class="memdesc:a7e07daf81d9f37616a2911a0a50066b1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback function that can be used for user interface controls modifying the OppDelay property.  <br /></td></tr>
+<tr class="separator:a7e07daf81d9f37616a2911a0a50066b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
+Public Attributes</h2></td></tr>
+<tr class="memitem:a33fa5757d86a7a1b3e18ea273a97998b" id="r_a33fa5757d86a7a1b3e18ea273a97998b"><td class="memItemLeft" align="right" valign="top"><a id="a33fa5757d86a7a1b3e18ea273a97998b" name="a33fa5757d86a7a1b3e18ea273a97998b"></a>
+volatile <a class="el" href="_p_s___channel_8h.html#a3a47c819c88e9e08fa3a9416230490b1">PsStates_t</a>&#160;</td><td class="memItemRight" valign="bottom"><b>PsState</b></td></tr>
+<tr class="memdesc:a33fa5757d86a7a1b3e18ea273a97998b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Current state of the power supply channel. <br /></td></tr>
+<tr class="separator:a33fa5757d86a7a1b3e18ea273a97998b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a722ed5d4de35aa4f6b9e9e157bcfec2f" id="r_a722ed5d4de35aa4f6b9e9e157bcfec2f"><td class="memItemLeft" align="right" valign="top">volatile <a class="el" href="_p_s___channel_8h.html#a423145f58931a19c5ba260b9a49e6bed">PsRegulationModes_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a722ed5d4de35aa4f6b9e9e157bcfec2f">RegulationMode</a></td></tr>
+<tr class="memdesc:a722ed5d4de35aa4f6b9e9e157bcfec2f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Current regulation mode of the power supply channel.  <br /></td></tr>
+<tr class="separator:a722ed5d4de35aa4f6b9e9e157bcfec2f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a315225d94a978219b51927599c2e34eb" id="r_a315225d94a978219b51927599c2e34eb"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_parameter.html">Parameter</a>&lt; bool &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a315225d94a978219b51927599c2e34eb">Enabled</a></td></tr>
+<tr class="memdesc:a315225d94a978219b51927599c2e34eb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Is the channel enabled or not.  <br /></td></tr>
+<tr class="separator:a315225d94a978219b51927599c2e34eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a336a4e28aa7204c469353489d12a8377" id="r_a336a4e28aa7204c469353489d12a8377"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_parameter.html">Parameter</a>&lt; float &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a336a4e28aa7204c469353489d12a8377">Voltage</a></td></tr>
+<tr class="memdesc:a336a4e28aa7204c469353489d12a8377"><td class="mdescLeft">&#160;</td><td class="mdescRight">Voltage of the power supply channel.  <br /></td></tr>
+<tr class="separator:a336a4e28aa7204c469353489d12a8377"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4664e318a8e44155de01752b541f2b46" id="r_a4664e318a8e44155de01752b541f2b46"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_parameter.html">Parameter</a>&lt; bool &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4664e318a8e44155de01752b541f2b46">OvpState</a></td></tr>
+<tr class="memdesc:a4664e318a8e44155de01752b541f2b46"><td class="mdescLeft">&#160;</td><td class="mdescRight">Is the over voltage protection for the channel enabled or not.  <br /></td></tr>
+<tr class="separator:a4664e318a8e44155de01752b541f2b46"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3c619222fdc621a5a926082c80b7e5c0" id="r_a3c619222fdc621a5a926082c80b7e5c0"><td class="memItemLeft" align="right" valign="top"><a id="a3c619222fdc621a5a926082c80b7e5c0" name="a3c619222fdc621a5a926082c80b7e5c0"></a>
+<a class="el" href="class_parameter.html">Parameter</a>&lt; uint8_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>OvpLevel</b></td></tr>
+<tr class="memdesc:a3c619222fdc621a5a926082c80b7e5c0"><td class="mdescLeft">&#160;</td><td class="mdescRight">OVP trip level in percentage of the Voltage. <br /></td></tr>
+<tr class="separator:a3c619222fdc621a5a926082c80b7e5c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acb31185d4c7febecf1e2956a90653fae" id="r_acb31185d4c7febecf1e2956a90653fae"><td class="memItemLeft" align="right" valign="top"><a id="acb31185d4c7febecf1e2956a90653fae" name="acb31185d4c7febecf1e2956a90653fae"></a>
+<a class="el" href="class_parameter.html">Parameter</a>&lt; float &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>OvpDelay</b></td></tr>
+<tr class="memdesc:acb31185d4c7febecf1e2956a90653fae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Time after which the over voltage protection kicks in. <br /></td></tr>
+<tr class="separator:acb31185d4c7febecf1e2956a90653fae"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aff7ef76753e96dd73e029450907fa901" id="r_aff7ef76753e96dd73e029450907fa901"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_parameter.html">Parameter</a>&lt; bool &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aff7ef76753e96dd73e029450907fa901">OcpState</a></td></tr>
+<tr class="memdesc:aff7ef76753e96dd73e029450907fa901"><td class="mdescLeft">&#160;</td><td class="mdescRight">Is the over current protection for the channel enabled or not.  <br /></td></tr>
+<tr class="separator:aff7ef76753e96dd73e029450907fa901"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4df382f2b1ce11687edd6a011bfb7abb" id="r_a4df382f2b1ce11687edd6a011bfb7abb"><td class="memItemLeft" align="right" valign="top"><a id="a4df382f2b1ce11687edd6a011bfb7abb" name="a4df382f2b1ce11687edd6a011bfb7abb"></a>
+<a class="el" href="class_parameter.html">Parameter</a>&lt; float &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>OcpLevel</b></td></tr>
+<tr class="memdesc:a4df382f2b1ce11687edd6a011bfb7abb"><td class="mdescLeft">&#160;</td><td class="mdescRight">OCP trip level in Ampere. <br /></td></tr>
+<tr class="separator:a4df382f2b1ce11687edd6a011bfb7abb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a58f972aeb0d05c7a2cec657644be8e75" id="r_a58f972aeb0d05c7a2cec657644be8e75"><td class="memItemLeft" align="right" valign="top"><a id="a58f972aeb0d05c7a2cec657644be8e75" name="a58f972aeb0d05c7a2cec657644be8e75"></a>
+<a class="el" href="class_parameter.html">Parameter</a>&lt; float &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>OcpDelay</b></td></tr>
+<tr class="memdesc:a58f972aeb0d05c7a2cec657644be8e75"><td class="mdescLeft">&#160;</td><td class="mdescRight">Time after which the over current protection kicks in. <br /></td></tr>
+<tr class="separator:a58f972aeb0d05c7a2cec657644be8e75"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abb02b215ae1bee358788355881b3579d" id="r_abb02b215ae1bee358788355881b3579d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_parameter.html">Parameter</a>&lt; bool &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abb02b215ae1bee358788355881b3579d">OppState</a></td></tr>
+<tr class="memdesc:abb02b215ae1bee358788355881b3579d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Is the over power protection for the channel enabled or not.  <br /></td></tr>
+<tr class="separator:abb02b215ae1bee358788355881b3579d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a601796c19375393e3c5081ddbf0a5b8d" id="r_a601796c19375393e3c5081ddbf0a5b8d"><td class="memItemLeft" align="right" valign="top"><a id="a601796c19375393e3c5081ddbf0a5b8d" name="a601796c19375393e3c5081ddbf0a5b8d"></a>
+<a class="el" href="class_parameter.html">Parameter</a>&lt; float &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>OppLevel</b></td></tr>
+<tr class="memdesc:a601796c19375393e3c5081ddbf0a5b8d"><td class="mdescLeft">&#160;</td><td class="mdescRight">OPP trip level in Watt. <br /></td></tr>
+<tr class="separator:a601796c19375393e3c5081ddbf0a5b8d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a06a86e6b16a25012354f0ce8960de7c8" id="r_a06a86e6b16a25012354f0ce8960de7c8"><td class="memItemLeft" align="right" valign="top"><a id="a06a86e6b16a25012354f0ce8960de7c8" name="a06a86e6b16a25012354f0ce8960de7c8"></a>
+<a class="el" href="class_parameter.html">Parameter</a>&lt; float &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>OppDelay</b></td></tr>
+<tr class="memdesc:a06a86e6b16a25012354f0ce8960de7c8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Time after which the over power protection kicks in. <br /></td></tr>
+<tr class="separator:a06a86e6b16a25012354f0ce8960de7c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a916f31472e83c5aec83d0fa0213903d4" id="r_a916f31472e83c5aec83d0fa0213903d4"><td class="memItemLeft" align="right" valign="top">volatile float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a916f31472e83c5aec83d0fa0213903d4">MeasuredVoltage</a></td></tr>
+<tr class="memdesc:a916f31472e83c5aec83d0fa0213903d4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Measured Voltage for this channel.  <br /></td></tr>
+<tr class="separator:a916f31472e83c5aec83d0fa0213903d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adfa4e734c4a136ec7346d38cdcf6d67f" id="r_adfa4e734c4a136ec7346d38cdcf6d67f"><td class="memItemLeft" align="right" valign="top">volatile float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#adfa4e734c4a136ec7346d38cdcf6d67f">MeasuredCurrent</a></td></tr>
+<tr class="memdesc:adfa4e734c4a136ec7346d38cdcf6d67f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Measured Current for this channel.  <br /></td></tr>
+<tr class="separator:adfa4e734c4a136ec7346d38cdcf6d67f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af4dc8d84118ea3feaeded9ae5423998c" id="r_af4dc8d84118ea3feaeded9ae5423998c"><td class="memItemLeft" align="right" valign="top">volatile float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af4dc8d84118ea3feaeded9ae5423998c">MeasuredPower</a></td></tr>
+<tr class="memdesc:af4dc8d84118ea3feaeded9ae5423998c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Measured Power for this channel.  <br /></td></tr>
+<tr class="separator:af4dc8d84118ea3feaeded9ae5423998c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a33bb3ff1899c109b8443ee1dcbb88055" id="r_a33bb3ff1899c109b8443ee1dcbb88055"><td class="memItemLeft" align="right" valign="top">volatile uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a33bb3ff1899c109b8443ee1dcbb88055">TimeCounter_OvpDelay_ms</a></td></tr>
+<tr class="memdesc:a33bb3ff1899c109b8443ee1dcbb88055"><td class="mdescLeft">&#160;</td><td class="mdescRight">Time counter used to measure how long the channel has an over voltage.  <br /></td></tr>
+<tr class="separator:a33bb3ff1899c109b8443ee1dcbb88055"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aba0feb074e4af17200e1ca858b5279f2" id="r_aba0feb074e4af17200e1ca858b5279f2"><td class="memItemLeft" align="right" valign="top">volatile uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aba0feb074e4af17200e1ca858b5279f2">TimeCounter_OcpDelay_ms</a></td></tr>
+<tr class="memdesc:aba0feb074e4af17200e1ca858b5279f2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Time counter used to measure how long the channel has an over current.  <br /></td></tr>
+<tr class="separator:aba0feb074e4af17200e1ca858b5279f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae4ee9260c323100f8bf7278952a0b067" id="r_ae4ee9260c323100f8bf7278952a0b067"><td class="memItemLeft" align="right" valign="top">volatile uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae4ee9260c323100f8bf7278952a0b067">TimeCounter_OppDelay_ms</a></td></tr>
+<tr class="memdesc:ae4ee9260c323100f8bf7278952a0b067"><td class="mdescLeft">&#160;</td><td class="mdescRight">Time counter used to measure how long the channel has an over power.  <br /></td></tr>
+<tr class="separator:ae4ee9260c323100f8bf7278952a0b067"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:af09bdba17ac1d722da08bc8b50ee8f5e" id="r_af09bdba17ac1d722da08bc8b50ee8f5e"><td class="memItemLeft" align="right" valign="top"><a id="af09bdba17ac1d722da08bc8b50ee8f5e" name="af09bdba17ac1d722da08bc8b50ee8f5e"></a>
+float&#160;</td><td class="memItemRight" valign="bottom"><b>_PIDVoltErrorSum</b></td></tr>
+<tr class="memdesc:af09bdba17ac1d722da08bc8b50ee8f5e"><td class="mdescLeft">&#160;</td><td class="mdescRight">PID voltage regulator error sum. <br /></td></tr>
+<tr class="separator:af09bdba17ac1d722da08bc8b50ee8f5e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af8b6d16e36e521cb4bf34f733673fab0" id="r_af8b6d16e36e521cb4bf34f733673fab0"><td class="memItemLeft" align="right" valign="top"><a id="af8b6d16e36e521cb4bf34f733673fab0" name="af8b6d16e36e521cb4bf34f733673fab0"></a>
+float&#160;</td><td class="memItemRight" valign="bottom"><b>_PIDVoltErrorLast</b></td></tr>
+<tr class="memdesc:af8b6d16e36e521cb4bf34f733673fab0"><td class="mdescLeft">&#160;</td><td class="mdescRight">PID voltage regulator last error. <br /></td></tr>
+<tr class="separator:af8b6d16e36e521cb4bf34f733673fab0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a26b0710bf3c1f37ddfbd072586c9111d" id="r_a26b0710bf3c1f37ddfbd072586c9111d"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a26b0710bf3c1f37ddfbd072586c9111d">_setVoltage</a></td></tr>
+<tr class="memdesc:a26b0710bf3c1f37ddfbd072586c9111d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Voltage to which the output should be set.  <br /></td></tr>
+<tr class="separator:a26b0710bf3c1f37ddfbd072586c9111d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="inherited" name="inherited"></a>
+Additional Inherited Members</h2></td></tr>
+<tr class="inherit_header pro_attribs_class_channel"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pro_attribs_class_channel')"><img src="closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="class_channel.html">Channel</a></td></tr>
+<tr class="memitem:ac8b162e0f06943ce04ea4e20fb75c9c8 inherit pro_attribs_class_channel" id="r_ac8b162e0f06943ce04ea4e20fb75c9c8"><td class="memItemLeft" align="right" valign="top">
+<a class="el" href="_channel_8h.html#a724c1fb2cb44a48b26550955cede49be">ChannelTypes_t</a>&#160;</td><td class="memItemRight" valign="bottom"><b>_channelType</b></td></tr>
+<tr class="memdesc:ac8b162e0f06943ce04ea4e20fb75c9c8 inherit pro_attribs_class_channel"><td class="mdescLeft">&#160;</td><td class="mdescRight">Type of the channel. <br /></td></tr>
+<tr class="separator:ac8b162e0f06943ce04ea4e20fb75c9c8 inherit pro_attribs_class_channel"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Power supply channel Class. </p>
+<p>This is a channel holding all parameters of a power supply implementation.</p>
+<p>The voltage is regulated by a PID regulator.</p>
+<p>An anti-windup provision is implemented on the PID integrator to prevent deep saturation (aka integrator windup) when the output is saturated:</p><ul>
+<li>The new control output with the latest integrator value is computed.</li>
+<li>If the control output exceeds either output limit, <em>and</em> the latest change in the integrator is in the same direction, then the new integrator value is not saved for the next call.</li>
+<li>Otherwise, the integrator is saved for the next call.</li>
+</ul>
+<dl class="section see"><dt>See also</dt><dd><a href="https://rn-wissen.de/wiki/index.php/Regelungstechnik">https://rn-wissen.de/wiki/index.php/Regelungstechnik</a> (for general PID regulator code) </dd>
+<dd>
+<a href="https://tlk-energy.de/blog/pid-regler-einstellen">https://tlk-energy.de/blog/pid-regler-einstellen</a> (for PID parameter setup) </dd>
+<dd>
+<a href="https://www.embeddedrelated.com/showcode/346.php">https://www.embeddedrelated.com/showcode/346.php</a> (for PID anti-windup scheme) </dd></dl>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a8f5eb6852544e1fa59c9ebe32306ab38" name="a8f5eb6852544e1fa59c9ebe32306ab38"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8f5eb6852544e1fa59c9ebe32306ab38">&#9670;&#160;</a></span>PS_Channel()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">PS_Channel::PS_Channel </td>
+          <td>(</td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>minVolt</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>maxVolt</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>minOvpLevel</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>maxOvpLevel</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>minOvpDelay</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>maxOvpDelay</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>minOcpLevel</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>maxOcpLevel</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>minOcpDelay</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>maxOcpDelay</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>minOppLevel</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>maxOppLevel</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>minOppDelay</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>maxOppDelay</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Constructor of the <a class="el" href="class_p_s___channel.html" title="Power supply channel Class.">PS_Channel</a>. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">minVolt</td><td>Minimum allowed voltage for the PS channel </td></tr>
+    <tr><td class="paramname">maxVolt</td><td>Maximum allowed voltage for the PS channel </td></tr>
+    <tr><td class="paramname">minOvpLevel</td><td>Minimum allowed Ovp level for the PS channel </td></tr>
+    <tr><td class="paramname">maxOvpLevel</td><td>Maximum allowed Ovp level for the PS channel </td></tr>
+    <tr><td class="paramname">minOvpDelay</td><td>Minimum allowed Ovp delay for the PS channel </td></tr>
+    <tr><td class="paramname">maxOvpDelay</td><td>Maximum allowed Ovp delay for the PS channel </td></tr>
+    <tr><td class="paramname">minOcpLevel</td><td>Minimum allowed Ocp level for the PS channel </td></tr>
+    <tr><td class="paramname">maxOcpLevel</td><td>Maximum allowed Ocp level for the PS channel </td></tr>
+    <tr><td class="paramname">minOcpDelay</td><td>Minimum allowed Ocp delay for the PS channel </td></tr>
+    <tr><td class="paramname">maxOcpDelay</td><td>Maximum allowed Ocp delay for the PS channel </td></tr>
+    <tr><td class="paramname">minOppLevel</td><td>Minimum allowed Opp level for the PS channel </td></tr>
+    <tr><td class="paramname">maxOppLevel</td><td>Maximum allowed Opp level for the PS channel </td></tr>
+    <tr><td class="paramname">minOppDelay</td><td>Minimum allowed Opp delay for the PS channel </td></tr>
+    <tr><td class="paramname">maxOppDelay</td><td>Maximum allowed Opp delay for the PS channel </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a73ecff883913d4374c004bd1fe3f0a24" name="a73ecff883913d4374c004bd1fe3f0a24"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a73ecff883913d4374c004bd1fe3f0a24">&#9670;&#160;</a></span>DoRegulationISR()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void PS_Channel::DoRegulationISR </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This method is called periodically based on the device timer ISR (multiples of the device timer period) and runs in the ISR context. </p>
+<p>It is used to increment the protection timers if neccessary, to change the channel state if an protection kicks in and to calculate a new PID value. </p>
+<p>Voltage PID regulator see: <a href="https://rn-wissen.de/wiki/index.php/Regelungstechnik">https://rn-wissen.de/wiki/index.php/Regelungstechnik</a></p>
+<p>PID Integrator anti-windup see: <a href="https://www.embeddedrelated.com/showcode/346.php">https://www.embeddedrelated.com/showcode/346.php</a></p>
+
+</div>
+</div>
+<a id="a4fe39b4ddada8e7d9d5ea7e940a6643f" name="a4fe39b4ddada8e7d9d5ea7e940a6643f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4fe39b4ddada8e7d9d5ea7e940a6643f">&#9670;&#160;</a></span>GetEnabled()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool PS_Channel::GetEnabled </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Get the Enabled property of the PS channel. </p>
+<dl class="section return"><dt>Returns</dt><dd>Value of the Enabled property </dd></dl>
+
+</div>
+</div>
+<a id="a569b793e4487cee44a0acda22cb2e450" name="a569b793e4487cee44a0acda22cb2e450"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a569b793e4487cee44a0acda22cb2e450">&#9670;&#160;</a></span>GetOcpDelay()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float PS_Channel::GetOcpDelay </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Get the OcpDelay property of the PS channel. </p>
+<dl class="section return"><dt>Returns</dt><dd>Value of the OcpDelay property </dd></dl>
+
+</div>
+</div>
+<a id="af1f32b69f3732ea4ec5a7caae8918b30" name="af1f32b69f3732ea4ec5a7caae8918b30"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af1f32b69f3732ea4ec5a7caae8918b30">&#9670;&#160;</a></span>GetOcpLevel()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float PS_Channel::GetOcpLevel </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Get the OcpLevel property of the PS channel. </p>
+<dl class="section return"><dt>Returns</dt><dd>Value of the OcpLevel property </dd></dl>
+
+</div>
+</div>
+<a id="aa03ea7e63b479a0cc52bda25f4e65d38" name="aa03ea7e63b479a0cc52bda25f4e65d38"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa03ea7e63b479a0cc52bda25f4e65d38">&#9670;&#160;</a></span>GetOcpState()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool PS_Channel::GetOcpState </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Get the OcpState property of the PS channel. </p>
+<dl class="section return"><dt>Returns</dt><dd>Value of the OcpState property </dd></dl>
+
+</div>
+</div>
+<a id="ac3cfa956e91cdee3633a13569d538079" name="ac3cfa956e91cdee3633a13569d538079"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac3cfa956e91cdee3633a13569d538079">&#9670;&#160;</a></span>GetOppDelay()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float PS_Channel::GetOppDelay </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Get the OppDelay property of the PS channel. </p>
+<dl class="section return"><dt>Returns</dt><dd>Value of the OppDelay property </dd></dl>
+
+</div>
+</div>
+<a id="aa892cf1b012fc7d33be6397e42433dc4" name="aa892cf1b012fc7d33be6397e42433dc4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa892cf1b012fc7d33be6397e42433dc4">&#9670;&#160;</a></span>GetOppLevel()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float PS_Channel::GetOppLevel </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Get the OppLevel property of the PS channel. </p>
+<dl class="section return"><dt>Returns</dt><dd>Value of the OppLevel property </dd></dl>
+
+</div>
+</div>
+<a id="a3403ca32fe0efb6709ec109a1cfc0e54" name="a3403ca32fe0efb6709ec109a1cfc0e54"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3403ca32fe0efb6709ec109a1cfc0e54">&#9670;&#160;</a></span>GetOppState()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool PS_Channel::GetOppState </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Get the OppState property of the PS channel. </p>
+<dl class="section return"><dt>Returns</dt><dd>Value of the OppState property </dd></dl>
+
+</div>
+</div>
+<a id="af3bcafa8674a443d59f3bf620722d9c2" name="af3bcafa8674a443d59f3bf620722d9c2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af3bcafa8674a443d59f3bf620722d9c2">&#9670;&#160;</a></span>GetOvpDelay()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float PS_Channel::GetOvpDelay </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Get the OvpDelay property of the PS channel. </p>
+<dl class="section return"><dt>Returns</dt><dd>Value of the OvpDelay property </dd></dl>
+
+</div>
+</div>
+<a id="aba8f2266b32f8bcf0f11300f50870ae1" name="aba8f2266b32f8bcf0f11300f50870ae1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aba8f2266b32f8bcf0f11300f50870ae1">&#9670;&#160;</a></span>GetOvpLevel()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t PS_Channel::GetOvpLevel </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Get the OvpLevel property of the PS channel. </p>
+<dl class="section return"><dt>Returns</dt><dd>Value of the OvpLevel property </dd></dl>
+
+</div>
+</div>
+<a id="ae9ef81eec2af427ed17af77b14725589" name="ae9ef81eec2af427ed17af77b14725589"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae9ef81eec2af427ed17af77b14725589">&#9670;&#160;</a></span>GetOvpState()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool PS_Channel::GetOvpState </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Get the OvpState property of the PS channel. </p>
+<dl class="section return"><dt>Returns</dt><dd>Value of the OvpState property </dd></dl>
+
+</div>
+</div>
+<a id="a849f1ae9d7ac67640a73ad6805b2e334" name="a849f1ae9d7ac67640a73ad6805b2e334"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a849f1ae9d7ac67640a73ad6805b2e334">&#9670;&#160;</a></span>GetPsState()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="_p_s___channel_8h.html#a3a47c819c88e9e08fa3a9416230490b1">PsStates_t</a> PS_Channel::GetPsState </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Return the current state of this channel. </p>
+<dl class="section return"><dt>Returns</dt><dd>Current power supply channel state. </dd></dl>
+
+</div>
+</div>
+<a id="a735470b652fb7aaacf495bb91367354d" name="a735470b652fb7aaacf495bb91367354d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a735470b652fb7aaacf495bb91367354d">&#9670;&#160;</a></span>GetRegulationMode()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="_p_s___channel_8h.html#a423145f58931a19c5ba260b9a49e6bed">PsRegulationModes_t</a> PS_Channel::GetRegulationMode </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Get the RegulationMode property of the PS channel. </p>
+<dl class="section return"><dt>Returns</dt><dd>Value of the RegulationMode property </dd></dl>
+
+</div>
+</div>
+<a id="a6380f6cd8d046a7ed7904a81a5f5fbbc" name="a6380f6cd8d046a7ed7904a81a5f5fbbc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6380f6cd8d046a7ed7904a81a5f5fbbc">&#9670;&#160;</a></span>GetVoltage()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float PS_Channel::GetVoltage </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Get the Voltage property of the PS channel. </p>
+<dl class="section return"><dt>Returns</dt><dd>Value of the Voltage property </dd></dl>
+
+</div>
+</div>
+<a id="a72503c6615a85065eca7f648ef72f976" name="a72503c6615a85065eca7f648ef72f976"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a72503c6615a85065eca7f648ef72f976">&#9670;&#160;</a></span>IsProtectionActive()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool PS_Channel::IsProtectionActive </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Check if at least one protection is active (OVP, OCP, OPP) </p>
+<dl class="section return"><dt>Returns</dt><dd>true, if any of the OVP, OCP or OPP protections is active; otherwise false </dd></dl>
+
+</div>
+</div>
+<a id="a5ba544f1784e9b0808ded7105ffdb45b" name="a5ba544f1784e9b0808ded7105ffdb45b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5ba544f1784e9b0808ded7105ffdb45b">&#9670;&#160;</a></span>PSEnabledChanged()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void PS_Channel::PSEnabledChanged </td>
+          <td>(</td>
+          <td class="paramtype">void *</td>          <td class="paramname"><span class="paramname"><em>channel</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Callback function that can be used for user interface controls modifying the Enabled property. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">channel</td><td>Pointer to a <a class="el" href="class_p_s___channel.html" title="Power supply channel Class.">PS_Channel</a> </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a3694143d4e45f39feea06df54f2113b1" name="a3694143d4e45f39feea06df54f2113b1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3694143d4e45f39feea06df54f2113b1">&#9670;&#160;</a></span>PSOcpDelayChanged()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void PS_Channel::PSOcpDelayChanged </td>
+          <td>(</td>
+          <td class="paramtype">void *</td>          <td class="paramname"><span class="paramname"><em>channel</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Callback function that can be used for user interface controls modifying the OcpDelay property. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">channel</td><td>Pointer to a <a class="el" href="class_p_s___channel.html" title="Power supply channel Class.">PS_Channel</a> </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a2927b94932c9b3799f0381d21e562072" name="a2927b94932c9b3799f0381d21e562072"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2927b94932c9b3799f0381d21e562072">&#9670;&#160;</a></span>PSOcpLevelChanged()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void PS_Channel::PSOcpLevelChanged </td>
+          <td>(</td>
+          <td class="paramtype">void *</td>          <td class="paramname"><span class="paramname"><em>channel</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Callback function that can be used for user interface controls modifying the OcpLevel property. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">channel</td><td>Pointer to a <a class="el" href="class_p_s___channel.html" title="Power supply channel Class.">PS_Channel</a> </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a92edc2fd438e26335e8bb8c529fa66ed" name="a92edc2fd438e26335e8bb8c529fa66ed"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a92edc2fd438e26335e8bb8c529fa66ed">&#9670;&#160;</a></span>PSOcpStateChanged()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void PS_Channel::PSOcpStateChanged </td>
+          <td>(</td>
+          <td class="paramtype">void *</td>          <td class="paramname"><span class="paramname"><em>channel</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Callback function that can be used for user interface controls modifying the OcpState property. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">channel</td><td>Pointer to a <a class="el" href="class_p_s___channel.html" title="Power supply channel Class.">PS_Channel</a> </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a7e07daf81d9f37616a2911a0a50066b1" name="a7e07daf81d9f37616a2911a0a50066b1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7e07daf81d9f37616a2911a0a50066b1">&#9670;&#160;</a></span>PSOppDelayChanged()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void PS_Channel::PSOppDelayChanged </td>
+          <td>(</td>
+          <td class="paramtype">void *</td>          <td class="paramname"><span class="paramname"><em>channel</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Callback function that can be used for user interface controls modifying the OppDelay property. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">channel</td><td>Pointer to a <a class="el" href="class_p_s___channel.html" title="Power supply channel Class.">PS_Channel</a> </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a0552d74aa09fe814912127c7db28af94" name="a0552d74aa09fe814912127c7db28af94"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0552d74aa09fe814912127c7db28af94">&#9670;&#160;</a></span>PSOppLevelChanged()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void PS_Channel::PSOppLevelChanged </td>
+          <td>(</td>
+          <td class="paramtype">void *</td>          <td class="paramname"><span class="paramname"><em>channel</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Callback function that can be used for user interface controls modifying the OppLevel property. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">channel</td><td>Pointer to a <a class="el" href="class_p_s___channel.html" title="Power supply channel Class.">PS_Channel</a> </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="af3afebfdd146a906cc4e6dd69218f7da" name="af3afebfdd146a906cc4e6dd69218f7da"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af3afebfdd146a906cc4e6dd69218f7da">&#9670;&#160;</a></span>PSOppStateChanged()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void PS_Channel::PSOppStateChanged </td>
+          <td>(</td>
+          <td class="paramtype">void *</td>          <td class="paramname"><span class="paramname"><em>channel</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Callback function that can be used for user interface controls modifying the OppState property. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">channel</td><td>Pointer to a <a class="el" href="class_p_s___channel.html" title="Power supply channel Class.">PS_Channel</a> </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="acda27fc1240cdf0fa94ba0cd001e8365" name="acda27fc1240cdf0fa94ba0cd001e8365"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acda27fc1240cdf0fa94ba0cd001e8365">&#9670;&#160;</a></span>PSOvpDelayChanged()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void PS_Channel::PSOvpDelayChanged </td>
+          <td>(</td>
+          <td class="paramtype">void *</td>          <td class="paramname"><span class="paramname"><em>channel</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Callback function that can be used for user interface controls modifying the OvpDelay property. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">channel</td><td>Pointer to a <a class="el" href="class_p_s___channel.html" title="Power supply channel Class.">PS_Channel</a> </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="afc322d742e7f78f8b0daea882301597b" name="afc322d742e7f78f8b0daea882301597b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afc322d742e7f78f8b0daea882301597b">&#9670;&#160;</a></span>PSOvpLevelChanged()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void PS_Channel::PSOvpLevelChanged </td>
+          <td>(</td>
+          <td class="paramtype">void *</td>          <td class="paramname"><span class="paramname"><em>channel</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Callback function that can be used for user interface controls modifying the OvpLevel property. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">channel</td><td>Pointer to a <a class="el" href="class_p_s___channel.html" title="Power supply channel Class.">PS_Channel</a> </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a083e0f401de4847fade6c59752375c50" name="a083e0f401de4847fade6c59752375c50"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a083e0f401de4847fade6c59752375c50">&#9670;&#160;</a></span>PSOvpStateChanged()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void PS_Channel::PSOvpStateChanged </td>
+          <td>(</td>
+          <td class="paramtype">void *</td>          <td class="paramname"><span class="paramname"><em>channel</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Callback function that can be used for user interface controls modifying the OvpState property. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">channel</td><td>Pointer to a <a class="el" href="class_p_s___channel.html" title="Power supply channel Class.">PS_Channel</a> </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a0a2e2316a05956e1b7a9e8b3cc108eb5" name="a0a2e2316a05956e1b7a9e8b3cc108eb5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0a2e2316a05956e1b7a9e8b3cc108eb5">&#9670;&#160;</a></span>PSRegulationModeChanged()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void PS_Channel::PSRegulationModeChanged </td>
+          <td>(</td>
+          <td class="paramtype">void *</td>          <td class="paramname"><span class="paramname"><em>channel</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Callback function that can be used for user interface controls modifying the RegulationMode property. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">channel</td><td>Pointer to a <a class="el" href="class_p_s___channel.html" title="Power supply channel Class.">PS_Channel</a> </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a46d28e00a9e225b97b096754b7e3d64a" name="a46d28e00a9e225b97b096754b7e3d64a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a46d28e00a9e225b97b096754b7e3d64a">&#9670;&#160;</a></span>PSVoltageChanged()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void PS_Channel::PSVoltageChanged </td>
+          <td>(</td>
+          <td class="paramtype">void *</td>          <td class="paramname"><span class="paramname"><em>channel</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Callback function that can be used for user interface controls modifying the Voltage property. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">channel</td><td>Pointer to a <a class="el" href="class_p_s___channel.html" title="Power supply channel Class.">PS_Channel</a> </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="aa04bb34bc1c9918a8d83fca145bd4e07" name="aa04bb34bc1c9918a8d83fca145bd4e07"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa04bb34bc1c9918a8d83fca145bd4e07">&#9670;&#160;</a></span>SetEnabled()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool PS_Channel::SetEnabled </td>
+          <td>(</td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>enabled</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set the Enabled property of the PS channel. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">enabled</td><td>New value for the Enabled property </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true-&gt;set successful; false-&gt;value not set </dd></dl>
+
+</div>
+</div>
+<a id="a7de4a94138f334369260cf3146d2b6d6" name="a7de4a94138f334369260cf3146d2b6d6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7de4a94138f334369260cf3146d2b6d6">&#9670;&#160;</a></span>SetOcpDelay()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool PS_Channel::SetOcpDelay </td>
+          <td>(</td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>ocpDelay</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set the OcpDelay property of the PS channel. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ocpDelay</td><td>New value for the OcpDelay property </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true-&gt;set successful; false-&gt;value not set </dd></dl>
+
+</div>
+</div>
+<a id="a57dfdd16eafc3598483716827a70f0d8" name="a57dfdd16eafc3598483716827a70f0d8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a57dfdd16eafc3598483716827a70f0d8">&#9670;&#160;</a></span>SetOcpLevel()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool PS_Channel::SetOcpLevel </td>
+          <td>(</td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>ocpLevel</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set the OcpLevel property of the PS channel. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ocpLevel</td><td>New value for the OcpLevel property </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true-&gt;set successful; false-&gt;value not set </dd></dl>
+
+</div>
+</div>
+<a id="a48af8d60697ce82e24448462e3106812" name="a48af8d60697ce82e24448462e3106812"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a48af8d60697ce82e24448462e3106812">&#9670;&#160;</a></span>SetOcpState()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool PS_Channel::SetOcpState </td>
+          <td>(</td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>ocpState</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set the OcpState property of the PS channel. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ocpState</td><td>New value for the OcpState property </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true-&gt;set successful; false-&gt;value not set </dd></dl>
+
+</div>
+</div>
+<a id="aeebbc49a95538c711f388b859fe41616" name="aeebbc49a95538c711f388b859fe41616"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeebbc49a95538c711f388b859fe41616">&#9670;&#160;</a></span>SetOppDelay()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool PS_Channel::SetOppDelay </td>
+          <td>(</td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>oppDelay</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set the OppDelay property of the PS channel. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">oppDelay</td><td>New value for the OppDelay property </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true-&gt;set successful; false-&gt;value not set </dd></dl>
+
+</div>
+</div>
+<a id="ac2fc5cb118f7941503278ae0c9109cae" name="ac2fc5cb118f7941503278ae0c9109cae"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac2fc5cb118f7941503278ae0c9109cae">&#9670;&#160;</a></span>SetOppLevel()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool PS_Channel::SetOppLevel </td>
+          <td>(</td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>oppLevel</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set the OppLevel property of the PS channel. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">oppLevel</td><td>New value for the OppLevel property </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true-&gt;set successful; false-&gt;value not set </dd></dl>
+
+</div>
+</div>
+<a id="a37a38f8f239dd8f0f766b3a468583b16" name="a37a38f8f239dd8f0f766b3a468583b16"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a37a38f8f239dd8f0f766b3a468583b16">&#9670;&#160;</a></span>SetOppState()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool PS_Channel::SetOppState </td>
+          <td>(</td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>oppState</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set the OppState property of the PS channel. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">oppState</td><td>New value for the OppState property </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true-&gt;set successful; false-&gt;value not set </dd></dl>
+
+</div>
+</div>
+<a id="ac5adf66dd48dcdf1812016bb0ee245f3" name="ac5adf66dd48dcdf1812016bb0ee245f3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac5adf66dd48dcdf1812016bb0ee245f3">&#9670;&#160;</a></span>SetOvpDelay()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool PS_Channel::SetOvpDelay </td>
+          <td>(</td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>ovpDelay</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set the OvpDelay property of the PS channel. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ovpDelay</td><td>New value for the OvpDelay property </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true-&gt;set successful; false-&gt;value not set </dd></dl>
+
+</div>
+</div>
+<a id="a10d400ee6d95e6c23d9e9ea631ac2b10" name="a10d400ee6d95e6c23d9e9ea631ac2b10"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a10d400ee6d95e6c23d9e9ea631ac2b10">&#9670;&#160;</a></span>SetOvpLevel()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool PS_Channel::SetOvpLevel </td>
+          <td>(</td>
+          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>ovpLevel</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set the OvpLevel property of the PS channel. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ovpLevel</td><td>New value for the OvpLevel property </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true-&gt;set successful; false-&gt;value not set </dd></dl>
+
+</div>
+</div>
+<a id="ad8270862b004b00d7d425f6a372399b5" name="ad8270862b004b00d7d425f6a372399b5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad8270862b004b00d7d425f6a372399b5">&#9670;&#160;</a></span>SetOvpState()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool PS_Channel::SetOvpState </td>
+          <td>(</td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>ovpState</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set the OvpState property of the PS channel. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ovpState</td><td>New value for the OvpState property </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true-&gt;set successful; false-&gt;value not set </dd></dl>
+
+</div>
+</div>
+<a id="a049981d4c8ee309ebd34062742286a14" name="a049981d4c8ee309ebd34062742286a14"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a049981d4c8ee309ebd34062742286a14">&#9670;&#160;</a></span>SetRegulationMode()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool PS_Channel::SetRegulationMode </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="_p_s___channel_8h.html#a423145f58931a19c5ba260b9a49e6bed">PsRegulationModes_t</a></td>          <td class="paramname"><span class="paramname"><em>regulationMode</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set the RegulationMode property of the PS channel. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">regulationMode</td><td>New value for the RegulationMode property </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true-&gt;set successful; false-&gt;value not set </dd></dl>
+
+</div>
+</div>
+<a id="a73dc40a2181ed3e74baad424dad467f6" name="a73dc40a2181ed3e74baad424dad467f6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a73dc40a2181ed3e74baad424dad467f6">&#9670;&#160;</a></span>SetVoltage()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool PS_Channel::SetVoltage </td>
+          <td>(</td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>voltage</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set the Voltage property of the PS channel. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">voltage</td><td>New value for the Voltage property </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true-&gt;set successful; false-&gt;value not set </dd></dl>
+
+</div>
+</div>
+<a id="aa3ef18bc6f5ec5d2e294772ed3fdb450" name="aa3ef18bc6f5ec5d2e294772ed3fdb450"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa3ef18bc6f5ec5d2e294772ed3fdb450">&#9670;&#160;</a></span>UpdateOutput()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void PS_Channel::UpdateOutput </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set the voltage at the output of this channel to the value calculated by the PID regulator if the output is enabled and in CV state. </p>
+<p>Otherwise switch off the output. </p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="a26b0710bf3c1f37ddfbd072586c9111d" name="a26b0710bf3c1f37ddfbd072586c9111d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a26b0710bf3c1f37ddfbd072586c9111d">&#9670;&#160;</a></span>_setVoltage</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float PS_Channel::_setVoltage</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Voltage to which the output should be set. </p>
+<p>This value is calculated by the PID voltage regulator. </p>
+
+</div>
+</div>
+<a id="a315225d94a978219b51927599c2e34eb" name="a315225d94a978219b51927599c2e34eb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a315225d94a978219b51927599c2e34eb">&#9670;&#160;</a></span>Enabled</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_parameter.html">Parameter</a>&lt;bool&gt; PS_Channel::Enabled</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Is the channel enabled or not. </p>
+<p>If enabled, the voltage is available at the output. </p>
+
+</div>
+</div>
+<a id="adfa4e734c4a136ec7346d38cdcf6d67f" name="adfa4e734c4a136ec7346d38cdcf6d67f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adfa4e734c4a136ec7346d38cdcf6d67f">&#9670;&#160;</a></span>MeasuredCurrent</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">volatile float PS_Channel::MeasuredCurrent</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Measured Current for this channel. </p>
+<p>This value is used for PID regulation of the output current in CC state. </p>
+
+</div>
+</div>
+<a id="af4dc8d84118ea3feaeded9ae5423998c" name="af4dc8d84118ea3feaeded9ae5423998c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af4dc8d84118ea3feaeded9ae5423998c">&#9670;&#160;</a></span>MeasuredPower</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">volatile float PS_Channel::MeasuredPower</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Measured Power for this channel. </p>
+<p>This value is calculated from the MeasuredVoltage and MeasuredCurrent. </p>
+
+</div>
+</div>
+<a id="a916f31472e83c5aec83d0fa0213903d4" name="a916f31472e83c5aec83d0fa0213903d4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a916f31472e83c5aec83d0fa0213903d4">&#9670;&#160;</a></span>MeasuredVoltage</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">volatile float PS_Channel::MeasuredVoltage</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Measured Voltage for this channel. </p>
+<p>This value is used for PID regulation of the output voltage in CV state. </p>
+
+</div>
+</div>
+<a id="aff7ef76753e96dd73e029450907fa901" name="aff7ef76753e96dd73e029450907fa901"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aff7ef76753e96dd73e029450907fa901">&#9670;&#160;</a></span>OcpState</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_parameter.html">Parameter</a>&lt;bool&gt; PS_Channel::OcpState</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Is the over current protection for the channel enabled or not. </p>
+<p>If disabled, the OcpLevel and OcpDelay parameters have not effect. </p>
+
+</div>
+</div>
+<a id="abb02b215ae1bee358788355881b3579d" name="abb02b215ae1bee358788355881b3579d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abb02b215ae1bee358788355881b3579d">&#9670;&#160;</a></span>OppState</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_parameter.html">Parameter</a>&lt;bool&gt; PS_Channel::OppState</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Is the over power protection for the channel enabled or not. </p>
+<p>If disabled, the OppLevel and OppDelay parameters have not effect. </p>
+
+</div>
+</div>
+<a id="a4664e318a8e44155de01752b541f2b46" name="a4664e318a8e44155de01752b541f2b46"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4664e318a8e44155de01752b541f2b46">&#9670;&#160;</a></span>OvpState</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_parameter.html">Parameter</a>&lt;bool&gt; PS_Channel::OvpState</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Is the over voltage protection for the channel enabled or not. </p>
+<p>If disabled, the OvpLevel and OvpDelay parameters have not effect. </p>
+
+</div>
+</div>
+<a id="a722ed5d4de35aa4f6b9e9e157bcfec2f" name="a722ed5d4de35aa4f6b9e9e157bcfec2f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a722ed5d4de35aa4f6b9e9e157bcfec2f">&#9670;&#160;</a></span>RegulationMode</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">volatile <a class="el" href="_p_s___channel_8h.html#a423145f58931a19c5ba260b9a49e6bed">PsRegulationModes_t</a> PS_Channel::RegulationMode</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Current regulation mode of the power supply channel. </p>
+<p>For more details about the options see the enumeration values. </p>
+
+</div>
+</div>
+<a id="aba0feb074e4af17200e1ca858b5279f2" name="aba0feb074e4af17200e1ca858b5279f2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aba0feb074e4af17200e1ca858b5279f2">&#9670;&#160;</a></span>TimeCounter_OcpDelay_ms</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">volatile uint16_t PS_Channel::TimeCounter_OcpDelay_ms</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Time counter used to measure how long the channel has an over current. </p>
+<p>If this value exceeds the OcpDelay, the over current protection kicks in. </p>
+
+</div>
+</div>
+<a id="ae4ee9260c323100f8bf7278952a0b067" name="ae4ee9260c323100f8bf7278952a0b067"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae4ee9260c323100f8bf7278952a0b067">&#9670;&#160;</a></span>TimeCounter_OppDelay_ms</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">volatile uint16_t PS_Channel::TimeCounter_OppDelay_ms</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Time counter used to measure how long the channel has an over power. </p>
+<p>If this value exceeds the OppDelay, the over power protection kicks in. </p>
+
+</div>
+</div>
+<a id="a33bb3ff1899c109b8443ee1dcbb88055" name="a33bb3ff1899c109b8443ee1dcbb88055"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a33bb3ff1899c109b8443ee1dcbb88055">&#9670;&#160;</a></span>TimeCounter_OvpDelay_ms</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">volatile uint16_t PS_Channel::TimeCounter_OvpDelay_ms</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Time counter used to measure how long the channel has an over voltage. </p>
+<p>If this value exceeds the OvpDelay, the over voltage protection kicks in. </p>
+
+</div>
+</div>
+<a id="a336a4e28aa7204c469353489d12a8377" name="a336a4e28aa7204c469353489d12a8377"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a336a4e28aa7204c469353489d12a8377">&#9670;&#160;</a></span>Voltage</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_parameter.html">Parameter</a>&lt;float&gt; PS_Channel::Voltage</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Voltage of the power supply channel. </p>
+<p>This is the voltage that the PID regulator tries to produce on the output in CV state. </p>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following files:<ul>
+<li>/github/workspace/PS_Fgen_FW/Channels/<a class="el" href="_p_s___channel_8h_source.html">PS_Channel.h</a></li>
+<li>/github/workspace/PS_Fgen_FW/Channels/<b>PS_Channel.cpp</b></li>
+</ul>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- HTML footer for doxygen 1.9.1-->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="class_p_s___channel.html">PS_Channel</a></li>
+    <li class="footer">Generated on Mon Jan 20 2025 17:33:36 for PS_Fgen_FW by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2 </li>
+  </ul>
+</div>
+<script type="text/javascript">
+  $(document).ready(function(){
+    toggleButton = document.createElement('doxygen-awesome-dark-mode-toggle')
+    toggleButton.title = "Toggle Light/Dark Mode"
+    document.getElementById("MSearchBox").parentNode.appendChild(toggleButton)
+  })
+</script>
+</body>
+</html>

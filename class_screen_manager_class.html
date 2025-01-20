@@ -1,0 +1,592 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.13.2"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<!-- BEGIN opengraph metadata -->
+<meta property="og:title" content="Doxygen Awesome" />
+<meta property="og:image" content="https://repository-images.githubusercontent.com/348492097/4f16df80-88fb-11eb-9d31-4015ff22c452" />
+<meta property="og:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
+<meta property="og:url" content="https://jothepro.github.io/doxygen-awesome-css/" />
+<!-- END opengraph metadata -->
+<!-- BEGIN twitter metadata -->
+<meta name="twitter:image:src" content="https://repository-images.githubusercontent.com/348492097/4f16df80-88fb-11eb-9d31-4015ff22c452" />
+<meta name="twitter:title" content="Doxygen Awesome" />
+<meta name="twitter:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
+<!-- END twitter metadata -->
+<title>PS_Fgen_FW: ScreenManagerClass Class Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<link rel="icon" type="image/svg+xml" href="logo.drawio.svg"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="doxygen-awesome-darkmode-toggle.js"></script>
+<script type="text/javascript" src="doxygen-awesome-fragment-copy-button.js"></script>
+<script type="text/javascript" src="doxygen-awesome-paragraph-link.js"></script>
+<script type="text/javascript" src="doxygen-awesome-interactive-toc.js"></script>
+<script type="text/javascript" src="doxygen-awesome-tabs.js"></script>
+<script type="text/javascript" src="toggle-alternative-theme.js"></script>
+<script type="text/javascript">
+    DoxygenAwesomeFragmentCopyButton.init()
+    DoxygenAwesomeDarkModeToggle.init()
+    DoxygenAwesomeParagraphLink.init()
+    DoxygenAwesomeInteractiveToc.init()
+    DoxygenAwesomeTabs.init()
+</script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="custom.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<!-- https://tholman.com/github-corners/ -->
+<a href="https://github.com/M1S2/PS_Fgen_FW" class="github-corner" title="View source on GitHub" target="_blank" rel="noopener noreferrer">
+    <svg viewBox="0 0 250 250" width="40" height="40" style="position: absolute; top: 0; border: 0; right: 0; z-index: 99;" aria-hidden="true">
+    <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="logo.png"/></td>
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">PS_Fgen_FW
+   &#160;<span id="projectnumber">4da88f4073c1cc65ea45c3a652a2751e495e50db</span>
+   </div>
+   <div id="projectbrief">Firmware for an Power Supply and Function Generator build from an ATX power supply</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.13.2 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() { codefold.init(0); });
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Search',true);
+  $(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function(){initNavTree('class_screen_manager_class.html',''); initResizable(true); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-attribs">Public Attributes</a> &#124;
+<a href="#pri-methods">Private Member Functions</a> &#124;
+<a href="#pri-attribs">Private Attributes</a> &#124;
+<a href="class_screen_manager_class-members.html">List of all members</a>  </div>
+  <div class="headertitle"><div class="title">ScreenManagerClass Class Reference</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>Class that is used to control the screen.  
+ <a href="#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="_screen_manager_8h_source.html">ScreenManager.h</a>&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a588a5fd01dcb36371b95452dcfd20470" id="r_a588a5fd01dcb36371b95452dcfd20470"><td class="memItemLeft" align="right" valign="top"><a id="a588a5fd01dcb36371b95452dcfd20470" name="a588a5fd01dcb36371b95452dcfd20470"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>ScreenManagerClass</b> ()</td></tr>
+<tr class="memdesc:a588a5fd01dcb36371b95452dcfd20470"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor of the <a class="el" href="class_screen_manager_class.html" title="Class that is used to control the screen.">ScreenManagerClass</a>. <br /></td></tr>
+<tr class="separator:a588a5fd01dcb36371b95452dcfd20470"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aead9cac142420285de044c17da2d4cfd" id="r_aead9cac142420285de044c17da2d4cfd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aead9cac142420285de044c17da2d4cfd">Init</a> ()</td></tr>
+<tr class="memdesc:aead9cac142420285de044c17da2d4cfd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize the ScreenManager.  <br /></td></tr>
+<tr class="separator:aead9cac142420285de044c17da2d4cfd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a04ee1f431aa3b629e503a588e3e8a970" id="r_a04ee1f431aa3b629e503a588e3e8a970"><td class="memItemLeft" align="right" valign="top"><a id="a04ee1f431aa3b629e503a588e3e8a970" name="a04ee1f431aa3b629e503a588e3e8a970"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>UpdateVisibilities</b> ()</td></tr>
+<tr class="memdesc:a04ee1f431aa3b629e503a588e3e8a970"><td class="mdescLeft">&#160;</td><td class="mdescRight">Update the visibility of all screens. <br /></td></tr>
+<tr class="separator:a04ee1f431aa3b629e503a588e3e8a970"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae91b24b7e3b881402bf3ef4f84e8a1e4" id="r_ae91b24b7e3b881402bf3ef4f84e8a1e4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae91b24b7e3b881402bf3ef4f84e8a1e4">DoDraw</a> ()</td></tr>
+<tr class="memdesc:ae91b24b7e3b881402bf3ef4f84e8a1e4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Evaluate, if the screen should be redrawn.  <br /></td></tr>
+<tr class="separator:ae91b24b7e3b881402bf3ef4f84e8a1e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a176f8f679bf0881efe9a94c8f6817a67" id="r_a176f8f679bf0881efe9a94c8f6817a67"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a176f8f679bf0881efe9a94c8f6817a67">ShowUiMainPage</a> ()</td></tr>
+<tr class="memdesc:a176f8f679bf0881efe9a94c8f6817a67"><td class="mdescLeft">&#160;</td><td class="mdescRight">This method can be used to show the main page (no MessageDialog or calibration page).  <br /></td></tr>
+<tr class="separator:a176f8f679bf0881efe9a94c8f6817a67"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac4e01424191e6a0a575673b05b12bad7" id="r_ac4e01424191e6a0a575673b05b12bad7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac4e01424191e6a0a575673b05b12bad7">ShowUiCalibrationMenu</a> ()</td></tr>
+<tr class="memdesc:ac4e01424191e6a0a575673b05b12bad7"><td class="mdescLeft">&#160;</td><td class="mdescRight">This method can be used to start the calibration and show the calibration page.  <br /></td></tr>
+<tr class="separator:ac4e01424191e6a0a575673b05b12bad7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a413199e969daf4065d377bd9b8322adf" id="r_a413199e969daf4065d377bd9b8322adf"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a413199e969daf4065d377bd9b8322adf">ShowHideDeviceRWLMessage</a> (bool showMessage)</td></tr>
+<tr class="memdesc:a413199e969daf4065d377bd9b8322adf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Show or hide a message indicating that the device is in RWL state (only controllable via SCPI commands).  <br /></td></tr>
+<tr class="separator:a413199e969daf4065d377bd9b8322adf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa3fa495447c381c336d836e5cbef2f8d" id="r_aa3fa495447c381c336d836e5cbef2f8d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa3fa495447c381c336d836e5cbef2f8d">DeviceTimerTickISR</a> ()</td></tr>
+<tr class="memdesc:aa3fa495447c381c336d836e5cbef2f8d"><td class="mdescLeft">&#160;</td><td class="mdescRight">This method is called periodically by the device timer ISR and runs in the ISR context.  <br /></td></tr>
+<tr class="separator:aa3fa495447c381c336d836e5cbef2f8d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4e1daa0b3f1a3feb953cad9e31122e62" id="r_a4e1daa0b3f1a3feb953cad9e31122e62"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4e1daa0b3f1a3feb953cad9e31122e62">UpdateSettingsChangedIndicator</a> (bool settingsChanged)</td></tr>
+<tr class="memdesc:a4e1daa0b3f1a3feb953cad9e31122e62"><td class="mdescLeft">&#160;</td><td class="mdescRight">Update the settings changed indicator (star indicating that there are unstored settings).  <br /></td></tr>
+<tr class="separator:a4e1daa0b3f1a3feb953cad9e31122e62"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a50505ab099fd56332d689c2bc3b63eae" id="r_a50505ab099fd56332d689c2bc3b63eae"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a50505ab099fd56332d689c2bc3b63eae">UpdateCalibrationValidIndicator</a> (bool calibrationValid)</td></tr>
+<tr class="memdesc:a50505ab099fd56332d689c2bc3b63eae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Update the calibration valid indicator (calibration icon indicating that the calibration factors are valid).  <br /></td></tr>
+<tr class="separator:a50505ab099fd56332d689c2bc3b63eae"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5a737791dbde145d4b62c72edc342af6" id="r_a5a737791dbde145d4b62c72edc342af6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5a737791dbde145d4b62c72edc342af6">KeyInput</a> (Keys_t key)</td></tr>
+<tr class="memdesc:a5a737791dbde145d4b62c72edc342af6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Method that is used to input keys (and encoder inputs) into the screen subsystem (and the UI_Lib).  <br /></td></tr>
+<tr class="separator:a5a737791dbde145d4b62c72edc342af6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5f8cab235b6e669aa8b63166765c66da" id="r_a5f8cab235b6e669aa8b63166765c66da"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5f8cab235b6e669aa8b63166765c66da">TouchInput</a> (uint16_t x, uint16_t y, TouchTypes touchType)</td></tr>
+<tr class="memdesc:a5f8cab235b6e669aa8b63166765c66da"><td class="mdescLeft">&#160;</td><td class="mdescRight">Process a touch input at the given point (x, y)  <br /></td></tr>
+<tr class="separator:a5f8cab235b6e669aa8b63166765c66da"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9daaf3a60fe342d6bb182b75449db03d" id="r_a9daaf3a60fe342d6bb182b75449db03d"><td class="memItemLeft" align="right" valign="top"><a id="a9daaf3a60fe342d6bb182b75449db03d" name="a9daaf3a60fe342d6bb182b75449db03d"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>TouchHandlingISR</b> ()</td></tr>
+<tr class="memdesc:a9daaf3a60fe342d6bb182b75449db03d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Call this method cyclic for touch handling. <br /></td></tr>
+<tr class="separator:a9daaf3a60fe342d6bb182b75449db03d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
+Public Attributes</h2></td></tr>
+<tr class="memitem:a431125891a8e5e699e9c4c18aa59de94" id="r_a431125891a8e5e699e9c4c18aa59de94"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a431125891a8e5e699e9c4c18aa59de94">RedrawScreenRequest</a></td></tr>
+<tr class="memdesc:a431125891a8e5e699e9c4c18aa59de94"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flag that indicates that the screen should be redrawn.  <br /></td></tr>
+<tr class="separator:a431125891a8e5e699e9c4c18aa59de94"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a15127b5dbc4b6f8b8c7a99822215dfaf" id="r_a15127b5dbc4b6f8b8c7a99822215dfaf"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a15127b5dbc4b6f8b8c7a99822215dfaf">CurrentScreenNeedsPeriodicRedraw</a></td></tr>
+<tr class="memdesc:a15127b5dbc4b6f8b8c7a99822215dfaf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flag that indicates if the current displayed screen needs to be periodically redrawn.  <br /></td></tr>
+<tr class="separator:a15127b5dbc4b6f8b8c7a99822215dfaf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab7335b5e66625e07ee962d922d573e70" id="r_ab7335b5e66625e07ee962d922d573e70"><td class="memItemLeft" align="right" valign="top"><a id="ab7335b5e66625e07ee962d922d573e70" name="ab7335b5e66625e07ee962d922d573e70"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>IsSplashScreenShown</b></td></tr>
+<tr class="memdesc:ab7335b5e66625e07ee962d922d573e70"><td class="mdescLeft">&#160;</td><td class="mdescRight">Variable used to keep track if the SplashScreen is shown. <br /></td></tr>
+<tr class="separator:ab7335b5e66625e07ee962d922d573e70"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5bc9722278f73f41c196d57677e165e3" id="r_a5bc9722278f73f41c196d57677e165e3"><td class="memItemLeft" align="right" valign="top"><a id="a5bc9722278f73f41c196d57677e165e3" name="a5bc9722278f73f41c196d57677e165e3"></a>
+uint16_t&#160;</td><td class="memItemRight" valign="bottom"><b>TimeCounter_SplashScreen_ms</b></td></tr>
+<tr class="memdesc:a5bc9722278f73f41c196d57677e165e3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Timer conter value that is used to measure the time, the SplashScreen is shown. <br /></td></tr>
+<tr class="separator:a5bc9722278f73f41c196d57677e165e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa35a2a6b831e0015acda629a088c06c0" id="r_aa35a2a6b831e0015acda629a088c06c0"><td class="memItemLeft" align="right" valign="top"><a id="aa35a2a6b831e0015acda629a088c06c0" name="aa35a2a6b831e0015acda629a088c06c0"></a>
+uint16_t&#160;</td><td class="memItemRight" valign="bottom"><b>TimeCounter_ScreenRedraw_ms</b></td></tr>
+<tr class="memdesc:aa35a2a6b831e0015acda629a088c06c0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Variable used for measuring the time to the next screen redraw. <br /></td></tr>
+<tr class="separator:aa35a2a6b831e0015acda629a088c06c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae18607ae517114499c7bd15c5290507d" id="r_ae18607ae517114499c7bd15c5290507d"><td class="memItemLeft" align="right" valign="top"><a id="ae18607ae517114499c7bd15c5290507d" name="ae18607ae517114499c7bd15c5290507d"></a>
+uint16_t&#160;</td><td class="memItemRight" valign="bottom"><b>TimeCounter_TouchHandling_ms</b></td></tr>
+<tr class="memdesc:ae18607ae517114499c7bd15c5290507d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Variable used for measuring the time to the next touch handling. <br /></td></tr>
+<tr class="separator:ae18607ae517114499c7bd15c5290507d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-methods" name="pri-methods"></a>
+Private Member Functions</h2></td></tr>
+<tr class="memitem:a76cf468a31fd9b6a77bb5006b610ec0f" id="r_a76cf468a31fd9b6a77bb5006b610ec0f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a76cf468a31fd9b6a77bb5006b610ec0f">uiBuildTree</a> ()</td></tr>
+<tr class="memdesc:a76cf468a31fd9b6a77bb5006b610ec0f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Build the VisualTree for all screens used for drawing.  <br /></td></tr>
+<tr class="separator:a76cf468a31fd9b6a77bb5006b610ec0f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:aea8dccb7365ff36f573e5e5d2b6a005a" id="r_aea8dccb7365ff36f573e5e5d2b6a005a"><td class="memItemLeft" align="right" valign="top"><a id="aea8dccb7365ff36f573e5e5d2b6a005a" name="aea8dccb7365ff36f573e5e5d2b6a005a"></a>
+Adafruit_ILI9341&#160;</td><td class="memItemRight" valign="bottom"><b>_tft</b></td></tr>
+<tr class="memdesc:aea8dccb7365ff36f573e5e5d2b6a005a"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="class_i_l_i9341.html">ILI9341</a> graphics handle that is used with all drawing related methods. <br /></td></tr>
+<tr class="separator:aea8dccb7365ff36f573e5e5d2b6a005a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a12766d34d6a65214651da3405ec37c81" id="r_a12766d34d6a65214651da3405ec37c81"><td class="memItemLeft" align="right" valign="top"><a id="a12766d34d6a65214651da3405ec37c81" name="a12766d34d6a65214651da3405ec37c81"></a>
+<a class="el" href="class_x_p_t2046.html">XPT2046</a>&#160;</td><td class="memItemRight" valign="bottom"><b>_ts</b></td></tr>
+<tr class="memdesc:a12766d34d6a65214651da3405ec37c81"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="class_x_p_t2046.html">XPT2046</a> touchscreen handle. <br /></td></tr>
+<tr class="separator:a12766d34d6a65214651da3405ec37c81"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a155fa3762097f18058b4ad02a07f791e" id="r_a155fa3762097f18058b4ad02a07f791e"><td class="memItemLeft" align="right" valign="top">unsigned long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a155fa3762097f18058b4ad02a07f791e">_touchStartTime</a> = 0</td></tr>
+<tr class="memdesc:a155fa3762097f18058b4ad02a07f791e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Start time of the touch.  <br /></td></tr>
+<tr class="separator:a155fa3762097f18058b4ad02a07f791e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8a51c73f6b424cc391f13060eb66f9fd" id="r_a8a51c73f6b424cc391f13060eb66f9fd"><td class="memItemLeft" align="right" valign="top"><a id="a8a51c73f6b424cc391f13060eb66f9fd" name="a8a51c73f6b424cc391f13060eb66f9fd"></a>
+<a class="el" href="_screen_manager_8h.html#ac48bf9c6ee74f867c47c2ac4e7a472ee">TouchEventStates</a>&#160;</td><td class="memItemRight" valign="bottom"><b>_touchEventState</b> = <a class="el" href="_screen_manager_8h.html#ac48bf9c6ee74f867c47c2ac4e7a472eea35ff1d5d12eeebfc3b1bb26ef31b2dbb">TOUCH_EVENTS_WAIT_FOR_TOUCH</a></td></tr>
+<tr class="memdesc:a8a51c73f6b424cc391f13060eb66f9fd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Current state of the touch detection state machine. <br /></td></tr>
+<tr class="separator:a8a51c73f6b424cc391f13060eb66f9fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Class that is used to control the screen. </p>
+<p>This class can be used for screen handling. It contains all necessary handles and methods. </p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="aa3fa495447c381c336d836e5cbef2f8d" name="aa3fa495447c381c336d836e5cbef2f8d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa3fa495447c381c336d836e5cbef2f8d">&#9670;&#160;</a></span>DeviceTimerTickISR()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ScreenManagerClass::DeviceTimerTickISR </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This method is called periodically by the device timer ISR and runs in the ISR context. </p>
+<p>It is used to show or hide the SplashScreen. </p>
+
+</div>
+</div>
+<a id="ae91b24b7e3b881402bf3ef4f84e8a1e4" name="ae91b24b7e3b881402bf3ef4f84e8a1e4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae91b24b7e3b881402bf3ef4f84e8a1e4">&#9670;&#160;</a></span>DoDraw()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ScreenManagerClass::DoDraw </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Evaluate, if the screen should be redrawn. </p>
+<p>If yes, the Draw method is called. </p>
+
+</div>
+</div>
+<a id="aead9cac142420285de044c17da2d4cfd" name="aead9cac142420285de044c17da2d4cfd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aead9cac142420285de044c17da2d4cfd">&#9670;&#160;</a></span>Init()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ScreenManagerClass::Init </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Initialize the ScreenManager. </p>
+<p>This method initializes the u8g_lib and UI_Manager handles and builds the VisualTree. </p>
+
+</div>
+</div>
+<a id="a5a737791dbde145d4b62c72edc342af6" name="a5a737791dbde145d4b62c72edc342af6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5a737791dbde145d4b62c72edc342af6">&#9670;&#160;</a></span>KeyInput()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ScreenManagerClass::KeyInput </td>
+          <td>(</td>
+          <td class="paramtype">Keys_t</td>          <td class="paramname"><span class="paramname"><em>key</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Method that is used to input keys (and encoder inputs) into the screen subsystem (and the UI_Lib). </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">key</td><td>Key that is forwarded to the UI_Lib. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a413199e969daf4065d377bd9b8322adf" name="a413199e969daf4065d377bd9b8322adf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a413199e969daf4065d377bd9b8322adf">&#9670;&#160;</a></span>ShowHideDeviceRWLMessage()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ScreenManagerClass::ShowHideDeviceRWLMessage </td>
+          <td>(</td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>showMessage</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Show or hide a message indicating that the device is in RWL state (only controllable via SCPI commands). </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">showMessage</td><td>If true, a message is displayed that the device is in RWL state; If false, the main page is shown. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ac4e01424191e6a0a575673b05b12bad7" name="ac4e01424191e6a0a575673b05b12bad7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac4e01424191e6a0a575673b05b12bad7">&#9670;&#160;</a></span>ShowUiCalibrationMenu()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ScreenManagerClass::ShowUiCalibrationMenu </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This method can be used to start the calibration and show the calibration page. </p>
+<p>This is a short version for using the ChangeVisualTreeRoot() method of the UI_Manager. </p>
+
+</div>
+</div>
+<a id="a176f8f679bf0881efe9a94c8f6817a67" name="a176f8f679bf0881efe9a94c8f6817a67"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a176f8f679bf0881efe9a94c8f6817a67">&#9670;&#160;</a></span>ShowUiMainPage()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ScreenManagerClass::ShowUiMainPage </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This method can be used to show the main page (no MessageDialog or calibration page). </p>
+<p>This is a short version for using the ChangeVisualTreeRoot() method of the UI_Manager. </p>
+
+</div>
+</div>
+<a id="a5f8cab235b6e669aa8b63166765c66da" name="a5f8cab235b6e669aa8b63166765c66da"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5f8cab235b6e669aa8b63166765c66da">&#9670;&#160;</a></span>TouchInput()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool ScreenManagerClass::TouchInput </td>
+          <td>(</td>
+          <td class="paramtype">uint16_t</td>          <td class="paramname"><span class="paramname"><em>x</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint16_t</td>          <td class="paramname"><span class="paramname"><em>y</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">TouchTypes</td>          <td class="paramname"><span class="paramname"><em>touchType</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Process a touch input at the given point (x, y) </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">x</td><td>X-Coordinate of the touched point </td></tr>
+    <tr><td class="paramname">y</td><td>Y-Coordinate of the touched point </td></tr>
+    <tr><td class="paramname">touchType</td><td>Type of the touch </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true if the touch was processed; false if not. </dd></dl>
+
+</div>
+</div>
+<a id="a76cf468a31fd9b6a77bb5006b610ec0f" name="a76cf468a31fd9b6a77bb5006b610ec0f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a76cf468a31fd9b6a77bb5006b610ec0f">&#9670;&#160;</a></span>uiBuildTree()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ScreenManagerClass::uiBuildTree </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Build the VisualTree for all screens used for drawing. </p>
+<p>This function is internally called by the <a class="el" href="#aead9cac142420285de044c17da2d4cfd" title="Initialize the ScreenManager.">Init()</a> function of this class. </p>
+
+</div>
+</div>
+<a id="a50505ab099fd56332d689c2bc3b63eae" name="a50505ab099fd56332d689c2bc3b63eae"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a50505ab099fd56332d689c2bc3b63eae">&#9670;&#160;</a></span>UpdateCalibrationValidIndicator()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ScreenManagerClass::UpdateCalibrationValidIndicator </td>
+          <td>(</td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>calibrationValid</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Update the calibration valid indicator (calibration icon indicating that the calibration factors are valid). </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">calibrationValid</td><td>If true, the calibration icon is shown; If false, the calibration icon is hidden. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a4e1daa0b3f1a3feb953cad9e31122e62" name="a4e1daa0b3f1a3feb953cad9e31122e62"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4e1daa0b3f1a3feb953cad9e31122e62">&#9670;&#160;</a></span>UpdateSettingsChangedIndicator()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ScreenManagerClass::UpdateSettingsChangedIndicator </td>
+          <td>(</td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>settingsChanged</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Update the settings changed indicator (star indicating that there are unstored settings). </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">settingsChanged</td><td>If true, the star is shown; If false, the star is hidden. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="a155fa3762097f18058b4ad02a07f791e" name="a155fa3762097f18058b4ad02a07f791e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a155fa3762097f18058b4ad02a07f791e">&#9670;&#160;</a></span>_touchStartTime</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned long ScreenManagerClass::_touchStartTime = 0</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Start time of the touch. </p>
+<p>This is used to detect long touches. </p>
+
+</div>
+</div>
+<a id="a15127b5dbc4b6f8b8c7a99822215dfaf" name="a15127b5dbc4b6f8b8c7a99822215dfaf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a15127b5dbc4b6f8b8c7a99822215dfaf">&#9670;&#160;</a></span>CurrentScreenNeedsPeriodicRedraw</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool ScreenManagerClass::CurrentScreenNeedsPeriodicRedraw</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Flag that indicates if the current displayed screen needs to be periodically redrawn. </p>
+<p>This is neccessary if the screen contains measured values that change periodically. This isn't neccessary if the screen only contains static data. The screen is always redrawn on user inputs (keys or USART). </p>
+
+</div>
+</div>
+<a id="a431125891a8e5e699e9c4c18aa59de94" name="a431125891a8e5e699e9c4c18aa59de94"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a431125891a8e5e699e9c4c18aa59de94">&#9670;&#160;</a></span>RedrawScreenRequest</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool ScreenManagerClass::RedrawScreenRequest</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Flag that indicates that the screen should be redrawn. </p>
+<p>A redraw should occur periodically (if the screen needs to be redrawn periodically) or on user inputs. </p>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following files:<ul>
+<li>/github/workspace/PS_Fgen_FW/Screens/<a class="el" href="_screen_manager_8h_source.html">ScreenManager.h</a></li>
+<li>/github/workspace/PS_Fgen_FW/Screens/<b>ScreenManager.cpp</b></li>
+</ul>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- HTML footer for doxygen 1.9.1-->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="class_screen_manager_class.html">ScreenManagerClass</a></li>
+    <li class="footer">Generated on Mon Jan 20 2025 17:33:36 for PS_Fgen_FW by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2 </li>
+  </ul>
+</div>
+<script type="text/javascript">
+  $(document).ready(function(){
+    toggleButton = document.createElement('doxygen-awesome-dark-mode-toggle')
+    toggleButton.title = "Toggle Light/Dark Mode"
+    document.getElementById("MSearchBox").parentNode.appendChild(toggleButton)
+  })
+</script>
+</body>
+</html>

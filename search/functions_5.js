@@ -1,0 +1,27 @@
+var searchData=
+[
+  ['getamplitude_0',['GetAmplitude',['../class_d_d_s___channel.html#abb914602f33423df75dd6a32e7d46767',1,'DDS_Channel']]],
+  ['getchanneltype_1',['GetChannelType',['../class_channel.html#aa105406fb395c50ec86d19dddf9d9026',1,'Channel']]],
+  ['getenabled_2',['GetEnabled',['../class_d_d_s___channel.html#acbed72bf3a450f8e09a93abe37689798',1,'DDS_Channel::GetEnabled()'],['../class_p_s___channel.html#a4fe39b4ddada8e7d9d5ea7e940a6643f',1,'PS_Channel::GetEnabled()']]],
+  ['getfrequency_3',['GetFrequency',['../class_d_d_s___channel.html#a480d6653d91af878f9d1ff4173eeede9',1,'DDS_Channel']]],
+  ['getinterruptcaptures_4',['getInterruptCaptures',['../class_m_c_p23_s08.html#af48a82c17b407793f5ba5970c03bb69f',1,'MCP23S08']]],
+  ['getinterruptcontrol_5',['getInterruptControl',['../class_m_c_p23_s08.html#aef201545b185b319da05cf01ab54424c',1,'MCP23S08']]],
+  ['getinterruptflags_6',['getInterruptFlags',['../class_m_c_p23_s08.html#a875013704892cf51f73876297f155e47',1,'MCP23S08']]],
+  ['getinterruptonchange_7',['getInterruptOnChange',['../class_m_c_p23_s08.html#a1bb687609273ad98f6c03f26001b02e8',1,'MCP23S08']]],
+  ['getinterruptonchangedefaultcompare_8',['getInterruptOnChangeDefaultCompare',['../class_m_c_p23_s08.html#a695e2420036e7e84f2ac6e9014508343',1,'MCP23S08']]],
+  ['getocpdelay_9',['GetOcpDelay',['../class_p_s___channel.html#a569b793e4487cee44a0acda22cb2e450',1,'PS_Channel']]],
+  ['getocplevel_10',['GetOcpLevel',['../class_p_s___channel.html#af1f32b69f3732ea4ec5a7caae8918b30',1,'PS_Channel']]],
+  ['getocpstate_11',['GetOcpState',['../class_p_s___channel.html#aa03ea7e63b479a0cc52bda25f4e65d38',1,'PS_Channel']]],
+  ['getoffset_12',['GetOffset',['../class_d_d_s___channel.html#af037365d6743b372ffa7cffe0f73ef42',1,'DDS_Channel']]],
+  ['getoppdelay_13',['GetOppDelay',['../class_p_s___channel.html#ac3cfa956e91cdee3633a13569d538079',1,'PS_Channel']]],
+  ['getopplevel_14',['GetOppLevel',['../class_p_s___channel.html#aa892cf1b012fc7d33be6397e42433dc4',1,'PS_Channel']]],
+  ['getoppstate_15',['GetOppState',['../class_p_s___channel.html#a3403ca32fe0efb6709ec109a1cfc0e54',1,'PS_Channel']]],
+  ['getovpdelay_16',['GetOvpDelay',['../class_p_s___channel.html#af3bcafa8674a443d59f3bf620722d9c2',1,'PS_Channel']]],
+  ['getovplevel_17',['GetOvpLevel',['../class_p_s___channel.html#aba8f2266b32f8bcf0f11300f50870ae1',1,'PS_Channel']]],
+  ['getovpstate_18',['GetOvpState',['../class_p_s___channel.html#ae9ef81eec2af427ed17af77b14725589',1,'PS_Channel']]],
+  ['getpsstate_19',['GetPsState',['../class_p_s___channel.html#a849f1ae9d7ac67640a73ad6805b2e334',1,'PS_Channel']]],
+  ['getpwmvalue_20',['GetPWMValue',['../class_d_d_s___channel.html#a611103e8863ecb959463904f1276c4ac',1,'DDS_Channel']]],
+  ['getregulationmode_21',['GetRegulationMode',['../class_p_s___channel.html#a735470b652fb7aaacf495bb91367354d',1,'PS_Channel']]],
+  ['getsignalform_22',['GetSignalForm',['../class_d_d_s___channel.html#a7150d4df21d0cccae617b2fcbadcfa65',1,'DDS_Channel']]],
+  ['getvoltage_23',['GetVoltage',['../class_p_s___channel.html#a6380f6cd8d046a7ed7904a81a5f5fbbc',1,'PS_Channel']]]
+];

@@ -1,0 +1,334 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.13.2"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<!-- BEGIN opengraph metadata -->
+<meta property="og:title" content="Doxygen Awesome" />
+<meta property="og:image" content="https://repository-images.githubusercontent.com/348492097/4f16df80-88fb-11eb-9d31-4015ff22c452" />
+<meta property="og:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
+<meta property="og:url" content="https://jothepro.github.io/doxygen-awesome-css/" />
+<!-- END opengraph metadata -->
+<!-- BEGIN twitter metadata -->
+<meta name="twitter:image:src" content="https://repository-images.githubusercontent.com/348492097/4f16df80-88fb-11eb-9d31-4015ff22c452" />
+<meta name="twitter:title" content="Doxygen Awesome" />
+<meta name="twitter:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
+<!-- END twitter metadata -->
+<title>PS_Fgen_FW: 5 - SCPI Interface</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<link rel="icon" type="image/svg+xml" href="logo.drawio.svg"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="doxygen-awesome-darkmode-toggle.js"></script>
+<script type="text/javascript" src="doxygen-awesome-fragment-copy-button.js"></script>
+<script type="text/javascript" src="doxygen-awesome-paragraph-link.js"></script>
+<script type="text/javascript" src="doxygen-awesome-interactive-toc.js"></script>
+<script type="text/javascript" src="doxygen-awesome-tabs.js"></script>
+<script type="text/javascript" src="toggle-alternative-theme.js"></script>
+<script type="text/javascript">
+    DoxygenAwesomeFragmentCopyButton.init()
+    DoxygenAwesomeDarkModeToggle.init()
+    DoxygenAwesomeParagraphLink.init()
+    DoxygenAwesomeInteractiveToc.init()
+    DoxygenAwesomeTabs.init()
+</script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="custom.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<!-- https://tholman.com/github-corners/ -->
+<a href="https://github.com/M1S2/PS_Fgen_FW" class="github-corner" title="View source on GitHub" target="_blank" rel="noopener noreferrer">
+    <svg viewBox="0 0 250 250" width="40" height="40" style="position: absolute; top: 0; border: 0; right: 0; z-index: 99;" aria-hidden="true">
+    <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="logo.png"/></td>
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">PS_Fgen_FW
+   &#160;<span id="projectnumber">4da88f4073c1cc65ea45c3a652a2751e495e50db</span>
+   </div>
+   <div id="projectbrief">Firmware for an Power Supply and Function Generator build from an ATX power supply</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.13.2 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() { codefold.init(0); });
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Search',true);
+  $(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function(){initNavTree('page_5_scpiinterface.html',''); initResizable(true); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div><div class="header">
+  <div class="headertitle"><div class="title">5 - SCPI Interface</div></div>
+</div><!--header-->
+<div class="contents">
+<div class="textblock"><p>The device supports SCPI (Standard Commands for Programmable Instruments) commands that can be used for remote control. All commands are received via the USB input (serial port).</p>
+<p>The following parser is used to decode all incoming SCPI commands:</p>
+<p><a href="https://github.com/j123b567/scpi-parser">GitHub - j123b567/scpi-parser: Open Source SCPI device library</a></p>
+<p>The following list gives an overview of the implemented (and planned) SCPI commands. It is inspired by <a href="https://www.envox.eu/eez-bench-box-3/bb3-scpi-reference-manual/bb3-scpi-commands-summary/">SCPI commands summary – EEZ – Envox Experimental Zone</a></p>
+<p>Try out sending one of the following commands to the device by simply opening a COM port and writing the characters. A good command for testing the connection and parser is "*IDN?" which returns some details about the device.</p>
+<h1><a class="anchor" id="ui_scpi_common_sec"></a>
+Common</h1>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadNone">Command   </th><th class="markdownTableHeadNone">Status   </th><th class="markdownTableHeadNone">Description    </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">CLS   </td><td class="markdownTableBodyNone">OK   </td><td class="markdownTableBodyNone">Clears all status data structures    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">ESE {&lt;value&gt;}   </td><td class="markdownTableBodyNone">OK   </td><td class="markdownTableBodyNone">Programs the Standard Event Status Enable register bits    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">ESE?   </td><td class="markdownTableBodyNone">OK   </td><td class="markdownTableBodyNone">Reads the Standard Event Status Enable register bits    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">ESR?   </td><td class="markdownTableBodyNone">OK   </td><td class="markdownTableBodyNone">Reads the Standard Event Status Register    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">IDN?   </td><td class="markdownTableBodyNone">OK   </td><td class="markdownTableBodyNone">Returns the UNIQUE identification of the device    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">OPC   </td><td class="markdownTableBodyNone">OK   </td><td class="markdownTableBodyNone">Operation Complete Command used for program synchronization    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">OPC?   </td><td class="markdownTableBodyNone">OK   </td><td class="markdownTableBodyNone">Read the Operation Complete status    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">RCL {&lt;profile&gt;}   </td><td class="markdownTableBodyNone">OK   </td><td class="markdownTableBodyNone">Recalls the device state stored in the specified storage location    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">RST   </td><td class="markdownTableBodyNone">OK   </td><td class="markdownTableBodyNone">Reset device to the initial state    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">SAV {&lt;profile&gt;}   </td><td class="markdownTableBodyNone">OK   </td><td class="markdownTableBodyNone">Stores the current device state in the specified storage location    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">SRE   </td><td class="markdownTableBodyNone">OK   </td><td class="markdownTableBodyNone">Service Request Enable Command    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">SRE?   </td><td class="markdownTableBodyNone">OK   </td><td class="markdownTableBodyNone">Service Request Enable Query    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">STB?   </td><td class="markdownTableBodyNone">OK   </td><td class="markdownTableBodyNone">Reads the Status Byte register    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">TST?   </td><td class="markdownTableBodyNone">TODO   </td><td class="markdownTableBodyNone">Returns Self-Test results    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">WAI   </td><td class="markdownTableBodyNone">OK   </td><td class="markdownTableBodyNone">Waits until all pending commands are completed   </td></tr>
+</table>
+<h1><a class="anchor" id="ui_scpi_instrument_sec"></a>
+Instrument</h1>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadNone">Command   </th><th class="markdownTableHeadNone">Status   </th><th class="markdownTableHeadNone">Description    </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">INSTrument[:SELect] {&lt;channel&gt;}   </td><td class="markdownTableBodyNone">OK   </td><td class="markdownTableBodyNone">Selects the output to be programmed (CH1|CH2|CH3|CH4|CH5)    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">INSTrument[:SELect]?   </td><td class="markdownTableBodyNone">OK   </td><td class="markdownTableBodyNone">Query the selected output    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">INSTrument:NSELect {&lt;channel&gt;}   </td><td class="markdownTableBodyNone">OK   </td><td class="markdownTableBodyNone">Selects the output number to be programmed (1..5)    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">INSTrument:NSELect?   </td><td class="markdownTableBodyNone">OK   </td><td class="markdownTableBodyNone">Query the selected output number   </td></tr>
+</table>
+<h1><a class="anchor" id="ui_scpi_measure_sec"></a>
+Measure</h1>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadNone">Command   </th><th class="markdownTableHeadNone">Status   </th><th class="markdownTableHeadNone">Description    </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">MEASure[&lt;channel&gt;][:SCALar][:VOLTage][:DC]?   </td><td class="markdownTableBodyNone">OK   </td><td class="markdownTableBodyNone">Query the measured voltage on the channel    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">MEASure[&lt;channel&gt;][:SCALar]:CURRent[:DC]?   </td><td class="markdownTableBodyNone">OK   </td><td class="markdownTableBodyNone">Query the measured current on the channel    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">MEASure[&lt;channel&gt;][:SCALar]:POWer[:DC]?   </td><td class="markdownTableBodyNone">OK   </td><td class="markdownTableBodyNone">Query the measured power on the channel   </td></tr>
+</table>
+<h1><a class="anchor" id="ui_scpi_output_sec"></a>
+Output</h1>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadNone">Command   </th><th class="markdownTableHeadNone">Status   </th><th class="markdownTableHeadNone">Description    </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">OUTPut[&lt;channel&gt;][:STATe] {&lt;bool&gt;}   </td><td class="markdownTableBodyNone">OK   </td><td class="markdownTableBodyNone">Turn on/off the specified output channel    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">OUTPut[&lt;channel&gt;][:STATe]?   </td><td class="markdownTableBodyNone">OK   </td><td class="markdownTableBodyNone">Query the state of the specified output channel    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">OUTPut[&lt;channel&gt;]:GENeral &lt;bool&gt;   </td><td class="markdownTableBodyNone">OK   </td><td class="markdownTableBodyNone">Turn on/off all channels simultaneously    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">OUTPut[&lt;channel&gt;]:GENeral?   </td><td class="markdownTableBodyNone">OK   </td><td class="markdownTableBodyNone">Get a string with all output states   </td></tr>
+</table>
+<h1><a class="anchor" id="ui_scpi_source_sec"></a>
+Source</h1>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadNone">Command   </th><th class="markdownTableHeadNone">Status   </th><th class="markdownTableHeadNone">Description    </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">SOURce[&lt;channel&gt;]:CURRent:PROTection[:LEVel]   </td><td class="markdownTableBodyNone">OK   </td><td class="markdownTableBodyNone">Sets the over-current protection (OCP) level in Ampere    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">SOURce[&lt;channel&gt;]:CURRent:PROTection[:LEVel]?   </td><td class="markdownTableBodyNone">OK   </td><td class="markdownTableBodyNone">Query the over-current protection (OCP) level in Ampere    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">SOURce[&lt;channel&gt;]:CURRent:PROTection:STATe {&lt;bool&gt;}   </td><td class="markdownTableBodyNone">OK   </td><td class="markdownTableBodyNone">Enables/disables over-current protection on the selected channel    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">SOURce[&lt;channel&gt;]:CURRent:PROTection:STATe?   </td><td class="markdownTableBodyNone">OK   </td><td class="markdownTableBodyNone">Query the state of the over-current protection on the selected channel    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">SOURce[&lt;channel&gt;]:CURRent:PROTection:DELay {&lt;time&gt;}   </td><td class="markdownTableBodyNone">OK   </td><td class="markdownTableBodyNone">Protection function will not be triggered during the delay time. After the delay time has expired, the protection function will be active.    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">SOURce[&lt;channel&gt;]:CURRent:PROTection:DELay?   </td><td class="markdownTableBodyNone">OK   </td><td class="markdownTableBodyNone">Query the protection delay    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">SOURce[&lt;channel&gt;]:CURRent:PROTection:TRIPped?   </td><td class="markdownTableBodyNone">OK   </td><td class="markdownTableBodyNone">Returns status of over-current protection activation    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">SOURce[&lt;channel&gt;]:CURRent:PROTection:CLEar   </td><td class="markdownTableBodyNone">OK   </td><td class="markdownTableBodyNone">Clear the over-current protection    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">SOURce[&lt;channel&gt;]:FUNCtion[:SHAPe]   </td><td class="markdownTableBodyNone">OK   </td><td class="markdownTableBodyNone">Selects the shape of the output signal (DC|SINusoid|SQUare|TRIangle|SAWtooth|USER)    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">SOURce[&lt;channel&gt;]:FUNCtion[:SHAPe]?   </td><td class="markdownTableBodyNone">OK   </td><td class="markdownTableBodyNone">Query the shape of the output signal    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">SOURce[&lt;channel&gt;]:FUNCtion:MODE?   </td><td class="markdownTableBodyNone">OK   </td><td class="markdownTableBodyNone">Determines which signal characteristic is being controlled. Only "VOLTage" is supported    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">SOURce[&lt;channel&gt;]:FUNCtion:DATa #&lt;NumBytesDigits&gt;&lt;NumBytes&gt;&lt;Bytes&gt;   </td><td class="markdownTableBodyNone">OK   </td><td class="markdownTableBodyNone">Set the user defined waveform data of the channel. Only used if SHAPe is set to USER    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">SOURce[&lt;channel&gt;]:FREQuency[:CW] {&lt;frequency&gt;}   </td><td class="markdownTableBodyNone">OK   </td><td class="markdownTableBodyNone">Set the frequency of a non-swept signal    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">SOURce[&lt;channel&gt;]:FREQuency[:CW]?   </td><td class="markdownTableBodyNone">OK   </td><td class="markdownTableBodyNone">Query the frequency of a non-swept signal    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">SOURce[&lt;channel&gt;]:POWer:PROTection[:LEVel]   </td><td class="markdownTableBodyNone">OK   </td><td class="markdownTableBodyNone">Sets the over-power protection (OPP) level in Watt    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">SOURce[&lt;channel&gt;]:POWer:PROTection[:LEVel]?   </td><td class="markdownTableBodyNone">OK   </td><td class="markdownTableBodyNone">Query the over-power protection (OPP) level in Watt    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">SOURce[&lt;channel&gt;]:POWer:PROTection:STATe {&lt;bool&gt;}   </td><td class="markdownTableBodyNone">OK   </td><td class="markdownTableBodyNone">Enables/disables over-power protection on the selected channel    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">SOURce[&lt;channel&gt;]:POWer:PROTection:STATe?   </td><td class="markdownTableBodyNone">OK   </td><td class="markdownTableBodyNone">Query the state of the over-power protection on the selected channel    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">SOURce[&lt;channel&gt;]:POWer:PROTection:DELay {&lt;time&gt;}   </td><td class="markdownTableBodyNone">OK   </td><td class="markdownTableBodyNone">Protection function will not be triggered during the delay time. After the delay time has expired, the protection function will be active.    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">SOURce[&lt;channel&gt;]:POWer:PROTection:DELay?   </td><td class="markdownTableBodyNone">OK   </td><td class="markdownTableBodyNone">Query the protection delay    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">SOURce[&lt;channel&gt;]:POWer:PROTection:TRIPped?   </td><td class="markdownTableBodyNone">OK   </td><td class="markdownTableBodyNone">Returns status of over-power protection activation    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">SOURce[&lt;channel&gt;]:POWer:PROTection:CLEar   </td><td class="markdownTableBodyNone">OK   </td><td class="markdownTableBodyNone">Clear the over-power protection    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">SOURce[&lt;channel&gt;]:VOLTage[:LEVel][:IMMediate][:AMPLitude] {&lt;voltage&gt;}   </td><td class="markdownTableBodyNone">OK   </td><td class="markdownTableBodyNone">Sets the output amplitude (MINimum|MAXimum|UP|DOWN|&lt;Voltage&gt;) in Volt    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">SOURce[&lt;channel&gt;]:VOLTage[:LEVel][:IMMediate][:AMPLitude]?   </td><td class="markdownTableBodyNone">OK   </td><td class="markdownTableBodyNone">Query the output amplitude in Volt    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">SOURce[&lt;channel&gt;]:VOLTage[:LEVel][:IMMediate]:OFFSet {&lt;voltage&gt;}   </td><td class="markdownTableBodyNone">OK   </td><td class="markdownTableBodyNone">Sets the output offset (non-time varying component of the signal) (MINimum|MAXimum|UP|DOWN|&lt;Voltage&gt;)    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">SOURce[&lt;channel&gt;]:VOLTage[:LEVel][:IMMediate]:OFFSet?   </td><td class="markdownTableBodyNone">OK   </td><td class="markdownTableBodyNone">Query the output offset    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">SOURce[&lt;channel&gt;]:VOLTage:PROTection[:LEVel]   </td><td class="markdownTableBodyNone">OK   </td><td class="markdownTableBodyNone">Sets the over-voltage protection (OVP) level in percent of the configured voltage    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">SOURce[&lt;channel&gt;]:VOLTage:PROTection[:LEVel]?   </td><td class="markdownTableBodyNone">OK   </td><td class="markdownTableBodyNone">Query the over-voltage protection (OVP) level in percent of the configured voltage    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">SOURce[&lt;channel&gt;]:VOLTage:PROTection:STATe {&lt;bool&gt;}   </td><td class="markdownTableBodyNone">OK   </td><td class="markdownTableBodyNone">Enables/disables over-voltage protection on the selected channel    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">SOURce[&lt;channel&gt;]:VOLTage:PROTection:STATe?   </td><td class="markdownTableBodyNone">OK   </td><td class="markdownTableBodyNone">Query the state of the over-voltage protection on the selected channel    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">SOURce[&lt;channel&gt;]:VOLTage:PROTection:DELay {&lt;time&gt;}   </td><td class="markdownTableBodyNone">OK   </td><td class="markdownTableBodyNone">Protection function will not be triggered during the delay time. After the delay time has expired, the protection function will be active.    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">SOURce[&lt;channel&gt;]:VOLTage:PROTection:DELay?   </td><td class="markdownTableBodyNone">OK   </td><td class="markdownTableBodyNone">Query the protection delay    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">SOURce[&lt;channel&gt;]:VOLTage:PROTection:TRIPped?   </td><td class="markdownTableBodyNone">OK   </td><td class="markdownTableBodyNone">Returns status of over-voltage protection activation    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">SOURce[&lt;channel&gt;]:VOLTage:PROTection:CLEar   </td><td class="markdownTableBodyNone">OK   </td><td class="markdownTableBodyNone">Reset the OVP state of the channel   </td></tr>
+</table>
+<h1><a class="anchor" id="ui_scpi_system_sec"></a>
+System</h1>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadNone">Command   </th><th class="markdownTableHeadNone">Status   </th><th class="markdownTableHeadNone">Description    </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">SYSTem:CHANnel[:COUNt]?   </td><td class="markdownTableBodyNone">OK   </td><td class="markdownTableBodyNone">Returns the number of output channels    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">SYSTem:FIRMware?   </td><td class="markdownTableBodyNone">OK   </td><td class="markdownTableBodyNone">Returns device firmware version    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">SYSTem:SNO?   </td><td class="markdownTableBodyNone">OK   </td><td class="markdownTableBodyNone">Returns the device serial number    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">SYSTem:ERRor[:NEXT]?   </td><td class="markdownTableBodyNone">OK   </td><td class="markdownTableBodyNone">Queries and clears errors from the error queue    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">SYSTem:ERRor:COUNt?   </td><td class="markdownTableBodyNone">OK   </td><td class="markdownTableBodyNone">Queries the error/event queue for the number of unread items    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">SYSTem:LOCal   </td><td class="markdownTableBodyNone">OK   </td><td class="markdownTableBodyNone">Places the device in the local mode    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">SYSTem:MEASure[:SCALar][:VOLTage][:DC]?   </td><td class="markdownTableBodyNone">OK   </td><td class="markdownTableBodyNone">Query some system ATX voltages (&lt;ATX_3V3&gt;,&lt;ATX_5V&gt;)    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">SYSTem:REMote   </td><td class="markdownTableBodyNone">OK   </td><td class="markdownTableBodyNone">Places the device in the remote mode    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">SYSTem:RWLock   </td><td class="markdownTableBodyNone">OK   </td><td class="markdownTableBodyNone">Places the device in the remote mode and disables front panel [lock/unlock] icon    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">SYSTem:VERSion?   </td><td class="markdownTableBodyNone">OK   </td><td class="markdownTableBodyNone">Returns the SCPI version number   </td></tr>
+</table>
+</div></div><!-- contents -->
+</div><!-- PageDoc -->
+</div><!-- doc-content -->
+<!-- HTML footer for doxygen 1.9.1-->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="footer">Generated on Mon Jan 20 2025 17:33:36 for PS_Fgen_FW by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2 </li>
+  </ul>
+</div>
+<script type="text/javascript">
+  $(document).ready(function(){
+    toggleButton = document.createElement('doxygen-awesome-dark-mode-toggle')
+    toggleButton.title = "Toggle Light/Dark Mode"
+    document.getElementById("MSearchBox").parentNode.appendChild(toggleButton)
+  })
+</script>
+</body>
+</html>

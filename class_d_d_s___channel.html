@@ -1,0 +1,930 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.13.2"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<!-- BEGIN opengraph metadata -->
+<meta property="og:title" content="Doxygen Awesome" />
+<meta property="og:image" content="https://repository-images.githubusercontent.com/348492097/4f16df80-88fb-11eb-9d31-4015ff22c452" />
+<meta property="og:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
+<meta property="og:url" content="https://jothepro.github.io/doxygen-awesome-css/" />
+<!-- END opengraph metadata -->
+<!-- BEGIN twitter metadata -->
+<meta name="twitter:image:src" content="https://repository-images.githubusercontent.com/348492097/4f16df80-88fb-11eb-9d31-4015ff22c452" />
+<meta name="twitter:title" content="Doxygen Awesome" />
+<meta name="twitter:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
+<!-- END twitter metadata -->
+<title>PS_Fgen_FW: DDS_Channel Class Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<link rel="icon" type="image/svg+xml" href="logo.drawio.svg"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="doxygen-awesome-darkmode-toggle.js"></script>
+<script type="text/javascript" src="doxygen-awesome-fragment-copy-button.js"></script>
+<script type="text/javascript" src="doxygen-awesome-paragraph-link.js"></script>
+<script type="text/javascript" src="doxygen-awesome-interactive-toc.js"></script>
+<script type="text/javascript" src="doxygen-awesome-tabs.js"></script>
+<script type="text/javascript" src="toggle-alternative-theme.js"></script>
+<script type="text/javascript">
+    DoxygenAwesomeFragmentCopyButton.init()
+    DoxygenAwesomeDarkModeToggle.init()
+    DoxygenAwesomeParagraphLink.init()
+    DoxygenAwesomeInteractiveToc.init()
+    DoxygenAwesomeTabs.init()
+</script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="custom.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<!-- https://tholman.com/github-corners/ -->
+<a href="https://github.com/M1S2/PS_Fgen_FW" class="github-corner" title="View source on GitHub" target="_blank" rel="noopener noreferrer">
+    <svg viewBox="0 0 250 250" width="40" height="40" style="position: absolute; top: 0; border: 0; right: 0; z-index: 99;" aria-hidden="true">
+    <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="logo.png"/></td>
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">PS_Fgen_FW
+   &#160;<span id="projectnumber">4da88f4073c1cc65ea45c3a652a2751e495e50db</span>
+   </div>
+   <div id="projectbrief">Firmware for an Power Supply and Function Generator build from an ATX power supply</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.13.2 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() { codefold.init(0); });
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Search',true);
+  $(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function(){initNavTree('class_d_d_s___channel.html',''); initResizable(true); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
+<a href="#pub-attribs">Public Attributes</a> &#124;
+<a href="class_d_d_s___channel-members.html">List of all members</a>  </div>
+  <div class="headertitle"><div class="title">DDS_Channel Class Reference</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>Direct digital synthesis channel.  
+ <a href="#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="_d_d_s___channel_8h_source.html">DDS_Channel.h</a>&gt;</code></p>
+<div class="dynheader">
+Inheritance diagram for DDS_Channel:</div>
+<div class="dyncontent">
+ <div class="center">
+  <img src="class_d_d_s___channel.png" usemap="#DDS_5FChannel_map" alt=""/>
+  <map id="DDS_5FChannel_map" name="DDS_5FChannel_map">
+<area href="class_channel.html" title="Channel base class." alt="Channel" shape="rect" coords="0,0,92,24"/>
+  </map>
+</div></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a549dc4d10ae8fc4c9052eb262d329f8a" id="r_a549dc4d10ae8fc4c9052eb262d329f8a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a549dc4d10ae8fc4c9052eb262d329f8a">DDS_Channel</a> (uint8_t ddsChannelNumber, float minFreq, float maxFreq, float minAmpl, float maxAmpl, float minOffset, float maxOffset)</td></tr>
+<tr class="memdesc:a549dc4d10ae8fc4c9052eb262d329f8a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor of the <a class="el" href="class_d_d_s___channel.html" title="Direct digital synthesis channel.">DDS_Channel</a>.  <br /></td></tr>
+<tr class="separator:a549dc4d10ae8fc4c9052eb262d329f8a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab5433701efa775db192c46d2ba1d3708" id="r_ab5433701efa775db192c46d2ba1d3708"><td class="memItemLeft" align="right" valign="top"><a id="ab5433701efa775db192c46d2ba1d3708" name="ab5433701efa775db192c46d2ba1d3708"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>UpdateIncrement</b> ()</td></tr>
+<tr class="memdesc:ab5433701efa775db192c46d2ba1d3708"><td class="mdescLeft">&#160;</td><td class="mdescRight">Update the increment value based on the Frequency. <br /></td></tr>
+<tr class="separator:ab5433701efa775db192c46d2ba1d3708"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af5421f55c683365d3dae39d4feb4b32b" id="r_af5421f55c683365d3dae39d4feb4b32b"><td class="memItemLeft" align="right" valign="top"><a id="af5421f55c683365d3dae39d4feb4b32b" name="af5421f55c683365d3dae39d4feb4b32b"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>UpdateWaveTable</b> ()</td></tr>
+<tr class="memdesc:af5421f55c683365d3dae39d4feb4b32b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Update the WaveTable based on the SignalForm, Amplitude and Offset. <br /></td></tr>
+<tr class="separator:af5421f55c683365d3dae39d4feb4b32b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac20e1ce8307726b099dbd54391d1965f" id="r_ac20e1ce8307726b099dbd54391d1965f"><td class="memItemLeft" align="right" valign="top"><a id="ac20e1ce8307726b099dbd54391d1965f" name="ac20e1ce8307726b099dbd54391d1965f"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>UpdateOriginalWaveTable</b> ()</td></tr>
+<tr class="memdesc:ac20e1ce8307726b099dbd54391d1965f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Update the pointer to the original WaveTable based on the SignalForm. <br /></td></tr>
+<tr class="separator:ac20e1ce8307726b099dbd54391d1965f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a36d96842057d5ad73c4ada314daea5b4" id="r_a36d96842057d5ad73c4ada314daea5b4"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a36d96842057d5ad73c4ada314daea5b4">SetEnabled</a> (bool enabled)</td></tr>
+<tr class="memdesc:a36d96842057d5ad73c4ada314daea5b4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the Enabled property of the DDS channel.  <br /></td></tr>
+<tr class="separator:a36d96842057d5ad73c4ada314daea5b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acbed72bf3a450f8e09a93abe37689798" id="r_acbed72bf3a450f8e09a93abe37689798"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#acbed72bf3a450f8e09a93abe37689798">GetEnabled</a> ()</td></tr>
+<tr class="memdesc:acbed72bf3a450f8e09a93abe37689798"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the Enabled property of the DDS channel.  <br /></td></tr>
+<tr class="separator:acbed72bf3a450f8e09a93abe37689798"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa5607124faeedc502dc6e3133e2b08d2" id="r_aa5607124faeedc502dc6e3133e2b08d2"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa5607124faeedc502dc6e3133e2b08d2">SetFrequency</a> (float frequency)</td></tr>
+<tr class="memdesc:aa5607124faeedc502dc6e3133e2b08d2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the Frequency property of the DDS channel.  <br /></td></tr>
+<tr class="separator:aa5607124faeedc502dc6e3133e2b08d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a480d6653d91af878f9d1ff4173eeede9" id="r_a480d6653d91af878f9d1ff4173eeede9"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a480d6653d91af878f9d1ff4173eeede9">GetFrequency</a> ()</td></tr>
+<tr class="memdesc:a480d6653d91af878f9d1ff4173eeede9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the Frequency property of the DDS channel.  <br /></td></tr>
+<tr class="separator:a480d6653d91af878f9d1ff4173eeede9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a434fdea13588c7d54247010401a9d111" id="r_a434fdea13588c7d54247010401a9d111"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a434fdea13588c7d54247010401a9d111">SetAmplitude</a> (float amplitude)</td></tr>
+<tr class="memdesc:a434fdea13588c7d54247010401a9d111"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the Amplitude property of the DDS channel.  <br /></td></tr>
+<tr class="separator:a434fdea13588c7d54247010401a9d111"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abb914602f33423df75dd6a32e7d46767" id="r_abb914602f33423df75dd6a32e7d46767"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abb914602f33423df75dd6a32e7d46767">GetAmplitude</a> ()</td></tr>
+<tr class="memdesc:abb914602f33423df75dd6a32e7d46767"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the Amplitude property of the DDS channel.  <br /></td></tr>
+<tr class="separator:abb914602f33423df75dd6a32e7d46767"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a56ee8a788b7327e669c12b0fbf12d7e5" id="r_a56ee8a788b7327e669c12b0fbf12d7e5"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a56ee8a788b7327e669c12b0fbf12d7e5">SetOffset</a> (float offset)</td></tr>
+<tr class="memdesc:a56ee8a788b7327e669c12b0fbf12d7e5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the Offset property of the DDS channel.  <br /></td></tr>
+<tr class="separator:a56ee8a788b7327e669c12b0fbf12d7e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af037365d6743b372ffa7cffe0f73ef42" id="r_af037365d6743b372ffa7cffe0f73ef42"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af037365d6743b372ffa7cffe0f73ef42">GetOffset</a> ()</td></tr>
+<tr class="memdesc:af037365d6743b372ffa7cffe0f73ef42"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the Offset property of the DDS channel.  <br /></td></tr>
+<tr class="separator:af037365d6743b372ffa7cffe0f73ef42"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9b22c59e89d593ea3eb63c477382f9ed" id="r_a9b22c59e89d593ea3eb63c477382f9ed"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9b22c59e89d593ea3eb63c477382f9ed">SetSignalForm</a> (<a class="el" href="_d_d_s___channel_8h.html#ac3f38543b6d383713ff137849d09b257">SignalForms_t</a> signalForm)</td></tr>
+<tr class="memdesc:a9b22c59e89d593ea3eb63c477382f9ed"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the SignalForm property of the DDS channel.  <br /></td></tr>
+<tr class="separator:a9b22c59e89d593ea3eb63c477382f9ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7150d4df21d0cccae617b2fcbadcfa65" id="r_a7150d4df21d0cccae617b2fcbadcfa65"><td class="memItemLeft" align="right" valign="top"><a class="el" href="_d_d_s___channel_8h.html#ac3f38543b6d383713ff137849d09b257">SignalForms_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7150d4df21d0cccae617b2fcbadcfa65">GetSignalForm</a> ()</td></tr>
+<tr class="memdesc:a7150d4df21d0cccae617b2fcbadcfa65"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the SignalForm property of the DDS channel.  <br /></td></tr>
+<tr class="separator:a7150d4df21d0cccae617b2fcbadcfa65"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2741270f386c74f3007acc08435f58c1" id="r_a2741270f386c74f3007acc08435f58c1"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2741270f386c74f3007acc08435f58c1">SetPWMValue</a> (float pwmValue)</td></tr>
+<tr class="memdesc:a2741270f386c74f3007acc08435f58c1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the PWM_Value property of the DDS channel.  <br /></td></tr>
+<tr class="separator:a2741270f386c74f3007acc08435f58c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a611103e8863ecb959463904f1276c4ac" id="r_a611103e8863ecb959463904f1276c4ac"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a611103e8863ecb959463904f1276c4ac">GetPWMValue</a> ()</td></tr>
+<tr class="memdesc:a611103e8863ecb959463904f1276c4ac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the PWM_Value property of the DDS channel.  <br /></td></tr>
+<tr class="separator:a611103e8863ecb959463904f1276c4ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_methods_class_channel"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pub_methods_class_channel')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="class_channel.html">Channel</a></td></tr>
+<tr class="memitem:a987c7329f633df5b6f0750ac35549c1e inherit pub_methods_class_channel" id="r_a987c7329f633df5b6f0750ac35549c1e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_channel.html#a987c7329f633df5b6f0750ac35549c1e">Channel</a> (<a class="el" href="_channel_8h.html#a724c1fb2cb44a48b26550955cede49be">ChannelTypes_t</a> channelType)</td></tr>
+<tr class="memdesc:a987c7329f633df5b6f0750ac35549c1e inherit pub_methods_class_channel"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor of the <a class="el" href="class_channel.html" title="Channel base class.">Channel</a> class.  <br /></td></tr>
+<tr class="separator:a987c7329f633df5b6f0750ac35549c1e inherit pub_methods_class_channel"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa105406fb395c50ec86d19dddf9d9026 inherit pub_methods_class_channel" id="r_aa105406fb395c50ec86d19dddf9d9026"><td class="memItemLeft" align="right" valign="top"><a class="el" href="_channel_8h.html#a724c1fb2cb44a48b26550955cede49be">ChannelTypes_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_channel.html#aa105406fb395c50ec86d19dddf9d9026">GetChannelType</a> ()</td></tr>
+<tr class="memdesc:aa105406fb395c50ec86d19dddf9d9026 inherit pub_methods_class_channel"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function that can be used to return the _channelType property.  <br /></td></tr>
+<tr class="separator:aa105406fb395c50ec86d19dddf9d9026 inherit pub_methods_class_channel"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:a673e43421af4454ba4891bd74b192b1a" id="r_a673e43421af4454ba4891bd74b192b1a"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a673e43421af4454ba4891bd74b192b1a">DDSFrequencyChanged</a> (void *channel)</td></tr>
+<tr class="memdesc:a673e43421af4454ba4891bd74b192b1a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback function that can be used for user interface controls modifying the Frequency property.  <br /></td></tr>
+<tr class="separator:a673e43421af4454ba4891bd74b192b1a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac25f4d432ef15c99b6d80221b71393aa" id="r_ac25f4d432ef15c99b6d80221b71393aa"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac25f4d432ef15c99b6d80221b71393aa">DDSAmplitudeChanged</a> (void *channel)</td></tr>
+<tr class="memdesc:ac25f4d432ef15c99b6d80221b71393aa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback function that can be used for user interface controls modifying the Amplitude property.  <br /></td></tr>
+<tr class="separator:ac25f4d432ef15c99b6d80221b71393aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2db7985bf362e5d69d5634b294f038b4" id="r_a2db7985bf362e5d69d5634b294f038b4"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2db7985bf362e5d69d5634b294f038b4">DDSOffsetChanged</a> (void *channel)</td></tr>
+<tr class="memdesc:a2db7985bf362e5d69d5634b294f038b4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback function that can be used for user interface controls modifying the Offset property.  <br /></td></tr>
+<tr class="separator:a2db7985bf362e5d69d5634b294f038b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a21fd9a48aff62a3f45862a1208ea8daf" id="r_a21fd9a48aff62a3f45862a1208ea8daf"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a21fd9a48aff62a3f45862a1208ea8daf">DDSSignalFormChanged</a> (void *channel)</td></tr>
+<tr class="memdesc:a21fd9a48aff62a3f45862a1208ea8daf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback function that can be used for user interface controls modifying the SignalForm property.  <br /></td></tr>
+<tr class="separator:a21fd9a48aff62a3f45862a1208ea8daf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a306d14bc19d77691dd30905567833dd1" id="r_a306d14bc19d77691dd30905567833dd1"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a306d14bc19d77691dd30905567833dd1">DDSPWMValueChanged</a> (void *channel)</td></tr>
+<tr class="memdesc:a306d14bc19d77691dd30905567833dd1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback function that can be used for user interface controls modifying the PWM_Value property.  <br /></td></tr>
+<tr class="separator:a306d14bc19d77691dd30905567833dd1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae939e023ebfa95f81799e583a5f9870f" id="r_ae939e023ebfa95f81799e583a5f9870f"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae939e023ebfa95f81799e583a5f9870f">DDSEnabledChanged</a> (void *channel)</td></tr>
+<tr class="memdesc:ae939e023ebfa95f81799e583a5f9870f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback function that can be used for user interface controls modifying the Enabled property.  <br /></td></tr>
+<tr class="separator:ae939e023ebfa95f81799e583a5f9870f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
+Public Attributes</h2></td></tr>
+<tr class="memitem:a2137415f9953482d6a2e60b3608e8bed" id="r_a2137415f9953482d6a2e60b3608e8bed"><td class="memItemLeft" align="right" valign="top"><a id="a2137415f9953482d6a2e60b3608e8bed" name="a2137415f9953482d6a2e60b3608e8bed"></a>
+uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>DdsChannelNumber</b></td></tr>
+<tr class="memdesc:a2137415f9953482d6a2e60b3608e8bed"><td class="mdescLeft">&#160;</td><td class="mdescRight">1-based channel number (DDS1 =&gt; 1, DDS2 =&gt; 2) <br /></td></tr>
+<tr class="separator:a2137415f9953482d6a2e60b3608e8bed"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1fb5ccaf0e02ab8f720cfa4f91d0e967" id="r_a1fb5ccaf0e02ab8f720cfa4f91d0e967"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_parameter.html">Parameter</a>&lt; bool &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1fb5ccaf0e02ab8f720cfa4f91d0e967">Enabled</a></td></tr>
+<tr class="memdesc:a1fb5ccaf0e02ab8f720cfa4f91d0e967"><td class="mdescLeft">&#160;</td><td class="mdescRight">Is the channel enabled or not.  <br /></td></tr>
+<tr class="separator:a1fb5ccaf0e02ab8f720cfa4f91d0e967"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac65645bc3059f8de8c24021e774a220b" id="r_ac65645bc3059f8de8c24021e774a220b"><td class="memItemLeft" align="right" valign="top"><a id="ac65645bc3059f8de8c24021e774a220b" name="ac65645bc3059f8de8c24021e774a220b"></a>
+<a class="el" href="class_parameter.html">Parameter</a>&lt; float &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>Frequency</b></td></tr>
+<tr class="memdesc:ac65645bc3059f8de8c24021e774a220b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Frequency of the DDS channel. <br /></td></tr>
+<tr class="separator:ac65645bc3059f8de8c24021e774a220b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab3f509a7fde9bbe5f34c684fe9deac76" id="r_ab3f509a7fde9bbe5f34c684fe9deac76"><td class="memItemLeft" align="right" valign="top"><a id="ab3f509a7fde9bbe5f34c684fe9deac76" name="ab3f509a7fde9bbe5f34c684fe9deac76"></a>
+<a class="el" href="class_parameter.html">Parameter</a>&lt; float &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>Amplitude</b></td></tr>
+<tr class="memdesc:ab3f509a7fde9bbe5f34c684fe9deac76"><td class="mdescLeft">&#160;</td><td class="mdescRight">Amplitude of the DDS channel. <br /></td></tr>
+<tr class="separator:ab3f509a7fde9bbe5f34c684fe9deac76"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac4f6950f6846b2e3e83c550f1488d790" id="r_ac4f6950f6846b2e3e83c550f1488d790"><td class="memItemLeft" align="right" valign="top"><a id="ac4f6950f6846b2e3e83c550f1488d790" name="ac4f6950f6846b2e3e83c550f1488d790"></a>
+<a class="el" href="class_parameter.html">Parameter</a>&lt; float &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>Offset</b></td></tr>
+<tr class="memdesc:ac4f6950f6846b2e3e83c550f1488d790"><td class="mdescLeft">&#160;</td><td class="mdescRight">Offset of the DDS channel. <br /></td></tr>
+<tr class="separator:ac4f6950f6846b2e3e83c550f1488d790"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8b4f92bd8064e2d5c9c51f3891783061" id="r_a8b4f92bd8064e2d5c9c51f3891783061"><td class="memItemLeft" align="right" valign="top"><a id="a8b4f92bd8064e2d5c9c51f3891783061" name="a8b4f92bd8064e2d5c9c51f3891783061"></a>
+<a class="el" href="class_parameter.html">Parameter</a>&lt; <a class="el" href="_d_d_s___channel_8h.html#ac3f38543b6d383713ff137849d09b257">SignalForms_t</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>SignalForm</b></td></tr>
+<tr class="memdesc:a8b4f92bd8064e2d5c9c51f3891783061"><td class="mdescLeft">&#160;</td><td class="mdescRight">Signalform of the DDS channel. <br /></td></tr>
+<tr class="separator:a8b4f92bd8064e2d5c9c51f3891783061"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa95e23b10ad5f240fea2c8abf3368235" id="r_aa95e23b10ad5f240fea2c8abf3368235"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_parameter.html">Parameter</a>&lt; float &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa95e23b10ad5f240fea2c8abf3368235">PWM_Value</a></td></tr>
+<tr class="memdesc:aa95e23b10ad5f240fea2c8abf3368235"><td class="mdescLeft">&#160;</td><td class="mdescRight">PWM value of the DDS channel.  <br /></td></tr>
+<tr class="separator:aa95e23b10ad5f240fea2c8abf3368235"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aea0714dd5e5b90153f04bd8a46cd1047" id="r_aea0714dd5e5b90153f04bd8a46cd1047"><td class="memItemLeft" align="right" valign="top"><a id="aea0714dd5e5b90153f04bd8a46cd1047" name="aea0714dd5e5b90153f04bd8a46cd1047"></a>
+volatile const uint16_t *&#160;</td><td class="memItemRight" valign="bottom"><b>OriginalWaveTable</b></td></tr>
+<tr class="memdesc:aea0714dd5e5b90153f04bd8a46cd1047"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pointer to the constant wave table holding the unmodified points of the signal determined by the SignalForm parameter. <br /></td></tr>
+<tr class="separator:aea0714dd5e5b90153f04bd8a46cd1047"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a578ef5e407da4c76383bf1297033e886" id="r_a578ef5e407da4c76383bf1297033e886"><td class="memItemLeft" align="right" valign="top"><a id="a578ef5e407da4c76383bf1297033e886" name="a578ef5e407da4c76383bf1297033e886"></a>
+volatile uint16_t *&#160;</td><td class="memItemRight" valign="bottom"><b>p_WaveTable</b></td></tr>
+<tr class="memdesc:a578ef5e407da4c76383bf1297033e886"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pointer to the wave table array holding the modified waveform points (adapted to waveform and offset) <br /></td></tr>
+<tr class="separator:a578ef5e407da4c76383bf1297033e886"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5bcbe70476f7ce09303fd3af7c188ffe" id="r_a5bcbe70476f7ce09303fd3af7c188ffe"><td class="memItemLeft" align="right" valign="top"><a id="a5bcbe70476f7ce09303fd3af7c188ffe" name="a5bcbe70476f7ce09303fd3af7c188ffe"></a>
+volatile uint32_t *&#160;</td><td class="memItemRight" valign="bottom"><b>p_Increment</b></td></tr>
+<tr class="memdesc:a5bcbe70476f7ce09303fd3af7c188ffe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pointer to the increment variable (calculated from the Frequency setting) <br /></td></tr>
+<tr class="separator:a5bcbe70476f7ce09303fd3af7c188ffe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="inherited" name="inherited"></a>
+Additional Inherited Members</h2></td></tr>
+<tr class="inherit_header pro_attribs_class_channel"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pro_attribs_class_channel')"><img src="closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="class_channel.html">Channel</a></td></tr>
+<tr class="memitem:ac8b162e0f06943ce04ea4e20fb75c9c8 inherit pro_attribs_class_channel" id="r_ac8b162e0f06943ce04ea4e20fb75c9c8"><td class="memItemLeft" align="right" valign="top">
+<a class="el" href="_channel_8h.html#a724c1fb2cb44a48b26550955cede49be">ChannelTypes_t</a>&#160;</td><td class="memItemRight" valign="bottom"><b>_channelType</b></td></tr>
+<tr class="memdesc:ac8b162e0f06943ce04ea4e20fb75c9c8 inherit pro_attribs_class_channel"><td class="mdescLeft">&#160;</td><td class="mdescRight">Type of the channel. <br /></td></tr>
+<tr class="separator:ac8b162e0f06943ce04ea4e20fb75c9c8 inherit pro_attribs_class_channel"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Direct digital synthesis channel. </p>
+<p>This is a channel holding all parameters of a DDS implementation. </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a549dc4d10ae8fc4c9052eb262d329f8a" name="a549dc4d10ae8fc4c9052eb262d329f8a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a549dc4d10ae8fc4c9052eb262d329f8a">&#9670;&#160;</a></span>DDS_Channel()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">DDS_Channel::DDS_Channel </td>
+          <td>(</td>
+          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>ddsChannelNumber</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>minFreq</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>maxFreq</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>minAmpl</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>maxAmpl</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>minOffset</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>maxOffset</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Constructor of the <a class="el" href="class_d_d_s___channel.html" title="Direct digital synthesis channel.">DDS_Channel</a>. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ddsChannelNumber</td><td>1-based channel number (DDS1 =&gt; 1, DDS2 =&gt; 2) </td></tr>
+    <tr><td class="paramname">minFreq</td><td>Minimum allowed frequency for the DDS channel </td></tr>
+    <tr><td class="paramname">maxFreq</td><td>Maximum allowed frequency for the DDS channel </td></tr>
+    <tr><td class="paramname">minAmpl</td><td>Minimum allowed amplitude for the DDS channel </td></tr>
+    <tr><td class="paramname">maxAmpl</td><td>Maximum allowed amplitude for the DDS channel </td></tr>
+    <tr><td class="paramname">minOffset</td><td>Minimum allowed offset for the DDS channel </td></tr>
+    <tr><td class="paramname">maxOffset</td><td>Maximum allowed offset for the DDS channel </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="ac25f4d432ef15c99b6d80221b71393aa" name="ac25f4d432ef15c99b6d80221b71393aa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac25f4d432ef15c99b6d80221b71393aa">&#9670;&#160;</a></span>DDSAmplitudeChanged()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void DDS_Channel::DDSAmplitudeChanged </td>
+          <td>(</td>
+          <td class="paramtype">void *</td>          <td class="paramname"><span class="paramname"><em>channel</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Callback function that can be used for user interface controls modifying the Amplitude property. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">channel</td><td>Pointer to a <a class="el" href="class_d_d_s___channel.html" title="Direct digital synthesis channel.">DDS_Channel</a> </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ae939e023ebfa95f81799e583a5f9870f" name="ae939e023ebfa95f81799e583a5f9870f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae939e023ebfa95f81799e583a5f9870f">&#9670;&#160;</a></span>DDSEnabledChanged()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void DDS_Channel::DDSEnabledChanged </td>
+          <td>(</td>
+          <td class="paramtype">void *</td>          <td class="paramname"><span class="paramname"><em>channel</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Callback function that can be used for user interface controls modifying the Enabled property. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">channel</td><td>Pointer to a <a class="el" href="class_d_d_s___channel.html" title="Direct digital synthesis channel.">DDS_Channel</a> </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a673e43421af4454ba4891bd74b192b1a" name="a673e43421af4454ba4891bd74b192b1a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a673e43421af4454ba4891bd74b192b1a">&#9670;&#160;</a></span>DDSFrequencyChanged()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void DDS_Channel::DDSFrequencyChanged </td>
+          <td>(</td>
+          <td class="paramtype">void *</td>          <td class="paramname"><span class="paramname"><em>channel</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Callback function that can be used for user interface controls modifying the Frequency property. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">channel</td><td>Pointer to a <a class="el" href="class_d_d_s___channel.html" title="Direct digital synthesis channel.">DDS_Channel</a> </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a2db7985bf362e5d69d5634b294f038b4" name="a2db7985bf362e5d69d5634b294f038b4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2db7985bf362e5d69d5634b294f038b4">&#9670;&#160;</a></span>DDSOffsetChanged()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void DDS_Channel::DDSOffsetChanged </td>
+          <td>(</td>
+          <td class="paramtype">void *</td>          <td class="paramname"><span class="paramname"><em>channel</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Callback function that can be used for user interface controls modifying the Offset property. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">channel</td><td>Pointer to a <a class="el" href="class_d_d_s___channel.html" title="Direct digital synthesis channel.">DDS_Channel</a> </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a306d14bc19d77691dd30905567833dd1" name="a306d14bc19d77691dd30905567833dd1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a306d14bc19d77691dd30905567833dd1">&#9670;&#160;</a></span>DDSPWMValueChanged()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void DDS_Channel::DDSPWMValueChanged </td>
+          <td>(</td>
+          <td class="paramtype">void *</td>          <td class="paramname"><span class="paramname"><em>channel</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Callback function that can be used for user interface controls modifying the PWM_Value property. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">channel</td><td>Pointer to a <a class="el" href="class_d_d_s___channel.html" title="Direct digital synthesis channel.">DDS_Channel</a> </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a21fd9a48aff62a3f45862a1208ea8daf" name="a21fd9a48aff62a3f45862a1208ea8daf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a21fd9a48aff62a3f45862a1208ea8daf">&#9670;&#160;</a></span>DDSSignalFormChanged()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void DDS_Channel::DDSSignalFormChanged </td>
+          <td>(</td>
+          <td class="paramtype">void *</td>          <td class="paramname"><span class="paramname"><em>channel</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Callback function that can be used for user interface controls modifying the SignalForm property. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">channel</td><td>Pointer to a <a class="el" href="class_d_d_s___channel.html" title="Direct digital synthesis channel.">DDS_Channel</a> </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="abb914602f33423df75dd6a32e7d46767" name="abb914602f33423df75dd6a32e7d46767"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abb914602f33423df75dd6a32e7d46767">&#9670;&#160;</a></span>GetAmplitude()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float DDS_Channel::GetAmplitude </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Get the Amplitude property of the DDS channel. </p>
+<dl class="section return"><dt>Returns</dt><dd>Value of the Amplitude property </dd></dl>
+
+</div>
+</div>
+<a id="acbed72bf3a450f8e09a93abe37689798" name="acbed72bf3a450f8e09a93abe37689798"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acbed72bf3a450f8e09a93abe37689798">&#9670;&#160;</a></span>GetEnabled()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool DDS_Channel::GetEnabled </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Get the Enabled property of the DDS channel. </p>
+<dl class="section return"><dt>Returns</dt><dd>Value of the Enabled property </dd></dl>
+
+</div>
+</div>
+<a id="a480d6653d91af878f9d1ff4173eeede9" name="a480d6653d91af878f9d1ff4173eeede9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a480d6653d91af878f9d1ff4173eeede9">&#9670;&#160;</a></span>GetFrequency()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float DDS_Channel::GetFrequency </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Get the Frequency property of the DDS channel. </p>
+<dl class="section return"><dt>Returns</dt><dd>Value of the Frequency property </dd></dl>
+
+</div>
+</div>
+<a id="af037365d6743b372ffa7cffe0f73ef42" name="af037365d6743b372ffa7cffe0f73ef42"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af037365d6743b372ffa7cffe0f73ef42">&#9670;&#160;</a></span>GetOffset()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float DDS_Channel::GetOffset </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Get the Offset property of the DDS channel. </p>
+<dl class="section return"><dt>Returns</dt><dd>Value of the Offset property </dd></dl>
+
+</div>
+</div>
+<a id="a611103e8863ecb959463904f1276c4ac" name="a611103e8863ecb959463904f1276c4ac"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a611103e8863ecb959463904f1276c4ac">&#9670;&#160;</a></span>GetPWMValue()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float DDS_Channel::GetPWMValue </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Get the PWM_Value property of the DDS channel. </p>
+<dl class="section return"><dt>Returns</dt><dd>Value of the PWM_Value property </dd></dl>
+
+</div>
+</div>
+<a id="a7150d4df21d0cccae617b2fcbadcfa65" name="a7150d4df21d0cccae617b2fcbadcfa65"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7150d4df21d0cccae617b2fcbadcfa65">&#9670;&#160;</a></span>GetSignalForm()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="_d_d_s___channel_8h.html#ac3f38543b6d383713ff137849d09b257">SignalForms_t</a> DDS_Channel::GetSignalForm </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Get the SignalForm property of the DDS channel. </p>
+<dl class="section return"><dt>Returns</dt><dd>Value of the SignalForm property </dd></dl>
+
+</div>
+</div>
+<a id="a434fdea13588c7d54247010401a9d111" name="a434fdea13588c7d54247010401a9d111"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a434fdea13588c7d54247010401a9d111">&#9670;&#160;</a></span>SetAmplitude()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool DDS_Channel::SetAmplitude </td>
+          <td>(</td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>amplitude</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set the Amplitude property of the DDS channel. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">amplitude</td><td>New value for the Amplitude property </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true-&gt;set successful; false-&gt;value not set </dd></dl>
+
+</div>
+</div>
+<a id="a36d96842057d5ad73c4ada314daea5b4" name="a36d96842057d5ad73c4ada314daea5b4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a36d96842057d5ad73c4ada314daea5b4">&#9670;&#160;</a></span>SetEnabled()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool DDS_Channel::SetEnabled </td>
+          <td>(</td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>enabled</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set the Enabled property of the DDS channel. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">enabled</td><td>New value for the Enabled property </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true-&gt;set successful; false-&gt;value not set </dd></dl>
+
+</div>
+</div>
+<a id="aa5607124faeedc502dc6e3133e2b08d2" name="aa5607124faeedc502dc6e3133e2b08d2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa5607124faeedc502dc6e3133e2b08d2">&#9670;&#160;</a></span>SetFrequency()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool DDS_Channel::SetFrequency </td>
+          <td>(</td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>frequency</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set the Frequency property of the DDS channel. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">frequency</td><td>New value for the Frequency property </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true-&gt;set successful; false-&gt;value not set </dd></dl>
+
+</div>
+</div>
+<a id="a56ee8a788b7327e669c12b0fbf12d7e5" name="a56ee8a788b7327e669c12b0fbf12d7e5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a56ee8a788b7327e669c12b0fbf12d7e5">&#9670;&#160;</a></span>SetOffset()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool DDS_Channel::SetOffset </td>
+          <td>(</td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>offset</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set the Offset property of the DDS channel. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">offset</td><td>New value for the Offset property </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true-&gt;set successful; false-&gt;value not set </dd></dl>
+
+</div>
+</div>
+<a id="a2741270f386c74f3007acc08435f58c1" name="a2741270f386c74f3007acc08435f58c1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2741270f386c74f3007acc08435f58c1">&#9670;&#160;</a></span>SetPWMValue()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool DDS_Channel::SetPWMValue </td>
+          <td>(</td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>pwmValue</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set the PWM_Value property of the DDS channel. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pwmValue</td><td>New value for the PWM_Value property </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true-&gt;set successful; false-&gt;value not set </dd></dl>
+
+</div>
+</div>
+<a id="a9b22c59e89d593ea3eb63c477382f9ed" name="a9b22c59e89d593ea3eb63c477382f9ed"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9b22c59e89d593ea3eb63c477382f9ed">&#9670;&#160;</a></span>SetSignalForm()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool DDS_Channel::SetSignalForm </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="_d_d_s___channel_8h.html#ac3f38543b6d383713ff137849d09b257">SignalForms_t</a></td>          <td class="paramname"><span class="paramname"><em>signalForm</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set the SignalForm property of the DDS channel. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">signalForm</td><td>New value for the SignalForm property </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true-&gt;set successful; false-&gt;value not set </dd></dl>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="a1fb5ccaf0e02ab8f720cfa4f91d0e967" name="a1fb5ccaf0e02ab8f720cfa4f91d0e967"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1fb5ccaf0e02ab8f720cfa4f91d0e967">&#9670;&#160;</a></span>Enabled</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_parameter.html">Parameter</a>&lt;bool&gt; DDS_Channel::Enabled</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Is the channel enabled or not. </p>
+<p>If enabled, the waveform is available at the output. </p>
+
+</div>
+</div>
+<a id="aa95e23b10ad5f240fea2c8abf3368235" name="aa95e23b10ad5f240fea2c8abf3368235"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa95e23b10ad5f240fea2c8abf3368235">&#9670;&#160;</a></span>PWM_Value</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_parameter.html">Parameter</a>&lt;float&gt; DDS_Channel::PWM_Value</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>PWM value of the DDS channel. </p>
+<p>This is only used if the SignalForm is set to PWM </p>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following files:<ul>
+<li>/github/workspace/PS_Fgen_FW/Channels/<a class="el" href="_d_d_s___channel_8h_source.html">DDS_Channel.h</a></li>
+<li>/github/workspace/PS_Fgen_FW/Channels/<b>DDS_Channel.cpp</b></li>
+</ul>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- HTML footer for doxygen 1.9.1-->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="class_d_d_s___channel.html">DDS_Channel</a></li>
+    <li class="footer">Generated on Mon Jan 20 2025 17:33:36 for PS_Fgen_FW by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2 </li>
+  </ul>
+</div>
+<script type="text/javascript">
+  $(document).ready(function(){
+    toggleButton = document.createElement('doxygen-awesome-dark-mode-toggle')
+    toggleButton.title = "Toggle Light/Dark Mode"
+    document.getElementById("MSearchBox").parentNode.appendChild(toggleButton)
+  })
+</script>
+</body>
+</html>

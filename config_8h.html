@@ -1,0 +1,592 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.13.2"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<!-- BEGIN opengraph metadata -->
+<meta property="og:title" content="Doxygen Awesome" />
+<meta property="og:image" content="https://repository-images.githubusercontent.com/348492097/4f16df80-88fb-11eb-9d31-4015ff22c452" />
+<meta property="og:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
+<meta property="og:url" content="https://jothepro.github.io/doxygen-awesome-css/" />
+<!-- END opengraph metadata -->
+<!-- BEGIN twitter metadata -->
+<meta name="twitter:image:src" content="https://repository-images.githubusercontent.com/348492097/4f16df80-88fb-11eb-9d31-4015ff22c452" />
+<meta name="twitter:title" content="Doxygen Awesome" />
+<meta name="twitter:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
+<!-- END twitter metadata -->
+<title>PS_Fgen_FW: /github/workspace/PS_Fgen_FW/libraries/scpi-parser/inc/scpi/config.h File Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<link rel="icon" type="image/svg+xml" href="logo.drawio.svg"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="doxygen-awesome-darkmode-toggle.js"></script>
+<script type="text/javascript" src="doxygen-awesome-fragment-copy-button.js"></script>
+<script type="text/javascript" src="doxygen-awesome-paragraph-link.js"></script>
+<script type="text/javascript" src="doxygen-awesome-interactive-toc.js"></script>
+<script type="text/javascript" src="doxygen-awesome-tabs.js"></script>
+<script type="text/javascript" src="toggle-alternative-theme.js"></script>
+<script type="text/javascript">
+    DoxygenAwesomeFragmentCopyButton.init()
+    DoxygenAwesomeDarkModeToggle.init()
+    DoxygenAwesomeParagraphLink.init()
+    DoxygenAwesomeInteractiveToc.init()
+    DoxygenAwesomeTabs.init()
+</script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="custom.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<!-- https://tholman.com/github-corners/ -->
+<a href="https://github.com/M1S2/PS_Fgen_FW" class="github-corner" title="View source on GitHub" target="_blank" rel="noopener noreferrer">
+    <svg viewBox="0 0 250 250" width="40" height="40" style="position: absolute; top: 0; border: 0; right: 0; z-index: 99;" aria-hidden="true">
+    <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="logo.png"/></td>
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">PS_Fgen_FW
+   &#160;<span id="projectnumber">4da88f4073c1cc65ea45c3a652a2751e495e50db</span>
+   </div>
+   <div id="projectbrief">Firmware for an Power Supply and Function Generator build from an ATX power supply</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.13.2 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() { codefold.init(0); });
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Search',true);
+  $(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function(){initNavTree('config_8h.html',''); initResizable(true); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#define-members">Macros</a> &#124;
+<a href="#func-members">Functions</a>  </div>
+  <div class="headertitle"><div class="title">config.h File Reference</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>SCPI Configuration.  
+<a href="#details">More...</a></p>
+<div class="textblock"><code>#include &quot;<a class="el" href="cc_8h_source.html">cc.h</a>&quot;</code><br />
+</div>
+<p><a href="config_8h_source.html">Go to the source code of this file.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:a17ab8a334bbaa17db4d8878785d12cd6" id="r_a17ab8a334bbaa17db4d8878785d12cd6"><td class="memItemLeft" align="right" valign="top"><a id="a17ab8a334bbaa17db4d8878785d12cd6" name="a17ab8a334bbaa17db4d8878785d12cd6"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>LINE_ENDING_CR</b>&#160;&#160;&#160;&quot;\r&quot;    /*   use a &lt;CR&gt; carriage return as termination charcter */</td></tr>
+<tr class="separator:a17ab8a334bbaa17db4d8878785d12cd6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1d460b7f447b7a5cdd188f772a34324d" id="r_a1d460b7f447b7a5cdd188f772a34324d"><td class="memItemLeft" align="right" valign="top"><a id="a1d460b7f447b7a5cdd188f772a34324d" name="a1d460b7f447b7a5cdd188f772a34324d"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>LINE_ENDING_LF</b>&#160;&#160;&#160;&quot;\n&quot;    /*   use a &lt;LF&gt; line feed as termination charcter */</td></tr>
+<tr class="separator:a1d460b7f447b7a5cdd188f772a34324d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab054d3224773daeee2ebb1dc88f83cf1" id="r_ab054d3224773daeee2ebb1dc88f83cf1"><td class="memItemLeft" align="right" valign="top"><a id="ab054d3224773daeee2ebb1dc88f83cf1" name="ab054d3224773daeee2ebb1dc88f83cf1"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>LINE_ENDING_CRLF</b>&#160;&#160;&#160;&quot;\r\n&quot;  /*   use &lt;CR&gt;&lt;LF&gt; carriage return + line feed as termination charcters */</td></tr>
+<tr class="separator:ab054d3224773daeee2ebb1dc88f83cf1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a890ac5c4115c058882213e6def77159e" id="r_a890ac5c4115c058882213e6def77159e"><td class="memItemLeft" align="right" valign="top"><a id="a890ac5c4115c058882213e6def77159e" name="a890ac5c4115c058882213e6def77159e"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>SCPI_LINE_ENDING</b>&#160;&#160;&#160;LINE_ENDING_CRLF</td></tr>
+<tr class="separator:a890ac5c4115c058882213e6def77159e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac991cc6e083eabdc10932778c95074cf" id="r_ac991cc6e083eabdc10932778c95074cf"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac991cc6e083eabdc10932778c95074cf">SYSTEM_BARE_METAL</a>&#160;&#160;&#160;0</td></tr>
+<tr class="memdesc:ac991cc6e083eabdc10932778c95074cf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Detect, if it has limited resources or it is running on a full blown operating system.  <br /></td></tr>
+<tr class="separator:ac991cc6e083eabdc10932778c95074cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab55baf4ec474fc8a78c59b8d285b685a" id="r_ab55baf4ec474fc8a78c59b8d285b685a"><td class="memItemLeft" align="right" valign="top"><a id="ab55baf4ec474fc8a78c59b8d285b685a" name="ab55baf4ec474fc8a78c59b8d285b685a"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>SYSTEM_FULL_BLOWN</b>&#160;&#160;&#160;1</td></tr>
+<tr class="separator:ab55baf4ec474fc8a78c59b8d285b685a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af46244482bde51d15a523ec0a53a91dc" id="r_af46244482bde51d15a523ec0a53a91dc"><td class="memItemLeft" align="right" valign="top"><a id="af46244482bde51d15a523ec0a53a91dc" name="af46244482bde51d15a523ec0a53a91dc"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>SYSTEM_TYPE</b>&#160;&#160;&#160;<a class="el" href="#ac991cc6e083eabdc10932778c95074cf">SYSTEM_BARE_METAL</a></td></tr>
+<tr class="separator:af46244482bde51d15a523ec0a53a91dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a24c9aadee47c3a74a553a2b6a4662812" id="r_a24c9aadee47c3a74a553a2b6a4662812"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a24c9aadee47c3a74a553a2b6a4662812">USE_FULL_ERROR_LIST</a>&#160;&#160;&#160;SYSTEM_TYPE</td></tr>
+<tr class="memdesc:a24c9aadee47c3a74a553a2b6a4662812"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enable full error list 0 = Minimal set of errors 1 = Full set of errors.  <br /></td></tr>
+<tr class="separator:a24c9aadee47c3a74a553a2b6a4662812"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1404a6d80761706ba6a326a5914b6526" id="r_a1404a6d80761706ba6a326a5914b6526"><td class="memItemLeft" align="right" valign="top"><a id="a1404a6d80761706ba6a326a5914b6526" name="a1404a6d80761706ba6a326a5914b6526"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>USE_USER_ERROR_LIST</b>&#160;&#160;&#160;0</td></tr>
+<tr class="memdesc:a1404a6d80761706ba6a326a5914b6526"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enable also LIST_OF_USER_ERRORS to be included 0 = Use only library defined errors 1 = Use also LIST_OF_USER_ERRORS. <br /></td></tr>
+<tr class="separator:a1404a6d80761706ba6a326a5914b6526"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a904d90ae6dcd5b791b3b877b263b6c6d" id="r_a904d90ae6dcd5b791b3b877b263b6c6d"><td class="memItemLeft" align="right" valign="top"><a id="a904d90ae6dcd5b791b3b877b263b6c6d" name="a904d90ae6dcd5b791b3b877b263b6c6d"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>USE_DEVICE_DEPENDENT_ERROR_INFORMATION</b>&#160;&#160;&#160;SYSTEM_TYPE</td></tr>
+<tr class="separator:a904d90ae6dcd5b791b3b877b263b6c6d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a205b89064d99e80fe53282b42ea6399c" id="r_a205b89064d99e80fe53282b42ea6399c"><td class="memItemLeft" align="right" valign="top"><a id="a205b89064d99e80fe53282b42ea6399c" name="a205b89064d99e80fe53282b42ea6399c"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>USE_MEMORY_ALLOCATION_FREE</b>&#160;&#160;&#160;0</td></tr>
+<tr class="separator:a205b89064d99e80fe53282b42ea6399c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aecc0ec9740fdc2e651372db12ebb0b61" id="r_aecc0ec9740fdc2e651372db12ebb0b61"><td class="memItemLeft" align="right" valign="top"><a id="aecc0ec9740fdc2e651372db12ebb0b61" name="aecc0ec9740fdc2e651372db12ebb0b61"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>USE_COMMAND_TAGS</b>&#160;&#160;&#160;1</td></tr>
+<tr class="separator:aecc0ec9740fdc2e651372db12ebb0b61"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a84399eb031a1fb7b2785839a40f00c48" id="r_a84399eb031a1fb7b2785839a40f00c48"><td class="memItemLeft" align="right" valign="top"><a id="a84399eb031a1fb7b2785839a40f00c48" name="a84399eb031a1fb7b2785839a40f00c48"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>USE_DEPRECATED_FUNCTIONS</b>&#160;&#160;&#160;0</td></tr>
+<tr class="separator:a84399eb031a1fb7b2785839a40f00c48"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a31936af85aacce5a96c03f9b0f8ef6ab" id="r_a31936af85aacce5a96c03f9b0f8ef6ab"><td class="memItemLeft" align="right" valign="top"><a id="a31936af85aacce5a96c03f9b0f8ef6ab" name="a31936af85aacce5a96c03f9b0f8ef6ab"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>USE_CUSTOM_DTOSTRE</b>&#160;&#160;&#160;0</td></tr>
+<tr class="separator:a31936af85aacce5a96c03f9b0f8ef6ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9f4b42049d8913d54fcdc56d0762845e" id="r_a9f4b42049d8913d54fcdc56d0762845e"><td class="memItemLeft" align="right" valign="top"><a id="a9f4b42049d8913d54fcdc56d0762845e" name="a9f4b42049d8913d54fcdc56d0762845e"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>USE_UNITS_IMPERIAL</b>&#160;&#160;&#160;0</td></tr>
+<tr class="separator:a9f4b42049d8913d54fcdc56d0762845e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1a0a419f1418eaaa42ab9b651d0da4f3" id="r_a1a0a419f1418eaaa42ab9b651d0da4f3"><td class="memItemLeft" align="right" valign="top"><a id="a1a0a419f1418eaaa42ab9b651d0da4f3" name="a1a0a419f1418eaaa42ab9b651d0da4f3"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>USE_UNITS_ANGLE</b>&#160;&#160;&#160;SYSTEM_TYPE</td></tr>
+<tr class="separator:a1a0a419f1418eaaa42ab9b651d0da4f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae485a236ca2308e39415e3fbfdedcbe7" id="r_ae485a236ca2308e39415e3fbfdedcbe7"><td class="memItemLeft" align="right" valign="top"><a id="ae485a236ca2308e39415e3fbfdedcbe7" name="ae485a236ca2308e39415e3fbfdedcbe7"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>USE_UNITS_PARTICLES</b>&#160;&#160;&#160;SYSTEM_TYPE</td></tr>
+<tr class="separator:ae485a236ca2308e39415e3fbfdedcbe7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a72d785445dd0fe7c5d4aefc66a7dd15a" id="r_a72d785445dd0fe7c5d4aefc66a7dd15a"><td class="memItemLeft" align="right" valign="top"><a id="a72d785445dd0fe7c5d4aefc66a7dd15a" name="a72d785445dd0fe7c5d4aefc66a7dd15a"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>USE_UNITS_DISTANCE</b>&#160;&#160;&#160;SYSTEM_TYPE</td></tr>
+<tr class="separator:a72d785445dd0fe7c5d4aefc66a7dd15a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a74d059d3a6e9ec2f0be47efc38e4453a" id="r_a74d059d3a6e9ec2f0be47efc38e4453a"><td class="memItemLeft" align="right" valign="top"><a id="a74d059d3a6e9ec2f0be47efc38e4453a" name="a74d059d3a6e9ec2f0be47efc38e4453a"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>USE_UNITS_MAGNETIC</b>&#160;&#160;&#160;SYSTEM_TYPE</td></tr>
+<tr class="separator:a74d059d3a6e9ec2f0be47efc38e4453a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a828484374ab5a4ee1bbec33fed6d68cf" id="r_a828484374ab5a4ee1bbec33fed6d68cf"><td class="memItemLeft" align="right" valign="top"><a id="a828484374ab5a4ee1bbec33fed6d68cf" name="a828484374ab5a4ee1bbec33fed6d68cf"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>USE_UNITS_LIGHT</b>&#160;&#160;&#160;SYSTEM_TYPE</td></tr>
+<tr class="separator:a828484374ab5a4ee1bbec33fed6d68cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad413bc5ff00bc2fb9e938727e1c33149" id="r_ad413bc5ff00bc2fb9e938727e1c33149"><td class="memItemLeft" align="right" valign="top"><a id="ad413bc5ff00bc2fb9e938727e1c33149" name="ad413bc5ff00bc2fb9e938727e1c33149"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>USE_UNITS_ENERGY_FORCE_MASS</b>&#160;&#160;&#160;SYSTEM_TYPE</td></tr>
+<tr class="separator:ad413bc5ff00bc2fb9e938727e1c33149"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac34756f16f7b3514c9de6cd3f30437ea" id="r_ac34756f16f7b3514c9de6cd3f30437ea"><td class="memItemLeft" align="right" valign="top"><a id="ac34756f16f7b3514c9de6cd3f30437ea" name="ac34756f16f7b3514c9de6cd3f30437ea"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>USE_UNITS_TIME</b>&#160;&#160;&#160;1</td></tr>
+<tr class="separator:ac34756f16f7b3514c9de6cd3f30437ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7b1ad4b2fca25f39b4927ce62bf093d3" id="r_a7b1ad4b2fca25f39b4927ce62bf093d3"><td class="memItemLeft" align="right" valign="top"><a id="a7b1ad4b2fca25f39b4927ce62bf093d3" name="a7b1ad4b2fca25f39b4927ce62bf093d3"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>USE_UNITS_TEMPERATURE</b>&#160;&#160;&#160;SYSTEM_TYPE</td></tr>
+<tr class="separator:a7b1ad4b2fca25f39b4927ce62bf093d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a62b1ebf1c3a23980a95ddb04f8a04923" id="r_a62b1ebf1c3a23980a95ddb04f8a04923"><td class="memItemLeft" align="right" valign="top"><a id="a62b1ebf1c3a23980a95ddb04f8a04923" name="a62b1ebf1c3a23980a95ddb04f8a04923"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>USE_UNITS_RATIO</b>&#160;&#160;&#160;SYSTEM_TYPE</td></tr>
+<tr class="separator:a62b1ebf1c3a23980a95ddb04f8a04923"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8020009ea62470ee505dc92574ee8114" id="r_a8020009ea62470ee505dc92574ee8114"><td class="memItemLeft" align="right" valign="top"><a id="a8020009ea62470ee505dc92574ee8114" name="a8020009ea62470ee505dc92574ee8114"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>USE_UNITS_POWER</b>&#160;&#160;&#160;1</td></tr>
+<tr class="separator:a8020009ea62470ee505dc92574ee8114"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aad6d811cb044c725bb77f4c25f6843e4" id="r_aad6d811cb044c725bb77f4c25f6843e4"><td class="memItemLeft" align="right" valign="top"><a id="aad6d811cb044c725bb77f4c25f6843e4" name="aad6d811cb044c725bb77f4c25f6843e4"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>USE_UNITS_FREQUENCY</b>&#160;&#160;&#160;1</td></tr>
+<tr class="separator:aad6d811cb044c725bb77f4c25f6843e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5a3ae052db2c83ee2874386108ab9f7c" id="r_a5a3ae052db2c83ee2874386108ab9f7c"><td class="memItemLeft" align="right" valign="top"><a id="a5a3ae052db2c83ee2874386108ab9f7c" name="a5a3ae052db2c83ee2874386108ab9f7c"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>USE_UNITS_ELECTRIC</b>&#160;&#160;&#160;1</td></tr>
+<tr class="separator:a5a3ae052db2c83ee2874386108ab9f7c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a50098b2f2290be1627e7f4f1cb833676" id="r_a50098b2f2290be1627e7f4f1cb833676"><td class="memItemLeft" align="right" valign="top"><a id="a50098b2f2290be1627e7f4f1cb833676" name="a50098b2f2290be1627e7f4f1cb833676"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>USE_UNITS_ELECTRIC_CHARGE_CONDUCTANCE</b>&#160;&#160;&#160;SYSTEM_TYPE</td></tr>
+<tr class="separator:a50098b2f2290be1627e7f4f1cb833676"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8cd81b474742603182a3513b691d4052" id="r_a8cd81b474742603182a3513b691d4052"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8cd81b474742603182a3513b691d4052">SCPIDEFINE_strnlen</a>(s,  l)</td></tr>
+<tr class="separator:a8cd81b474742603182a3513b691d4052"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa062f208a1333185ab462f114d8ec02a" id="r_aa062f208a1333185ab462f114d8ec02a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa062f208a1333185ab462f114d8ec02a">SCPIDEFINE_strncasecmp</a>(s1,  s2,  l)</td></tr>
+<tr class="separator:aa062f208a1333185ab462f114d8ec02a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a86c717295b5195aba0486a14ba1dad21" id="r_a86c717295b5195aba0486a14ba1dad21"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a86c717295b5195aba0486a14ba1dad21">SCPIDEFINE_floatToStr</a>(v,  s,  l)</td></tr>
+<tr class="separator:a86c717295b5195aba0486a14ba1dad21"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab2fec22a57f8bdab2ff8cdf79e23c6d3" id="r_ab2fec22a57f8bdab2ff8cdf79e23c6d3"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab2fec22a57f8bdab2ff8cdf79e23c6d3">SCPIDEFINE_doubleToStr</a>(v,  s,  l)</td></tr>
+<tr class="separator:ab2fec22a57f8bdab2ff8cdf79e23c6d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac575793a28a11476e1961597b23efa8f" id="r_ac575793a28a11476e1961597b23efa8f"><td class="memItemLeft" align="right" valign="top"><a id="ac575793a28a11476e1961597b23efa8f" name="ac575793a28a11476e1961597b23efa8f"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>SCPIDEFINE_DESCRIPTION_MAX_PARTS</b>&#160;&#160;&#160;1</td></tr>
+<tr class="separator:ac575793a28a11476e1961597b23efa8f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab13030bebcb43dde6561541a5bd020c7" id="r_ab13030bebcb43dde6561541a5bd020c7"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab13030bebcb43dde6561541a5bd020c7">SCPIDEFINE_strndup</a>(h,  s,  l)</td></tr>
+<tr class="separator:ab13030bebcb43dde6561541a5bd020c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac633ed88fad9ac6c101ebf874034e83e" id="r_ac633ed88fad9ac6c101ebf874034e83e"><td class="memItemLeft" align="right" valign="top"><a id="ac633ed88fad9ac6c101ebf874034e83e" name="ac633ed88fad9ac6c101ebf874034e83e"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>SCPIDEFINE_free</b>(h,  s,  r)</td></tr>
+<tr class="separator:ac633ed88fad9ac6c101ebf874034e83e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9554cdb53e941233519864ad73008d0c" id="r_a9554cdb53e941233519864ad73008d0c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9554cdb53e941233519864ad73008d0c">SCPIDEFINE_signbit</a>(n)</td></tr>
+<tr class="separator:a9554cdb53e941233519864ad73008d0c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0e31c55cf67d2b641fd3c68307709721" id="r_a0e31c55cf67d2b641fd3c68307709721"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0e31c55cf67d2b641fd3c68307709721">SCPIDEFINE_isfinite</a>(n)</td></tr>
+<tr class="separator:a0e31c55cf67d2b641fd3c68307709721"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0ea1ffb171bab9d67dbf5dcc4fc2ffc1" id="r_a0ea1ffb171bab9d67dbf5dcc4fc2ffc1"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0ea1ffb171bab9d67dbf5dcc4fc2ffc1">SCPIDEFINE_strtof</a>(n,  p)</td></tr>
+<tr class="separator:a0ea1ffb171bab9d67dbf5dcc4fc2ffc1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad8616975514cc2f3101ed451f571a192" id="r_ad8616975514cc2f3101ed451f571a192"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad8616975514cc2f3101ed451f571a192">SCPIDEFINE_strtoll</a>(n,  p,  b)</td></tr>
+<tr class="separator:ad8616975514cc2f3101ed451f571a192"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a80a8ebc36bf9bd9136b4924517766e50" id="r_a80a8ebc36bf9bd9136b4924517766e50"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a80a8ebc36bf9bd9136b4924517766e50">SCPIDEFINE_strtoull</a>(n,  p,  b)</td></tr>
+<tr class="separator:a80a8ebc36bf9bd9136b4924517766e50"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab3ab0d64d26cf78a8c7cd8d781242308" id="r_ab3ab0d64d26cf78a8c7cd8d781242308"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab3ab0d64d26cf78a8c7cd8d781242308">SCPIDEFINE_isnan</a>(n)</td></tr>
+<tr class="separator:ab3ab0d64d26cf78a8c7cd8d781242308"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8abfcc76130f3f991d124dd22d7e69bc" id="r_a8abfcc76130f3f991d124dd22d7e69bc"><td class="memItemLeft" align="right" valign="top"><a id="a8abfcc76130f3f991d124dd22d7e69bc" name="a8abfcc76130f3f991d124dd22d7e69bc"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>NAN</b>&#160;&#160;&#160;(0.0 / 0.0)</td></tr>
+<tr class="separator:a8abfcc76130f3f991d124dd22d7e69bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a956e2723d559858d08644ac99146e910" id="r_a956e2723d559858d08644ac99146e910"><td class="memItemLeft" align="right" valign="top"><a id="a956e2723d559858d08644ac99146e910" name="a956e2723d559858d08644ac99146e910"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>INFINITY</b>&#160;&#160;&#160;(1.0 / 0.0)</td></tr>
+<tr class="separator:a956e2723d559858d08644ac99146e910"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:a878c9e072297bf2070dc918474e4bc75" id="r_a878c9e072297bf2070dc918474e4bc75"><td class="memItemLeft" align="right" valign="top"><a id="a878c9e072297bf2070dc918474e4bc75" name="a878c9e072297bf2070dc918474e4bc75"></a>
+long long int&#160;</td><td class="memItemRight" valign="bottom"><b>strtoll</b> (const char *nptr, char **endptr, int base)</td></tr>
+<tr class="separator:a878c9e072297bf2070dc918474e4bc75"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa78b1ce1f2cd88ff0051eaa7bf3c538a" id="r_aa78b1ce1f2cd88ff0051eaa7bf3c538a"><td class="memItemLeft" align="right" valign="top"><a id="aa78b1ce1f2cd88ff0051eaa7bf3c538a" name="aa78b1ce1f2cd88ff0051eaa7bf3c538a"></a>
+unsigned long long int&#160;</td><td class="memItemRight" valign="bottom"><b>strtoull</b> (const char *nptr, char **endptr, int base)</td></tr>
+<tr class="separator:aa78b1ce1f2cd88ff0051eaa7bf3c538a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>SCPI Configuration. </p>
+<dl class="section date"><dt>Date</dt><dd>Wed Mar 20 12:21:26 UTC 2013</dd></dl>
+</div><h2 class="groupheader">Macro Definition Documentation</h2>
+<a id="ab2fec22a57f8bdab2ff8cdf79e23c6d3" name="ab2fec22a57f8bdab2ff8cdf79e23c6d3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab2fec22a57f8bdab2ff8cdf79e23c6d3">&#9670;&#160;</a></span>SCPIDEFINE_doubleToStr</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define SCPIDEFINE_doubleToStr</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>v</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>s</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>l</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Value:</b><div class="fragment"><div class="line">SCPI_dtostre((v), (s), (l), 15, 0)</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a86c717295b5195aba0486a14ba1dad21" name="a86c717295b5195aba0486a14ba1dad21"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a86c717295b5195aba0486a14ba1dad21">&#9670;&#160;</a></span>SCPIDEFINE_floatToStr</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define SCPIDEFINE_floatToStr</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>v</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>s</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>l</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Value:</b><div class="fragment"><div class="line">SCPI_dtostre((v), (s), (l), 6, 0)</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a0e31c55cf67d2b641fd3c68307709721" name="a0e31c55cf67d2b641fd3c68307709721"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0e31c55cf67d2b641fd3c68307709721">&#9670;&#160;</a></span>SCPIDEFINE_isfinite</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define SCPIDEFINE_isfinite</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>n</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Value:</b><div class="fragment"><div class="line">(!SCPIDEFINE_isnan((n)) &amp;&amp; ((n) &lt; INFINITY) &amp;&amp; ((n) &gt; -INFINITY))</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="ab3ab0d64d26cf78a8c7cd8d781242308" name="ab3ab0d64d26cf78a8c7cd8d781242308"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab3ab0d64d26cf78a8c7cd8d781242308">&#9670;&#160;</a></span>SCPIDEFINE_isnan</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define SCPIDEFINE_isnan</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>n</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Value:</b><div class="fragment"><div class="line">((n) != (n))</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a9554cdb53e941233519864ad73008d0c" name="a9554cdb53e941233519864ad73008d0c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9554cdb53e941233519864ad73008d0c">&#9670;&#160;</a></span>SCPIDEFINE_signbit</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define SCPIDEFINE_signbit</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>n</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Value:</b><div class="fragment"><div class="line">((n)&lt;0)</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="aa062f208a1333185ab462f114d8ec02a" name="aa062f208a1333185ab462f114d8ec02a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa062f208a1333185ab462f114d8ec02a">&#9670;&#160;</a></span>SCPIDEFINE_strncasecmp</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define SCPIDEFINE_strncasecmp</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>s1</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>s2</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>l</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Value:</b><div class="fragment"><div class="line">OUR_strncasecmp((s1), (s2), (l))</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="ab13030bebcb43dde6561541a5bd020c7" name="ab13030bebcb43dde6561541a5bd020c7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab13030bebcb43dde6561541a5bd020c7">&#9670;&#160;</a></span>SCPIDEFINE_strndup</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define SCPIDEFINE_strndup</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>h</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>s</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>l</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Value:</b><div class="fragment"><div class="line">NULL</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a8cd81b474742603182a3513b691d4052" name="a8cd81b474742603182a3513b691d4052"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8cd81b474742603182a3513b691d4052">&#9670;&#160;</a></span>SCPIDEFINE_strnlen</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define SCPIDEFINE_strnlen</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>s</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>l</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Value:</b><div class="fragment"><div class="line">BSD_strnlen((s), (l))</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a0ea1ffb171bab9d67dbf5dcc4fc2ffc1" name="a0ea1ffb171bab9d67dbf5dcc4fc2ffc1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0ea1ffb171bab9d67dbf5dcc4fc2ffc1">&#9670;&#160;</a></span>SCPIDEFINE_strtof</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define SCPIDEFINE_strtof</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>n</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>p</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Value:</b><div class="fragment"><div class="line">strtod((n), (p))</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="ad8616975514cc2f3101ed451f571a192" name="ad8616975514cc2f3101ed451f571a192"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad8616975514cc2f3101ed451f571a192">&#9670;&#160;</a></span>SCPIDEFINE_strtoll</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define SCPIDEFINE_strtoll</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>n</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>p</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>b</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Value:</b><div class="fragment"><div class="line">strtoll((n), (p), (b))</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a80a8ebc36bf9bd9136b4924517766e50" name="a80a8ebc36bf9bd9136b4924517766e50"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a80a8ebc36bf9bd9136b4924517766e50">&#9670;&#160;</a></span>SCPIDEFINE_strtoull</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define SCPIDEFINE_strtoull</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>n</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>p</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>b</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Value:</b><div class="fragment"><div class="line">strtoull((n), (p), (b))</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="ac991cc6e083eabdc10932778c95074cf" name="ac991cc6e083eabdc10932778c95074cf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac991cc6e083eabdc10932778c95074cf">&#9670;&#160;</a></span>SYSTEM_BARE_METAL</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define SYSTEM_BARE_METAL&#160;&#160;&#160;0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Detect, if it has limited resources or it is running on a full blown operating system. </p>
+<p>All values can be overiden by scpi_user_config.h </p>
+
+</div>
+</div>
+<a id="a24c9aadee47c3a74a553a2b6a4662812" name="a24c9aadee47c3a74a553a2b6a4662812"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a24c9aadee47c3a74a553a2b6a4662812">&#9670;&#160;</a></span>USE_FULL_ERROR_LIST</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define USE_FULL_ERROR_LIST&#160;&#160;&#160;SYSTEM_TYPE</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Enable full error list 0 = Minimal set of errors 1 = Full set of errors. </p>
+<p>For small systems, full set of errors will occupy large ammount of data It is enabled by default on full blown systems and disabled on limited bare metal systems </p>
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- HTML footer for doxygen 1.9.1-->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_de86f73932e81921638f9644ce25d891.html">PS_Fgen_FW</a></li><li class="navelem"><a class="el" href="dir_4ae7a10915657ba9759b93cc3eacadbb.html">libraries</a></li><li class="navelem"><a class="el" href="dir_f0341e88756247ad2477cf714e2f3933.html">scpi-parser</a></li><li class="navelem"><a class="el" href="dir_ca0ebe4e33f3077b5876b1a10f43445a.html">inc</a></li><li class="navelem"><a class="el" href="dir_f05e903b24420d95f6239cb90aee3f86.html">scpi</a></li><li class="navelem"><a class="el" href="config_8h.html">config.h</a></li>
+    <li class="footer">Generated on Mon Jan 20 2025 17:33:36 for PS_Fgen_FW by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2 </li>
+  </ul>
+</div>
+<script type="text/javascript">
+  $(document).ready(function(){
+    toggleButton = document.createElement('doxygen-awesome-dark-mode-toggle')
+    toggleButton.title = "Toggle Light/Dark Mode"
+    document.getElementById("MSearchBox").parentNode.appendChild(toggleButton)
+  })
+</script>
+</body>
+</html>

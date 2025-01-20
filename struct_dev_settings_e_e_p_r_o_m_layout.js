@@ -1,0 +1,28 @@
+var struct_dev_settings_e_e_p_r_o_m_layout =
+[
+    [ "DDS1_Amplitude", "struct_dev_settings_e_e_p_r_o_m_layout.html#ae299c8332b1056726613c20a2e760589", null ],
+    [ "DDS1_Enabled", "struct_dev_settings_e_e_p_r_o_m_layout.html#a3ed7fc107e27941f63b689d2df77bd1c", null ],
+    [ "DDS1_Frequency", "struct_dev_settings_e_e_p_r_o_m_layout.html#a20362f5f7b28b703e860c230f4d6f2be", null ],
+    [ "DDS1_Offset", "struct_dev_settings_e_e_p_r_o_m_layout.html#a68a01660e426b50505d484ea8a433ece", null ],
+    [ "DDS1_PWM_Value", "struct_dev_settings_e_e_p_r_o_m_layout.html#a3bb1edf77635362d37a6c2ca2492a886", null ],
+    [ "DDS1_SignalForm", "struct_dev_settings_e_e_p_r_o_m_layout.html#a8ffa0183b8e72761930ee862eab85984", null ],
+    [ "DDS2_Amplitude", "struct_dev_settings_e_e_p_r_o_m_layout.html#a30ffcc12688dad7a0b7bf28af3f14e97", null ],
+    [ "DDS2_Enabled", "struct_dev_settings_e_e_p_r_o_m_layout.html#a79f61aaa302c3b2d4ce894f97ebea55d", null ],
+    [ "DDS2_Frequency", "struct_dev_settings_e_e_p_r_o_m_layout.html#a626b349a6caa9d7c3145b8b10fb7db2c", null ],
+    [ "DDS2_Offset", "struct_dev_settings_e_e_p_r_o_m_layout.html#ac1bec85f0ab9217a9a9b640896f0eae4", null ],
+    [ "DDS2_PWM_Value", "struct_dev_settings_e_e_p_r_o_m_layout.html#ae1acbb67c39dde026717ca440a3a29e1", null ],
+    [ "DDS2_SignalForm", "struct_dev_settings_e_e_p_r_o_m_layout.html#a3ae66adb8f4b70ba1e203384795f4215", null ],
+    [ "PowerOnOutputsState", "struct_dev_settings_e_e_p_r_o_m_layout.html#aa49412296e03ddb9e0c1a7eb0d896a2e", null ],
+    [ "PS_Enabled", "struct_dev_settings_e_e_p_r_o_m_layout.html#a194972a4a1c8533ab33498fefd2c93bf", null ],
+    [ "PS_OcpDelay", "struct_dev_settings_e_e_p_r_o_m_layout.html#ae0a942fe9b1a05091abcb9bb479d9f61", null ],
+    [ "PS_OcpLevel", "struct_dev_settings_e_e_p_r_o_m_layout.html#af15cf3b1140d188a94f40cd1ad624850", null ],
+    [ "PS_OcpState", "struct_dev_settings_e_e_p_r_o_m_layout.html#adf566f210aef3b86fdebc19052a161de", null ],
+    [ "PS_OppDelay", "struct_dev_settings_e_e_p_r_o_m_layout.html#a8dc3b153cde2d7bcdcdf4a713dbf85b4", null ],
+    [ "PS_OppLevel", "struct_dev_settings_e_e_p_r_o_m_layout.html#a61ae48c3a99ced3984335fccd688e483", null ],
+    [ "PS_OppState", "struct_dev_settings_e_e_p_r_o_m_layout.html#ac186bcc188785fb2c98cfafb19a425ac", null ],
+    [ "PS_OvpDelay", "struct_dev_settings_e_e_p_r_o_m_layout.html#a4a7fe658b98b3599a086e5648ded50b0", null ],
+    [ "PS_OvpLevel", "struct_dev_settings_e_e_p_r_o_m_layout.html#a13c06324350dc8bf09fb1f987d5d95d8", null ],
+    [ "PS_OvpState", "struct_dev_settings_e_e_p_r_o_m_layout.html#aec4b834ecbebd442fb2b35c287135c9a", null ],
+    [ "PS_RegulationMode", "struct_dev_settings_e_e_p_r_o_m_layout.html#a2ccc88adc6aed445948ca641e553f23b", null ],
+    [ "PS_Voltage", "struct_dev_settings_e_e_p_r_o_m_layout.html#a6d52ab7e5c203a35cbefbc5ecbb4658b", null ]
+];

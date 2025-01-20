@@ -5,11 +5,10 @@
  * @brief	Containing different defines for device configuration
  */ 
 
+#include "version.h"
+
 #ifndef CONFIGURATION_H_
 #define CONFIGURATION_H_
-
-/***** Version ************************************************/
-#define VERSION							"[NO_RELEASE]"			/**< Software version. This should be incremented with every release. */
 
 /***** Timers *************************************************/
 #define DEVICE_TIMER_TICK_INTERVAL_MS	100						/**< Tick interval of the DeviceTimer in ms. The DeviceTimer is used to e.g. periodically read the keys and the encoder. */

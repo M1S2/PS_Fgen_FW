@@ -23,7 +23,7 @@ The user interface is based on a self developed UI library (https://github.com/M
 
 @subsection ui_overview_splashscreen_sec SplashScreen
 Welcome screen that shows the project name, the serial number of the device and the software version number.
-@image html SplashScreen.jpg "Splash Screen" width=400
+@image html Images/SplashScreen.jpg "Splash Screen" width=400
 
 @subsection ui_overview_ps_sec PS
 User interface part for the power supply channel of the device.

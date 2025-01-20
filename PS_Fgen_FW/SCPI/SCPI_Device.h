@@ -49,7 +49,7 @@ typedef enum SCPIChannelParameters
 
 //----------------------------------------------------------------------------------------------------------
 
-extern scpi_t scpi_context;
+extern scpi_t scpi_context;					/**< Global scpi_t object */
 
 /**
  * Write data to SCPI output.
@@ -79,7 +79,7 @@ int SCPI_Error(scpi_t * context, int_fast16_t err);
  * Wrapper function to control interface from context
  * @param context SCPI parser context
  * @param ctrl Number of control message
- * @param value Value of related register
+ * @param val Value of related register
  */
 scpi_result_t SCPI_Control(scpi_t * context, scpi_ctrl_name_t ctrl, scpi_reg_val_t val);
 

@@ -11,7 +11,6 @@
 #include <Arduino.h>
 #include <SPI.h>
 #include "Adafruit_GFX.h"
-//#include "ILI9341_Fast.h"
 #include "Adafruit_ILI9341.h"
 
 #include "../Encoder/Encoder.h"
@@ -133,13 +132,12 @@ UIElement* StartCalibration();
 class ScreenManagerClass
 {
 	private:
-		Adafruit_ILI9341 _tft;
-		//ILI9341 _tft;							/**< ILI9341 graphics handle that is used with all drawing related methods. */
+		Adafruit_ILI9341 _tft;					/**< ILI9341 graphics handle that is used with all drawing related methods. */
 		
 	#ifdef TOUCH_ENABLED
 		XPT2046 _ts;							/**< XPT2046 touchscreen handle. */
-		unsigned long _touchStartTime = 0;
-		TouchEventStates _touchEventState = TOUCH_EVENTS_WAIT_FOR_TOUCH;
+		unsigned long _touchStartTime = 0;		/**< Start time of the touch. This is used to detect long touches. */
+		TouchEventStates _touchEventState = TOUCH_EVENTS_WAIT_FOR_TOUCH;	/**< Current state of the touch detection state machine. */
 	#endif
 
 		/**

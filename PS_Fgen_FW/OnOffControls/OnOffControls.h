@@ -11,16 +11,16 @@
 #include "../Pins/Pins.h"
 
 // button pins on the MCP23S08 IO expander
-#define ONOFFBUTTON_MCP23S08_PIN_PS		5
-#define ONOFFBUTTON_MCP23S08_PIN_DDS1	3
-#define ONOFFBUTTON_MCP23S08_PIN_DDS2	1
-#define ONOFFBUTTON_MCP23S08_PIN_MASK	((1<<ONOFFBUTTON_MCP23S08_PIN_PS) | (1<<ONOFFBUTTON_MCP23S08_PIN_DDS1) | (1<<ONOFFBUTTON_MCP23S08_PIN_DDS2))
+#define ONOFFBUTTON_MCP23S08_PIN_PS		5		/**< Pin on the IO expander for the PS button */
+#define ONOFFBUTTON_MCP23S08_PIN_DDS1	3		/**< Pin on the IO expander for the DDS1 button */
+#define ONOFFBUTTON_MCP23S08_PIN_DDS2	1		/**< Pin on the IO expander for the DDS2 button */
+#define ONOFFBUTTON_MCP23S08_PIN_MASK	((1<<ONOFFBUTTON_MCP23S08_PIN_PS) | (1<<ONOFFBUTTON_MCP23S08_PIN_DDS1) | (1<<ONOFFBUTTON_MCP23S08_PIN_DDS2))				/**< Mask for all button pins on the IO expander */
 
 // LED pins on the MCP23S08 IO expander
-#define ONOFFLED_MCP23S08_PIN_PS		4
-#define ONOFFLED_MCP23S08_PIN_PS_ERROR	6
-#define ONOFFLED_MCP23S08_PIN_DDS1		2
-#define ONOFFLED_MCP23S08_PIN_DDS2		0
+#define ONOFFLED_MCP23S08_PIN_PS		4		/**< Pin on the IO expander for the PS LED */
+#define ONOFFLED_MCP23S08_PIN_PS_ERROR	6		/**< Pin on the IO expander for the PS error LED */
+#define ONOFFLED_MCP23S08_PIN_DDS1		2		/**< Pin on the IO expander for the DDS1 LED */
+#define ONOFFLED_MCP23S08_PIN_DDS2		0		/**< Pin on the IO expander for the DDS2 LED */
 
 /**
  * Enumeration with all available on/off buttons.

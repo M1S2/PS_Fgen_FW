@@ -23,7 +23,7 @@ typedef enum SpiDevices
 	SPI_DEV_IO_EXP		/**< IO expander MCP23S08 */
 }SpiDevices_t; 
 
-#define SPI_DEFAULT_SETTINGS	SPISettings(8000000, MSBFIRST, SPI_MODE0)
+#define SPI_DEFAULT_SETTINGS	SPISettings(8000000, MSBFIRST, SPI_MODE0)		/**< Default settings for the SPI */
 
 /**
  * Deselect all SPI devices (pull the CS lines high) and select the given one (pull the CS line low).

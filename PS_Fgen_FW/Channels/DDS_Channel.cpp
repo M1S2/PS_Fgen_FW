@@ -70,7 +70,7 @@ void DDS_Channel::UpdateWaveTable()
 	{
 		int16_t originalSample = 0;
 		#ifdef DDS_USER_DEFINED_WAVEFORMS_ENABLED
-			if(SignalForm.Val == USER_SIGNAL)
+			if(SignalForm.Val == SIGNALFORM_USER_SIGNAL)
 			{
 				originalSample = UserWaveTable[i];
 			}

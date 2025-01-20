@@ -34,10 +34,10 @@ Do the following steps to create a release:
 1. Make sure that everything is committed to the master branch and builds without errors.
 2. Update the Changelog and commit it to the master.
 3. Checkout a new release branch (adapt the version accordingly): `git checkout -b release/v0.0.0`
-4. Update the VERSION in the Configuration.h file: Replace the "[NO_RELEASE]" string by the version number (e.g. "0.0.0")
+4. Update the VERSION in the version.h file: Replace the "[NO_RELEASE]" string by the version number (e.g. "v0.0.0")
 5. Create a new commit (adapt the version accordingly): `git add .` and `git commit -m "Created release v0.0.0"`
 6. Tag the release commit (adapt the version accordingly): `git tag v0.0.0`
-7. Push everything: `git push` and `git push --tags`
+7. Push everything: `git push --set-upstream origin release/v0.0.0` and `git push --tags`
 
 ## Hardware
 The hardware for this power supply and function generator is developed in another repository:
